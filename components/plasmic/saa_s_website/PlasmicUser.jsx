@@ -31,6 +31,10 @@ import plasmic_antd_5_hostless_css from "../antd_5_hostless/plasmic.module.css";
 import projectcss from "./plasmic.module.css"; // plasmic-import: uftrV6ZeR5SuVi5gnDLzFk/projectcss
 import sty from "./PlasmicUser.module.css"; // plasmic-import: If1fqS83W9Lw/css
 import Icon17Icon from "./icons/PlasmicIcon__Icon17"; // plasmic-import: uXVwUpaTn5at/icon
+import dynamic from "next/dynamic";
+import "leaflet/dist/leaflet.css";
+
+const MapComponent = dynamic(() => import("../../MapComponent"), { ssr: false });
 
 createPlasmicElementProxy;
 
@@ -199,7 +203,9 @@ function PlasmicUser__RenderFunc(props) {
               )
             })}
             id={"map"}
-          />
+          >
+            <MapComponent />
+          </div>
 
           <div
             data-plasmic-name={"sideBarBox"}
