@@ -55,12 +55,12 @@
         {
           "type": "renderModule",
           "assetId": "If1fqS83W9Lw",
-          "checksum": "5eae5e9b5aac76e3e261b0800879a587"
+          "checksum": "c99b976a8bc93d56a8ee644efb82b974"
         },
         {
           "type": "cssRules",
           "assetId": "If1fqS83W9Lw",
-          "checksum": "5eae5e9b5aac76e3e261b0800879a587"
+          "checksum": "c99b976a8bc93d56a8ee644efb82b974"
         },
         {
           "type": "renderModule",
@@ -676,6 +676,11 @@
           "assetId": "uftrV6ZeR5SuVi5gnDLzFk",
           "type": "projectCss",
           "checksum": "05b1c40a84ec8e3f34f3981489d85be4"
+        },
+        {
+          "type": "icon",
+          "assetId": "ZrG95_rSrl_o",
+          "checksum": "83664531d3872ff0e914a330308b1aab"
         }
       ],
       "codegenVersion": "0.0.1"

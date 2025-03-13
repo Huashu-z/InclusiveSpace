@@ -923,6 +923,11 @@
           "id": "Ul8Ki0qrNFXc",
           "name": "MinusIcon",
           "moduleFilePath": "plasmic/saa_s_website/icons/PlasmicIcon__Minus.jsx"
+        },
+        {
+          "id": "ZrG95_rSrl_o",
+          "name": "ArrowSvgIcon",
+          "moduleFilePath": "plasmic/saa_s_website/icons/PlasmicIcon__ArrowSvg.jsx"
         }
       ],
       "images": [
