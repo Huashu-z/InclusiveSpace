@@ -52,6 +52,7 @@
   padding: 8px;
 }
 .mapBoxsidebarOpen {
+  bottom: 0px;
   margin-top: auto !important;
 }
 .sideBarBox {
@@ -69,10 +70,10 @@
 }
 .sideBarBoxsidebarOpen {
   top: 40px;
-  left: 8px;
-  height: 100vh;
+  left: 0;
   position: fixed;
-  flex-shrink: 0;
+  bottom: 0;
+  height: auto;
 }
 .sideBarBoxsidebarClose {
   left: -300px;
@@ -85,8 +86,9 @@
   top: 100px;
   height: 40px;
   bottom: 0;
-  right: -50px;
+  right: -40px;
   transform: rotateX(0deg) rotateY(-180deg) rotateZ(0deg);
+  color: #535353;
   transform-style: preserve-3d;
   margin: 20px;
 }
@@ -102,6 +104,7 @@
 }
 .svgsidebarClose__lhwYj3FoUt {
   transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  right: -45px;
 }
 .svg___9Ata1 {
   object-fit: cover;
@@ -110,7 +113,7 @@
   left: auto;
   top: 100px;
   height: 40px;
-  right: -40px;
+  right: -30px;
   bottom: 0;
   transform: rotateX(0deg) rotateY(-180deg) rotateZ(0deg);
   transform-style: preserve-3d;
@@ -139,7 +142,6 @@
   left: 0px;
   top: 0px;
   z-index: 1;
-  background: var(--token-Hk5YD6kO1PRl);
   bottom: -8px;
   min-width: 0;
   padding: 16px 8px 8px;
