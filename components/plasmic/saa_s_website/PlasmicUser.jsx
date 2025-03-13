@@ -864,32 +864,6 @@ function PlasmicUser__RenderFunc(props) {
                   }).apply(null, eventArgs);
                 }}
               />
-
-              <div
-                data-plasmic-name={"text"}
-                data-plasmic-override={overrides.text}
-                className={classNames(
-                  projectcss.all,
-                  projectcss.__wab_text,
-                  sty.text
-                )}
-              >
-                <React.Fragment>
-                  {(() => {
-                    try {
-                      return JSON.stringify($state.selectedLayers, null, 2);
-                    } catch (e) {
-                      if (
-                        e instanceof TypeError ||
-                        e?.plasmicType === "PlasmicUndefinedDataError"
-                      ) {
-                        return "";
-                      }
-                      throw e;
-                    }
-                  })()}
-                </React.Fragment>
-              </div>
             </div>
           </div>
         </Stack__>
@@ -911,8 +885,7 @@ const PlasmicDescendants = {
     "checkboxLights",
     "checkboxPoi",
     "checkboxNoise",
-    "checkboxTree",
-    "text"
+    "checkboxTree"
   ],
 
   ctaBlock: ["ctaBlock"],
@@ -926,8 +899,7 @@ const PlasmicDescendants = {
     "checkboxLights",
     "checkboxPoi",
     "checkboxNoise",
-    "checkboxTree",
-    "text"
+    "checkboxTree"
   ],
 
   freeBox: [
@@ -937,8 +909,7 @@ const PlasmicDescendants = {
     "checkboxLights",
     "checkboxPoi",
     "checkboxNoise",
-    "checkboxTree",
-    "text"
+    "checkboxTree"
   ],
 
   checkboxIntersection: ["checkboxIntersection"],
@@ -946,8 +917,7 @@ const PlasmicDescendants = {
   checkboxLights: ["checkboxLights"],
   checkboxPoi: ["checkboxPoi"],
   checkboxNoise: ["checkboxNoise"],
-  checkboxTree: ["checkboxTree"],
-  text: ["text"]
+  checkboxTree: ["checkboxTree"]
 };
 
 function makeNodeComponent(nodeName) {
@@ -993,7 +963,6 @@ export const PlasmicUser = Object.assign(
     checkboxPoi: makeNodeComponent("checkboxPoi"),
     checkboxNoise: makeNodeComponent("checkboxNoise"),
     checkboxTree: makeNodeComponent("checkboxTree"),
-    text: makeNodeComponent("text"),
     // Metadata about props expected for PlasmicUser
     internalVariantProps: PlasmicUser__VariantProps,
     internalArgProps: PlasmicUser__ArgProps,
