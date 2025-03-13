@@ -76,10 +76,22 @@
   height: 40px;
   bottom: 0;
   right: -50px;
+  transform: rotateX(0deg) rotateY(-180deg) rotateZ(0deg);
+  transform-style: preserve-3d;
   margin: 20px;
 }
+.svg__lhwYj * {
+  transform-style: preserve-3d;
+}
 .svgsidebarOpen__lhwYJyaBs4 {
+  transform-style: preserve-3d;
   display: none;
+}
+.svgsidebarOpen__lhwYJyaBs4 * {
+  transform-style: preserve-3d;
+}
+.svgsidebarClose__lhwYj3FoUt {
+  transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
 }
 .svg___9Ata1 {
   object-fit: cover;
@@ -119,6 +131,10 @@
   z-index: 1;
   min-width: 0;
   padding: 16px 8px 8px;
+}
+.freeBoxsidebarOpen {
+  top: 0px;
+  left: 0px;
 }
 .checkboxIntersection:global(.__wab_instance):global(.__wab_instance) {
   max-width: 100%;

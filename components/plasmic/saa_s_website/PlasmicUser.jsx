@@ -298,7 +298,13 @@ function PlasmicUser__RenderFunc(props) {
             <div
               data-plasmic-name={"freeBox"}
               data-plasmic-override={overrides.freeBox}
-              className={classNames(projectcss.all, sty.freeBox)}
+              className={classNames(projectcss.all, sty.freeBox, {
+                [sty.freeBoxsidebarOpen]: hasVariant(
+                  $state,
+                  "sidebarOpen",
+                  "sidebarOpen"
+                )
+              })}
             >
               <Checkbox
                 data-plasmic-name={"checkboxIntersection"}
