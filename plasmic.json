@@ -679,19 +679,6 @@
           "componentType": "component"
         },
         {
-          "id": "WctPQ5o6WkUj",
-          "name": "Footer",
-          "type": "managed",
-          "projectId": "uftrV6ZeR5SuVi5gnDLzFk",
-          "renderModuleFilePath": "plasmic/saa_s_website/PlasmicFooter.jsx",
-          "importSpec": {
-            "modulePath": "Footer.jsx"
-          },
-          "cssFilePath": "plasmic/saa_s_website/PlasmicFooter.module.css",
-          "scheme": "blackbox",
-          "componentType": "component"
-        },
-        {
           "id": "es9YdAeJ_HTY",
           "name": "Button",
           "type": "managed",

@@ -84,16 +84,6 @@
         },
         {
           "type": "renderModule",
-          "assetId": "WctPQ5o6WkUj",
-          "checksum": "e4780665ba0f66f83fe1fe1238acb227"
-        },
-        {
-          "type": "cssRules",
-          "assetId": "WctPQ5o6WkUj",
-          "checksum": "e4780665ba0f66f83fe1fe1238acb227"
-        },
-        {
-          "type": "renderModule",
           "assetId": "es9YdAeJ_HTY",
           "checksum": "a23f5c79dabbd7bd298079db237d6013"
         },
