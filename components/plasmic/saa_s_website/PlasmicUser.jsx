@@ -30,7 +30,7 @@ import "@plasmicapp/react-web/lib/plasmic.css";
 import plasmic_antd_5_hostless_css from "../antd_5_hostless/plasmic.module.css"; // plasmic-import: ohDidvG9XsCeFumugENU3J/projectcss
 import projectcss from "./plasmic.module.css"; // plasmic-import: uftrV6ZeR5SuVi5gnDLzFk/projectcss
 import sty from "./PlasmicUser.module.css"; // plasmic-import: If1fqS83W9Lw/css
-import Icon17Icon from "./icons/PlasmicIcon__Icon17"; // plasmic-import: uXVwUpaTn5at/icon
+import ArrowSvgIcon from "./icons/PlasmicIcon__ArrowSvg"; // plasmic-import: ZrG95_rSrl_o/icon
 
 createPlasmicElementProxy;
 
@@ -217,7 +217,7 @@ function PlasmicUser__RenderFunc(props) {
               )
             })}
           >
-            <Icon17Icon
+            <ArrowSvgIcon
               className={classNames(projectcss.all, sty.svg__lhwYj, {
                 [sty.svgsidebarClose__lhwYj3FoUt]: hasVariant(
                   $state,
@@ -232,12 +232,11 @@ function PlasmicUser__RenderFunc(props) {
               })}
               onClick={async event => {
                 const $steps = {};
-                $steps["updateSidebarOpen"] = true
+                $steps["updateSidebarClose"] = true
                   ? (() => {
                       const actionArgs = {
-                        vgroup: "sidebarOpen",
-                        operation: 2,
-                        value: "sidebarOpen"
+                        vgroup: "sidebarClose",
+                        operation: 2
                       };
                       return (({ vgroup, value }) => {
                         if (typeof value === "string") {
@@ -250,19 +249,19 @@ function PlasmicUser__RenderFunc(props) {
                     })()
                   : undefined;
                 if (
-                  $steps["updateSidebarOpen"] != null &&
-                  typeof $steps["updateSidebarOpen"] === "object" &&
-                  typeof $steps["updateSidebarOpen"].then === "function"
+                  $steps["updateSidebarClose"] != null &&
+                  typeof $steps["updateSidebarClose"] === "object" &&
+                  typeof $steps["updateSidebarClose"].then === "function"
                 ) {
-                  $steps["updateSidebarOpen"] = await $steps[
-                    "updateSidebarOpen"
+                  $steps["updateSidebarClose"] = await $steps[
+                    "updateSidebarClose"
                   ];
                 }
               }}
               role={"img"}
             />
 
-            <Icon17Icon
+            <ArrowSvgIcon
               className={classNames(projectcss.all, sty.svg___9Ata1, {
                 [sty.svgsidebarOpen___9Ata1YaBs4]: hasVariant(
                   $state,
@@ -607,7 +606,13 @@ function PlasmicUser__RenderFunc(props) {
               <Checkbox
                 data-plasmic-name={"checkboxPoi"}
                 data-plasmic-override={overrides.checkboxPoi}
-                className={classNames("__wab_instance", sty.checkboxPoi)}
+                className={classNames("__wab_instance", sty.checkboxPoi, {
+                  [sty.checkboxPoisidebarOpen]: hasVariant(
+                    $state,
+                    "sidebarOpen",
+                    "sidebarOpen"
+                  )
+                })}
                 label={"POIs"}
                 onChange={async (...eventArgs) => {
                   generateStateOnChangeProp($state, [
