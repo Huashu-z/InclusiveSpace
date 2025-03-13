@@ -31,12 +31,8 @@ import plasmic_antd_5_hostless_css from "../antd_5_hostless/plasmic.module.css";
 import projectcss from "./plasmic.module.css"; // plasmic-import: uftrV6ZeR5SuVi5gnDLzFk/projectcss
 import sty from "./PlasmicUser.module.css"; // plasmic-import: If1fqS83W9Lw/css
 import Icon17Icon from "./icons/PlasmicIcon__Icon17"; // plasmic-import: uXVwUpaTn5at/icon
-import dynamic from "next/dynamic";
-import "leaflet/dist/leaflet.css";
 
 createPlasmicElementProxy;
-
-const MapComponent = dynamic(() => import("../../MapComponent"), { ssr: false });
 
 export const PlasmicUser__VariantProps = new Array(
   "sidebarOpen",
@@ -192,9 +188,18 @@ function PlasmicUser__RenderFunc(props) {
             className={classNames("__wab_instance", sty.header)}
           />
 
-          <div data-plasmic-name={"mapBox"} className={sty.mapBox} data-plasmic-override={overrides.mapBox}>
-            <MapComponent />
-          </div>
+          <div
+            data-plasmic-name={"mapBox"}
+            data-plasmic-override={overrides.mapBox}
+            className={classNames(projectcss.all, sty.mapBox, {
+              [sty.mapBoxsidebarOpen]: hasVariant(
+                $state,
+                "sidebarOpen",
+                "sidebarOpen"
+              )
+            })}
+            id={"map"}
+          />
 
           <div
             data-plasmic-name={"sideBarBox"}
