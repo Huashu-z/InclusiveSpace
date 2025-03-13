@@ -5,6 +5,7 @@ This is a Next.js project bootstrapped with [`create-plasmic-app`](https://www.n
 First, run the development server:
 
 ```bash
+npm install leaflet react-leaflet --legacy-peer-deps
 npm run dev
 ```
 

@@ -13,9 +13,11 @@
     "@plasmicapp/react-web": "^0.2.375",
     "@plasmicpkgs/antd5": "^0.0.276",
     "@plasmicpkgs/react-aria": "^0.0.119",
+    "leaflet": "^1.9.4",
     "next": "14.2.24",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-leaflet": "^5.0.0"
   },
   "devDependencies": {
     "eslint": "^8",
