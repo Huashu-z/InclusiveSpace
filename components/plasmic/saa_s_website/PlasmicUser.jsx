@@ -204,7 +204,7 @@ function PlasmicUser__RenderFunc(props) {
             })}
             id={"map"}
           >
-            <MapComponent />
+            <MapComponent selectedLayers={$state.selectedLayers} />
           </div>
 
           <div
