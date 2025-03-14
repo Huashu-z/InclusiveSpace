@@ -56,6 +56,18 @@ function useNextRouter() {
 
 function PlasmicUser__RenderFunc(props) {
   const { variants, overrides, forNode } = props;
+  const [selectingStart, setSelectingStart] = React.useState(false); //Controls whether the user is selecting a starting point
+  const [startPoint, setStartPoint] = React.useState(null); // Stores the user-selected starting point
+  const [computeAccessibility, setComputeAccessibility] = React.useState(false);
+  const [walkingTime, setWalkingTime] = React.useState(15); // Default walking time is 15 minutes
+  const [selectedLayers, setSelectedLayers] = React.useState([]); // load Layer
+
+  const toggleLayer = (layer) => {
+    setSelectedLayers((prev) =>
+      prev.includes(layer) ? prev.filter((l) => l !== layer) : [...prev, layer]
+    );
+  };
+
   const args = React.useMemo(
     () =>
       Object.assign(
@@ -129,6 +141,12 @@ function PlasmicUser__RenderFunc(props) {
         type: "private",
         variableType: "array",
         initFunc: ({ $props, $state, $queries, $ctx }) => []
+      },
+      {
+        path: "selectingStart",  // Add selection mode variable
+        type: "private",
+        variableType: "boolean",
+        initFunc: ({ $props, $state, $queries, $ctx }) => false
       }
     ],
 
@@ -204,7 +222,16 @@ function PlasmicUser__RenderFunc(props) {
             })}
             id={"map"}
           >
-            <MapComponent selectedLayers={$state.selectedLayers} />
+            <MapComponent 
+              selectedLayers={selectedLayers} 
+              selectingStart={selectingStart} 
+              setSelectingStart={setSelectingStart}
+              walkingTime={walkingTime} 
+              startPoint={startPoint} // Transfer starting point
+              setStartPoint={setStartPoint} // Allow MapComponent to modify the starting point
+              computeAccessibility={computeAccessibility} // Trigger calculation
+              setComputeAccessibility={setComputeAccessibility} // Reset after calculation
+            />
           </div>
 
           <div
@@ -317,6 +344,64 @@ function PlasmicUser__RenderFunc(props) {
                 )
               })}
             >
+              {/* Add a "Select starting point" button here */}
+              <button
+                onClick={() => {
+                  setSelectingStart(true);  
+                }}
+                style={{
+                  padding: "10px",
+                  marginBottom: "10px",
+                  background: "#007bff",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "5px",
+                  cursor: "pointer"
+                }}
+              >
+                Select Start Point
+              </button>
+
+              {/* Add a slider to select walking time */}
+              <label style={{ display: "block", marginBottom: "5px" }}>
+              Walking time（{walkingTime} minutes）:
+              </label>
+              <input
+                type="range"
+                min="5"
+                max="60"
+                step="1"
+                value={walkingTime}
+                onChange={(e) => setWalkingTime(Number(e.target.value))}
+                style={{
+                  width: "100%",
+                  marginBottom: "10px"
+                }}
+              />
+
+              {/* button for accessibility computation */}
+              <button
+                onClick={() => {
+                  if (!startPoint) {
+                    alert("Please select a starting point first!");
+                    return;
+                  }
+                  setComputeAccessibility(true);
+                }}
+                style={{
+                  padding: "10px",
+                  marginBottom: "10px",
+                  background: "#28a745",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "5px",
+                  cursor: "pointer"
+                }}
+              >
+                Get Accessible Area
+              </button>
+
+
               <Checkbox
                 data-plasmic-name={"checkboxIntersection"}
                 data-plasmic-override={overrides.checkboxIntersection}
@@ -887,6 +972,17 @@ function PlasmicUser__RenderFunc(props) {
                   }).apply(null, eventArgs);
                 }}
               />
+
+              {/* Load Layers */}
+              <label style={{ fontWeight: "bold", marginTop: "15px", display: "block" }}>Layers</label>
+              <label>
+                <input 
+                  type="checkbox" 
+                  checked={selectedLayers.includes("roads")} 
+                  onChange={() => toggleLayer("roads")} 
+                /> Roads
+              </label>
+
             </div>
           </div>
         </Stack__>
