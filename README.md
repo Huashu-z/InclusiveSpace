@@ -9,6 +9,9 @@ npm install leaflet react-leaflet --legacy-peer-deps
 npm run dev
 ```
 
+Data input:
+layers must be in CRS EPSG:4326
+
 Open your browser to see the result.
 
 You can start editing your project in Plasmic Studio. The page auto-updates as you edit the project.
