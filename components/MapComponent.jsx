@@ -14,8 +14,7 @@ const customMarkerIcon = new L.Icon({
   iconSize: [32, 32],
 });
 
-const [reachableRoadsData, setReachableRoadsData] = useState(null); 
-const [reachableHullData, setReachableHullData] = useState(null);
+
 
 // 定义 EPSG:4326 (WGS84) 和 EPSG:25832 (UTM Zone 32N) 的投影参数
 proj4.defs("EPSG:4326", "+proj=longlat +datum=WGS84 +no_defs");
@@ -80,6 +79,8 @@ const MapComponent = ({
   computeAccessibility,
   setComputeAccessibility
 }) => {
+  const [reachableRoadsData, setReachableRoadsData] = useState(null); 
+  const [reachableHullData, setReachableHullData] = useState(null);
   const [geoJsonData, setGeoJsonData] = useState({});
   const [availableFiles, setAvailableFiles] = useState([]);
   const [roadNetwork, setRoadNetwork] = useState(null);
@@ -189,89 +190,109 @@ const MapComponent = ({
   const [isochroneData, setIsochroneData] = useState(null); // 存储可达区域
 
   const computeReachableArea = (graph, startPointUTM, maxTime) => {
-    //const projectedStart = toProjected(startPoint); // ✅ `EPSG:4326` → `EPSG:25832`
+
     const startKey = `${startPointUTM[0].toFixed(2)},${startPointUTM[1].toFixed(2)}`;
   
-    console.log("🔍 检查 startKey 是否在 graph 里:", startKey);
+    // 同原逻辑
     if (!graph.hasNode(startKey)) {
       console.error("❌ 计算失败：起点未连接到路网");
       return null;
     }
-
-    // 1) 定义一个权重函数：从 graph.edge(e) 中拿到权重
-    const weightFn = (edge) => {
-      // graph.edge(e) 就是你在 buildGraph 时传进去的 distEdge
-      return graph.edge(edge);
-    };
-
+  
+    const weightFn = (edge) => graph.edge(edge);
+  
     console.log("✅ Dijkstra 计算进行中...");
     console.time("Dijkstra");
     const resultObj = alg.dijkstra(graph, startKey, weightFn);
     console.timeEnd("Dijkstra");
-
-    // resultObj 结构：{ nodeKey: { distance, predecessor }, ... }
-
-    //console.log("✅ alg.dijkstra 计算进行中...");
-    //const results = dijkstra.single_source_shortest_paths(graph, startKey);
   
-    const walkingSpeed = 1.4; // 5 km/h -> 米/秒
+    const walkingSpeed = 1.4; // 米/秒
     const maxDistance = maxTime * 60 * walkingSpeed;
   
-    // const reachableRoads = Object.entries(results)
-    //   .filter(([_, cost]) => cost <= maxDistance)
-    //   .map(([key]) => key.split(",").map(Number));
+    //-----------------------------------------------
+    // 1) 可达节点散点 (Point)
+    //-----------------------------------------------
+    const pointFeatures = [];
+    for (const [nodeKey, info] of Object.entries(resultObj)) {
+      if (info.distance <= maxDistance) {
+        const [x, y] = nodeKey.split(",").map(Number);
+        const [lon, lat] = toWGS84([x, y]);
+        pointFeatures.push(turf.point([lon, lat]));
+      }
+    }
   
-    // return {
-    //   "type": "FeatureCollection",
-    //   "features": reachableRoads.map((projCoords) => ({
-    //     "type": "Feature",
-    //     "geometry": { "type": "Point", "coordinates": toWGS84(projCoords) }, // ✅ `EPSG:25832` → `EPSG:4326`
-    //     "properties": {}
-    //   }))
-    // };
-
-    // 用 Object.entries 遍历结果，然后只保留 distance <= maxDistance 的节点
-    const reachableRoads = Object.entries(resultObj)
-    .filter(([nodeKey, info]) => info.distance <= maxDistance)
-    .map(([nodeKey]) => {
-      // nodeKey 比如 "564100.12,5931302.77"
-      return nodeKey.split(",").map(Number);
+    const pointsFC = turf.featureCollection(pointFeatures);
+  
+    //-----------------------------------------------
+    // 2) 从图里把可达道路(边)筛选出来，生成 LineString
+    //-----------------------------------------------
+    const lineFeatures = [];
+    graph.edges().forEach((edge) => {
+      const distU = resultObj[edge.v]?.distance;
+      const distV = resultObj[edge.w]?.distance;
+      if (distU != null && distV != null && distU <= maxDistance && distV <= maxDistance) {
+        const [x1, y1] = edge.v.split(",").map(Number);
+        const [x2, y2] = edge.w.split(",").map(Number);
+        const coord1 = toWGS84([x1, y1]); // [lon, lat]
+        const coord2 = toWGS84([x2, y2]); // [lon, lat]
+        lineFeatures.push({
+          type: "Feature",
+          geometry: {
+            type: "LineString",
+            coordinates: [coord1, coord2],
+          },
+          properties: {},
+        });
+      }
     });
-
-    // 返回一个 GeoJSON FeatureCollection，跟你原本的逻辑一样
-    return {
+    const roadsFC = {
       type: "FeatureCollection",
-      features: reachableRoads.map((projCoords) => ({
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: toWGS84(projCoords), // 记得用你现有的投影反转函数
-        },
-        properties: {}
-      }))
+      features: lineFeatures,
     };
+  
+    //-----------------------------------------------
+    // 3) 凹壳 (Concave Hull) 多边形
+    //    (若 concave() 返回 null，则可 fallback 到 convex())
+    //-----------------------------------------------
+    let hull = turf.concave(pointsFC, { maxEdge: 2000, units: "meters" });
+    if (!hull) {
+      hull = turf.convex(pointsFC);
+    }
+  
+    //-----------------------------------------------
+    // 4) 组织结果
+    //-----------------------------------------------
+    const pointsGeoJSON = pointsFC;    // 零散点
+    const roadsGeoJSON  = roadsFC;     // LineString
+    const hullGeoJSON   = hull;        // Polygon / MultiPolygon
+  
+    return { pointsGeoJSON, roadsGeoJSON, hullGeoJSON };
   };         
 
   useEffect(() => {
     if (computeAccessibility && startPoint && roadNetwork) {
       console.log("开始计算可达性区域...");
-      setIsCalculating(true); // 设置计算状态为 true
-  
-      // 让起点对齐到最近的路网
+      setIsCalculating(true);
+
       const roadGraph = buildGraph(roadNetwork);
       const adjustedStartPoint = findNearestGraphNode(startPoint, roadGraph);
       console.log("调整后的起点(UTM 25832):", adjustedStartPoint);
-  
-      // 计算可达区域
-      const isochrone = computeReachableArea(roadGraph, adjustedStartPoint, walkingTime);
-  
-      if (isochrone) {
-        setIsochroneData(isochrone);
+
+      // 计算可达区域 (3种结果)
+      const result = computeReachableArea(roadGraph, adjustedStartPoint, walkingTime);
+      if (result) {
+        // 原先 isochroneData 存的只是“散点”，
+        // 现在改成看你想存啥；也可以把 points 仍然称作 isochroneData
+        setIsochroneData(result.pointsGeoJSON);
+
+        // 新增：可达道路 & 凹壳多边形
+        setReachableRoadsData(result.roadsGeoJSON);
+        setReachableHullData(result.hullGeoJSON);
       }
-  
+
       setComputeAccessibility(false);
     }
-  }, [computeAccessibility]);  
+  }, [computeAccessibility]);
 
 
   // 监听地图点击事件
@@ -317,10 +338,35 @@ const MapComponent = ({
             ⏳ 计算中，请稍候...
           </div>
         )}
+
+        {reachableRoadsData && (
+          <GeoJSON
+            data={reachableRoadsData}
+            style={{ color: "red", weight: 2 }}
+          />
+        )}
+
+        {reachableHullData && (
+          <GeoJSON
+            data={reachableHullData}
+            style={{ color: "black", weight: 2, fillOpacity: 0.15 }}
+          />
+        )}
         
         {/* Display the isochrone data */}
         {isochroneData && (
-          <GeoJSON data={isochroneData} style={{ color: "purple", weight: 2, fillOpacity: 0.2 }} />
+          <GeoJSON data={isochroneData} /* 这些是散点 */
+            pointToLayer={(feature, latlng) => {
+              // 若想让散点更明显，可用 circleMarker
+              return L.circleMarker(latlng, {
+                radius: 4,
+                fillColor: "purple",
+                color: "purple",
+                weight: 1,
+                fillOpacity: 0.7,
+              });
+            }}
+          />
         )}
       </MapContainer>
     </div>
