@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMapEvents } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import dijkstra from "dijkstrajs";
-import graphlib from "graphlib";
+//import dijkstra from "dijkstrajs";
+//import graphlib from "graphlib";
+import { Graph, alg } from "graphlib";
 import * as turf from "@turf/turf";
 import proj4 from "proj4";
 
@@ -12,6 +13,9 @@ const customMarkerIcon = new L.Icon({
   iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
   iconSize: [32, 32],
 });
+
+const [reachableRoadsData, setReachableRoadsData] = useState(null); 
+const [reachableHullData, setReachableHullData] = useState(null);
 
 // 定义 EPSG:4326 (WGS84) 和 EPSG:25832 (UTM Zone 32N) 的投影参数
 proj4.defs("EPSG:4326", "+proj=longlat +datum=WGS84 +no_defs");
@@ -81,7 +85,7 @@ const MapComponent = ({
   const [roadNetwork, setRoadNetwork] = useState(null);
 
   const buildGraph = (roadData) => {
-    const graph = new graphlib.Graph({ directed: false });
+    const graph = new Graph({ directed: false });
   
     console.log("📌 开始解析道路数据...");
     let totalEdges = 0;
@@ -193,23 +197,57 @@ const MapComponent = ({
       console.error("❌ 计算失败：起点未连接到路网");
       return null;
     }
-  
+
+    // 1) 定义一个权重函数：从 graph.edge(e) 中拿到权重
+    const weightFn = (edge) => {
+      // graph.edge(e) 就是你在 buildGraph 时传进去的 distEdge
+      return graph.edge(edge);
+    };
+
     console.log("✅ Dijkstra 计算进行中...");
-    const results = dijkstra.single_source_shortest_paths(graph, startKey);
+    console.time("Dijkstra");
+    const resultObj = alg.dijkstra(graph, startKey, weightFn);
+    console.timeEnd("Dijkstra");
+
+    // resultObj 结构：{ nodeKey: { distance, predecessor }, ... }
+
+    //console.log("✅ alg.dijkstra 计算进行中...");
+    //const results = dijkstra.single_source_shortest_paths(graph, startKey);
   
     const walkingSpeed = 1.4; // 5 km/h -> 米/秒
     const maxDistance = maxTime * 60 * walkingSpeed;
   
-    const reachableRoads = Object.entries(results)
-      .filter(([_, cost]) => cost <= maxDistance)
-      .map(([key]) => key.split(",").map(Number));
+    // const reachableRoads = Object.entries(results)
+    //   .filter(([_, cost]) => cost <= maxDistance)
+    //   .map(([key]) => key.split(",").map(Number));
   
+    // return {
+    //   "type": "FeatureCollection",
+    //   "features": reachableRoads.map((projCoords) => ({
+    //     "type": "Feature",
+    //     "geometry": { "type": "Point", "coordinates": toWGS84(projCoords) }, // ✅ `EPSG:25832` → `EPSG:4326`
+    //     "properties": {}
+    //   }))
+    // };
+
+    // 用 Object.entries 遍历结果，然后只保留 distance <= maxDistance 的节点
+    const reachableRoads = Object.entries(resultObj)
+    .filter(([nodeKey, info]) => info.distance <= maxDistance)
+    .map(([nodeKey]) => {
+      // nodeKey 比如 "564100.12,5931302.77"
+      return nodeKey.split(",").map(Number);
+    });
+
+    // 返回一个 GeoJSON FeatureCollection，跟你原本的逻辑一样
     return {
-      "type": "FeatureCollection",
-      "features": reachableRoads.map((projCoords) => ({
-        "type": "Feature",
-        "geometry": { "type": "Point", "coordinates": toWGS84(projCoords) }, // ✅ `EPSG:25832` → `EPSG:4326`
-        "properties": {}
+      type: "FeatureCollection",
+      features: reachableRoads.map((projCoords) => ({
+        type: "Feature",
+        geometry: {
+          type: "Point",
+          coordinates: toWGS84(projCoords), // 记得用你现有的投影反转函数
+        },
+        properties: {}
       }))
     };
   };         
