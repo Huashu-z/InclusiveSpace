@@ -368,7 +368,7 @@ function PlasmicUser__RenderFunc(props) {
               </label>
               <input
                 type="range"
-                min="5"
+                min="1"
                 max="60"
                 step="1"
                 value={walkingTime}
