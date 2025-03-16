@@ -140,7 +140,7 @@ const MapComponent = ({
   setComputeAccessibility
 }) => {
   const [reachableRoadsData, setReachableRoadsData] = useState(null); 
-  //const [reachableHullData, setReachableHullData] = useState(null);
+  const [reachableHullData, setReachableHullData] = useState(null);
   const [geoJsonData, setGeoJsonData] = useState({});
   const [availableFiles, setAvailableFiles] = useState([]);
   const [roadNetwork, setRoadNetwork] = useState(null);
@@ -168,8 +168,8 @@ const MapComponent = ({
           const startProj = toProjected(coords[i]); // coords[i] is [lon, lat]
           const endProj = toProjected(coords[i + 1]);
 
-          console.log("原始坐标:", coords[i], "→ 投影后:", startProj);
-          console.log("原始坐标:", coords[i+1], "→ 投影后:", endProj);
+          //console.log("原始坐标:", coords[i], "→ 投影后:", startProj);
+          //console.log("原始坐标:", coords[i+1], "→ 投影后:", endProj);
   
           const startKey = `${startProj[0]},${startProj[1]}`;
           const endKey = `${endProj[0]},${endProj[1]}`;
@@ -180,7 +180,7 @@ const MapComponent = ({
   
           graph.setEdge(startKey, endKey, dist);
           graph.setEdge(endKey, startKey, dist);
-          console.log(`添加双向边: ${startKey} ↔ ${endKey} (距离: ${dist.toFixed(2)} 米)`); // 格式化输出
+          //console.log(`添加双向边: ${startKey} ↔ ${endKey} (距离: ${dist.toFixed(2)} 米)`); // 格式化输出
           totalEdges++;
         }
       });
@@ -364,17 +364,17 @@ const MapComponent = ({
     // 3) 凹壳 (Concave Hull) 多边形
     //    (若 concave() 返回 null，则可 fallback 到 convex())
     //-----------------------------------------------
-    // let hull = turf.concave(pointsFC, { maxEdge: 5000, units: "meters" });
-    // if (!hull) {
-    //   hull = turf.convex(pointsFC);
-    // }
+    let hull = turf.concave(pointsFC, { maxEdge: 5000, units: "meters" });
+    if (!hull) {
+      hull = turf.convex(pointsFC);
+    }
   
     //-----------------------------------------------
     // 4) 组织结果
     //-----------------------------------------------
     const pointsGeoJSON = pointsFC;    // 零散点
     const roadsGeoJSON  = roadsFC;     // LineString
-    //const hullGeoJSON   = hull;        // Polygon / MultiPolygon
+    const hullGeoJSON   = hull;        // Polygon / MultiPolygon
 
     // 在计算完成后添加
     const testWestKey = "567072, 5934847"; // 替换为实际西侧节点UTM坐标
@@ -383,7 +383,7 @@ const MapComponent = ({
     console.log("西侧节点是否存在:", graph.hasNode("500000,5930000")); // 替换为实际坐标
     console.log("图的边示例（包含西侧）:", graph.edges().filter(edge => edge.v.includes("500000")));
   
-    //return { pointsGeoJSON, roadsGeoJSON, hullGeoJSON };
+    return { pointsGeoJSON, roadsGeoJSON, hullGeoJSON };
     return { pointsGeoJSON, roadsGeoJSON};
   };         
 
@@ -405,7 +405,7 @@ const MapComponent = ({
 
         // 新增：可达道路 & 凹壳多边形
         setReachableRoadsData(result.roadsGeoJSON);
-        //setReachableHullData(result.hullGeoJSON);
+        setReachableHullData(result.hullGeoJSON);
       }
 
       setComputeAccessibility(false);
@@ -464,13 +464,13 @@ const MapComponent = ({
           />
         )}
 
-        {/* {reachableHullData && (
+        {reachableHullData && (
           <GeoJSON
             data={reachableHullData}
             style={{ color: "black", weight: 2, fillOpacity: 0.15 }}
           />
         )}
-         */}
+        
 
         {/* Display the isochrone data */}
         {isochroneData && (
