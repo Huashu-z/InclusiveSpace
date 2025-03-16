@@ -7,6 +7,7 @@ import "leaflet/dist/leaflet.css";
 import { Graph, alg } from "graphlib";
 import * as turf from "@turf/turf";
 import proj4 from "proj4";
+import rbush from "rbush";
 
 //icon for start point, mark the position the user clicked
 const customMarkerIcon = new L.Icon({
@@ -29,6 +30,10 @@ let wgs84LogCount = 0;
 const toProjected = (coord) => {
   const [lon, lat] = coord;
   const projected = proj4("EPSG:4326", "EPSG:25832", [lon, lat]);
+  // 验证UTM Zone 32N范围（东经6°-12°，北纬应>0）
+  if (projected[0] < 500000 || projected[0] > 999999) {
+    console.error("❌ 异常UTM东经值:", projected[0]);
+  }
   if (projectLogCount < 10) {
     console.log(`🌍 4326 -> 25832: [${lon}, ${lat}] -> [${projected[0]}, ${projected[1]}]`);
     projectLogCount++;
@@ -47,24 +52,79 @@ const toWGS84 = (coord) => {
   return wgs84;
 };
 
-const findNearestGraphNode = (startPoint, graph) => {
-  const projectedStart = toProjected(startPoint); // ✅ 计算时转换 `EPSG:25832`
+// const findNearestGraphNode = (startPoint, graph) => {
+//   const projectedStart = toProjected(startPoint); // ✅ 计算时转换 `EPSG:25832`
 
+//   let nearestNode = null;
+//   let minDistance = Infinity;
+
+//   graph.nodes().forEach((nodeKey) => {
+//     const [x, y] = nodeKey.split(",").map(Number);
+//     const distance = Math.sqrt((x - projectedStart[0]) ** 2 + (y - projectedStart[1]) ** 2);
+
+//     if (distance < minDistance) {
+//       minDistance = distance;
+//       nearestNode = [x, y];
+//     }
+//   });
+
+//   console.log("📍 选中的起点 (25832):", projectedStart);
+//   console.log("📌 Graph 里最近的匹配点:", nearestNode);
+//   return nearestNode || projectedStart;
+// };
+
+const findNearestGraphNode = (startPoint, graph) => {
+  const projectedStart = toProjected(startPoint); // 获取起点的UTM坐标
+
+  //-----------------------------------------------
+  // 1. 构建R-tree空间索引
+  //-----------------------------------------------
+  const tree = new rbush();
+  const nodes = graph.nodes().map((nodeKey) => {
+    const [x, y] = nodeKey.split(",").map(Number);
+    return {
+      minX: x,   // 节点的X坐标（UTM）
+      minY: y,   // 节点的Y坐标（UTM）
+      maxX: x,   // 因为是点数据，minX=maxX
+      maxY: y,   // 同理，minY=maxY
+      nodeKey,   // 原始节点键（如 "567190.23,5935018.05"）
+      x, y       // 保存坐标用于后续计算
+    };
+  });
+  tree.load(nodes); // 加载节点到R-tree
+
+  //-----------------------------------------------
+  // 2. 在R-tree中搜索附近候选节点（范围查询）
+  //-----------------------------------------------
+  const searchRadius = 1000; // 搜索半径（单位：米），根据实际路网密度调整
+  const candidateNodes = tree.search({
+    minX: projectedStart[0] - searchRadius,
+    minY: projectedStart[1] - searchRadius,
+    maxX: projectedStart[0] + searchRadius,
+    maxY: projectedStart[1] + searchRadius
+  });
+
+  //-----------------------------------------------
+  // 3. 在候选节点中找到最近的一个
+  //-----------------------------------------------
   let nearestNode = null;
   let minDistance = Infinity;
-
-  graph.nodes().forEach((nodeKey) => {
-    const [x, y] = nodeKey.split(",").map(Number);
-    const distance = Math.sqrt((x - projectedStart[0]) ** 2 + (y - projectedStart[1]) ** 2);
-
+  candidateNodes.forEach((node) => {
+    const distance = Math.hypot(
+      node.x - projectedStart[0],
+      node.y - projectedStart[1]
+    );
     if (distance < minDistance) {
       minDistance = distance;
-      nearestNode = [x, y];
+      nearestNode = [node.x, node.y];
     }
   });
 
+  //-----------------------------------------------
+  // 4. 返回结果（若未找到则返回原始点）
+  //-----------------------------------------------
   console.log("📍 选中的起点 (25832):", projectedStart);
-  console.log("📌 Graph 里最近的匹配点:", nearestNode);
+  console.log("📌 Graph 里最近的匹配点:", nearestNode || "未找到");
   return nearestNode || projectedStart;
 };
 
@@ -80,7 +140,7 @@ const MapComponent = ({
   setComputeAccessibility
 }) => {
   const [reachableRoadsData, setReachableRoadsData] = useState(null); 
-  const [reachableHullData, setReachableHullData] = useState(null);
+  //const [reachableHullData, setReachableHullData] = useState(null);
   const [geoJsonData, setGeoJsonData] = useState({});
   const [availableFiles, setAvailableFiles] = useState([]);
   const [roadNetwork, setRoadNetwork] = useState(null);
@@ -90,10 +150,16 @@ const MapComponent = ({
   
     console.log("📌 开始解析道路数据...");
     let totalEdges = 0;
+    let totalFeatures = 0;
   
-    roadData.features.forEach((feature) => {
+    roadData.features.forEach((feature, idx) => {
       const geom = feature.geometry;
-      if (!geom) return;
+      //if (!geom) return;
+      if (!geom) {
+        console.warn(`⚠️ Feature ${idx} 无几何数据`);
+        return;
+      }
+      totalFeatures++;
   
       let coordSets = geom.type === "MultiLineString" ? geom.coordinates : [geom.coordinates];
   
@@ -101,14 +167,20 @@ const MapComponent = ({
         for (let i = 0; i < coords.length - 1; i++) {
           const startProj = toProjected(coords[i]); // coords[i] is [lon, lat]
           const endProj = toProjected(coords[i + 1]);
+
+          console.log("原始坐标:", coords[i], "→ 投影后:", startProj);
+          console.log("原始坐标:", coords[i+1], "→ 投影后:", endProj);
   
-          const startKey = `${startProj[0].toFixed(2)},${startProj[1].toFixed(2)}`;
-          const endKey = `${endProj[0].toFixed(2)},${endProj[1].toFixed(2)}`;
+          const startKey = `${startProj[0]},${startProj[1]}`;
+          const endKey = `${endProj[0]},${endProj[1]}`;
   
-          const dist = Math.sqrt((startProj[0] - endProj[0]) ** 2 + (startProj[1] - endProj[1]) ** 2);
+          const dist = Math.hypot(startProj[0] - endProj[0], startProj[1] - endProj[1]);
+          //console.log(`边距离: ${dist} 米，起点: ${startKey}，终点: ${endKey}`); // 添加调试日志
+          //const dist = Math.sqrt((startProj[0] - endProj[0]) ** 2 + (startProj[1] - endProj[1]) ** 2);
   
           graph.setEdge(startKey, endKey, dist);
           graph.setEdge(endKey, startKey, dist);
+          console.log(`添加双向边: ${startKey} ↔ ${endKey} (距离: ${dist.toFixed(2)} 米)`); // 格式化输出
           totalEdges++;
         }
       });
@@ -117,6 +189,7 @@ const MapComponent = ({
     console.log(`✅ 解析完成！总边数: ${totalEdges}`);
     console.log(`📌 Graph 总节点数: ${graph.nodeCount()}`);
     console.log("📌 Graph 节点示例:", graph.nodes().slice(0, 5));
+    console.log(`✅ 总处理要素数量: ${totalFeatures}`);
   
     return graph;
   };    
@@ -191,7 +264,7 @@ const MapComponent = ({
 
   const computeReachableArea = (graph, startPointUTM, maxTime) => {
 
-    const startKey = `${startPointUTM[0].toFixed(2)},${startPointUTM[1].toFixed(2)}`;
+    const startKey = `${startPointUTM[0]},${startPointUTM[1]}`;
   
     // 同原逻辑
     if (!graph.hasNode(startKey)) {
@@ -205,6 +278,7 @@ const MapComponent = ({
     console.time("Dijkstra");
     const resultObj = alg.dijkstra(graph, startKey, weightFn);
     console.timeEnd("Dijkstra");
+    console.log("Dijkstra结果示例:", Object.entries(resultObj).slice(0, 5));
   
     const walkingSpeed = 1.4; // 米/秒
     const maxDistance = maxTime * 60 * walkingSpeed;
@@ -226,11 +300,46 @@ const MapComponent = ({
     //-----------------------------------------------
     // 2) 从图里把可达道路(边)筛选出来，生成 LineString
     //-----------------------------------------------
+    // const lineFeatures = [];
+    // graph.edges().forEach((edge) => {
+    //   const distU = resultObj[edge.v]?.distance;
+    //   const distV = resultObj[edge.w]?.distance;
+    //   if (distU != null && distV != null && distU <= maxDistance && distV <= maxDistance) {
+    //     const [x1, y1] = edge.v.split(",").map(Number);
+    //     const [x2, y2] = edge.w.split(",").map(Number);
+    //     const coord1 = toWGS84([x1, y1]); // [lon, lat]
+    //     const coord2 = toWGS84([x2, y2]); // [lon, lat]
+    //     lineFeatures.push({
+    //       type: "Feature",
+    //       geometry: {
+    //         type: "LineString",
+    //         coordinates: [coord1, coord2],
+    //       },
+    //       properties: {},
+    //     });
+    //   }
+    // });
+    // const roadsFC = {
+    //   type: "FeatureCollection",
+    //   features: lineFeatures,
+    // };
     const lineFeatures = [];
+    const reachableNodes = new Set(
+      Object.entries(resultObj)
+        .filter(([_, { distance }]) => distance <= maxDistance)
+        .map(([nodeKey]) => nodeKey)
+    );
+
+    const xCoords = Array.from(reachableNodes).map(k => parseFloat(k.split(",")[0]));
+    console.log("可达节点东经范围:", Math.min(...xCoords), "~", Math.max(...xCoords));
+
+    // 遍历所有边，检查至少一端在可达节点中
     graph.edges().forEach((edge) => {
-      const distU = resultObj[edge.v]?.distance;
-      const distV = resultObj[edge.w]?.distance;
-      if (distU != null && distV != null && distU <= maxDistance && distV <= maxDistance) {
+      const isVReachable = reachableNodes.has(edge.v);
+      const isWReachable = reachableNodes.has(edge.w);
+
+      // 如果至少一端可达，则保留该边
+      if (isVReachable || isWReachable) {
         const [x1, y1] = edge.v.split(",").map(Number);
         const [x2, y2] = edge.w.split(",").map(Number);
         const coord1 = toWGS84([x1, y1]); // [lon, lat]
@@ -245,6 +354,7 @@ const MapComponent = ({
         });
       }
     });
+
     const roadsFC = {
       type: "FeatureCollection",
       features: lineFeatures,
@@ -254,19 +364,27 @@ const MapComponent = ({
     // 3) 凹壳 (Concave Hull) 多边形
     //    (若 concave() 返回 null，则可 fallback 到 convex())
     //-----------------------------------------------
-    let hull = turf.concave(pointsFC, { maxEdge: 2000, units: "meters" });
-    if (!hull) {
-      hull = turf.convex(pointsFC);
-    }
+    // let hull = turf.concave(pointsFC, { maxEdge: 5000, units: "meters" });
+    // if (!hull) {
+    //   hull = turf.convex(pointsFC);
+    // }
   
     //-----------------------------------------------
     // 4) 组织结果
     //-----------------------------------------------
     const pointsGeoJSON = pointsFC;    // 零散点
     const roadsGeoJSON  = roadsFC;     // LineString
-    const hullGeoJSON   = hull;        // Polygon / MultiPolygon
+    //const hullGeoJSON   = hull;        // Polygon / MultiPolygon
+
+    // 在计算完成后添加
+    const testWestKey = "567072, 5934847"; // 替换为实际西侧节点UTM坐标
+    console.log("西侧节点是否可达:", resultObj[testWestKey]?.distance <= maxDistance);
+    // 在 buildGraph 完成后
+    console.log("西侧节点是否存在:", graph.hasNode("500000,5930000")); // 替换为实际坐标
+    console.log("图的边示例（包含西侧）:", graph.edges().filter(edge => edge.v.includes("500000")));
   
-    return { pointsGeoJSON, roadsGeoJSON, hullGeoJSON };
+    //return { pointsGeoJSON, roadsGeoJSON, hullGeoJSON };
+    return { pointsGeoJSON, roadsGeoJSON};
   };         
 
   useEffect(() => {
@@ -287,7 +405,7 @@ const MapComponent = ({
 
         // 新增：可达道路 & 凹壳多边形
         setReachableRoadsData(result.roadsGeoJSON);
-        setReachableHullData(result.hullGeoJSON);
+        //setReachableHullData(result.hullGeoJSON);
       }
 
       setComputeAccessibility(false);
@@ -346,13 +464,14 @@ const MapComponent = ({
           />
         )}
 
-        {reachableHullData && (
+        {/* {reachableHullData && (
           <GeoJSON
             data={reachableHullData}
             style={{ color: "black", weight: 2, fillOpacity: 0.15 }}
           />
         )}
-        
+         */}
+
         {/* Display the isochrone data */}
         {isochroneData && (
           <GeoJSON data={isochroneData} /* 这些是散点 */
