@@ -18,7 +18,9 @@
     "graphlib": "^2.1.8",
     "leaflet": "^1.9.4",
     "next": "14.2.24",
+    "osmtogeojson": "^2.2.12",
     "proj4": "^2.15.0",
+    "rbush": "^4.0.1",
     "react": "^18",
     "react-dom": "^18",
     "react-leaflet": "^4.2.1"
