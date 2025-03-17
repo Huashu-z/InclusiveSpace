@@ -137,7 +137,9 @@ const MapComponent = ({
   startPoint, 
   setStartPoint,
   computeAccessibility,
-  setComputeAccessibility
+  setComputeAccessibility,
+  resetTrigger,
+  onResetHandled
 }) => {
   const [reachableRoadsData, setReachableRoadsData] = useState(null); 
   const [reachableHullData, setReachableHullData] = useState(null);
@@ -210,6 +212,21 @@ const MapComponent = ({
   };    
 
   const [isCalculating, setIsCalculating] = useState(false); // 是否正在计算可达性区域
+
+  useEffect(() => {
+    if (resetTrigger) {
+      console.log("子组件：开始清除地图上的可达结果...");
+      // 清除各种本地结果
+      setIsochroneData(null);
+      setReachableRoadsData(null);
+      setReachableHullData(null);
+
+      // 这里也可以清除你任何想要重置的 child state
+
+      // 通知父组件“我清理完了”，父组件会把 resetTrigger 设回 false
+      onResetHandled && onResetHandled();
+    }
+  }, [resetTrigger, onResetHandled]);
 
   useEffect(() => {
     if (selectedLayers.includes("roads")) {
@@ -426,6 +443,18 @@ const MapComponent = ({
     return null;
   };
 
+  const handleResetResults = () => {
+    console.log("🚀 Resetting results from MapComponent...");
+    setIsochroneData(null);
+    setReachableRoadsData(null);
+    setReachableHullData(null);
+  
+    // Call the parent component's reset function
+    if (resetResults) {
+      resetResults(); // ✅ Call the function passed from PlasmicUser.jsx
+    }
+  };
+
   return (
     <div className="mapBox">
       <MapContainer center={[53.557134, 10.012200]} zoom={13} style={{ width: "100%", height: "100vh" }}>
@@ -439,7 +468,7 @@ const MapComponent = ({
 
         {/* Display start point */}
         {startPoint && (
-          <Marker position={startPoint} icon={customMarkerIcon}>
+          <Marker position={[startPoint[1], startPoint[0]]} icon={customMarkerIcon}>
             <Popup>Analysis starting point</Popup>
           </Marker>
         )}

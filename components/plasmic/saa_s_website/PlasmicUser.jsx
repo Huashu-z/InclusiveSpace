@@ -62,6 +62,20 @@ function PlasmicUser__RenderFunc(props) {
   const [walkingTime, setWalkingTime] = React.useState(15); // Default walking time is 15 minutes
   const [selectedLayers, setSelectedLayers] = React.useState([]); // load Layer
 
+  const [resetTrigger, setResetTrigger] = React.useState(false);
+
+  const handleResetResults = () => {
+    console.log("🚀 Resetting accessibility results...");
+    setComputeAccessibility(false); // Ensure calculation is stopped
+    setStartPoint(null); // Clear selected start point
+    setResetTrigger(true);
+  };
+
+  const onResetHandled = () => {
+    console.log("父组件：子组件那边重置完了");
+    setResetTrigger(false);
+  };
+
   const toggleLayer = (layer) => {
     setSelectedLayers((prev) =>
       prev.includes(layer) ? prev.filter((l) => l !== layer) : [...prev, layer]
@@ -231,6 +245,8 @@ function PlasmicUser__RenderFunc(props) {
               setStartPoint={setStartPoint} // Allow MapComponent to modify the starting point
               computeAccessibility={computeAccessibility} // Trigger calculation
               setComputeAccessibility={setComputeAccessibility} // Reset after calculation
+              resetTrigger={resetTrigger}
+              onResetHandled={onResetHandled}
             />
           </div>
 
@@ -401,6 +417,20 @@ function PlasmicUser__RenderFunc(props) {
                 Get Accessible Area
               </button>
 
+              <button
+                onClick={handleResetResults}
+                style={{
+                  padding: "10px",
+                  marginBottom: "10px",
+                  background: "#dc3545",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "5px",
+                  cursor: "pointer"
+                }}
+              >
+                Reset Results
+              </button>
 
               <Checkbox
                 data-plasmic-name={"checkboxIntersection"}
@@ -796,90 +826,91 @@ function PlasmicUser__RenderFunc(props) {
                 data-plasmic-override={overrides.checkboxNoise}
                 className={classNames("__wab_instance", sty.checkboxNoise)}
                 label={"Noise"}
-                onChange={async (...eventArgs) => {
-                  generateStateOnChangeProp($state, [
-                    "checkboxNoise",
-                    "isSelected"
-                  ]).apply(null, eventArgs);
-                  if (
-                    eventArgs.length > 1 &&
-                    eventArgs[1] &&
-                    eventArgs[1]._plasmic_state_init_
-                  ) {
-                    return;
-                  }
-                  (async val => {
-                    const $steps = {};
-                    $steps["select"] =
-                      $state.checkboxNoise.isSelected === true
-                        ? (() => {
-                            const actionArgs = {
-                              variable: {
-                                objRoot: $state,
-                                variablePath: ["selectedLayers"]
-                              },
-                              operation: 0,
-                              value: [...($state.selectedLayers || []), "noise"]
-                            };
-                            return (({
-                              variable,
-                              value,
-                              startIndex,
-                              deleteCount
-                            }) => {
-                              if (!variable) {
-                                return;
-                              }
-                              const { objRoot, variablePath } = variable;
-                              $stateSet(objRoot, variablePath, value);
-                              return value;
-                            })?.apply(null, [actionArgs]);
-                          })()
-                        : undefined;
-                    if (
-                      $steps["select"] != null &&
-                      typeof $steps["select"] === "object" &&
-                      typeof $steps["select"].then === "function"
-                    ) {
-                      $steps["select"] = await $steps["select"];
-                    }
-                    $steps["unselect"] =
-                      $state.checkboxNoise.isSelected === false
-                        ? (() => {
-                            const actionArgs = {
-                              variable: {
-                                objRoot: $state,
-                                variablePath: ["selectedLayers"]
-                              },
-                              operation: 0,
-                              value: ($state.selectedLayers || []).filter(
-                                layer => layer !== "noise"
-                              )
-                            };
-                            return (({
-                              variable,
-                              value,
-                              startIndex,
-                              deleteCount
-                            }) => {
-                              if (!variable) {
-                                return;
-                              }
-                              const { objRoot, variablePath } = variable;
-                              $stateSet(objRoot, variablePath, value);
-                              return value;
-                            })?.apply(null, [actionArgs]);
-                          })()
-                        : undefined;
-                    if (
-                      $steps["unselect"] != null &&
-                      typeof $steps["unselect"] === "object" &&
-                      typeof $steps["unselect"].then === "function"
-                    ) {
-                      $steps["unselect"] = await $steps["unselect"];
-                    }
-                  }).apply(null, eventArgs);
-                }}
+                onChange={(e) => toggleLayer("noise")}
+                // onChange={async (...eventArgs) => {
+                //   generateStateOnChangeProp($state, [
+                //     "checkboxNoise",
+                //     "isSelected"
+                //   ]).apply(null, eventArgs);
+                //   if (
+                //     eventArgs.length > 1 &&
+                //     eventArgs[1] &&
+                //     eventArgs[1]._plasmic_state_init_
+                //   ) {
+                //     return;
+                //   }
+                //   (async val => {
+                //     const $steps = {};
+                //     $steps["select"] =
+                //       $state.checkboxNoise.isSelected === true
+                //         ? (() => {
+                //             const actionArgs = {
+                //               variable: {
+                //                 objRoot: $state,
+                //                 variablePath: ["selectedLayers"]
+                //               },
+                //               operation: 0,
+                //               value: [...($state.selectedLayers || []), "noise"]
+                //             };
+                //             return (({
+                //               variable,
+                //               value,
+                //               startIndex,
+                //               deleteCount
+                //             }) => {
+                //               if (!variable) {
+                //                 return;
+                //               }
+                //               const { objRoot, variablePath } = variable;
+                //               $stateSet(objRoot, variablePath, value);
+                //               return value;
+                //             })?.apply(null, [actionArgs]);
+                //           })()
+                //         : undefined;
+                //     if (
+                //       $steps["select"] != null &&
+                //       typeof $steps["select"] === "object" &&
+                //       typeof $steps["select"].then === "function"
+                //     ) {
+                //       $steps["select"] = await $steps["select"];
+                //     }
+                //     $steps["unselect"] =
+                //       $state.checkboxNoise.isSelected === false
+                //         ? (() => {
+                //             const actionArgs = {
+                //               variable: {
+                //                 objRoot: $state,
+                //                 variablePath: ["selectedLayers"]
+                //               },
+                //               operation: 0,
+                //               value: ($state.selectedLayers || []).filter(
+                //                 layer => layer !== "noise"
+                //               )
+                //             };
+                //             return (({
+                //               variable,
+                //               value,
+                //               startIndex,
+                //               deleteCount
+                //             }) => {
+                //               if (!variable) {
+                //                 return;
+                //               }
+                //               const { objRoot, variablePath } = variable;
+                //               $stateSet(objRoot, variablePath, value);
+                //               return value;
+                //             })?.apply(null, [actionArgs]);
+                //           })()
+                //         : undefined;
+                //     if (
+                //       $steps["unselect"] != null &&
+                //       typeof $steps["unselect"] === "object" &&
+                //       typeof $steps["unselect"].then === "function"
+                //     ) {
+                //       $steps["unselect"] = await $steps["unselect"];
+                //     }
+                //   }).apply(null, eventArgs);
+                // }}
               />
 
               <Checkbox
