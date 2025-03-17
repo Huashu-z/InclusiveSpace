@@ -62,6 +62,12 @@ function PlasmicUser__RenderFunc(props) {
   const [walkingTime, setWalkingTime] = React.useState(15); // Default walking time is 15 minutes
   const [selectedLayers, setSelectedLayers] = React.useState([]); // load Layer
 
+  // slidebar categorys
+  const [openCategory, setOpenCategory] = React.useState(null);
+  const toggleCategory = (category) => {
+    setOpenCategory(openCategory === category ? null : category);
+  };
+
   const [resetTrigger, setResetTrigger] = React.useState(false);
 
   const handleResetResults = () => {
@@ -359,660 +365,151 @@ function PlasmicUser__RenderFunc(props) {
                   "sidebarOpen"
                 )
               })}
-            >
-              {/* Add a "Select starting point" button here */}
-              <button
-                onClick={() => {
-                  setSelectingStart(true);  
-                }}
-                style={{
-                  padding: "10px",
-                  marginBottom: "10px",
-                  background: "#007bff",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "5px",
-                  cursor: "pointer"
-                }}
-              >
-                Select Start Point
-              </button>
+            > 
 
-              {/* Add a slider to select walking time */}
-              <label style={{ display: "block", marginBottom: "5px" }}>
-              Walking time（{walkingTime} minutes）:
-              </label>
-              <input
-                type="range"
-                min="1"
-                max="60"
-                step="1"
-                value={walkingTime}
-                onChange={(e) => setWalkingTime(Number(e.target.value))}
-                style={{
-                  width: "100%",
-                  marginBottom: "10px"
-                }}
-              />
+              <div className={sty["sidebar-section"]}>
+                <h3 className={sty["sidebar-title"]}>User Setting</h3>
+                <div className={sty["sidebar-slider"]}>
+                  {/* Add a slider to select walking time */}
+                  <label style={{ display: "block", marginBottom: "5px" }}>
+                    Walking time（{walkingTime} minutes）:
+                  </label>
+                  <input
+                    type="range"
+                    min="1"
+                    max="60"
+                    step="1"
+                    value={walkingTime}
+                    onChange={(e) => setWalkingTime(Number(e.target.value))}
+                    className={sty["sidebar-slider"]} 
+                  />
+                </div>
 
-              {/* button for accessibility computation */}
-              <button
-                onClick={() => {
-                  if (!startPoint) {
-                    alert("Please select a starting point first!");
-                    return;
-                  }
-                  setComputeAccessibility(true);
-                }}
-                style={{
-                  padding: "10px",
-                  marginBottom: "10px",
-                  background: "#28a745",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "5px",
-                  cursor: "pointer"
-                }}
-              >
-                Get Accessible Area
-              </button>
+                <div className={sty["button-container"]}>
+                  {/* Add a "Select starting point" button here */}
+                  <div style={{ display: "flex", justifyContent: "flex-start" }}>
+                    <button 
+                      onClick={() => setSelectingStart(true)}
+                      className={sty["setup-button"]}
+                    >
+                      <img 
+                        src="https://cdn-icons-png.flaticon.com/512/684/684908.png" 
+                        alt="Location Icon"
+                        className={sty["img"]} 
+                      />
+                      Select Start Point
+                    </button>
+                  </div>
+                  {/* button for accessibility computation */}
+                  <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+                    <button
+                      onClick={() => {
+                        if (!startPoint) {
+                          alert("Please select a starting point first!");
+                          return;
+                        }
+                        setComputeAccessibility(true);
+                      }}
+                      className={sty["setup-button"]}
+                    >
+                      Attachment Area
+                    </button>
 
-              <button
-                onClick={handleResetResults}
-                style={{
-                  padding: "10px",
-                  marginBottom: "10px",
-                  background: "#dc3545",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "5px",
-                  cursor: "pointer"
-                }}
-              >
-                Reset Results
-              </button>
+                    <button
+                      onClick={handleResetResults}
+                      className={sty["setup-button"]}
+                    >
+                      Reset Results
+                    </button>
+                  </div>
+                </div>
+              </div>
 
-              <Checkbox
-                data-plasmic-name={"checkboxIntersection"}
-                data-plasmic-override={overrides.checkboxIntersection}
-                className={classNames(
-                  "__wab_instance",
-                  sty.checkboxIntersection,
-                  {
-                    [sty.checkboxIntersectionsidebarOpen]: hasVariant(
-                      $state,
-                      "sidebarOpen",
-                      "sidebarOpen"
-                    )
-                  }
-                )}
-                label={"Intersection Density"}
-                onChange={async (...eventArgs) => {
-                  generateStateOnChangeProp($state, [
-                    "checkboxIntersection",
-                    "isSelected"
-                  ]).apply(null, eventArgs);
-                  if (
-                    eventArgs.length > 1 &&
-                    eventArgs[1] &&
-                    eventArgs[1]._plasmic_state_init_
-                  ) {
-                    return;
-                  }
-                  (async val => {
-                    const $steps = {};
-                    $steps["select"] =
-                      $state.checkboxIntersection.isSelected === true
-                        ? (() => {
-                            const actionArgs = {
-                              variable: {
-                                objRoot: $state,
-                                variablePath: ["selectedLayers"]
-                              },
-                              operation: 0,
-                              value: [
-                                ...($state.selectedLayers || []),
-                                "intersection_density"
-                              ]
-                            };
-                            return (({
-                              variable,
-                              value,
-                              startIndex,
-                              deleteCount
-                            }) => {
-                              if (!variable) {
-                                return;
-                              }
-                              const { objRoot, variablePath } = variable;
-                              $stateSet(objRoot, variablePath, value);
-                              return value;
-                            })?.apply(null, [actionArgs]);
-                          })()
-                        : undefined;
-                    if (
-                      $steps["select"] != null &&
-                      typeof $steps["select"] === "object" &&
-                      typeof $steps["select"].then === "function"
-                    ) {
-                      $steps["select"] = await $steps["select"];
-                    }
-                    $steps["unselect"] =
-                      $state.checkboxIntersection.isSelected === false
-                        ? (() => {
-                            const actionArgs = {
-                              variable: {
-                                objRoot: $state,
-                                variablePath: ["selectedLayers"]
-                              },
-                              operation: 0,
-                              value: ($state.selectedLayers || []).filter(
-                                layer => layer !== "intersection_density"
-                              )
-                            };
-                            return (({
-                              variable,
-                              value,
-                              startIndex,
-                              deleteCount
-                            }) => {
-                              if (!variable) {
-                                return;
-                              }
-                              const { objRoot, variablePath } = variable;
-                              $stateSet(objRoot, variablePath, value);
-                              return value;
-                            })?.apply(null, [actionArgs]);
-                          })()
-                        : undefined;
-                    if (
-                      $steps["unselect"] != null &&
-                      typeof $steps["unselect"] === "object" &&
-                      typeof $steps["unselect"].then === "function"
-                    ) {
-                      $steps["unselect"] = await $steps["unselect"];
-                    }
-                  }).apply(null, eventArgs);
-                }}
-              />
+              <div className={sty["sidebar-section"]}>
+                <h3 className={sty["sidebar-title"]}>Variable</h3>
+                {/* Category 1: Infrastructure */}
+                <div className={sty["faq-item"]}>
+                  <button className={sty["faq-question"]} onClick={() => toggleCategory("infra")}>
+                    Infrastructure
+                    <span className={sty["faq-icon"]}>{openCategory === "infra" ? "−" : "+"}</span>
+                  </button>
+                  {openCategory === "infra" && (
+                    <div className={sty["faq-answer"]}>
+                      <Checkbox
+                        data-plasmic-name={"checkboxIntersection"}
+                        data-plasmic-override={overrides.checkboxIntersection}
+                        className={classNames("__wab_instance", sty.checkboxIntersection)}
+                        label={"Intersection Density"}
+                        onChange={(e) => toggleLayer("intersection_density")}
+                      />
+                      <Checkbox
+                        data-plasmic-name={"checkboxTactilePav"}
+                        data-plasmic-override={overrides.checkboxTactilePav}
+                        className={classNames("__wab_instance", sty.checkboxTactilePav)}
+                        label={"Tactile Pavement"}
+                        onChange={(e) => toggleLayer("tactile_pavement")}
+                      />
+                    </div>
+                  )}
+                </div>
 
-              <Checkbox
-                data-plasmic-name={"checkboxTactilePav"}
-                data-plasmic-override={overrides.checkboxTactilePav}
-                className={classNames("__wab_instance", sty.checkboxTactilePav)}
-                label={"Tactile Pavement"}
-                onChange={async (...eventArgs) => {
-                  generateStateOnChangeProp($state, [
-                    "checkboxTactilePav",
-                    "isSelected"
-                  ]).apply(null, eventArgs);
-                  if (
-                    eventArgs.length > 1 &&
-                    eventArgs[1] &&
-                    eventArgs[1]._plasmic_state_init_
-                  ) {
-                    return;
-                  }
-                  (async val => {
-                    const $steps = {};
-                    $steps["select"] =
-                      $state.checkboxTactilePav.isSelected === true
-                        ? (() => {
-                            const actionArgs = {
-                              variable: {
-                                objRoot: $state,
-                                variablePath: ["selectedLayers"]
-                              },
-                              operation: 0,
-                              value: [
-                                ...($state.selectedLayers || []),
-                                "tactile_pavement"
-                              ]
-                            };
-                            return (({
-                              variable,
-                              value,
-                              startIndex,
-                              deleteCount
-                            }) => {
-                              if (!variable) {
-                                return;
-                              }
-                              const { objRoot, variablePath } = variable;
-                              $stateSet(objRoot, variablePath, value);
-                              return value;
-                            })?.apply(null, [actionArgs]);
-                          })()
-                        : undefined;
-                    if (
-                      $steps["select"] != null &&
-                      typeof $steps["select"] === "object" &&
-                      typeof $steps["select"].then === "function"
-                    ) {
-                      $steps["select"] = await $steps["select"];
-                    }
-                    $steps["unselect"] =
-                      $state.checkboxTactilePav.isSelected === false
-                        ? (() => {
-                            const actionArgs = {
-                              variable: {
-                                objRoot: $state,
-                                variablePath: ["selectedLayers"]
-                              },
-                              operation: 0,
-                              value: ($state.selectedLayers || []).filter(
-                                layer => layer !== "tactile_pavement"
-                              )
-                            };
-                            return (({
-                              variable,
-                              value,
-                              startIndex,
-                              deleteCount
-                            }) => {
-                              if (!variable) {
-                                return;
-                              }
-                              const { objRoot, variablePath } = variable;
-                              $stateSet(objRoot, variablePath, value);
-                              return value;
-                            })?.apply(null, [actionArgs]);
-                          })()
-                        : undefined;
-                    if (
-                      $steps["unselect"] != null &&
-                      typeof $steps["unselect"] === "object" &&
-                      typeof $steps["unselect"].then === "function"
-                    ) {
-                      $steps["unselect"] = await $steps["unselect"];
-                    }
-                  }).apply(null, eventArgs);
-                }}
-              />
+                {/* Category 2: Environmental Factors */}
+                <div className={sty["faq-item"]}>
+                  <button className={sty["faq-question"]} onClick={() => toggleCategory("env")}>
+                    Environmental Factors
+                    <span className={sty["faq-icon"]}>{openCategory === "env" ? "−" : "+"}</span>
+                  </button>
+                  {openCategory === "env" && (
+                    <div className={sty["faq-answer"]}>
+                      <Checkbox
+                        data-plasmic-name={"checkboxLights"}
+                        data-plasmic-override={overrides.checkboxLights}
+                        className={classNames("__wab_instance", sty.checkboxLights)}
+                        label={"Street Lights"}
+                        onChange={(e) => toggleLayer("lighting")}
+                      />
+                      <Checkbox
+                        data-plasmic-name={"checkboxNoise"}
+                        data-plasmic-override={overrides.checkboxNoise}
+                        className={classNames("__wab_instance", sty.checkboxNoise)}
+                        label={"Noise"}
+                        onChange={(e) => toggleLayer("noise")}
+                      />
+                    </div>
+                  )}
+                </div>
 
-              <Checkbox
-                data-plasmic-name={"checkboxLights"}
-                data-plasmic-override={overrides.checkboxLights}
-                className={classNames("__wab_instance", sty.checkboxLights)}
-                label={"Street Lights"}
-                onChange={async (...eventArgs) => {
-                  generateStateOnChangeProp($state, [
-                    "checkboxLights",
-                    "isSelected"
-                  ]).apply(null, eventArgs);
-                  if (
-                    eventArgs.length > 1 &&
-                    eventArgs[1] &&
-                    eventArgs[1]._plasmic_state_init_
-                  ) {
-                    return;
-                  }
-                  (async val => {
-                    const $steps = {};
-                    $steps["select"] =
-                      $state.checkboxLights.isSelected === true
-                        ? (() => {
-                            const actionArgs = {
-                              variable: {
-                                objRoot: $state,
-                                variablePath: ["selectedLayers"]
-                              },
-                              operation: 0,
-                              value: [
-                                ...($state.selectedLayers || []),
-                                "streetlight"
-                              ]
-                            };
-                            return (({
-                              variable,
-                              value,
-                              startIndex,
-                              deleteCount
-                            }) => {
-                              if (!variable) {
-                                return;
-                              }
-                              const { objRoot, variablePath } = variable;
-                              $stateSet(objRoot, variablePath, value);
-                              return value;
-                            })?.apply(null, [actionArgs]);
-                          })()
-                        : undefined;
-                    if (
-                      $steps["select"] != null &&
-                      typeof $steps["select"] === "object" &&
-                      typeof $steps["select"].then === "function"
-                    ) {
-                      $steps["select"] = await $steps["select"];
-                    }
-                    $steps["unselect"] =
-                      $state.checkboxLights.isSelected === false
-                        ? (() => {
-                            const actionArgs = {
-                              variable: {
-                                objRoot: $state,
-                                variablePath: ["selectedLayers"]
-                              },
-                              operation: 0,
-                              value: ($state.selectedLayers || []).filter(
-                                layer => layer !== "streetlight"
-                              )
-                            };
-                            return (({
-                              variable,
-                              value,
-                              startIndex,
-                              deleteCount
-                            }) => {
-                              if (!variable) {
-                                return;
-                              }
-                              const { objRoot, variablePath } = variable;
-                              $stateSet(objRoot, variablePath, value);
-                              return value;
-                            })?.apply(null, [actionArgs]);
-                          })()
-                        : undefined;
-                    if (
-                      $steps["unselect"] != null &&
-                      typeof $steps["unselect"] === "object" &&
-                      typeof $steps["unselect"].then === "function"
-                    ) {
-                      $steps["unselect"] = await $steps["unselect"];
-                    }
-                  }).apply(null, eventArgs);
-                }}
-              />
-
-              <Checkbox
-                data-plasmic-name={"checkboxPoi"}
-                data-plasmic-override={overrides.checkboxPoi}
-                className={classNames("__wab_instance", sty.checkboxPoi, {
-                  [sty.checkboxPoisidebarOpen]: hasVariant(
-                    $state,
-                    "sidebarOpen",
-                    "sidebarOpen"
-                  )
-                })}
-                label={"POIs"}
-                onChange={async (...eventArgs) => {
-                  generateStateOnChangeProp($state, [
-                    "checkboxPoi",
-                    "isSelected"
-                  ]).apply(null, eventArgs);
-                  if (
-                    eventArgs.length > 1 &&
-                    eventArgs[1] &&
-                    eventArgs[1]._plasmic_state_init_
-                  ) {
-                    return;
-                  }
-                  (async val => {
-                    const $steps = {};
-                    $steps["select"] =
-                      $state.checkboxPoi.isSelected === true
-                        ? (() => {
-                            const actionArgs = {
-                              variable: {
-                                objRoot: $state,
-                                variablePath: ["selectedLayers"]
-                              },
-                              operation: 0,
-                              value: [...($state.selectedLayers || []), "POIs"]
-                            };
-                            return (({
-                              variable,
-                              value,
-                              startIndex,
-                              deleteCount
-                            }) => {
-                              if (!variable) {
-                                return;
-                              }
-                              const { objRoot, variablePath } = variable;
-                              $stateSet(objRoot, variablePath, value);
-                              return value;
-                            })?.apply(null, [actionArgs]);
-                          })()
-                        : undefined;
-                    if (
-                      $steps["select"] != null &&
-                      typeof $steps["select"] === "object" &&
-                      typeof $steps["select"].then === "function"
-                    ) {
-                      $steps["select"] = await $steps["select"];
-                    }
-                    $steps["unselect"] =
-                      $state.checkboxPoi.isSelected === false
-                        ? (() => {
-                            const actionArgs = {
-                              variable: {
-                                objRoot: $state,
-                                variablePath: ["selectedLayers"]
-                              },
-                              operation: 0,
-                              value: ($state.selectedLayers || []).filter(
-                                layer => layer !== "POIs"
-                              )
-                            };
-                            return (({
-                              variable,
-                              value,
-                              startIndex,
-                              deleteCount
-                            }) => {
-                              if (!variable) {
-                                return;
-                              }
-                              const { objRoot, variablePath } = variable;
-                              $stateSet(objRoot, variablePath, value);
-                              return value;
-                            })?.apply(null, [actionArgs]);
-                          })()
-                        : undefined;
-                    if (
-                      $steps["unselect"] != null &&
-                      typeof $steps["unselect"] === "object" &&
-                      typeof $steps["unselect"].then === "function"
-                    ) {
-                      $steps["unselect"] = await $steps["unselect"];
-                    }
-                  }).apply(null, eventArgs);
-                }}
-              />
-
-              <Checkbox
-                data-plasmic-name={"checkboxNoise"}
-                data-plasmic-override={overrides.checkboxNoise}
-                className={classNames("__wab_instance", sty.checkboxNoise)}
-                label={"Noise"}
-                onChange={(e) => toggleLayer("noise")}
-                // onChange={async (...eventArgs) => {
-                //   generateStateOnChangeProp($state, [
-                //     "checkboxNoise",
-                //     "isSelected"
-                //   ]).apply(null, eventArgs);
-                //   if (
-                //     eventArgs.length > 1 &&
-                //     eventArgs[1] &&
-                //     eventArgs[1]._plasmic_state_init_
-                //   ) {
-                //     return;
-                //   }
-                //   (async val => {
-                //     const $steps = {};
-                //     $steps["select"] =
-                //       $state.checkboxNoise.isSelected === true
-                //         ? (() => {
-                //             const actionArgs = {
-                //               variable: {
-                //                 objRoot: $state,
-                //                 variablePath: ["selectedLayers"]
-                //               },
-                //               operation: 0,
-                //               value: [...($state.selectedLayers || []), "noise"]
-                //             };
-                //             return (({
-                //               variable,
-                //               value,
-                //               startIndex,
-                //               deleteCount
-                //             }) => {
-                //               if (!variable) {
-                //                 return;
-                //               }
-                //               const { objRoot, variablePath } = variable;
-                //               $stateSet(objRoot, variablePath, value);
-                //               return value;
-                //             })?.apply(null, [actionArgs]);
-                //           })()
-                //         : undefined;
-                //     if (
-                //       $steps["select"] != null &&
-                //       typeof $steps["select"] === "object" &&
-                //       typeof $steps["select"].then === "function"
-                //     ) {
-                //       $steps["select"] = await $steps["select"];
-                //     }
-                //     $steps["unselect"] =
-                //       $state.checkboxNoise.isSelected === false
-                //         ? (() => {
-                //             const actionArgs = {
-                //               variable: {
-                //                 objRoot: $state,
-                //                 variablePath: ["selectedLayers"]
-                //               },
-                //               operation: 0,
-                //               value: ($state.selectedLayers || []).filter(
-                //                 layer => layer !== "noise"
-                //               )
-                //             };
-                //             return (({
-                //               variable,
-                //               value,
-                //               startIndex,
-                //               deleteCount
-                //             }) => {
-                //               if (!variable) {
-                //                 return;
-                //               }
-                //               const { objRoot, variablePath } = variable;
-                //               $stateSet(objRoot, variablePath, value);
-                //               return value;
-                //             })?.apply(null, [actionArgs]);
-                //           })()
-                //         : undefined;
-                //     if (
-                //       $steps["unselect"] != null &&
-                //       typeof $steps["unselect"] === "object" &&
-                //       typeof $steps["unselect"].then === "function"
-                //     ) {
-                //       $steps["unselect"] = await $steps["unselect"];
-                //     }
-                //   }).apply(null, eventArgs);
-                // }}
-              />
-
-              <Checkbox
-                data-plasmic-name={"checkboxTree"}
-                data-plasmic-override={overrides.checkboxTree}
-                className={classNames("__wab_instance", sty.checkboxTree)}
-                label={"Trees"}
-                onChange={async (...eventArgs) => {
-                  generateStateOnChangeProp($state, [
-                    "checkboxTree",
-                    "isSelected"
-                  ]).apply(null, eventArgs);
-                  if (
-                    eventArgs.length > 1 &&
-                    eventArgs[1] &&
-                    eventArgs[1]._plasmic_state_init_
-                  ) {
-                    return;
-                  }
-                  (async val => {
-                    const $steps = {};
-                    $steps["select"] =
-                      $state.checkboxTree.isSelected === true
-                        ? (() => {
-                            const actionArgs = {
-                              variable: {
-                                objRoot: $state,
-                                variablePath: ["selectedLayers"]
-                              },
-                              operation: 0,
-                              value: [...($state.selectedLayers || []), "tree"]
-                            };
-                            return (({
-                              variable,
-                              value,
-                              startIndex,
-                              deleteCount
-                            }) => {
-                              if (!variable) {
-                                return;
-                              }
-                              const { objRoot, variablePath } = variable;
-                              $stateSet(objRoot, variablePath, value);
-                              return value;
-                            })?.apply(null, [actionArgs]);
-                          })()
-                        : undefined;
-                    if (
-                      $steps["select"] != null &&
-                      typeof $steps["select"] === "object" &&
-                      typeof $steps["select"].then === "function"
-                    ) {
-                      $steps["select"] = await $steps["select"];
-                    }
-                    $steps["unselect"] =
-                      $state.checkboxTree.isSelected === false
-                        ? (() => {
-                            const actionArgs = {
-                              variable: {
-                                objRoot: $state,
-                                variablePath: ["selectedLayers"]
-                              },
-                              operation: 0,
-                              value: ($state.selectedLayers || []).filter(
-                                layer => layer !== "tree"
-                              )
-                            };
-                            return (({
-                              variable,
-                              value,
-                              startIndex,
-                              deleteCount
-                            }) => {
-                              if (!variable) {
-                                return;
-                              }
-                              const { objRoot, variablePath } = variable;
-                              $stateSet(objRoot, variablePath, value);
-                              return value;
-                            })?.apply(null, [actionArgs]);
-                          })()
-                        : undefined;
-                    if (
-                      $steps["unselect"] != null &&
-                      typeof $steps["unselect"] === "object" &&
-                      typeof $steps["unselect"].then === "function"
-                    ) {
-                      $steps["unselect"] = await $steps["unselect"];
-                    }
-                  }).apply(null, eventArgs);
-                }}
-              />
+                {/* Category 3: Vegetation */}
+                <div className={sty["faq-item"]}>
+                  <button className={sty["faq-question"]} onClick={() => toggleCategory("veg")}>
+                    Vegetation
+                    <span className={sty["faq-icon"]}>{openCategory === "veg" ? "−" : "+"}</span>
+                  </button>
+                  {openCategory === "veg" && (
+                    <div className={sty["faq-answer"]}>
+                      <Checkbox
+                        data-plasmic-name={"checkboxTree"}
+                        data-plasmic-override={overrides.checkboxTree}
+                        className={classNames("__wab_instance", sty.checkboxTree)}
+                        label={"Trees"}
+                        onChange={(e) => toggleLayer("tree")}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
 
               {/* Load Layers */}
-              <label style={{ fontWeight: "bold", marginTop: "15px", display: "block" }}>Layers</label>
-              <label>
-                <input 
-                  type="checkbox" 
-                  checked={selectedLayers.includes("roads")} 
-                  onChange={() => toggleLayer("roads")} 
-                /> Roads
-              </label>
+              <div className={sty["sidebar-section"]}>
+                <h3 className={sty["sidebar-title"]}>Map Layers</h3>
+                <label>
+                  <input 
+                    type="checkbox" 
+                    checked={selectedLayers.includes("roads")} 
+                    onChange={() => toggleLayer("roads")} 
+                  /> Roads
+                </label>
+              </div>
 
             </div>
           </div>
