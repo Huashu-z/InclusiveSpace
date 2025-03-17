@@ -145,15 +145,19 @@ const MapComponent = ({
   const [availableFiles, setAvailableFiles] = useState([]);
   const [roadNetwork, setRoadNetwork] = useState(null);
 
-  const buildGraph = (roadData) => {
+  const buildGraph = (roadData, selectedLayers) => {
     const graph = new Graph({ directed: false });
   
     console.log("📌 开始解析道路数据...");
     let totalEdges = 0;
     let totalFeatures = 0;
+
+    // 是否启用噪声权重
+    const applyNoiseWeight = selectedLayers.includes("noise"); 
   
     roadData.features.forEach((feature, idx) => {
       const geom = feature.geometry;
+      const properties = feature.properties;
       //if (!geom) return;
       if (!geom) {
         console.warn(`⚠️ Feature ${idx} 无几何数据`);
@@ -175,11 +179,22 @@ const MapComponent = ({
           const endKey = `${endProj[0]},${endProj[1]}`;
   
           const dist = Math.hypot(startProj[0] - endProj[0], startProj[1] - endProj[1]);
+          // const weightFactor = properties.weight_noise ?? 1.0; // 如果 `weight_noise` 不存在，则默认为 1.0
+          // const weightedDist = dist / weightFactor; // **调整距离**
           //console.log(`边距离: ${dist} 米，起点: ${startKey}，终点: ${endKey}`); // 添加调试日志
-          //const dist = Math.sqrt((startProj[0] - endProj[0]) ** 2 + (startProj[1] - endProj[1]) ** 2);
-  
-          graph.setEdge(startKey, endKey, dist);
-          graph.setEdge(endKey, startKey, dist);
+
+          let weightedDist = dist; 
+
+          // ✅ 只有在 "Noise" 选中的情况下，才对距离应用 `weight_noise`
+          if (applyNoiseWeight) {
+            const weightFactor = properties.weight_noise !== undefined ? properties.weight_noise : 1.0;
+            weightedDist = dist / weightFactor; // 🚀 确保速度降低时，距离增加
+          }
+
+          graph.setEdge(startKey, endKey, weightedDist);
+          graph.setEdge(endKey, startKey, weightedDist);
+          // graph.setEdge(startKey, endKey, dist);
+          // graph.setEdge(endKey, startKey, dist);
           //console.log(`添加双向边: ${startKey} ↔ ${endKey} (距离: ${dist.toFixed(2)} 米)`); // 格式化输出
           totalEdges++;
         }
@@ -200,7 +215,8 @@ const MapComponent = ({
     if (selectedLayers.includes("roads")) {
       const fetchRoadData = async () => {
         try {
-          const response = await fetch("/data/stadtstrassen_EPSG_4326.json");
+          //const response = await fetch("/data/stadtstrassen_EPSG_4326.json");
+          const response = await fetch("/data/street_noise_4326.geojson");
           if (!response.ok) throw new Error("Unable to load road data");
           const data = await response.json();
           setRoadNetwork(data);
@@ -231,6 +247,9 @@ const MapComponent = ({
     console.log("Current walking time:", walkingTime);
   }, [walkingTime]);  
 
+  useEffect(() => {
+    console.log("🚀 MapComponent 接收到 selectedLayers:", selectedLayers);
+  }, [selectedLayers]);
   
   useEffect(() => {
     const loadGeoJsonData = async () => {
@@ -300,29 +319,7 @@ const MapComponent = ({
     //-----------------------------------------------
     // 2) 从图里把可达道路(边)筛选出来，生成 LineString
     //-----------------------------------------------
-    // const lineFeatures = [];
-    // graph.edges().forEach((edge) => {
-    //   const distU = resultObj[edge.v]?.distance;
-    //   const distV = resultObj[edge.w]?.distance;
-    //   if (distU != null && distV != null && distU <= maxDistance && distV <= maxDistance) {
-    //     const [x1, y1] = edge.v.split(",").map(Number);
-    //     const [x2, y2] = edge.w.split(",").map(Number);
-    //     const coord1 = toWGS84([x1, y1]); // [lon, lat]
-    //     const coord2 = toWGS84([x2, y2]); // [lon, lat]
-    //     lineFeatures.push({
-    //       type: "Feature",
-    //       geometry: {
-    //         type: "LineString",
-    //         coordinates: [coord1, coord2],
-    //       },
-    //       properties: {},
-    //     });
-    //   }
-    // });
-    // const roadsFC = {
-    //   type: "FeatureCollection",
-    //   features: lineFeatures,
-    // };
+
     const lineFeatures = [];
     const reachableNodes = new Set(
       Object.entries(resultObj)
@@ -339,7 +336,7 @@ const MapComponent = ({
       const isWReachable = reachableNodes.has(edge.w);
 
       // 如果至少一端可达，则保留该边
-      if (isVReachable || isWReachable) {
+      if (isVReachable && isWReachable) {
         const [x1, y1] = edge.v.split(",").map(Number);
         const [x2, y2] = edge.w.split(",").map(Number);
         const coord1 = toWGS84([x1, y1]); // [lon, lat]
@@ -392,7 +389,8 @@ const MapComponent = ({
       console.log("开始计算可达性区域...");
       setIsCalculating(true);
 
-      const roadGraph = buildGraph(roadNetwork);
+      const roadGraph = buildGraph(roadNetwork, selectedLayers);
+      console.log("🚀 是否启用了 Noise 影响:", selectedLayers.includes("noise"));
       const adjustedStartPoint = findNearestGraphNode(startPoint, roadGraph);
       console.log("调整后的起点(UTM 25832):", adjustedStartPoint);
 
@@ -410,7 +408,7 @@ const MapComponent = ({
 
       setComputeAccessibility(false);
     }
-  }, [computeAccessibility]);
+  }, [computeAccessibility, selectedLayers]);
 
 
   // 监听地图点击事件
