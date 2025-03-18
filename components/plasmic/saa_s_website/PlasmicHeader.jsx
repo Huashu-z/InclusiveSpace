@@ -89,56 +89,42 @@ function PlasmicHeader__RenderFunc(props) {
           hasGap={true}
           className={classNames(projectcss.all, sty.freeBox___8G5F)}
         >
-          <PlasmicLink__
-            className={classNames(
-              projectcss.all,
-              projectcss.a,
-              sty.link__hOoNi
-            )}
-            component={Link}
-            href={`/`}
-            platform={"nextjs"}
-          >
-            <PlasmicImg__
-              data-plasmic-name={"img"}
-              data-plasmic-override={overrides.img}
-              alt={""}
-              className={classNames(sty.img)}
-              displayHeight={"37px"}
-              displayMaxHeight={"none"}
-              displayMaxWidth={"100%"}
-              displayMinHeight={"0"}
-              displayMinWidth={"0"}
-              displayWidth={"auto"}
-              loading={"lazy"}
-              src={{
-                src: "/plasmic/saa_s_website/images/logoWithoutTextPng.png",
-                fullWidth: 111,
-                fullHeight: 112,
-                aspectRatio: undefined
-              }}
-            />
-          </PlasmicLink__>
-          <Stack__ as={"div"} hasGap={true} className={sty["link-container-wrapper"]}>
+          <Stack__ as={"div"} className={sty["header-container"]} hasGap={true}>
             
-            {/* User 按钮 */}
-            <Stack__
-              as={Link}
-              hasGap={true}
-              href={`/`}
-              className={`${sty["link__container"]} ${currentPath === "/" ? sty["active"] : ""}`}
-            >
-              <div>User</div>
+            {/* ✅ 左侧 Logo */}
+            <Stack__ as={"div"} className={sty["logo-container"]}>
+              <Link href={`/`}>
+                <img
+                  src="/plasmic/saa_s_website/images/tum_logo.png"
+                  alt="Logo"
+                />
+              </Link>
+              <Link href={`/`}>
+                <img
+                  src="/plasmic/saa_s_website/images/logoIS.png"
+                  alt="Logo"
+                />
+              </Link>
+              
             </Stack__>
 
-            {/* Planner 按钮 */}
-            <Stack__
-              as={Link}
-              hasGap={true}
-              href={`/planner`}
-              className={`${sty["link__container"]} ${currentPath === "/planner" ? sty["active"] : ""}`}
-            >
-              <div>Planner</div>
+            {/* ✅ 右侧 User & Planner 按钮 */}
+            <Stack__ as={"div"} className={sty["link-container-wrapper"]} hasGap={true}>
+              <Stack__
+                as={Link}
+                href={`/`}
+                className={`${sty["link__container"]} ${currentPath === "/" ? sty["active"] : ""}`}
+              >
+                <div>User</div>
+              </Stack__>
+
+              <Stack__
+                as={Link}
+                href={`/planner`}
+                className={`${sty["link__container"]} ${currentPath === "/planner" ? sty["active"] : ""}`}
+              >
+                <div>Planner</div>
+              </Stack__>
             </Stack__>
 
           </Stack__>
