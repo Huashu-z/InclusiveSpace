@@ -124,7 +124,7 @@ function PlasmicUser__RenderFunc(props) {
         initFunc: ({ $props, $state, $queries, $ctx }) => $props.sidebarClose
       },
       {
-        path: "checkboxIntersection.isSelected",
+        path: "checkboxLight.isSelected",
         type: "private",
         variableType: "boolean",
         initFunc: ({ $props, $state, $queries, $ctx }) => undefined
@@ -136,7 +136,7 @@ function PlasmicUser__RenderFunc(props) {
         initFunc: ({ $props, $state, $queries, $ctx }) => undefined
       },
       {
-        path: "checkboxLights.isSelected",
+        path: "checkboxCrossing.isSelected",
         type: "private",
         variableType: "boolean",
         initFunc: ({ $props, $state, $queries, $ctx }) => undefined
@@ -471,11 +471,11 @@ function PlasmicUser__RenderFunc(props) {
                     </button>
                     {openCategory === "infra" && (
                       <div className={sty["faq-answer"]}>
-                        {/* Intersection Density Weight Setting */}
+                        {/* Light Weight Setting */}
                         <div className={sty["checkbox-container"]}>
                           <label className={sty["checkbox-label"]}>
-                            <input type="checkbox" onChange={() => toggleLayer("intersection_density")} />
-                            <span className={sty["sidebar-text"]}>Intersection Density</span>
+                            <input type="checkbox" onChange={() => toggleLayer("light")} />
+                            <span className={sty["sidebar-text"]}>Light</span>
                           </label>
                           <input type="number" className={sty["checkbox-input"]} 
                             placeholder="0 - 1"  
@@ -509,11 +509,11 @@ function PlasmicUser__RenderFunc(props) {
                     </button>
                     {openCategory === "env" && (
                       <div className={sty["faq-answer"]}>
-                        {/* Street Lights Weight Setting */}
+                        {/* Street Crossing Weight Setting */}
                         <div className={sty["checkbox-container"]}>
                           <label className={sty["checkbox-label"]}>
-                            <input type="checkbox" onChange={() => toggleLayer("lighting")} />
-                            <span className={sty["sidebar-text"]}>Street Lights</span>
+                            <input type="checkbox" onChange={() => toggleLayer("Crossing")} />
+                            <span className={sty["sidebar-text"]}>Street Crossing</span>
                           </label>
                           <input type="number" className={sty["checkbox-input"]} 
                             placeholder="0 - 1"  
@@ -595,9 +595,9 @@ const PlasmicDescendants = {
     "mapBox",
     "sideBarBox",
     "freeBox",
-    "checkboxIntersection",
+    "checkboxLight",
     "checkboxTactilePav",
-    "checkboxLights",
+    "checkboxCrossing",
     "checkboxPoi",
     "checkboxNoise",
     "checkboxTree"
@@ -609,9 +609,9 @@ const PlasmicDescendants = {
   sideBarBox: [
     "sideBarBox",
     "freeBox",
-    "checkboxIntersection",
+    "checkboxLight",
     "checkboxTactilePav",
-    "checkboxLights",
+    "checkboxCrossing",
     "checkboxPoi",
     "checkboxNoise",
     "checkboxTree"
@@ -619,17 +619,17 @@ const PlasmicDescendants = {
 
   freeBox: [
     "freeBox",
-    "checkboxIntersection",
+    "checkboxLight",
     "checkboxTactilePav",
-    "checkboxLights",
+    "checkboxCrossing",
     "checkboxPoi",
     "checkboxNoise",
     "checkboxTree"
   ],
 
-  checkboxIntersection: ["checkboxIntersection"],
+  checkboxLight: ["checkboxLight"],
   checkboxTactilePav: ["checkboxTactilePav"],
-  checkboxLights: ["checkboxLights"],
+  checkboxCrossing: ["checkboxCrossing"],
   checkboxPoi: ["checkboxPoi"],
   checkboxNoise: ["checkboxNoise"],
   checkboxTree: ["checkboxTree"]
@@ -672,9 +672,9 @@ export const PlasmicUser = Object.assign(
     mapBox: makeNodeComponent("mapBox"),
     sideBarBox: makeNodeComponent("sideBarBox"),
     freeBox: makeNodeComponent("freeBox"),
-    checkboxIntersection: makeNodeComponent("checkboxIntersection"),
+    checkboxLight: makeNodeComponent("checkboxLight"),
     checkboxTactilePav: makeNodeComponent("checkboxTactilePav"),
-    checkboxLights: makeNodeComponent("checkboxLights"),
+    checkboxCrossing: makeNodeComponent("checkboxCrossing"),
     checkboxPoi: makeNodeComponent("checkboxPoi"),
     checkboxNoise: makeNodeComponent("checkboxNoise"),
     checkboxTree: makeNodeComponent("checkboxTree"),

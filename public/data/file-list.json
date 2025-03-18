@@ -1,9 +1,9 @@
 [
     "15min.geojson",
-    "15_area.geojson", 
-    "15_area_noise.geojson", 
+    "15_area.geojson",  
     "15_area_intersection_density.geojson", 
     "15_intersection_density.geojson", 
     "15_default.geojson", 
-    "15_noise.geojson" 
+    "buffer_noise.geojson",
+    "buffer_light.geojson"
 ]
