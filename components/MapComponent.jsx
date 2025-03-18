@@ -52,27 +52,6 @@ const toWGS84 = (coord) => {
   return wgs84;
 };
 
-// const findNearestGraphNode = (startPoint, graph) => {
-//   const projectedStart = toProjected(startPoint); // ✅ 计算时转换 `EPSG:25832`
-
-//   let nearestNode = null;
-//   let minDistance = Infinity;
-
-//   graph.nodes().forEach((nodeKey) => {
-//     const [x, y] = nodeKey.split(",").map(Number);
-//     const distance = Math.sqrt((x - projectedStart[0]) ** 2 + (y - projectedStart[1]) ** 2);
-
-//     if (distance < minDistance) {
-//       minDistance = distance;
-//       nearestNode = [x, y];
-//     }
-//   });
-
-//   console.log("📍 选中的起点 (25832):", projectedStart);
-//   console.log("📌 Graph 里最近的匹配点:", nearestNode);
-//   return nearestNode || projectedStart;
-// };
-
 const findNearestGraphNode = (startPoint, graph) => {
   const projectedStart = toProjected(startPoint); // 获取起点的UTM坐标
 
@@ -461,7 +440,7 @@ const MapComponent = ({
 
   return (
     <div className="mapBox">
-      <MapContainer center={[53.557134, 10.012200]} zoom={13} style={{ width: "100%", height: "100vh" }}>
+      <MapContainer center={[53.48929, 10.20823]} zoom={13} style={{ width: "100%", height: "100vh" }}>
         <TileLayer attribution='&copy; OpenStreetMap contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         <MapClickHandler />
 
