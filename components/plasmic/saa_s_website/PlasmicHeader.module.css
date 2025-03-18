@@ -243,8 +243,7 @@
   align-items: center;
   justify-content: flex-start;
   flex-grow: 1;
-  gap: 10px; /* ✅ 让两个 Logo 之间有间距 */
-  padding: 0px 0;
+  gap: 20px; /* gap between logos */
 }
 
 .logo-container img {
