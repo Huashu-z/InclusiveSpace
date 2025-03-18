@@ -134,6 +134,7 @@ const MapComponent = ({
   selectingStart, 
   setSelectingStart, 
   walkingTime, 
+  walkingSpeed, 
   startPoint, 
   setStartPoint,
   computeAccessibility,
@@ -263,6 +264,9 @@ const MapComponent = ({
   useEffect(() => {
     console.log("Current walking time:", walkingTime);
   }, [walkingTime]);  
+  useEffect(() => {
+    console.log("Current walking speed:", walkingSpeed);
+  }, [walkingSpeed]); 
 
   useEffect(() => {
     console.log("🚀 MapComponent 接收到 selectedLayers:", selectedLayers);

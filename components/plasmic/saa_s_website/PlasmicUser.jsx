@@ -60,10 +60,13 @@ function PlasmicUser__RenderFunc(props) {
   const [startPoint, setStartPoint] = React.useState(null); // Stores the user-selected starting point
   const [computeAccessibility, setComputeAccessibility] = React.useState(false);
   const [walkingTime, setWalkingTime] = React.useState(15); // Default walking time is 15 minutes
+  const [walkingSpeed, setWalkingSpeed] = React.useState(5); // Default walking speed is 5 km/h
   const [selectedLayers, setSelectedLayers] = React.useState([]); // load Layer
 
   // slidebar categorys
-  const [openCategory, setOpenCategory] = React.useState(null);
+  const [openCategory, setOpenCategory] = React.useState(null); // Opened variable category
+  const [showInfo, setShowInfo] = React.useState(false); // Show the info box about variables
+
   const toggleCategory = (category) => {
     setOpenCategory(openCategory === category ? null : category);
   };
@@ -247,6 +250,7 @@ function PlasmicUser__RenderFunc(props) {
               selectingStart={selectingStart} 
               setSelectingStart={setSelectingStart}
               walkingTime={walkingTime} 
+              walkingSpeed={walkingSpeed} 
               startPoint={startPoint} // Transfer starting point
               setStartPoint={setStartPoint} // Allow MapComponent to modify the starting point
               computeAccessibility={computeAccessibility} // Trigger calculation
@@ -367,41 +371,57 @@ function PlasmicUser__RenderFunc(props) {
               })}
             > 
 
+              {/*  User Setting Section */}
               <div className={sty["sidebar-section"]}>
                 <h3 className={sty["sidebar-title"]}>User Setting</h3>
+                {/* Walking Time */}
+                <div className={sty["sidebar-text-bold"]}>
+                  Walking Time <span className={sty["sidebar-text"]}>({walkingTime} minutes)</span>
+                </div>
                 <div className={sty["sidebar-slider"]}>
-                  {/* Add a slider to select walking time */}
-                  <label style={{ display: "block", marginBottom: "5px" }}>
-                    Walking time（{walkingTime} minutes）:
-                  </label>
-                  <input
-                    type="range"
-                    min="1"
-                    max="60"
-                    step="1"
-                    value={walkingTime}
-                    onChange={(e) => setWalkingTime(Number(e.target.value))}
-                    className={sty["sidebar-slider"]} 
-                  />
+                    <input
+                      type="range"
+                      min="1"
+                      max="60"
+                      step="1"
+                      value={walkingTime}
+                      onChange={(e) => setWalkingTime(Number(e.target.value))}
+                      className={sty["input"]}
+                    />
+                </div>
+                {/* Walking Speed */}
+                <div className={sty["sidebar-text-bold"]}>
+                  Walking Speed <span className={sty["sidebar-text"]}>({walkingSpeed} km/h)</span>
+                </div>
+                <div className={sty["sidebar-slider"]}>
+                    <input
+                      type="range"
+                      min="1"
+                      max="8"
+                      step="0.1"
+                      value={walkingSpeed}
+                      onChange={(e) => setWalkingSpeed(Number(e.target.value))}
+                      className={sty["input"]}
+                    />
                 </div>
 
+                {/* Add a "Select starting point" button here */}
                 <div className={sty["button-container"]}>
-                  {/* Add a "Select starting point" button here */}
-                  <div style={{ display: "flex", justifyContent: "flex-start" }}>
-                    <button 
-                      onClick={() => setSelectingStart(true)}
-                      className={sty["setup-button"]}
-                    >
-                      <img 
-                        src="https://cdn-icons-png.flaticon.com/512/684/684908.png" 
-                        alt="Location Icon"
-                        className={sty["img"]} 
-                      />
-                      Select Start Point
-                    </button>
-                  </div>
+                  <button 
+                    onClick={() => setSelectingStart(true)}
+                    className={sty["setup-button"]}
+                  >
+                    <img 
+                      src="https://cdn-icons-png.flaticon.com/512/684/684908.png" 
+                      alt="Location Icon"
+                      className={sty["img"]} 
+                    />
+                    <span className={sty["sidebar-text-bold"]}>Select Start Point</span>
+                  </button>
+                </div>
+                <div className={sty["button-container"]}>
                   {/* button for accessibility computation */}
-                  <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+                  <div className={sty["button-container"]}>
                     <button
                       onClick={() => {
                         if (!startPoint) {
@@ -412,90 +432,138 @@ function PlasmicUser__RenderFunc(props) {
                       }}
                       className={sty["setup-button"]}
                     >
-                      Attachment Area
+                      <span className={sty["sidebar-text-bold"]}>Get Attachment Area</span>
                     </button>
 
                     <button
                       onClick={handleResetResults}
                       className={sty["setup-button"]}
                     >
-                      Reset Results
+                      <span className={sty["sidebar-text-bold"]}>Reset</span>
                     </button>
                   </div>
                 </div>
               </div>
 
+              {/* 🟢 Analysis Variables */}
               <div className={sty["sidebar-section"]}>
-                <h3 className={sty["sidebar-title"]}>Variable</h3>
-                {/* Category 1: Infrastructure */}
-                <div className={sty["faq-item"]}>
-                  <button className={sty["faq-question"]} onClick={() => toggleCategory("infra")}>
-                    Infrastructure
-                    <span className={sty["faq-icon"]}>{openCategory === "infra" ? "−" : "+"}</span>
-                  </button>
-                  {openCategory === "infra" && (
-                    <div className={sty["faq-answer"]}>
-                      <Checkbox
-                        data-plasmic-name={"checkboxIntersection"}
-                        data-plasmic-override={overrides.checkboxIntersection}
-                        className={classNames("__wab_instance", sty.checkboxIntersection)}
-                        label={"Intersection Density"}
-                        onChange={(e) => toggleLayer("intersection_density")}
-                      />
-                      <Checkbox
-                        data-plasmic-name={"checkboxTactilePav"}
-                        data-plasmic-override={overrides.checkboxTactilePav}
-                        className={classNames("__wab_instance", sty.checkboxTactilePav)}
-                        label={"Tactile Pavement"}
-                        onChange={(e) => toggleLayer("tactile_pavement")}
-                      />
-                    </div>
-                  )}
+                <div className={sty["title-container"]}>
+                  <h3 className={sty["sidebar-title"]}>Variable</h3>
+                  {/* info icon，click to show tooltip */}
+                  <span
+                    className={sty["info-icon"]}
+                    onClick={() => setShowInfo(!showInfo)}
+                  >
+                    i
+                  </span>
+                  {/* tooltip*/}
+                  <div className={`${sty["tooltip"]} ${showInfo ? sty["show"] : ""}`}>
+                    Select different variables to influence the accessibility analysis.
+                  </div>
                 </div>
+                
+                <div className={sty["faq-container"]}>
+                  {/* Infrastructure */}
+                  <div className={sty["faq-item"]}>
+                    <button className={sty["faq-question"]} onClick={() => toggleCategory("infra")}>
+                      <span className={sty["sidebar-subtitle"]}>Infrastructure</span>
+                      <span className={sty["faq-icon"]}>{openCategory === "infra" ? "−" : "+"}</span>
+                    </button>
+                    {openCategory === "infra" && (
+                      <div className={sty["faq-answer"]}>
+                        {/* Intersection Density Weight Setting */}
+                        <div className={sty["checkbox-container"]}>
+                          <label className={sty["checkbox-label"]}>
+                            <input type="checkbox" onChange={() => toggleLayer("intersection_density")} />
+                            <span className={sty["sidebar-text"]}>Intersection Density</span>
+                          </label>
+                          <input type="number" className={sty["checkbox-input"]} 
+                            placeholder="0 - 1"  
+                            min="0" 
+                            max="1" 
+                            step="0.1"
+                          />
+                        </div>
+                        {/* Tactile Pavement Weight Setting */}
+                        <div className={sty["checkbox-container"]}>
+                          <label className={sty["checkbox-label"]}>
+                            <input type="checkbox" onChange={() => toggleLayer("tactile_pavement")} />
+                            <span className={sty["sidebar-text"]}>Tactile Pavement</span>
+                          </label>
+                          <input type="number" className={sty["checkbox-input"]} 
+                            placeholder="0 - 1"  
+                            min="0" 
+                            max="1" 
+                            step="0.1"
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
 
-                {/* Category 2: Environmental Factors */}
-                <div className={sty["faq-item"]}>
-                  <button className={sty["faq-question"]} onClick={() => toggleCategory("env")}>
-                    Environmental Factors
-                    <span className={sty["faq-icon"]}>{openCategory === "env" ? "−" : "+"}</span>
-                  </button>
-                  {openCategory === "env" && (
-                    <div className={sty["faq-answer"]}>
-                      <Checkbox
-                        data-plasmic-name={"checkboxLights"}
-                        data-plasmic-override={overrides.checkboxLights}
-                        className={classNames("__wab_instance", sty.checkboxLights)}
-                        label={"Street Lights"}
-                        onChange={(e) => toggleLayer("lighting")}
-                      />
-                      <Checkbox
-                        data-plasmic-name={"checkboxNoise"}
-                        data-plasmic-override={overrides.checkboxNoise}
-                        className={classNames("__wab_instance", sty.checkboxNoise)}
-                        label={"Noise"}
-                        onChange={(e) => toggleLayer("noise")}
-                      />
-                    </div>
-                  )}
-                </div>
+                  {/* Environmental Factors */}
+                  <div className={sty["faq-item"]}>
+                    <button className={sty["faq-question"]} onClick={() => toggleCategory("env")}>
+                      <span className={sty["sidebar-subtitle"]}>Environmental Factors</span>
+                      <span className={sty["faq-icon"]}>{openCategory === "env" ? "−" : "+"}</span>
+                    </button>
+                    {openCategory === "env" && (
+                      <div className={sty["faq-answer"]}>
+                        {/* Street Lights Weight Setting */}
+                        <div className={sty["checkbox-container"]}>
+                          <label className={sty["checkbox-label"]}>
+                            <input type="checkbox" onChange={() => toggleLayer("lighting")} />
+                            <span className={sty["sidebar-text"]}>Street Lights</span>
+                          </label>
+                          <input type="number" className={sty["checkbox-input"]} 
+                            placeholder="0 - 1"  
+                            min="0" 
+                            max="1" 
+                            step="0.1"
+                          />
+                        </div>
+                        {/* Noise Weight Setting */}
+                        <div className={sty["checkbox-container"]}>
+                          <label className={sty["checkbox-label"]}>
+                            <input type="checkbox" onChange={() => toggleLayer("noise")} />
+                            <span className={sty["sidebar-text"]}>Noise</span>
+                          </label>
+                          <input type="number" className={sty["checkbox-input"]} 
+                            placeholder="0 - 1"  
+                            min="0" 
+                            max="1" 
+                            step="0.1"
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
 
-                {/* Category 3: Vegetation */}
-                <div className={sty["faq-item"]}>
-                  <button className={sty["faq-question"]} onClick={() => toggleCategory("veg")}>
-                    Vegetation
-                    <span className={sty["faq-icon"]}>{openCategory === "veg" ? "−" : "+"}</span>
-                  </button>
-                  {openCategory === "veg" && (
-                    <div className={sty["faq-answer"]}>
-                      <Checkbox
-                        data-plasmic-name={"checkboxTree"}
-                        data-plasmic-override={overrides.checkboxTree}
-                        className={classNames("__wab_instance", sty.checkboxTree)}
-                        label={"Trees"}
-                        onChange={(e) => toggleLayer("tree")}
-                      />
-                    </div>
-                  )}
+                  {/* Vegetation */}
+                  <div className={sty["faq-item"]}>
+                    <button className={sty["faq-question"]} onClick={() => toggleCategory("veg")}>
+                      <span className={sty["sidebar-subtitle"]}>Vegetation</span>
+                      <span className={sty["faq-icon"]}>{openCategory === "veg" ? "−" : "+"}</span>
+                    </button>
+                    {openCategory === "veg" && (
+                      <div className={sty["faq-answer"]}>
+                        {/* Trees Weight Setting */}
+                        <div className={sty["checkbox-container"]}>
+                          <label className={sty["checkbox-label"]}>
+                            <input type="checkbox" onChange={() => toggleLayer("tree")} />
+                            <span className={sty["sidebar-text"]}>Trees</span>
+                          </label>
+                          <input type="number" className={sty["checkbox-input"]} 
+                            placeholder="0 - 1"  
+                            min="0" 
+                            max="1" 
+                            step="0.1"
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
                 </div>
               </div>
 
