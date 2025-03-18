@@ -18,7 +18,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 40px;
+  height: 50px;
   position: relative;
   margin-bottom: 0px;
   flex-shrink: 0;
@@ -150,38 +150,7 @@
     margin-top: 8px;
   }
 }
-/* .link__hg10O {
-  position: relative;
-  transition-property: all;
-  transition-duration: 0.5s;
-  transition-timing-function: ease-out;
-  display: flex;
-  flex-direction: row;
-  cursor: pointer;
-  -webkit-transition-property: all;
-  -webkit-transition-timing-function: ease-out;
-  -webkit-transition-duration: 0.5s;
-  border-radius: 6px;
-  padding: 3px 16px;
-  border: 1px solid transparent;
-}
-.link__hg10O > :global(.__wab_flex-container) {
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-left: calc(0px - 8px);
-  width: calc(100% + 8px);
-}
-.link__hg10O > :global(.__wab_flex-container) > *,
-.link__hg10O > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
-.link__hg10O > :global(.__wab_flex-container) > picture > img,
-.link__hg10O
-  > :global(.__wab_flex-container)
-  > :global(.__wab_slot)
-  > picture
-  > img {
-  margin-left: 8px;
-} */
+
 .svg__aYrp0 {
   width: 24px;
   height: 24px;
@@ -209,6 +178,8 @@
   flex-shrink: 0;
 }
 
+
+/*-------------------------------------------------------------------------------*/
 /* 🟢 Stack 容器 - 让 User 和 Planner 靠近，并在 header 靠右 */
 .link-container-wrapper {
   display: flex;
@@ -253,39 +224,45 @@
 .link__container.active div {
   color: white !important;
 }
+/*-------------------------------------------------------------------------------*/
 
-/* .link__xrOnA {
-  position: relative;
-  transition-property: all;
-  transition-duration: 0.5s;
-  transition-timing-function: ease-out;
+/*-------------------------------------------------------------------------------*/
+/* 🟢 Header 容器，确保左右两端对齐 */
+.header-container {
+  width: 100%;
   display: flex;
-  flex-direction: row;
-  cursor: pointer;
-  -webkit-transition-property: all;
-  -webkit-transition-timing-function: ease-out;
-  -webkit-transition-duration: 0.5s;
-  border-radius: 6px;
-  padding: 3px 16px;
-  border: 1px solid transparent;
-}
-.link__xrOnA > :global(.__wab_flex-container) {
-  flex-direction: row;
+  justify-content: space-between; /* ✅ 左右对齐 */
   align-items: center;
-  justify-content: center;
-  margin-left: calc(0px - 8px);
-  width: calc(100% + 8px);
+  padding: 0 16px; /* ✅ 设置左右边距 */
+  height: 50px;
 }
-.link__xrOnA > :global(.__wab_flex-container) > *,
-.link__xrOnA > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
-.link__xrOnA > :global(.__wab_flex-container) > picture > img,
-.link__xrOnA
-  > :global(.__wab_flex-container)
-  > :global(.__wab_slot)
-  > picture
-  > img {
-  margin-left: 8px;
-} */
+
+/* 🟡 Logo 设置 */
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-grow: 1;
+  gap: 10px; /* ✅ 让两个 Logo 之间有间距 */
+  padding: 0px 0;
+}
+
+.logo-container img {
+  height: 50px; /* ✅ 统一 Logo 高度 */
+  max-width: 100px;
+  object-fit: contain;
+  margin-top: 6px; /* ✅ 清除可能的 margin */
+}
+
+/* 🔵 User & Planner 按钮 */
+.link-container-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px; /* ✅ 让两个按钮保持间距 */
+}
+/*-------------------------------------------------------------------------------*/
+
 .svg__nUno3 {
   width: 24px;
   height: 24px;
