@@ -60,6 +60,7 @@ function PlasmicHeader__RenderFunc(props) {
     ...variants
   };
   const __nextRouter = useNextRouter();
+  const currentPath = __nextRouter?.pathname || "/"; // Current path
   const $ctx = useDataEnv?.() || {};
   const refsRef = React.useRef({});
   const $refs = refsRef.current;
@@ -118,79 +119,28 @@ function PlasmicHeader__RenderFunc(props) {
               }}
             />
           </PlasmicLink__>
-          <Stack__
-            as={"div"}
-            hasGap={true}
-            className={classNames(projectcss.all, sty.freeBox__fXm77)}
-          >
+          <Stack__ as={"div"} hasGap={true} className={sty["link-container-wrapper"]}>
+            
+            {/* User 按钮 */}
             <Stack__
-              as={PlasmicLink__}
+              as={Link}
               hasGap={true}
-              className={classNames(
-                projectcss.all,
-                projectcss.a,
-                sty.link__hg10O
-              )}
-              component={Link}
               href={`/`}
-              platform={"nextjs"}
+              className={`${sty["link__container"]} ${currentPath === "/" ? sty["active"] : ""}`}
             >
-              {false ? (
-                <IconIcon
-                  className={classNames(projectcss.all, sty.svg__aYrp0)}
-                  role={"img"}
-                />
-              ) : null}
-              <div
-                className={classNames(
-                  projectcss.all,
-                  projectcss.__wab_text,
-                  sty.text__eWnv3
-                )}
-              >
-                {"User"}
-              </div>
-              {false ? (
-                <IconIcon
-                  className={classNames(projectcss.all, sty.svg__fV81Z)}
-                  role={"img"}
-                />
-              ) : null}
+              <div>User</div>
             </Stack__>
+
+            {/* Planner 按钮 */}
             <Stack__
-              as={PlasmicLink__}
+              as={Link}
               hasGap={true}
-              className={classNames(
-                projectcss.all,
-                projectcss.a,
-                sty.link__xrOnA
-              )}
-              component={Link}
               href={`/planner`}
-              platform={"nextjs"}
+              className={`${sty["link__container"]} ${currentPath === "/planner" ? sty["active"] : ""}`}
             >
-              {false ? (
-                <IconIcon
-                  className={classNames(projectcss.all, sty.svg__nUno3)}
-                  role={"img"}
-                />
-              ) : null}
-              <div
-                className={classNames(
-                  projectcss.all,
-                  projectcss.__wab_text,
-                  sty.text__zrwPm
-                )}
-              >
-                {"Planner"}
-              </div>
-              {false ? (
-                <IconIcon
-                  className={classNames(projectcss.all, sty.svg__jBAc5)}
-                  role={"img"}
-                />
-              ) : null}
+              <div>Planner</div>
             </Stack__>
+
           </Stack__>
         </Stack__>
       </div>

@@ -150,7 +150,7 @@
     margin-top: 8px;
   }
 }
-.link__hg10O {
+/* .link__hg10O {
   position: relative;
   transition-property: all;
   transition-duration: 0.5s;
@@ -181,7 +181,7 @@
   > picture
   > img {
   margin-left: 8px;
-}
+} */
 .svg__aYrp0 {
   width: 24px;
   height: 24px;
@@ -208,7 +208,53 @@
   color: #05050599;
   flex-shrink: 0;
 }
-.link__xrOnA {
+
+/* 🟢 Stack 容器 - 让 User 和 Planner 靠近，并在 header 靠右 */
+.link-container-wrapper {
+  display: flex;
+  justify-content: flex-end; /* ✅ 靠右对齐 */
+  align-items: center;
+  gap: 5px; /* ✅ 让两个按钮间距更小 */
+}
+
+/* 🟡 按钮默认状态 */
+.link__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+/* 🔵 悬停时 - 显示边框 */
+.link__container:hover {
+  border: 2px solid #173F5F;
+}
+
+/* 🔴 选中时 - 填充颜色 */
+.link__container.active {
+  background: #173F5F;
+  color: white !important;
+}
+
+/* 让文本颜色跟随状态变化 */
+.link__container div {
+  font-weight: 600;
+  font-size: 18px;
+  color: #173F5F;
+  transition: color 0.3s ease-in-out;
+}
+
+/* 选中状态的文本颜色 */
+.link__container.active div {
+  color: white !important;
+}
+
+/* .link__xrOnA {
   position: relative;
   transition-property: all;
   transition-duration: 0.5s;
@@ -239,7 +285,7 @@
   > picture
   > img {
   margin-left: 8px;
-}
+} */
 .svg__nUno3 {
   width: 24px;
   height: 24px;
