@@ -170,32 +170,74 @@
   max-width: 100%;
 }
 
-/* sidebar setting --------------------------------------------*/
+/* --------------------------------------------- */
+/* 🟢 Sidebar Setting (整体容器) */
+/* --------------------------------------------- */
 .sidebar-section {
   width: 100%;
-  border: 1px solid #D6D6D6; 
-  border-radius: 8px; 
-  padding: 12px; 
-  margin-bottom: 15px; 
-  background: white; 
+  border: 1px solid #D6D6D6;  /* 细灰色边框 */
+  border-radius: 8px;  /* 圆角边框 */
+  padding: 12px;  /* 内边距 */
+  margin-bottom: 15px;  /* 每个区块间隔 */
+  background: white;  /* 背景颜色 */
 }
+
+/* 顶级标题 (User Setting, Variable, Map Layers) */
 .sidebar-title {
-  font-size: 16px;
+  font-size: 18px;  /* 大字号 */
   font-weight: bold;
   color: #173F5F;
   padding: 8px 12px;
   border-radius: 5px;
-  text-transform: uppercase;
+  text-transform: uppercase;  /* 全大写 */
   margin-top: 15px;
   text-align: left;
 }
 
-/* 让 Variable 和 Layers 有更明显的间距 */
+/* 让第一个 .sidebar-title 顶部无多余间距 */
 .sidebar-title:first-child {
   margin-top: 0;
 }
 
-/* sidebar button ---------------------------------*/
+/* 二级标题 (Walking Time, Infrastructure, Select Start Point) */
+.sidebar-subtitle {
+  font-size: 16px;
+  font-weight: bold;
+  color: #173F5F;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+/* 三级文本 (Intersection Density, Street Lights, Noise) */
+.sidebar-text {
+  font-size: 14px;
+  font-weight: normal;
+  color: #333;
+  text-align: left;
+}
+.sidebar-text-bold {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  text-align: left;
+}
+
+/* --------------------------------------------- */
+/* 🟢 Sidebar Button (Select Start Point, 操作按钮) */
+/* --------------------------------------------- */
+/* 按钮容器，确保子元素并排 */
+.button-container {
+  display: flex;  /* 让子元素在同一行 */
+  gap: 10px;  /* 按钮之间的间距 */
+  width: 100%;  /* 适应 sidebar 宽度 */
+}
+
+/* 让两个按钮平分宽度 */
+.button-container button {
+  flex: 1;  /* 按钮宽度自动均分 */
+  text-align: center;
+}
 .setup-button {
   display: inline-flex; 
   align-items: center;
@@ -208,67 +250,85 @@
   border-radius: 5px;
   cursor: pointer;
   white-space: nowrap;
-  gap: 8px; 
+  gap: 8px;  /* 文字和图标间距 */
   width: 100%;
 }
 .setup-button:hover {
   background: #f0f0f0;
 }
 .setup-button img {
-  width: 16px; /* image size */
+  width: 16px; /* 图标大小 */
   height: 16px;
 }
-/* sidebar button ---------------------------------*/
 
-/* sidebar walkingtime slider---------------------- */
+/* --------------------------------------------- */
+/* 🟢 Sidebar Walking Time Slider (滑动条) */
+/* --------------------------------------------- */
 .sidebar-slider {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 5px;
 }
-/* The style of the slider*/
+
+/* 滑轨 (track) 样式 */
 .sidebar-slider input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
-  width: 90%;
+  width: 100%;
   height: 6px;
-  background: #173F5F; 
   border-radius: 5px;
   outline: none;
-  opacity: 0.9;
-  transition: opacity 0.2s;
-  margin-bottom: 20px; 
+  background: #173F5F; /* 轨道默认颜色 */
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
-/* When the mouse is hovering, the track transparency changes */
+
+/* 鼠标悬浮时轨道透明度变化 */
 .sidebar-slider input[type="range"]:hover {
   opacity: 1;
 }
-/* slider thumb style - Chrome, Safari, Edge */
+
+/* 滑块 (thumb) 样式 - Chrome, Safari, Edge */
 .sidebar-slider input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 18px;
   height: 18px;
-  background: #52ccae; /* thumb "color */
+  background: #52ccae;
+  border: 2px solid #173F5F;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+/* 🟢 滑块 (thumb) 样式 - Firefox */
+.sidebar-slider input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: #52ccae;
   border: 2px solid #173F5F;
   border-radius: 50%;
   cursor: pointer;
 }
-/* walkingtime slider---------------------- */
-
-/* sidebar category style ---------------------- */
+/* --------------------------------------------- */
+/* 🟢 Sidebar Category (FAQ 分类) */
+/* --------------------------------------------- */
 .faq-container {
-  width: 95%;
+  width: 100%;
   padding: 10px;
 }
-/* each category */
+
+/* 分类标题按钮 (Infrastructure, Environmental Factors) */
 .faq-item {
   border-bottom: 1px solid #ccc; /* 底部分割线 */
   padding: 10px 0;
   width: 100%;
 }
-/* category title button*/
+
+/* 分类标题 (按钮) */
 .faq-question {
   width: 100%;
   background: none;
@@ -283,26 +343,123 @@
   padding: 5px 0;
   color: #173F5F;
 }
-/* expand/collapse icon */
+
+/* 分类折叠/展开图标 */
 .faq-icon {
   font-size: 18px;
   font-weight: bold;
   color: #173F5F;
 }
-/* Checkbox area */
+
+/* 分类展开内容 */
 .faq-answer {
   padding: 5px 0;
   margin-top: 5px;
 }
-/* Checkbox label */
+
+/* Checkbox + 输入框容器 */
+.checkbox-container {
+  display: flex;
+  align-items: center;  /* ✅ 让 Checkbox 和输入框对齐 */
+  justify-content: space-between;  /* ✅ 让 Checkbox 左对齐，输入框右对齐 */
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+/* 让输入框对齐 Checkbox */
+.checkbox-input {
+  width: 60px;  /* ✅ 设置合适的宽度 */
+  height: 24px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* 鼠标悬停时输入框更明显 */
+.checkbox-input:focus {
+  border-color: #173F5F;
+  outline: none;
+}
+
+/* 复选框 Label */
 .checkbox-label {
   display: flex;
   align-items: center;
-  font-size: 12px;
+  font-size: 14px;
   color: #333;
   padding: 3px 0;
 }
+
 .checkbox-label input {
   margin-right: 10px;
 }
-/* sidebar category style ---------------------- */
+
+/* 让 info 图标和 Variable 标题在同一行 */
+.title-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+/* info 图标样式 */
+.info-icon {
+  font-size: 16px;
+  color: #173F5F;
+  cursor: pointer;
+  margin-left: 8px;
+  border: 1px solid #173F5F;
+  color: #173F5F;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* 悬停时 info 变色 */
+.info-icon:hover {
+  background: #173F5F;
+  border: #52ccae;
+}
+
+/* tooltip 位置调整，让它出现在 info 图标旁 */
+.tooltip {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 10px);  /* ✅ 让 tooltip 在 info 图标右侧 */
+  transform: translateY(-50%);
+  width: 220px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 12px;
+  text-align: left;
+  z-index: 100;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  visibility: hidden;  /* ✅ 默认隐藏 */
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* 让 tooltip 显示时可见 */
+.tooltip.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* tooltip 箭头 */
+.tooltip::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  transform: translateY(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent rgba(0, 0, 0, 0.8) transparent transparent;
+}
