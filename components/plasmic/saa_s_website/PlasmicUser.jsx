@@ -160,6 +160,12 @@ function PlasmicUser__RenderFunc(props) {
         initFunc: ({ $props, $state, $queries, $ctx }) => undefined
       },
       {
+        path: "checkboxOriginal.isSelected",
+        type: "private",
+        variableType: "boolean",
+        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
+      },
+      {
         path: "selectedLayers",
         type: "private",
         variableType: "array",
@@ -461,8 +467,17 @@ function PlasmicUser__RenderFunc(props) {
                     Select different variables to influence the accessibility analysis.
                   </div>
                 </div>
-                
+
                 <div className={sty["faq-container"]}>
+                  <div className={sty["faq-answer"]}>
+                    {/* Default value without variables */}
+                    <div className={sty["checkbox-container"]}>
+                      <label className={sty["checkbox-label"]}>
+                        <input type="checkbox" onChange={() => toggleLayer("original")} />
+                        <span className={sty["sidebar-text"]}>Default</span>
+                      </label>
+                    </div>
+                  </div> 
                   {/* Infrastructure */}
                   <div className={sty["faq-item"]}>
                     <button className={sty["faq-question"]} onClick={() => toggleCategory("infra")}>
@@ -600,7 +615,8 @@ const PlasmicDescendants = {
     "checkboxCrossing",
     "checkboxPoi",
     "checkboxNoise",
-    "checkboxTree"
+    "checkboxTree",
+    "checkboxOriginal"
   ],
 
   ctaBlock: ["ctaBlock"],
@@ -614,7 +630,8 @@ const PlasmicDescendants = {
     "checkboxCrossing",
     "checkboxPoi",
     "checkboxNoise",
-    "checkboxTree"
+    "checkboxTree",
+    "checkboxOriginal",
   ],
 
   freeBox: [
@@ -624,7 +641,8 @@ const PlasmicDescendants = {
     "checkboxCrossing",
     "checkboxPoi",
     "checkboxNoise",
-    "checkboxTree"
+    "checkboxTree",
+    "checkboxOriginal",
   ],
 
   checkboxLight: ["checkboxLight"],
@@ -632,7 +650,8 @@ const PlasmicDescendants = {
   checkboxCrossing: ["checkboxCrossing"],
   checkboxPoi: ["checkboxPoi"],
   checkboxNoise: ["checkboxNoise"],
-  checkboxTree: ["checkboxTree"]
+  checkboxTree: ["checkboxTree"],
+  checkboxOriginal: ["checkboxOriginal"]
 };
 
 function makeNodeComponent(nodeName) {
@@ -678,6 +697,7 @@ export const PlasmicUser = Object.assign(
     checkboxPoi: makeNodeComponent("checkboxPoi"),
     checkboxNoise: makeNodeComponent("checkboxNoise"),
     checkboxTree: makeNodeComponent("checkboxTree"),
+    checkboxOriginal: makeNodeComponent("checkboxOriginal"),
     // Metadata about props expected for PlasmicUser
     internalVariantProps: PlasmicUser__VariantProps,
     internalArgProps: PlasmicUser__ArgProps,
