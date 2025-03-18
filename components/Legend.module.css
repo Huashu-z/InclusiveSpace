@@ -1,0 +1,43 @@
+.legend-container {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 250px;
+  max-height: 300px;  /* ✅ 设定合理最大高度 */
+  overflow-y: auto;   /* ✅ 确保可以滚动 */
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+  position: relative; /* ✅ 允许自由调整 */
+  bottom: 20px;       /* ✅ 让 Legend 向上移动 */
+}
+
+.legend-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 250px;  /* ✅ 让变量列表可以滚动 */
+  overflow-y: auto;
+}
+
+
+.legend-title {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.legend-list li {
+  display: flex;
+  align-items: center;
+  margin: 4px 0;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+  display: inline-block;
+}

@@ -8,6 +8,7 @@ import { Graph, alg } from "graphlib";
 import * as turf from "@turf/turf";
 import proj4 from "proj4";
 import rbush from "rbush";
+import Legend from "./Legend";
 
 //icon for start point, mark the position the user clicked
 const customMarkerIcon = new L.Icon({
@@ -119,7 +120,8 @@ const MapComponent = ({
   computeAccessibility,
   setComputeAccessibility,
   resetTrigger,
-  onResetHandled
+  onResetHandled,
+  layerValues
 }) => {
   const [reachableRoadsData, setReachableRoadsData] = useState(null); 
   const [reachableHullData, setReachableHullData] = useState(null);
@@ -250,7 +252,7 @@ const MapComponent = ({
   useEffect(() => {
     console.log("🚀 MapComponent 接收到 selectedLayers:", selectedLayers);
   }, [selectedLayers]);
-  
+
   useEffect(() => {
     const loadGeoJsonData = async () => {
       const newGeoJsonData = {};
@@ -440,12 +442,12 @@ const MapComponent = ({
 
   // selected variable rendering setting colors
   const layerColors = {
-    original: "#000000",   // 黑色
-    light: "#FF5733",      // 红色
-    tactile_pavement: "#FFC300",  // 黄色
-    Crossing: "#36A2EB",   // 蓝色
-    noise: "#4BC0C0",      // 绿色
-    tree: "#9966FF"        // 紫色
+    original: "#000000",   
+    light: "#ED553B",     
+    tactile_pavement: "#F6D55C",  
+    Crossing: "#20639B",   
+    noise: "#3CAEA3",      
+    tree: "#173F5F"        
   };
 
   // 仅显示边框的 GeoJSON 样式函数
@@ -482,6 +484,14 @@ const MapComponent = ({
         {Object.entries(geoJsonData).map(([fileName, data]) => (
           <GeoJSON key={fileName} data={data} style={() => geoJsonStyle(fileName)} />
         ))}
+
+        {/* ✅ 引用 Legend 组件 */}
+        <Legend
+          walkingTime={walkingTime}
+          walkingSpeed={walkingSpeed}
+          selectedLayers={selectedLayers}
+          layerValues={layerValues}
+        />
 
         {isCalculating && (
           <div style={{ color: "red", fontWeight: "bold", marginTop: "10px" }}>

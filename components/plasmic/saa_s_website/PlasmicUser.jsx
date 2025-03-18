@@ -61,6 +61,7 @@ function PlasmicUser__RenderFunc(props) {
   const [walkingTime, setWalkingTime] = React.useState(15); // Default walking time is 15 minutes
   const [walkingSpeed, setWalkingSpeed] = React.useState(5); // Default walking speed is 5 km/h
   const [selectedLayers, setSelectedLayers] = React.useState([]); // load Layer
+  const [layerValues, setLayerValues] = React.useState({}); //store input variable value by user
 
   // slidebar categorys
   const [openCategory, setOpenCategory] = React.useState(null); // Opened variable category
@@ -84,10 +85,44 @@ function PlasmicUser__RenderFunc(props) {
     setResetTrigger(false);
   };
 
+  // const toggleLayer = (layer) => {
+  //   setSelectedLayers((prev) =>
+  //     prev.includes(layer) ? prev.filter((l) => l !== layer) : [...prev, layer]
+  //   );
+  // };
   const toggleLayer = (layer) => {
-    setSelectedLayers((prev) =>
-      prev.includes(layer) ? prev.filter((l) => l !== layer) : [...prev, layer]
-    );
+    setSelectedLayers((prev) => {
+        const newLayers = prev.includes(layer) 
+            ? prev.filter(l => l !== layer) 
+            : [...prev, layer];
+        
+        // 仅在新增layer时初始化值
+        if (!prev.includes(layer)) {
+            setLayerValues(prevValues => ({
+                ...prevValues,
+                [layer]: prevValues[layer] || 1.0
+            }));
+        }
+        return newLayers;
+    });
+  };
+
+  //handle input variable values
+  // const handleInputChange = (event, layer) => {
+  //   const value = parseFloat(event.target.value);
+  //   setLayerValues(prev => ({
+  //     ...prev,
+  //     [layer]: value  // ✅ 存储每个变量的输入值
+  //   }));
+  // };  
+  const handleInputChange = (event, layer) => {
+    const value = parseFloat(event.target.value);
+    // 如果输入无效，保留上一次有效值或设为默认值 1.0
+    setLayerValues(prev => ({
+      ...prev,
+      [layer]: isNaN(value) ? (prev[layer] || 1.0) : value
+    }));
+    console.log("Updated layerValues:", { ...layerValues, [layer]: value });
   };
 
   const args = React.useMemo(
@@ -257,6 +292,7 @@ function PlasmicUser__RenderFunc(props) {
               setComputeAccessibility={setComputeAccessibility} // Reset after calculation
               resetTrigger={resetTrigger}
               onResetHandled={onResetHandled}
+              layerValues={layerValues}
             />
           </div>
 
@@ -491,6 +527,8 @@ function PlasmicUser__RenderFunc(props) {
                             min="0" 
                             max="1" 
                             step="0.1"
+                            value={layerValues["light"] ?? ""}  // ✅ 绑定 layerValues
+                            onChange={(event) => handleInputChange(event, "light")}  // ✅ 监听输入
                           />
                         </div>
                         {/* Tactile Pavement Weight Setting */}
@@ -504,6 +542,8 @@ function PlasmicUser__RenderFunc(props) {
                             min="0" 
                             max="1" 
                             step="0.1"
+                            value={layerValues["tactile_pavement"] || ""}  // ✅ 绑定 layerValues
+                            onChange={(event) => handleInputChange(event, "tactile_pavement")}  // ✅ 监听输入
                           />
                         </div>
                       </div>
@@ -521,7 +561,7 @@ function PlasmicUser__RenderFunc(props) {
                         {/* Street Crossing Weight Setting */}
                         <div className={sty["checkbox-container"]}>
                           <label className={sty["checkbox-label"]}>
-                            <input type="checkbox" onChange={() => toggleLayer("Crossing")} />
+                            <input type="checkbox" onChange={() => toggleLayer("crossing")} />
                             <span className={sty["sidebar-text"]}>Street Crossing</span>
                           </label>
                           <input type="number" className={sty["checkbox-input"]} 
@@ -529,6 +569,8 @@ function PlasmicUser__RenderFunc(props) {
                             min="0" 
                             max="1" 
                             step="0.1"
+                            value={layerValues["crossing"] || ""}  // ✅ 绑定 layerValues
+                            onChange={(event) => handleInputChange(event, "crossing")}  // ✅ 监听输入
                           />
                         </div>
                         {/* Noise Weight Setting */}
@@ -542,6 +584,8 @@ function PlasmicUser__RenderFunc(props) {
                             min="0" 
                             max="1" 
                             step="0.1"
+                            value={layerValues["noise"] || ""}  // ✅ 绑定 layerValues
+                            onChange={(event) => handleInputChange(event, "noise")}  // ✅ 监听输入
                           />
                         </div>
                       </div>
@@ -567,6 +611,8 @@ function PlasmicUser__RenderFunc(props) {
                             min="0" 
                             max="1" 
                             step="0.1"
+                            value={layerValues["tree"] || ""}  // ✅ 绑定 layerValues
+                            onChange={(event) => handleInputChange(event, "tree")}  // ✅ 监听输入
                           />
                         </div>
                       </div>
