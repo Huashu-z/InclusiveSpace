@@ -438,6 +438,28 @@ const MapComponent = ({
     }
   };
 
+  // selected variable rendering setting colors
+  const layerColors = {
+    original: "#000000",   // 黑色
+    light: "#FF5733",      // 红色
+    tactile_pavement: "#FFC300",  // 黄色
+    Crossing: "#36A2EB",   // 蓝色
+    noise: "#4BC0C0",      // 绿色
+    tree: "#9966FF"        // 紫色
+  };
+
+  // 仅显示边框的 GeoJSON 样式函数
+  const geoJsonStyle = (fileName) => {
+    // 找到对应的 variable 颜色
+    const layerName = Object.keys(layerColors).find(layer => fileName.includes(layer));
+    const color = layerName ? layerColors[layerName] : "#000000"; // 默认为黑色
+    return {
+      color: color,
+      weight: 2,  // 线条粗细
+      fillOpacity: 0  // 透明填充
+    };
+  };
+
   return (
     <div className="mapBox">
       <MapContainer center={[53.48929, 10.20823]} zoom={13} style={{ width: "100%", height: "100vh" }}>
@@ -458,7 +480,7 @@ const MapComponent = ({
 
         {/* Display the loaded GeoJSON data */}
         {Object.entries(geoJsonData).map(([fileName, data]) => (
-          <GeoJSON key={fileName} data={data} style={{ color: "blue", weight: 2, fillOpacity: 0.3 }} />
+          <GeoJSON key={fileName} data={data} style={() => geoJsonStyle(fileName)} />
         ))}
 
         {isCalculating && (
