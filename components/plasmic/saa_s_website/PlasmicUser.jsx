@@ -23,7 +23,6 @@ import {
   useDollarState
 } from "@plasmicapp/react-web";
 import { useDataEnv } from "@plasmicapp/react-web/lib/host";
-import CtaBlock from "../../CtaBlock"; // plasmic-import: rAg7mntU2p-Z/component
 import Header from "../../Header"; // plasmic-import: fDzUbLUclsbT/component
 import Checkbox from "../../Checkbox"; // plasmic-import: 9vVSXaKyPA3c/component
 import "@plasmicapp/react-web/lib/plasmic.css";
@@ -227,11 +226,6 @@ function PlasmicUser__RenderFunc(props) {
             }
           )}
         >
-          <CtaBlock
-            data-plasmic-name={"ctaBlock"}
-            data-plasmic-override={overrides.ctaBlock}
-            className={classNames("__wab_instance", sty.ctaBlock)}
-          />
 
           <Header
             data-plasmic-name={"header"}
@@ -605,7 +599,6 @@ function PlasmicUser__RenderFunc(props) {
 const PlasmicDescendants = {
   root: [
     "root",
-    "ctaBlock",
     "header",
     "mapBox",
     "sideBarBox",
@@ -619,7 +612,6 @@ const PlasmicDescendants = {
     "checkboxOriginal"
   ],
 
-  ctaBlock: ["ctaBlock"],
   header: ["header"],
   mapBox: ["mapBox"],
   sideBarBox: [
@@ -686,7 +678,6 @@ export const PlasmicUser = Object.assign(
   makeNodeComponent("root"),
   {
     // Helper components rendering sub-elements
-    ctaBlock: makeNodeComponent("ctaBlock"),
     header: makeNodeComponent("header"),
     mapBox: makeNodeComponent("mapBox"),
     sideBarBox: makeNodeComponent("sideBarBox"),

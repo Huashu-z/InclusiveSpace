@@ -653,19 +653,6 @@
           "path": "/"
         },
         {
-          "id": "rAg7mntU2p-Z",
-          "name": "CtaBlock",
-          "type": "managed",
-          "projectId": "uftrV6ZeR5SuVi5gnDLzFk",
-          "renderModuleFilePath": "plasmic/saa_s_website/PlasmicCtaBlock.jsx",
-          "importSpec": {
-            "modulePath": "CtaBlock.jsx"
-          },
-          "cssFilePath": "plasmic/saa_s_website/PlasmicCtaBlock.module.css",
-          "scheme": "blackbox",
-          "componentType": "component"
-        },
-        {
           "id": "fDzUbLUclsbT",
           "name": "Header",
           "type": "managed",
