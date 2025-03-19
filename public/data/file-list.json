@@ -1,6 +1,5 @@
 [ 
     "buffer_noise.geojson",
     "buffer_light.geojson",
-    "buffer_default.geojson",
-    "default_start.geojson"
+    "buffer_default.geojson"
 ]
