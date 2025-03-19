@@ -41,7 +41,7 @@ const Legend = ({ walkingTime, walkingSpeed, startPoint, selectedLayers, layerVa
 
       // ✅ 变量列表
       const variableTitle = document.createElement("p");
-      variableTitle.innerHTML = "<strong>Catchment Area:</strong>";
+      variableTitle.innerHTML = "<strong>Catchment Area</strong> <br/>(with speed penalty):";
       div.appendChild(variableTitle);
 
       const ul = document.createElement("ul");

@@ -194,7 +194,7 @@ function PlasmicUser__RenderFunc(props) {
         initFunc: ({ $props, $state, $queries, $ctx }) => undefined
       },
       {
-        path: "checkboxOriginal.isSelected",
+        path: "checkboxDefault.isSelected",
         type: "private",
         variableType: "boolean",
         initFunc: ({ $props, $state, $queries, $ctx }) => undefined
@@ -508,7 +508,7 @@ function PlasmicUser__RenderFunc(props) {
                     {/* Default value without variables */}
                     <div className={sty["checkbox-container"]}>
                       <label className={sty["checkbox-label"]}>
-                        <input type="checkbox" onChange={() => toggleLayer("original")} />
+                        <input type="checkbox" onChange={() => toggleLayer("default")} />
                         <span className={sty["sidebar-text"]}>Default</span>
                       </label>
                     </div>
@@ -660,7 +660,7 @@ const PlasmicDescendants = {
     "checkboxPoi",
     "checkboxNoise",
     "checkboxTree",
-    "checkboxOriginal"
+    "checkboxDefault"
   ],
 
   header: ["header"],
@@ -674,7 +674,7 @@ const PlasmicDescendants = {
     "checkboxPoi",
     "checkboxNoise",
     "checkboxTree",
-    "checkboxOriginal",
+    "checkboxDefault",
   ],
 
   freeBox: [
@@ -685,7 +685,7 @@ const PlasmicDescendants = {
     "checkboxPoi",
     "checkboxNoise",
     "checkboxTree",
-    "checkboxOriginal",
+    "checkboxDefault",
   ],
 
   checkboxLight: ["checkboxLight"],
@@ -694,7 +694,7 @@ const PlasmicDescendants = {
   checkboxPoi: ["checkboxPoi"],
   checkboxNoise: ["checkboxNoise"],
   checkboxTree: ["checkboxTree"],
-  checkboxOriginal: ["checkboxOriginal"]
+  checkboxDefault: ["checkboxDriginal"]
 };
 
 function makeNodeComponent(nodeName) {
@@ -739,7 +739,7 @@ export const PlasmicUser = Object.assign(
     checkboxPoi: makeNodeComponent("checkboxPoi"),
     checkboxNoise: makeNodeComponent("checkboxNoise"),
     checkboxTree: makeNodeComponent("checkboxTree"),
-    checkboxOriginal: makeNodeComponent("checkboxOriginal"),
+    checkboxDefault: makeNodeComponent("checkboxDefault"),
     // Metadata about props expected for PlasmicUser
     internalVariantProps: PlasmicUser__VariantProps,
     internalArgProps: PlasmicUser__ArgProps,

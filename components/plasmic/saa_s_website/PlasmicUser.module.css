@@ -83,7 +83,7 @@
   right: -60px;
   transform: rotateX(0deg) rotateY(-180deg) rotateZ(0deg);
   color: #535353;
-  background-color: rgb(228, 228, 228);
+  /* background-color: rgb(228, 228, 228); */
   transform-style: preserve-3d;
   margin: 20px;
 }
