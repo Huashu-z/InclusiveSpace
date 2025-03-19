@@ -34,7 +34,7 @@
   position: relative;
   flex-direction: row;
   width: 100%;
-  max-width: 1280px;
+  max-width: none;
   box-shadow: none;
   min-width: 0;
 }

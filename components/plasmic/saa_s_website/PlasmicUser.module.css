@@ -427,8 +427,9 @@
   left: calc(100% + 10px);  /* ✅ 让 tooltip 在 info 图标右侧 */
   transform: translateY(-50%);
   width: 220px;
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
+  background: #f5f8f6;
+  border: 2px solid #52ccae; 
+  color: rgb(0, 0, 0);
   padding: 8px;
   border-radius: 5px;
   font-size: 12px;
@@ -455,5 +456,5 @@
   transform: translateY(-50%);
   border-width: 6px;
   border-style: solid;
-  border-color: transparent rgba(0, 0, 0, 0.8) transparent transparent;
+  border-color: transparent #52ccae transparent transparent;
 }
