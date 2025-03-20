@@ -178,12 +178,12 @@
 
 /* 顶级标题 (User Setting, Variable, Map Layers) */
 .sidebar-title {
-  font-size: 18px;  /* 大字号 */
+  font-size: 16px;  /* 大字号 */
   font-weight: bold;
   color: #173F5F;
   padding: 8px 12px;
   border-radius: 5px;
-  text-transform: uppercase;  /* 全大写 */
+  text-transform: capitalize;  /* 首字母大写 */
   margin-top: 15px;
   text-align: left;
 }

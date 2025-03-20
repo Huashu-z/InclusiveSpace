@@ -409,7 +409,7 @@ function PlasmicUser__RenderFunc(props) {
 
               {/*  User Setting Section */}
               <div className={sty["sidebar-section"]}>
-                <h3 className={sty["sidebar-title"]}>User Setting</h3>
+                <h3 className={sty["sidebar-title"]}>Personal Accessibility Area</h3>
                 {/* Walking Time */}
                 <div className={sty["sidebar-text-bold"]}>
                   Walking Time <span className={sty["sidebar-text"]}>({walkingTime} minutes)</span>
@@ -597,10 +597,10 @@ function PlasmicUser__RenderFunc(props) {
                     )}
                   </div>
 
-                  {/* Vegetation */}
+                  {/* Psychological Factors */}
                   <div className={sty["faq-item"]}>
                     <button className={sty["faq-question"]} onClick={() => toggleCategory("veg")}>
-                      <span className={sty["sidebar-subtitle"]}>Vegetation</span>
+                      <span className={sty["sidebar-subtitle"]}>Psychological Factors</span>
                       <span className={sty["faq-icon"]}>{openCategory === "veg" ? "−" : "+"}</span>
                     </button>
                     {openCategory === "veg" && (
