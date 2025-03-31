@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./plasmic/saa_s_website/PlasmicUser.module.css";
+import sty from "./Sidebar.module.css";
 import Tooltip from "./Sidebar_Tooltip";
 
 export default function VariableControls({
@@ -13,14 +13,14 @@ export default function VariableControls({
   setShowInfo
 }) {
   const renderCheckbox = (layer, label) => (
-    <div className={styles["checkbox-container"]}>
-      <label className={styles["checkbox-label"]}>
+    <div className={sty["checkbox-container"]}>
+      <label className={sty["checkbox-label"]}>
         <input type="checkbox" onChange={() => toggleLayer(layer)} checked={selectedLayers.includes(layer)} />
-        <span className={styles["sidebar-text"]}>{label}</span>
+        <span className={sty["sidebar-text"]}>{label}</span>
       </label>
       <input
         type="number"
-        className={styles["checkbox-input"]}
+        className={sty["checkbox-input"]}
         placeholder="0 - 1"
         min="0"
         max="1"
@@ -32,20 +32,20 @@ export default function VariableControls({
   );
 
   return (
-    <div className={styles["sidebar-section"]}>
-      <div className={styles["title-container"]}>
-        <h3 className={styles["sidebar-title"]}>Variable</h3>
-        <span className={styles["info-icon"]} onClick={() => setShowInfo(!showInfo)}>i</span>
+    <div className={sty["sidebar-section"]}>
+      <div className={sty["title-container"]}>
+        <h3 className={sty["sidebar-title"]}>Variable</h3>
+        <span className={sty["info-icon"]} onClick={() => setShowInfo(!showInfo)}>i</span>
         <Tooltip show={showInfo} />
       </div>
 
-      <div className={styles["faq-container"]}>
+      <div className={sty["faq-container"]}>
         {/* Default */}
-        <div className={styles["faq-answer"]}>
-          <div className={styles["checkbox-container"]}>
-            <label className={styles["checkbox-label"]}>
+        <div className={sty["faq-answer"]}>
+          <div className={sty["checkbox-container"]}>
+            <label className={sty["checkbox-label"]}>
               <input type="checkbox" onChange={() => toggleLayer("default")} checked={selectedLayers.includes("default")} />
-              <span className={styles["sidebar-text"]}>Default</span>
+              <span className={sty["sidebar-text"]}>Default</span>
             </label>
           </div>
         </div>
@@ -84,14 +84,14 @@ export default function VariableControls({
 }
 
 function Category({ name, open, onClick, children }) {
-  const styles = require("./plasmic/saa_s_website/PlasmicUser.module.css");
+  const sty = require("./plasmic/saa_s_website/PlasmicUser.module.css");
   return (
-    <div className={styles["faq-item"]}>
-      <button className={styles["faq-question"]} onClick={onClick}>
-        <span className={styles["sidebar-subtitle"]}>{name}</span>
-        <span className={styles["faq-icon"]}>{open ? "−" : "+"}</span>
+    <div className={sty["faq-item"]}>
+      <button className={sty["faq-question"]} onClick={onClick}>
+        <span className={sty["sidebar-subtitle"]}>{name}</span>
+        <span className={sty["faq-icon"]}>{open ? "−" : "+"}</span>
       </button>
-      {open && <div className={styles["faq-answer"]}>{children}</div>}
+      {open && <div className={sty["faq-answer"]}>{children}</div>}
     </div>
   );
 }

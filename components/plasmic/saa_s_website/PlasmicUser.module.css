@@ -397,40 +397,4 @@
   background: #52ccae;
   border: #52ccae;
 }
-
-/* tooltip position, next to the info icon */
-.tooltip {
-  position: absolute;
-  top: 50%;
-  left: calc(100% + 10px);  
-  transform: translateY(-50%);
-  width: 220px;
-  background: #f5f8f6;
-  border: 2px solid #52ccae; 
-  color: rgb(0, 0, 0);
-  padding: 8px;
-  border-radius: 5px;
-  font-size: 12px;
-  text-align: left;
-  z-index: 100;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  visibility: hidden;  
-  opacity: 0;
-  transition: opacity 0.2s ease-in-out;
-}
  
-.tooltip.show {
-  visibility: visible;
-  opacity: 1;
-}
- 
-.tooltip::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 100%;
-  transform: translateY(-50%);
-  border-width: 6px;
-  border-style: solid;
-  border-color: transparent #52ccae transparent transparent;
-}

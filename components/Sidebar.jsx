@@ -1,6 +1,6 @@
 import React from "react";
 import projectcss from "./plasmic/saa_s_website/PlasmicUser.module.css";
-import sty from "./plasmic/saa_s_website/PlasmicUser.module.css";
+import sty from "./Sidebar.module.css";
 import classNames from "classnames";
 import ArrowSvgIcon from "./plasmic/saa_s_website/icons/PlasmicIcon__ArrowSvg";
 import AccessibilityControls from "./Sidebar_AccessibilityControls";

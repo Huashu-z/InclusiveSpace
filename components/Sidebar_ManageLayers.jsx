@@ -1,10 +1,10 @@
 import React from "react";
-import styles from "./plasmic/saa_s_website/PlasmicUser.module.css";
+import sty from "./Sidebar.module.css";
 
 export default function MapLayers({ selectedLayers, toggleLayer }) {
   return (
-    <div className={styles["sidebar-section"]}>
-      <h3 className={styles["sidebar-title"]}>Map Layers</h3>
+    <div className={sty["sidebar-section"]}>
+      <h3 className={sty["sidebar-title"]}>Map Layers</h3>
       <label>
         <input
           type="checkbox"

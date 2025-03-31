@@ -1,3 +1,4 @@
+/* ✅ Updated PlasmicPlanner.module.css — synced with PlasmicUser.module.css */
 .root {
   display: flex;
   position: relative;
@@ -24,118 +25,319 @@
 .root > :global(.__wab_flex-container) > :global(.__wab_slot) > picture > img {
   margin-top: 0px;
 }
+
 .header:global(.__wab_instance) {
   max-width: 100%;
 }
+
 .mapBox {
   display: block;
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  max-width: 100%;
-  min-width: 0;
-  flex-shrink: 0;
-  padding: 8px;
-}
-.sideBarBox {
-  display: block;
   position: fixed;
-  width: 300px;
-  height: 100vh;
+  width: 100%;
+  height: auto;
   max-width: 100%;
   left: 0px;
   top: 40px;
   z-index: 1;
-  background: var(--token-dZqMxkaQqKyn);
-  flex-shrink: 0;
+  margin-bottom: auto;
+  margin-top: auto !important;
+  margin-right: auto;
+  margin-left: auto;
+  bottom: 0px;
+  min-width: 0;
   padding: 8px;
 }
-.sideBarBoxsidebarOpen {
-  top: 40px;
-  left: 8px;
-  height: 100vh;
+
+.sideBarBox {
+  display: block;
   position: fixed;
-  flex-shrink: 0;
+  width: 300px;
+  height: auto;
+  max-width: 100%;
+  left: 0px;
+  top: 48px;
+  z-index: 10000;
+  background: rgb(228, 228, 228);
+  bottom: 0px;
+  padding: 8px;
 }
+
+.sideBarBoxsidebarOpen {
+  top: 48px;
+  left: 0;
+  position: fixed;
+  bottom: 0;
+  height: auto;
+}
+
 .sideBarBoxsidebarClose {
   left: -300px;
 }
-.svg__gWiWc {
-  object-fit: cover;
-  max-width: 100%;
+
+.arrowToggleContainer {
   position: absolute;
-  left: auto;
-  top: 100px;
-  height: 40px;
-  bottom: 0;
-  right: -50px;
-  margin: 20px;
+  top: 20%;
+  right: -24px;
+  transform: translateY(-50%);
+  z-index: 10;
 }
-.svgsidebarOpen__gWiWCgjp4W {
-  display: none;
+
+.sidebarToggleArrow {
+  width: 32px;
+  height: 32px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transform: translateY(-50%);
 }
-.svg__fBYbJ {
-  object-fit: cover;
-  max-width: 100%;
-  position: absolute;
-  left: auto;
-  top: 100px;
-  height: 40px;
-  right: -40px;
-  bottom: 0;
-  transform: rotateX(0deg) rotateY(-180deg) rotateZ(0deg);
-  transform-style: preserve-3d;
-  display: none;
-  margin: 10px;
+
+.sideBarBoxsidebarClose .sidebarToggleArrow {
+  transform: translateY(-50%) rotate(0deg);
 }
-.svg__fBYbJ * {
-  transform-style: preserve-3d;
+
+.sideBarBoxsidebarOpen .sidebarToggleArrow {
+  transform: translateY(-50%) rotate(180deg);
 }
-.svgsidebarOpen__fBYbJgjp4W {
-  transform-style: preserve-3d;
-  display: block;
-}
-.svgsidebarOpen__fBYbJgjp4W * {
-  transform-style: preserve-3d;
-}
+
 .freeBox {
   display: flex;
   flex-direction: column;
   position: sticky;
   width: 100%;
-  height: 100vh;
+  height: auto;
   max-width: 100%;
   justify-content: flex-start;
   align-items: center;
   left: 0px;
   top: 0px;
   z-index: 1;
+  bottom: -8px;
   min-width: 0;
   padding: 16px 8px 8px;
 }
-.checkboxIntersection:global(.__wab_instance):global(.__wab_instance) {
-  max-width: 100%;
+
+.freeBoxsidebarOpen {
+  top: 0px;
+  left: 0px;
 }
-.checkboxTactilePav:global(.__wab_instance):global(.__wab_instance) {
-  max-width: 100%;
-}
-.checkboxLights:global(.__wab_instance):global(.__wab_instance) {
-  max-width: 100%;
-}
-.checkboxPoi:global(.__wab_instance):global(.__wab_instance) {
-  max-width: 100%;
-}
-.checkboxNoise:global(.__wab_instance):global(.__wab_instance) {
-  max-width: 100%;
-}
+
+/* 🔁 copied utility checkbox styles */
+.checkboxIntersection:global(.__wab_instance):global(.__wab_instance),
+.checkboxTactilePav:global(.__wab_instance):global(.__wab_instance),
+.checkboxLights:global(.__wab_instance):global(.__wab_instance),
+.checkboxPoi:global(.__wab_instance):global(.__wab_instance),
+.checkboxNoise:global(.__wab_instance):global(.__wab_instance),
 .checkboxTree:global(.__wab_instance):global(.__wab_instance) {
   max-width: 100%;
 }
-.text {
-  position: relative;
+
+/* 🔁 sidebar content (titles, buttons, sliders, etc.) — matching user */
+.sidebar-section {
   width: 100%;
-  height: 50px;
-  max-width: 100%;
-  min-width: 0;
-  flex-shrink: 0;
+  border: 1px solid #D6D6D6;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 15px;
+  background: white;
 }
+
+.sidebar-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #173F5F;
+  padding: 8px 12px;
+  border-radius: 5px;
+  text-transform: capitalize;
+  margin-top: 15px;
+  text-align: left;
+}
+.sidebar-title:first-child {
+  margin-top: 0;
+}
+.sidebar-subtitle {
+  font-size: 16px;
+  font-weight: bold;
+  color: #173F5F;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  text-align: left;
+}
+.sidebar-text {
+  font-size: 14px;
+  font-weight: normal;
+  color: #333;
+  text-align: left;
+}
+.sidebar-text-bold {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  text-align: left;
+}
+
+.button-container {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+.button-container button {
+  flex: 1;
+  text-align: center;
+}
+.setup-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 10px;
+  margin-bottom: 10px;
+  background: white;
+  color: #173F5F;
+  border: 2px solid #173F5F;
+  border-radius: 5px;
+  cursor: pointer;
+  white-space: nowrap;
+  gap: 8px;
+  width: 100%;
+}
+.setup-button:hover {
+  background: #f0f0f0;
+}
+.setup-button img {
+  width: 16px;
+  height: 16px;
+}
+
+.sidebar-slider {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5px;
+}
+.sidebar-slider input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 5px;
+  outline: none;
+  background: #173F5F;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.sidebar-slider input[type="range"]:hover {
+  opacity: 1;
+}
+.sidebar-slider input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #52ccae;
+  border: 2px solid #173F5F;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+.sidebar-slider input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: #52ccae;
+  border: 2px solid #173F5F;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.faq-container {
+  width: 100%;
+  padding: 10px;
+}
+.faq-item {
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+  width: 100%;
+}
+.faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  color: #173F5F;
+}
+.faq-icon {
+  font-size: 18px;
+  font-weight: bold;
+  color: #173F5F;
+}
+.faq-answer {
+  padding: 5px 0;
+  margin-top: 5px;
+}
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 8px;
+}
+.checkbox-input {
+  width: 60px;
+  height: 24px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  text-align: center;
+}
+.checkbox-input:focus {
+  border-color: #173F5F;
+  outline: none;
+}
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #333;
+  padding: 3px 0;
+}
+.checkbox-label input {
+  margin-right: 10px;
+}
+.title-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.info-icon {
+  font-size: 16px;
+  color: #173F5F;
+  cursor: pointer;
+  margin-left: 8px;
+  border: 1px solid #173F5F;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+.info-icon:hover {
+  background: #52ccae;
+  border: #52ccae;
+}
+ 
