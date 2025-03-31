@@ -15,144 +15,84 @@ import {
   Stack as Stack__,
   classNames,
   createPlasmicElementProxy,
-  deriveRenderOpts,
-  generateStateOnChangeProp,
-  get as $stateGet,
-  hasVariant,
-  set as $stateSet,
   useDollarState
 } from "@plasmicapp/react-web";
 import { useDataEnv } from "@plasmicapp/react-web/lib/host";
-import Header from "../../Header"; // plasmic-import: fDzUbLUclsbT/component
-import Checkbox from "../../Checkbox"; // plasmic-import: 9vVSXaKyPA3c/component
+import Header from "../../Header";
 import "@plasmicapp/react-web/lib/plasmic.css";
-import plasmic_antd_5_hostless_css from "../antd_5_hostless/plasmic.module.css"; // plasmic-import: ohDidvG9XsCeFumugENU3J/projectcss
-import projectcss from "./plasmic.module.css"; // plasmic-import: uftrV6ZeR5SuVi5gnDLzFk/projectcss
-import sty from "./PlasmicPlanner.module.css"; // plasmic-import: QND78FtVezI_/css
-import Icon17Icon from "./icons/PlasmicIcon__Icon17"; // plasmic-import: uXVwUpaTn5at/icon
+import plasmic_antd_5_hostless_css from "../antd_5_hostless/plasmic.module.css";
+import projectcss from "./plasmic.module.css";
+import sty from "./PlasmicPlanner.module.css";
+import dynamic from "next/dynamic";
+import "leaflet/dist/leaflet.css";
+import Sidebar from "../../Sidebar";
+
+const MapComponent = dynamic(() => import("../../MapComponent"), { ssr: false });
 
 createPlasmicElementProxy;
 
-export const PlasmicPlanner__VariantProps = new Array(
-  "sidebarOpen",
-  "sidebarClose"
-);
-
-export const PlasmicPlanner__ArgProps = new Array();
-
-const $$ = {};
-
-function useNextRouter() {
-  try {
-    return useRouter();
-  } catch {}
-  return undefined;
-}
-
 function PlasmicPlanner__RenderFunc(props) {
-  const { variants, overrides, forNode } = props;
-  const args = React.useMemo(
-    () =>
-      Object.assign(
-        {},
-        Object.fromEntries(
-          Object.entries(props.args).filter(([_, v]) => v !== undefined)
-        )
-      ),
-    [props.args]
-  );
-  const $props = {
-    ...args,
-    ...variants
-  };
-  const __nextRouter = useNextRouter();
-  const $ctx = useDataEnv?.() || {};
-  const refsRef = React.useRef({});
-  const $refs = refsRef.current;
-  const stateSpecs = React.useMemo(
-    () => [
-      {
-        path: "sidebarOpen",
-        type: "private",
-        variableType: "variant",
-        initFunc: ({ $props, $state, $queries, $ctx }) => $props.sidebarOpen
-      },
-      {
-        path: "sidebarClose",
-        type: "private",
-        variableType: "variant",
-        initFunc: ({ $props, $state, $queries, $ctx }) => $props.sidebarClose
-      },
-      {
-        path: "checkboxIntersection.isSelected",
-        type: "private",
-        variableType: "boolean",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      },
-      {
-        path: "checkboxTactilePav.isSelected",
-        type: "private",
-        variableType: "boolean",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      },
-      {
-        path: "checkboxLights.isSelected",
-        type: "private",
-        variableType: "boolean",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      },
-      {
-        path: "checkboxPoi.isSelected",
-        type: "private",
-        variableType: "boolean",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      },
-      {
-        path: "checkboxNoise.isSelected",
-        type: "private",
-        variableType: "boolean",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      },
-      {
-        path: "checkboxTree.isSelected",
-        type: "private",
-        variableType: "boolean",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      },
-      {
-        path: "selectedLayers",
-        type: "private",
-        variableType: "array",
-        initFunc: ({ $props, $state, $queries, $ctx }) => []
-      }
-    ],
+  const [selectingStart, setSelectingStart] = React.useState(false);
+  const [startPoint, setStartPoint] = React.useState(null);
+  const [computeAccessibility, setComputeAccessibility] = React.useState(false);
+  const [walkingTime, setWalkingTime] = React.useState(15);
+  const [walkingSpeed, setWalkingSpeed] = React.useState(5);
+  const [selectedLayers, setSelectedLayers] = React.useState([]);
+  const [layerValues, setLayerValues] = React.useState({});
+  const [openCategory, setOpenCategory] = React.useState(null);
+  const [showInfo, setShowInfo] = React.useState(false);
+  const [resetTrigger, setResetTrigger] = React.useState(false);
+  const [sidebarOpen, setSidebarOpen] = React.useState(true);
 
-    [$props, $ctx, $refs]
-  );
-  const $state = useDollarState(stateSpecs, {
-    $props,
-    $ctx,
-    $queries: {},
-    $refs
-  });
+  const toggleCategory = (category) => {
+    setOpenCategory(openCategory === category ? null : category);
+  };
+
+  const handleResetResults = () => {
+    setComputeAccessibility(false);
+    setStartPoint(null);
+    setResetTrigger(true);
+  };
+
+  const onResetHandled = () => {
+    setResetTrigger(false);
+  };
+
+  const toggleLayer = (layer) => {
+    setSelectedLayers((prev) => {
+      const newLayers = prev.includes(layer)
+        ? prev.filter((l) => l !== layer)
+        : [...prev, layer];
+      if (!prev.includes(layer)) {
+        setLayerValues((prevValues) => ({
+          ...prevValues,
+          [layer]: prevValues[layer] || 1.0,
+        }));
+      }
+      return newLayers;
+    });
+  };
+
+  const handleInputChange = (event, layer) => {
+    const value = parseFloat(event.target.value);
+    setLayerValues((prev) => ({
+      ...prev,
+      [layer]: isNaN(value) ? prev[layer] || 1.0 : value,
+    }));
+  };
+
   return (
     <React.Fragment>
       <Head></Head>
-
-      <style>{`
-        body {
-          margin: 0;
-        }
-      `}</style>
-
+      <style>{`body { margin: 0; }`}</style>
       <div className={projectcss.plasmic_page_wrapper}>
         <Stack__
-          as={"div"}
-          data-plasmic-name={"root"}
-          data-plasmic-override={overrides.root}
-          data-plasmic-root={true}
-          data-plasmic-for-node={forNode}
-          hasGap={true}
+          as="div"
+          data-plasmic-name="root"
+          data-plasmic-override={props.overrides?.root}
+          data-plasmic-root
+          data-plasmic-for-node={props.forNode}
+          hasGap
           className={classNames(
             projectcss.all,
             projectcss.root_reset,
@@ -160,843 +100,56 @@ function PlasmicPlanner__RenderFunc(props) {
             projectcss.plasmic_mixins,
             projectcss.plasmic_tokens,
             plasmic_antd_5_hostless_css.plasmic_tokens,
-            sty.root,
-            {
-              [sty.rootsidebarClose]: hasVariant(
-                $state,
-                "sidebarClose",
-                "sidebarClose"
-              ),
-              [sty.rootsidebarOpen]: hasVariant(
-                $state,
-                "sidebarOpen",
-                "sidebarOpen"
-              )
-            }
+            sty.root
           )}
         >
+          <Header className={classNames("__wab_instance", sty.header)} />
 
-          <Header
-            data-plasmic-name={"header"}
-            data-plasmic-override={overrides.header}
-            className={classNames("__wab_instance", sty.header)}
-          />
-
-          <div
-            data-plasmic-name={"mapBox"}
-            data-plasmic-override={overrides.mapBox}
-            className={classNames(projectcss.all, sty.mapBox)}
-            id={"map"}
-          />
-
-          <div
-            data-plasmic-name={"sideBarBox"}
-            data-plasmic-override={overrides.sideBarBox}
-            className={classNames(projectcss.all, sty.sideBarBox, {
-              [sty.sideBarBoxsidebarClose]: hasVariant(
-                $state,
-                "sidebarClose",
-                "sidebarClose"
-              ),
-              [sty.sideBarBoxsidebarOpen]: hasVariant(
-                $state,
-                "sidebarOpen",
-                "sidebarOpen"
-              )
-            })}
-          >
-            <Icon17Icon
-              className={classNames(projectcss.all, sty.svg__gWiWc, {
-                [sty.svgsidebarClose__gWiWCtc7PM]: hasVariant(
-                  $state,
-                  "sidebarClose",
-                  "sidebarClose"
-                ),
-                [sty.svgsidebarOpen__gWiWCgjp4W]: hasVariant(
-                  $state,
-                  "sidebarOpen",
-                  "sidebarOpen"
-                )
-              })}
-              onClick={async event => {
-                const $steps = {};
-                $steps["updateSidebarOpen"] = true
-                  ? (() => {
-                      const actionArgs = {
-                        vgroup: "sidebarOpen",
-                        operation: 2,
-                        value: "sidebarOpen"
-                      };
-                      return (({ vgroup, value }) => {
-                        if (typeof value === "string") {
-                          value = [value];
-                        }
-                        const oldValue = $stateGet($state, vgroup);
-                        $stateSet($state, vgroup, !oldValue);
-                        return !oldValue;
-                      })?.apply(null, [actionArgs]);
-                    })()
-                  : undefined;
-                if (
-                  $steps["updateSidebarOpen"] != null &&
-                  typeof $steps["updateSidebarOpen"] === "object" &&
-                  typeof $steps["updateSidebarOpen"].then === "function"
-                ) {
-                  $steps["updateSidebarOpen"] = await $steps[
-                    "updateSidebarOpen"
-                  ];
-                }
-              }}
-              role={"img"}
+          <div className={classNames(projectcss.all, sty.mapBox)} id="map">
+            <MapComponent
+              selectedLayers={selectedLayers}
+              selectingStart={selectingStart}
+              setSelectingStart={setSelectingStart}
+              walkingTime={walkingTime}
+              walkingSpeed={walkingSpeed}
+              startPoint={startPoint}
+              setStartPoint={setStartPoint}
+              computeAccessibility={computeAccessibility}
+              setComputeAccessibility={setComputeAccessibility}
+              resetTrigger={resetTrigger}
+              onResetHandled={onResetHandled}
+              layerValues={layerValues}
             />
-
-            <Icon17Icon
-              className={classNames(projectcss.all, sty.svg__fBYbJ, {
-                [sty.svgsidebarOpen__fBYbJgjp4W]: hasVariant(
-                  $state,
-                  "sidebarOpen",
-                  "sidebarOpen"
-                )
-              })}
-              onClick={async event => {
-                const $steps = {};
-                $steps["updateSidebarClose"] = true
-                  ? (() => {
-                      const actionArgs = {
-                        vgroup: "sidebarClose",
-                        operation: 2
-                      };
-                      return (({ vgroup, value }) => {
-                        if (typeof value === "string") {
-                          value = [value];
-                        }
-                        const oldValue = $stateGet($state, vgroup);
-                        $stateSet($state, vgroup, !oldValue);
-                        return !oldValue;
-                      })?.apply(null, [actionArgs]);
-                    })()
-                  : undefined;
-                if (
-                  $steps["updateSidebarClose"] != null &&
-                  typeof $steps["updateSidebarClose"] === "object" &&
-                  typeof $steps["updateSidebarClose"].then === "function"
-                ) {
-                  $steps["updateSidebarClose"] = await $steps[
-                    "updateSidebarClose"
-                  ];
-                }
-              }}
-              role={"img"}
-            />
-
-            <div
-              data-plasmic-name={"freeBox"}
-              data-plasmic-override={overrides.freeBox}
-              className={classNames(projectcss.all, sty.freeBox)}
-            >
-              <Checkbox
-                data-plasmic-name={"checkboxIntersection"}
-                data-plasmic-override={overrides.checkboxIntersection}
-                className={classNames(
-                  "__wab_instance",
-                  sty.checkboxIntersection,
-                  {
-                    [sty.checkboxIntersectionsidebarOpen]: hasVariant(
-                      $state,
-                      "sidebarOpen",
-                      "sidebarOpen"
-                    )
-                  }
-                )}
-                label={"Intersection Density"}
-                onChange={async (...eventArgs) => {
-                  generateStateOnChangeProp($state, [
-                    "checkboxIntersection",
-                    "isSelected"
-                  ]).apply(null, eventArgs);
-                  if (
-                    eventArgs.length > 1 &&
-                    eventArgs[1] &&
-                    eventArgs[1]._plasmic_state_init_
-                  ) {
-                    return;
-                  }
-                  (async val => {
-                    const $steps = {};
-                    $steps["select"] =
-                      $state.checkboxIntersection.isSelected === true
-                        ? (() => {
-                            const actionArgs = {
-                              variable: {
-                                objRoot: $state,
-                                variablePath: ["selectedLayers"]
-                              },
-                              operation: 0,
-                              value: [
-                                ...($state.selectedLayers || []),
-                                "intersection_density"
-                              ]
-                            };
-                            return (({
-                              variable,
-                              value,
-                              startIndex,
-                              deleteCount
-                            }) => {
-                              if (!variable) {
-                                return;
-                              }
-                              const { objRoot, variablePath } = variable;
-                              $stateSet(objRoot, variablePath, value);
-                              return value;
-                            })?.apply(null, [actionArgs]);
-                          })()
-                        : undefined;
-                    if (
-                      $steps["select"] != null &&
-                      typeof $steps["select"] === "object" &&
-                      typeof $steps["select"].then === "function"
-                    ) {
-                      $steps["select"] = await $steps["select"];
-                    }
-                    $steps["unselect"] =
-                      $state.checkboxIntersection.isSelected === false
-                        ? (() => {
-                            const actionArgs = {
-                              variable: {
-                                objRoot: $state,
-                                variablePath: ["selectedLayers"]
-                              },
-                              operation: 0,
-                              value: ($state.selectedLayers || []).filter(
-                                layer => layer !== "intersection_density"
-                              )
-                            };
-                            return (({
-                              variable,
-                              value,
-                              startIndex,
-                              deleteCount
-                            }) => {
-                              if (!variable) {
-                                return;
-                              }
-                              const { objRoot, variablePath } = variable;
-                              $stateSet(objRoot, variablePath, value);
-                              return value;
-                            })?.apply(null, [actionArgs]);
-                          })()
-                        : undefined;
-                    if (
-                      $steps["unselect"] != null &&
-                      typeof $steps["unselect"] === "object" &&
-                      typeof $steps["unselect"].then === "function"
-                    ) {
-                      $steps["unselect"] = await $steps["unselect"];
-                    }
-                  }).apply(null, eventArgs);
-                }}
-              />
-
-              <Checkbox
-                data-plasmic-name={"checkboxTactilePav"}
-                data-plasmic-override={overrides.checkboxTactilePav}
-                className={classNames("__wab_instance", sty.checkboxTactilePav)}
-                label={"Tactile Pavement"}
-                onChange={async (...eventArgs) => {
-                  generateStateOnChangeProp($state, [
-                    "checkboxTactilePav",
-                    "isSelected"
-                  ]).apply(null, eventArgs);
-                  if (
-                    eventArgs.length > 1 &&
-                    eventArgs[1] &&
-                    eventArgs[1]._plasmic_state_init_
-                  ) {
-                    return;
-                  }
-                  (async val => {
-                    const $steps = {};
-                    $steps["select"] =
-                      $state.checkboxTactilePav.isSelected === true
-                        ? (() => {
-                            const actionArgs = {
-                              variable: {
-                                objRoot: $state,
-                                variablePath: ["selectedLayers"]
-                              },
-                              operation: 0,
-                              value: [
-                                ...($state.selectedLayers || []),
-                                "tactile_pavement"
-                              ]
-                            };
-                            return (({
-                              variable,
-                              value,
-                              startIndex,
-                              deleteCount
-                            }) => {
-                              if (!variable) {
-                                return;
-                              }
-                              const { objRoot, variablePath } = variable;
-                              $stateSet(objRoot, variablePath, value);
-                              return value;
-                            })?.apply(null, [actionArgs]);
-                          })()
-                        : undefined;
-                    if (
-                      $steps["select"] != null &&
-                      typeof $steps["select"] === "object" &&
-                      typeof $steps["select"].then === "function"
-                    ) {
-                      $steps["select"] = await $steps["select"];
-                    }
-                    $steps["unselect"] =
-                      $state.checkboxTactilePav.isSelected === false
-                        ? (() => {
-                            const actionArgs = {
-                              variable: {
-                                objRoot: $state,
-                                variablePath: ["selectedLayers"]
-                              },
-                              operation: 0,
-                              value: ($state.selectedLayers || []).filter(
-                                layer => layer !== "tactile_pavement"
-                              )
-                            };
-                            return (({
-                              variable,
-                              value,
-                              startIndex,
-                              deleteCount
-                            }) => {
-                              if (!variable) {
-                                return;
-                              }
-                              const { objRoot, variablePath } = variable;
-                              $stateSet(objRoot, variablePath, value);
-                              return value;
-                            })?.apply(null, [actionArgs]);
-                          })()
-                        : undefined;
-                    if (
-                      $steps["unselect"] != null &&
-                      typeof $steps["unselect"] === "object" &&
-                      typeof $steps["unselect"].then === "function"
-                    ) {
-                      $steps["unselect"] = await $steps["unselect"];
-                    }
-                  }).apply(null, eventArgs);
-                }}
-              />
-
-              <Checkbox
-                data-plasmic-name={"checkboxLights"}
-                data-plasmic-override={overrides.checkboxLights}
-                className={classNames("__wab_instance", sty.checkboxLights)}
-                label={"Street Lights"}
-                onChange={async (...eventArgs) => {
-                  generateStateOnChangeProp($state, [
-                    "checkboxLights",
-                    "isSelected"
-                  ]).apply(null, eventArgs);
-                  if (
-                    eventArgs.length > 1 &&
-                    eventArgs[1] &&
-                    eventArgs[1]._plasmic_state_init_
-                  ) {
-                    return;
-                  }
-                  (async val => {
-                    const $steps = {};
-                    $steps["select"] =
-                      $state.checkboxLights.isSelected === true
-                        ? (() => {
-                            const actionArgs = {
-                              variable: {
-                                objRoot: $state,
-                                variablePath: ["selectedLayers"]
-                              },
-                              operation: 0,
-                              value: [
-                                ...($state.selectedLayers || []),
-                                "streetlight"
-                              ]
-                            };
-                            return (({
-                              variable,
-                              value,
-                              startIndex,
-                              deleteCount
-                            }) => {
-                              if (!variable) {
-                                return;
-                              }
-                              const { objRoot, variablePath } = variable;
-                              $stateSet(objRoot, variablePath, value);
-                              return value;
-                            })?.apply(null, [actionArgs]);
-                          })()
-                        : undefined;
-                    if (
-                      $steps["select"] != null &&
-                      typeof $steps["select"] === "object" &&
-                      typeof $steps["select"].then === "function"
-                    ) {
-                      $steps["select"] = await $steps["select"];
-                    }
-                    $steps["unselect"] =
-                      $state.checkboxLights.isSelected === false
-                        ? (() => {
-                            const actionArgs = {
-                              variable: {
-                                objRoot: $state,
-                                variablePath: ["selectedLayers"]
-                              },
-                              operation: 0,
-                              value: ($state.selectedLayers || []).filter(
-                                layer => layer !== "streetlight"
-                              )
-                            };
-                            return (({
-                              variable,
-                              value,
-                              startIndex,
-                              deleteCount
-                            }) => {
-                              if (!variable) {
-                                return;
-                              }
-                              const { objRoot, variablePath } = variable;
-                              $stateSet(objRoot, variablePath, value);
-                              return value;
-                            })?.apply(null, [actionArgs]);
-                          })()
-                        : undefined;
-                    if (
-                      $steps["unselect"] != null &&
-                      typeof $steps["unselect"] === "object" &&
-                      typeof $steps["unselect"].then === "function"
-                    ) {
-                      $steps["unselect"] = await $steps["unselect"];
-                    }
-                  }).apply(null, eventArgs);
-                }}
-              />
-
-              <Checkbox
-                data-plasmic-name={"checkboxPoi"}
-                data-plasmic-override={overrides.checkboxPoi}
-                className={classNames("__wab_instance", sty.checkboxPoi)}
-                label={"POIs"}
-                onChange={async (...eventArgs) => {
-                  generateStateOnChangeProp($state, [
-                    "checkboxPoi",
-                    "isSelected"
-                  ]).apply(null, eventArgs);
-                  if (
-                    eventArgs.length > 1 &&
-                    eventArgs[1] &&
-                    eventArgs[1]._plasmic_state_init_
-                  ) {
-                    return;
-                  }
-                  (async val => {
-                    const $steps = {};
-                    $steps["select"] =
-                      $state.checkboxPoi.isSelected === true
-                        ? (() => {
-                            const actionArgs = {
-                              variable: {
-                                objRoot: $state,
-                                variablePath: ["selectedLayers"]
-                              },
-                              operation: 0,
-                              value: [...($state.selectedLayers || []), "POIs"]
-                            };
-                            return (({
-                              variable,
-                              value,
-                              startIndex,
-                              deleteCount
-                            }) => {
-                              if (!variable) {
-                                return;
-                              }
-                              const { objRoot, variablePath } = variable;
-                              $stateSet(objRoot, variablePath, value);
-                              return value;
-                            })?.apply(null, [actionArgs]);
-                          })()
-                        : undefined;
-                    if (
-                      $steps["select"] != null &&
-                      typeof $steps["select"] === "object" &&
-                      typeof $steps["select"].then === "function"
-                    ) {
-                      $steps["select"] = await $steps["select"];
-                    }
-                    $steps["unselect"] =
-                      $state.checkboxPoi.isSelected === false
-                        ? (() => {
-                            const actionArgs = {
-                              variable: {
-                                objRoot: $state,
-                                variablePath: ["selectedLayers"]
-                              },
-                              operation: 0,
-                              value: ($state.selectedLayers || []).filter(
-                                layer => layer !== "POIs"
-                              )
-                            };
-                            return (({
-                              variable,
-                              value,
-                              startIndex,
-                              deleteCount
-                            }) => {
-                              if (!variable) {
-                                return;
-                              }
-                              const { objRoot, variablePath } = variable;
-                              $stateSet(objRoot, variablePath, value);
-                              return value;
-                            })?.apply(null, [actionArgs]);
-                          })()
-                        : undefined;
-                    if (
-                      $steps["unselect"] != null &&
-                      typeof $steps["unselect"] === "object" &&
-                      typeof $steps["unselect"].then === "function"
-                    ) {
-                      $steps["unselect"] = await $steps["unselect"];
-                    }
-                  }).apply(null, eventArgs);
-                }}
-              />
-
-              <Checkbox
-                data-plasmic-name={"checkboxNoise"}
-                data-plasmic-override={overrides.checkboxNoise}
-                className={classNames("__wab_instance", sty.checkboxNoise)}
-                label={"Noise"}
-                onChange={async (...eventArgs) => {
-                  generateStateOnChangeProp($state, [
-                    "checkboxNoise",
-                    "isSelected"
-                  ]).apply(null, eventArgs);
-                  if (
-                    eventArgs.length > 1 &&
-                    eventArgs[1] &&
-                    eventArgs[1]._plasmic_state_init_
-                  ) {
-                    return;
-                  }
-                  (async val => {
-                    const $steps = {};
-                    $steps["select"] =
-                      $state.checkboxNoise.isSelected === true
-                        ? (() => {
-                            const actionArgs = {
-                              variable: {
-                                objRoot: $state,
-                                variablePath: ["selectedLayers"]
-                              },
-                              operation: 0,
-                              value: [...($state.selectedLayers || []), "noise"]
-                            };
-                            return (({
-                              variable,
-                              value,
-                              startIndex,
-                              deleteCount
-                            }) => {
-                              if (!variable) {
-                                return;
-                              }
-                              const { objRoot, variablePath } = variable;
-                              $stateSet(objRoot, variablePath, value);
-                              return value;
-                            })?.apply(null, [actionArgs]);
-                          })()
-                        : undefined;
-                    if (
-                      $steps["select"] != null &&
-                      typeof $steps["select"] === "object" &&
-                      typeof $steps["select"].then === "function"
-                    ) {
-                      $steps["select"] = await $steps["select"];
-                    }
-                    $steps["unselect"] =
-                      $state.checkboxNoise.isSelected === false
-                        ? (() => {
-                            const actionArgs = {
-                              variable: {
-                                objRoot: $state,
-                                variablePath: ["selectedLayers"]
-                              },
-                              operation: 0,
-                              value: ($state.selectedLayers || []).filter(
-                                layer => layer !== "noise"
-                              )
-                            };
-                            return (({
-                              variable,
-                              value,
-                              startIndex,
-                              deleteCount
-                            }) => {
-                              if (!variable) {
-                                return;
-                              }
-                              const { objRoot, variablePath } = variable;
-                              $stateSet(objRoot, variablePath, value);
-                              return value;
-                            })?.apply(null, [actionArgs]);
-                          })()
-                        : undefined;
-                    if (
-                      $steps["unselect"] != null &&
-                      typeof $steps["unselect"] === "object" &&
-                      typeof $steps["unselect"].then === "function"
-                    ) {
-                      $steps["unselect"] = await $steps["unselect"];
-                    }
-                  }).apply(null, eventArgs);
-                }}
-              />
-
-              <Checkbox
-                data-plasmic-name={"checkboxTree"}
-                data-plasmic-override={overrides.checkboxTree}
-                className={classNames("__wab_instance", sty.checkboxTree)}
-                label={"Trees"}
-                onChange={async (...eventArgs) => {
-                  generateStateOnChangeProp($state, [
-                    "checkboxTree",
-                    "isSelected"
-                  ]).apply(null, eventArgs);
-                  if (
-                    eventArgs.length > 1 &&
-                    eventArgs[1] &&
-                    eventArgs[1]._plasmic_state_init_
-                  ) {
-                    return;
-                  }
-                  (async val => {
-                    const $steps = {};
-                    $steps["select"] =
-                      $state.checkboxTree.isSelected === true
-                        ? (() => {
-                            const actionArgs = {
-                              variable: {
-                                objRoot: $state,
-                                variablePath: ["selectedLayers"]
-                              },
-                              operation: 0,
-                              value: [...($state.selectedLayers || []), "tree"]
-                            };
-                            return (({
-                              variable,
-                              value,
-                              startIndex,
-                              deleteCount
-                            }) => {
-                              if (!variable) {
-                                return;
-                              }
-                              const { objRoot, variablePath } = variable;
-                              $stateSet(objRoot, variablePath, value);
-                              return value;
-                            })?.apply(null, [actionArgs]);
-                          })()
-                        : undefined;
-                    if (
-                      $steps["select"] != null &&
-                      typeof $steps["select"] === "object" &&
-                      typeof $steps["select"].then === "function"
-                    ) {
-                      $steps["select"] = await $steps["select"];
-                    }
-                    $steps["unselect"] =
-                      $state.checkboxTree.isSelected === false
-                        ? (() => {
-                            const actionArgs = {
-                              variable: {
-                                objRoot: $state,
-                                variablePath: ["selectedLayers"]
-                              },
-                              operation: 0,
-                              value: ($state.selectedLayers || []).filter(
-                                layer => layer !== "tree"
-                              )
-                            };
-                            return (({
-                              variable,
-                              value,
-                              startIndex,
-                              deleteCount
-                            }) => {
-                              if (!variable) {
-                                return;
-                              }
-                              const { objRoot, variablePath } = variable;
-                              $stateSet(objRoot, variablePath, value);
-                              return value;
-                            })?.apply(null, [actionArgs]);
-                          })()
-                        : undefined;
-                    if (
-                      $steps["unselect"] != null &&
-                      typeof $steps["unselect"] === "object" &&
-                      typeof $steps["unselect"].then === "function"
-                    ) {
-                      $steps["unselect"] = await $steps["unselect"];
-                    }
-                  }).apply(null, eventArgs);
-                }}
-              />
-
-              <div
-                data-plasmic-name={"text"}
-                data-plasmic-override={overrides.text}
-                className={classNames(
-                  projectcss.all,
-                  projectcss.__wab_text,
-                  sty.text
-                )}
-              >
-                <React.Fragment>
-                  {(() => {
-                    try {
-                      return JSON.stringify($state.selectedLayers, null, 2);
-                    } catch (e) {
-                      if (
-                        e instanceof TypeError ||
-                        e?.plasmicType === "PlasmicUndefinedDataError"
-                      ) {
-                        return "";
-                      }
-                      throw e;
-                    }
-                  })()}
-                </React.Fragment>
-              </div>
-            </div>
           </div>
+
+          <Sidebar
+            sidebarOpen={sidebarOpen}
+            setSidebarOpen={setSidebarOpen}
+            selectedLayers={selectedLayers}
+            toggleLayer={toggleLayer}
+            layerValues={layerValues}
+            handleInputChange={handleInputChange}
+            walkingTime={walkingTime}
+            setWalkingTime={setWalkingTime}
+            walkingSpeed={walkingSpeed}
+            setWalkingSpeed={setWalkingSpeed}
+            setSelectingStart={setSelectingStart}
+            startPoint={startPoint}
+            setComputeAccessibility={setComputeAccessibility}
+            handleResetResults={handleResetResults}
+            openCategory={openCategory}
+            toggleCategory={toggleCategory}
+            showInfo={showInfo}
+            setShowInfo={setShowInfo}
+          />
         </Stack__>
       </div>
     </React.Fragment>
   );
 }
 
-const PlasmicDescendants = {
-  root: [
-    "root",
-    "header",
-    "mapBox",
-    "sideBarBox",
-    "freeBox",
-    "checkboxIntersection",
-    "checkboxTactilePav",
-    "checkboxLights",
-    "checkboxPoi",
-    "checkboxNoise",
-    "checkboxTree",
-    "text"
-  ],
-
-  header: ["header"],
-  mapBox: ["mapBox"],
-  sideBarBox: [
-    "sideBarBox",
-    "freeBox",
-    "checkboxIntersection",
-    "checkboxTactilePav",
-    "checkboxLights",
-    "checkboxPoi",
-    "checkboxNoise",
-    "checkboxTree",
-    "text"
-  ],
-
-  freeBox: [
-    "freeBox",
-    "checkboxIntersection",
-    "checkboxTactilePav",
-    "checkboxLights",
-    "checkboxPoi",
-    "checkboxNoise",
-    "checkboxTree",
-    "text"
-  ],
-
-  checkboxIntersection: ["checkboxIntersection"],
-  checkboxTactilePav: ["checkboxTactilePav"],
-  checkboxLights: ["checkboxLights"],
-  checkboxPoi: ["checkboxPoi"],
-  checkboxNoise: ["checkboxNoise"],
-  checkboxTree: ["checkboxTree"],
-  text: ["text"]
-};
-
-function makeNodeComponent(nodeName) {
-  const func = function (props) {
-    const { variants, args, overrides } = React.useMemo(
-      () =>
-        deriveRenderOpts(props, {
-          name: nodeName,
-          descendantNames: PlasmicDescendants[nodeName],
-          internalArgPropNames: PlasmicPlanner__ArgProps,
-          internalVariantPropNames: PlasmicPlanner__VariantProps
-        }),
-      [props, nodeName]
-    );
-    return PlasmicPlanner__RenderFunc({
-      variants,
-      args,
-      overrides,
-      forNode: nodeName
-    });
-  };
-  if (nodeName === "root") {
-    func.displayName = "PlasmicPlanner";
-  } else {
-    func.displayName = `PlasmicPlanner.${nodeName}`;
-  }
-  return func;
+export default function PlasmicPlanner(props) {
+  return <PlasmicPlanner__RenderFunc {...props} />;
 }
-
-export const PlasmicPlanner = Object.assign(
-  // Top-level PlasmicPlanner renders the root element
-  makeNodeComponent("root"),
-  {
-    // Helper components rendering sub-elements
-    header: makeNodeComponent("header"),
-    mapBox: makeNodeComponent("mapBox"),
-    sideBarBox: makeNodeComponent("sideBarBox"),
-    freeBox: makeNodeComponent("freeBox"),
-    checkboxIntersection: makeNodeComponent("checkboxIntersection"),
-    checkboxTactilePav: makeNodeComponent("checkboxTactilePav"),
-    checkboxLights: makeNodeComponent("checkboxLights"),
-    checkboxPoi: makeNodeComponent("checkboxPoi"),
-    checkboxNoise: makeNodeComponent("checkboxNoise"),
-    checkboxTree: makeNodeComponent("checkboxTree"),
-    text: makeNodeComponent("text"),
-    // Metadata about props expected for PlasmicPlanner
-    internalVariantProps: PlasmicPlanner__VariantProps,
-    internalArgProps: PlasmicPlanner__ArgProps,
-    // Page metadata
-    pageMetadata: {
-      title: "",
-      description: "",
-      ogImageSrc: "",
-      canonical: ""
-    }
-  }
-);
-
-export default PlasmicPlanner;
 /* prettier-ignore-end */
+

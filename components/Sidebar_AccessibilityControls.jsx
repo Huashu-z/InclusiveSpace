@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./plasmic/saa_s_website/PlasmicUser.module.css";
+import sty from "./Sidebar.module.css";
 
 export default function AccessibilityControls({
   walkingTime,
@@ -12,13 +12,13 @@ export default function AccessibilityControls({
   handleResetResults
 }) {
   return (
-    <div className={styles["sidebar-section"]}>
-      <h3 className={styles["sidebar-title"]}>Personal Accessibility Area</h3>
+    <div className={sty["sidebar-section"]}>
+      <h3 className={sty["sidebar-title"]}>Personal Accessibility Area</h3>
 
-      <div className={styles["sidebar-text-bold"]}>
-        Walking Time <span className={styles["sidebar-text"]}>({walkingTime} minutes)</span>
+      <div className={sty["sidebar-text-bold"]}>
+        Walking Time <span className={sty["sidebar-text"]}>({walkingTime} minutes)</span>
       </div>
-      <div className={styles["sidebar-slider"]}>
+      <div className={sty["sidebar-slider"]}>
         <input
           type="range"
           min="1"
@@ -29,10 +29,10 @@ export default function AccessibilityControls({
         />
       </div>
 
-      <div className={styles["sidebar-text-bold"]}>
-        Walking Speed <span className={styles["sidebar-text"]}>({walkingSpeed} km/h)</span>
+      <div className={sty["sidebar-text-bold"]}>
+        Walking Speed <span className={sty["sidebar-text"]}>({walkingSpeed} km/h)</span>
       </div>
-      <div className={styles["sidebar-slider"]}>
+      <div className={sty["sidebar-slider"]}>
         <input
           type="range"
           min="1"
@@ -43,14 +43,14 @@ export default function AccessibilityControls({
         />
       </div>
 
-      <div className={styles["button-container"]}>
-        <button onClick={() => setSelectingStart(true)} className={styles["setup-button"]}>
-          <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Location Icon" className={styles["img"]} />
-          <span className={styles["sidebar-text-bold"]}>Select Start Point</span>
+      <div className={sty["button-container"]}>
+        <button onClick={() => setSelectingStart(true)} className={sty["setup-button"]}>
+          <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Location Icon" className={sty["img"]} />
+          <span className={sty["sidebar-text-bold"]}>Select Start Point</span>
         </button>
       </div>
 
-      <div className={styles["button-container"]}>
+      <div className={sty["button-container"]}>
         <button
           onClick={() => {
             if (!startPoint) {
@@ -59,13 +59,13 @@ export default function AccessibilityControls({
             }
             setComputeAccessibility(true);
           }}
-          className={styles["setup-button"]}
+          className={sty["setup-button"]}
         >
-          <span className={styles["sidebar-text-bold"]}>Get Attachment Area</span>
+          <span className={sty["sidebar-text-bold"]}>Get Attachment Area</span>
         </button>
 
-        <button onClick={handleResetResults} className={styles["setup-button"]}>
-          <span className={styles["sidebar-text-bold"]}>Reset</span>
+        <button onClick={handleResetResults} className={sty["setup-button"]}>
+          <span className={sty["sidebar-text-bold"]}>Reset</span>
         </button>
       </div>
     </div>

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { PageParamsProvider as PageParamsProvider__ } from "@plasmicapp/react-web/lib/host";
 import GlobalContextsProvider from "../components/plasmic/saa_s_website/PlasmicGlobalContextsProvider";
-import { PlasmicPlanner } from "../components/plasmic/saa_s_website/PlasmicPlanner";
+import PlasmicPlanner from "../components/plasmic/saa_s_website/PlasmicPlanner";
 import { useRouter } from "next/router";
 
 function Planner() {
