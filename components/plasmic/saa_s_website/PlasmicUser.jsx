@@ -74,29 +74,25 @@ function PlasmicUser__RenderFunc(props) {
   const [resetTrigger, setResetTrigger] = React.useState(false);
 
   const handleResetResults = () => {
-    console.log("🚀 Resetting accessibility results...");
+    console.log("Resetting accessibility results...");
     setComputeAccessibility(false); // Ensure calculation is stopped
     setStartPoint(null); // Clear selected start point
     setResetTrigger(true);
   };
 
   const onResetHandled = () => {
-    console.log("父组件：子组件那边重置完了");
+    console.log("Parent component: The child component has been reset");
     setResetTrigger(false);
   };
 
-  // const toggleLayer = (layer) => {
-  //   setSelectedLayers((prev) =>
-  //     prev.includes(layer) ? prev.filter((l) => l !== layer) : [...prev, layer]
-  //   );
-  // };
+
   const toggleLayer = (layer) => {
     setSelectedLayers((prev) => {
         const newLayers = prev.includes(layer) 
             ? prev.filter(l => l !== layer) 
             : [...prev, layer];
         
-        // 仅在新增layer时初始化值
+        // Initialize the value only when adding a new layer
         if (!prev.includes(layer)) {
             setLayerValues(prevValues => ({
                 ...prevValues,
@@ -107,17 +103,9 @@ function PlasmicUser__RenderFunc(props) {
     });
   };
 
-  //handle input variable values
-  // const handleInputChange = (event, layer) => {
-  //   const value = parseFloat(event.target.value);
-  //   setLayerValues(prev => ({
-  //     ...prev,
-  //     [layer]: value  // ✅ 存储每个变量的输入值
-  //   }));
-  // };  
   const handleInputChange = (event, layer) => {
     const value = parseFloat(event.target.value);
-    // 如果输入无效，保留上一次有效值或设为默认值 1.0
+    // If the input is invalid, keep the last valid value or set it to the default value of 1.0
     setLayerValues(prev => ({
       ...prev,
       [layer]: isNaN(value) ? (prev[layer] || 1.0) : value
@@ -532,8 +520,8 @@ function PlasmicUser__RenderFunc(props) {
                             min="0" 
                             max="1" 
                             step="0.1"
-                            value={layerValues["light"] ?? ""}  // ✅ 绑定 layerValues
-                            onChange={(event) => handleInputChange(event, "light")}  // ✅ 监听输入
+                            value={layerValues["light"] ?? ""}   
+                            onChange={(event) => handleInputChange(event, "light")}   
                           />
                         </div>
                         {/* Tactile Pavement Weight Setting */}
@@ -547,8 +535,8 @@ function PlasmicUser__RenderFunc(props) {
                             min="0" 
                             max="1" 
                             step="0.1"
-                            value={layerValues["tactile_pavement"] || ""}  // ✅ 绑定 layerValues
-                            onChange={(event) => handleInputChange(event, "tactile_pavement")}  // ✅ 监听输入
+                            value={layerValues["tactile_pavement"] || ""} 
+                            onChange={(event) => handleInputChange(event, "tactile_pavement")}  
                           />
                         </div>
                       </div>
@@ -574,8 +562,8 @@ function PlasmicUser__RenderFunc(props) {
                             min="0" 
                             max="1" 
                             step="0.1"
-                            value={layerValues["crossing"] || ""}  // ✅ 绑定 layerValues
-                            onChange={(event) => handleInputChange(event, "crossing")}  // ✅ 监听输入
+                            value={layerValues["crossing"] || ""}  
+                            onChange={(event) => handleInputChange(event, "crossing")}  
                           />
                         </div>
                         {/* Noise Weight Setting */}
@@ -589,8 +577,8 @@ function PlasmicUser__RenderFunc(props) {
                             min="0" 
                             max="1" 
                             step="0.1"
-                            value={layerValues["noise"] || ""}  // ✅ 绑定 layerValues
-                            onChange={(event) => handleInputChange(event, "noise")}  // ✅ 监听输入
+                            value={layerValues["noise"] || ""}  
+                            onChange={(event) => handleInputChange(event, "noise")}  
                           />
                         </div>
                       </div>
@@ -616,8 +604,8 @@ function PlasmicUser__RenderFunc(props) {
                             min="0" 
                             max="1" 
                             step="0.1"
-                            value={layerValues["tree"] || ""}  // ✅ 绑定 layerValues
-                            onChange={(event) => handleInputChange(event, "tree")}  // ✅ 监听输入
+                            value={layerValues["tree"] || ""}  
+                            onChange={(event) => handleInputChange(event, "tree")} 
                           />
                         </div>
                       </div>
