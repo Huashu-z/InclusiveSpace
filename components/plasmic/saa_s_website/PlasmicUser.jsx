@@ -16,35 +16,24 @@ import {
   classNames,
   createPlasmicElementProxy,
   deriveRenderOpts,
-  generateStateOnChangeProp,
-  get as $stateGet,
-  hasVariant,
-  set as $stateSet,
   useDollarState
 } from "@plasmicapp/react-web";
 import { useDataEnv } from "@plasmicapp/react-web/lib/host";
-import Header from "../../Header"; // plasmic-import: fDzUbLUclsbT/component
-import Checkbox from "../../Checkbox"; // plasmic-import: 9vVSXaKyPA3c/component
+import Header from "../../Header";
 import "@plasmicapp/react-web/lib/plasmic.css";
-import plasmic_antd_5_hostless_css from "../antd_5_hostless/plasmic.module.css"; // plasmic-import: ohDidvG9XsCeFumugENU3J/projectcss
-import projectcss from "./plasmic.module.css"; // plasmic-import: uftrV6ZeR5SuVi5gnDLzFk/projectcss
-import sty from "./PlasmicUser.module.css"; // plasmic-import: If1fqS83W9Lw/css
-import ArrowSvgIcon from "./icons/PlasmicIcon__ArrowSvg"; // plasmic-import: ZrG95_rSrl_o/icon
+import plasmic_antd_5_hostless_css from "../antd_5_hostless/plasmic.module.css";
+import projectcss from "./plasmic.module.css";
+import sty from "./PlasmicUser.module.css";
 import dynamic from "next/dynamic";
 import "leaflet/dist/leaflet.css";
+import Sidebar from "../../Sidebar";
 
 const MapComponent = dynamic(() => import("../../MapComponent"), { ssr: false });
 
 createPlasmicElementProxy;
 
-export const PlasmicUser__VariantProps = new Array(
-  "sidebarOpen",
-  "sidebarClose"
-);
-
-export const PlasmicUser__ArgProps = new Array();
-
-const $$ = {};
+export const PlasmicUser__VariantProps = [];
+export const PlasmicUser__ArgProps = [];
 
 function useNextRouter() {
   try {
@@ -55,178 +44,67 @@ function useNextRouter() {
 
 function PlasmicUser__RenderFunc(props) {
   const { variants, overrides, forNode } = props;
-  const [selectingStart, setSelectingStart] = React.useState(false); //Controls whether the user is selecting a starting point
-  const [startPoint, setStartPoint] = React.useState(null); // Stores the user-selected starting point
+  const [selectingStart, setSelectingStart] = React.useState(false);
+  const [startPoint, setStartPoint] = React.useState(null);
   const [computeAccessibility, setComputeAccessibility] = React.useState(false);
-  const [walkingTime, setWalkingTime] = React.useState(15); // Default walking time is 15 minutes
-  const [walkingSpeed, setWalkingSpeed] = React.useState(5); // Default walking speed is 5 km/h
-  const [selectedLayers, setSelectedLayers] = React.useState([]); // load Layer
-  const [layerValues, setLayerValues] = React.useState({}); //store input variable value by user
-
-  // slidebar categorys
-  const [openCategory, setOpenCategory] = React.useState(null); // Opened variable category
-  const [showInfo, setShowInfo] = React.useState(false); // Show the info box about variables
+  const [walkingTime, setWalkingTime] = React.useState(15);
+  const [walkingSpeed, setWalkingSpeed] = React.useState(5);
+  const [selectedLayers, setSelectedLayers] = React.useState([]);
+  const [layerValues, setLayerValues] = React.useState({});
+  const [openCategory, setOpenCategory] = React.useState(null);
+  const [showInfo, setShowInfo] = React.useState(false);
+  const [resetTrigger, setResetTrigger] = React.useState(false);
+  const [sidebarOpen, setSidebarOpen] = React.useState(true);
 
   const toggleCategory = (category) => {
     setOpenCategory(openCategory === category ? null : category);
   };
 
-  const [resetTrigger, setResetTrigger] = React.useState(false);
-
   const handleResetResults = () => {
-    console.log("Resetting accessibility results...");
-    setComputeAccessibility(false); // Ensure calculation is stopped
-    setStartPoint(null); // Clear selected start point
+    setComputeAccessibility(false);
+    setStartPoint(null);
     setResetTrigger(true);
   };
 
   const onResetHandled = () => {
-    console.log("Parent component: The child component has been reset");
     setResetTrigger(false);
   };
 
-
   const toggleLayer = (layer) => {
     setSelectedLayers((prev) => {
-        const newLayers = prev.includes(layer) 
-            ? prev.filter(l => l !== layer) 
-            : [...prev, layer];
-        
-        // Initialize the value only when adding a new layer
-        if (!prev.includes(layer)) {
-            setLayerValues(prevValues => ({
-                ...prevValues,
-                [layer]: prevValues[layer] || 1.0
-            }));
-        }
-        return newLayers;
+      const newLayers = prev.includes(layer)
+        ? prev.filter((l) => l !== layer)
+        : [...prev, layer];
+      if (!prev.includes(layer)) {
+        setLayerValues((prevValues) => ({
+          ...prevValues,
+          [layer]: prevValues[layer] || 1.0,
+        }));
+      }
+      return newLayers;
     });
   };
 
   const handleInputChange = (event, layer) => {
     const value = parseFloat(event.target.value);
-    // If the input is invalid, keep the last valid value or set it to the default value of 1.0
-    setLayerValues(prev => ({
+    setLayerValues((prev) => ({
       ...prev,
-      [layer]: isNaN(value) ? (prev[layer] || 1.0) : value
+      [layer]: isNaN(value) ? prev[layer] || 1.0 : value,
     }));
-    console.log("Updated layerValues:", { ...layerValues, [layer]: value });
   };
 
-  const args = React.useMemo(
-    () =>
-      Object.assign(
-        {},
-        Object.fromEntries(
-          Object.entries(props.args).filter(([_, v]) => v !== undefined)
-        )
-      ),
-    [props.args]
-  );
-  const $props = {
-    ...args,
-    ...variants
-  };
-  const __nextRouter = useNextRouter();
-  const $ctx = useDataEnv?.() || {};
-  const refsRef = React.useRef({});
-  const $refs = refsRef.current;
-  const stateSpecs = React.useMemo(
-    () => [
-      {
-        path: "sidebarOpen",
-        type: "private",
-        variableType: "variant",
-        initFunc: ({ $props, $state, $queries, $ctx }) => $props.sidebarOpen
-      },
-      {
-        path: "sidebarClose",
-        type: "private",
-        variableType: "variant",
-        initFunc: ({ $props, $state, $queries, $ctx }) => $props.sidebarClose
-      },
-      {
-        path: "checkboxLight.isSelected",
-        type: "private",
-        variableType: "boolean",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      },
-      {
-        path: "checkboxTactilePav.isSelected",
-        type: "private",
-        variableType: "boolean",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      },
-      {
-        path: "checkboxCrossing.isSelected",
-        type: "private",
-        variableType: "boolean",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      },
-      {
-        path: "checkboxPoi.isSelected",
-        type: "private",
-        variableType: "boolean",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      },
-      {
-        path: "checkboxNoise.isSelected",
-        type: "private",
-        variableType: "boolean",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      },
-      {
-        path: "checkboxTree.isSelected",
-        type: "private",
-        variableType: "boolean",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      },
-      {
-        path: "checkboxDefault.isSelected",
-        type: "private",
-        variableType: "boolean",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      },
-      {
-        path: "selectedLayers",
-        type: "private",
-        variableType: "array",
-        initFunc: ({ $props, $state, $queries, $ctx }) => []
-      },
-      {
-        path: "selectingStart",  // Add selection mode variable
-        type: "private",
-        variableType: "boolean",
-        initFunc: ({ $props, $state, $queries, $ctx }) => false
-      }
-    ],
-
-    [$props, $ctx, $refs]
-  );
-  const $state = useDollarState(stateSpecs, {
-    $props,
-    $ctx,
-    $queries: {},
-    $refs
-  });
   return (
     <React.Fragment>
       <Head></Head>
-
-      <style>{`
-        body {
-          margin: 0;
-        }
-      `}</style>
-
+      <style>{`body { margin: 0; }`}</style>
       <div className={projectcss.plasmic_page_wrapper}>
         <Stack__
-          as={"div"}
-          data-plasmic-name={"root"}
-          data-plasmic-override={overrides.root}
-          data-plasmic-root={true}
+          as="div"
+          data-plasmic-name="root"
+          data-plasmic-override={overrides?.root}
+          data-plasmic-root
           data-plasmic-for-node={forNode}
-          hasGap={true}
+          hasGap
           className={classNames(
             projectcss.all,
             projectcss.root_reset,
@@ -234,512 +112,53 @@ function PlasmicUser__RenderFunc(props) {
             projectcss.plasmic_mixins,
             projectcss.plasmic_tokens,
             plasmic_antd_5_hostless_css.plasmic_tokens,
-            sty.root,
-            {
-              [sty.rootsidebarClose]: hasVariant(
-                $state,
-                "sidebarClose",
-                "sidebarClose"
-              ),
-              [sty.rootsidebarOpen]: hasVariant(
-                $state,
-                "sidebarOpen",
-                "sidebarOpen"
-              )
-            }
+            sty.root
           )}
         >
-
-          <Header
-            data-plasmic-name={"header"}
-            data-plasmic-override={overrides.header}
-            className={classNames("__wab_instance", sty.header)}
-          />
-
-          <div
-            data-plasmic-name={"mapBox"}
-            data-plasmic-override={overrides.mapBox}
-            className={classNames(projectcss.all, sty.mapBox, {
-              [sty.mapBoxsidebarOpen]: hasVariant(
-                $state,
-                "sidebarOpen",
-                "sidebarOpen"
-              )
-            })}
-            id={"map"}
-          >
-            <MapComponent 
-              selectedLayers={selectedLayers} 
-              selectingStart={selectingStart} 
+          <Header data-plasmic-name="header" data-plasmic-override={overrides?.header} className={classNames("__wab_instance", sty.header)} />
+          <div data-plasmic-name="mapBox" data-plasmic-override={overrides?.mapBox} className={classNames(projectcss.all, sty.mapBox)} id="map">
+            <MapComponent
+              selectedLayers={selectedLayers}
+              selectingStart={selectingStart}
               setSelectingStart={setSelectingStart}
-              walkingTime={walkingTime} 
-              walkingSpeed={walkingSpeed} 
-              startPoint={startPoint} // Transfer starting point
-              setStartPoint={setStartPoint} // Allow MapComponent to modify the starting point
-              computeAccessibility={computeAccessibility} // Trigger calculation
-              setComputeAccessibility={setComputeAccessibility} // Reset after calculation
+              walkingTime={walkingTime}
+              walkingSpeed={walkingSpeed}
+              startPoint={startPoint}
+              setStartPoint={setStartPoint}
+              computeAccessibility={computeAccessibility}
+              setComputeAccessibility={setComputeAccessibility}
               resetTrigger={resetTrigger}
               onResetHandled={onResetHandled}
               layerValues={layerValues}
             />
           </div>
-
-          <div
-            data-plasmic-name={"sideBarBox"}
-            data-plasmic-override={overrides.sideBarBox}
-            className={classNames(projectcss.all, sty.sideBarBox, {
-              [sty.sideBarBoxsidebarClose]: hasVariant(
-                $state,
-                "sidebarClose",
-                "sidebarClose"
-              ),
-              [sty.sideBarBoxsidebarOpen]: hasVariant(
-                $state,
-                "sidebarOpen",
-                "sidebarOpen"
-              )
-            })}
-          >
-            <ArrowSvgIcon
-              className={classNames(projectcss.all, sty.svg__lhwYj, {
-                [sty.svgsidebarClose__lhwYj3FoUt]: hasVariant(
-                  $state,
-                  "sidebarClose",
-                  "sidebarClose"
-                ),
-                [sty.svgsidebarOpen__lhwYJyaBs4]: hasVariant(
-                  $state,
-                  "sidebarOpen",
-                  "sidebarOpen"
-                )
-              })}
-              onClick={async event => {
-                const $steps = {};
-                $steps["updateSidebarClose"] = true
-                  ? (() => {
-                      const actionArgs = {
-                        vgroup: "sidebarClose",
-                        operation: 2
-                      };
-                      return (({ vgroup, value }) => {
-                        if (typeof value === "string") {
-                          value = [value];
-                        }
-                        const oldValue = $stateGet($state, vgroup);
-                        $stateSet($state, vgroup, !oldValue);
-                        return !oldValue;
-                      })?.apply(null, [actionArgs]);
-                    })()
-                  : undefined;
-                if (
-                  $steps["updateSidebarClose"] != null &&
-                  typeof $steps["updateSidebarClose"] === "object" &&
-                  typeof $steps["updateSidebarClose"].then === "function"
-                ) {
-                  $steps["updateSidebarClose"] = await $steps[
-                    "updateSidebarClose"
-                  ];
-                }
-              }}
-              role={"img"}
-            />
-
-            <ArrowSvgIcon
-              className={classNames(projectcss.all, sty.svg___9Ata1, {
-                [sty.svgsidebarOpen___9Ata1YaBs4]: hasVariant(
-                  $state,
-                  "sidebarOpen",
-                  "sidebarOpen"
-                )
-              })}
-              onClick={async event => {
-                const $steps = {};
-                $steps["updateSidebarClose"] = true
-                  ? (() => {
-                      const actionArgs = {
-                        vgroup: "sidebarClose",
-                        operation: 2
-                      };
-                      return (({ vgroup, value }) => {
-                        if (typeof value === "string") {
-                          value = [value];
-                        }
-                        const oldValue = $stateGet($state, vgroup);
-                        $stateSet($state, vgroup, !oldValue);
-                        return !oldValue;
-                      })?.apply(null, [actionArgs]);
-                    })()
-                  : undefined;
-                if (
-                  $steps["updateSidebarClose"] != null &&
-                  typeof $steps["updateSidebarClose"] === "object" &&
-                  typeof $steps["updateSidebarClose"].then === "function"
-                ) {
-                  $steps["updateSidebarClose"] = await $steps[
-                    "updateSidebarClose"
-                  ];
-                }
-              }}
-              role={"img"}
-            />
-
-            <div
-              data-plasmic-name={"freeBox"}
-              data-plasmic-override={overrides.freeBox}
-              className={classNames(projectcss.all, sty.freeBox, {
-                [sty.freeBoxsidebarOpen]: hasVariant(
-                  $state,
-                  "sidebarOpen",
-                  "sidebarOpen"
-                )
-              })}
-            > 
-
-              {/*  User Setting Section */}
-              <div className={sty["sidebar-section"]}>
-                <h3 className={sty["sidebar-title"]}>Personal Accessibility Area</h3>
-                {/* Walking Time */}
-                <div className={sty["sidebar-text-bold"]}>
-                  Walking Time <span className={sty["sidebar-text"]}>({walkingTime} minutes)</span>
-                </div>
-                <div className={sty["sidebar-slider"]}>
-                    <input
-                      type="range"
-                      min="1"
-                      max="60"
-                      step="1"
-                      value={walkingTime}
-                      onChange={(e) => setWalkingTime(Number(e.target.value))}
-                      className={sty["input"]}
-                    />
-                </div>
-                {/* Walking Speed */}
-                <div className={sty["sidebar-text-bold"]}>
-                  Walking Speed <span className={sty["sidebar-text"]}>({walkingSpeed} km/h)</span>
-                </div>
-                <div className={sty["sidebar-slider"]}>
-                    <input
-                      type="range"
-                      min="1"
-                      max="8"
-                      step="0.1"
-                      value={walkingSpeed}
-                      onChange={(e) => setWalkingSpeed(Number(e.target.value))}
-                      className={sty["input"]}
-                    />
-                </div>
-
-                {/* Add a "Select starting point" button here */}
-                <div className={sty["button-container"]}>
-                  <button 
-                    onClick={() => setSelectingStart(true)}
-                    className={sty["setup-button"]}
-                  >
-                    <img 
-                      src="https://cdn-icons-png.flaticon.com/512/684/684908.png" 
-                      alt="Location Icon"
-                      className={sty["img"]} 
-                    />
-                    <span className={sty["sidebar-text-bold"]}>Select Start Point</span>
-                  </button>
-                </div>
-                <div className={sty["button-container"]}>
-                  {/* button for accessibility computation */}
-                  <div className={sty["button-container"]}>
-                    <button
-                      onClick={() => {
-                        if (!startPoint) {
-                          alert("Please select a starting point first!");
-                          return;
-                        }
-                        setComputeAccessibility(true);
-                      }}
-                      className={sty["setup-button"]}
-                    >
-                      <span className={sty["sidebar-text-bold"]}>Get Attachment Area</span>
-                    </button>
-
-                    <button
-                      onClick={handleResetResults}
-                      className={sty["setup-button"]}
-                    >
-                      <span className={sty["sidebar-text-bold"]}>Reset</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* 🟢 Analysis Variables */}
-              <div className={sty["sidebar-section"]}>
-                <div className={sty["title-container"]}>
-                  <h3 className={sty["sidebar-title"]}>Variable</h3>
-                  {/* info icon，click to show tooltip */}
-                  <span
-                    className={sty["info-icon"]}
-                    onClick={() => setShowInfo(!showInfo)}
-                  >
-                    i
-                  </span>
-                  {/* tooltip*/}
-                  <div className={`${sty["tooltip"]} ${showInfo ? sty["show"] : ""}`}>
-                    <p>Select variables and set the speed penalty between 0 and 1:</p>
-                    <ul>
-                      <p><strong>0</strong>: Completely inaccessible</p>
-                      <p><strong>1</strong>: Fully comfortable</p>
-                      <p>Lower values = Greater barrier</p>
-                    </ul>
-                  </div>
-                </div>
-
-                <div className={sty["faq-container"]}>
-                  <div className={sty["faq-answer"]}>
-                    {/* Default value without variables */}
-                    <div className={sty["checkbox-container"]}>
-                      <label className={sty["checkbox-label"]}>
-                        <input type="checkbox" onChange={() => toggleLayer("default")} />
-                        <span className={sty["sidebar-text"]}>Default</span>
-                      </label>
-                    </div>
-                  </div> 
-                  {/* Infrastructure */}
-                  <div className={sty["faq-item"]}>
-                    <button className={sty["faq-question"]} onClick={() => toggleCategory("infra")}>
-                      <span className={sty["sidebar-subtitle"]}>Infrastructure</span>
-                      <span className={sty["faq-icon"]}>{openCategory === "infra" ? "−" : "+"}</span>
-                    </button>
-                    {openCategory === "infra" && (
-                      <div className={sty["faq-answer"]}>
-                        {/* Light Weight Setting */}
-                        <div className={sty["checkbox-container"]}>
-                          <label className={sty["checkbox-label"]}>
-                            <input type="checkbox" onChange={() => toggleLayer("light")} />
-                            <span className={sty["sidebar-text"]}>Light</span>
-                          </label>
-                          <input type="number" className={sty["checkbox-input"]} 
-                            placeholder="0 - 1"  
-                            min="0" 
-                            max="1" 
-                            step="0.1"
-                            value={layerValues["light"] ?? ""}   
-                            onChange={(event) => handleInputChange(event, "light")}   
-                          />
-                        </div>
-                        {/* Tactile Pavement Weight Setting */}
-                        <div className={sty["checkbox-container"]}>
-                          <label className={sty["checkbox-label"]}>
-                            <input type="checkbox" onChange={() => toggleLayer("tactile_pavement")} />
-                            <span className={sty["sidebar-text"]}>Tactile Pavement</span>
-                          </label>
-                          <input type="number" className={sty["checkbox-input"]} 
-                            placeholder="0 - 1"  
-                            min="0" 
-                            max="1" 
-                            step="0.1"
-                            value={layerValues["tactile_pavement"] || ""} 
-                            onChange={(event) => handleInputChange(event, "tactile_pavement")}  
-                          />
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Environmental Factors */}
-                  <div className={sty["faq-item"]}>
-                    <button className={sty["faq-question"]} onClick={() => toggleCategory("env")}>
-                      <span className={sty["sidebar-subtitle"]}>Environmental Factors</span>
-                      <span className={sty["faq-icon"]}>{openCategory === "env" ? "−" : "+"}</span>
-                    </button>
-                    {openCategory === "env" && (
-                      <div className={sty["faq-answer"]}>
-                        {/* Street Crossing Weight Setting */}
-                        <div className={sty["checkbox-container"]}>
-                          <label className={sty["checkbox-label"]}>
-                            <input type="checkbox" onChange={() => toggleLayer("crossing")} />
-                            <span className={sty["sidebar-text"]}>Street Crossing</span>
-                          </label>
-                          <input type="number" className={sty["checkbox-input"]} 
-                            placeholder="0 - 1"  
-                            min="0" 
-                            max="1" 
-                            step="0.1"
-                            value={layerValues["crossing"] || ""}  
-                            onChange={(event) => handleInputChange(event, "crossing")}  
-                          />
-                        </div>
-                        {/* Noise Weight Setting */}
-                        <div className={sty["checkbox-container"]}>
-                          <label className={sty["checkbox-label"]}>
-                            <input type="checkbox" onChange={() => toggleLayer("noise")} />
-                            <span className={sty["sidebar-text"]}>Noise</span>
-                          </label>
-                          <input type="number" className={sty["checkbox-input"]} 
-                            placeholder="0 - 1"  
-                            min="0" 
-                            max="1" 
-                            step="0.1"
-                            value={layerValues["noise"] || ""}  
-                            onChange={(event) => handleInputChange(event, "noise")}  
-                          />
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Psychological Factors */}
-                  <div className={sty["faq-item"]}>
-                    <button className={sty["faq-question"]} onClick={() => toggleCategory("veg")}>
-                      <span className={sty["sidebar-subtitle"]}>Psychological Factors</span>
-                      <span className={sty["faq-icon"]}>{openCategory === "veg" ? "−" : "+"}</span>
-                    </button>
-                    {openCategory === "veg" && (
-                      <div className={sty["faq-answer"]}>
-                        {/* Trees Weight Setting */}
-                        <div className={sty["checkbox-container"]}>
-                          <label className={sty["checkbox-label"]}>
-                            <input type="checkbox" onChange={() => toggleLayer("tree")} />
-                            <span className={sty["sidebar-text"]}>Trees</span>
-                          </label>
-                          <input type="number" className={sty["checkbox-input"]} 
-                            placeholder="0 - 1"  
-                            min="0" 
-                            max="1" 
-                            step="0.1"
-                            value={layerValues["tree"] || ""}  
-                            onChange={(event) => handleInputChange(event, "tree")} 
-                          />
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                </div>
-              </div>
-
-              {/* Load Layers */}
-              <div className={sty["sidebar-section"]}>
-                <h3 className={sty["sidebar-title"]}>Map Layers</h3>
-                <label>
-                  <input 
-                    type="checkbox" 
-                    checked={selectedLayers.includes("roads")} 
-                    onChange={() => toggleLayer("roads")} 
-                  /> Roads
-                </label>
-              </div>
-
-            </div>
-          </div>
+          <Sidebar
+            sidebarOpen={sidebarOpen}
+            setSidebarOpen={setSidebarOpen}
+            selectedLayers={selectedLayers}
+            toggleLayer={toggleLayer}
+            layerValues={layerValues}
+            handleInputChange={handleInputChange}
+            walkingTime={walkingTime}
+            setWalkingTime={setWalkingTime}
+            walkingSpeed={walkingSpeed}
+            setWalkingSpeed={setWalkingSpeed}
+            setSelectingStart={setSelectingStart}
+            startPoint={startPoint}
+            setComputeAccessibility={setComputeAccessibility}
+            handleResetResults={handleResetResults}
+            openCategory={openCategory}
+            toggleCategory={toggleCategory}
+            showInfo={showInfo}
+            setShowInfo={setShowInfo}
+          />
         </Stack__>
       </div>
     </React.Fragment>
   );
 }
 
-const PlasmicDescendants = {
-  root: [
-    "root",
-    "header",
-    "mapBox",
-    "sideBarBox",
-    "freeBox",
-    "checkboxLight",
-    "checkboxTactilePav",
-    "checkboxCrossing",
-    "checkboxPoi",
-    "checkboxNoise",
-    "checkboxTree",
-    "checkboxDefault"
-  ],
-
-  header: ["header"],
-  mapBox: ["mapBox"],
-  sideBarBox: [
-    "sideBarBox",
-    "freeBox",
-    "checkboxLight",
-    "checkboxTactilePav",
-    "checkboxCrossing",
-    "checkboxPoi",
-    "checkboxNoise",
-    "checkboxTree",
-    "checkboxDefault",
-  ],
-
-  freeBox: [
-    "freeBox",
-    "checkboxLight",
-    "checkboxTactilePav",
-    "checkboxCrossing",
-    "checkboxPoi",
-    "checkboxNoise",
-    "checkboxTree",
-    "checkboxDefault",
-  ],
-
-  checkboxLight: ["checkboxLight"],
-  checkboxTactilePav: ["checkboxTactilePav"],
-  checkboxCrossing: ["checkboxCrossing"],
-  checkboxPoi: ["checkboxPoi"],
-  checkboxNoise: ["checkboxNoise"],
-  checkboxTree: ["checkboxTree"],
-  checkboxDefault: ["checkboxDriginal"]
-};
-
-function makeNodeComponent(nodeName) {
-  const func = function (props) {
-    const { variants, args, overrides } = React.useMemo(
-      () =>
-        deriveRenderOpts(props, {
-          name: nodeName,
-          descendantNames: PlasmicDescendants[nodeName],
-          internalArgPropNames: PlasmicUser__ArgProps,
-          internalVariantPropNames: PlasmicUser__VariantProps
-        }),
-      [props, nodeName]
-    );
-    return PlasmicUser__RenderFunc({
-      variants,
-      args,
-      overrides,
-      forNode: nodeName
-    });
-  };
-  if (nodeName === "root") {
-    func.displayName = "PlasmicUser";
-  } else {
-    func.displayName = `PlasmicUser.${nodeName}`;
-  }
-  return func;
+export default function PlasmicUser(props) {
+  return <PlasmicUser__RenderFunc {...props} />;
 }
-
-export const PlasmicUser = Object.assign(
-  // Top-level PlasmicUser renders the root element
-  makeNodeComponent("root"),
-  {
-    // Helper components rendering sub-elements
-    header: makeNodeComponent("header"),
-    mapBox: makeNodeComponent("mapBox"),
-    sideBarBox: makeNodeComponent("sideBarBox"),
-    freeBox: makeNodeComponent("freeBox"),
-    checkboxLight: makeNodeComponent("checkboxLight"),
-    checkboxTactilePav: makeNodeComponent("checkboxTactilePav"),
-    checkboxCrossing: makeNodeComponent("checkboxCrossing"),
-    checkboxPoi: makeNodeComponent("checkboxPoi"),
-    checkboxNoise: makeNodeComponent("checkboxNoise"),
-    checkboxTree: makeNodeComponent("checkboxTree"),
-    checkboxDefault: makeNodeComponent("checkboxDefault"),
-    // Metadata about props expected for PlasmicUser
-    internalVariantProps: PlasmicUser__VariantProps,
-    internalArgProps: PlasmicUser__ArgProps,
-    // Page metadata
-    pageMetadata: {
-      title: "",
-      description: "",
-      ogImageSrc: "",
-      canonical: ""
-    }
-  }
-);
-
-export default PlasmicUser;
 /* prettier-ignore-end */

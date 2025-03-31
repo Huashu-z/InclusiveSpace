@@ -3,7 +3,7 @@
 import * as React from "react";
 import { PageParamsProvider as PageParamsProvider__ } from "@plasmicapp/react-web/lib/host";
 import GlobalContextsProvider from "../components/plasmic/saa_s_website/PlasmicGlobalContextsProvider";
-import { PlasmicUser } from "../components/plasmic/saa_s_website/PlasmicUser";
+import PlasmicUser from "../components/plasmic/saa_s_website/PlasmicUser";
 import { useRouter } from "next/router";
 
 function User() {

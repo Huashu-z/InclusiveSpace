@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../PlasmicUser.module.css";
+import styles from "./plasmic/saa_s_website/PlasmicUser.module.css";
 
 export default function MapLayers({ selectedLayers, toggleLayer }) {
   return (
