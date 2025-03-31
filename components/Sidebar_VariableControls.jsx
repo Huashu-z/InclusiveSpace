@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../PlasmicUser.module.css";
+import styles from "./plasmic/saa_s_website/PlasmicUser.module.css";
 import Tooltip from "./Sidebar_Tooltip";
 
 export default function VariableControls({
@@ -84,7 +84,7 @@ export default function VariableControls({
 }
 
 function Category({ name, open, onClick, children }) {
-  const styles = require("../PlasmicUser.module.css");
+  const styles = require("./plasmic/saa_s_website/PlasmicUser.module.css");
   return (
     <div className={styles["faq-item"]}>
       <button className={styles["faq-question"]} onClick={onClick}>
