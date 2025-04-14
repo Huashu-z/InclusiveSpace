@@ -24,6 +24,8 @@ const MapComponent = ({
   walkingSpeed, 
   startPoint, 
   setStartPoint, 
+  computeAccessibility,
+  setComputeAccessibility,
   resetTrigger,
   onResetHandled,
   layerValues
@@ -137,35 +139,70 @@ const MapComponent = ({
   const MapClickHandler = () => {
     useMapEvents({
 
-      click: async (e) => {
+      // click: async (e) => {
+      //   if (selectingStart) {
+      //     const [lon, lat] = [e.latlng.lng, e.latlng.lat];
+      //     console.log("User click coordinates: ", [lon, lat]);
+      //     setStartPoint([lon, lat]);
+      //     setSelectingStart(false);
+      
+      //     setIsCalculating(true);
+      //     const result = await fetchAccessibilityFromBackend(lat, lon, walkingTime, walkingSpeed);
+      //     const roadFeatures = result.roads?.features || [];
+      //     setIsCalculating(false);
+
+      //     const featureCollection = turf.featureCollection(roadFeatures);
+
+      //     // Merge into a MultiLineString geometry
+      //     const combined = turf.combine(featureCollection); 
+
+      //     // generate buffer area
+      //     const outerHull = turf.buffer(combined, 0.1, { units: "kilometers" }); 
+
+      //     // for rendering
+      //     setReachableHullData(outerHull);
+      //     setReachableRoadsData(result.roads);
+      
+      //   }
+      // }      
+      
+      click: (e) => {
         if (selectingStart) {
           const [lon, lat] = [e.latlng.lng, e.latlng.lat];
-          console.log("User click coordinates: ", [lon, lat]);
+          console.log("🖱️ 已选起点：", [lon, lat]);
           setStartPoint([lon, lat]);
           setSelectingStart(false);
-      
-          setIsCalculating(true);
-          const result = await fetchAccessibilityFromBackend(lat, lon, walkingTime, walkingSpeed);
-          const roadFeatures = result.roads?.features || [];
-          setIsCalculating(false);
-
-          const featureCollection = turf.featureCollection(roadFeatures);
-
-          // Merge into a MultiLineString geometry
-          const combined = turf.combine(featureCollection); 
-
-          // generate buffer area
-          const outerHull = turf.buffer(combined, 0.1, { units: "kilometers" }); 
-
-          // for rendering
-          setReachableHullData(outerHull);
-          setReachableRoadsData(result.roads);
-      
         }
-      }      
+      }
+      
     });
     return null;
   };
+
+  useEffect(() => {
+    const performAnalysis = async () => {
+      if (!startPoint) {
+        alert("请先选择起点");
+        return;
+      }
+      setIsCalculating(true);
+      const [lon, lat] = startPoint;
+      const result = await fetchAccessibilityFromBackend(lat, lon, walkingTime, walkingSpeed);
+      const roadFeatures = result.roads?.features || [];
+      const featureCollection = turf.featureCollection(roadFeatures);
+      const combined = turf.combine(featureCollection); 
+      const outerHull = turf.buffer(combined, 0.1, { units: "kilometers" }); 
+      setReachableHullData(outerHull);
+      setReachableRoadsData(result.roads);
+      setIsCalculating(false);
+      setComputeAccessibility(false); // 避免重复触发
+    };
+  
+    if (computeAccessibility) {
+      performAnalysis();
+    }
+  }, [computeAccessibility]);
+  
  
   // selected variable rendering setting colors
   const layerColors = {
@@ -177,7 +214,7 @@ const MapComponent = ({
     tree: "#173F5F"        
   };
 
-  // geojson bounding boxes style
+  // static geojson buffer bounding style
   const geoJsonStyle = (fileName) => {
     // 找到对应的 variable 颜色
     const layerName = Object.keys(layerColors).find(layer => fileName.includes(layer));

@@ -56,22 +56,8 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // 单位：米
             false::boolean
           )
         )
-    `, [startVid, maxDistance]);
-
-    // const hullRes = await pool.query(`
-    //     SELECT ST_AsGeoJSON(ST_ConcaveHull(ST_Collect(the_geom), 0.3)) AS geojson
-    //     FROM ways
-    //     WHERE gid IN (
-    //       SELECT edge
-    //       FROM pgr_drivingDistance(
-    //         'SELECT gid AS id, source, target, ST_Length(the_geom::geography) AS cost FROM ways',
-    //         $1::integer,
-    //         $2::float,
-    //         false::boolean
-    //       )
-    //     )
-    // `, [startVid, maxDistance]);     
-
+    `, [startVid, maxDistance]);   
+ 
     const geojson = result.rows[0].geojson;
     // res.status(200).json(geojson);
     res.status(200).json({
