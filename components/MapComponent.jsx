@@ -412,9 +412,9 @@ const MapComponent = ({
     }
   }, [computeAccessibility, selectedLayers]);
 
-  const fetchAccessibilityFromBackend = async (lat, lon) => {
+  const fetchAccessibilityFromBackend = async (lat, lon, time, speed) => {
     try {
-      const res = await fetch(`/api/accessibility?lat=${lat}&lon=${lon}`);
+      const res = await fetch(`/api/accessibility?lat=${lat}&lon=${lon}&time=${time}&speed=${speed}`);
       if (!res.ok) throw new Error("API 调用失败");
       const geojson = await res.json();
       return geojson;
@@ -427,14 +427,7 @@ const MapComponent = ({
   // 监听地图点击事件
   const MapClickHandler = () => {
     useMapEvents({
-      // click: (e) => {
-      //   if (selectingStart) {
-      //     const startPt = [e.latlng.lng, e.latlng.lat];
-      //     console.log("用户选择起点 (EPSG:4326)[lon, lat]:", startPt);
-      //     setStartPoint(startPt);
-      //     setSelectingStart(false);
-      //   }
-      // },
+
       click: async (e) => {
         if (selectingStart) {
           const [lon, lat] = [e.latlng.lng, e.latlng.lat];
@@ -443,12 +436,13 @@ const MapComponent = ({
           setSelectingStart(false);
       
           setIsCalculating(true);
-          const result = await fetchAccessibilityFromBackend(lat, lon);
+          const result = await fetchAccessibilityFromBackend(lat, lon, walkingTime, walkingSpeed);
           setIsCalculating(false);
       
           if (result) {
-            setReachableRoadsData(result);
-            setReachableHullData(null);
+            setReachableRoadsData(result.roads);
+            // setReachableHullData(null);
+            setReachableHullData(result.hull); 
             setIsochroneData(null);
           }
         }
@@ -545,7 +539,7 @@ const MapComponent = ({
         {reachableRoadsData && (
           <GeoJSON
             data={reachableRoadsData}
-            style={{ color: "red", weight: 2 }}
+            style={{ color: '#0072bd', weight: 1 }}
           />
         )}
 
