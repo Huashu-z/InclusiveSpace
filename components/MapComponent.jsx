@@ -137,35 +137,7 @@ const MapComponent = ({
 
   // Listen for map click events
   const MapClickHandler = () => {
-    useMapEvents({
-
-      // click: async (e) => {
-      //   if (selectingStart) {
-      //     const [lon, lat] = [e.latlng.lng, e.latlng.lat];
-      //     console.log("User click coordinates: ", [lon, lat]);
-      //     setStartPoint([lon, lat]);
-      //     setSelectingStart(false);
-      
-      //     setIsCalculating(true);
-      //     const result = await fetchAccessibilityFromBackend(lat, lon, walkingTime, walkingSpeed);
-      //     const roadFeatures = result.roads?.features || [];
-      //     setIsCalculating(false);
-
-      //     const featureCollection = turf.featureCollection(roadFeatures);
-
-      //     // Merge into a MultiLineString geometry
-      //     const combined = turf.combine(featureCollection); 
-
-      //     // generate buffer area
-      //     const outerHull = turf.buffer(combined, 0.1, { units: "kilometers" }); 
-
-      //     // for rendering
-      //     setReachableHullData(outerHull);
-      //     setReachableRoadsData(result.roads);
-      
-      //   }
-      // }      
-      
+    useMapEvents({ 
       click: (e) => {
         if (selectingStart) {
           const [lon, lat] = [e.latlng.lng, e.latlng.lat];
@@ -186,16 +158,45 @@ const MapComponent = ({
         return;
       }
       setIsCalculating(true);
-      const [lon, lat] = startPoint;
-      const result = await fetchAccessibilityFromBackend(lat, lon, walkingTime, walkingSpeed);
-      const roadFeatures = result.roads?.features || [];
-      const featureCollection = turf.featureCollection(roadFeatures);
-      const combined = turf.combine(featureCollection); 
-      const outerHull = turf.buffer(combined, 0.1, { units: "kilometers" }); 
-      setReachableHullData(outerHull);
-      setReachableRoadsData(result.roads);
-      setIsCalculating(false);
-      setComputeAccessibility(false); // 避免重复触发
+      try {
+        const [lon, lat] = startPoint;
+        const result = await fetchAccessibilityFromBackend(lat, lon, walkingTime, walkingSpeed);
+        const roadFeatures = result.roads?.features || [];
+        console.log("可达路径数量：", roadFeatures.length);
+        setReachableRoadsData(result.roads);
+
+        const featureCollection = turf.featureCollection(roadFeatures);
+
+        // method 1: buffer: more accurate but very slow (10-20s)
+        // const combined = turf.combine(featureCollection); 
+        // const simplified = turf.simplify(combined, { tolerance: 0.002, highQuality: false });
+        // const outerHull = turf.buffer(simplified, 0.1, { units: "kilometers" }); 
+
+        //method 2: convex hull: faster but simplified convex form (1-2s)
+        // const convexHull = turf.convex(featureCollection); 
+        // const outerHull = turf.buffer(convexHull, 0.01, { units: "kilometers" });
+
+        // method 3: concave hull: failed (2-3s)
+        const points = [];
+        roadFeatures.forEach((feature) => {
+          const coords = feature.geometry.coordinates;
+          if (coords.length >= 2) {
+            points.push(turf.point(coords[0]));
+            points.push(turf.point(coords[coords.length - 1]));
+          }
+        });
+
+        const pointCollection = turf.featureCollection(points);
+        const concaveHull = turf.concave(pointCollection, { maxEdge: 0.25, units: "kilometers" });
+        const outerHull = turf.buffer(concaveHull, 0.05, { units: "kilometers" });
+
+        setReachableHullData(outerHull);
+      } catch (err) {
+        console.error("可达性分析出错：", err);
+      } finally {
+        setIsCalculating(false);
+        setComputeAccessibility(false);
+      }
     };
   
     if (computeAccessibility) {
@@ -275,14 +276,14 @@ const MapComponent = ({
         {reachableRoadsData && (
           <GeoJSON
             data={reachableRoadsData}
-            style={{ color: '#0072bd', weight: 1 }}
+            style={{ color: '#0072bd', weight: 0.6 }}
           />
         )}
 
         {reachableHullData && (
           <GeoJSON
             data={reachableHullData}
-            style={{ color: "black", weight: 2, fillOpacity: 0.15 }}
+            style={{ color: "black", weight: 0.2, fillOpacity: 0.2 }}
           />
         )} 
          
