@@ -281,7 +281,7 @@ const MapComponent = ({
     }
   }, [selectedLayers, availableFiles]);
 
-  const [isochroneData, setIsochroneData] = useState(null); // 存储可达区域
+  const [isochroneData, setIsochroneData] = useState(null); // Storage accessible area
 
   const computeReachableArea = (graph, startPointUTM, maxTime) => {
 
@@ -415,36 +415,43 @@ const MapComponent = ({
   const fetchAccessibilityFromBackend = async (lat, lon, time, speed) => {
     try {
       const res = await fetch(`/api/accessibility?lat=${lat}&lon=${lon}&time=${time}&speed=${speed}`);
-      if (!res.ok) throw new Error("API 调用失败");
+      if (!res.ok) throw new Error("API call failed");
       const geojson = await res.json();
       return geojson;
     } catch (err) {
-      console.error("🚨 获取可达性区域失败:", err);
+      console.error("Failed to obtain reachability area:", err);
       return null;
     }
   };  
 
-  // 监听地图点击事件
+  // Listen for map click events
   const MapClickHandler = () => {
     useMapEvents({
 
       click: async (e) => {
         if (selectingStart) {
           const [lon, lat] = [e.latlng.lng, e.latlng.lat];
-          console.log("🖱️ 用户点击坐标:", [lon, lat]);
+          console.log("User click coordinates: ", [lon, lat]);
           setStartPoint([lon, lat]);
           setSelectingStart(false);
       
           setIsCalculating(true);
           const result = await fetchAccessibilityFromBackend(lat, lon, walkingTime, walkingSpeed);
+          const roadFeatures = result.roads?.features || [];
           setIsCalculating(false);
+
+          const featureCollection = turf.featureCollection(roadFeatures);
+
+          // Merge into a MultiLineString geometry
+          const combined = turf.combine(featureCollection); 
+
+          // generate buffer area
+          const outerHull = turf.buffer(combined, 0.1, { units: "kilometers" }); 
+
+          // for rendering
+          setReachableHullData(outerHull);
+          setReachableRoadsData(result.roads);
       
-          if (result) {
-            setReachableRoadsData(result.roads);
-            // setReachableHullData(null);
-            setReachableHullData(result.hull); 
-            setIsochroneData(null);
-          }
         }
       }      
     });
@@ -473,7 +480,7 @@ const MapComponent = ({
     tree: "#173F5F"        
   };
 
-  // 仅显示边框的 GeoJSON 样式函数
+  // geojson bounding boxes style
   const geoJsonStyle = (fileName) => {
     // 找到对应的 variable 颜色
     const layerName = Object.keys(layerColors).find(layer => fileName.includes(layer));
