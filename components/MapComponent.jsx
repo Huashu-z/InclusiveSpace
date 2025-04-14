@@ -31,69 +31,7 @@ const MapComponent = ({
   const [reachableRoadsData, setReachableRoadsData] = useState(null); 
   const [reachableHullData, setReachableHullData] = useState(null);
   const [geoJsonData, setGeoJsonData] = useState({});
-  const [availableFiles, setAvailableFiles] = useState([]); 
-  //   const graph = new Graph({ directed: false });
-  
-  //   console.log("📌 开始解析道路数据...");
-  //   let totalEdges = 0;
-  //   let totalFeatures = 0;
-
-  //   // 是否启用噪声权重
-  //   const applyNoiseWeight = selectedLayers.includes("noise"); 
-  
-  //   roadData.features.forEach((feature, idx) => {
-  //     const geom = feature.geometry;
-  //     const properties = feature.properties;
-  //     //if (!geom) return;
-  //     if (!geom) {
-  //       console.warn(`⚠️ Feature ${idx} 无几何数据`);
-  //       return;
-  //     }
-  //     totalFeatures++;
-  
-  //     let coordSets = geom.type === "MultiLineString" ? geom.coordinates : [geom.coordinates];
-  
-  //     coordSets.forEach((coords) => {
-  //       for (let i = 0; i < coords.length - 1; i++) {
-  //         const startProj = toProjected(coords[i]); // coords[i] is [lon, lat]
-  //         const endProj = toProjected(coords[i + 1]);
-
-  //         //console.log("原始坐标:", coords[i], "→ 投影后:", startProj);
-  //         //console.log("原始坐标:", coords[i+1], "→ 投影后:", endProj);
-  
-  //         const startKey = `${startProj[0]},${startProj[1]}`;
-  //         const endKey = `${endProj[0]},${endProj[1]}`;
-  
-  //         const dist = Math.hypot(startProj[0] - endProj[0], startProj[1] - endProj[1]);
-  //         // const weightFactor = properties.weight_noise ?? 1.0; // 如果 `weight_noise` 不存在，则默认为 1.0
-  //         // const weightedDist = dist / weightFactor; // **调整距离**
-  //         //console.log(`边距离: ${dist} 米，起点: ${startKey}，终点: ${endKey}`); // 添加调试日志
-
-  //         let weightedDist = dist; 
-
-  //         // ✅ 只有在 "Noise" 选中的情况下，才对距离应用 `weight_noise`
-  //         if (applyNoiseWeight) {
-  //           const weightFactor = properties.weight_noise !== undefined ? properties.weight_noise : 1.0;
-  //           weightedDist = dist / weightFactor; // 🚀 确保速度降低时，距离增加
-  //         }
-
-  //         graph.setEdge(startKey, endKey, weightedDist);
-  //         graph.setEdge(endKey, startKey, weightedDist);
-  //         // graph.setEdge(startKey, endKey, dist);
-  //         // graph.setEdge(endKey, startKey, dist);
-  //         //console.log(`添加双向边: ${startKey} ↔ ${endKey} (距离: ${dist.toFixed(2)} 米)`); // 格式化输出
-  //         totalEdges++;
-  //       }
-  //     });
-  //   });
-  
-  //   console.log(`✅ 解析完成！总边数: ${totalEdges}`);
-  //   console.log(`📌 Graph 总节点数: ${graph.nodeCount()}`);
-  //   console.log("📌 Graph 节点示例:", graph.nodes().slice(0, 5));
-  //   console.log(`✅ 总处理要素数量: ${totalFeatures}`);
-  
-  //   return graph;
-  // };    
+  const [availableFiles, setAvailableFiles] = useState([]);  
 
   const [isCalculating, setIsCalculating] = useState(false); // function attachment calculation works?
 
@@ -269,14 +207,8 @@ const MapComponent = ({
           // attribution='&copy; <a href="https://www.jawg.io/">Jawg Maps</a>, &copy; OpenStreetMap contributors'
           // url="https://tile.jawg.io/jawg-light/{z}/{x}/{y}{r}.png?access-token=N8tyqxwOfghCwYKUCRWMrtYjDEs1VLvvtwYHg5MhjaJyatpgD5OGoH7O94u901Ko"
         />
-        <MapClickHandler />
-
-        {/* Display road network */}
-        {/*
-        {roadNetwork && selectedLayers.includes("roads") && (
-          <GeoJSON data={roadNetwork} style={{ color: "gray", weight: 1 }} />
-        )}*/}
-
+        <MapClickHandler /> 
+ 
         {/* Display start point */}
         {startPoint && (
           <Marker position={[startPoint[1], startPoint[0]]} icon={customMarkerIcon}>
