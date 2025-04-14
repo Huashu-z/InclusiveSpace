@@ -3,7 +3,7 @@ import { Pool } from "pg";
 
 const pool = new Pool({
   user: "incspace",
-  host: "172.25.110.158",
+  host: "localhost",
   database: "gis",
   password: "123456",
   port: 5432,
