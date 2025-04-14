@@ -36,27 +36,28 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // 单位：米
     }
  
     const result = await pool.query(`
-        SELECT json_build_object(
-          'type', 'FeatureCollection',
-          'features', json_agg(
-            json_build_object(
-              'type', 'Feature',
-              'geometry', ST_AsGeoJSON(w.the_geom)::json,
-              'properties', json_build_object('gid', w.gid)
-            )
-          )
-        ) AS geojson
-        FROM ways w
-        WHERE gid IN (
-          SELECT edge
-          FROM pgr_drivingDistance(
-            'SELECT gid AS id, source, target, ST_Length(the_geom::geography) AS cost FROM ways',
-            $1::integer,
-            $2::float,
-            false::boolean
+      SELECT json_build_object(
+        'type', 'FeatureCollection',
+        'features', json_agg(
+          json_build_object(
+            'type', 'Feature',
+            'geometry', ST_AsGeoJSON(w.the_geom)::json,
+            'properties', json_build_object('gid', w.gid)
           )
         )
-    `, [startVid, maxDistance]);   
+      ) AS geojson
+      FROM ways w
+      WHERE gid IN (
+        SELECT edge
+        FROM pgr_drivingDistance(
+          'SELECT gid AS id, source, target, cost FROM ways',
+          $1::integer,
+          $2::float,
+          false::boolean
+        )
+      )
+    `, [startVid, maxDistance]);
+      
  
     const geojson = result.rows[0].geojson;
     // res.status(200).json(geojson);
