@@ -412,18 +412,47 @@ const MapComponent = ({
     }
   }, [computeAccessibility, selectedLayers]);
 
+  const fetchAccessibilityFromBackend = async (lat, lon) => {
+    try {
+      const res = await fetch(`/api/accessibility?lat=${lat}&lon=${lon}`);
+      if (!res.ok) throw new Error("API 调用失败");
+      const geojson = await res.json();
+      return geojson;
+    } catch (err) {
+      console.error("🚨 获取可达性区域失败:", err);
+      return null;
+    }
+  };  
 
   // 监听地图点击事件
   const MapClickHandler = () => {
     useMapEvents({
-      click: (e) => {
+      // click: (e) => {
+      //   if (selectingStart) {
+      //     const startPt = [e.latlng.lng, e.latlng.lat];
+      //     console.log("用户选择起点 (EPSG:4326)[lon, lat]:", startPt);
+      //     setStartPoint(startPt);
+      //     setSelectingStart(false);
+      //   }
+      // },
+      click: async (e) => {
         if (selectingStart) {
-          const startPt = [e.latlng.lng, e.latlng.lat];
-          console.log("用户选择起点 (EPSG:4326)[lon, lat]:", startPt);
-          setStartPoint(startPt);
+          const [lon, lat] = [e.latlng.lng, e.latlng.lat];
+          console.log("🖱️ 用户点击坐标:", [lon, lat]);
+          setStartPoint([lon, lat]);
           setSelectingStart(false);
+      
+          setIsCalculating(true);
+          const result = await fetchAccessibilityFromBackend(lat, lon);
+          setIsCalculating(false);
+      
+          if (result) {
+            setReachableRoadsData(result);
+            setReachableHullData(null);
+            setIsochroneData(null);
+          }
         }
-      },
+      }      
     });
     return null;
   };
