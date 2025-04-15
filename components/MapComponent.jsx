@@ -123,9 +123,21 @@ const MapComponent = ({
     }
   }, [selectedLayers, availableFiles]); 
  
-  const fetchAccessibilityFromBackend = async (lat, lon, time, speed) => {
+  const fetchAccessibilityFromBackend = async (lat, lon, time, speed, variableSettings) => {
     try {
-      const res = await fetch(`/api/accessibility?lat=${lat}&lon=${lon}&time=${time}&speed=${speed}`);
+      const noise = variableSettings.noise ?? 1;
+      // 构造查询字符串
+      const queryParams = new URLSearchParams({
+        lat: lat.toString(),
+        lon: lon.toString(),
+        time: time.toString(),
+        speed: speed.toString(),
+        noise: noise.toString()
+      });
+
+      // 发起请求
+      const res = await fetch(`/api/accessibility?${queryParams.toString()}`);
+      //const res = await fetch(`/api/accessibility?lat=${lat}&lon=${lon}&time=${time}&speed=${speed}`);
       if (!res.ok) throw new Error("API call failed");
       const geojson = await res.json();
       return geojson;
@@ -160,7 +172,7 @@ const MapComponent = ({
       setIsCalculating(true);
       try {
         const [lon, lat] = startPoint;
-        const result = await fetchAccessibilityFromBackend(lat, lon, walkingTime, walkingSpeed);
+        const result = await fetchAccessibilityFromBackend(lat, lon, walkingTime, walkingSpeed, { noise: layerValues.noise ?? 1.0  });
         const roadFeatures = result.roads?.features || [];
         console.log("可达路径数量：", roadFeatures.length);
         setReachableRoadsData(result.roads);

@@ -34,6 +34,8 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // 单位：米
     if (!startVid) {
       return res.status(404).json({ error: "No nearby vertex found" });
     }
+
+    const noiseVariable = parseFloat(req.query.noise) || 1.0;
  
     const result = await pool.query(`
       SELECT json_build_object(
@@ -50,13 +52,13 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // 单位：米
       WHERE gid IN (
         SELECT edge
         FROM pgr_drivingDistance(
-          'SELECT gid AS id, source, target, cost FROM ways',
+          'SELECT gid AS id, source, target, cost / (noise_weight * ' || $3 || ') AS cost FROM ways',
           $1::integer,
           $2::float,
           false::boolean
         )
       )
-    `, [startVid, maxDistance]);
+    `, [startVid, maxDistance, noiseVariable]);
       
  
     const geojson = result.rows[0].geojson;
