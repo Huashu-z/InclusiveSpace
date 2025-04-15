@@ -125,22 +125,33 @@ const MapComponent = ({
  
   const fetchAccessibilityFromBackend = async (lat, lon, time, speed, variableSettings) => {
     try {
+      //variables related to speed
       const noise = variableSettings.noise ?? 1;
+      const light = variableSettings.light ?? 1;
+      const tactile = variableSettings.tactile_pavement ?? 1;
+      const crossing = variableSettings.crossing ?? 1;
+      const tree = variableSettings.tree ?? 1;
+
       // 构造查询字符串
       const queryParams = new URLSearchParams({
         lat: lat.toString(),
         lon: lon.toString(),
         time: time.toString(),
         speed: speed.toString(),
-        noise: noise.toString()
+        noise: noise.toString(),
+        light: light.toString(),
+        tactile: tactile.toString(),
+        crossing: crossing.toString(),
+        tree: tree.toString()
       });
 
       // 发起请求
-      const res = await fetch(`/api/accessibility?${queryParams.toString()}`);
-      //const res = await fetch(`/api/accessibility?lat=${lat}&lon=${lon}&time=${time}&speed=${speed}`);
+      const res = await fetch(`/api/accessibility?${queryParams.toString()}`); 
       if (!res.ok) throw new Error("API call failed");
+
       const geojson = await res.json();
       return geojson;
+
     } catch (err) {
       console.error("Failed to obtain reachability area:", err);
       return null;
@@ -172,7 +183,15 @@ const MapComponent = ({
       setIsCalculating(true);
       try {
         const [lon, lat] = startPoint;
-        const result = await fetchAccessibilityFromBackend(lat, lon, walkingTime, walkingSpeed, { noise: layerValues.noise ?? 1.0  });
+        const result = await fetchAccessibilityFromBackend(lat, lon, walkingTime, walkingSpeed, 
+          {
+            noise: layerValues.noise ?? 1.0,
+            light: layerValues.light ?? 1.0,
+            tactile_pavement: layerValues.tactile_pavement ?? 1.0,
+            crossing: layerValues.crossing ?? 1.0,
+            tree: layerValues.tree ?? 1.0
+          }
+        );
         const roadFeatures = result.roads?.features || [];
         console.log("可达路径数量：", roadFeatures.length);
         setReachableRoadsData(result.roads);
@@ -199,7 +218,7 @@ const MapComponent = ({
         });
 
         const pointCollection = turf.featureCollection(points);
-        const concaveHull = turf.concave(pointCollection, { maxEdge: 0.25, units: "kilometers" });
+        const concaveHull = turf.concave(pointCollection, { maxEdge: 0.3, units: "kilometers" });
         const outerHull = turf.buffer(concaveHull, 0.05, { units: "kilometers" });
 
         setReachableHullData(outerHull);
