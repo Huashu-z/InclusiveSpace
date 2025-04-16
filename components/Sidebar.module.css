@@ -340,6 +340,14 @@
     background: #52ccae;
     border: #52ccae;
   }
+
+  .title-with-tooltip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+  }
+
   .tooltip {
     position: absolute;
     top: 50%;
@@ -358,6 +366,8 @@
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
+    line-height: 1.4;
+    font-weight: 400;
   }
   .tooltip.show {
     visibility: visible;
@@ -373,4 +383,19 @@
     border-style: solid;
     border-color: transparent #52ccae transparent transparent;
   }
+
+  .tooltip-list {
+    list-style-type: disc;
+    padding-left: 18px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  .tooltip-list li {
+    font-weight: normal;
+    margin-bottom: 4px;
+  }
+  .tooltip-list li strong {
+    font-weight: bold;
+  }
+  
   

@@ -9,8 +9,8 @@ export default function VariableControls({
   handleInputChange,
   openCategory,
   toggleCategory,
-  showInfo,
-  setShowInfo
+  // showInfo,
+  // setShowInfo
 }) {
   const renderCheckbox = (layer, label) => (
     <div className={sty["checkbox-container"]}>
@@ -31,12 +31,15 @@ export default function VariableControls({
     </div>
   );
 
+  const [showContributorTooltip, setShowContributorTooltip] = React.useState(false);
+  const [showBarrierTooltip, setShowBarrierTooltip] = React.useState(false);
+
   return (
     <div className={sty["sidebar-section"]}>
       <div className={sty["title-container"]}>
         <h3 className={sty["sidebar-title"]}>Variable</h3>
-        <span className={sty["info-icon"]} onClick={() => setShowInfo(!showInfo)}>i</span>
-        <Tooltip show={showInfo} />
+        {/* <span className={sty["info-icon"]} onClick={() => setShowInfo(!showInfo)}>i</span> */}
+        {/* <Tooltip show={showInfo} /> */}
       </div>
 
       <div className={sty["faq-container"]}>
@@ -50,34 +53,45 @@ export default function VariableControls({
           </div>
         </div>
 
-        {/* Infrastructure */}
+        {/* Comfort Contributors */}
         <Category
-          name="Infrastructure"
-          open={openCategory === "infra"}
-          onClick={() => toggleCategory("infra")}
+          name={
+            <span className={sty["title-with-tooltip"]}>
+              Comfort Contributors
+              <span className={sty["info-icon"]} onClick={(e) => {
+                e.stopPropagation(); // Avoid triggering the expand event
+                setShowContributorTooltip(!showContributorTooltip);
+              }}>i</span>
+              <Tooltip show={showContributorTooltip} type="contributor" />
+            </span>
+          }
+          open={openCategory === "comf"}
+          onClick={() => toggleCategory("comf")}
         >
-          {renderCheckbox("light", "Light")}
-          {renderCheckbox("tactile_pavement", "Tactile Pavement")}
+          {renderCheckbox("light", "Lighting Availability")}
+          {renderCheckbox("tactile_pavement", "Tactile Support")}
+          {renderCheckbox("tree", "Tree Coverage")}
         </Category>
 
-        {/* Environmental Factors */}
+        {/* Comfort Barriers */}
         <Category
-          name="Environmental Factors"
-          open={openCategory === "env"}
-          onClick={() => toggleCategory("env")}
+          name={
+            <span className={sty["title-with-tooltip"]}>
+              Comfort Barriers
+              <span className={sty["info-icon"]} onClick={(e) => {
+                e.stopPropagation();
+                setShowBarrierTooltip(!showBarrierTooltip);
+              }}>i</span>
+              <Tooltip show={showBarrierTooltip} type="barrier" />
+            </span>
+          }
+          open={openCategory === "barrier"}
+          onClick={() => toggleCategory("barrier")}
         >
-          {renderCheckbox("crossing", "Street Crossing")}
+          {renderCheckbox("crossing", "Crossing")}
           {renderCheckbox("noise", "Noise")}
         </Category>
-
-        {/* Psychological Factors */}
-        <Category
-          name="Psychological Factors"
-          open={openCategory === "veg"}
-          onClick={() => toggleCategory("veg")}
-        >
-          {renderCheckbox("tree", "Trees")}
-        </Category>
+         
       </div>
     </div>
   );
