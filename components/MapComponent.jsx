@@ -5,6 +5,7 @@ import "leaflet/dist/leaflet.css";
 import * as turf from "@turf/turf";
 import proj4 from "proj4"; 
 import Legend from "./Legend";
+import sty from './MapComponent.module.css';
 
 //icon for start point, mark the position the user clicked
 const customMarkerIcon = new L.Icon({
@@ -157,6 +158,10 @@ const MapComponent = ({
         alert("Please select a starting point first");
         return;
       }
+      
+      setReachableRoadsData(null);
+      setReachableHullData(null);
+
       setIsCalculating(true);
       try {
         const [lon, lat] = startPoint;
@@ -236,8 +241,17 @@ const MapComponent = ({
   };
 
   return (
-    <div className="mapBox">
-      <MapContainer center={[53.48929, 10.20823]} zoom={13} style={{ width: "100%", height: "100vh" }}>
+    <div className="mapBox" style={{ position: "relative" }}>
+      {isCalculating && (
+        <div className={sty.loadingOverlay}>
+          <div className={sty.spinnerContainer}>
+            <div className={sty.spinnerCircle}></div>
+            <div className={sty.loadingText}>Calculating...</div>
+          </div>
+        </div>
+      )}
+
+      <MapContainer center={[53.5503, 9.9920]} zoom={13} style={{ width: "100%", height: "100vh" }}>
         <TileLayer
           //different base map
 
@@ -275,11 +289,11 @@ const MapComponent = ({
           layerValues={layerValues}
         />
 
-        {isCalculating && (
+        {/* {isCalculating && (
           <div style={{ color: "red", fontWeight: "bold", marginTop: "10px" }}>
             Calculating, please wait...
           </div>
-        )}
+        )} */}
 
         {reachableRoadsData && (
           <GeoJSON
