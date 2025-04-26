@@ -19,16 +19,16 @@ export default async function handler(req, res) {
 //   const { lat, lon } = req.query;
 const { lat, lon, time, speed } = req.query;
 
-const walkingTime = parseFloat(time) || 15; // 分钟
+const walkingTime = parseFloat(time) || 15; // minutes
 const walkingSpeed = parseFloat(speed) || 5; // km/h
-const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // 单位：米
+const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
 
   if (!lat || !lon) {
     return res.status(400).json({ error: "Missing lat/lon" });
   }
 
   try {
-    // Step 1: 找到离用户最近的顶点 ID
+    // Step 1: find the nearest vertex ID to the user
     const nearestVertexResult = await pool.query(`
       SELECT id
       FROM ways_vertices_pgr

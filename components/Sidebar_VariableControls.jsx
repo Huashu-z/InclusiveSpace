@@ -8,9 +8,7 @@ export default function VariableControls({
   layerValues,
   handleInputChange,
   openCategory,
-  toggleCategory,
-  // showInfo,
-  // setShowInfo
+  toggleCategory, 
 }) {
   const renderCheckbox = (layer, label) => (
     <div className={sty["checkbox-container"]}>
@@ -37,9 +35,7 @@ export default function VariableControls({
   return (
     <div className={sty["sidebar-section"]}>
       <div className={sty["title-container"]}>
-        <h3 className={sty["sidebar-title"]}>Variable</h3>
-        {/* <span className={sty["info-icon"]} onClick={() => setShowInfo(!showInfo)}>i</span> */}
-        {/* <Tooltip show={showInfo} /> */}
+        <h3 className={sty["sidebar-title"]}>Variable</h3> 
       </div>
 
       <div className={sty["faq-container"]}>

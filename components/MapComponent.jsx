@@ -11,8 +11,7 @@ const customMarkerIcon = new L.Icon({
   iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
   iconSize: [32, 32],
 });
- 
-// 定义 EPSG:4326 (WGS84) 和 EPSG:25832 (UTM Zone 32N) 的投影参数
+
 proj4.defs("EPSG:4326", "+proj=longlat +datum=WGS84 +no_defs");
 proj4.defs("EPSG:25832", "+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs");
  
@@ -40,14 +39,11 @@ const MapComponent = ({
   useEffect(() => {
     if (resetTrigger) {
       console.log("Subcomponent: Start clearing the map of reachable results...");
-      // 清除各种本地结果
+      // Clear various local results
       // setIsochroneData(null);
       setReachableRoadsData(null);
       setReachableHullData(null);
-
-      // 这里也可以清除你任何想要重置的 child state
-
-      // 通知父组件“我清理完了”，父组件会把 resetTrigger 设回 false
+ 
       onResetHandled && onResetHandled();
     }
   }, [resetTrigger, onResetHandled]);
@@ -67,7 +63,7 @@ const MapComponent = ({
   //     };
   //     fetchRoadData();
   //   } else {
-  //     setRoadNetwork(null); // 取消选中时清除道路数据
+  //     setRoadNetwork(null); 
   //   }
   // }, [selectedLayers]);
   
@@ -92,7 +88,7 @@ const MapComponent = ({
   }, [walkingSpeed]); 
 
   useEffect(() => {
-    console.log("🚀 MapComponent 接收到 selectedLayers:", selectedLayers);
+    console.log("MapComponent received selectedLayers:", selectedLayers);
   }, [selectedLayers]);
 
   useEffect(() => {
@@ -106,11 +102,11 @@ const MapComponent = ({
         for (const file of matchedFiles) {
           try {
             const response = await fetch(`/data/${file}`);
-            if (!response.ok) throw new Error(`加载失败: ${file}`);
+            if (!response.ok) throw new Error(`failed: ${file}`);
             const data = await response.json();
             newGeoJsonData[file] = data;
           } catch (error) {
-            console.error("加载 GeoJSON 失败:", error);
+            console.error("Failed to load GeoJSON:", error);
           }
         }
       }
@@ -132,7 +128,7 @@ const MapComponent = ({
       const crossing = variableSettings.crossing ?? 1;
       const tree = variableSettings.tree ?? 1;
 
-      // 构造查询字符串
+      // Constructing the query string
       const queryParams = new URLSearchParams({
         lat: lat.toString(),
         lon: lon.toString(),
@@ -145,7 +141,7 @@ const MapComponent = ({
         tree: tree.toString()
       });
 
-      // 发起请求
+      // Making a request
       const res = await fetch(`/api/accessibility?${queryParams.toString()}`); 
       if (!res.ok) throw new Error("API call failed");
 
@@ -164,7 +160,7 @@ const MapComponent = ({
       click: (e) => {
         if (selectingStart) {
           const [lon, lat] = [e.latlng.lng, e.latlng.lat];
-          console.log("🖱️ 已选起点：", [lon, lat]);
+          console.log("Selected starting point：", [lon, lat]);
           setStartPoint([lon, lat]);
           setSelectingStart(false);
         }
@@ -177,7 +173,7 @@ const MapComponent = ({
   useEffect(() => {
     const performAnalysis = async () => {
       if (!startPoint) {
-        alert("请先选择起点");
+        alert("Please select a starting point first");
         return;
       }
       setIsCalculating(true);
@@ -193,7 +189,7 @@ const MapComponent = ({
           }
         );
         const roadFeatures = result.roads?.features || [];
-        console.log("可达路径数量：", roadFeatures.length);
+        console.log("Number of reachable paths：", roadFeatures.length);
         setReachableRoadsData(result.roads);
 
         const featureCollection = turf.featureCollection(roadFeatures);
@@ -223,7 +219,7 @@ const MapComponent = ({
 
         setReachableHullData(outerHull);
       } catch (err) {
-        console.error("可达性分析出错：", err);
+        console.error("Reachability analysis error：", err);
       } finally {
         setIsCalculating(false);
         setComputeAccessibility(false);
@@ -248,13 +244,13 @@ const MapComponent = ({
 
   // static geojson buffer bounding style
   const geoJsonStyle = (fileName) => {
-    // 找到对应的 variable 颜色
+    // Find the corresponding variable color
     const layerName = Object.keys(layerColors).find(layer => fileName.includes(layer));
-    const color = layerName ? layerColors[layerName] : "#000000"; // 默认为黑色
+    const color = layerName ? layerColors[layerName] : "#000000"; 
     return {
       color: color,
-      weight: 2,  // 线条粗细
-      fillOpacity: 0  // 透明填充
+      weight: 2,  
+      fillOpacity: 0  
     };
   };
 
@@ -290,7 +286,7 @@ const MapComponent = ({
           <GeoJSON key={fileName} data={data} style={() => geoJsonStyle(fileName)} />
         ))}
 
-        {/* ✅ 引用 Legend 组件 */}
+        {/* Legend */}
         <Legend
           walkingTime={walkingTime}
           walkingSpeed={walkingSpeed}
@@ -300,7 +296,7 @@ const MapComponent = ({
 
         {isCalculating && (
           <div style={{ color: "red", fontWeight: "bold", marginTop: "10px" }}>
-            ⏳ 计算中，请稍候...
+            Calculating, please wait...
           </div>
         )}
 
