@@ -5,14 +5,14 @@ export default function MapLayers({ selectedLayers, toggleLayer }) {
   return (
     <div className={sty["sidebar-section"]}>
       <h3 className={sty["sidebar-title"]}>Map Layers</h3>
-      <label>
+      {/* <label>
         <input
           type="checkbox"
           checked={selectedLayers.includes("roads")}
           onChange={() => toggleLayer("roads")}
         />
         Roads
-      </label>
+      </label> */}
     </div>
   );
 }

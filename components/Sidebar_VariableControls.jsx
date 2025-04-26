@@ -40,14 +40,14 @@ export default function VariableControls({
 
       <div className={sty["faq-container"]}>
         {/* Default */}
-        <div className={sty["faq-answer"]}>
+        {/* <div className={sty["faq-answer"]}>
           <div className={sty["checkbox-container"]}>
             <label className={sty["checkbox-label"]}>
               <input type="checkbox" onChange={() => toggleLayer("default")} checked={selectedLayers.includes("default")} />
               <span className={sty["sidebar-text"]}>Default</span>
             </label>
           </div>
-        </div>
+        </div> */}
 
         {/* Comfort Contributors */}
         <Category
