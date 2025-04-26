@@ -47,25 +47,6 @@ const MapComponent = ({
       onResetHandled && onResetHandled();
     }
   }, [resetTrigger, onResetHandled]);
-
-  // useEffect(() => {
-  //   if (selectedLayers.includes("roads")) {
-  //     const fetchRoadData = async () => {
-  //       try {
-  //         //const response = await fetch("/data/stadtstrassen_EPSG_4326.json");
-  //         const response = await fetch("/data/street_noise_4326.geojson");
-  //         if (!response.ok) throw new Error("Unable to load road data");
-  //         const data = await response.json();
-  //         setRoadNetwork(data);
-  //       } catch (error) {
-  //         console.error("Failed to load road data:", error);
-  //       }
-  //     };
-  //     fetchRoadData();
-  //   } else {
-  //     setRoadNetwork(null); 
-  //   }
-  // }, [selectedLayers]);
   
   useEffect(() => {
     const fetchFileList = async () => {
@@ -91,33 +72,33 @@ const MapComponent = ({
     console.log("MapComponent received selectedLayers:", selectedLayers);
   }, [selectedLayers]);
 
-  useEffect(() => {
-    const loadGeoJsonData = async () => {
-      const newGeoJsonData = {};
+  // useEffect(() => {
+  //   const loadGeoJsonData = async () => {
+  //     const newGeoJsonData = {};
       
-      for (const keyword of selectedLayers) {
+  //     for (const keyword of selectedLayers) {
         
-        const matchedFiles = availableFiles.filter(file => file.includes(keyword));
+  //       const matchedFiles = availableFiles.filter(file => file.includes(keyword));
         
-        for (const file of matchedFiles) {
-          try {
-            const response = await fetch(`/data/${file}`);
-            if (!response.ok) throw new Error(`failed: ${file}`);
-            const data = await response.json();
-            newGeoJsonData[file] = data;
-          } catch (error) {
-            console.error("Failed to load GeoJSON:", error);
-          }
-        }
-      }
+  //       for (const file of matchedFiles) {
+  //         try {
+  //           const response = await fetch(`/data/${file}`);
+  //           if (!response.ok) throw new Error(`failed: ${file}`);
+  //           const data = await response.json();
+  //           newGeoJsonData[file] = data;
+  //         } catch (error) {
+  //           console.error("Failed to load GeoJSON:", error);
+  //         }
+  //       }
+  //     }
       
-      setGeoJsonData(newGeoJsonData);
-    };
+  //     setGeoJsonData(newGeoJsonData);
+  //   };
     
-    if (availableFiles.length > 0) {
-      loadGeoJsonData();
-    }
-  }, [selectedLayers, availableFiles]); 
+  //   if (availableFiles.length > 0) {
+  //     loadGeoJsonData();
+  //   }
+  // }, [selectedLayers, availableFiles]); 
  
   const fetchAccessibilityFromBackend = async (lat, lon, time, speed, variableSettings) => {
     try {
