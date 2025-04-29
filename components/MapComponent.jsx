@@ -37,6 +37,25 @@ const MapComponent = ({
 
   const [isCalculating, setIsCalculating] = useState(false); // function attachment calculation works?
 
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+  
+    if (selectingStart) {
+      window.addEventListener('mousemove', handleMouseMove);
+    } else {
+      window.removeEventListener('mousemove', handleMouseMove);
+    }
+  
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [selectingStart]);
+  
+
   useEffect(() => {
     if (resetTrigger) {
       console.log("Subcomponent: Start clearing the map of reachable results...");
@@ -251,6 +270,18 @@ const MapComponent = ({
         </div>
       )}
 
+      {selectingStart && (
+        <div
+          className={sty.mouseHint}
+          style={{
+            top: mousePosition.y,
+            left: mousePosition.x
+          }}
+        >
+          📌
+        </div>
+      )}
+
       <MapContainer center={[53.5503, 9.9920]} zoom={13} style={{ width: "100%", height: "100vh" }}>
         <TileLayer
           //different base map
@@ -298,14 +329,20 @@ const MapComponent = ({
         {reachableRoadsData && (
           <GeoJSON
             data={reachableRoadsData}
-            style={{ color: '#0072bd', weight: 0.6 }}
+            style={{ color: '#52ccae', weight: 0.6 }}
           />
         )}
 
         {reachableHullData && (
           <GeoJSON
             data={reachableHullData}
-            style={{ color: "black", weight: 0.2, fillOpacity: 0.2 }}
+            style={{
+              color: "#0072bd",
+              fillColor: "#0072bd",
+              fillOpacity: 0.2,
+              weight: 2,
+              opacity: 0.6
+            }}
           />
         )} 
          
