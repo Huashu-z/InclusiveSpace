@@ -25,6 +25,7 @@ export default function VariableControls({
         step="0.1"
         value={layerValues[layer] ?? ""}
         onChange={(event) => handleInputChange(event, layer)}
+        disabled={!selectedLayers.includes(layer)} // Disable input if the layer is not selected
       />
     </div>
   );
