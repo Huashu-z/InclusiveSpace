@@ -20,7 +20,7 @@ export default function VariableControls({
         type="number"
         className={sty["checkbox-input"]}
         placeholder="0 - 1"
-        min="0"
+        min="0.1"
         max="1"
         step="0.1"
         value={layerValues[layer] ?? ""}

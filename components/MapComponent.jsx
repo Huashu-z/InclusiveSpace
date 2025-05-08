@@ -178,8 +178,8 @@ const MapComponent = ({
         return;
       }
       
-      setReachableRoadsData(null);
-      setReachableHullData(null);
+      // setReachableRoadsData(null);
+      // setReachableHullData(null);
 
       setIsCalculating(true);
       try {
@@ -318,18 +318,12 @@ const MapComponent = ({
           walkingSpeed={walkingSpeed}
           selectedLayers={selectedLayers}
           layerValues={layerValues}
-        />
-
-        {/* {isCalculating && (
-          <div style={{ color: "red", fontWeight: "bold", marginTop: "10px" }}>
-            Calculating, please wait...
-          </div>
-        )} */}
-
+        /> 
+ 
         {reachableRoadsData && (
           <GeoJSON
             data={reachableRoadsData}
-            style={{ color: '#52ccae', weight: 0.6 }}
+            style={{ color: '#173F5F', weight: 0.3, opacity: 0.6 }}
           />
         )}
 
