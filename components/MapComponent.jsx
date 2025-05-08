@@ -30,8 +30,9 @@ const MapComponent = ({
   onResetHandled,
   layerValues
 }) => {
-  const [reachableRoadsData, setReachableRoadsData] = useState(null); 
-  const [reachableHullData, setReachableHullData] = useState(null);
+  const [reachableRoadsData, setReachableRoadsData] = useState([]); 
+  const [reachableHullData, setReachableHullData] = useState([]);
+
   const [geoJsonData, setGeoJsonData] = useState({});
   const [availableFiles, setAvailableFiles] = useState([]);  
 
@@ -59,11 +60,8 @@ const MapComponent = ({
   useEffect(() => {
     if (resetTrigger) {
       console.log("Subcomponent: Start clearing the map of reachable results...");
-      // Clear various local results
-      // setIsochroneData(null);
-      setReachableRoadsData(null);
-      setReachableHullData(null);
- 
+      setReachableRoadsData([]);
+      setReachableHullData([]);
       onResetHandled && onResetHandled();
     }
   }, [resetTrigger, onResetHandled]);
@@ -177,9 +175,6 @@ const MapComponent = ({
         alert("Please select a starting point first");
         return;
       }
-      
-      // setReachableRoadsData(null);
-      // setReachableHullData(null);
 
       setIsCalculating(true);
       try {
@@ -195,7 +190,7 @@ const MapComponent = ({
         );
         const roadFeatures = result.roads?.features || [];
         console.log("Number of reachable paths：", roadFeatures.length);
-        setReachableRoadsData(result.roads);
+        setReachableRoadsData(prev => [...prev, result.roads]);
 
         const featureCollection = turf.featureCollection(roadFeatures);
 
@@ -222,7 +217,8 @@ const MapComponent = ({
         const concaveHull = turf.concave(pointCollection, { maxEdge: 0.3, units: "kilometers" });
         const outerHull = turf.buffer(concaveHull, 0.05, { units: "kilometers" });
 
-        setReachableHullData(outerHull);
+        //setReachableHullData(outerHull);
+        setReachableHullData(prev => [...prev, outerHull]);
       } catch (err) {
         console.error("Reachability analysis error：", err);
       } finally {
@@ -320,16 +316,18 @@ const MapComponent = ({
           layerValues={layerValues}
         /> 
  
-        {reachableRoadsData && (
+        {reachableRoadsData.map((roads, i) => (
           <GeoJSON
-            data={reachableRoadsData}
+            key={`roads-${i}`}
+            data={roads}
             style={{ color: '#173F5F', weight: 0.3, opacity: 0.6 }}
           />
-        )}
+        ))}
 
-        {reachableHullData && (
+        {reachableHullData.map((hull, i) => (
           <GeoJSON
-            data={reachableHullData}
+            key={`hull-${i}`}
+            data={hull}
             style={{
               color: "#0072bd",
               fillColor: "#0072bd",
@@ -338,7 +336,7 @@ const MapComponent = ({
               opacity: 0.6
             }}
           />
-        )} 
+        ))}
          
       </MapContainer>
     </div>
