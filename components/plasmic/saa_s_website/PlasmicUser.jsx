@@ -45,7 +45,7 @@ function useNextRouter() {
 function PlasmicUser__RenderFunc(props) {
   const { variants, overrides, forNode } = props;
   const [selectingStart, setSelectingStart] = React.useState(false);
-  const [startPoint, setStartPoint] = React.useState(null);
+  const [startPoints, setStartPoints] = React.useState([]);
   const [computeAccessibility, setComputeAccessibility] = React.useState(false);
   const [walkingTime, setWalkingTime] = React.useState(15);
   const [walkingSpeed, setWalkingSpeed] = React.useState(5);
@@ -62,7 +62,7 @@ function PlasmicUser__RenderFunc(props) {
 
   const handleResetResults = () => {
     setComputeAccessibility(false);
-    setStartPoint(null);
+    setStartPoints([]);
     setResetTrigger(true);
   };
 
@@ -123,8 +123,8 @@ function PlasmicUser__RenderFunc(props) {
               setSelectingStart={setSelectingStart}
               walkingTime={walkingTime}
               walkingSpeed={walkingSpeed}
-              startPoint={startPoint}
-              setStartPoint={setStartPoint}
+              startPoints={startPoints}
+              setStartPoints={setStartPoints}
               computeAccessibility={computeAccessibility}
               setComputeAccessibility={setComputeAccessibility}
               resetTrigger={resetTrigger}
@@ -144,7 +144,7 @@ function PlasmicUser__RenderFunc(props) {
             walkingSpeed={walkingSpeed}
             setWalkingSpeed={setWalkingSpeed}
             setSelectingStart={setSelectingStart}
-            startPoint={startPoint}
+            startPoints={startPoints}
             setComputeAccessibility={setComputeAccessibility}
             handleResetResults={handleResetResults}
             openCategory={openCategory}

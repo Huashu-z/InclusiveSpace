@@ -7,7 +7,7 @@ export default function AccessibilityControls({
   walkingSpeed,
   setWalkingSpeed,
   setSelectingStart,
-  startPoint,
+  startPoints,
   setComputeAccessibility,
   handleResetResults
 }) {
@@ -53,10 +53,10 @@ export default function AccessibilityControls({
       <div className={sty["button-container"]}>
         <button
           onClick={() => {
-            if (!startPoint) {
+            if (startPoints.length === 0) {
               alert("Please select a starting point first!");
               return;
-            }
+            }            
             setComputeAccessibility(true);
           }}
           className={sty["setup-button"]}

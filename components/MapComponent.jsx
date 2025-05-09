@@ -22,8 +22,8 @@ const MapComponent = ({
   setSelectingStart, 
   walkingTime, 
   walkingSpeed, 
-  startPoint, 
-  setStartPoint, 
+  startPoints, 
+  setStartPoints, 
   computeAccessibility,
   setComputeAccessibility,
   resetTrigger,
@@ -39,6 +39,11 @@ const MapComponent = ({
   const [isCalculating, setIsCalculating] = useState(false); // function attachment calculation works?
 
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  const [resultMetadata, setResultMetadata] = useState([]); // store metadata for each result/ user setting each time
+  const colorPool = [
+    "#173F5F", "#3CAEA3", "#ED553B", "#20639B", "#F6D55C"
+  ]; // color pool for different calculation results/ accessibility analysis
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -59,9 +64,10 @@ const MapComponent = ({
 
   useEffect(() => {
     if (resetTrigger) {
-      console.log("Subcomponent: Start clearing the map of reachable results...");
+      setStartPoints([]);
       setReachableRoadsData([]);
       setReachableHullData([]);
+      setResultMetadata([]);
       onResetHandled && onResetHandled();
     }
   }, [resetTrigger, onResetHandled]);
@@ -77,19 +83,8 @@ const MapComponent = ({
       }
     };
     fetchFileList();
-  }, []);
-
-  useEffect(() => {
-    console.log("Current walking time:", walkingTime);
-  }, [walkingTime]);  
-  useEffect(() => {
-    console.log("Current walking speed:", walkingSpeed);
-  }, [walkingSpeed]); 
-
-  useEffect(() => {
-    console.log("MapComponent received selectedLayers:", selectedLayers);
-  }, [selectedLayers]);
-
+  }, []); 
+ 
   // useEffect(() => {
   //   const loadGeoJsonData = async () => {
   //     const newGeoJsonData = {};
@@ -120,33 +115,17 @@ const MapComponent = ({
  
   const fetchAccessibilityFromBackend = async (lat, lon, time, speed, variableSettings) => {
     try {
-      //variables related to speed
-      const noise = variableSettings.noise ?? 1;
-      const light = variableSettings.light ?? 1;
-      const tactile = variableSettings.tactile_pavement ?? 1;
-      const crossing = variableSettings.crossing ?? 1;
-      const tree = variableSettings.tree ?? 1;
-
-      // Constructing the query string
-      const queryParams = new URLSearchParams({
-        lat: lat.toString(),
-        lon: lon.toString(),
-        time: time.toString(),
-        speed: speed.toString(),
-        noise: noise.toString(),
-        light: light.toString(),
-        tactile: tactile.toString(),
-        crossing: crossing.toString(),
-        tree: tree.toString()
+      const params = new URLSearchParams({
+        lat, lon, time, speed,
+        noise: variableSettings.noise ?? 1,
+        light: variableSettings.light ?? 1,
+        tactile: variableSettings.tactile_pavement ?? 1,
+        crossing: variableSettings.crossing ?? 1,
+        tree: variableSettings.tree ?? 1
       });
-
-      // Making a request
-      const res = await fetch(`/api/accessibility?${queryParams.toString()}`); 
+      const res = await fetch(`/api/accessibility?${params}`);
       if (!res.ok) throw new Error("API call failed");
-
-      const geojson = await res.json();
-      return geojson;
-
+      return await res.json();
     } catch (err) {
       console.error("Failed to obtain reachability area:", err);
       return null;
@@ -160,7 +139,7 @@ const MapComponent = ({
         if (selectingStart) {
           const [lon, lat] = [e.latlng.lng, e.latlng.lat];
           console.log("Selected starting point：", [lon, lat]);
-          setStartPoint([lon, lat]);
+          setStartPoints(prev => [...prev, [lon, lat]]);
           setSelectingStart(false);
         }
       }
@@ -171,53 +150,52 @@ const MapComponent = ({
 
   useEffect(() => {
     const performAnalysis = async () => {
-      if (!startPoint) {
-        alert("Please select a starting point first");
-        return;
-      }
+      if (startPoints.length === 0) return;
+      const [lon, lat] = startPoints[startPoints.length - 1]; // get the last clicked point
 
       setIsCalculating(true);
-      try {
-        const [lon, lat] = startPoint;
-        const result = await fetchAccessibilityFromBackend(lat, lon, walkingTime, walkingSpeed, 
-          {
-            noise: layerValues.noise ?? 1.0,
-            light: layerValues.light ?? 1.0,
-            tactile_pavement: layerValues.tactile_pavement ?? 1.0,
-            crossing: layerValues.crossing ?? 1.0,
-            tree: layerValues.tree ?? 1.0
-          }
-        );
-        const roadFeatures = result.roads?.features || [];
-        console.log("Number of reachable paths：", roadFeatures.length);
+      try { 
+        const result = await fetchAccessibilityFromBackend(lat, lon, walkingTime, walkingSpeed, layerValues);
+        const roadFeatures = result.roads?.features || []; 
         setReachableRoadsData(prev => [...prev, result.roads]);
 
         const featureCollection = turf.featureCollection(roadFeatures);
 
         // method 1: buffer: more accurate but very slow (10-20s)
-        // const combined = turf.combine(featureCollection); 
-        // const simplified = turf.simplify(combined, { tolerance: 0.002, highQuality: false });
-        // const outerHull = turf.buffer(simplified, 0.1, { units: "kilometers" }); 
+        const combined = turf.combine(featureCollection); 
+        const simplified = turf.simplify(combined, { tolerance: 0.002, highQuality: false });
+        const outerHull = turf.buffer(simplified, 0.04, { units: "kilometers" }); 
 
         //method 2: convex hull: faster but simplified convex form (1-2s)
         // const convexHull = turf.convex(featureCollection); 
         // const outerHull = turf.buffer(convexHull, 0.01, { units: "kilometers" });
 
         // method 3: concave hull: failed (2-3s)
-        const points = [];
-        roadFeatures.forEach((feature) => {
-          const coords = feature.geometry.coordinates;
-          if (coords.length >= 2) {
-            points.push(turf.point(coords[0]));
-            points.push(turf.point(coords[coords.length - 1]));
+        // const points = [];
+        // roadFeatures.forEach((feature) => {
+        //   const coords = feature.geometry.coordinates;
+        //   if (coords.length >= 2) {
+        //     points.push(turf.point(coords[0]));
+        //     points.push(turf.point(coords[coords.length - 1]));
+        //   }
+        // });
+        // const pointCollection = turf.featureCollection(points);
+        // const concaveHull = turf.concave(pointCollection, { maxEdge: 0.3, units: "kilometers" });
+        // const outerHull = turf.buffer(concaveHull, 0.05, { units: "kilometers" });
+
+        // store the metadata for the current analysis
+        const resultColor = colorPool[resultMetadata.length % colorPool.length];
+        setResultMetadata(prev => [
+          ...prev,
+          {
+            color: resultColor,
+            layers: selectedLayers,
+            values: { ...layerValues },
+            time: walkingTime,
+            speed: walkingSpeed
           }
-        });
-
-        const pointCollection = turf.featureCollection(points);
-        const concaveHull = turf.concave(pointCollection, { maxEdge: 0.3, units: "kilometers" });
-        const outerHull = turf.buffer(concaveHull, 0.05, { units: "kilometers" });
-
-        //setReachableHullData(outerHull);
+        ]); // choose a color for the current analysis result
+ 
         setReachableHullData(prev => [...prev, outerHull]);
       } catch (err) {
         console.error("Reachability analysis error：", err);
@@ -234,26 +212,26 @@ const MapComponent = ({
   
  
   // selected variable rendering setting colors
-  const layerColors = {
-    default: "#000000",   
-    light: "#ED553B",     
-    tactile_pavement: "#F6D55C",  
-    Crossing: "#20639B",   
-    noise: "#3CAEA3",      
-    tree: "#173F5F"        
-  };
+  // const layerColors = {
+  //   default: "#000000",   
+  //   light: "#ED553B",     
+  //   tactile_pavement: "#F6D55C",  
+  //   Crossing: "#20639B",   
+  //   noise: "#3CAEA3",      
+  //   tree: "#173F5F"        
+  // };
 
   // static geojson buffer bounding style
-  const geoJsonStyle = (fileName) => {
-    // Find the corresponding variable color
-    const layerName = Object.keys(layerColors).find(layer => fileName.includes(layer));
-    const color = layerName ? layerColors[layerName] : "#000000"; 
-    return {
-      color: color,
-      weight: 2,  
-      fillOpacity: 0  
-    };
-  };
+  // const geoJsonStyle = (fileName) => {
+  //   // Find the corresponding variable color
+  //   const layerName = Object.keys(layerColors).find(layer => fileName.includes(layer));
+  //   const color = layerName ? layerColors[layerName] : "#000000"; 
+  //   return {
+  //     color: color,
+  //     weight: 2,  
+  //     fillOpacity: 0  
+  //   };
+  // };
 
   return (
     <div className="mapBox" style={{ position: "relative" }}>
@@ -297,11 +275,11 @@ const MapComponent = ({
         <MapClickHandler /> 
  
         {/* Display start point */}
-        {startPoint && (
-          <Marker position={[startPoint[1], startPoint[0]]} icon={customMarkerIcon}>
-            <Popup>Analysis starting point</Popup>
+        {startPoints.map((pt, i) => (
+          <Marker key={`start-${i}`} position={[pt[1], pt[0]]} icon={customMarkerIcon}>
+            <Popup>Analysis starting point {i + 1}</Popup>
           </Marker>
-        )}
+        ))}
 
         {/* Display the loaded GeoJSON data */}
         {Object.entries(geoJsonData).map(([fileName, data]) => (
@@ -309,31 +287,31 @@ const MapComponent = ({
         ))}
 
         {/* Legend */}
-        <Legend
-          walkingTime={walkingTime}
-          walkingSpeed={walkingSpeed}
-          selectedLayers={selectedLayers}
-          layerValues={layerValues}
-        /> 
+        <Legend resultMetadata={resultMetadata} />
  
         {reachableRoadsData.map((roads, i) => (
           <GeoJSON
             key={`roads-${i}`}
             data={roads}
-            style={{ color: '#173F5F', weight: 0.3, opacity: 0.6 }}
+            style={{
+              color: resultMetadata[i]?.color || '#173F5F',
+              weight: 0.5,
+              opacity: 0.8
+            }}
           />
         ))}
+
 
         {reachableHullData.map((hull, i) => (
           <GeoJSON
             key={`hull-${i}`}
             data={hull}
             style={{
-              color: "#0072bd",
-              fillColor: "#0072bd",
-              fillOpacity: 0.2,
+              color: resultMetadata[i]?.color || "#0072bd",
+              fillColor: resultMetadata[i]?.color || "#0072bd",
+              fillOpacity: 0.1,
               weight: 2,
-              opacity: 0.6
+              opacity: 1
             }}
           />
         ))}
