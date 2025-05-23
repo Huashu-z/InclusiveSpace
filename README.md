@@ -37,8 +37,8 @@ Then visit: [http://localhost:3000](http://localhost:3000)
 
 ## Deployment
 
-Vercel for frontend and backend with api
-Supabase for database
+- Vercel for frontend and backend with api
+- Supabase for database
 
 ---
 
