@@ -1,29 +1,51 @@
-This is a Next.js project bootstrapped with [`create-plasmic-app`](https://www.npmjs.com/package/create-plasmic-app).
+# Comfort-based web gis tool
 
-## Getting Started
+project introduction
 
-First, run the development server:
+---
+
+## Installation
+
+Ensure you have **Node.js v16+** installed.
+
+1. Clone the repository:
 
 ```bash
-npm install leaflet react-leaflet --legacy-peer-deps
+git clone https://github.com/yourname/accessibility-webgis.git
+cd accessibility-webgis
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+---
+
+## Development & Run
+
+Start the development server:
+
+```bash 
 npm run dev
 ```
 
-Data input:
-layers must be in CRS EPSG:4326
+Then visit: [http://localhost:3000](http://localhost:3000)
 
-Open your browser to see the result.
+---
 
-You can start editing your project in Plasmic Studio. The page auto-updates as you edit the project.
+## Deployment
 
-## Learn More
+Vercel for frontend and backend with api
+Supabase for database
 
-With Plasmic, you can enable non-developers on your team to publish pages and content into your website or app.
+---
 
-To learn more about Plasmic, take a look at the following resources:
+## Tech Stack
 
-- [Plasmic Website](https://www.plasmic.app/)
-- [Plasmic Documentation](https://docs.plasmic.app/learn/)
-- [Plasmic Community Forum](https://forum.plasmic.app/)
-
-You can check out [the Plasmic GitHub repository](https://github.com/plasmicapp/plasmic) - your feedback and contributions are welcome!
+- Frontend: **React**, **Next.js**
+- Mapping: **Leaflet**, **react-leaflet**
+- Geospatial Ops: **Turf.js**, **proj4**
+- UI Components: **Plasmic**
+- Backend (via API): **pgRouting + PostGIS**
