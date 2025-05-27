@@ -1,0 +1,10 @@
+[ 
+    "noise",
+    "streetlight",
+    "crossing",
+    "tactile_lines",
+    "tactile_points",
+    "tactile_polygons",
+    "tree",
+    "tree_polygon"
+]

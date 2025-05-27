@@ -13,13 +13,14 @@ export default function Sidebar({
     selectedLayers,
     toggleLayer,
     layerValues,
+    availableLayers,
     handleInputChange,
     walkingTime,
     setWalkingTime,
     walkingSpeed,
     setWalkingSpeed,
     setSelectingStart,
-    startPoint,
+    startPoints,
     setComputeAccessibility,
     handleResetResults,
     openCategory,
@@ -54,7 +55,7 @@ export default function Sidebar({
             walkingSpeed={walkingSpeed}
             setWalkingSpeed={setWalkingSpeed}
             setSelectingStart={setSelectingStart}
-            startPoint={startPoint}
+            startPoints={startPoints}
             setComputeAccessibility={setComputeAccessibility}
             handleResetResults={handleResetResults}
           />
@@ -73,6 +74,7 @@ export default function Sidebar({
           <MapLayers
             selectedLayers={selectedLayers}
             toggleLayer={toggleLayer}
+            availableLayers={availableLayers}
           />
         </div>
       </div>

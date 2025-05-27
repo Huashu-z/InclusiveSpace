@@ -33,16 +33,24 @@ createPlasmicElementProxy;
 
 function PlasmicPlanner__RenderFunc(props) {
   const [selectingStart, setSelectingStart] = React.useState(false);
-  const [startPoint, setStartPoint] = React.useState(null);
+  const [startPoints, setStartPoints] = React.useState([]);
   const [computeAccessibility, setComputeAccessibility] = React.useState(false);
   const [walkingTime, setWalkingTime] = React.useState(15);
   const [walkingSpeed, setWalkingSpeed] = React.useState(5);
   const [selectedLayers, setSelectedLayers] = React.useState([]);
   const [layerValues, setLayerValues] = React.useState({});
+  const [availableLayers, setAvailableLayers] = React.useState([]);
   const [openCategory, setOpenCategory] = React.useState(null);
   const [showInfo, setShowInfo] = React.useState(false);
   const [resetTrigger, setResetTrigger] = React.useState(false);
   const [sidebarOpen, setSidebarOpen] = React.useState(true);
+
+  React.useEffect(() => {
+      fetch("/data/layer-list.json")
+        .then((res) => res.json())
+        .then(setAvailableLayers)
+        .catch((err) => console.error("Failed to load layer list:", err));
+    }, []);
 
   const toggleCategory = (category) => {
     setOpenCategory(openCategory === category ? null : category);
@@ -50,7 +58,7 @@ function PlasmicPlanner__RenderFunc(props) {
 
   const handleResetResults = () => {
     setComputeAccessibility(false);
-    setStartPoint(null);
+    setStartPoints([]);
     setResetTrigger(true);
   };
 
@@ -112,8 +120,8 @@ function PlasmicPlanner__RenderFunc(props) {
               setSelectingStart={setSelectingStart}
               walkingTime={walkingTime}
               walkingSpeed={walkingSpeed}
-              startPoint={startPoint}
-              setStartPoint={setStartPoint}
+              startPoints={startPoints}
+              setStartPoints={setStartPoints}
               computeAccessibility={computeAccessibility}
               setComputeAccessibility={setComputeAccessibility}
               resetTrigger={resetTrigger}
@@ -128,13 +136,14 @@ function PlasmicPlanner__RenderFunc(props) {
             selectedLayers={selectedLayers}
             toggleLayer={toggleLayer}
             layerValues={layerValues}
+            availableLayers={availableLayers}
             handleInputChange={handleInputChange}
             walkingTime={walkingTime}
             setWalkingTime={setWalkingTime}
             walkingSpeed={walkingSpeed}
             setWalkingSpeed={setWalkingSpeed}
             setSelectingStart={setSelectingStart}
-            startPoint={startPoint}
+            startPoints={startPoints}
             setComputeAccessibility={setComputeAccessibility}
             handleResetResults={handleResetResults}
             openCategory={openCategory}

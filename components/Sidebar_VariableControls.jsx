@@ -50,11 +50,11 @@ export default function VariableControls({
           </div>
         </div> */}
 
-        {/* Comfort Contributors */}
+        {/* Environment */}
         <Category
           name={
             <span className={sty["title-with-tooltip"]}>
-              Comfort Contributors
+              Environment
               <span className={sty["info-icon"]} onClick={(e) => {
                 e.stopPropagation(); // Avoid triggering the expand event
                 setShowContributorTooltip(!showContributorTooltip);
@@ -70,11 +70,11 @@ export default function VariableControls({
           {renderCheckbox("tree", "Tree Coverage")}
         </Category>
 
-        {/* Comfort Barriers */}
+        {/* Psychological */}
         <Category
           name={
             <span className={sty["title-with-tooltip"]}>
-              Comfort Barriers
+              Psychological
               <span className={sty["info-icon"]} onClick={(e) => {
                 e.stopPropagation();
                 setShowBarrierTooltip(!showBarrierTooltip);

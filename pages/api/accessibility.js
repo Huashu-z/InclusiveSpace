@@ -64,11 +64,11 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
         FROM pgr_drivingDistance(
           'SELECT gid AS id, source, target, 
             cost / (
-              ((1 - ' || $3 || ') * noise_weight + ' || $3 || ') *
-              ((1 - ' || $4 || ') * light_weight + ' || $4 || ') *
-              ((1 - ' || $5 || ') * crossing_weight + ' || $5 || ') *
-              ((1 - ' || $6 || ') * tactile_weight + ' || $6 || ') *
-              ((1 - ' || $7 || ') * tree_weight + ' || $7 || ')
+              CASE WHEN noise_weight = 0 THEN ' || $3 || ' ELSE 1 END *
+              CASE WHEN light_weight = 0 THEN ' || $4 || ' ELSE 1 END *
+              CASE WHEN crossing_weight = 0 THEN ' || $5 || ' ELSE 1 END *
+              CASE WHEN tactile_weight = 0 THEN ' || $6 || ' ELSE 1 END *
+              CASE WHEN tree_weight = 0 THEN ' || $7 || ' ELSE 1 END
             ) AS cost
           FROM ways',
           $1::integer,
