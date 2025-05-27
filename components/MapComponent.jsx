@@ -6,6 +6,7 @@ import * as turf from "@turf/turf";
 import proj4 from "proj4"; 
 import Legend from "./Legend";
 import sty from './MapComponent.module.css';
+import { getStyle, useCircleMarker } from "./layerStyles"; 
 
 //icon for start point, mark the position the user clicked
 const customMarkerIcon = new L.Icon({
@@ -32,6 +33,8 @@ const MapComponent = ({
 }) => {
   const [reachableRoadsData, setReachableRoadsData] = useState([]); 
   const [reachableHullData, setReachableHullData] = useState([]);
+
+  const [availableLayers, setAvailableLayers] = useState([]);
 
   const [geoJsonData, setGeoJsonData] = useState({});
   const [availableFiles, setAvailableFiles] = useState([]);  
@@ -72,19 +75,47 @@ const MapComponent = ({
     }
   }, [resetTrigger, onResetHandled]);
   
-  useEffect(() => {
-    const fetchFileList = async () => {
-      try {
-        const response = await fetch("/data/file-list.json");
-        const files = await response.json();
-        setAvailableFiles(files);
-      } catch (error) {
-        console.error("Unable to load file list:", error);
-      }
-    };
-    fetchFileList();
-  }, []); 
+  // useEffect(() => {
+  //   const fetchFileList = async () => {
+  //     try {
+  //       const response = await fetch("/data/file-list.json");
+  //       const files = await response.json();
+  //       setAvailableFiles(files);
+  //     } catch (error) {
+  //       console.error("Unable to load file list:", error);
+  //     }
+  //   };
+  //   fetchFileList();
+  // }, []); 
  
+  useEffect(() => {
+    fetch("/data/layer-list.json")
+      .then((res) => res.json())
+      .then(setAvailableLayers)
+      .catch((err) => console.error("Failed to load layer list:", err));
+  }, []);
+
+  useEffect(() => {
+    const loadGeoJsonData = async () => {
+      const newGeoJsonData = {};
+
+      for (const layer of selectedLayers) {
+        try {
+          // const res = await fetch(`/api/layerdata?layer=${layer}`);
+          const res = await fetch(`/data/${layer}.geojson`);
+          const data = await res.json();
+          newGeoJsonData[layer] = data;
+        } catch (err) {
+          console.error("Failed to load:", layer, err);
+        }
+      }
+
+      setGeoJsonData(newGeoJsonData);
+    };
+
+    loadGeoJsonData();
+  }, [selectedLayers]);
+
   // useEffect(() => {
   //   const loadGeoJsonData = async () => {
   //     const newGeoJsonData = {};
@@ -281,9 +312,29 @@ const MapComponent = ({
           </Marker>
         ))}
 
-        {/* Display the loaded GeoJSON data */}
-        {Object.entries(geoJsonData).map(([fileName, data]) => (
-          <GeoJSON key={fileName} data={data} style={() => geoJsonStyle(fileName)} />
+        {/* Display the loaded layers GeoJSON data */}
+        {Object.entries(geoJsonData).map(([layer, data]) => (
+          <GeoJSON
+            key={layer}
+            data={data}
+            pointToLayer={(feature, latlng) => {
+              if (useCircleMarker(layer)) {
+                return L.circleMarker(latlng, getStyle(layer, feature));
+              } else {
+                return L.marker(latlng, {
+                  icon: L.divIcon({
+                    html: "📍",
+                    className: "",
+                    iconSize: [18, 18]
+                  })
+                });
+              }
+            }}
+            style={(feature) => {
+              // style 仅对 polygon/line 起作用
+              return getStyle(layer, feature);
+            }}
+          />
         ))}
 
         {/* Legend */}

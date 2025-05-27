@@ -13,6 +13,7 @@ export default function Sidebar({
     selectedLayers,
     toggleLayer,
     layerValues,
+    availableLayers,
     handleInputChange,
     walkingTime,
     setWalkingTime,
@@ -73,6 +74,7 @@ export default function Sidebar({
           <MapLayers
             selectedLayers={selectedLayers}
             toggleLayer={toggleLayer}
+            availableLayers={availableLayers}
           />
         </div>
       </div>

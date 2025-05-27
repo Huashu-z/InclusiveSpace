@@ -51,10 +51,18 @@ function PlasmicUser__RenderFunc(props) {
   const [walkingSpeed, setWalkingSpeed] = React.useState(5);
   const [selectedLayers, setSelectedLayers] = React.useState([]);
   const [layerValues, setLayerValues] = React.useState({});
+  const [availableLayers, setAvailableLayers] = React.useState([]);
   const [openCategory, setOpenCategory] = React.useState(null);
   const [showInfo, setShowInfo] = React.useState(false);
   const [resetTrigger, setResetTrigger] = React.useState(false);
   const [sidebarOpen, setSidebarOpen] = React.useState(true);
+
+  React.useEffect(() => {
+    fetch("/data/layer-list.json")
+      .then((res) => res.json())
+      .then(setAvailableLayers)
+      .catch((err) => console.error("Failed to load layer list:", err));
+  }, []);
 
   const toggleCategory = (category) => {
     setOpenCategory(openCategory === category ? null : category);
@@ -138,6 +146,7 @@ function PlasmicUser__RenderFunc(props) {
             selectedLayers={selectedLayers}
             toggleLayer={toggleLayer}
             layerValues={layerValues}
+            availableLayers={availableLayers}
             handleInputChange={handleInputChange}
             walkingTime={walkingTime}
             setWalkingTime={setWalkingTime}

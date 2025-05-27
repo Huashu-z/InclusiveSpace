@@ -61,7 +61,7 @@ export default function AccessibilityControls({
           }}
           className={sty["setup-button"]}
         >
-          <span className={sty["sidebar-text-bold"]}>Get Attachment Area</span>
+          <span className={sty["sidebar-text-bold"]}>Get Catchment Area</span>
         </button>
 
         <button onClick={handleResetResults} className={sty["setup-button"]}>
