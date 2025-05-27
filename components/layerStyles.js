@@ -56,7 +56,7 @@ export function getStyle(layer, feature) {
 
     default:
       return {
-        color: "#555",
+        color: "green",
         weight: 0.1,
         fillOpacity: 0.3
       };
