@@ -67,7 +67,7 @@ export default function VariableControls({
         >
           {renderCheckbox("light", "Lighting Availability")}
           {renderCheckbox("tactile_pavement", "Tactile Support")}
-          {renderCheckbox("tree", "Tree Coverage")}
+          {renderCheckbox("trees", "Tree Coverage")}
         </Category>
 
         {/* Psychological */}
