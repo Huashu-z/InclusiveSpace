@@ -50,6 +50,7 @@ function PlasmicUser__RenderFunc(props) {
   const [walkingTime, setWalkingTime] = React.useState(15);
   const [walkingSpeed, setWalkingSpeed] = React.useState(5);
   const [selectedLayers, setSelectedLayers] = React.useState([]);
+  const [enabledVariables, setEnabledVariables] = React.useState([]);
   const [layerValues, setLayerValues] = React.useState({});
   const [availableLayers, setAvailableLayers] = React.useState([]);
   const [openCategory, setOpenCategory] = React.useState(null);
@@ -76,6 +77,12 @@ function PlasmicUser__RenderFunc(props) {
 
   const onResetHandled = () => {
     setResetTrigger(false);
+  };
+
+  const toggleVariable = (layer) => {
+    setEnabledVariables((prev) =>
+      prev.includes(layer) ? prev.filter((l) => l !== layer) : [...prev, layer]
+    );
   };
 
   const toggleLayer = (layer) => {
@@ -127,6 +134,7 @@ function PlasmicUser__RenderFunc(props) {
           <div data-plasmic-name="mapBox" data-plasmic-override={overrides?.mapBox} className={classNames(projectcss.all, sty.mapBox)} id="map">
             <MapComponent
               selectedLayers={selectedLayers}
+              enabledVariables={enabledVariables}
               selectingStart={selectingStart}
               setSelectingStart={setSelectingStart}
               walkingTime={walkingTime}
@@ -143,6 +151,8 @@ function PlasmicUser__RenderFunc(props) {
           <Sidebar
             sidebarOpen={sidebarOpen}
             setSidebarOpen={setSidebarOpen}
+            enabledVariables={enabledVariables}
+            toggleVariable={toggleVariable}
             selectedLayers={selectedLayers}
             toggleLayer={toggleLayer}
             layerValues={layerValues}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMapEvents } from "react-leaflet";
+import { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMapEvents, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css"; 
 import * as turf from "@turf/turf";
@@ -7,6 +7,28 @@ import proj4 from "proj4";
 import Legend from "./Legend";
 import sty from './MapComponent.module.css';
 import { getStyle, useCircleMarker } from "./layerStyles"; 
+
+function NoiseWMSLayer() {
+  const map = useMap();
+
+  useEffect(() => {
+    const layer = L.tileLayer.wms("https://geodienste.hamburg.de/HH_WMS_Strassenverkehr", {
+      layers: "strassenverkehr_tag_abend_nacht_2022",
+      format: "image/png",
+      transparent: true,
+      version: "1.3.0",
+      attribution: "© Geoportal Hamburg"
+    });
+
+    layer.addTo(map);
+
+    return () => {
+      map.removeLayer(layer);
+    };
+  }, [map]);
+
+  return null;
+}
 
 //icon for start point, mark the position the user clicked
 const customMarkerIcon = new L.Icon({
@@ -19,6 +41,7 @@ proj4.defs("EPSG:25832", "+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m 
  
 const MapComponent = ({ 
   selectedLayers, 
+  enabledVariables,
   selectingStart, 
   setSelectingStart, 
   walkingTime, 
@@ -101,6 +124,10 @@ const MapComponent = ({
 
       for (const layer of selectedLayers) {
         try {
+          
+          // For WMS layers, we don't load GeoJSON data
+          if (layer === "noise_wms") continue;
+
           // const res = await fetch(`/api/layerdata?layer=${layer}`);
           const res = await fetch(`/data/${layer}.geojson`);
           const data = await res.json();
@@ -115,44 +142,18 @@ const MapComponent = ({
 
     loadGeoJsonData();
   }, [selectedLayers]);
-
-  // useEffect(() => {
-  //   const loadGeoJsonData = async () => {
-  //     const newGeoJsonData = {};
-      
-  //     for (const keyword of selectedLayers) {
-        
-  //       const matchedFiles = availableFiles.filter(file => file.includes(keyword));
-        
-  //       for (const file of matchedFiles) {
-  //         try {
-  //           const response = await fetch(`/data/${file}`);
-  //           if (!response.ok) throw new Error(`failed: ${file}`);
-  //           const data = await response.json();
-  //           newGeoJsonData[file] = data;
-  //         } catch (error) {
-  //           console.error("Failed to load GeoJSON:", error);
-  //         }
-  //       }
-  //     }
-      
-  //     setGeoJsonData(newGeoJsonData);
-  //   };
-    
-  //   if (availableFiles.length > 0) {
-  //     loadGeoJsonData();
-  //   }
-  // }, [selectedLayers, availableFiles]); 
  
   const fetchAccessibilityFromBackend = async (lat, lon, time, speed, variableSettings) => {
     try {
+      const selected = enabledVariables || [];
+
       const params = new URLSearchParams({
         lat, lon, time, speed,
-        noise: variableSettings.noise ?? 1,
-        light: variableSettings.light ?? 1,
-        tactile: variableSettings.tactile_pavement ?? 1,
-        crossing: variableSettings.crossing ?? 1,
-        tree: variableSettings.tree ?? 1
+        noise: selected.includes("noise") ? variableSettings.noise ?? 1 : 1,
+        light: selected.includes("light") ? variableSettings.light ?? 1 : 1,
+        crossing: selected.includes("crossing") ? variableSettings.crossing ?? 1 : 1,
+        tactile: selected.includes("tactile_pavement") ? variableSettings.tactile_pavement ?? 1 : 1,
+        tree: selected.includes("tree") ? variableSettings.tree ?? 1 : 1
       });
       const res = await fetch(`/api/accessibility?${params}`);
       if (!res.ok) throw new Error("API call failed");
@@ -220,7 +221,7 @@ const MapComponent = ({
           ...prev,
           {
             color: resultColor,
-            layers: selectedLayers,
+            layers: enabledVariables,
             values: { ...layerValues },
             time: walkingTime,
             speed: walkingSpeed
@@ -311,6 +312,8 @@ const MapComponent = ({
             <Popup>Analysis starting point {i + 1}</Popup>
           </Marker>
         ))}
+
+        {selectedLayers.includes("noise_wms") && <NoiseWMSLayer />}
 
         {/* Display the loaded layers GeoJSON data */}
         {Object.entries(geoJsonData).map(([layer, data]) => (

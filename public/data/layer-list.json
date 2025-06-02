@@ -1,5 +1,6 @@
 [  
     "streetlight",
+    "noise_wms",
     "crossing",
     "tactile_lines",
     "tactile_points",

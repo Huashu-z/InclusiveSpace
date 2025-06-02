@@ -11,6 +11,8 @@ export default function Sidebar({
     sidebarOpen,
     setSidebarOpen,
     selectedLayers,
+    enabledVariables={enabledVariables},
+    toggleVariable={toggleVariable},
     toggleLayer,
     layerValues,
     availableLayers,
@@ -61,6 +63,8 @@ export default function Sidebar({
           />
   
           <VariableControls
+            enabledVariables={enabledVariables} 
+            toggleVariable={toggleVariable}  
             selectedLayers={selectedLayers}
             toggleLayer={toggleLayer}
             layerValues={layerValues}

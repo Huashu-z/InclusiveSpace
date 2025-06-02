@@ -3,8 +3,8 @@ import sty from "./Sidebar.module.css";
 import Tooltip from "./Sidebar_Tooltip";
 
 export default function VariableControls({
-  selectedLayers,
-  toggleLayer,
+  enabledVariables,
+  toggleVariable,
   layerValues,
   handleInputChange,
   openCategory,
@@ -13,7 +13,7 @@ export default function VariableControls({
   const renderCheckbox = (layer, label) => (
     <div className={sty["checkbox-container"]}>
       <label className={sty["checkbox-label"]}>
-        <input type="checkbox" onChange={() => toggleLayer(layer)} checked={selectedLayers.includes(layer)} />
+        <input type="checkbox" onChange={() => toggleVariable(layer)} checked={enabledVariables.includes(layer)} />
         <span className={sty["sidebar-text"]}>{label}</span>
       </label>
       <input
@@ -25,7 +25,7 @@ export default function VariableControls({
         step="0.1"
         value={layerValues[layer] ?? ""}
         onChange={(event) => handleInputChange(event, layer)}
-        disabled={!selectedLayers.includes(layer)} // Disable input if the layer is not selected
+        disabled={!enabledVariables.includes(layer)} // Disable input if the variable is not selected
       />
     </div>
   );
