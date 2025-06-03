@@ -30,6 +30,138 @@ function NoiseWMSLayer() {
   return null;
 }
 
+function TreeWMSLayer() {
+  const map = useMap();
+
+  useEffect(() => {
+    const layer = L.tileLayer.wms("https://geodienste.hamburg.de/HH_WMS_Pflanzstandorte", {
+      layers: "baumpflanzung",
+      format: "image/png",
+      transparent: true,
+      version: "1.3.0",
+      attribution: "© Geoportal Hamburg"
+    });
+
+    layer.addTo(map);
+
+    return () => {
+      map.removeLayer(layer);
+    };
+  }, [map]);
+
+  return null;
+}
+
+function TraficLightWMSLayer() {
+  const map = useMap();
+
+  useEffect(() => {
+    const layer = L.tileLayer.wms("https://geodienste.hamburg.de/HH_WMS_Lichtsignalanlagen", {
+      layers: "lichtsignalanlagen",
+      format: "image/png",
+      transparent: true,
+      version: "1.3.0",
+      attribution: "© Geoportal Hamburg"
+    });
+
+    layer.addTo(map);
+
+    return () => {
+      map.removeLayer(layer);
+    };
+  }, [map]);
+
+  return null;
+}
+
+function BlueInfWMSLayer() {
+  const map = useMap();
+
+  useEffect(() => {
+    const layer = L.tileLayer.wms("https://geodienste.hamburg.de/HH_WMS_Geotourismus", {
+      layers: "wasseruwasserbau",
+      format: "image/png",
+      transparent: true,
+      version: "1.3.0",
+      attribution: "© Geoportal Hamburg"
+    });
+
+    layer.addTo(map);
+
+    return () => {
+      map.removeLayer(layer);
+    };
+  }, [map]);
+
+  return null;
+}
+
+function GreenInfWMSLayer() {
+  const map = useMap();
+
+  useEffect(() => {
+    const layer = L.tileLayer.wms("https://geodienste.hamburg.de/HH_WMS_Gruenplan", {
+      layers: "gruenplan",
+      format: "image/png",
+      transparent: true,
+      version: "1.3.0",
+      attribution: "© Geoportal Hamburg"
+    });
+
+    layer.addTo(map);
+
+    return () => {
+      map.removeLayer(layer);
+    };
+  }, [map]);
+
+  return null;
+}
+
+function StationWMSLayer() {
+  const map = useMap();
+
+  useEffect(() => {
+    const layer = L.tileLayer.wms("https://geodienste.hamburg.de/wms_hvv", {
+      layers: "geofoxdb_prepaid",
+      format: "image/png",
+      transparent: true,
+      version: "1.3.0",
+      attribution: "© Geoportal Hamburg"
+    });
+
+    layer.addTo(map);
+
+    return () => {
+      map.removeLayer(layer);
+    };
+  }, [map]);
+
+  return null;
+}
+
+function WCWMSLayer() {
+  const map = useMap();
+
+  useEffect(() => {
+    const layer = L.tileLayer.wms("https://geodienste.hamburg.de/wms_wc_mit_trinkbrunnen", {
+      layers: "wc_mit_trinkbrunnen",
+      format: "image/png",
+      transparent: true,
+      version: "1.3.0",
+      attribution: "© Geoportal Hamburg"
+    });
+
+    layer.addTo(map);
+
+    return () => {
+      map.removeLayer(layer);
+    };
+  }, [map]);
+
+  return null;
+}
+
 //icon for start point, mark the position the user clicked
 const customMarkerIcon = new L.Icon({
   iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
@@ -127,6 +259,7 @@ const MapComponent = ({
           
           // For WMS layers, we don't load GeoJSON data
           if (layer === "noise_wms") continue;
+          if (layer === "tree_wms") continue;
 
           // const res = await fetch(`/api/layerdata?layer=${layer}`);
           const res = await fetch(`/data/${layer}.geojson`);
@@ -240,30 +373,7 @@ const MapComponent = ({
     if (computeAccessibility) {
       performAnalysis();
     }
-  }, [computeAccessibility]);
-  
- 
-  // selected variable rendering setting colors
-  // const layerColors = {
-  //   default: "#000000",   
-  //   light: "#ED553B",     
-  //   tactile_pavement: "#F6D55C",  
-  //   Crossing: "#20639B",   
-  //   noise: "#3CAEA3",      
-  //   tree: "#173F5F"        
-  // };
-
-  // static geojson buffer bounding style
-  // const geoJsonStyle = (fileName) => {
-  //   // Find the corresponding variable color
-  //   const layerName = Object.keys(layerColors).find(layer => fileName.includes(layer));
-  //   const color = layerName ? layerColors[layerName] : "#000000"; 
-  //   return {
-  //     color: color,
-  //     weight: 2,  
-  //     fillOpacity: 0  
-  //   };
-  // };
+  }, [computeAccessibility]); 
 
   return (
     <div className="mapBox" style={{ position: "relative" }}>
@@ -314,6 +424,13 @@ const MapComponent = ({
         ))}
 
         {selectedLayers.includes("noise_wms") && <NoiseWMSLayer />}
+        {selectedLayers.includes("tree_wms") && <TreeWMSLayer />}
+        {selectedLayers.includes("trafic_light_wms") && <TraficLightWMSLayer />}
+        {selectedLayers.includes("trafic_light_wms") && <TraficLightWMSLayer />}
+        {selectedLayers.includes("blue_infrastructure") && <BlueInfWMSLayer />} 
+        {selectedLayers.includes("green_infrastructure") && <GreenInfWMSLayer />}
+        {selectedLayers.includes("transport_station_wms") && <StationWMSLayer />}
+        {selectedLayers.includes("wc_wms") && <WCWMSLayer />}
 
         {/* Display the loaded layers GeoJSON data */}
         {Object.entries(geoJsonData).map(([layer, data]) => (

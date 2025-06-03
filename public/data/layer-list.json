@@ -1,10 +1,11 @@
 [  
     "streetlight",
     "noise_wms",
-    "crossing",
-    "tactile_lines",
+    "tree_wms",
+    "trafic_light_wms", 
     "tactile_points",
-    "tactile_polygons",
-    "tree",
-    "tree_polygon"
+    "blue_infrastructure",
+    "green_infrastructure",
+    "transport_station_wms",
+    "wc_wms"
 ]
