@@ -26,6 +26,7 @@ import sty from "./PlasmicPlanner.module.css";
 import dynamic from "next/dynamic";
 import "leaflet/dist/leaflet.css";
 import Sidebar from "../../Sidebar";
+import LayerTagBar from "@/components/LayerTagBar";
 
 const MapComponent = dynamic(() => import("../../MapComponent"), { ssr: false });
 
@@ -141,6 +142,7 @@ function PlasmicPlanner__RenderFunc(props) {
           <Header className={classNames("__wab_instance", sty.header)} />
 
           <div className={classNames(projectcss.all, sty.mapBox)} id="map">
+            <LayerTagBar selectedLayers={selectedLayers} toggleLayer={toggleLayer} />
             <MapComponent
               selectedLayers={selectedLayers}
               enabledVariables={enabledVariables}

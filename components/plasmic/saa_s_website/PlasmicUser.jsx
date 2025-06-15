@@ -27,6 +27,7 @@ import sty from "./PlasmicUser.module.css";
 import dynamic from "next/dynamic";
 import "leaflet/dist/leaflet.css";
 import Sidebar from "../../Sidebar";
+import LayerTagBar from "@/components/LayerTagBar";
 
 const MapComponent = dynamic(() => import("../../MapComponent"), { ssr: false });
 
@@ -152,6 +153,7 @@ function PlasmicUser__RenderFunc(props) {
         >
           <Header data-plasmic-name="header" data-plasmic-override={overrides?.header} className={classNames("__wab_instance", sty.header)} />
           <div data-plasmic-name="mapBox" data-plasmic-override={overrides?.mapBox} className={classNames(projectcss.all, sty.mapBox)} id="map">
+            <LayerTagBar selectedLayers={selectedLayers} toggleLayer={toggleLayer} />
             <MapComponent
               selectedLayers={selectedLayers}
               enabledVariables={enabledVariables}
