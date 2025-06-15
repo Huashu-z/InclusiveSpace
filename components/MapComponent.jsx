@@ -276,17 +276,7 @@ const MapComponent = ({
             key={layer}
             data={data}
             pointToLayer={(feature, latlng) => {
-              if (useCircleMarker(layer)) {
-                return L.circleMarker(latlng, getStyle(layer, feature));
-              } else {
-                return L.marker(latlng, {
-                  icon: L.divIcon({
-                    html: "📍",
-                    className: "",
-                    iconSize: [18, 18]
-                  })
-                });
-              }
+              return L.circleMarker(latlng, getStyle(layer, feature));
             }}
             style={(feature) => {
               // style only works for polygon/line

@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Sidebar.module.css"; 
+import { isWmsLayer, getStyle, layerGroupMap } from "./LayerManager";
 
 // Label display name mapping
 const displayNames = {
@@ -14,6 +15,22 @@ const displayNames = {
   wc_wms: "Public Toilets"
 };
 
+//color mapping for geojson layers
+const getChipColor = (layer) => {
+  if (isWmsLayer(layer)) return null;
+
+  // for group layer (e.g.tactile_guidance) 
+  const members = layerGroupMap[layer] || [layer];
+
+  for (const subLayer of members) {
+    const style = getStyle(subLayer);
+    if (style?.fillColor) return style.fillColor;
+  }
+
+  return "#999"; 
+};
+
+// icon for wms layers
 const iconUrls = {
   tree_wms: [
     "/plasmic/saa_s_website/images/tree_completed.png",
@@ -28,12 +45,11 @@ const iconUrls = {
     "/plasmic/saa_s_website/images/blue_spring.png",
     "/plasmic/saa_s_website/images/blue_hydraulic.png"
   ],
+  transport_station_wms: ["/plasmic/saa_s_website/images/transport-station.png"],
+  wc_wms: ["/plasmic/saa_s_website/images/wc.png"],
 
-  // noise_wms: "/icons/noise.svg",
-  // streetlight: "/icons/light.svg",
-  // tactile_guidance: "/icons/tactile.svg",
-  // green_infrastructure: "/icons/green.svg",
-  // transport_station_wms: "/icons/station.svg",
+  // noise_wms: "/icons/noise.svg", 
+  // green_infrastructure: "/icons/green.svg", 
   // wc_wms: "/icons/wc.svg"
 };
 
@@ -41,7 +57,9 @@ const iconLabels = {
   tree_wms: ["Planted Tree", "Planned Tree", "Unassigned Spot"],
   trafic_light_wms: ["Traffic Light"],
   blue_infrastructure: ["Brackish water", "Lake", "Waterbody", "Spring", "Hydraulic Structure"],
-  // wc_wms: ["Public Toilet"],
+  transport_station_wms: ["Transport Station"],
+  wc_wms: ["Public Toilet"]
+
   // noise_wms: ["Noise Levels"]
 };
 
@@ -56,15 +74,26 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
           <span className={styles.layerTagText}>
             {displayNames[layer] || layer}
           </span>
-          {(iconUrls[layer] || []).map((url, i) => (
-            <img
-              key={i}
-              src={url}
-              alt={`${layer}-${i}`}
-              className={styles.layerTagIcon}
-              title={iconLabels[layer]?.[i] || ""}
+          {isWmsLayer(layer) ? (
+            (iconUrls[layer] || []).map((url, i) => (
+              <img
+                key={i}
+                src={url}
+                alt={`${layer}-${i}`}
+                className={styles.layerTagIcon}
+                title={iconLabels[layer]?.[i] || ""}
+              />
+            ))
+          ) : (
+            <div
+              className={styles.colorDot}
+              style={{
+                backgroundColor: getChipColor(layer)
+              }}
+              title="GeoJSON Layer"
             />
-          ))}
+          )}
+
           <span
             className={styles.layerTagClose}
             onClick={() => toggleLayer(layer)}

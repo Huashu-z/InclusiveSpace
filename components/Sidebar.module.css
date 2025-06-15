@@ -491,4 +491,12 @@
   .layerTagClose:hover {
     color: #ffaaaa;
   }
+  .colorDot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    margin-left: 6px;
+    border: 1px solid #ccc;
+  }
+
 

@@ -42,39 +42,44 @@ export function getStyle(layer, feature) {
         weight: 1,
         fillColor: noiseStyleMap[klasse] || "#ccc",
         fillOpacity: 0.6
-      };
-    case "tree":
-      return {
-        radius: 5,
-        fillColor: "green",
-        color: "#000",
-        weight: 1,
-        opacity: 1,
-        fillOpacity: 0.8
-      };
+      }; 
     case "streetlight":
       return {
         radius: 5,
-        fillColor: "blue",
-        color: "#000",
-        weight: 1,
-        opacity: 1,
-        fillOpacity: 0.8
+        fillColor: "#ffd166",
+        fillOpacity: 0.8,
+        stroke: false
       };
+    
     case "tactile_points":
       return {
         radius: 5,
-        fillColor: "orange",
-        color: "#000",
-        weight: 1,
-        opacity: 1,
-        fillOpacity: 0.8
+        fillColor: "#be609a",
+        fillOpacity: 0.8,
+        stroke: false     
       };
+
+    case "tactile_lines":
+      return {
+        color: "#be609a", 
+        weight: 2,
+        opacity: 0.9
+      };
+
+    case "tactile_polygons":
+      return {
+        color: "#be609a",      
+        fillColor: "#be609a",   
+        fillOpacity: 0.6,
+        weight: 1,
+        opacity: 0.6
+      };
+
     default:
       return {
         color: "#555",
         weight: 1,
-        fillOpacity: 0.3
+        fillOpacity: 0.6
       };
   }
 }
@@ -163,8 +168,8 @@ export function GreenInfWMSLayer() {
 export function StationWMSLayer() {
   const map = useMap();
   useEffect(() => {
-    const layer = L.tileLayer.wms("https://geodienste.hamburg.de/wms_hvv", {
-      layers: "geofoxdb_prepaid",
+    const layer = L.tileLayer.wms("https://geodienste.hamburg.de/MRH_WMS_Erreichbarkeitsanalysen_Ziele_Einrichtungen", {
+      layers: "mrh_haltestellen",
       format: "image/png",
       transparent: true,
       version: "1.3.0",
