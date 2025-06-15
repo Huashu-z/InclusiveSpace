@@ -34,14 +34,14 @@ const Legend = ({ resultMetadata = [] }) => {
 
           // time and speed
           const timeLine = document.createElement("div");
-          timeLine.innerText = `time: ${entry.time} min`;
+          timeLine.innerText = `Time: ${entry.time} min`;
           section.appendChild(timeLine);
 
           const speedLine = document.createElement("div");
-          speedLine.innerText = `speed: ${entry.speed} km/h`;
+          speedLine.innerText = `Speed: ${entry.speed} km/h`;
           section.appendChild(speedLine);
 
-          // variables
+          // comfort features
           for (const layer of entry.layers) {
             const paramLine = document.createElement("div");
             paramLine.innerText = `${layer}: ${entry.values[layer] ?? "N/A"}`;

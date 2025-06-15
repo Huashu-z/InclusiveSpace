@@ -43,7 +43,7 @@ export default function MapLayers({ selectedLayers, toggleLayer }) {
       <Category name="phy" label="Physical">
         {renderCheckbox("streetlight", "Illuminating Lights")}
         {renderCheckbox("trafic_light_wms", "Traffic Lights")}
-        {renderCheckbox("tactile_points", "Tactile guidance system")}
+        {renderCheckbox("tactile_guidance", "Tactile Guidance System")}
         {renderCheckbox("transport_station_wms", "Public Transport Stations")}
         {renderCheckbox("blue_infrastructure", "Blue Infrastructure")}
         {renderCheckbox("green_infrastructure", "Green Infrastructure")} 

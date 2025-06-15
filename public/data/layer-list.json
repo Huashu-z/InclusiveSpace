@@ -4,6 +4,8 @@
     "tree_wms",
     "trafic_light_wms", 
     "tactile_points",
+    "tactile_lines",
+    "tactile_polygons",
     "blue_infrastructure",
     "green_infrastructure",
     "transport_station_wms",

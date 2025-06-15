@@ -162,6 +162,14 @@ function WCWMSLayer() {
   return null;
 }
 
+const layerGroupMap = {
+  tactile_points: ["tactile_points"],
+  tactile_lines: ["tactile_lines"],
+  tactile_polygons: ["tactile_polygons"],
+  // 👇 新增合并控制项
+  tactile_guidance: ["tactile_points", "tactile_lines", "tactile_polygons"]
+};
+
 //icon for start point, mark the position the user clicked
 const customMarkerIcon = new L.Icon({
   iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
@@ -254,19 +262,17 @@ const MapComponent = ({
     const loadGeoJsonData = async () => {
       const newGeoJsonData = {};
 
-      for (const layer of selectedLayers) {
-        try {
-          
-          // For WMS layers, we don't load GeoJSON data
-          if (layer === "noise_wms") continue;
-          if (layer === "tree_wms") continue;
-          if (layer === "trafic_light_wms") continue;
-          if (layer === "blue_infrastructure") continue;
-          if (layer === "green_infrastructure") continue;
-          if (layer === "transport_station_wms") continue;
-          if (layer === "wc_wms") continue;
+      const expandedLayers = selectedLayers.flatMap(layer => {
+        return layerGroupMap[layer] || [layer]; // 展开 tactile_guidance 等组合图层
+      });
 
-          // const res = await fetch(`/api/layerdata?layer=${layer}`);
+      for (const layer of expandedLayers) {
+        if (
+          ["noise_wms", "tree_wms", "trafic_light_wms", "blue_infrastructure", 
+          "green_infrastructure", "transport_station_wms", "wc_wms"].includes(layer)
+        ) continue;
+
+        try {
           const res = await fetch(`/data/${layer}.geojson`);
           const data = await res.json();
           newGeoJsonData[layer] = data;
