@@ -277,7 +277,7 @@ const MapComponent = ({
         lat, lon, time, speed,
         noise: selected.includes("noise") ? variableSettings.noise ?? 1 : 1,
         light: selected.includes("light") ? variableSettings.light ?? 1 : 1,
-        crossing: selected.includes("crossing") ? variableSettings.crossing ?? 1 : 1,
+        trafficLight: selected.includes("trafficLight") ? variableSettings.trafficLight ?? 1 : 1,
         tactile: selected.includes("tactile_pavement") ? variableSettings.tactile_pavement ?? 1 : 1,
         tree: selected.includes("tree") ? variableSettings.tree ?? 1 : 1
       });

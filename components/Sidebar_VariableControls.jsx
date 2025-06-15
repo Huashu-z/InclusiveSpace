@@ -69,7 +69,7 @@ export default function VariableControls({
           onClick={() => toggleCategory("venv")}
         >
           {renderCheckbox("noise", "Noise")}
-          {renderCheckbox("trees", "Tree Coverage")}
+          {renderCheckbox("tree", "Tree Coverage")}
         </Category>
 
         {/* Physical */}
@@ -83,7 +83,7 @@ export default function VariableControls({
           onClick={() => toggleCategory("vphy")}
         >
           {renderCheckbox("light", "Illuminating Lights")}
-          {renderCheckbox("trafic_light_wms", "Traffic Lights")}
+          {renderCheckbox("trafficLight", "Traffic Lights")}
           {renderCheckbox("tactile_pavement", "Tactile Support")} 
         </Category>
 
@@ -96,8 +96,7 @@ export default function VariableControls({
           }
           open={openCategory === "barrier"}
           onClick={() => toggleCategory("barrier")}
-        >
-          {renderCheckbox("crossing", "Crossing")}
+        > 
           
         </Category>
          

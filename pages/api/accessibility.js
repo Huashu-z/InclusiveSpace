@@ -44,7 +44,7 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
     const noiseVariable = parseFloat(req.query.noise) || 1.0;
     const lightVariable = parseFloat(req.query.light) || 1.0;
     const tactileVariable = parseFloat(req.query.tactile) || 1.0;
-    const crossingVariable = parseFloat(req.query.crossing) || 1.0;
+    const trafficLightVariable = parseFloat(req.query.trafficLight) || 1.0;
     const treeVariable = parseFloat(req.query.tree) || 1.0;
  
     const result = await pool.query(`
@@ -76,7 +76,7 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
           false::boolean
         )
       )
-    `, [startVid, maxDistance, noiseVariable, lightVariable, crossingVariable, tactileVariable, treeVariable]);
+    `, [startVid, maxDistance, noiseVariable, lightVariable, trafficLightVariable, tactileVariable, treeVariable]);
       
  
     const geojson = result.rows[0].geojson;

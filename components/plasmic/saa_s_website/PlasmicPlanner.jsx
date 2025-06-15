@@ -61,6 +61,8 @@ function PlasmicPlanner__RenderFunc(props) {
     setComputeAccessibility(false);
     setStartPoints([]);
     setResetTrigger(true);
+    setEnabledVariables([]); 
+    setLayerValues({}); 
   };
 
   const onResetHandled = () => {

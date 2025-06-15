@@ -73,6 +73,8 @@ function PlasmicUser__RenderFunc(props) {
     setComputeAccessibility(false);
     setStartPoints([]);
     setResetTrigger(true);
+    setEnabledVariables([]);
+    setLayerValues({}); 
   };
 
   const onResetHandled = () => {
