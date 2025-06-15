@@ -260,6 +260,11 @@ const MapComponent = ({
           // For WMS layers, we don't load GeoJSON data
           if (layer === "noise_wms") continue;
           if (layer === "tree_wms") continue;
+          if (layer === "trafic_light_wms") continue;
+          if (layer === "blue_infrastructure") continue;
+          if (layer === "green_infrastructure") continue;
+          if (layer === "transport_station_wms") continue;
+          if (layer === "wc_wms") continue;
 
           // const res = await fetch(`/api/layerdata?layer=${layer}`);
           const res = await fetch(`/data/${layer}.geojson`);
