@@ -1,39 +1,59 @@
-// Sidebar_Tooltip.jsx
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import ReactDOM from "react-dom";
 import sty from "./Sidebar.module.css";
 
-export default function Tooltip({ show, type }) {
+export default function Tooltip({ show, type, anchorRef, onClose }) {
+  const [position, setPosition] = useState({ top: 100, left: 400 });
+
+  useEffect(() => {
+    if (anchorRef?.current && show) {
+      const rect = anchorRef.current.getBoundingClientRect();
+      setPosition({
+        top: rect.top + window.scrollY,
+        left: rect.right + 10
+      });
+    }
+  }, [anchorRef, show]);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!anchorRef?.current?.contains(e.target)) {
+        onClose?.();
+      }
+    };
+
+    if (show) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [show, anchorRef, onClose]);
+
+  if (!show) return null;
+
   let content;
 
-  if (type === "contributor") {
+  if (type === "variable") {
     content = (
       <>
-        <p><strong>Positive features</strong> that improve walking comfort.</p>
-        <p><strong>Lower values = You are more sensitive to them </strong></p>
-        <p>(smaller reachable area)</p>
+        <p><strong>Walking comfort weight:</strong></p>
         <ul className={sty["tooltip-list"]}>
-          <li><strong>0</strong>: I feel uncomfortable without it</li>
-          <li><strong>1</strong>: I don’t mind</li>
-        </ul>
-      </>
-    );
-  } else if (type === "barrier") {
-    content = (
-      <>
-        <p><strong>The barriers</strong> that reduce walking comfort.</p>
-        <p><strong>Lower values = You are more sensitive to them</strong></p>
-        <p>(smaller reachable area)</p>
-        <ul className={sty["tooltip-list"]}>
-          <li><strong>0</strong>: I hate it</li>
-          <li><strong>1</strong>: I don’t mind</li>
+          <li><strong>0</strong>: Complete barrier</li>
+          <li><strong>0–1</strong>: Less comfortable</li>
+          <li><strong>1</strong>: Fully comfortable</li>
         </ul>
       </>
     );
   }
 
-  return (
-    <div className={`${sty["tooltip"]} ${show ? sty["show"] : ""}`}>
+  return ReactDOM.createPortal(
+    <div
+      className={sty["tooltip-portal"]}
+      style={{ top: position.top, left: position.left }}
+    >
       {content}
-    </div>
+    </div>,
+    document.body
   );
 }

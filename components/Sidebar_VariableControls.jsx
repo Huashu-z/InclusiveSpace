@@ -30,36 +30,39 @@ export default function VariableControls({
     </div>
   );
 
-  const [showContributorTooltip, setShowContributorTooltip] = React.useState(false);
-  const [showBarrierTooltip, setShowBarrierTooltip] = React.useState(false);
+  const [showInfo, setShowInfo] = React.useState(false);
+  const infoIconRef = React.useRef();
 
   return (
     <div className={sty["sidebar-section"]}>
       <div className={sty["title-container"]}>
-        <h3 className={sty["sidebar-title"]}>Variable</h3> 
+        <h3 className={sty["sidebar-title"]}>Comfort Features</h3>
+        <span
+          className={sty["info-icon"]}
+          ref={infoIconRef}
+          onClick={(e) => {
+            e.stopPropagation();
+            setShowInfo((prev) => !prev);
+          }}
+        >
+          i
+        </span>
+        <Tooltip
+          show={showInfo}
+          type="variable"
+          anchorRef={infoIconRef}
+          onClose={() => setShowInfo(false)}
+        />
       </div>
 
-      <div className={sty["faq-container"]}>
-        {/* Default */}
-        {/* <div className={sty["faq-answer"]}>
-          <div className={sty["checkbox-container"]}>
-            <label className={sty["checkbox-label"]}>
-              <input type="checkbox" onChange={() => toggleLayer("default")} checked={selectedLayers.includes("default")} />
-              <span className={sty["sidebar-text"]}>Default</span>
-            </label>
-          </div>
-        </div> */}
+
+      <div className={sty["faq-container"]}> 
 
         {/* Environment */}
         <Category
           name={
             <span className={sty["title-with-tooltip"]}>
-              Environmental
-              <span className={sty["info-icon"]} onClick={(e) => {
-                e.stopPropagation(); // Avoid triggering the expand event
-                setShowContributorTooltip(!showContributorTooltip);
-              }}>i</span>
-              <Tooltip show={showContributorTooltip} type="contributor" />
+              Environmental 
             </span>
           }
           open={openCategory === "venv"}
@@ -73,12 +76,7 @@ export default function VariableControls({
         <Category
           name={
             <span className={sty["title-with-tooltip"]}>
-              Physical
-              <span className={sty["info-icon"]} onClick={(e) => {
-                e.stopPropagation(); // Avoid triggering the expand event
-                setShowContributorTooltip(!showContributorTooltip);
-              }}>i</span>
-              <Tooltip show={showContributorTooltip} type="contributor" />
+              Physical 
             </span>
           }
           open={openCategory === "vphy"}
@@ -93,12 +91,7 @@ export default function VariableControls({
         <Category
           name={
             <span className={sty["title-with-tooltip"]}>
-              Psychological
-              <span className={sty["info-icon"]} onClick={(e) => {
-                e.stopPropagation();
-                setShowBarrierTooltip(!showBarrierTooltip);
-              }}>i</span>
-              <Tooltip show={showBarrierTooltip} type="barrier" />
+              Psychological 
             </span>
           }
           open={openCategory === "barrier"}
