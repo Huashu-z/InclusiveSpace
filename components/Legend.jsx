@@ -29,7 +29,7 @@ const Legend = ({ resultMetadata = [] }) => {
 
           // title
           const resultTitle = document.createElement("div");
-          resultTitle.innerHTML = `<strong style="color: ${entry.color};">Result ${index + 1}</strong>`;
+          resultTitle.innerHTML = `<strong style="color: ${entry.color};">Catchment Area ${index + 1}</strong>`;
           section.appendChild(resultTitle);
 
           // time and speed
