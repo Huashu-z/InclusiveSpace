@@ -155,7 +155,21 @@ const MapComponent = ({
         // method 1: buffer: more accurate but very slow (10-20s)
         const combined = turf.combine(featureCollection); 
         const simplified = turf.simplify(combined, { tolerance: 0.002, highQuality: false });
-        const outerHull = turf.buffer(simplified, 0.04, { units: "kilometers" }); 
+        const outerHull = turf.buffer(simplified, 0.02, { units: "kilometers" });
+        //only keep the outer boundary of the hull
+        const cleaned = {
+          type: "FeatureCollection",
+          features: outerHull.features.map(f => {
+            if (f.geometry.type === "Polygon") {
+              return turf.polygon([f.geometry.coordinates[0]]);
+            } else if (f.geometry.type === "MultiPolygon") {
+              return turf.multiPolygon(
+                f.geometry.coordinates.map(polygon => [polygon[0]])
+              );
+            }
+            return f;
+          })
+        };
 
         //method 2: convex hull: faster but simplified convex form (1-2s)
         // const convexHull = turf.convex(featureCollection); 
@@ -187,7 +201,7 @@ const MapComponent = ({
           }
         ]); // choose a color for the current analysis result
  
-        setReachableHullData(prev => [...prev, outerHull]);
+        setReachableHullData(prev => [...prev, cleaned]);
       } catch (err) {
         console.error("Reachability analysis error：", err);
       } finally {
