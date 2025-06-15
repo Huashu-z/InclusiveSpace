@@ -13,7 +13,7 @@ export default function AccessibilityControls({
 }) {
   return (
     <div className={sty["sidebar-section"]}>
-      <h3 className={sty["sidebar-title"]}>Personal Accessibility Area</h3>
+      <h3 className={sty["sidebar-title"]}>Comfort Based Accessibility</h3>
 
       <div className={sty["sidebar-text-bold"]}>
         Walking Time <span className={sty["sidebar-text"]}>({walkingTime} minutes)</span>

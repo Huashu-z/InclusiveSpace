@@ -51,7 +51,7 @@
   .sideBarBox {
     display: block;
     position: fixed;
-    width: 300px;
+    width: 320px;
     height: auto;
     max-width: 100%;
     left: 0px;
@@ -107,20 +107,15 @@
   
   .freeBox {
     display: flex;
-    flex-direction: column;
-    position: sticky;
+    flex-direction: column; 
     width: 100%;
-    height: auto;
-    max-width: 100%;
-    justify-content: flex-start;
-    align-items: center;
-    left: 0px;
-    top: 0px;
-    z-index: 1;
-    bottom: -8px;
-    min-width: 0;
+    height: 100%;
+    overflow-y: auto;  
+    overflow-x: hidden;       
     padding: 16px 8px 8px;
+    box-sizing: border-box;
   }
+
   
   .freeBoxsidebarOpen {
     top: 0px;

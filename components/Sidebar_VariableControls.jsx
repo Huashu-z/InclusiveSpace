@@ -54,7 +54,7 @@ export default function VariableControls({
         <Category
           name={
             <span className={sty["title-with-tooltip"]}>
-              Environment
+              Environmental
               <span className={sty["info-icon"]} onClick={(e) => {
                 e.stopPropagation(); // Avoid triggering the expand event
                 setShowContributorTooltip(!showContributorTooltip);
@@ -62,12 +62,31 @@ export default function VariableControls({
               <Tooltip show={showContributorTooltip} type="contributor" />
             </span>
           }
-          open={openCategory === "comf"}
-          onClick={() => toggleCategory("comf")}
+          open={openCategory === "venv"}
+          onClick={() => toggleCategory("venv")}
         >
-          {renderCheckbox("light", "Lighting Availability")}
-          {renderCheckbox("tactile_pavement", "Tactile Support")}
+          {renderCheckbox("noise", "Noise")}
           {renderCheckbox("trees", "Tree Coverage")}
+        </Category>
+
+        {/* Physical */}
+        <Category
+          name={
+            <span className={sty["title-with-tooltip"]}>
+              Physical
+              <span className={sty["info-icon"]} onClick={(e) => {
+                e.stopPropagation(); // Avoid triggering the expand event
+                setShowContributorTooltip(!showContributorTooltip);
+              }}>i</span>
+              <Tooltip show={showContributorTooltip} type="contributor" />
+            </span>
+          }
+          open={openCategory === "vphy"}
+          onClick={() => toggleCategory("vphy")}
+        >
+          {renderCheckbox("light", "Illuminating Lights")}
+          {renderCheckbox("trafic_light_wms", "Traffic Lights")}
+          {renderCheckbox("tactile_pavement", "Tactile Support")} 
         </Category>
 
         {/* Psychological */}
@@ -86,7 +105,7 @@ export default function VariableControls({
           onClick={() => toggleCategory("barrier")}
         >
           {renderCheckbox("crossing", "Crossing")}
-          {renderCheckbox("noise", "Noise")}
+          
         </Category>
          
       </div>
