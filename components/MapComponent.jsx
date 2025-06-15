@@ -5,8 +5,7 @@ import "leaflet/dist/leaflet.css";
 import * as turf from "@turf/turf";
 import proj4 from "proj4"; 
 import Legend from "./Legend";
-import sty from './MapComponent.module.css';
-// import { getStyle, useCircleMarker } from "./layerStyles"; 
+import sty from './MapComponent.module.css'; 
 import {getStyle, useCircleMarker,isWmsLayer, layerGroupMap, wmsLayerComponents} from "./LayerManager"; // Import the style functions 
  
 //icon for start point, mark the position the user clicked
