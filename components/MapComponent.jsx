@@ -6,169 +6,170 @@ import * as turf from "@turf/turf";
 import proj4 from "proj4"; 
 import Legend from "./Legend";
 import sty from './MapComponent.module.css';
-import { getStyle, useCircleMarker } from "./layerStyles"; 
+// import { getStyle, useCircleMarker } from "./layerStyles"; 
+import {getStyle, useCircleMarker,isWmsLayer, layerGroupMap, wmsLayerComponents} from "./LayerManager"; // Import the style functions
 
-function NoiseWMSLayer() {
-  const map = useMap();
+// function NoiseWMSLayer() {
+//   const map = useMap();
 
-  useEffect(() => {
-    const layer = L.tileLayer.wms("https://geodienste.hamburg.de/HH_WMS_Strassenverkehr", {
-      layers: "strassenverkehr_tag_abend_nacht_2022",
-      format: "image/png",
-      transparent: true,
-      version: "1.3.0",
-      attribution: "© Geoportal Hamburg"
-    });
+//   useEffect(() => {
+//     const layer = L.tileLayer.wms("https://geodienste.hamburg.de/HH_WMS_Strassenverkehr", {
+//       layers: "strassenverkehr_tag_abend_nacht_2022",
+//       format: "image/png",
+//       transparent: true,
+//       version: "1.3.0",
+//       attribution: "© Geoportal Hamburg"
+//     });
 
-    layer.addTo(map);
+//     layer.addTo(map);
 
-    return () => {
-      map.removeLayer(layer);
-    };
-  }, [map]);
+//     return () => {
+//       map.removeLayer(layer);
+//     };
+//   }, [map]);
 
-  return null;
-}
+//   return null;
+// }
 
-function TreeWMSLayer() {
-  const map = useMap();
+// function TreeWMSLayer() {
+//   const map = useMap();
 
-  useEffect(() => {
-    const layer = L.tileLayer.wms("https://geodienste.hamburg.de/HH_WMS_Pflanzstandorte", {
-      layers: "baumpflanzung",
-      format: "image/png",
-      transparent: true,
-      version: "1.3.0",
-      attribution: "© Geoportal Hamburg"
-    });
+//   useEffect(() => {
+//     const layer = L.tileLayer.wms("https://geodienste.hamburg.de/HH_WMS_Pflanzstandorte", {
+//       layers: "baumpflanzung",
+//       format: "image/png",
+//       transparent: true,
+//       version: "1.3.0",
+//       attribution: "© Geoportal Hamburg"
+//     });
 
-    layer.addTo(map);
+//     layer.addTo(map);
 
-    return () => {
-      map.removeLayer(layer);
-    };
-  }, [map]);
+//     return () => {
+//       map.removeLayer(layer);
+//     };
+//   }, [map]);
 
-  return null;
-}
+//   return null;
+// }
 
-function TraficLightWMSLayer() {
-  const map = useMap();
+// function TraficLightWMSLayer() {
+//   const map = useMap();
 
-  useEffect(() => {
-    const layer = L.tileLayer.wms("https://geodienste.hamburg.de/HH_WMS_Lichtsignalanlagen", {
-      layers: "lichtsignalanlagen",
-      format: "image/png",
-      transparent: true,
-      version: "1.3.0",
-      attribution: "© Geoportal Hamburg"
-    });
+//   useEffect(() => {
+//     const layer = L.tileLayer.wms("https://geodienste.hamburg.de/HH_WMS_Lichtsignalanlagen", {
+//       layers: "lichtsignalanlagen",
+//       format: "image/png",
+//       transparent: true,
+//       version: "1.3.0",
+//       attribution: "© Geoportal Hamburg"
+//     });
 
-    layer.addTo(map);
+//     layer.addTo(map);
 
-    return () => {
-      map.removeLayer(layer);
-    };
-  }, [map]);
+//     return () => {
+//       map.removeLayer(layer);
+//     };
+//   }, [map]);
 
-  return null;
-}
+//   return null;
+// }
 
-function BlueInfWMSLayer() {
-  const map = useMap();
+// function BlueInfWMSLayer() {
+//   const map = useMap();
 
-  useEffect(() => {
-    const layer = L.tileLayer.wms("https://geodienste.hamburg.de/HH_WMS_Geotourismus", {
-      layers: "wasseruwasserbau",
-      format: "image/png",
-      transparent: true,
-      version: "1.3.0",
-      attribution: "© Geoportal Hamburg"
-    });
+//   useEffect(() => {
+//     const layer = L.tileLayer.wms("https://geodienste.hamburg.de/HH_WMS_Geotourismus", {
+//       layers: "wasseruwasserbau",
+//       format: "image/png",
+//       transparent: true,
+//       version: "1.3.0",
+//       attribution: "© Geoportal Hamburg"
+//     });
 
-    layer.addTo(map);
+//     layer.addTo(map);
 
-    return () => {
-      map.removeLayer(layer);
-    };
-  }, [map]);
+//     return () => {
+//       map.removeLayer(layer);
+//     };
+//   }, [map]);
 
-  return null;
-}
+//   return null;
+// }
 
-function GreenInfWMSLayer() {
-  const map = useMap();
+// function GreenInfWMSLayer() {
+//   const map = useMap();
 
-  useEffect(() => {
-    const layer = L.tileLayer.wms("https://geodienste.hamburg.de/HH_WMS_Gruenplan", {
-      layers: "gruenplan",
-      format: "image/png",
-      transparent: true,
-      version: "1.3.0",
-      attribution: "© Geoportal Hamburg"
-    });
+//   useEffect(() => {
+//     const layer = L.tileLayer.wms("https://geodienste.hamburg.de/HH_WMS_Gruenplan", {
+//       layers: "gruenplan",
+//       format: "image/png",
+//       transparent: true,
+//       version: "1.3.0",
+//       attribution: "© Geoportal Hamburg"
+//     });
 
-    layer.addTo(map);
+//     layer.addTo(map);
 
-    return () => {
-      map.removeLayer(layer);
-    };
-  }, [map]);
+//     return () => {
+//       map.removeLayer(layer);
+//     };
+//   }, [map]);
 
-  return null;
-}
+//   return null;
+// }
 
-function StationWMSLayer() {
-  const map = useMap();
+// function StationWMSLayer() {
+//   const map = useMap();
 
-  useEffect(() => {
-    const layer = L.tileLayer.wms("https://geodienste.hamburg.de/wms_hvv", {
-      layers: "geofoxdb_prepaid",
-      format: "image/png",
-      transparent: true,
-      version: "1.3.0",
-      attribution: "© Geoportal Hamburg"
-    });
+//   useEffect(() => {
+//     const layer = L.tileLayer.wms("https://geodienste.hamburg.de/wms_hvv", {
+//       layers: "geofoxdb_prepaid",
+//       format: "image/png",
+//       transparent: true,
+//       version: "1.3.0",
+//       attribution: "© Geoportal Hamburg"
+//     });
 
-    layer.addTo(map);
+//     layer.addTo(map);
 
-    return () => {
-      map.removeLayer(layer);
-    };
-  }, [map]);
+//     return () => {
+//       map.removeLayer(layer);
+//     };
+//   }, [map]);
 
-  return null;
-}
+//   return null;
+// }
 
-function WCWMSLayer() {
-  const map = useMap();
+// function WCWMSLayer() {
+//   const map = useMap();
 
-  useEffect(() => {
-    const layer = L.tileLayer.wms("https://geodienste.hamburg.de/wms_wc_mit_trinkbrunnen", {
-      layers: "wc_mit_trinkbrunnen",
-      format: "image/png",
-      transparent: true,
-      version: "1.3.0",
-      attribution: "© Geoportal Hamburg"
-    });
+//   useEffect(() => {
+//     const layer = L.tileLayer.wms("https://geodienste.hamburg.de/wms_wc_mit_trinkbrunnen", {
+//       layers: "wc_mit_trinkbrunnen",
+//       format: "image/png",
+//       transparent: true,
+//       version: "1.3.0",
+//       attribution: "© Geoportal Hamburg"
+//     });
 
-    layer.addTo(map);
+//     layer.addTo(map);
 
-    return () => {
-      map.removeLayer(layer);
-    };
-  }, [map]);
+//     return () => {
+//       map.removeLayer(layer);
+//     };
+//   }, [map]);
 
-  return null;
-}
+//   return null;
+// }
 
-const layerGroupMap = {
-  tactile_points: ["tactile_points"],
-  tactile_lines: ["tactile_lines"],
-  tactile_polygons: ["tactile_polygons"],
-  // 👇 新增合并控制项
-  tactile_guidance: ["tactile_points", "tactile_lines", "tactile_polygons"]
-};
+// const layerGroupMap = {
+//   tactile_points: ["tactile_points"],
+//   tactile_lines: ["tactile_lines"],
+//   tactile_polygons: ["tactile_polygons"],
+//   // 👇 新增合并控制项
+//   tactile_guidance: ["tactile_points", "tactile_lines", "tactile_polygons"]
+// };
 
 //icon for start point, mark the position the user clicked
 const customMarkerIcon = new L.Icon({
@@ -195,22 +196,17 @@ const MapComponent = ({
   layerValues
 }) => {
   const [reachableRoadsData, setReachableRoadsData] = useState([]); 
-  const [reachableHullData, setReachableHullData] = useState([]);
-
-  const [availableLayers, setAvailableLayers] = useState([]);
-
-  const [geoJsonData, setGeoJsonData] = useState({});
-  const [availableFiles, setAvailableFiles] = useState([]);  
-
-  const [isCalculating, setIsCalculating] = useState(false); // function attachment calculation works?
-
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
+  const [reachableHullData, setReachableHullData] = useState([]); 
+  const [geoJsonData, setGeoJsonData] = useState({}); 
+  const [isCalculating, setIsCalculating] = useState(false); // function attachment calculation works? 
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 }); 
   const [resultMetadata, setResultMetadata] = useState([]); // store metadata for each result/ user setting each time
+  
   const colorPool = [
     "#173F5F", "#3CAEA3", "#ED553B", "#20639B", "#F6D55C"
   ]; // color pool for different calculation results/ accessibility analysis
 
+  //selectingStart is true when the user clicks the "Select Start Point" button
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
@@ -227,7 +223,7 @@ const MapComponent = ({
     };
   }, [selectingStart]);
   
-
+  // Reset the state when resetTrigger changes 
   useEffect(() => {
     if (resetTrigger) {
       setStartPoints([]);
@@ -236,41 +232,26 @@ const MapComponent = ({
       setResultMetadata([]);
       onResetHandled && onResetHandled();
     }
-  }, [resetTrigger, onResetHandled]);
-  
-  // useEffect(() => {
-  //   const fetchFileList = async () => {
-  //     try {
-  //       const response = await fetch("/data/file-list.json");
-  //       const files = await response.json();
-  //       setAvailableFiles(files);
-  //     } catch (error) {
-  //       console.error("Unable to load file list:", error);
-  //     }
-  //   };
-  //   fetchFileList();
-  // }, []); 
+  }, [resetTrigger, onResetHandled]); 
  
-  useEffect(() => {
-    fetch("/data/layer-list.json")
-      .then((res) => res.json())
-      .then(setAvailableLayers)
-      .catch((err) => console.error("Failed to load layer list:", err));
-  }, []);
+  // useEffect(() => {
+  //   fetch("/data/layer-list.json")
+  //     .then((res) => res.json())
+  //     .then(setAvailableLayers)
+  //     .catch((err) => console.error("Failed to load layer list:", err));
+  // }, []);
 
+  // Load GeoJSON data for the selected layers (sidebar map layers)
   useEffect(() => {
     const loadGeoJsonData = async () => {
       const newGeoJsonData = {};
 
       const expandedLayers = selectedLayers.flatMap(layer => {
-        return layerGroupMap[layer] || [layer]; // 展开 tactile_guidance 等组合图层
+        return layerGroupMap[layer] || [layer]; // Expand the tactile_guidance and other grouped layers
       });
 
       for (const layer of expandedLayers) {
-        if (
-          ["noise_wms", "tree_wms", "trafic_light_wms", "blue_infrastructure", 
-          "green_infrastructure", "transport_station_wms", "wc_wms"].includes(layer)
-        ) continue;
+        if (isWmsLayer(layer)) continue;
 
         try {
           const res = await fetch(`/data/${layer}.geojson`);
@@ -286,7 +267,8 @@ const MapComponent = ({
 
     loadGeoJsonData();
   }, [selectedLayers]);
- 
+  
+  // Fetch accessibility data from the backend 
   const fetchAccessibilityFromBackend = async (lat, lon, time, speed, variableSettings) => {
     try {
       const selected = enabledVariables || [];
@@ -309,6 +291,7 @@ const MapComponent = ({
   };  
 
   // Listen for map click events
+  // This component handles the click event on the map to select the starting point
   const MapClickHandler = () => {
     useMapEvents({ 
       click: (e) => {
@@ -324,6 +307,7 @@ const MapComponent = ({
     return null;
   };
 
+  // Perform reachability analysis, calculate road features and hulls
   useEffect(() => {
     const performAnalysis = async () => {
       if (startPoints.length === 0) return;
@@ -388,6 +372,8 @@ const MapComponent = ({
 
   return (
     <div className="mapBox" style={{ position: "relative" }}>
+
+      {/* Show loading overlay when calculating */}
       {isCalculating && (
         <div className={sty.loadingOverlay}>
           <div className={sty.spinnerContainer}>
@@ -434,16 +420,22 @@ const MapComponent = ({
           </Marker>
         ))}
 
-        {selectedLayers.includes("noise_wms") && <NoiseWMSLayer />}
+        {/* {selectedLayers.includes("noise_wms") && <NoiseWMSLayer />}
         {selectedLayers.includes("tree_wms") && <TreeWMSLayer />}
         {selectedLayers.includes("trafic_light_wms") && <TraficLightWMSLayer />}
         {selectedLayers.includes("trafic_light_wms") && <TraficLightWMSLayer />}
         {selectedLayers.includes("blue_infrastructure") && <BlueInfWMSLayer />} 
         {selectedLayers.includes("green_infrastructure") && <GreenInfWMSLayer />}
         {selectedLayers.includes("transport_station_wms") && <StationWMSLayer />}
-        {selectedLayers.includes("wc_wms") && <WCWMSLayer />}
+        {selectedLayers.includes("wc_wms") && <WCWMSLayer />} */}
 
-        {/* Display the loaded layers GeoJSON data */}
+        {/* Render WMS layers based on selectedLayers */}
+        {selectedLayers.map((layer) => {
+          const WmsComponent = wmsLayerComponents[layer];
+          return WmsComponent ? <WmsComponent key={layer} /> : null;
+        })}
+
+        {/* Render Geojson Layers based on selectedLayers*/}
         {Object.entries(geoJsonData).map(([layer, data]) => (
           <GeoJSON
             key={layer}
@@ -462,7 +454,7 @@ const MapComponent = ({
               }
             }}
             style={(feature) => {
-              // style 仅对 polygon/line 起作用
+              // style only works for polygon/line
               return getStyle(layer, feature);
             }}
           />
@@ -471,6 +463,7 @@ const MapComponent = ({
         {/* Legend */}
         <Legend resultMetadata={resultMetadata} />
  
+        {/* Render reachable roads and hulls */}
         {reachableRoadsData.map((roads, i) => (
           <GeoJSON
             key={`roads-${i}`}
@@ -481,9 +474,7 @@ const MapComponent = ({
               opacity: 0.8
             }}
           />
-        ))}
-
-
+        ))} 
         {reachableHullData.map((hull, i) => (
           <GeoJSON
             key={`hull-${i}`}
