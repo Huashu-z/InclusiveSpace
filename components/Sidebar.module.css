@@ -118,7 +118,7 @@
     box-sizing: border-box;
   }
 
-  /* slider style for sidebar */
+  /* side block slider style for sidebar */
   /* WebKit browser */
   .freeBox::-webkit-scrollbar {
     width: 6px;
@@ -231,7 +231,8 @@
     width: 16px;
     height: 16px;
   }
-  
+
+  /* slider for walking time and speed */
   .sidebar-slider {
     width: 100%;
     display: flex;
@@ -272,6 +273,16 @@
     border: 2px solid #173F5F;
     border-radius: 50%;
     cursor: pointer;
+  }
+  .slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #173F5F;
+    width: 100%;
+    margin-top: -12px;
+    margin-bottom: 12px;
+    padding: 0 2px;
   }
   
   .faq-container {

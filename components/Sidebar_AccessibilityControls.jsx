@@ -35,12 +35,17 @@ export default function AccessibilityControls({
       <div className={sty["sidebar-slider"]}>
         <input
           type="range"
-          min="1"
+          min="2"
           max="8"
           step="0.1"
           value={walkingSpeed}
           onChange={(e) => setWalkingSpeed(Number(e.target.value))}
         />
+        <div className={sty["slider-labels"]}>
+          <span>Slow</span>
+          <span>Normal</span>
+          <span>Fast</span>
+        </div>
       </div>
 
       <div className={sty["button-container"]}>
