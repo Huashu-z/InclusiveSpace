@@ -7,170 +7,8 @@ import proj4 from "proj4";
 import Legend from "./Legend";
 import sty from './MapComponent.module.css';
 // import { getStyle, useCircleMarker } from "./layerStyles"; 
-import {getStyle, useCircleMarker,isWmsLayer, layerGroupMap, wmsLayerComponents} from "./LayerManager"; // Import the style functions
-
-// function NoiseWMSLayer() {
-//   const map = useMap();
-
-//   useEffect(() => {
-//     const layer = L.tileLayer.wms("https://geodienste.hamburg.de/HH_WMS_Strassenverkehr", {
-//       layers: "strassenverkehr_tag_abend_nacht_2022",
-//       format: "image/png",
-//       transparent: true,
-//       version: "1.3.0",
-//       attribution: "© Geoportal Hamburg"
-//     });
-
-//     layer.addTo(map);
-
-//     return () => {
-//       map.removeLayer(layer);
-//     };
-//   }, [map]);
-
-//   return null;
-// }
-
-// function TreeWMSLayer() {
-//   const map = useMap();
-
-//   useEffect(() => {
-//     const layer = L.tileLayer.wms("https://geodienste.hamburg.de/HH_WMS_Pflanzstandorte", {
-//       layers: "baumpflanzung",
-//       format: "image/png",
-//       transparent: true,
-//       version: "1.3.0",
-//       attribution: "© Geoportal Hamburg"
-//     });
-
-//     layer.addTo(map);
-
-//     return () => {
-//       map.removeLayer(layer);
-//     };
-//   }, [map]);
-
-//   return null;
-// }
-
-// function TraficLightWMSLayer() {
-//   const map = useMap();
-
-//   useEffect(() => {
-//     const layer = L.tileLayer.wms("https://geodienste.hamburg.de/HH_WMS_Lichtsignalanlagen", {
-//       layers: "lichtsignalanlagen",
-//       format: "image/png",
-//       transparent: true,
-//       version: "1.3.0",
-//       attribution: "© Geoportal Hamburg"
-//     });
-
-//     layer.addTo(map);
-
-//     return () => {
-//       map.removeLayer(layer);
-//     };
-//   }, [map]);
-
-//   return null;
-// }
-
-// function BlueInfWMSLayer() {
-//   const map = useMap();
-
-//   useEffect(() => {
-//     const layer = L.tileLayer.wms("https://geodienste.hamburg.de/HH_WMS_Geotourismus", {
-//       layers: "wasseruwasserbau",
-//       format: "image/png",
-//       transparent: true,
-//       version: "1.3.0",
-//       attribution: "© Geoportal Hamburg"
-//     });
-
-//     layer.addTo(map);
-
-//     return () => {
-//       map.removeLayer(layer);
-//     };
-//   }, [map]);
-
-//   return null;
-// }
-
-// function GreenInfWMSLayer() {
-//   const map = useMap();
-
-//   useEffect(() => {
-//     const layer = L.tileLayer.wms("https://geodienste.hamburg.de/HH_WMS_Gruenplan", {
-//       layers: "gruenplan",
-//       format: "image/png",
-//       transparent: true,
-//       version: "1.3.0",
-//       attribution: "© Geoportal Hamburg"
-//     });
-
-//     layer.addTo(map);
-
-//     return () => {
-//       map.removeLayer(layer);
-//     };
-//   }, [map]);
-
-//   return null;
-// }
-
-// function StationWMSLayer() {
-//   const map = useMap();
-
-//   useEffect(() => {
-//     const layer = L.tileLayer.wms("https://geodienste.hamburg.de/wms_hvv", {
-//       layers: "geofoxdb_prepaid",
-//       format: "image/png",
-//       transparent: true,
-//       version: "1.3.0",
-//       attribution: "© Geoportal Hamburg"
-//     });
-
-//     layer.addTo(map);
-
-//     return () => {
-//       map.removeLayer(layer);
-//     };
-//   }, [map]);
-
-//   return null;
-// }
-
-// function WCWMSLayer() {
-//   const map = useMap();
-
-//   useEffect(() => {
-//     const layer = L.tileLayer.wms("https://geodienste.hamburg.de/wms_wc_mit_trinkbrunnen", {
-//       layers: "wc_mit_trinkbrunnen",
-//       format: "image/png",
-//       transparent: true,
-//       version: "1.3.0",
-//       attribution: "© Geoportal Hamburg"
-//     });
-
-//     layer.addTo(map);
-
-//     return () => {
-//       map.removeLayer(layer);
-//     };
-//   }, [map]);
-
-//   return null;
-// }
-
-// const layerGroupMap = {
-//   tactile_points: ["tactile_points"],
-//   tactile_lines: ["tactile_lines"],
-//   tactile_polygons: ["tactile_polygons"],
-//   // 👇 新增合并控制项
-//   tactile_guidance: ["tactile_points", "tactile_lines", "tactile_polygons"]
-// };
-
+import {getStyle, useCircleMarker,isWmsLayer, layerGroupMap, wmsLayerComponents} from "./LayerManager"; // Import the style functions 
+ 
 //icon for start point, mark the position the user clicked
 const customMarkerIcon = new L.Icon({
   iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
@@ -232,14 +70,7 @@ const MapComponent = ({
       setResultMetadata([]);
       onResetHandled && onResetHandled();
     }
-  }, [resetTrigger, onResetHandled]); 
- 
-  // useEffect(() => {
-  //   fetch("/data/layer-list.json")
-  //     .then((res) => res.json())
-  //     .then(setAvailableLayers)
-  //     .catch((err) => console.error("Failed to load layer list:", err));
-  // }, []);
+  }, [resetTrigger, onResetHandled]);  
 
   // Load GeoJSON data for the selected layers (sidebar map layers)
   useEffect(() => {
@@ -418,17 +249,8 @@ const MapComponent = ({
           <Marker key={`start-${i}`} position={[pt[1], pt[0]]} icon={customMarkerIcon}>
             <Popup>Analysis starting point {i + 1}</Popup>
           </Marker>
-        ))}
-
-        {/* {selectedLayers.includes("noise_wms") && <NoiseWMSLayer />}
-        {selectedLayers.includes("tree_wms") && <TreeWMSLayer />}
-        {selectedLayers.includes("trafic_light_wms") && <TraficLightWMSLayer />}
-        {selectedLayers.includes("trafic_light_wms") && <TraficLightWMSLayer />}
-        {selectedLayers.includes("blue_infrastructure") && <BlueInfWMSLayer />} 
-        {selectedLayers.includes("green_infrastructure") && <GreenInfWMSLayer />}
-        {selectedLayers.includes("transport_station_wms") && <StationWMSLayer />}
-        {selectedLayers.includes("wc_wms") && <WCWMSLayer />} */}
-
+        ))} 
+ 
         {/* Render WMS layers based on selectedLayers */}
         {selectedLayers.map((layer) => {
           const WmsComponent = wmsLayerComponents[layer];
