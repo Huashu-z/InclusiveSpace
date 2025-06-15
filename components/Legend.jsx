@@ -41,10 +41,28 @@ const Legend = ({ resultMetadata = [] }) => {
           speedLine.innerText = `Speed: ${entry.speed} km/h`;
           section.appendChild(speedLine);
 
-          // comfort features
+          // Comfort Features title
+          const comfortTitle = document.createElement("div");
+          comfortTitle.innerText = "Comfort Features Weights:";
+          comfortTitle.style.marginTop = "5px";
+          //comfortTitle.style.fontWeight = "bold";
+          section.appendChild(comfortTitle);
+
+          // Variable name mapping
+          const variableDisplayNames = {
+            noise: "Noise",
+            light: "Illuminating Lights",
+            tree: "Tree Coverage",
+            trafficLight: "Traffic Lights",
+            tactile_pavement: "Tactile Support"
+          };
+
+          // Individual comfort variables
           for (const layer of entry.layers) {
+            const displayName = variableDisplayNames[layer] || layer;
             const paramLine = document.createElement("div");
-            paramLine.innerText = `${layer}: ${entry.values[layer] ?? "N/A"}`;
+            paramLine.innerText = `  • ${displayName}: ${entry.values[layer] ?? "N/A"}`;
+            paramLine.style.marginLeft = "8px";
             section.appendChild(paramLine);
           }
 

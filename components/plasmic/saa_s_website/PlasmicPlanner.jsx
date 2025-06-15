@@ -70,9 +70,27 @@ function PlasmicPlanner__RenderFunc(props) {
   };
 
   const toggleVariable = (layer) => {
-    setEnabledVariables((prev) =>
-      prev.includes(layer) ? prev.filter((l) => l !== layer) : [...prev, layer]
-    );
+    setEnabledVariables((prev) => {
+      const isSelected = prev.includes(layer);
+      const newEnabled = isSelected
+        ? prev.filter((l) => l !== layer)
+        : [...prev, layer];
+      if (!isSelected) {
+        setLayerValues((prevValues) => ({
+          ...prevValues,
+          [layer]: prevValues[layer] ?? 1.0
+        }));
+      }
+      if (isSelected) {
+        setLayerValues((prevValues) => {
+          const updated = { ...prevValues };
+          delete updated[layer];
+          return updated;
+        });
+      }
+
+      return newEnabled;
+    });
   };
 
   const toggleLayer = (layer) => {
