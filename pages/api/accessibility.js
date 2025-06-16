@@ -46,6 +46,8 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
     const tactileVariable = parseFloat(req.query.tactile) || 1.0;
     const trafficLightVariable = parseFloat(req.query.trafficLight) || 1.0;
     const treeVariable = parseFloat(req.query.tree) || 1.0;
+    const temperatureSummerVariable = parseFloat(req.query.temperatureSummer) || 1.0;
+    const temperatureWinterVariable = parseFloat(req.query.temperatureWinter) || 1.0;
  
     const result = await pool.query(`
       SELECT json_build_object(
@@ -68,7 +70,9 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
               CASE WHEN light_weight = 0 THEN ' || $4 || ' ELSE 1 END *
               CASE WHEN crossing_weight = 0 THEN ' || $5 || ' ELSE 1 END *
               CASE WHEN tactile_weight = 0 THEN ' || $6 || ' ELSE 1 END *
-              CASE WHEN tree_weight = 0 THEN ' || $7 || ' ELSE 1 END
+              CASE WHEN tree_weight = 0 THEN ' || $7 || ' ELSE 1 END *
+              CASE WHEN temp_weight_s = 0 THEN ' || $8 || ' ELSE 1 END *
+              CASE WHEN temp_weight_w = 0 THEN ' || $9 || ' ELSE 1 END
             ) AS cost
           FROM ways',
           $1::integer,
@@ -76,7 +80,15 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
           false::boolean
         )
       )
-    `, [startVid, maxDistance, noiseVariable, lightVariable, trafficLightVariable, tactileVariable, treeVariable]);
+    `, [startVid, 
+        maxDistance, 
+        noiseVariable, 
+        lightVariable, 
+        trafficLightVariable, 
+        tactileVariable, 
+        treeVariable, 
+        temperatureSummerVariable,
+        temperatureWinterVariable]);
       
  
     const geojson = result.rows[0].geojson;

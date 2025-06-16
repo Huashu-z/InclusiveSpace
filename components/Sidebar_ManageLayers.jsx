@@ -37,10 +37,12 @@ export default function MapLayers({ selectedLayers, toggleLayer }) {
 
       <Category name="env" label="Environmental">
         {renderCheckbox("noise_wms", "Noise")}
-        {renderCheckbox("tree_wms", "Tree Coverage")}
+        {renderCheckbox("temp_summer", "Temperature Summer")}
+        {renderCheckbox("temp_winter", "Temperature Winter")}
       </Category>
 
       <Category name="phy" label="Physical">
+        {renderCheckbox("tree_wms", "Tree Coverage")}
         {renderCheckbox("streetlight", "Illuminating Lights")}
         {renderCheckbox("trafic_light_wms", "Traffic Lights")}
         {renderCheckbox("tactile_guidance", "Tactile Guidance System")}

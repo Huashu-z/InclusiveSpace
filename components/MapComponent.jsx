@@ -135,7 +135,9 @@ const MapComponent = ({
         light: selected.includes("light") ? variableSettings.light ?? 1 : 1,
         trafficLight: selected.includes("trafficLight") ? variableSettings.trafficLight ?? 1 : 1,
         tactile: selected.includes("tactile_pavement") ? variableSettings.tactile_pavement ?? 1 : 1,
-        tree: selected.includes("tree") ? variableSettings.tree ?? 1 : 1
+        tree: selected.includes("tree") ? variableSettings.tree ?? 1 : 1,
+        temperatureSummer: selected.includes("temperatureSummer") ? variableSettings.temperatureSummer ?? 1 : 1,
+        temperatureWinter: selected.includes("temperatureWinter") ? variableSettings.temperatureWinter ?? 1 : 1
       });
       const res = await fetch(`/api/accessibility?${params}`);
       if (!res.ok) throw new Error("API call failed");

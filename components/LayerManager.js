@@ -82,6 +82,44 @@ export function getStyle(layer, feature) {
         opacity: 0.6
       };
 
+    case "temp_summer":
+      const comfort_summer = parseInt(feature?.properties?.comfort);
+      let fillColorSummer = "#ccc";
+
+      if ([1, -1, 5].includes(comfort_summer)) {
+        fillColorSummer = "#fee8c8"; 
+      } else if ([2, -2].includes(comfort_summer)) {
+        fillColorSummer = "#fdbb84";  
+      } else if ([3, -3].includes(comfort_summer)) {
+        fillColorSummer = "#e34a33"; 
+      }
+
+      return {
+        color: "#000", 
+        weight: 0.1,
+        fillColor: fillColorSummer,
+        fillOpacity: 0.5
+      };
+
+    case "temp_winter":
+      const comfort_winter = parseInt(feature?.properties?.comfort);
+      let fillColorWinter = "#ccc";
+
+      if ([1, -1, 5].includes(comfort_winter)) {
+        fillColorWinter = "#deebf7";  
+      } else if ([2, -2].includes(comfort_winter)) {
+        fillColorWinter = "#9ecae1";  
+      } else if ([3, -3].includes(comfort_winter)) {
+        fillColorWinter = "#3182bd"; 
+      }
+
+      return {
+        color: "#000", 
+        weight: 0.1,
+        fillColor: fillColorWinter,
+        fillOpacity: 0.5
+      };
+
     default:
       return {
         color: "#555",

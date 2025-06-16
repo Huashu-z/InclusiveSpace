@@ -12,7 +12,9 @@ const displayNames = {
   blue_infrastructure: "Blue Infra",
   green_infrastructure: "Green Infra",
   transport_station_wms: "Transport Station",
-  wc_wms: "Public Toilets"
+  wc_wms: "Public Toilets",
+  temp_summer: "Temperature (Summer)",
+  temp_winter: "Temperature (Winter)",
 };
 
 //color mapping for geojson layers
@@ -58,8 +60,9 @@ const iconLabels = {
   trafic_light_wms: ["Traffic Light"],
   blue_infrastructure: ["Brackish water", "Lake", "Waterbody", "Spring", "Hydraulic Structure"],
   transport_station_wms: ["Transport Station"],
-  wc_wms: ["Public Toilet"]
-
+  wc_wms: ["Public Toilet"],
+  temp_summer: ["Comfortable zone (light = comfortable, dark = hot)"],
+  temp_winter: ["Comfortable zone (light = comfortable, dark = cold)"]
   // noise_wms: ["Noise Levels"]
 };
 
@@ -92,6 +95,20 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
               }}
               title="GeoJSON Layer"
             />
+          )}
+
+          {["temp_summer", "temp_winter"].includes(layer) && (
+            <span
+              style={{
+                display: "inline-block",
+                width: "14px",
+                height: "14px",
+                borderRadius: "50%",
+                backgroundColor: layer === "temp_summer" ? "#e34a33" : "#3182bd",
+                marginLeft: "6px"
+              }}
+              title={iconLabels[layer]?.[0] || "Temperature zone"}
+            ></span>
           )}
 
           <span

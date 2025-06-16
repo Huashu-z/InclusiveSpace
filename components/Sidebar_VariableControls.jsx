@@ -69,7 +69,8 @@ export default function VariableControls({
           onClick={() => toggleCategory("venv")}
         >
           {renderCheckbox("noise", "Noise")}
-          {renderCheckbox("tree", "Tree Coverage")}
+          {renderCheckbox("temperatureSummer", "Temperature (Summer)")}
+          {renderCheckbox("temperatureWinter", "Temperature (Winter)")}
         </Category>
 
         {/* Physical */}
@@ -85,6 +86,7 @@ export default function VariableControls({
           {renderCheckbox("light", "Illuminating Lights")}
           {renderCheckbox("trafficLight", "Traffic Lights")}
           {renderCheckbox("tactile_pavement", "Tactile Support")} 
+          {renderCheckbox("tree", "Tree Coverage")}
         </Category>
 
         {/* Psychological */}
