@@ -1,6 +1,13 @@
 // /layers/layerManager.js
-import L from "leaflet";
-import { useMap } from "react-leaflet";
+let L;
+if (typeof window !== "undefined") {
+  L = require("leaflet");
+}
+// import { useMap } from "react-leaflet";
+let useMap;
+if (typeof window !== "undefined") {
+  useMap = require("react-leaflet").useMap;
+}
 import { useEffect } from "react";
 
 // layer grounp for tactile guidance

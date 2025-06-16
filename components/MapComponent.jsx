@@ -1,18 +1,26 @@
 import { useState, useEffect } from "react";
-import { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMapEvents, useMap } from "react-leaflet";
-import L from "leaflet";
+// import { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMapEvents, useMap } from "react-leaflet";
+// import L from "leaflet";
+import dynamic from "next/dynamic";
 import "leaflet/dist/leaflet.css"; 
 import * as turf from "@turf/turf";
 import proj4 from "proj4"; 
 import Legend from "./Legend";
 import sty from './MapComponent.module.css'; 
 import {getStyle, useCircleMarker,isWmsLayer, layerGroupMap, wmsLayerComponents} from "./LayerManager"; // Import the style functions 
- 
+
+// Dynamic import for react-leaflet
+const MapLib = dynamic(
+  () => import("react-leaflet"),
+  { ssr: false }
+);
+
 //icon for start point, mark the position the user clicked
-const customMarkerIcon = new L.Icon({
-  iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
-  iconSize: [32, 32],
-});
+// const customMarkerIcon = new L.Icon({
+//   iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
+//   iconSize: [32, 32],
+// });
+
 
 proj4.defs("EPSG:4326", "+proj=longlat +datum=WGS84 +no_defs");
 proj4.defs("EPSG:25832", "+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs");
@@ -32,6 +40,8 @@ const MapComponent = ({
   onResetHandled,
   layerValues
 }) => {
+  const [MapModule, setMapModule] = useState(null);
+  const [customMarkerIcon, setCustomMarkerIcon] = useState(null);
   const [reachableRoadsData, setReachableRoadsData] = useState([]); 
   const [reachableHullData, setReachableHullData] = useState([]); 
   const [geoJsonData, setGeoJsonData] = useState({}); 
@@ -42,6 +52,22 @@ const MapComponent = ({
   const colorPool = [
     "#173F5F", "#3CAEA3", "#ED553B", "#20639B", "#F6D55C"
   ]; // color pool for different calculation results/ accessibility analysis
+
+  useEffect(() => {
+    async function loadLibs() {
+      const leaflet = await import("leaflet");
+      setCustomMarkerIcon(
+        new leaflet.Icon({
+          iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
+          iconSize: [32, 32]
+        })
+      );
+
+      const rleaflet = await import("react-leaflet");
+      setMapModule(rleaflet);
+    }
+    loadLibs();
+  }, []);
 
   //selectingStart is true when the user clicks the "Select Start Point" button
   useEffect(() => {
@@ -120,23 +146,6 @@ const MapComponent = ({
     }
   };  
 
-  // Listen for map click events
-  // This component handles the click event on the map to select the starting point
-  const MapClickHandler = () => {
-    useMapEvents({ 
-      click: (e) => {
-        if (selectingStart) {
-          const [lon, lat] = [e.latlng.lng, e.latlng.lat];
-          console.log("Selected starting point：", [lon, lat]);
-          setStartPoints(prev => [...prev, [lon, lat]]);
-          setSelectingStart(false);
-        }
-      }
-      
-    });
-    return null;
-  };
-
   // Perform reachability analysis, calculate road features and hulls
   useEffect(() => {
     const performAnalysis = async () => {
@@ -214,6 +223,26 @@ const MapComponent = ({
     }
   }, [computeAccessibility]); 
 
+  if (!MapModule || !MapModule.MapContainer) return null;
+  const { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMapEvents } = MapModule;
+
+  // Listen for map click events
+  // This component handles the click event on the map to select the starting point
+  const MapClickHandler = () => {
+    useMapEvents({ 
+      click: (e) => {
+        if (selectingStart) {
+          const [lon, lat] = [e.latlng.lng, e.latlng.lat];
+          console.log("Selected starting point：", [lon, lat]);
+          setStartPoints(prev => [...prev, [lon, lat]]);
+          setSelectingStart(false);
+        }
+      }
+      
+    });
+    return null;
+  };
+
   return (
     <div className="mapBox" style={{ position: "relative" }}>
 
@@ -258,11 +287,18 @@ const MapComponent = ({
         <MapClickHandler /> 
  
         {/* Display start point */}
-        {startPoints.map((pt, i) => (
+        {/*{startPoints.map((pt, i) => (
           <Marker key={`start-${i}`} position={[pt[1], pt[0]]} icon={customMarkerIcon}>
             <Popup>Analysis starting point {i + 1}</Popup>
           </Marker>
-        ))} 
+        ))} */}
+        {startPoints.map((pt, i) => (
+          customMarkerIcon ? (
+            <Marker key={`start-${i}`} position={[pt[1], pt[0]]} icon={customMarkerIcon}>
+              <Popup>Analysis starting point {i + 1}</Popup>
+            </Marker>
+          ) : null
+        ))}
  
         {/* Render WMS layers based on selectedLayers */}
         {selectedLayers.map((layer) => {
@@ -276,12 +312,10 @@ const MapComponent = ({
             key={layer}
             data={data}
             pointToLayer={(feature, latlng) => {
+              const L = require("leaflet");
               return L.circleMarker(latlng, getStyle(layer, feature));
             }}
-            style={(feature) => {
-              // style only works for polygon/line
-              return getStyle(layer, feature);
-            }}
+            style={(feature) => getStyle(layer, feature)}
           />
         ))}
 
