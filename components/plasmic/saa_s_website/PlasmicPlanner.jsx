@@ -46,6 +46,7 @@ function PlasmicPlanner__RenderFunc(props) {
   const [showInfo, setShowInfo] = React.useState(false);
   const [resetTrigger, setResetTrigger] = React.useState(false);
   const [sidebarOpen, setSidebarOpen] = React.useState(true);
+  const [highlightedIndex, setHighlightedIndex] = React.useState(null);
 
   React.useEffect(() => {
       fetch("/data/layer-list.json")
@@ -157,6 +158,8 @@ function PlasmicPlanner__RenderFunc(props) {
               resetTrigger={resetTrigger}
               onResetHandled={onResetHandled}
               layerValues={layerValues}
+              highlightedIndex={highlightedIndex} 
+              setHighlightedIndex={setHighlightedIndex} 
             />
           </div>
 

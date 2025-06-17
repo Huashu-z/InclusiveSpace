@@ -39,7 +39,9 @@ const MapComponent = ({
   resetTrigger,
   onResetHandled,
   layerValues,
-  onFocusArea
+  onFocusArea,
+  highlightedIndex,
+  setHighlightedIndex,
 }) => {
   const [MapModule, setMapModule] = useState(null);
   const [customMarkerIcon, setCustomMarkerIcon] = useState(null);
@@ -49,8 +51,7 @@ const MapComponent = ({
   const [isCalculating, setIsCalculating] = useState(false); // function attachment calculation works? 
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 }); 
   const [resultMetadata, setResultMetadata] = useState([]); // store metadata for each result/ user setting each time
-  const [highlightedIndex, setHighlightedIndex] = useState(null); //highlight the clicked result in the legend
-  
+
   const colorPool = [
     "#173F5F", "#3CAEA3", "#ED553B", "#20639B", "#F6D55C"
   ]; // color pool for different calculation results/ accessibility analysis
@@ -237,25 +238,16 @@ const MapComponent = ({
     }
   }, [computeAccessibility]); 
 
-  // ⬇️ 放在所有早期 return 之上（比如紧跟其它 useEffect 之后）
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const L = require("leaflet");          // ← 热更新安全
-
-    window.focusAreaFromLegend = (idx) => {
-      console.log("Focusing", idx);
-      const map = document.querySelector(".leaflet-container")?._leaflet_map;
-      if (!map || !reachableHullData[idx]) return;
-      map.fitBounds(L.geoJSON(reachableHullData[idx]).getBounds(),
-                    { padding:[40,40] });
-      setHighlightedIndex(idx);            // 触发重新渲染
-    };
-  }, [reachableHullData]);                 // 只依赖 hull
-
-  useEffect(() => {
-    console.log("highlightedIndex changed to:", highlightedIndex);
-  }, [highlightedIndex]);
-
+  // handle legend click to focus on a specific area
+  const handleFocusArea = (idx) => {
+    if (!reachableHullData[idx]) return;
+    const L = require("leaflet");
+    const map = document.querySelector(".leaflet-container")?._leaflet_map;
+    if (!map) return;
+    map.fitBounds(L.geoJSON(reachableHullData[idx]).getBounds(), { padding: [40, 40] });
+    setHighlightedIndex(idx);   // 用props的
+    console.log("setHighlightedIndex to", idx);
+  };
 
   if (!MapModule || !MapModule.MapContainer) return null;
   const { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMapEvents, Pane } = MapModule;
@@ -355,7 +347,10 @@ const MapComponent = ({
         ))}
 
         {/* Legend */}
-        <Legend resultMetadata={resultMetadata} />
+        <Legend 
+          resultMetadata={resultMetadata} 
+          onFocusArea={handleFocusArea}
+        />
  
         {/* Render reachable roads and hulls */}
         {reachableRoadsData.map((roads, i) => (
@@ -391,9 +386,10 @@ const MapComponent = ({
               fillColor: "#e63946",
               weight: 3,
               dashArray: "5",
-              fillOpacity: 0.2,
+              fillOpacity: 0.7,
               opacity: 1
             }}
+            pane="highlight-pane"
           />
         )}
         
