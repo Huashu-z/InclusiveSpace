@@ -87,6 +87,10 @@ export default function VariableControls({
           {renderCheckbox("trafficLight", "Traffic Lights")}
           {renderCheckbox("tactile_pavement", "Tactile Support")} 
           {renderCheckbox("tree", "Tree Coverage")}
+          {renderCheckbox("blueinf", "Blue Infrastructure")}
+          {renderCheckbox("greeninf", "Green Infrastructure")}
+          {renderCheckbox("station", "Transport Stations")}
+          {renderCheckbox("wcDisabled", "Accessible Toilets")}
         </Category>
 
         {/* Psychological */}

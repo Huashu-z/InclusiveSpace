@@ -49,7 +49,7 @@ export default function MapLayers({ selectedLayers, toggleLayer }) {
         {renderCheckbox("transport_station_wms", "Public Transport Stations")}
         {renderCheckbox("blue_infrastructure", "Blue Infrastructure")}
         {renderCheckbox("green_infrastructure", "Green Infrastructure")} 
-        {renderCheckbox("wc_wms", "Public Toilets")} 
+        {renderCheckbox("wc_disabled", "Accessible Toilets")} 
       </Category>
 
       <Category name="psy" label="Psychological">

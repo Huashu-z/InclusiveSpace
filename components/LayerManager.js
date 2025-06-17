@@ -23,8 +23,7 @@ export const isWmsLayer = (layer) =>
     "trafic_light_wms",
     "blue_infrastructure",
     "green_infrastructure",
-    "transport_station_wms",
-    "wc_wms"
+    "transport_station_wms", 
   ].includes(layer);
 
 // use circleMarker render point layers
@@ -80,6 +79,14 @@ export function getStyle(layer, feature) {
         fillOpacity: 0.6,
         weight: 1,
         opacity: 0.6
+      };
+    
+    case "wc_disabled":
+      return {
+        radius: 5,
+        fillColor: "#e4a28b",
+        fillOpacity: 0.8,
+        stroke: false     
       };
 
     case "temp_summer":
@@ -224,23 +231,7 @@ export function StationWMSLayer() {
     return () => map.removeLayer(layer);
   }, [map]);
   return null;
-}
-
-export function WCWMSLayer() {
-  const map = useMap();
-  useEffect(() => {
-    const layer = L.tileLayer.wms("https://geodienste.hamburg.de/wms_wc_mit_trinkbrunnen", {
-      layers: "wc_mit_trinkbrunnen",
-      format: "image/png",
-      transparent: true,
-      version: "1.3.0",
-      attribution: "© Geoportal Hamburg"
-    });
-    layer.addTo(map);
-    return () => map.removeLayer(layer);
-  }, [map]);
-  return null;
-}
+} 
 
 export const wmsLayerComponents = {
   noise_wms: NoiseWMSLayer,
@@ -248,7 +239,6 @@ export const wmsLayerComponents = {
   trafic_light_wms: TraficLightWMSLayer,
   blue_infrastructure: BlueInfWMSLayer,
   green_infrastructure: GreenInfWMSLayer,
-  transport_station_wms: StationWMSLayer,
-  wc_wms: WCWMSLayer
+  transport_station_wms: StationWMSLayer
 };
 

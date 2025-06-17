@@ -148,7 +148,11 @@ const MapComponent = ({
         tactile: selected.includes("tactile_pavement") ? variableSettings.tactile_pavement ?? 1 : 1,
         tree: selected.includes("tree") ? variableSettings.tree ?? 1 : 1,
         temperatureSummer: selected.includes("temperatureSummer") ? variableSettings.temperatureSummer ?? 1 : 1,
-        temperatureWinter: selected.includes("temperatureWinter") ? variableSettings.temperatureWinter ?? 1 : 1
+        temperatureWinter: selected.includes("temperatureWinter") ? variableSettings.temperatureWinter ?? 1 : 1,
+        blueinf: selected.includes("blueinf") ? variableSettings.blueinf ?? 1 : 1,
+        greeninf: selected.includes("greeninf") ? variableSettings.greeninf ?? 1 : 1,
+        station: selected.includes("station") ? variableSettings.station ?? 1 : 1,
+        wcDisabled: selected.includes("wcDisabled") ? variableSettings.wcDisabled ?? 1 : 1
       });
       const res = await fetch(`/api/accessibility?${params}`);
       if (!res.ok) throw new Error("API call failed");

@@ -12,7 +12,7 @@ const displayNames = {
   blue_infrastructure: "Blue Infra",
   green_infrastructure: "Green Infra",
   transport_station_wms: "Transport Station",
-  wc_wms: "Public Toilets",
+  wc_disabled: "Accessible Toilets",
   temp_summer: "Temperature (Summer)",
   temp_winter: "Temperature (Winter)",
 };
@@ -48,7 +48,7 @@ const iconUrls = {
     "/plasmic/saa_s_website/images/blue_hydraulic.png"
   ],
   transport_station_wms: ["/plasmic/saa_s_website/images/transport-station.png"],
-  wc_wms: ["/plasmic/saa_s_website/images/wc.png"],
+  wc_disabled: ["/plasmic/saa_s_website/images/wc.png"],
 
   // noise_wms: "/icons/noise.svg", 
   // green_infrastructure: "/icons/green.svg", 
@@ -60,7 +60,7 @@ const iconLabels = {
   trafic_light_wms: ["Traffic Light"],
   blue_infrastructure: ["Brackish water", "Lake", "Waterbody", "Spring", "Hydraulic Structure"],
   transport_station_wms: ["Transport Station"],
-  wc_wms: ["Public Toilet"],
+  wc_disabled: ["Accessible Toilet"],
   temp_summer: ["Comfortable zone (light = comfortable, dark = hot)"],
   temp_winter: ["Comfortable zone (light = comfortable, dark = cold)"]
   // noise_wms: ["Noise Levels"]

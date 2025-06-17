@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./Legend.module.css";
 
 const variableDisplayNames = {
@@ -8,11 +8,32 @@ const variableDisplayNames = {
   trafficLight: "Traffic Lights",
   tactile_pavement: "Tactile Support",
   temperatureSummer: "Temperature Summer",
-  temperatureWinter: "Temperature Winter"
+  temperatureWinter: "Temperature Winter",
+  blueinf: "Blue Infrastructure",
+  greeninf: "Green Infrastructure",
+  station: "Transport Stations",
+  wcDisabled: "Accessible Toilets",
 };
 
 const Legend = ({ resultMetadata, onFocusArea }) => {
   const [isExpanded, setIsExpanded] = useState(true);
+  const bodyRef = useRef(null);
+
+  // prevent scroll on wheel event when legend is expanded
+  useEffect(() => {
+    const container = bodyRef.current;
+    if (!container) return;
+
+    const handleWheel = (e) => {
+      e.stopPropagation(); 
+    };
+
+    container.addEventListener("wheel", handleWheel, { passive: true });
+
+    return () => {
+      container.removeEventListener("wheel", handleWheel);
+    };
+  }, [isExpanded]);
 
   return (
     <div className={styles["legend-container"]}>
@@ -22,7 +43,7 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
       </div>
 
       {isExpanded && (
-        <div className={styles["legend-body"]}>
+        <div className={styles["legend-body"]} ref={bodyRef}>
           {resultMetadata.map((entry, index) => {
             const color = entry.color;
             const features = entry.layers;

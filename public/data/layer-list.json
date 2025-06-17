@@ -9,7 +9,7 @@
     "blue_infrastructure",
     "green_infrastructure",
     "transport_station_wms",
-    "wc_wms",
+    "wc_disabled",
     "temp_summer",
     "temp_winter"
 ]

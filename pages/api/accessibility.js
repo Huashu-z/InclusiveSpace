@@ -15,8 +15,7 @@ const pool = new Pool({
   ssl: { rejectUnauthorized: false },
 });
 
-export default async function handler(req, res) {
-//   const { lat, lon } = req.query;
+export default async function handler(req, res) { 
 const { lat, lon, time, speed } = req.query;
 
 const walkingTime = parseFloat(time) || 15; // minutes
@@ -48,6 +47,10 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
     const treeVariable = parseFloat(req.query.tree) || 1.0;
     const temperatureSummerVariable = parseFloat(req.query.temperatureSummer) || 1.0;
     const temperatureWinterVariable = parseFloat(req.query.temperatureWinter) || 1.0;
+    const blueinfVariable = parseFloat(req.query.blueinf) || 1.0;
+    const greeninfVariable = parseFloat(req.query.greeninf) || 1.0;
+    const stationVariable = parseFloat(req.query.station) || 1.0;
+    const wcDisabledVariable = parseFloat(req.query.wcDisabled) || 1.0;
  
     const result = await pool.query(`
       SELECT json_build_object(
@@ -72,7 +75,11 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
               CASE WHEN tactile_weight = 0 THEN ' || $6 || ' ELSE 1 END *
               CASE WHEN tree_weight = 0 THEN ' || $7 || ' ELSE 1 END *
               CASE WHEN temp_weight_s = 0 THEN ' || $8 || ' ELSE 1 END *
-              CASE WHEN temp_weight_w = 0 THEN ' || $9 || ' ELSE 1 END
+              CASE WHEN temp_weight_w = 0 THEN ' || $9 || ' ELSE 1 END *
+              CASE WHEN blue_weight = 0 THEN ' || $10 || ' ELSE 1 END *
+              CASE WHEN green_weight = 0 THEN ' || $11 || ' ELSE 1 END *
+              CASE WHEN station_weight = 0 THEN ' || $12 || ' ELSE 1 END *
+              CASE WHEN wc_d_weight = 0 THEN ' || $13 || ' ELSE 1 END
             ) AS cost
           FROM ways',
           $1::integer,
@@ -88,7 +95,11 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
         tactileVariable, 
         treeVariable, 
         temperatureSummerVariable,
-        temperatureWinterVariable]);
+        temperatureWinterVariable,
+        blueinfVariable,
+        greeninfVariable,
+        stationVariable,
+        wcDisabledVariable]);
       
  
     const geojson = result.rows[0].geojson;
