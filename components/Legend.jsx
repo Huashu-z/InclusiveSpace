@@ -1,5 +1,4 @@
-// Legend.jsx
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Legend.module.css";
 
 const variableDisplayNames = {
@@ -13,40 +12,43 @@ const variableDisplayNames = {
 };
 
 const Legend = ({ resultMetadata, onFocusArea }) => {
+  const [isExpanded, setIsExpanded] = useState(true);
+
   return (
     <div className={styles["legend-container"]}>
-      <div className={styles["legend-main-title"]}>Catchment Area Results</div>
+      <div className={styles["legend-header"]} onClick={() => setIsExpanded(!isExpanded)}>
+        <div className={styles["legend-header-title"]}>Catchment Area Results</div>
+        <div className={styles["legend-header-toggle"]}>{isExpanded ? "▼" : "▲"}</div>
+      </div>
 
-      {resultMetadata.map((entry, index) => {
-        const color = entry.color;
-        const features = entry.layers;
-        const values = entry.values;
+      {isExpanded && (
+        <div className={styles["legend-body"]}>
+          {resultMetadata.map((entry, index) => {
+            const color = entry.color;
+            const features = entry.layers;
+            const values = entry.values;
 
-        return (
-          <div key={index} className={styles["legend-section"]}>
-            <div
-              className={styles["legend-title"]}
-              onClick={() => {
-                console.log("Legend clicked:", index);
-                if (typeof onFocusArea === "function") {
-                  onFocusArea(index);
-                }
-              }}
-              style={{ cursor: "pointer" }}
-            >
-              <span
-                className={styles["legend-color-box"]}
-                style={{ backgroundColor: color }}
-              />
-              Area {index + 1}
-            </div>
+            return (
+              <div key={index} className={styles["legend-section"]}>
+                <div
+                  className={styles["legend-title"]}
+                  onClick={() => {
+                    if (typeof onFocusArea === "function") {
+                      onFocusArea(index);
+                    }
+                  }}
+                >
+                  <span
+                    className={styles["legend-color-box"]}
+                    style={{ backgroundColor: color }}
+                  />
+                  Area {index + 1}
+                </div>
 
-            <div>Time: {entry.time} min</div>
-            <div>Speed: {entry.speed} km/h</div>
-            <div>Area: {entry.area} ha</div>
+                <div>Time: {entry.time} min</div>
+                <div>Speed: {entry.speed} km/h</div>
+                <div>Area: {entry.area} ha</div>
 
-            {features.length > 0 ? (
-              <>
                 <button
                   className={styles["toggle-button"]}
                   onClick={(e) => {
@@ -61,20 +63,23 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                 >
                   ► Comfort Features Weights
                 </button>
+
                 <div style={{ display: "none", marginLeft: "8px" }}>
-                  {features.map((layer) => (
-                    <div key={layer}>
-                      • {variableDisplayNames[layer] || layer}: {values[layer] ?? "N/A"}
-                    </div>
-                  ))}
+                  {features.length > 0 ? (
+                    features.map((layer) => (
+                      <div key={layer}>
+                        • {variableDisplayNames[layer] || layer}: {values[layer] ?? "N/A"}
+                      </div>
+                    ))
+                  ) : (
+                    <div className={styles["legend-none"]}>None</div>
+                  )}
                 </div>
-              </>
-            ) : (
-              <div>Comfort Features Weights: None</div>
-            )}
-          </div>
-        );
-      })}
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };
