@@ -42,12 +42,15 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                     className={styles["legend-color-box"]}
                     style={{ backgroundColor: color }}
                   />
-                  Area {index + 1}
+                  {entry.isDefault
+                    ? `Default ${entry.groupIndex}`
+                    : `Area ${entry.groupIndex}.${entry.subIndex}`}
                 </div>
 
                 <div>Time: {entry.time} min</div>
                 <div>Speed: {entry.speed} km/h</div>
                 <div>Area: {entry.area} ha</div>
+                {!entry.isDefault && <div>Comfort Area Ratio: {entry.weightedRatio}</div>}
 
                 <button
                   className={styles["toggle-button"]}

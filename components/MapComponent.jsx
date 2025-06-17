@@ -51,6 +51,9 @@ const MapComponent = ({
   const [isCalculating, setIsCalculating] = useState(false); // function attachment calculation works? 
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 }); 
   const [resultMetadata, setResultMetadata] = useState([]); // store metadata for each result/ user setting each time
+  const [defaultResultCache, setDefaultResultCache] = useState({}); // key: `${lat},${lon}`, value: {roads, hull, area}
+  const [defaultGroupIndex, setDefaultGroupIndex] = useState(1);  // default group index for the first result
+  const [groupMapping, setGroupMapping] = useState({}); // mapping of group index to default results,index for weighted results
 
   const colorPool = [
     "#173F5F", "#3CAEA3", "#ED553B", "#20639B", "#F6D55C"
@@ -98,6 +101,10 @@ const MapComponent = ({
       setReachableHullData([]);
       setResultMetadata([]);
       onResetHandled && onResetHandled();
+      setDefaultResultCache({});
+      setGroupMapping({});
+      setDefaultGroupIndex(1);
+
     }
   }, [resetTrigger, onResetHandled]);  
 
@@ -156,75 +163,121 @@ const MapComponent = ({
   useEffect(() => {
     const performAnalysis = async () => {
       if (startPoints.length === 0) return;
-      const [lon, lat] = startPoints[startPoints.length - 1]; // get the last clicked point
-
+      const [lon, lat] = startPoints[startPoints.length - 1]; // latest point
+      const key = `${lat},${lon},${walkingTime},${walkingSpeed}`; //store basic parameters for default catchment area
       setIsCalculating(true);
-      try { 
-        const result = await fetchAccessibilityFromBackend(lat, lon, walkingTime, walkingSpeed, layerValues);
-        const roadFeatures = result.roads?.features || []; 
-        setReachableRoadsData(prev => [...prev, result.roads]);
 
-        const featureCollection = turf.featureCollection(roadFeatures);
+      try {
+        let defaultArea;
+        let currentGroupIndex;
 
-        // method 1: buffer: more accurate but very slow (10-20s)
-        const combined = turf.combine(featureCollection); 
-        const simplified = turf.simplify(combined, { tolerance: 0.002, highQuality: false });
-        const outerHull = turf.buffer(simplified, 0.02, { units: "kilometers" });
-        //only keep the outer boundary of the hull
-        const cleaned = {
-          type: "FeatureCollection",
-          features: outerHull.features.map(f => {
-            if (f.geometry.type === "Polygon") {
-              return turf.polygon([f.geometry.coordinates[0]]);
-            } else if (f.geometry.type === "MultiPolygon") {
-              return turf.multiPolygon(
-                f.geometry.coordinates.map(polygon => [polygon[0]])
-              );
+        // --------- Step 1: Default Reslut (only speed/time/start) ---------
+        if (!defaultResultCache[key]) {
+          const newGroupIndex = Object.keys(groupMapping).length + 1;
+          setGroupMapping(prev => ({ ...prev, [key]: newGroupIndex }));
+          setDefaultGroupIndex(newGroupIndex);
+          currentGroupIndex = newGroupIndex;
+
+          const defaultVars = {
+            noise: 1, light: 1, trafficLight: 1,
+            tactile_pavement: 1, tree: 1,
+            temperatureSummer: 1, temperatureWinter: 1
+          };
+
+          const defaultRes = await fetchAccessibilityFromBackend(lat, lon, walkingTime, walkingSpeed, defaultVars);
+          const defaultRoads = defaultRes.roads?.features || [];
+          const fc = turf.featureCollection(defaultRoads);
+          const combined = turf.combine(fc);
+          const simplified = turf.simplify(combined, { tolerance: 0.002, highQuality: false });
+          const buffered = turf.buffer(simplified, 0.02, { units: "kilometers" });
+          const cleaned = {
+            type: "FeatureCollection",
+            features: buffered.features.map(f => {
+              if (f.geometry.type === "Polygon") {
+                return turf.polygon([f.geometry.coordinates[0]]);
+              } else if (f.geometry.type === "MultiPolygon") {
+                return turf.multiPolygon(f.geometry.coordinates.map(p => [p[0]]));
+              }
+              return f;
+            })
+          };
+
+          let area = 0;
+          cleaned.features.forEach(f => {
+            area += turf.area(f);
+          });
+          defaultArea = area / 10000;
+
+          setDefaultResultCache(prev => ({ ...prev, [key]: { roads: defaultRes.roads, hull: cleaned, area: defaultArea } }));
+          setReachableRoadsData(prev => [...prev, defaultRes.roads]);
+          setReachableHullData(prev => [...prev, cleaned]);
+          setResultMetadata(prev => [
+            ...prev,
+            {
+              color: "#b6b6b6", // default color for the first result
+              layers: [],
+              values: {},
+              time: walkingTime,
+              speed: walkingSpeed,
+              area: defaultArea.toFixed(2),
+              isDefault: true,
+              groupIndex: newGroupIndex
             }
-            return f;
-          })
-        };
+          ]);
+        } else {
+          currentGroupIndex = groupMapping[key];
+          setDefaultGroupIndex(currentGroupIndex);
+          defaultArea = defaultResultCache[key].area;
+        }
 
-        //method 2: convex hull: faster but simplified convex form (1-2s)
-        // const convexHull = turf.convex(featureCollection); 
-        // const outerHull = turf.buffer(convexHull, 0.01, { units: "kilometers" });
+        // --------- Step 2: Weighted Result (with comfort features) ---------
+        if (enabledVariables.length > 0) {
+          const weightedRes = await fetchAccessibilityFromBackend(lat, lon, walkingTime, walkingSpeed, layerValues);
+          const weightedRoads = weightedRes.roads?.features || [];
+          const fc2 = turf.featureCollection(weightedRoads);
+          const combined2 = turf.combine(fc2);
+          const simplified2 = turf.simplify(combined2, { tolerance: 0.002, highQuality: false });
+          const buffered2 = turf.buffer(simplified2, 0.02, { units: "kilometers" });
+          const cleaned2 = {
+            type: "FeatureCollection",
+            features: buffered2.features.map(f => {
+              if (f.geometry.type === "Polygon") {
+                return turf.polygon([f.geometry.coordinates[0]]);
+              } else if (f.geometry.type === "MultiPolygon") {
+                return turf.multiPolygon(f.geometry.coordinates.map(p => [p[0]]));
+              }
+              return f;
+            })
+          };
 
-        // method 3: concave hull: failed (2-3s)
-        // const points = [];
-        // roadFeatures.forEach((feature) => {
-        //   const coords = feature.geometry.coordinates;
-        //   if (coords.length >= 2) {
-        //     points.push(turf.point(coords[0]));
-        //     points.push(turf.point(coords[coords.length - 1]));
-        //   }
-        // });
-        // const pointCollection = turf.featureCollection(points);
-        // const concaveHull = turf.concave(pointCollection, { maxEdge: 0.3, units: "kilometers" });
-        // const outerHull = turf.buffer(concaveHull, 0.05, { units: "kilometers" });
+          let weightedArea = 0;
+          cleaned2.features.forEach(f => {
+            weightedArea += turf.area(f);
+          });
+          weightedArea = weightedArea / 10000;
 
-        // store the metadata for the current analysis
-        
-        // Calculate the total area of the hull in hectares
-        let totalArea = 0;
-        cleaned.features.forEach(f => {
-          totalArea += turf.area(f);
-        });
-        totalArea = (totalArea / 10000).toFixed(2); // convert to hectares
-        
-        const resultColor = colorPool[resultMetadata.length % colorPool.length];
-        setResultMetadata(prev => [
-          ...prev,
-          {
-            color: resultColor,
-            layers: enabledVariables,
-            values: { ...layerValues },
-            time: walkingTime,
-            speed: walkingSpeed,
-            area: totalArea
-          }
-        ]); // choose a color for the current analysis result
- 
-        setReachableHullData(prev => [...prev, cleaned]);
+          const ratio = (weightedArea / defaultArea).toFixed(2);
+          const color = colorPool[resultMetadata.length % colorPool.length];
+
+          setReachableRoadsData(prev => [...prev, weightedRes.roads]);
+          setReachableHullData(prev => [...prev, cleaned2]);
+          setResultMetadata(prev => [
+            ...prev,
+            {
+              color,
+              layers: enabledVariables,
+              values: { ...layerValues },
+              time: walkingTime,
+              speed: walkingSpeed,
+              area: weightedArea.toFixed(2),
+              weightedRatio: ratio,
+              isDefault: false,
+              groupIndex: currentGroupIndex,
+              subIndex: prev.filter(p => p.groupIndex === currentGroupIndex && !p.isDefault).length + 1
+            }
+          ]);
+        }
+
       } catch (err) {
         console.error("Reachability analysis error：", err);
       } finally {
@@ -245,7 +298,7 @@ const MapComponent = ({
     const map = document.querySelector(".leaflet-container")?._leaflet_map;
     if (!map) return;
     map.fitBounds(L.geoJSON(reachableHullData[idx]).getBounds(), { padding: [40, 40] });
-    setHighlightedIndex(idx);   // 用props的
+    setHighlightedIndex(idx);   
     console.log("setHighlightedIndex to", idx);
   };
 
