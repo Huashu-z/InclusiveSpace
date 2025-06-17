@@ -38,6 +38,13 @@ const Legend = ({ resultMetadata }) => {
       const title = document.createElement("div");
       title.className = styles["legend-title"];
       title.innerText = `Area ${index + 1}`;
+      title.style.cursor = "pointer";
+      title.onclick = () => {
+        console.log("Legend clicked:", index);
+        if (typeof window !== "undefined" && window.focusAreaFromLegend) {
+          window.focusAreaFromLegend(index);
+        }
+      };
       section.appendChild(title);
 
       const timeLine = document.createElement("div");

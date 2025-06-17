@@ -39,6 +39,11 @@
   display: flex;
   align-items: center;
   gap: 6px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.legend-title:hover {
+  color: #e63946;
 }
 
 .legend-color-box {

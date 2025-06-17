@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 // import { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMapEvents, useMap } from "react-leaflet";
 // import L from "leaflet";
 import dynamic from "next/dynamic";
@@ -38,7 +38,8 @@ const MapComponent = ({
   setComputeAccessibility,
   resetTrigger,
   onResetHandled,
-  layerValues
+  layerValues,
+  onFocusArea
 }) => {
   const [MapModule, setMapModule] = useState(null);
   const [customMarkerIcon, setCustomMarkerIcon] = useState(null);
@@ -48,11 +49,13 @@ const MapComponent = ({
   const [isCalculating, setIsCalculating] = useState(false); // function attachment calculation works? 
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 }); 
   const [resultMetadata, setResultMetadata] = useState([]); // store metadata for each result/ user setting each time
+  const [highlightedIndex, setHighlightedIndex] = useState(null); //highlight the clicked result in the legend
   
   const colorPool = [
     "#173F5F", "#3CAEA3", "#ED553B", "#20639B", "#F6D55C"
   ]; // color pool for different calculation results/ accessibility analysis
 
+  // Load Leaflet and React-Leaflet dynamically to avoid SSR issues
   useEffect(() => {
     async function loadLibs() {
       const leaflet = await import("leaflet");
@@ -234,8 +237,28 @@ const MapComponent = ({
     }
   }, [computeAccessibility]); 
 
+  // ⬇️ 放在所有早期 return 之上（比如紧跟其它 useEffect 之后）
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const L = require("leaflet");          // ← 热更新安全
+
+    window.focusAreaFromLegend = (idx) => {
+      console.log("Focusing", idx);
+      const map = document.querySelector(".leaflet-container")?._leaflet_map;
+      if (!map || !reachableHullData[idx]) return;
+      map.fitBounds(L.geoJSON(reachableHullData[idx]).getBounds(),
+                    { padding:[40,40] });
+      setHighlightedIndex(idx);            // 触发重新渲染
+    };
+  }, [reachableHullData]);                 // 只依赖 hull
+
+  useEffect(() => {
+    console.log("highlightedIndex changed to:", highlightedIndex);
+  }, [highlightedIndex]);
+
+
   if (!MapModule || !MapModule.MapContainer) return null;
-  const { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMapEvents } = MapModule;
+  const { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMapEvents, Pane } = MapModule;
 
   // Listen for map click events
   // This component handles the click event on the map to select the starting point
@@ -280,6 +303,7 @@ const MapComponent = ({
       )}
 
       <MapContainer center={[53.5503, 9.9920]} zoom={13} style={{ width: "100%", height: "100vh" }}>
+        <Pane name="highlight-pane" style={{ zIndex: 650 }} />
         <TileLayer
           //different base map
 
@@ -358,6 +382,21 @@ const MapComponent = ({
             }}
           />
         ))}
+        {highlightedIndex !== null && reachableHullData[highlightedIndex] && (
+          <GeoJSON
+            key={`highlighted-${highlightedIndex}`}
+            data={reachableHullData[highlightedIndex]}
+            style={{
+              color: "#e63946",
+              fillColor: "#e63946",
+              weight: 3,
+              dashArray: "5",
+              fillOpacity: 0.2,
+              opacity: 1
+            }}
+          />
+        )}
+        
          
       </MapContainer>
     </div>
