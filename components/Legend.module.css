@@ -1,43 +1,65 @@
 .legend-container {
-  background: rgba(255, 255, 255, 0.9);
-  padding: 10px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 12px;
   border-radius: 8px;
   font-size: 14px;
   line-height: 1.5;
-  max-width: 250px;
-  max-height: 300px;  /* ✅ 设定合理最大高度 */
-  overflow-y: auto;   /* ✅ 确保可以滚动 */
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
-  position: relative; /* ✅ 允许自由调整 */
-  bottom: 20px;       /* ✅ 让 Legend 向上移动 */
+  max-width: 260px;
+  max-height: 320px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc transparent;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  border: 2px solid #173f5f; /* 主色边框增强 */
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
 }
 
-.legend-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  max-height: 250px;  /* ✅ 让变量列表可以滚动 */
-  overflow-y: auto;
+.legend-section {
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #ccc;
+}
+
+.legend-main-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #173f5f;
+  padding-bottom: 4px;
+  color: #173f5f;
 }
 
 
 .legend-title {
   font-weight: bold;
-  font-size: 16px;
-  margin-bottom: 5px;
-  text-align: center;
-}
-
-.legend-list li {
+  margin-bottom: 4px;
   display: flex;
   align-items: center;
-  margin: 4px 0;
+  gap: 6px;
 }
 
-.legend-color {
+.legend-color-box {
   width: 12px;
   height: 12px;
-  border-radius: 50%;
-  margin-right: 8px;
+  border-radius: 50%; 
   display: inline-block;
+  border: 1px solid #ccc;
+}
+
+.toggle-button {
+  border: none;
+  background: none;
+  color: #173f5f;
+  cursor: pointer;
+  padding: 4px 0;
+  text-align: left;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+.toggle-button:hover {
+  text-decoration: underline;
 }

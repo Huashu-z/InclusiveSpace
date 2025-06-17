@@ -199,6 +199,14 @@ const MapComponent = ({
         // const outerHull = turf.buffer(concaveHull, 0.05, { units: "kilometers" });
 
         // store the metadata for the current analysis
+        
+        // Calculate the total area of the hull in hectares
+        let totalArea = 0;
+        cleaned.features.forEach(f => {
+          totalArea += turf.area(f);
+        });
+        totalArea = (totalArea / 10000).toFixed(2); // convert to hectares
+        
         const resultColor = colorPool[resultMetadata.length % colorPool.length];
         setResultMetadata(prev => [
           ...prev,
@@ -207,7 +215,8 @@ const MapComponent = ({
             layers: enabledVariables,
             values: { ...layerValues },
             time: walkingTime,
-            speed: walkingSpeed
+            speed: walkingSpeed,
+            area: totalArea
           }
         ]); // choose a color for the current analysis result
  
