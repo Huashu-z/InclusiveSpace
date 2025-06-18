@@ -1,0 +1,4136 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2025-06-17T23:49:02Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/102576975",
+        "building": "service",
+        "building:levels": "1",
+        "building:material": "glass",
+        "elevator": "yes",
+        "level": "0;-2",
+        "levelpart": "elevator_platform",
+        "roof:levels": "1",
+        "roof:material": "glass",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9523826,
+          53.635846
+        ]
+      },
+      "id": "way/102576975"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/251205055",
+        "addr:city": "Hamburg",
+        "addr:country": "DE",
+        "addr:housenumber": "62",
+        "addr:postcode": "22309",
+        "addr:street": "Fritz-Flinte-Ring",
+        "building": "apartments",
+        "building:levels": "8",
+        "elevator": "yes",
+        "roof:levels": "0",
+        "roof:shape": "flat",
+        "source": "Hamburg DK5",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0533269,
+          53.6136026
+        ]
+      },
+      "id": "way/251205055"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/251207471",
+        "addr:city": "Hamburg",
+        "addr:country": "DE",
+        "addr:housenumber": "60",
+        "addr:postcode": "22309",
+        "addr:street": "Fritz-Flinte-Ring",
+        "building": "apartments",
+        "building:levels": "8",
+        "elevator": "yes",
+        "roof:levels": "0",
+        "roof:shape": "flat",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0532007,
+          53.6138059
+        ]
+      },
+      "id": "way/251207471"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/251248910",
+        "addr:city": "Hamburg",
+        "addr:country": "DE",
+        "addr:housenumber": "58",
+        "addr:postcode": "22309",
+        "addr:street": "Fritz-Flinte-Ring",
+        "building": "apartments",
+        "building:levels": "10",
+        "elevator": "yes",
+        "roof:levels": "0",
+        "roof:shape": "flat",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0528353,
+          53.6139421
+        ]
+      },
+      "id": "way/251248910"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/363118218",
+        "access": "customers",
+        "customers": "HVV",
+        "description": "Schalterhalle/Bahnsteig U3 Ri. Barmbek/Wandsbek-Gartenstadt",
+        "highway": "elevator",
+        "level": "0;-1",
+        "lit": "yes",
+        "manufacturer": "Hütter Aufzüge",
+        "operator": "HOCHBAHN",
+        "ref": "931352",
+        "start_date": "1993",
+        "surface": "metal",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0150444,
+          53.5907937
+        ]
+      },
+      "id": "way/363118218"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/364902042",
+        "building": "service",
+        "elevator": "yes",
+        "level": "0;-2",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9989857,
+          53.5404535
+        ]
+      },
+      "id": "way/364902042"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/368184798",
+        "building": "service",
+        "elevator": "yes",
+        "level": "-1;0",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0328939,
+          53.6066325
+        ]
+      },
+      "id": "way/368184798"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/389899269",
+        "description": "Straße/Bahnsteig U2, Richtung: Niendorf Nord/Mümmelmannsberg",
+        "highway": "elevator",
+        "indoor": "yes",
+        "level": "0;-1",
+        "lit": "yes",
+        "name": "Lutterothstraße",
+        "surface": "paving_stones",
+        "tunnel": "yes",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9473504,
+          53.5813138
+        ]
+      },
+      "id": "way/389899269"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/390998146",
+        "access": "customers",
+        "customers": "HVV",
+        "description": "Bahnsteig, U1 Ri. Norderstedt Mitte und Ohlstedt/Großhansdorf",
+        "highway": "elevator",
+        "level": "-1;-2",
+        "manufacturer": "Hütter Aufzüge",
+        "operator": "HOCHBAHN",
+        "ref": "1001316",
+        "start_date": "2011",
+        "tunnel": "yes",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0348326,
+          53.5643656
+        ]
+      },
+      "id": "way/390998146"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/392437804",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.1584609,
+          53.4904206
+        ]
+      },
+      "id": "way/392437804"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/398493009",
+        "building": "service",
+        "elevator": "yes",
+        "level": "0;1",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0355394,
+          53.5973648
+        ]
+      },
+      "id": "way/398493009"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/399413227",
+        "demolished:building": "yes",
+        "elevator": "yes",
+        "level": "-1;0",
+        "levelpart": "elevator_platform",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9896186,
+          53.4569961
+        ]
+      },
+      "id": "way/399413227"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/399413235",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "0",
+        "levelpart": "elevator_platform",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9934597,
+          53.4567438
+        ]
+      },
+      "id": "way/399413235"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/400791092",
+        "building:part": "elevator",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.911605,
+          53.5600665
+        ]
+      },
+      "id": "way/400791092"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/400958527",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "-2",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0225604,
+          53.553183
+        ]
+      },
+      "id": "way/400958527"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/400958531",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "-2",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0224903,
+          53.5533517
+        ]
+      },
+      "id": "way/400958531"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/400958536",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "-1;0",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0224143,
+          53.5530885
+        ]
+      },
+      "id": "way/400958536"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/401158103",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9699288,
+          53.5680027
+        ]
+      },
+      "id": "way/401158103"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/401158105",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.970175,
+          53.5679789
+        ]
+      },
+      "id": "way/401158105"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/401164375",
+        "building:part": "elevator",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.8143354,
+          53.5643093
+        ]
+      },
+      "id": "way/401164375"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/401328438",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0574184,
+          53.5760879
+        ]
+      },
+      "id": "way/401328438"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/401525456",
+        "area": "yes",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "-4",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9939417,
+          53.553274
+        ]
+      },
+      "id": "way/401525456"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/401525458",
+        "area": "yes",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "-4",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9938163,
+          53.5529961
+        ]
+      },
+      "id": "way/401525458"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/401525460",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "-1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.993282,
+          53.5531816
+        ]
+      },
+      "id": "way/401525460"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/402098206",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9849435,
+          53.5834573
+        ]
+      },
+      "id": "way/402098206"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/402111626",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9913668,
+          53.5889979
+        ]
+      },
+      "id": "way/402111626"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/402111628",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9912118,
+          53.58909
+        ]
+      },
+      "id": "way/402111628"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/402124921",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0151292,
+          53.5907945
+        ]
+      },
+      "id": "way/402124921"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/402596472",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1;2",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0439092,
+          53.5871925
+        ]
+      },
+      "id": "way/402596472"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/402596473",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "1;2",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0440299,
+          53.5873535
+        ]
+      },
+      "id": "way/402596473"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/402628765",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "1;2",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0440977,
+          53.5875329
+        ]
+      },
+      "id": "way/402628765"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/402823739",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0411373,
+          53.5794109
+        ]
+      },
+      "id": "way/402823739"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/402823740",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0409701,
+          53.5794734
+        ]
+      },
+      "id": "way/402823740"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/402834242",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "1;-1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.7584238,
+          53.5830799
+        ]
+      },
+      "id": "way/402834242"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/402854227",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.8423195,
+          53.5612157
+        ]
+      },
+      "id": "way/402854227"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/402864306",
+        "building": "service",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;-1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.8601828,
+          53.5581153
+        ]
+      },
+      "id": "way/402864306"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/402895464",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "0",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0780755,
+          53.5701332
+        ]
+      },
+      "id": "way/402895464"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/402895465",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "-1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0780754,
+          53.5701332
+        ]
+      },
+      "id": "way/402895465"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/403012323",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.8866137,
+          53.5591997
+        ]
+      },
+      "id": "way/403012323"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/403609591",
+        "description": "Bahnsteig der S-Bahn zum Eingang Hafentor",
+        "highway": "elevator",
+        "indoor": "yes",
+        "level": "0;-2",
+        "manufacturer": "Hütter Aufzüge",
+        "operator": "DB Station&Service AG",
+        "ref": "P2NI5137",
+        "start_date": "2015",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9723898,
+          53.5461549
+        ]
+      },
+      "id": "way/403609591"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/403801435",
+        "building": "service",
+        "elevator": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9870655,
+          53.5483045
+        ]
+      },
+      "id": "way/403801435"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/403801437",
+        "building": "service",
+        "elevator": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9868255,
+          53.5483603
+        ]
+      },
+      "id": "way/403801437"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/403831242",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0313574,
+          53.6209582
+        ]
+      },
+      "id": "way/403831242"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/403831244",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0318871,
+          53.6210255
+        ]
+      },
+      "id": "way/403831244"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/404020125",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;-1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0264659,
+          53.6325474
+        ]
+      },
+      "id": "way/404020125"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/404180419",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0:-1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.017226,
+          53.6496752
+        ]
+      },
+      "id": "way/404180419"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/404180420",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0:-1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0172261,
+          53.6496954
+        ]
+      },
+      "id": "way/404180420"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/404196000",
+        "building": "service",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0165217,
+          53.6747702
+        ]
+      },
+      "id": "way/404196000"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/404198957",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0380301,
+          53.5612201
+        ]
+      },
+      "id": "way/404198957"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/404209009",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0683626,
+          53.635653
+        ]
+      },
+      "id": "way/404209009"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/404216582",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.965756,
+          53.5637538
+        ]
+      },
+      "id": "way/404216582"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/405065661",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.948725,
+          53.5619761
+        ]
+      },
+      "id": "way/405065661"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/406387193",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.1321199,
+          53.4976367
+        ]
+      },
+      "id": "way/406387193"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/406536759",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.181259,
+          53.4879216
+        ]
+      },
+      "id": "way/406536759"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/406547252",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "1;2",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.2060305,
+          53.4899754
+        ]
+      },
+      "id": "way/406547252"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/406547253",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "1;2",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.2061578,
+          53.4898807
+        ]
+      },
+      "id": "way/406547253"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/406547254",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "1;2",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.2062699,
+          53.4897078
+        ]
+      },
+      "id": "way/406547254"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/406924691",
+        "building:levels": "2",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.8927264,
+          53.6030501
+        ]
+      },
+      "id": "way/406924691"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/406928887",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9060255,
+          53.5963314
+        ]
+      },
+      "id": "way/406928887"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/408823515",
+        "area": "yes",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "-5",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9940176,
+          53.5534282
+        ]
+      },
+      "id": "way/408823515"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/408823516",
+        "area": "yes",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "-1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9938163,
+          53.5529961
+        ]
+      },
+      "id": "way/408823516"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/408823517",
+        "area": "yes",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "-5",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9939416,
+          53.553274
+        ]
+      },
+      "id": "way/408823517"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/408823518",
+        "area": "yes",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "-4",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9940178,
+          53.5534282
+        ]
+      },
+      "id": "way/408823518"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/408823519",
+        "building:levels": "1",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "0",
+        "levelpart": "elevator_platform",
+        "roof:levels": "0",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9932817,
+          53.5531814
+        ]
+      },
+      "id": "way/408823519"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/408843250",
+        "access": "customers",
+        "building": "yes",
+        "description": "Straße/Bahnsteig U2, Richtung: Mümmelmannsberg",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "-3;0",
+        "manufacturer": "Hütter Aufzüge",
+        "operator": "Hamburger Hochbahn AG",
+        "ref": "1000963",
+        "since": "2006",
+        "tactile_writing": "yes",
+        "wheelchair": "yes",
+        "width": "2.2",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0051121,
+          53.5539093
+        ]
+      },
+      "id": "way/408843250"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/408843251",
+        "access": "customers",
+        "building": "yes",
+        "description": "Straße/Bahnsteig U2 und U4, Richtung: Niendorf Nord und HafenCity Universität",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "-3;0",
+        "manufacturer": "Hütter Aufzüge",
+        "operator": "Hamburger Hochbahn AG",
+        "ref": "1000964",
+        "since": "2006",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0049702,
+          53.5541925
+        ]
+      },
+      "id": "way/408843251"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/408848004",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "-1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0225607,
+          53.5531831
+        ]
+      },
+      "id": "way/408848004"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/408848005",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "-1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0224902,
+          53.5533518
+        ]
+      },
+      "id": "way/408848005"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/409572874",
+        "building:part": "yes",
+        "highway": "elevator",
+        "indoor": "yes",
+        "level": "1;0",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0566744,
+          53.5649062
+        ]
+      },
+      "id": "way/409572874"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/411638801",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "0",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9724844,
+          53.5461558
+        ]
+      },
+      "id": "way/411638801"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/411638802",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "-2",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9722955,
+          53.546154
+        ]
+      },
+      "id": "way/411638802"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/413799907",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "-1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9889967,
+          53.5722497
+        ]
+      },
+      "id": "way/413799907"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/413799910",
+        "building": "yes",
+        "elevator": "yes",
+        "level": "0",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9889967,
+          53.5722497
+        ]
+      },
+      "id": "way/413799910"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/415090444",
+        "building:part": "yes",
+        "highway": "elevator",
+        "indoor": "yes",
+        "level": "0;-1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.1402472,
+          53.6272974
+        ]
+      },
+      "id": "way/415090444"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/415484563",
+        "access": "customers",
+        "customers": "HVV",
+        "description": "Straße/Bahnsteig U2, Richtung: Niendorf Nord/ Mümmelmannsberg",
+        "highway": "elevator",
+        "indoor": "yes",
+        "level": "0;-1",
+        "manufacturer": "Hütter Aufzüge",
+        "operator": "HOCHBAHN",
+        "ref": "1001377",
+        "repeat_on": "-1",
+        "start_date": "2013",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9527217,
+          53.5716163
+        ]
+      },
+      "id": "way/415484563"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/416977283",
+        "building:levels": "2",
+        "building:part": "yes",
+        "highway": "elevator",
+        "indoor": "yes",
+        "level": "1",
+        "levelpart": "elevator_platform",
+        "roof:levels": "0",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.1174218,
+          53.6067154
+        ]
+      },
+      "id": "way/416977283"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/416977289",
+        "building:levels": "2",
+        "building:part": "yes",
+        "highway": "elevator",
+        "indoor": "yes",
+        "level": "0",
+        "levelpart": "elevator_platform",
+        "roof:levels": "0",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.1172697,
+          53.6067632
+        ]
+      },
+      "id": "way/416977289"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/416977294",
+        "building:levels": "2",
+        "building:part": "yes",
+        "highway": "elevator",
+        "indoor": "yes",
+        "level": "0",
+        "levelpart": "elevator_platform",
+        "roof:levels": "0",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.117422,
+          53.6067155
+        ]
+      },
+      "id": "way/416977294"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/416977300",
+        "building:levels": "2",
+        "building:part": "yes",
+        "highway": "elevator",
+        "indoor": "yes",
+        "level": "1",
+        "levelpart": "elevator_platform",
+        "roof:levels": "0",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.1172695,
+          53.6067629
+        ]
+      },
+      "id": "way/416977300"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/417188140",
+        "building:part": "yes",
+        "highway": "elevator",
+        "indoor": "yes",
+        "level": "-1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9686497,
+          53.5569779
+        ]
+      },
+      "id": "way/417188140"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/417188142",
+        "building:part": "yes",
+        "highway": "elevator",
+        "indoor": "yes",
+        "level": "0",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9686499,
+          53.5569778
+        ]
+      },
+      "id": "way/417188142"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/417314349",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "room",
+        "level": "0",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0010247,
+          53.6779916
+        ]
+      },
+      "id": "way/417314349"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/417571365",
+        "building:part": "yes",
+        "highway": "elevator",
+        "indoor": "yes",
+        "level": "-1",
+        "levelpart": "elevator_platform",
+        "speech_output": "yes",
+        "tactile_writing": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9436716,
+          53.5936218
+        ]
+      },
+      "id": "way/417571365"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/417571368",
+        "building:part": "yes",
+        "highway": "elevator",
+        "indoor": "yes",
+        "level": "0",
+        "levelpart": "elevator_platform",
+        "tactile_writing": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9436716,
+          53.5936218
+        ]
+      },
+      "id": "way/417571368"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/417617535",
+        "building": "service",
+        "highway": "elevator",
+        "indoor": "yes",
+        "level": "1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0127953,
+          53.5208234
+        ]
+      },
+      "id": "way/417617535"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/417617539",
+        "access": "customers",
+        "building:part": "yes",
+        "fixme": "ist das so richtig: ein Aufzug 1x als Fläche, 2x mal als Punkte?",
+        "highway": "elevator",
+        "indoor": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0127953,
+          53.5208234
+        ]
+      },
+      "id": "way/417617539"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/417805356",
+        "building:levels": "1",
+        "building:part": "retail",
+        "highway": "elevator",
+        "level": "0",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0067176,
+          53.4980257
+        ]
+      },
+      "id": "way/417805356"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/417805357",
+        "building": "retail",
+        "building:levels": "2",
+        "highway": "elevator",
+        "level": "1",
+        "levelpart": "elevator_platform",
+        "nohousenumber": "yes",
+        "roof:levels": "0",
+        "roof:shape": "flat",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0067176,
+          53.4980257
+        ]
+      },
+      "id": "way/417805357"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/417877823",
+        "elevator": "yes",
+        "indoor": "room",
+        "level": "1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0069422,
+          53.4978177
+        ]
+      },
+      "id": "way/417877823"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/417877824",
+        "elevator": "yes",
+        "indoor": "room",
+        "level": "0",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0069422,
+          53.4978177
+        ]
+      },
+      "id": "way/417877824"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/419224797",
+        "building": "bridge",
+        "highway": "elevator",
+        "level": "1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0372765,
+          53.5742415
+        ]
+      },
+      "id": "way/419224797"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/419224798",
+        "building:part": "yes",
+        "highway": "elevator",
+        "level": "0",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0370592,
+          53.5742899
+        ]
+      },
+      "id": "way/419224798"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/419224799",
+        "building": "bridge",
+        "highway": "elevator",
+        "level": "1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0370589,
+          53.5742899
+        ]
+      },
+      "id": "way/419224799"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/419224800",
+        "building:part": "yes",
+        "highway": "elevator",
+        "level": "0",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0372766,
+          53.5742414
+        ]
+      },
+      "id": "way/419224800"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/419492512",
+        "building": "train_station",
+        "building:levels": "1",
+        "highway": "elevator",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "nohousenumber": "yes",
+        "roof:levels": "0",
+        "roof:shape": "flat",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.930941,
+          53.5794537
+        ]
+      },
+      "id": "way/419492512"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/419672534",
+        "building:part": "yes",
+        "highway": "elevator",
+        "indoor": "yes",
+        "level": "1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9183554,
+          53.5897326
+        ]
+      },
+      "id": "way/419672534"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/422434944",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "-1;0",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.8756194,
+          53.4730896
+        ]
+      },
+      "id": "way/422434944"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/423105157",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "-1;0",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9879697,
+          53.5558116
+        ]
+      },
+      "id": "way/423105157"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/423149437",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "0",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0343922,
+          53.563829
+        ]
+      },
+      "id": "way/423149437"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/423149445",
+        "building:levels": "1",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "-1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0343922,
+          53.563829
+        ]
+      },
+      "id": "way/423149445"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/423283143",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "-1;-2",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9872329,
+          53.5556442
+        ]
+      },
+      "id": "way/423283143"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/423305468",
+        "building": "service",
+        "elevator": "yes",
+        "level": "0;-2",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9801597,
+          53.4608483
+        ]
+      },
+      "id": "way/423305468"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/424039396",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "0;-1",
+        "levelpart": "elevator_platform",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9625648,
+          53.569552
+        ]
+      },
+      "id": "way/424039396"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/424869510",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.1630235,
+          53.6503382
+        ]
+      },
+      "id": "way/424869510"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/424869513",
+        "building": "elevator",
+        "elevator": "yes",
+        "layer": "-1",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "location": "surface",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.163322,
+          53.6504482
+        ]
+      },
+      "id": "way/424869513"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/424892705",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9946368,
+          53.5998374
+        ]
+      },
+      "id": "way/424892705"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/425071903",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "-2",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9895692,
+          53.5582635
+        ]
+      },
+      "id": "way/425071903"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/425071906",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "-1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9896181,
+          53.5579689
+        ]
+      },
+      "id": "way/425071906"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/425071908",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "-1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9895688,
+          53.5582637
+        ]
+      },
+      "id": "way/425071908"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/425071915",
+        "building": "service",
+        "elevator": "yes",
+        "level": "0",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9896183,
+          53.5579687
+        ]
+      },
+      "id": "way/425071915"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/425505019",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;-1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9701842,
+          53.5504184
+        ]
+      },
+      "id": "way/425505019"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/426065591",
+        "building": "service",
+        "elevator": "yes",
+        "indoor": "yes",
+        "layer": "1",
+        "level": "0;-1;-2",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0673759,
+          53.5718067
+        ]
+      },
+      "id": "way/426065591"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/426084189",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;-2",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.1500301,
+          53.5282904
+        ]
+      },
+      "id": "way/426084189"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/426130010",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "-1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.022102,
+          53.6093894
+        ]
+      },
+      "id": "way/426130010"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/426130012",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0221635,
+          53.6094064
+        ]
+      },
+      "id": "way/426130012"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/426264840",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;-1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.1392167,
+          53.5411041
+        ]
+      },
+      "id": "way/426264840"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/426264841",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;-1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.1392131,
+          53.5409766
+        ]
+      },
+      "id": "way/426264841"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/426277100",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "0;-1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0975403,
+          53.5460861
+        ]
+      },
+      "id": "way/426277100"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/426277103",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "0;-1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0979286,
+          53.546577
+        ]
+      },
+      "id": "way/426277103"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/426525602",
+        "building": "train_station",
+        "building:levels": "1",
+        "elevator": "yes",
+        "layer": "1",
+        "level": "0;-2",
+        "levelpart": "elevator_platform",
+        "nohousenumber": "yes",
+        "roof:levels": "0",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9525914,
+          53.634666
+        ]
+      },
+      "id": "way/426525602"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/426539024",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;-2",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9517094,
+          53.6201802
+        ]
+      },
+      "id": "way/426539024"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/426543605",
+        "building": "service",
+        "elevator": "yes",
+        "indoor": "room",
+        "level": "0;-1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9756877,
+          53.5589661
+        ]
+      },
+      "id": "way/426543605"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/426557067",
+        "building": "transportation",
+        "building:levels": "1",
+        "elevator": "yes",
+        "level": "0",
+        "levelpart": "elevator_platform",
+        "roof:shape": "flat",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9514319,
+          53.5759038
+        ]
+      },
+      "id": "way/426557067"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/426557070",
+        "building": "train_station",
+        "building:levels": "1",
+        "elevator": "yes",
+        "level": "0",
+        "levelpart": "elevator_platform",
+        "noaddress": "yes",
+        "roof:levels": "0",
+        "roof:shape": "flat",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9519624,
+          53.5762663
+        ]
+      },
+      "id": "way/426557070"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/426745090",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "-1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9519623,
+          53.5762662
+        ]
+      },
+      "id": "way/426745090"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/426745097",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "-1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9514319,
+          53.5759038
+        ]
+      },
+      "id": "way/426745097"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/427570408",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "-1;-2",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9762665,
+          53.5589702
+        ]
+      },
+      "id": "way/427570408"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/429253718",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.1018733,
+          53.5981456
+        ]
+      },
+      "id": "way/429253718"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/432723650",
+        "building:levels": "3",
+        "building:part": "yes",
+        "elevator": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.1263475,
+          53.5870824
+        ]
+      },
+      "id": "way/432723650"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/439738500",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "-1",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9699286,
+          53.5680027
+        ]
+      },
+      "id": "way/439738500"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/439738512",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "-1",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9701747,
+          53.5679789
+        ]
+      },
+      "id": "way/439738512"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/440912213",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9487249,
+          53.5619763
+        ]
+      },
+      "id": "way/440912213"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/442056895",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "1",
+        "levelpart": "elevator_platform",
+        "ref:manufacturer_inventory": "281005609",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9934596,
+          53.456744
+        ]
+      },
+      "id": "way/442056895"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/442056896",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "-1",
+        "levelpart": "elevator_platform",
+        "ref:manufacturer_inventory": "281005609",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9934595,
+          53.4567437
+        ]
+      },
+      "id": "way/442056896"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/442056900",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "-1",
+        "levelpart": "elevator_platform",
+        "ref:manufacturer_inventory": "281005609",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9934593,
+          53.4567247
+        ]
+      },
+      "id": "way/442056900"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/442056901",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "0",
+        "levelpart": "elevator_platform",
+        "ref:manufacturer_inventory": "281005609",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9934593,
+          53.4567059
+        ]
+      },
+      "id": "way/442056901"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/442056902",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "1",
+        "levelpart": "elevator_platform",
+        "ref:manufacturer_inventory": "281005609",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9934592,
+          53.4567059
+        ]
+      },
+      "id": "way/442056902"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/442056903",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "1",
+        "levelpart": "elevator_platform",
+        "ref:manufacturer_inventory": "281005609",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9934594,
+          53.456725
+        ]
+      },
+      "id": "way/442056903"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/442056904",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "-1",
+        "levelpart": "elevator_platform",
+        "ref:manufacturer_inventory": "281005609",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9934592,
+          53.4567056
+        ]
+      },
+      "id": "way/442056904"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/442056905",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "0",
+        "levelpart": "elevator_platform",
+        "ref:manufacturer_inventory": "281005609",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9934594,
+          53.4567249
+        ]
+      },
+      "id": "way/442056905"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/442056908",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "-3",
+        "levelpart": "elevator_platform",
+        "ref:manufacturer_inventory": "281005609",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9934596,
+          53.4567438
+        ]
+      },
+      "id": "way/442056908"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/442056911",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "-3",
+        "levelpart": "elevator_platform",
+        "ref:manufacturer_inventory": "281005609",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9934591,
+          53.4567249
+        ]
+      },
+      "id": "way/442056911"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/442056913",
+        "building:part": "yes",
+        "elevator": "yes",
+        "level": "-3",
+        "levelpart": "elevator_platform",
+        "ref:manufacturer_inventory": "281005609",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9934593,
+          53.4567055
+        ]
+      },
+      "id": "way/442056913"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/445916006",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "-1;4",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0758985,
+          53.6123937
+        ]
+      },
+      "id": "way/445916006"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/445916007",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "-1;4",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0760117,
+          53.6123686
+        ]
+      },
+      "id": "way/445916007"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/445916008",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "-1;4",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0758979,
+          53.6123678
+        ]
+      },
+      "id": "way/445916008"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/445916009",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "-1;4",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0760119,
+          53.6124188
+        ]
+      },
+      "id": "way/445916009"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/445916010",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "-1;4",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0758991,
+          53.6124186
+        ]
+      },
+      "id": "way/445916010"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/445916011",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "-1;4",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0760119,
+          53.6123937
+        ]
+      },
+      "id": "way/445916011"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/479065357",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1;2",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.2066672,
+          53.4894729
+        ]
+      },
+      "id": "way/479065357"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/561584613",
+        "goods": "yes",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "-1;0;1;2;3;4;5",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9338389,
+          53.5999658
+        ]
+      },
+      "id": "way/561584613"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/561584616",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "-1;0;1;2;3;4;5",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9335255,
+          53.599564
+        ]
+      },
+      "id": "way/561584616"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/617868758",
+        "building": "train_station",
+        "building:levels": "2",
+        "elevator": "yes",
+        "level": "-1",
+        "levelpart": "elevator_platform",
+        "nohousenumber": "yes",
+        "roof:shape": "flat",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9877723,
+          53.5819919
+        ]
+      },
+      "id": "way/617868758"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/649306185",
+        "building:levels": "5",
+        "building:part": "yes",
+        "elevator": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.2005438,
+          53.4938922
+        ]
+      },
+      "id": "way/649306185"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/649306186",
+        "building:levels": "5",
+        "building:part": "yes",
+        "elevator": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.2001302,
+          53.4939976
+        ]
+      },
+      "id": "way/649306186"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/649306187",
+        "building:levels": "5",
+        "building:part": "yes",
+        "elevator": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.1996938,
+          53.4941089
+        ]
+      },
+      "id": "way/649306187"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/649306188",
+        "building:levels": "5",
+        "building:part": "yes",
+        "elevator": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.1992625,
+          53.4942172
+        ]
+      },
+      "id": "way/649306188"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/649306189",
+        "building:levels": "6",
+        "building:part": "yes",
+        "elevator": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.2003796,
+          53.4943477
+        ]
+      },
+      "id": "way/649306189"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/649306190",
+        "building:levels": "6",
+        "building:part": "yes",
+        "elevator": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.1999556,
+          53.4944548
+        ]
+      },
+      "id": "way/649306190"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/649306191",
+        "building:levels": "6",
+        "building:part": "yes",
+        "elevator": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.1995148,
+          53.4945665
+        ]
+      },
+      "id": "way/649306191"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/649306192",
+        "building:levels": "6",
+        "building:part": "yes",
+        "elevator": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.1990787,
+          53.4946769
+        ]
+      },
+      "id": "way/649306192"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/649306193",
+        "building:levels": "6",
+        "building:part": "yes",
+        "elevator": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.198654,
+          53.4947846
+        ]
+      },
+      "id": "way/649306193"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/733736663",
+        "access": "no",
+        "description": "Wandelhalle/Bahnsteig Gleis 3+4 (S-Bahn)",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "-1;0",
+        "manufacturer": "OTIS GmbH & Co. OHG",
+        "operator": "DB Station&Service AG",
+        "ref:manufacturer_inventory": "046953",
+        "ref:operator_inventory": "10028021",
+        "since": "2004",
+        "source": "http://data.deutschebahn.com/dataset/aufzug/",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0073655,
+          53.5531236
+        ]
+      },
+      "id": "way/733736663"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/733736682",
+        "description": "Wandelhalle/Bahnsteig Gleis 7+8",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "-1;0;1",
+        "name": "Aufzug zu Gleis 7/8 Abschnitt E",
+        "operator": "DB Station&Service AG",
+        "ref:operator_inventory": "10028028",
+        "source": "http://data.deutschebahn.com/dataset/aufzug/",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0066569,
+          53.5533028
+        ]
+      },
+      "id": "way/733736682"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/733736684",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "0;1",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0063696,
+          53.5534947
+        ]
+      },
+      "id": "way/733736684"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/733736699",
+        "description": "Wandelhalle/Bahnsteig Gleis 11+12",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "-1;0",
+        "manufacturer": "OTIS GmbH & Co. OHG",
+        "name": "Aufzug zu Gleis 11/12 Abschnitt E",
+        "operator": "DB Station&Service AG",
+        "ref:manufacturer_inventory": "47KAE861",
+        "ref:operator_inventory": "10028029",
+        "since": "2006",
+        "source": "http://data.deutschebahn.com/dataset/aufzug/",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0061917,
+          53.5532081
+        ]
+      },
+      "id": "way/733736699"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/733736729",
+        "description": "Wandelhalle/Bahnsteig Gleis 13+14",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "-1;0",
+        "name": "Aufzug zu Gleis 13/14 Abschnitt E",
+        "operator": "DB Station&Service AG",
+        "ref:operator_inventory": "10028019",
+        "source": "http://data.deutschebahn.com/dataset/aufzug/",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0059098,
+          53.5531505
+        ]
+      },
+      "id": "way/733736729"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/733736737",
+        "description": "Wandelhalle/Bahnsteig Gleis 5+6",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "-1;0",
+        "manufacturer": "OTIS GmbH & Co. OHG",
+        "name": "Aufzug zu Gleis 5/5 Abschnitt D",
+        "operator": "DB Station&Service AG",
+        "ref:manufacturer_inventory": "47KAE858",
+        "ref:operator_inventory": "10028022",
+        "since": "2006",
+        "source": "http://data.deutschebahn.com/dataset/aufzug/",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0069209,
+          53.5533559
+        ]
+      },
+      "id": "way/733736737"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/739159747",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "-1;-2",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0052866,
+          53.5519257
+        ]
+      },
+      "id": "way/739159747"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/739159751",
+        "building": "service",
+        "description": "Straße/Zwischenebene Südsteg",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "-1;0",
+        "manufacturer": "Grako Aufzüge",
+        "ref": "552",
+        "since": "1995",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0052951,
+          53.5518401
+        ]
+      },
+      "id": "way/739159751"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/806025172",
+        "area": "yes",
+        "highway": "elevator",
+        "indoor": "elevator",
+        "level": "0;1",
+        "room": "elevator",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.8735143,
+          53.5923286
+        ]
+      },
+      "id": "way/806025172"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/806130278",
+        "area": "yes",
+        "highway": "elevator",
+        "indoor": "elevator",
+        "level": "0;1;0.5",
+        "room": "elevator",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.8735908,
+          53.5916031
+        ]
+      },
+      "id": "way/806130278"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/806330814",
+        "area": "yes",
+        "highway": "elevator",
+        "indoor": "elevator",
+        "level": "0;1",
+        "room": "elevator",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.8729195,
+          53.5917189
+        ]
+      },
+      "id": "way/806330814"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/814305826",
+        "description": "Schalterhalle/Bahnsteig U3, Richtung: Barmbek und Wandsbek-Gartenstadt",
+        "highway": "elevator",
+        "level": "-1;-2",
+        "manufacturer": "Hütter Aufzüge",
+        "operator": "Hamburger Hochbahn AG",
+        "ref": "10014232",
+        "start_date": "2014",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0091311,
+          53.5521636
+        ]
+      },
+      "id": "way/814305826"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/817263840",
+        "description": "Straße/Bahnsteig U2, Richtung: Niendorf Nord/Mümmelmannsberg",
+        "highway": "elevator",
+        "indoor": "yes",
+        "level": "0;-1",
+        "lit": "yes",
+        "manufacturer": "Hütter Aufzüge",
+        "operator": "HOCHBAHN",
+        "ref": "1001211",
+        "start_date": "2009",
+        "tunnel": "yes",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9436786,
+          53.5936027
+        ]
+      },
+      "id": "way/817263840"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/817819587",
+        "building": "service",
+        "elevator": "yes",
+        "level": "0;1",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.853959,
+          53.47377
+        ]
+      },
+      "id": "way/817819587"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/900316847",
+        "elevator": "yes",
+        "indoor": "room",
+        "level": "0;9",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.00784,
+          53.5585141
+        ]
+      },
+      "id": "way/900316847"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/975187382",
+        "building": "service",
+        "elevator": "yes",
+        "indoor": "room",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0063533,
+          53.5499456
+        ]
+      },
+      "id": "way/975187382"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/982084036",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "0;1",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0000518,
+          53.5515688
+        ]
+      },
+      "id": "way/982084036"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/982084087",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "-1;0",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9996783,
+          53.5515392
+        ]
+      },
+      "id": "way/982084087"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1000656489",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "0",
+        "repeat_on": "-1;1;2;3",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9957164,
+          53.5516325
+        ]
+      },
+      "id": "way/1000656489"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1000656490",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "0",
+        "repeat_on": "-1;1;2;3",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9957371,
+          53.5516494
+        ]
+      },
+      "id": "way/1000656490"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1000656515",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "0",
+        "repeat_on": "1;2;3",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9964866,
+          53.5511808
+        ]
+      },
+      "id": "way/1000656515"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1000656538",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "0",
+        "repeat_on": "-1;1;2;3",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9962899,
+          53.5516539
+        ]
+      },
+      "id": "way/1000656538"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1000656539",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "0",
+        "repeat_on": "-1;1;2;3",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9963155,
+          53.5516681
+        ]
+      },
+      "id": "way/1000656539"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1000656540",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "0",
+        "repeat_on": "-1;1;2;3",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9963416,
+          53.5516829
+        ]
+      },
+      "id": "way/1000656540"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1088194384",
+        "access": "private",
+        "building": "yes",
+        "building:levels": "2",
+        "highway": "elevator",
+        "noaddress": "yes",
+        "roof:levels": "0",
+        "roof:shape": "gabled",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9919524,
+          53.4566703
+        ]
+      },
+      "id": "way/1088194384"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1109704320",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "0;1",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0338273,
+          53.5747429
+        ]
+      },
+      "id": "way/1109704320"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1110282503",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "0;1",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.033853,
+          53.574758
+        ]
+      },
+      "id": "way/1110282503"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1111763428",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "0;1",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0320712,
+          53.5735617
+        ]
+      },
+      "id": "way/1111763428"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1112088852",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "0;1",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0308649,
+          53.5732285
+        ]
+      },
+      "id": "way/1112088852"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1112263647",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "0;1",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0301348,
+          53.5727379
+        ]
+      },
+      "id": "way/1112263647"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1112295651",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "0;1",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0287254,
+          53.5719346
+        ]
+      },
+      "id": "way/1112295651"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1158265364",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "-1;2;3",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9524016,
+          53.622588
+        ]
+      },
+      "id": "way/1158265364"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1158265373",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "-1;0;1",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9518821,
+          53.6224866
+        ]
+      },
+      "id": "way/1158265373"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1158265385",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "-1-3",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9522231,
+          53.6227375
+        ]
+      },
+      "id": "way/1158265385"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1158265400",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "-1;2;3",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9524447,
+          53.6225979
+        ]
+      },
+      "id": "way/1158265400"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1158265406",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "-1-3",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9522065,
+          53.6227636
+        ]
+      },
+      "id": "way/1158265406"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1158265408",
+        "highway": "elevator",
+        "indoor": "room",
+        "level": "-1;2;3",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9523581,
+          53.6225782
+        ]
+      },
+      "id": "way/1158265408"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1234931790",
+        "highway": "elevator",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.010122,
+          53.5411409
+        ]
+      },
+      "id": "way/1234931790"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1323928115",
+        "construction": "highway",
+        "highway": "elevator",
+        "level": "1;-1",
+        "start_date": "2025-02-15",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.0222827,
+          53.609622
+        ]
+      },
+      "id": "way/1323928115"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1341799799",
+        "building:part": "yes",
+        "elevator": "yes",
+        "indoor": "yes",
+        "level": "0;1;2",
+        "levelpart": "elevator_platform",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.2066887,
+          53.4894565
+        ]
+      },
+      "id": "way/1341799799"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1387783435",
+        "highway": "elevator",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.8119033,
+          53.5634512
+        ]
+      },
+      "id": "way/1387783435"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1395559596",
+        "highway": "elevator",
+        "level": "0;1",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9719204,
+          53.5467551
+        ]
+      },
+      "id": "way/1395559596"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1395559603",
+        "highway": "elevator",
+        "level": "0;0,5",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9720719,
+          53.5467822
+        ]
+      },
+      "id": "way/1395559603"
+    }
+  ]
+}

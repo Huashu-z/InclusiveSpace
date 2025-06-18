@@ -7,7 +7,7 @@ const displayNames = {
   noise_wms: "Noise",
   tree_wms: "Tree Coverage",
   trafic_light_wms: "Traffic Lights",
-  streetlight: "Illuminating Lights",
+  streetlight: "Street Lights",
   tactile_guidance: "Tactile System",
   blue_infrastructure: "Blue Infra",
   green_infrastructure: "Green Infra",
@@ -15,6 +15,10 @@ const displayNames = {
   wc_disabled: "Accessible Toilets",
   temp_summer: "Temperature (Summer)",
   temp_winter: "Temperature (Winter)",
+  sidewalk_narrow: "Roads Width (narrow)",
+  accessible_ramp: "Accessible Ramps",
+  stair: "Stairs",
+  elevator: "Elevators"
 };
 
 //color mapping for geojson layers
@@ -27,6 +31,7 @@ const getChipColor = (layer) => {
   for (const subLayer of members) {
     const style = getStyle(subLayer);
     if (style?.fillColor) return style.fillColor;
+    if (style?.color) return style.color;
   }
 
   return "#999"; 
@@ -57,10 +62,7 @@ const iconUrls = {
 
 const iconLabels = {
   tree_wms: ["Planted Tree", "Planned Tree", "Unassigned Spot"],
-  trafic_light_wms: ["Traffic Light"],
-  blue_infrastructure: ["Brackish water", "Lake", "Waterbody", "Spring", "Hydraulic Structure"],
-  transport_station_wms: ["Transport Station"],
-  wc_disabled: ["Accessible Toilet"],
+  blue_infrastructure: ["Brackish water", "Lake", "Waterbody", "Spring", "Hydraulic Structure"], 
   temp_summer: ["Comfortable zone (light = comfortable, dark = hot)"],
   temp_winter: ["Comfortable zone (light = comfortable, dark = cold)"]
   // noise_wms: ["Noise Levels"]

@@ -83,14 +83,18 @@ export default function VariableControls({
           open={openCategory === "vphy"}
           onClick={() => toggleCategory("vphy")}
         >
-          {renderCheckbox("light", "Illuminating Lights")}
+          {renderCheckbox("light", "Street Lights")}
           {renderCheckbox("trafficLight", "Traffic Lights")}
           {renderCheckbox("tactile_pavement", "Tactile Support")} 
-          {renderCheckbox("tree", "Tree Coverage")}
-          {renderCheckbox("blueinf", "Blue Infrastructure")}
+          {renderCheckbox("tree", "Tree Coverage")} 
           {renderCheckbox("greeninf", "Green Infrastructure")}
+          {renderCheckbox("blueinf", "Blue Infrastructure")}
           {renderCheckbox("station", "Transport Stations")}
+          {renderCheckbox("narrowRoads", "Roads Width (narrow)")}
           {renderCheckbox("wcDisabled", "Accessible Toilets")}
+          {renderCheckbox("ramp", "Accessible Ramps")}
+          {renderCheckbox("stair", "Stairs")}
+          {renderCheckbox("elevator", "Elevators")}
         </Category>
 
         {/* Psychological */}

@@ -89,6 +89,35 @@ export function getStyle(layer, feature) {
         stroke: false     
       };
 
+    case "sidewalk_narrow":
+      return {
+        color: "#992842", 
+        weight: 2,
+        opacity: 0.9
+      };
+    
+    case "accessible_ramp":
+      return {
+        color: "#61916e", 
+        weight: 2,
+        opacity: 0.9
+      };
+
+    case "stair":
+      return {
+        color: "#91744a", 
+        weight: 2,
+        opacity: 0.9
+      };
+
+    case "elevator":
+      return {
+        radius: 5,
+        fillColor: "#d65a90",
+        fillOpacity: 0.8,
+        stroke: false     
+      };
+
     case "temp_summer":
       const comfort_summer = parseInt(feature?.properties?.comfort);
       let fillColorSummer = "#ccc";

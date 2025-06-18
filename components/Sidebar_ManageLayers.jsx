@@ -42,14 +42,18 @@ export default function MapLayers({ selectedLayers, toggleLayer }) {
       </Category>
 
       <Category name="phy" label="Physical">
-        {renderCheckbox("tree_wms", "Tree Coverage")}
-        {renderCheckbox("streetlight", "Illuminating Lights")}
+        {renderCheckbox("streetlight", "Street Lights")}
         {renderCheckbox("trafic_light_wms", "Traffic Lights")}
         {renderCheckbox("tactile_guidance", "Tactile Guidance System")}
-        {renderCheckbox("transport_station_wms", "Public Transport Stations")}
+        {renderCheckbox("tree_wms", "Tree Coverage")}
+        {renderCheckbox("green_infrastructure", "Green Infrastructure")}
         {renderCheckbox("blue_infrastructure", "Blue Infrastructure")}
-        {renderCheckbox("green_infrastructure", "Green Infrastructure")} 
+        {renderCheckbox("transport_station_wms", "Public Transport Stations")}
+        {renderCheckbox("sidewalk_narrow", "Roads Width (narrow)")}
         {renderCheckbox("wc_disabled", "Accessible Toilets")} 
+        {renderCheckbox("accessible_ramp", "Accessible Ramps")}
+        {renderCheckbox("stair", "Stairs")}
+        {renderCheckbox("elevator", "Elevators")}
       </Category>
 
       <Category name="psy" label="Psychological">

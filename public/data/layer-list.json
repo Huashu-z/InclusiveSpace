@@ -11,5 +11,9 @@
     "transport_station_wms",
     "wc_disabled",
     "temp_summer",
-    "temp_winter"
+    "temp_winter",
+    "sidewalk_narrow",
+    "accessible_ramp",
+    "stair",
+    "elevator"
 ]

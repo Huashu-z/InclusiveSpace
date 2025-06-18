@@ -13,6 +13,10 @@ const variableDisplayNames = {
   greeninf: "Green Infrastructure",
   station: "Transport Stations",
   wcDisabled: "Accessible Toilets",
+  narrowRoads: "Roads Width (narrow)",
+  ramp: "Accessible Ramps",
+  stair: "Stairs",
+  elevator: "Elevators",
 };
 
 const Legend = ({ resultMetadata, onFocusArea }) => {

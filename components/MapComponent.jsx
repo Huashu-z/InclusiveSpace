@@ -152,7 +152,11 @@ const MapComponent = ({
         blueinf: selected.includes("blueinf") ? variableSettings.blueinf ?? 1 : 1,
         greeninf: selected.includes("greeninf") ? variableSettings.greeninf ?? 1 : 1,
         station: selected.includes("station") ? variableSettings.station ?? 1 : 1,
-        wcDisabled: selected.includes("wcDisabled") ? variableSettings.wcDisabled ?? 1 : 1
+        wcDisabled: selected.includes("wcDisabled") ? variableSettings.wcDisabled ?? 1 : 1,
+        narrowRoads: selected.includes("narrowRoads") ? variableSettings.narrowRoads ?? 1 : 1,
+        ramp: selected.includes("ramp") ? variableSettings.ramp ?? 1 : 1,
+        stair: selected.includes("stair") ? variableSettings.stair ?? 1 : 1,
+        elevator: selected.includes("elevator") ? variableSettings.elevator ?? 1 : 1
       });
       const res = await fetch(`/api/accessibility?${params}`);
       if (!res.ok) throw new Error("API call failed");

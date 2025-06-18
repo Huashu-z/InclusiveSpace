@@ -51,6 +51,10 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
     const greeninfVariable = parseFloat(req.query.greeninf) || 1.0;
     const stationVariable = parseFloat(req.query.station) || 1.0;
     const wcDisabledVariable = parseFloat(req.query.wcDisabled) || 1.0;
+    const narrowRoadsVariable = parseFloat(req.query.narrowRoads) || 1.0;
+    const rampVariable = parseFloat(req.query.ramp) || 1.0;
+    const stairVariable = parseFloat(req.query.stair) || 1.0;
+    const elevatorVariable = parseFloat(req.query.elevator) || 1.0;
  
     const result = await pool.query(`
       SELECT json_build_object(
@@ -71,15 +75,19 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
             cost / (
               CASE WHEN noise_weight = 0 THEN ' || $3 || ' ELSE 1 END *
               CASE WHEN light_weight = 0 THEN ' || $4 || ' ELSE 1 END *
-              CASE WHEN crossing_weight = 0 THEN ' || $5 || ' ELSE 1 END *
+              CASE WHEN crossing_weight = 1 THEN ' || $5 || ' ELSE 1 END *
               CASE WHEN tactile_weight = 0 THEN ' || $6 || ' ELSE 1 END *
               CASE WHEN tree_weight = 0 THEN ' || $7 || ' ELSE 1 END *
-              CASE WHEN temp_weight_s = 0 THEN ' || $8 || ' ELSE 1 END *
-              CASE WHEN temp_weight_w = 0 THEN ' || $9 || ' ELSE 1 END *
+              CASE WHEN temp_weight_s = 1 THEN ' || $8 || ' ELSE 1 END *
+              CASE WHEN temp_weight_w = 1 THEN ' || $9 || ' ELSE 1 END *
               CASE WHEN blue_weight = 0 THEN ' || $10 || ' ELSE 1 END *
               CASE WHEN green_weight = 0 THEN ' || $11 || ' ELSE 1 END *
               CASE WHEN station_weight = 0 THEN ' || $12 || ' ELSE 1 END *
-              CASE WHEN wc_d_weight = 0 THEN ' || $13 || ' ELSE 1 END
+              CASE WHEN wc_d_weight = 0 THEN ' || $13 || ' ELSE 1 END *
+              CASE WHEN path_width_weight = 1 THEN ' || $14 || ' ELSE 1 END *
+              CASE WHEN ramp_weight = 0 THEN ' || $15 || ' ELSE 1 END *
+              CASE WHEN stair_weight = 1 THEN ' || $16 || ' ELSE 1 END *
+              CASE WHEN elevator_weight = 0 THEN ' || $17 || ' ELSE 1 END
             ) AS cost
           FROM ways',
           $1::integer,
@@ -99,7 +107,11 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
         blueinfVariable,
         greeninfVariable,
         stationVariable,
-        wcDisabledVariable]);
+        wcDisabledVariable,
+        narrowRoadsVariable,
+        rampVariable,
+        stairVariable,
+        elevatorVariable]);
       
  
     const geojson = result.rows[0].geojson;
