@@ -93,7 +93,7 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
               CASE WHEN elevator_weight = 0 THEN ' || $17 || ' ELSE 1 END *
               CASE WHEN obstacle_weight = 1 THEN ' || $18 || ' ELSE 1 END *
               CASE WHEN slope_weight = 1 THEN ' || $19 || ' ELSE 1 END *
-              CASE WHEN uneven_surface_weight = 1 THEN ' || $20 || ' ELSE 1
+              CASE WHEN uneven_surfaces_weight = 1 THEN ' || $20 || ' ELSE 1 END
             ) AS cost
           FROM ways',
           $1::integer,
