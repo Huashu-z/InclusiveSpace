@@ -17,6 +17,9 @@ const variableDisplayNames = {
   ramp: "Accessible Ramps",
   stair: "Stairs",
   elevator: "Elevators",
+  obstacle: "Obstacles",
+  slope: "Slope",
+  unevenSurface: "Uneven Surface",
 };
 
 const Legend = ({ resultMetadata, onFocusArea }) => {

@@ -18,7 +18,10 @@ const displayNames = {
   sidewalk_narrow: "Roads Width (narrow)",
   accessible_ramp: "Accessible Ramps",
   stair: "Stairs",
-  elevator: "Elevators"
+  elevator: "Elevators",
+  obstacle: "Obstacles",
+  slope: "Slope",
+  uneven_surfaces: "Uneven Surface"
 };
 
 //color mapping for geojson layers

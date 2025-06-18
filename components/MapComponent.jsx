@@ -156,7 +156,10 @@ const MapComponent = ({
         narrowRoads: selected.includes("narrowRoads") ? variableSettings.narrowRoads ?? 1 : 1,
         ramp: selected.includes("ramp") ? variableSettings.ramp ?? 1 : 1,
         stair: selected.includes("stair") ? variableSettings.stair ?? 1 : 1,
-        elevator: selected.includes("elevator") ? variableSettings.elevator ?? 1 : 1
+        elevator: selected.includes("elevator") ? variableSettings.elevator ?? 1 : 1,
+        obstacle: selected.includes("obstacle") ? variableSettings.obstacle ?? 1 : 1,
+        slope: selected.includes("slope") ? variableSettings.slope ?? 1 : 1,
+        unevenSurface: selected.includes("unevenSurface") ? variableSettings.unevenSurface ?? 1 : 1
       });
       const res = await fetch(`/api/accessibility?${params}`);
       if (!res.ok) throw new Error("API call failed");

@@ -113,9 +113,31 @@ export function getStyle(layer, feature) {
     case "elevator":
       return {
         radius: 5,
+        fillColor: "#a85432",
+        fillOpacity: 0.8,
+        stroke: false     
+      };
+    
+    case "obstacle":
+      return {
+        radius: 5,
         fillColor: "#d65a90",
         fillOpacity: 0.8,
         stroke: false     
+      };
+
+    case "slope":
+      return {
+        color: "#6c8be0", 
+        weight: 2,
+        opacity: 0.9
+      };
+
+    case "uneven_surfaces":
+      return {
+        color: "#b30000", 
+        weight: 2,
+        opacity: 0.9
       };
 
     case "temp_summer":

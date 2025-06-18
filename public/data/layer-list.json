@@ -15,5 +15,8 @@
     "sidewalk_narrow",
     "accessible_ramp",
     "stair",
-    "elevator"
+    "elevator",
+    "obstacle",
+    "slope",
+    "uneven_surfaces"
 ]

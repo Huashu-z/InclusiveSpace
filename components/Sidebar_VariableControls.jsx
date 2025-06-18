@@ -95,6 +95,9 @@ export default function VariableControls({
           {renderCheckbox("ramp", "Accessible Ramps")}
           {renderCheckbox("stair", "Stairs")}
           {renderCheckbox("elevator", "Elevators")}
+          {renderCheckbox("obstacle", "Obstacles")}
+          {renderCheckbox("slope", "Slope")}
+          {renderCheckbox("unevenSurface", "Uneven Surface")}
         </Category>
 
         {/* Psychological */}

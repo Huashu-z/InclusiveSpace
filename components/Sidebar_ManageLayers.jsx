@@ -54,6 +54,9 @@ export default function MapLayers({ selectedLayers, toggleLayer }) {
         {renderCheckbox("accessible_ramp", "Accessible Ramps")}
         {renderCheckbox("stair", "Stairs")}
         {renderCheckbox("elevator", "Elevators")}
+        {renderCheckbox("obstacle", "Obstacles")}
+        {renderCheckbox("slope", "Slope")}
+        {renderCheckbox("uneven_surfaces", "Uneven Surface")}
       </Category>
 
       <Category name="psy" label="Psychological">
