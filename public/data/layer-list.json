@@ -18,5 +18,9 @@
     "elevator",
     "obstacle",
     "slope",
-    "uneven_surfaces"
+    "uneven_surfaces",
+    "poor_pavement",
+    "kerbs_high",
+    "facility_wms",
+    "pedestrian_flow_wms"
 ]

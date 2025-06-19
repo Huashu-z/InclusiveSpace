@@ -86,7 +86,7 @@ export default function VariableControls({
           {renderCheckbox("light", "Street Lights")}
           {renderCheckbox("trafficLight", "Traffic Lights")}
           {renderCheckbox("tactile_pavement", "Tactile Support")} 
-          {renderCheckbox("tree", "Tree Coverage")} 
+          {renderCheckbox("tree", "Tree Shading")} 
           {renderCheckbox("greeninf", "Green Infrastructure")}
           {renderCheckbox("blueinf", "Blue Infrastructure")}
           {renderCheckbox("station", "Transport Stations")}
@@ -98,6 +98,8 @@ export default function VariableControls({
           {renderCheckbox("obstacle", "Obstacles")}
           {renderCheckbox("slope", "Slope")}
           {renderCheckbox("unevenSurface", "Uneven Surface")}
+          {renderCheckbox("poorPavement", "Poor Pavement")}
+          {renderCheckbox("kerbsHigh", "Kerbs (high)")}
         </Category>
 
         {/* Psychological */}
@@ -110,7 +112,8 @@ export default function VariableControls({
           open={openCategory === "barrier"}
           onClick={() => toggleCategory("barrier")}
         > 
-          
+          {renderCheckbox("facility", "Facilities")}
+          {renderCheckbox("pedestrianFlow", "Pedestrian Flow")}
         </Category>
          
       </div>

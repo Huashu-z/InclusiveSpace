@@ -4,7 +4,7 @@ import styles from "./Legend.module.css";
 const variableDisplayNames = {
   noise: "Noise",
   light: "Illuminating Lights",
-  tree: "Tree Coverage",
+  tree: "Tree Shading",
   trafficLight: "Traffic Lights",
   tactile_pavement: "Tactile Support",
   temperatureSummer: "Temperature Summer",
@@ -20,6 +20,10 @@ const variableDisplayNames = {
   obstacle: "Obstacles",
   slope: "Slope",
   unevenSurface: "Uneven Surface",
+  poorPavement: "Poor Pavement",
+  kerbsHigh: "Kerbs (high)",
+  facility: "Facilities",
+  pedestrianFlow: "Pedestrian Flow",
 };
 
 const Legend = ({ resultMetadata, onFocusArea }) => {

@@ -24,6 +24,8 @@ export const isWmsLayer = (layer) =>
     "blue_infrastructure",
     "green_infrastructure",
     "transport_station_wms", 
+    "facility_wms",
+    "pedestrian_flow_wms"
   ].includes(layer);
 
 // use circleMarker render point layers
@@ -138,6 +140,21 @@ export function getStyle(layer, feature) {
         color: "#b30000", 
         weight: 2,
         opacity: 0.9
+      };
+
+    case "poor_pavement":
+      return {
+        color: "#a5ab59", 
+        weight: 2,
+        opacity: 0.9
+      };
+
+    case "kerbs_high":
+      return {
+        radius: 5,
+        fillColor: "#d65a90",
+        fillOpacity: 0.8,
+        stroke: false     
       };
 
     case "temp_summer":
@@ -284,12 +301,46 @@ export function StationWMSLayer() {
   return null;
 } 
 
+export function FacilityWMSLayer() {
+  const map = useMap();
+  useEffect(() => {
+    const layer = L.tileLayer.wms("https://geodienste.hamburg.de/wms_bildung_kultur_eimsbuettel", {
+      layers: "bildung_kultur_eimsbuettel",
+      format: "image/png",
+      transparent: true,
+      version: "1.3.0",
+      attribution: "© Geoportal Hamburg"
+    });
+    layer.addTo(map);
+    return () => map.removeLayer(layer);
+  }, [map]);
+  return null;
+} 
+
+export function PedestrianFlowWMSLayer() {
+  const map = useMap();
+  useEffect(() => {
+    const layer = L.tileLayer.wms("https://geodienste.hamburg.de/wms_bedeutungsraeume_fussverkehr", {
+      layers: "bedeutungsraeume_heatmap",
+      format: "image/png",
+      transparent: true,
+      version: "1.3.0",
+      attribution: "© Geoportal Hamburg"
+    });
+    layer.addTo(map);
+    return () => map.removeLayer(layer);
+  }, [map]);
+  return null;
+} 
+
 export const wmsLayerComponents = {
   noise_wms: NoiseWMSLayer,
   tree_wms: TreeWMSLayer,
   trafic_light_wms: TraficLightWMSLayer,
   blue_infrastructure: BlueInfWMSLayer,
   green_infrastructure: GreenInfWMSLayer,
-  transport_station_wms: StationWMSLayer
+  transport_station_wms: StationWMSLayer,
+  facility_wms: FacilityWMSLayer,
+  pedestrian_flow_wms: PedestrianFlowWMSLayer
 };
 

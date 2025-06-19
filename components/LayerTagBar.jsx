@@ -5,7 +5,7 @@ import { isWmsLayer, getStyle, layerGroupMap } from "./LayerManager";
 // Label display name mapping
 const displayNames = {
   noise_wms: "Noise",
-  tree_wms: "Tree Coverage",
+  tree_wms: "Tree Shading",
   trafic_light_wms: "Traffic Lights",
   streetlight: "Street Lights",
   tactile_guidance: "Tactile System",
@@ -21,7 +21,11 @@ const displayNames = {
   elevator: "Elevators",
   obstacle: "Obstacles",
   slope: "Slope",
-  uneven_surfaces: "Uneven Surface"
+  uneven_surfaces: "Uneven Surface",
+  poor_pavement: "Poor Pavement",
+  kerbs_high: "Kerbs (high)",
+  facility_wms: "Facilities",
+  pedestrian_flow: "Pedestrian Flow",
 };
 
 //color mapping for geojson layers
@@ -57,6 +61,14 @@ const iconUrls = {
   ],
   transport_station_wms: ["/plasmic/saa_s_website/images/transport-station.png"],
   wc_disabled: ["/plasmic/saa_s_website/images/wc.png"],
+  facility_wms: [
+    "/plasmic/saa_s_website/images/facility_culturcenter_burgerhaus.png",
+    "/plasmic/saa_s_website/images/facility_film_theater.png",
+    "/plasmic/saa_s_website/images/facility_museen.png",
+    "/plasmic/saa_s_website/images/facility_musik_ausstellung.png", 
+    "/plasmic/saa_s_website/images/facility_religioss.png",
+    "/plasmic/saa_s_website/images/facility_museum.png",
+    "/plasmic/saa_s_website/images/facility_spezialbibliotheken.png",],
 
   // noise_wms: "/icons/noise.svg", 
   // green_infrastructure: "/icons/green.svg", 

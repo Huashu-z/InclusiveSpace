@@ -58,6 +58,10 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
     const obstacleVariable = parseFloat(req.query.obstacle) || 1.0;
     const slopeVariable = parseFloat(req.query.slope) || 1.0;
     const unevenSurfaceVariable = parseFloat(req.query.unevenSurface) || 1.0;
+    const poorPavementVariable = parseFloat(req.query.poorPavement) || 1.0;
+    const kerbsHighVariable = parseFloat(req.query.kerbsHigh) || 1.0;
+    const facilityVariable = parseFloat(req.query.facility) || 1.0;
+    const pedestrianFlowVariable = parseFloat(req.query.pedestrianFlow) || 1.0;
  
     const result = await pool.query(`
       SELECT json_build_object(
@@ -93,7 +97,11 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
               CASE WHEN elevator_weight = 0 THEN ' || $17 || ' ELSE 1 END *
               CASE WHEN obstacle_weight = 1 THEN ' || $18 || ' ELSE 1 END *
               CASE WHEN slope_weight = 1 THEN ' || $19 || ' ELSE 1 END *
-              CASE WHEN uneven_surfaces_weight = 1 THEN ' || $20 || ' ELSE 1 END
+              CASE WHEN uneven_surfaces_weight = 1 THEN ' || $20 || ' ELSE 1 END *
+              CASE WHEN poor_pavement_weight = 1 THEN ' || $21 || ' ELSE 1 END *
+              CASE WHEN kerbs_h_weight = 1 THEN ' || $22 || ' ELSE 1 END *
+              CASE WHEN facilities_weight = 0 THEN ' || $23 || ' ELSE 1 END *
+              CASE WHEN pedestrian_flow_weight = 1 THEN ' || $24 || ' ELSE 1 END
             ) AS cost
           FROM ways',
           $1::integer,
@@ -120,7 +128,11 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
         elevatorVariable,
         obstacleVariable,
         slopeVariable,
-        unevenSurfaceVariable]);
+        unevenSurfaceVariable,
+        poorPavementVariable,
+        kerbsHighVariable,
+        facilityVariable,
+        pedestrianFlowVariable]);
       
  
     const geojson = result.rows[0].geojson;

@@ -36,7 +36,7 @@ export default function MapLayers({ selectedLayers, toggleLayer }) {
       <h3 className={sty["sidebar-title"]}>Map Layers</h3>
 
       <Category name="env" label="Environmental">
-        {renderCheckbox("noise_wms", "Noise")}
+        {/* {renderCheckbox("noise_wms", "Noise")} */}
         {renderCheckbox("temp_summer", "Temperature Summer")}
         {renderCheckbox("temp_winter", "Temperature Winter")}
       </Category>
@@ -45,7 +45,7 @@ export default function MapLayers({ selectedLayers, toggleLayer }) {
         {renderCheckbox("streetlight", "Street Lights")}
         {renderCheckbox("trafic_light_wms", "Traffic Lights")}
         {renderCheckbox("tactile_guidance", "Tactile Guidance System")}
-        {renderCheckbox("tree_wms", "Tree Coverage")}
+        {renderCheckbox("tree_wms", "Tree Shading")}
         {renderCheckbox("green_infrastructure", "Green Infrastructure")}
         {renderCheckbox("blue_infrastructure", "Blue Infrastructure")}
         {renderCheckbox("transport_station_wms", "Public Transport Stations")}
@@ -57,9 +57,13 @@ export default function MapLayers({ selectedLayers, toggleLayer }) {
         {renderCheckbox("obstacle", "Obstacles")}
         {renderCheckbox("slope", "Slope")}
         {renderCheckbox("uneven_surfaces", "Uneven Surface")}
+        {renderCheckbox("poor_pavement", "Poor Pavement")}
+        {renderCheckbox("kerbs_high", "Kerbs (high)")}
       </Category>
 
       <Category name="psy" label="Psychological">
+        {renderCheckbox("facility_wms", "Facilities")}
+        {renderCheckbox("pedestrian_flow_wms", "Pedestrian Flow")}
         {/* {renderCheckbox("noise_wms", "Noise")} */}
       </Category>
     </div>
