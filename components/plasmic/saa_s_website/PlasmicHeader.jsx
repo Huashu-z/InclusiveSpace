@@ -117,7 +117,7 @@ function PlasmicHeader__RenderFunc(props) {
               <button
                 onClick={() => setShowHelp(true)}
                 className={sty["help-button"]}
-                title="How to use this site"
+                title="Tool Instruction"
               >
                 ?
               </button>

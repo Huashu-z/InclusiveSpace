@@ -13,7 +13,7 @@ export default function AccessibilityControls({
 }) {
   return (
     <div className={sty["sidebar-section"]}>
-      <h3 className={sty["sidebar-title"]}>Comfort Based Accessibility</h3>
+      <h3 className={sty["sidebar-title"]}>Comfort-based Accessibility</h3>
 
       <div className={sty["sidebar-text-bold"]}>
         Walking Time <span className={sty["sidebar-text"]}>({walkingTime} minutes)</span>
@@ -43,18 +43,21 @@ export default function AccessibilityControls({
         />
         <div className={sty["slider-labels"]}>
           <span>Slow</span>
-          <span>Normal</span>
+          <span>Medium</span>
           <span>Fast</span>
         </div>
-      </div>
+      </div> 
 
       <div className={sty["button-container"]}>
         <button onClick={() => setSelectingStart(true)} className={sty["setup-button"]}>
           <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Location Icon" className={sty["img"]} />
           <span className={sty["sidebar-text-bold"]}>Select Start Point</span>
         </button>
-      </div>
 
+        <button onClick={handleResetResults} className={sty["setup-button"]}>
+          <span className={sty["sidebar-text-bold"]}>Reset</span>
+        </button>
+      </div> 
       <div className={sty["button-container"]}>
         <button
           onClick={() => {
@@ -64,13 +67,9 @@ export default function AccessibilityControls({
             }            
             setComputeAccessibility(true);
           }}
-          className={sty["setup-button"]}
+          className={sty["get-catchment-button"]}
         >
-          <span className={sty["sidebar-text-bold"]}>Get Catchment Area</span>
-        </button>
-
-        <button onClick={handleResetResults} className={sty["setup-button"]}>
-          <span className={sty["sidebar-text-bold"]}>Reset</span>
+          <span className={sty["sidebar-text-bold"]}>✚ Get Catchment Area</span>
         </button>
       </div>
     </div>

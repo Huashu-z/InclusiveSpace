@@ -1,5 +1,4 @@
-/* ✅ Updated PlasmicPlanner.module.css — synced with PlasmicUser.module.css */
-.root {
+.root { 
     display: flex;
     position: relative;
     flex-direction: column;
@@ -144,7 +143,7 @@
     left: 0px;
   }
   
-  /* 🔁 copied utility checkbox styles */
+  /* copied utility checkbox styles */
   .checkboxIntersection:global(.__wab_instance):global(.__wab_instance),
   .checkboxTactilePav:global(.__wab_instance):global(.__wab_instance),
   .checkboxLights:global(.__wab_instance):global(.__wab_instance),
@@ -154,7 +153,7 @@
     max-width: 100%;
   }
   
-  /* 🔁 sidebar content (titles, buttons, sliders, etc.) — matching user */
+  /* sidebar content (titles, buttons, sliders, etc.) — matching user */
   .sidebar-section {
     width: 100%;
     border: 1px solid #D6D6D6;
@@ -162,7 +161,7 @@
     padding: 12px;
     margin-bottom: 15px;
     background: white;
-    position: relative; /* ✅ 让内部 tooltip 定位有效 */
+    position: relative; 
     overflow: visible; 
   }
   
@@ -172,7 +171,7 @@
     color: #173F5F;
     padding: 8px 12px;
     border-radius: 5px;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     margin-top: 15px;
     text-align: left;
   }
@@ -216,8 +215,8 @@
     padding: 10px 10px;
     margin-bottom: 10px;
     background: white;
-    color: #173F5F;
-    border: 2px solid #173F5F;
+    color: #175f48;
+    border: 1.5px solid #173F5F;
     border-radius: 5px;
     cursor: pointer;
     white-space: nowrap;
@@ -230,6 +229,28 @@
   .setup-button img {
     width: 16px;
     height: 16px;
+  }
+  .get-catchment-button {
+    background-color: #c1eee7;
+    color: #173F5F;
+    font-weight: bold;
+    padding: 10px 16px;
+    border: 2px solid #173F5F;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-top: 2px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .get-catchment-button:hover {
+    background-color: #87d2c0;
+  }
+
+  .get-catchment-button:active {
+    transform: scale(0.98);
   }
 
   /* slider for walking time and speed */
