@@ -90,7 +90,7 @@ export default function VariableControls({
           {renderCheckbox("greeninf", "Green Infrastructure")}
           {renderCheckbox("blueinf", "Blue Infrastructure")}
           {renderCheckbox("station", "Transport Stations")}
-          {renderCheckbox("narrowRoads", "Roads Width (narrow)")}
+          {renderCheckbox("narrowRoads", "Sidewalk Width (narrow)")}
           {renderCheckbox("wcDisabled", "Accessible Toilets")}
           {renderCheckbox("ramp", "Accessible Ramps")}
           {renderCheckbox("stair", "Stairs")}

@@ -67,6 +67,8 @@ function PlasmicHeader__RenderFunc(props) {
   const globalVariants = ensureGlobalVariants({
     screen: useScreenVariantsxtsyYlb80OMw()
   });
+  const [showHelp, setShowHelp] = React.useState(false);
+
   return (
     <div
       data-plasmic-name={"root"}
@@ -91,25 +93,34 @@ function PlasmicHeader__RenderFunc(props) {
         >
           <Stack__ as={"div"} className={sty["header-container"]} hasGap={true}>
             
-            {/* ✅ 左侧 Logo */}
+            {/* Left side: Logo */}
             <Stack__ as={"div"} className={sty["logo-container"]}>
               <Link href={`/`}>
-                <img
-                  src="/plasmic/saa_s_website/images/tum_logo.png"
-                  alt="Logo"
-                />
+                <div className={sty["logo-wrapper"]}>
+                  <img src="/plasmic/saa_s_website/images/logo_co-founded-eu.png" alt="EU Logo" />
+                </div>
               </Link>
               <Link href={`/`}>
-                <img
-                  src="/plasmic/saa_s_website/images/logoIS.png"
-                  alt="Logo"
-                />
+                <div className={sty["logo-wrapper"]}>
+                  <img src="/plasmic/saa_s_website/images/logoIS.png" alt="IS Logo" />
+                </div>
               </Link>
-              
+              <Link href={`/`}>
+                <div className={sty["logo-wrapper"]}>
+                  <img src="/plasmic/saa_s_website/images/tum_logo.png" alt="TUM Logo" />
+                </div>
+              </Link>
             </Stack__>
 
-            {/* ✅ 右侧 User & Planner 按钮 */}
+            {/* Right side: User & Planner button */}
             <Stack__ as={"div"} className={sty["link-container-wrapper"]} hasGap={true}>
+              <button
+                onClick={() => setShowHelp(true)}
+                className={sty["help-button"]}
+                title="How to use this site"
+              >
+                ?
+              </button>
               <Stack__
                 as={Link}
                 href={`/`}
@@ -130,6 +141,53 @@ function PlasmicHeader__RenderFunc(props) {
           </Stack__>
         </Stack__>
       </div>
+      {showHelp && (
+        <div className={sty["modal-overlay"]} onClick={() => setShowHelp(false)}>
+          <div className={sty["modal-content"]} onClick={(e) => e.stopPropagation()}>
+            <h2>👋 Welcome to the Comfort-Based Accessibility Tool!</h2>
+
+            <p className={sty["section-intro"]}>
+              🌍 This tool helps you explore how walkable a location is based on your comfort preferences.
+            </p>
+
+            <hr className={sty["modal-divider"]} />
+
+            <div className={sty["section"]}>
+              <h3>How to use it:</h3>
+              <ul>
+                <li>Click <strong>“Select Start Point”</strong> and pick a location on the map.</li>
+                <li>Adjust your <strong>walking time</strong> and <strong>speed</strong> using the sliders.</li>
+                <li>Enable features like <strong>Noise</strong>, <strong>Light</strong>, or <strong>Trees</strong>.</li>
+                <li>Click <strong>“Get Catchment Area”</strong> to visualize zones.</li>
+                <li>View results in the <strong>legend panel</strong>.</li>
+              </ul>
+            </div>
+
+            <hr className={sty["modal-divider"]} />
+
+            <div className={sty["section"]}>
+              <h3>Tips:</h3>
+              <ul>
+                <li>Toggle layers using the left-side menu</li>
+                <li>Adjust comfort weights, and click “Get Catchment Area” again to get new area</li>
+                <li>Press <strong>“Reset”</strong> to remove all results and start fresh</li>
+              </ul>
+            </div>
+
+            <hr className={sty["modal-divider"]} />
+
+            <p className={sty["section-outro"]}>
+              ✨ Let’s make your journey more comfortable and inclusive! 
+            </p>
+
+            <button onClick={() => setShowHelp(false)} className={sty["modal-close"]}>
+              Close
+            </button>
+          </div>
+
+        </div>
+      )}
+
     </div>
   );
 }

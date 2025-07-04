@@ -180,15 +180,15 @@
 
 
 /*-------------------------------------------------------------------------------*/
-/* 🟢 Stack 容器 - 让 User 和 Planner 靠近，并在 header 靠右 */
+/* Stack container - Keep User and Planner close together and to the right of the header */
 .link-container-wrapper {
   display: flex;
-  justify-content: flex-end; /* ✅ 靠右对齐 */
+  justify-content: flex-end; /* Align right */
   align-items: center;
-  gap: 5px; /* ✅ 让两个按钮间距更小 */
+  gap: 5px; 
 }
 
-/* 🟡 按钮默认状态 */
+/* Button default state */
 .link__container {
   display: flex;
   align-items: center;
@@ -200,65 +200,69 @@
   transition: all 0.3s ease-in-out;
   cursor: pointer;
 }
-
-/* 🔵 悬停时 - 显示边框 */
+ 
 .link__container:hover {
   border: 2px solid #173F5F;
 }
-
-/* 🔴 选中时 - 填充颜色 */
+ 
 .link__container.active {
   background: #173F5F;
   color: white !important;
 }
-
-/* 让文本颜色跟随状态变化 */
+/* Text color change with state */
 .link__container div {
   font-weight: 600;
   font-size: 18px;
   color: #173F5F;
   transition: color 0.3s ease-in-out;
 }
-
-/* 选中状态的文本颜色 */
+ 
 .link__container.active div {
   color: white !important;
 }
 /*-------------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------------*/
-/* 🟢 Header 容器，确保左右两端对齐 */
+/* Header container */
 .header-container {
   width: 100%;
   display: flex;
-  justify-content: space-between; /* ✅ 左右对齐 */
+  justify-content: space-between; 
   align-items: center;
-  padding: 0 16px; /* ✅ 设置左右边距 */
+  padding: 0 16px; 
   height: 50px;
 }
 
-/* 🟡 Logo 设置 */
+/* Logo */
 .logo-container {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   flex-grow: 1;
-  gap: 20px; /* gap between logos */
+  gap: 5px; /* gap between logos */
 }
 
-.logo-container img {
-  height: 50px; /* ✅ 统一 Logo 高度 */
-  max-width: 100px;
+.logo-wrapper {
+  width: 95%;  
+  height: 35px;           
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-wrapper img {
+  max-height: 100%;
+  max-width: 100%;
   object-fit: contain;
-  margin-top: 6px; /* ✅ 清除可能的 margin */
+  display: block;
 }
 
-/* 🔵 User & Planner 按钮 */
+/* User & Planner button */
 .link-container-wrapper {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 10px; /* ✅ 让两个按钮保持间距 */
+  gap: 10px;
 }
 /*-------------------------------------------------------------------------------*/
 
@@ -286,3 +290,102 @@
   color: #05050599;
   flex-shrink: 0;
 }
+
+/* Help button -------------------------------------------------------------------*/
+
+.help-button {
+  background: none;
+  border: 2px solid #173F5F;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-weight: 500;
+  font-size: 24px;
+  color: #173F5F;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16px;
+  align-self: center;
+}
+.help-button:hover {
+  background-color: #f0f0f0;
+}
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-content {
+  background: white;
+  padding: 24px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+.modal-content h2 {
+  margin-top: 0;
+}
+.modal-close {
+  margin-top: 20px;
+  padding: 8px 20px;
+  font-size: 16px;
+  background: #173F5F;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.modal-close:hover {
+  background: #12517f;
+}
+.modal-divider {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 16px 0;
+}
+
+.section {
+  margin-bottom: 12px;
+}
+
+.section-intro {
+  font-size: 15px;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.section-outro {
+  font-weight: 500;
+  font-size: 15px;
+  text-align: center;
+  margin-top: 16px;
+}
+
+.section h3 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  color: #173F5F;
+}
+
+.section ul {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.section ul li {
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+

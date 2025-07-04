@@ -49,7 +49,7 @@ export default function MapLayers({ selectedLayers, toggleLayer }) {
         {renderCheckbox("green_infrastructure", "Green Infrastructure")}
         {renderCheckbox("blue_infrastructure", "Blue Infrastructure")}
         {renderCheckbox("transport_station_wms", "Public Transport Stations")}
-        {renderCheckbox("sidewalk_narrow", "Roads Width (narrow)")}
+        {renderCheckbox("sidewalk_narrow", "Sidewalk Width (narrow)")}
         {renderCheckbox("wc_disabled", "Accessible Toilets")} 
         {renderCheckbox("accessible_ramp", "Accessible Ramps")}
         {renderCheckbox("stair", "Stairs")}

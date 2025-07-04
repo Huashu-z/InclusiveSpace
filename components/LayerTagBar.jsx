@@ -15,7 +15,7 @@ const displayNames = {
   wc_disabled: "Accessible Toilets",
   temp_summer: "Temperature (Summer)",
   temp_winter: "Temperature (Winter)",
-  sidewalk_narrow: "Roads Width (narrow)",
+  sidewalk_narrow: "Sidewalk Width (narrow)",
   accessible_ramp: "Accessible Ramps",
   stair: "Stairs",
   elevator: "Elevators",

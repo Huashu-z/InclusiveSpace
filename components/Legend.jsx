@@ -13,7 +13,7 @@ const variableDisplayNames = {
   greeninf: "Green Infrastructure",
   station: "Transport Stations",
   wcDisabled: "Accessible Toilets",
-  narrowRoads: "Roads Width (narrow)",
+  narrowRoads: "Sidewalk Width (narrow)",
   ramp: "Accessible Ramps",
   stair: "Stairs",
   elevator: "Elevators",
