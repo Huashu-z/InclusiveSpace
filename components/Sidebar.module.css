@@ -340,7 +340,8 @@
   }
   .checkbox-container {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    flex-direction: column;
     justify-content: space-between;
     width: 100%;
     margin-bottom: 8px;
@@ -368,6 +369,79 @@
   .checkbox-label input {
     margin-right: 10px;
   }
+  .slider-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    margin-left:auto;
+  }
+  /* .slider-container input[type="range"] {
+    width: 120px;
+  } */
+  .slider-container input[type="range"] {
+    -webkit-appearance: none;
+    width: 100px;
+    height: 6px;
+    border-radius: 3px;
+    background: linear-gradient(to right, #2a9d8f 50%, #ccc 50%);
+    outline: none;
+    transition: background 0.2s ease;
+    cursor: pointer;
+  }
+
+  /* 调整填充颜色进度条（动态通过 JS 设置 background） */
+  .slider-container input[type="range"].disabled {
+    background: #ddd;
+    cursor: not-allowed;
+  }
+
+  /* 滑块 thumb（正常） */
+  .slider-container input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 13px;
+    width: 13px;
+    border-radius: 50%;
+    background: #173f5f;
+    border: none;
+    cursor: pointer;
+    margin-top: -2px;
+    transition: transform 0.2s;
+  }
+
+  .slider-container input[type="range"]::-moz-range-thumb {
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #173f5f;
+    border: none;
+    cursor: pointer;
+  }
+  /* ✅ 滑块 thumb 禁用状态（圆点变灰） */
+  .slider-container input[type="range"]:disabled::-webkit-slider-thumb {
+    background: #aaa;
+    cursor: not-allowed;
+  }
+
+  .slider-container input[type="range"]:disabled::-moz-range-thumb {
+    background: #aaa;
+    cursor: not-allowed;
+  }
+
+  .slider-container input[type="range"]:disabled::-webkit-slider-thumb,
+  .slider-container input[type="range"]:disabled::-moz-range-thumb {
+    background: #aaa;
+    cursor: not-allowed;
+  }
+
+  .slider-value {
+    font-size: 18px;
+    color: #555;
+    min-width: 20px;
+    text-align: right;
+  }
+
   .title-container {
     display: flex;
     align-items: center;

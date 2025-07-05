@@ -10,26 +10,56 @@ export default function VariableControls({
   openCategory,
   toggleCategory, 
 }) {
-  const renderCheckbox = (layer, label) => (
-    <div className={sty["checkbox-container"]}>
-      <label className={sty["checkbox-label"]}>
-        <input type="checkbox" onChange={() => toggleVariable(layer)} checked={enabledVariables.includes(layer)} />
-        <span className={sty["sidebar-text"]}>{label}</span>
-      </label>
-      <input
-        type="number"
-        className={sty["checkbox-input"]}
-        placeholder="0 - 1"
-        min="0.1"
-        max="1"
-        step="0.1"
-        value={layerValues[layer] ?? ""}
-        onChange={(event) => handleInputChange(event, layer)}
-        disabled={!enabledVariables.includes(layer)} // Disable input if the variable is not selected
-      />
-    </div>
-  );
+  const weightLevels = [0.85, 0.9, 0.95, 1]; //4 categories of comfort weights
+  const weightLabels = ["😩", "☹️", "😐", "🙂"];
+  const renderCheckbox = (layer, label) => {
+    const enabled = enabledVariables.includes(layer);
+    const value = layerValues[layer];
+    const sliderIndex = weightLevels.indexOf(value);
 
+    return (
+      <div className={sty["checkbox-container"]}>
+        <label className={sty["checkbox-label"]}>
+          <input
+            type="checkbox"
+            onChange={() => toggleVariable(layer)}
+            checked={enabled}
+          />
+          <span className={sty["sidebar-text"]}>{label}</span>
+        </label>
+
+        <div className={sty["slider-container"]}>
+          <input
+            type="range"
+            min="0"
+            max="3"
+            step="1"
+            disabled={!enabled}
+            value={sliderIndex >= 0 ? sliderIndex : 3}
+            className={!enabled ? sty["disabled"] : ""}
+            style={{
+              background: enabled
+                ? `linear-gradient(to right, #2a9d8f ${((sliderIndex + 0.5) / 4) * 100}%, #ccc ${((sliderIndex + 0.5) / 4) * 100}%)`
+                : undefined
+            }}
+            onChange={(event) => {
+              const index = parseInt(event.target.value, 10);
+              const fakeEvent = {
+                target: {
+                  value: weightLevels[index],
+                },
+              };
+              handleInputChange(fakeEvent, layer);
+            }}
+          />
+          <span className={sty["slider-value"]}>
+            {sliderIndex >= 0 ? weightLabels[sliderIndex] : "-"}
+          </span>
+        </div>
+      </div>
+    );
+  };
+  
   const [showInfo, setShowInfo] = React.useState(false);
   const infoIconRef = React.useRef();
 
