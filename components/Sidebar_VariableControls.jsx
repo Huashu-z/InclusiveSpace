@@ -10,12 +10,14 @@ export default function VariableControls({
   openCategory,
   toggleCategory, 
 }) {
-  const weightLevels = [0.85, 0.9, 0.95, 1]; //4 categories of comfort weights
+  const weightLevels = [0.8, 0.85, 0.9, 1]; //4 categories of comfort weights
   const weightLabels = ["😩", "☹️", "😐", "🙂"];
   const renderCheckbox = (layer, label) => {
     const enabled = enabledVariables.includes(layer);
     const value = layerValues[layer];
     const sliderIndex = weightLevels.indexOf(value);
+    const [showTooltip, setShowTooltip] = React.useState(false);
+    const tooltipRef = React.useRef();
 
     return (
       <div className={sty["checkbox-container"]}>
@@ -26,6 +28,22 @@ export default function VariableControls({
             checked={enabled}
           />
           <span className={sty["sidebar-text"]}>{label}</span>
+          <span
+            className={sty["info-icon"]}
+            ref={tooltipRef}
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowTooltip((prev) => !prev);
+            }}
+          >
+            i
+          </span>
+          <Tooltip
+            show={showTooltip}
+            type={layer}
+            anchorRef={tooltipRef}
+            onClose={() => setShowTooltip(false)}
+          />
         </label>
 
         <div className={sty["slider-container"]}>
@@ -99,8 +117,8 @@ export default function VariableControls({
           onClick={() => toggleCategory("venv")}
         >
           {renderCheckbox("noise", "Noise")}
-          {renderCheckbox("temperatureSummer", "Temperature (Summer)")}
-          {renderCheckbox("temperatureWinter", "Temperature (Winter)")}
+          {renderCheckbox("temperatureSummer", "Summer Heat")}
+          {renderCheckbox("temperatureWinter", "Winter Cold")}
         </Category>
 
         {/* Physical */}
@@ -113,23 +131,23 @@ export default function VariableControls({
           open={openCategory === "vphy"}
           onClick={() => toggleCategory("vphy")}
         >
-          {renderCheckbox("light", "Street Lights")}
-          {renderCheckbox("trafficLight", "Traffic Lights")}
-          {renderCheckbox("tactile_pavement", "Tactile Support")} 
-          {renderCheckbox("tree", "Tree Shading")} 
-          {renderCheckbox("greeninf", "Green Infrastructure")}
-          {renderCheckbox("blueinf", "Blue Infrastructure")}
-          {renderCheckbox("station", "Transport Stations")}
-          {renderCheckbox("narrowRoads", "Sidewalk Width (narrow)")}
-          {renderCheckbox("wcDisabled", "Accessible Toilets")}
-          {renderCheckbox("ramp", "Accessible Ramps")}
-          {renderCheckbox("stair", "Stairs")}
-          {renderCheckbox("elevator", "Elevators")}
+          {renderCheckbox("light", "No Street Lights")}
+          {renderCheckbox("trafficLight", "No Traffic Lights")}
+          {renderCheckbox("tactile_pavement", "No Tactile Path")} 
+          {renderCheckbox("tree", "No Tree Shade")} 
+          {renderCheckbox("greeninf", "No Green Space")}
+          {renderCheckbox("blueinf", "No Water Features")}
+          {renderCheckbox("station", "Far from Station")}
+          {renderCheckbox("narrowRoads", "Narrow Sidewalk")}
+          {renderCheckbox("wcDisabled", "No Access Toilet")}
+          {renderCheckbox("ramp", "No Ramp")}
+          {renderCheckbox("stair", "Stairs Only")}
+          {renderCheckbox("elevator", "No Elevator")}
           {renderCheckbox("obstacle", "Obstacles")}
           {renderCheckbox("slope", "Slope")}
           {renderCheckbox("unevenSurface", "Uneven Surface")}
           {renderCheckbox("poorPavement", "Poor Pavement")}
-          {renderCheckbox("kerbsHigh", "Kerbs (high)")}
+          {renderCheckbox("kerbsHigh", "High Kerbs")}
         </Category>
 
         {/* Psychological */}
@@ -139,11 +157,11 @@ export default function VariableControls({
               Psychological 
             </span>
           }
-          open={openCategory === "barrier"}
-          onClick={() => toggleCategory("barrier")}
+          open={openCategory === "vpsy"}
+          onClick={() => toggleCategory("vpsy")}
         > 
-          {renderCheckbox("facility", "Facilities")}
-          {renderCheckbox("pedestrianFlow", "Pedestrian Flow")}
+          {renderCheckbox("facility", "No Facilities")}
+          {renderCheckbox("pedestrianFlow", "Crowded area")}
         </Category>
          
       </div>

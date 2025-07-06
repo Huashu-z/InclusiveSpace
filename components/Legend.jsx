@@ -26,6 +26,14 @@ const variableDisplayNames = {
   pedestrianFlow: "Pedestrian Flow",
 };
 
+const weightLevels = [0.8, 0.85, 0.9, 1];
+const weightLabels = [
+  "😩",
+  "☹️",
+  "😐",
+  "🙂"
+];
+
 const Legend = ({ resultMetadata, onFocusArea }) => {
   const [isExpanded, setIsExpanded] = useState(true);
   const bodyRef = useRef(null);
@@ -45,6 +53,11 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
       container.removeEventListener("wheel", handleWheel);
     };
   }, [isExpanded]);
+
+  const getWeightLabel = (value) => {
+    const index = weightLevels.indexOf(Number(value));
+    return index !== -1 ? weightLabels[index] : value;
+  };
 
   return (
     <div className={styles["legend-container"]}>
@@ -103,7 +116,7 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                   {features.length > 0 ? (
                     features.map((layer) => (
                       <div key={layer}>
-                        • {variableDisplayNames[layer] || layer}: {values[layer] ?? "N/A"}
+                        • {variableDisplayNames[layer] || layer}: {getWeightLabel(values[layer]) ?? "N/A"}
                       </div>
                     ))
                   ) : (
