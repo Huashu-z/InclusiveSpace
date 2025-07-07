@@ -547,7 +547,8 @@
     flex-direction: column;
     gap: 6px;
     z-index: 5000;
-    max-height: 80vh;
+    max-height: 260px;
+    min-width: 260px;
     overflow-y: auto;
   }
 
@@ -559,18 +560,26 @@
     padding: 4px 10px;
     border-radius: 16px;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-width: 120px;
-    max-width: 240px;
-    white-space: nowrap;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    flex-direction: column; 
+    gap: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    width: 100%; 
+    box-sizing: border-box;
   }
   .layerTagText {
-    flex-grow: 1;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+  }
+
+  .layerTagLegendItem {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
   }
   .layerTagIcon {
     width: 20px;

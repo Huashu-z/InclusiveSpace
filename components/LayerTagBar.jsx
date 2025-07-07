@@ -9,13 +9,13 @@ const displayNames = {
   trafic_light_wms: "Traffic Lights",
   streetlight: "Street Lights",
   tactile_guidance: "Tactile System",
-  blue_infrastructure: "Blue Infra",
-  green_infrastructure: "Green Infra",
+  blue_infrastructure: "Water Features",
+  green_infrastructure: "Green Space",
   transport_station_wms: "Transport Station",
   wc_disabled: "Accessible Toilets",
-  temp_summer: "Temperature (Summer)",
-  temp_winter: "Temperature (Winter)",
-  sidewalk_narrow: "Sidewalk Width (narrow)",
+  temp_summer: "Summer Heat",
+  temp_winter: "Winter Cold",
+  sidewalk_narrow: "Narrow Sidewalk",
   accessible_ramp: "Accessible Ramps",
   stair: "Stairs",
   elevator: "Elevators",
@@ -23,7 +23,7 @@ const displayNames = {
   slope: "Slope",
   uneven_surfaces: "Uneven Surface",
   poor_pavement: "Poor Pavement",
-  kerbs_high: "Kerbs (high)",
+  kerbs_high: "High Kerbs",
   facility_wms: "Facilities",
   pedestrian_flow: "Pedestrian Flow",
 };
@@ -68,18 +68,14 @@ const iconUrls = {
     "/plasmic/saa_s_website/images/facility_musik_ausstellung.png", 
     "/plasmic/saa_s_website/images/facility_religioss.png",
     "/plasmic/saa_s_website/images/facility_museum.png",
-    "/plasmic/saa_s_website/images/facility_spezialbibliotheken.png",],
-
-  // noise_wms: "/icons/noise.svg", 
-  // green_infrastructure: "/icons/green.svg", 
-  // wc_wms: "/icons/wc.svg"
+    "/plasmic/saa_s_website/images/facility_spezialbibliotheken.png",], 
 };
 
-const iconLabels = {
+const wmsLabels = {
   tree_wms: ["Planted Tree", "Planned Tree", "Unassigned Spot"],
   blue_infrastructure: ["Brackish water", "Lake", "Waterbody", "Spring", "Hydraulic Structure"], 
-  temp_summer: ["Comfortable zone (light = comfortable, dark = hot)"],
-  temp_winter: ["Comfortable zone (light = comfortable, dark = cold)"]
+  temp_summer: ["Light = comfortable, Dark = hot"],
+  temp_winter: ["Light = comfortable, Dark = cold"]
   // noise_wms: ["Noise Levels"]
 };
 
@@ -90,52 +86,40 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
   return (
     <div className={styles.layerTagBar}>
       {selectedLayers.map((layer) => (
-        <div key={layer} className={styles.layerTag}>
-          <span className={styles.layerTagText}>
+        <div className={styles.layerTag}>
+          {/* map layer name */}
+          <div className={styles.layerTagText}>
             {displayNames[layer] || layer}
-          </span>
-          {isWmsLayer(layer) ? (
-            (iconUrls[layer] || []).map((url, i) => (
-              <img
-                key={i}
-                src={url}
-                alt={`${layer}-${i}`}
-                className={styles.layerTagIcon}
-                title={iconLabels[layer]?.[i] || ""}
-              />
-            ))
-          ) : (
-            <div
-              className={styles.colorDot}
-              style={{
-                backgroundColor: getChipColor(layer)
-              }}
-              title="GeoJSON Layer"
-            />
-          )}
+            <span className={styles.layerTagClose} onClick={() => toggleLayer(layer)}>✕</span>
+          </div>
 
-          {["temp_summer", "temp_winter"].includes(layer) && (
-            <span
-              style={{
-                display: "inline-block",
-                width: "14px",
-                height: "14px",
-                borderRadius: "50%",
-                backgroundColor: layer === "temp_summer" ? "#e34a33" : "#3182bd",
-                marginLeft: "6px"
-              }}
-              title={iconLabels[layer]?.[0] || "Temperature zone"}
-            ></span>
-          )}
-
-          <span
-            className={styles.layerTagClose}
-            onClick={() => toggleLayer(layer)}
-          >
-            ✕
-          </span>
+          {/* legend for each layer */}
+          <div>
+            {isWmsLayer(layer) ? (
+              (iconUrls[layer] || []).map((url, i) => (
+                <div key={i} className={styles.layerTagLegendItem}>
+                  <img src={url} alt={`${layer}-${i}`} className={styles.layerTagIcon} />
+                  <span>{wmsLabels[layer]?.[i] || "WMS Item"}</span>
+                </div>
+              ))
+            ) : (
+              <div className={styles.layerTagLegendItem}>
+                <div
+                  style={{
+                    width: "14px",
+                    height: "14px",
+                    borderRadius: "50%",
+                    backgroundColor: getChipColor(layer),
+                    border: "1px solid #ccc"
+                  }}
+                />
+                <span>{displayNames[layer] || "GeoJSON Layer"}</span>
+              </div>
+            )}
+          </div>
         </div>
+
       ))}
     </div>
   );
-}
+} 
