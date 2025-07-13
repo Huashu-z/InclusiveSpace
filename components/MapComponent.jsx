@@ -55,6 +55,13 @@ const MapComponent = ({
   const [defaultGroupIndex, setDefaultGroupIndex] = useState(1);  // default group index for the first result
   const [groupMapping, setGroupMapping] = useState({}); // mapping of group index to default results,index for weighted results
 
+  // check if the generated reachability area is valid GeoJSON
+  const isValidGeoJSON = (geojson) =>
+    geojson &&
+    geojson.type === "FeatureCollection" &&
+    Array.isArray(geojson.features) &&
+    geojson.features.length > 0;
+
   const colorPool = [
     "#173F5F", "#3CAEA3", "#ED553B", "#20639B", "#F6D55C"
   ]; // color pool for different calculation results/ accessibility analysis
@@ -200,8 +207,16 @@ const MapComponent = ({
           };
 
           const defaultRes = await fetchAccessibilityFromBackend(lat, lon, walkingTime, walkingSpeed, defaultVars);
-          const defaultRoads = defaultRes.roads?.features || [];
+          
+          if (!isValidGeoJSON(defaultRes.roads)) {
+            alert("No reachable area found for this walking time/speed. Please try another setting.");
+            setComputeAccessibility(false);
+            setIsCalculating(false);
+            return;
+          }
+          const defaultRoads = defaultRes.roads.features;
           const fc = turf.featureCollection(defaultRoads);
+
           const combined = turf.combine(fc);
           const simplified = turf.simplify(combined, { tolerance: 0.002, highQuality: false });
           const buffered = turf.buffer(simplified, 0.02, { units: "kilometers" });
@@ -248,7 +263,12 @@ const MapComponent = ({
         // --------- Step 2: Weighted Result (with comfort features) ---------
         if (enabledVariables.length > 0) {
           const weightedRes = await fetchAccessibilityFromBackend(lat, lon, walkingTime, walkingSpeed, layerValues);
-          const weightedRoads = weightedRes.roads?.features || [];
+          if (!isValidGeoJSON(weightedRes.roads)) {
+            alert("The selected comfort settings result in no reachable area. Try adjusting the sliders.");
+            return;
+          }
+          const weightedRoads = weightedRes.roads.features;
+
           const fc2 = turf.featureCollection(weightedRoads);
           const combined2 = turf.combine(fc2);
           const simplified2 = turf.simplify(combined2, { tolerance: 0.002, highQuality: false });
@@ -421,30 +441,34 @@ const MapComponent = ({
         />
  
         {/* Render reachable roads and hulls */}
-        {reachableRoadsData.map((roads, i) => (
-          <GeoJSON
-            key={`roads-${i}`}
-            data={roads}
-            style={{
-              color: resultMetadata[i]?.color || '#173F5F',
-              weight: 0.5,
-              opacity: 0.8
-            }}
-          />
-        ))} 
-        {reachableHullData.map((hull, i) => (
-          <GeoJSON
-            key={`hull-${i}`}
-            data={hull}
-            style={{
-              color: resultMetadata[i]?.color || "#0072bd",
-              fillColor: resultMetadata[i]?.color || "#0072bd",
-              fillOpacity: 0.1,
-              weight: 2,
-              opacity: 1
-            }}
-          />
-        ))}
+        {reachableRoadsData.map((roads, i) =>
+          isValidGeoJSON(roads) ? (
+            <GeoJSON
+              key={`roads-${i}`}
+              data={roads}
+              style={{
+                color: resultMetadata[i]?.color || '#173F5F',
+                weight: 0.5,
+                opacity: 0.8
+              }}
+            />
+          ) : null
+        )}
+        {reachableHullData.map((hull, i) =>
+          isValidGeoJSON(hull) ? (
+            <GeoJSON
+              key={`hull-${i}`}
+              data={hull}
+              style={{
+                color: resultMetadata[i]?.color || "#0072bd",
+                fillColor: resultMetadata[i]?.color || "#0072bd",
+                fillOpacity: 0.1,
+                weight: 2,
+                opacity: 1
+              }}
+            />
+          ) : null
+        )}
         {highlightedIndex !== null && reachableHullData[highlightedIndex] && (
           <GeoJSON
             key={`highlighted-${highlightedIndex}`}

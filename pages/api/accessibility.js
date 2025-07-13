@@ -136,6 +136,14 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
       
  
     const geojson = result.rows[0].geojson;
+
+    if (!geojson || !geojson.features || geojson.features.length === 0) {
+      return res.status(200).json({
+        roads: null,
+        message: "No reachable roads found for this setting.",
+      });
+    }
+
     // res.status(200).json(geojson);
     res.status(200).json({
         roads: result.rows[0].geojson,
