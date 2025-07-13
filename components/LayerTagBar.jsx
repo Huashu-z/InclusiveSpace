@@ -44,6 +44,17 @@ const getChipColor = (layer) => {
   return "#999"; 
 };
 
+// specific color palettes for temperature layers
+const tempPalette = {
+  temp_summer: ["#fee8c8", "#fdbb84", "#e34a33"], // comfort → hot
+  temp_winter: ["#deebf7", "#9ecae1", "#3182bd"]  // comfort → cold
+};
+
+const tempLabels = {
+  temp_summer: ["Comfortable", "Warm", "Hot"],
+  temp_winter: ["Comfortable", "Cold", "Very cold"]
+};
+
 // icon for wms layers
 const iconUrls = {
   tree_wms: [
@@ -71,11 +82,18 @@ const iconUrls = {
     "/plasmic/saa_s_website/images/facility_spezialbibliotheken.png",], 
 };
 
+const wmsColorPalette = {
+  green_infrastructure: ["#70A800", "#89CD66", "#898944", "#FFAA00", "#A83800", "#CA7AF5", "#00E6A9", "#828282"],
+}
+
 const wmsLabels = {
+  trafic_light_wms: ["Traffic Lights"],
   tree_wms: ["Planted Tree", "Planned Tree", "Unassigned Spot"],
   blue_infrastructure: ["Brackish water", "Lake", "Waterbody", "Spring", "Hydraulic Structure"], 
   temp_summer: ["Light = comfortable, Dark = hot"],
-  temp_winter: ["Light = comfortable, Dark = cold"]
+  temp_winter: ["Light = comfortable, Dark = cold"],
+  transport_station_wms: ["Transport Station"],
+  green_infrastructure: ["Urban Park", "General green space", "Hiking trails", "Playgrounds", "Protective greenery", "Sports fields", "Garden green", "Other"],
   // noise_wms: ["Noise Levels"]
 };
 
@@ -86,7 +104,7 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
   return (
     <div className={styles.layerTagBar}>
       {selectedLayers.map((layer) => (
-        <div className={styles.layerTag}>
+        <div key={layer} className={styles.layerTag}>
           {/* map layer name */}
           <div className={styles.layerTagText}>
             {displayNames[layer] || layer}
@@ -95,14 +113,46 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
 
           {/* legend for each layer */}
           <div>
-            {isWmsLayer(layer) ? (
-              (iconUrls[layer] || []).map((url, i) => (
-                <div key={i} className={styles.layerTagLegendItem}>
-                  <img src={url} alt={`${layer}-${i}`} className={styles.layerTagIcon} />
-                  <span>{wmsLabels[layer]?.[i] || "WMS Item"}</span>
+            {tempPalette[layer] ? (
+              tempPalette[layer].map((color, i) => (    // legend for temperature layers
+                <div key={`${layer}-${i}`} className={styles.layerTagLegendItem}>
+                  <div
+                    style={{
+                      width: "14px",
+                      height: "14px",
+                      borderRadius: "50%",
+                      backgroundColor: color,
+                      border: "1px solid #999"
+                    }}
+                  />
+                  <span>{tempLabels[layer][i]}</span>
                 </div>
               ))
+            ) : isWmsLayer(layer) ? (
+              iconUrls[layer]                           // legend with icons
+                ? iconUrls[layer].map((url, i) => (
+                    <div key={`${layer}-icon-${i}`} className={styles.layerTagLegendItem}>
+                      <img src={url} alt={`${layer}-${i}`} className={styles.layerTagIcon} />
+                      <span>{wmsLabels[layer]?.[i] || `Item ${i + 1}`}</span>
+                    </div>
+                  ))
+                : (wmsColorPalette[layer] || ["#ccc"])  // legend with only colors
+                    .map((color, i) => (
+                      <div key={`${layer}-dot-${i}`} className={styles.layerTagLegendItem}>
+                        <div
+                          style={{
+                            width: "14px",
+                            height: "14px",
+                            borderRadius: "50%",
+                            backgroundColor: color,
+                            border: "1px solid #999"
+                          }}
+                        />
+                        <span>{wmsLabels[layer]?.[i] || `Item ${i + 1}`}</span>
+                      </div>
+                    ))
             ) : (
+              /* legend for GeoJSON layer */
               <div className={styles.layerTagLegendItem}>
                 <div
                   style={{
@@ -117,6 +167,7 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
               </div>
             )}
           </div>
+
         </div>
 
       ))}

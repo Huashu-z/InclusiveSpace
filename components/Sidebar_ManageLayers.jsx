@@ -46,10 +46,10 @@ export default function MapLayers({ selectedLayers, toggleLayer }) {
         {renderCheckbox("trafic_light_wms", "Traffic Lights")}
         {renderCheckbox("tactile_guidance", "Tactile Guidance System")}
         {renderCheckbox("tree_wms", "Tree Shading")}
-        {renderCheckbox("green_infrastructure", "Green Infrastructure")}
-        {renderCheckbox("blue_infrastructure", "Blue Infrastructure")}
-        {renderCheckbox("transport_station_wms", "Public Transport Stations")}
-        {renderCheckbox("sidewalk_narrow", "Sidewalk Width (narrow)")}
+        {renderCheckbox("green_infrastructure", "Green Space")}
+        {renderCheckbox("blue_infrastructure", "Water Features")}
+        {renderCheckbox("transport_station_wms", "Transport Stations")}
+        {renderCheckbox("sidewalk_narrow", "Narrow Sidewalk")}
         {renderCheckbox("wc_disabled", "Accessible Toilets")} 
         {renderCheckbox("accessible_ramp", "Accessible Ramps")}
         {renderCheckbox("stair", "Stairs")}
@@ -58,7 +58,7 @@ export default function MapLayers({ selectedLayers, toggleLayer }) {
         {renderCheckbox("slope", "Slope")}
         {renderCheckbox("uneven_surfaces", "Uneven Surface")}
         {renderCheckbox("poor_pavement", "Poor Pavement")}
-        {renderCheckbox("kerbs_high", "Kerbs (high)")}
+        {renderCheckbox("kerbs_high", "High Kerbs")}
       </Category>
 
       <Category name="psy" label="Psychological">

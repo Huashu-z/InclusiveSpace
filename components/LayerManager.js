@@ -33,24 +33,9 @@ export const useCircleMarker = (layer) =>
   ["tactile_points"].includes(layer);
 
 // noise style map (multiple polygons)
-export function getStyle(layer, feature) {
-  const noiseStyleMap = {
-    "> 55 - 60 dB(A)": "#1a9850",
-    "> 60 - 65 dB(A)": "#91cf60",
-    "> 65 - 70 dB(A)": "#d9ef8b",
-    "> 70 - 75 dB(A)": "#a6bddb",
-    "> 75 dB(A)": "#810f7c"
-  };
+export function getStyle(layer, feature) { 
 
-  switch (layer) {
-    case "noise":
-      const klasse = feature?.properties?.klasse?.toString() ?? "> 55 - 60 dB(A)";
-      return {
-        color: "#000",
-        weight: 1,
-        fillColor: noiseStyleMap[klasse] || "#ccc",
-        fillOpacity: 0.6
-      }; 
+  switch (layer) { 
     case "streetlight":
       return {
         radius: 5,
