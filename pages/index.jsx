@@ -5,6 +5,7 @@ import { PageParamsProvider as PageParamsProvider__ } from "@plasmicapp/react-we
 import GlobalContextsProvider from "../components/plasmic/saa_s_website/PlasmicGlobalContextsProvider";
 import PlasmicUser from "../components/plasmic/saa_s_website/PlasmicUser";
 import { useRouter } from "next/router";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 function User() {
   // Use PlasmicUser to render this component as it was
@@ -37,3 +38,11 @@ function User() {
 }
 
 export default User;
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}

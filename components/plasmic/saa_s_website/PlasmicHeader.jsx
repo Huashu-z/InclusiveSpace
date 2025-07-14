@@ -28,6 +28,7 @@ import projectcss from "./plasmic.module.css"; // plasmic-import: uftrV6ZeR5SuVi
 import sty from "./PlasmicHeader.module.css"; // plasmic-import: fDzUbLUclsbT/css
 import IconIcon from "./icons/PlasmicIcon__Icon"; // plasmic-import: YGMYbVzkkBki/icon
 
+
 createPlasmicElementProxy;
 
 export const PlasmicHeader__VariantProps = new Array();
@@ -114,6 +115,23 @@ function PlasmicHeader__RenderFunc(props) {
 
             {/* Right side: User & Planner button */}
             <Stack__ as={"div"} className={sty["link-container-wrapper"]} hasGap={true}>
+              <span className={sty["lang-switch-wrap"]}>
+                {["de", "en"].map((lng, idx) => ( 
+                  <React.Fragment key={lng}> 
+                    <Link 
+                      href={{ pathname: __nextRouter?.pathname || "/", query: __nextRouter?.query }} 
+                      as={__nextRouter?.asPath} 
+                      locale={lng} 
+                      className={ 
+                        lng === __nextRouter?.locale ? sty["lang-active"] : undefined 
+                      } 
+                    > 
+                      {lng} 
+                    </Link> 
+                    {idx < 1 && " | "} 
+                  </React.Fragment> 
+                ))} 
+              </span>
               <button
                 onClick={() => setShowHelp(true)}
                 className={sty["help-button"]}

@@ -1,42 +1,45 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./Legend.module.css";
+import { useTranslation } from 'next-i18next';
 
-const variableDisplayNames = {
-  noise: "Noise",
-  light: "Illuminating Lights",
-  tree: "Tree Shading",
-  trafficLight: "Traffic Lights",
-  tactile_pavement: "Tactile Support",
-  temperatureSummer: "Temperature Summer",
-  temperatureWinter: "Temperature Winter",
-  blueinf: "Blue Infrastructure",
-  greeninf: "Green Infrastructure",
-  station: "Transport Stations",
-  wcDisabled: "Accessible Toilets",
-  narrowRoads: "Sidewalk Width (narrow)",
-  ramp: "Accessible Ramps",
-  stair: "Stairs",
-  elevator: "Elevators",
-  obstacle: "Obstacles",
-  slope: "Slope",
-  unevenSurface: "Uneven Surface",
-  poorPavement: "Poor Pavement",
-  kerbsHigh: "Kerbs (high)",
-  facility: "Facilities",
-  pedestrianFlow: "Pedestrian Flow",
-};
-
-const weightLevels = [0.8, 0.85, 0.9, 1];
-const weightLabels = [
-  "😩",
-  "☹️",
-  "😐",
-  "🙂"
-];
 
 const Legend = ({ resultMetadata, onFocusArea }) => {
+  const { t } = useTranslation("common");
   const [isExpanded, setIsExpanded] = useState(true);
   const bodyRef = useRef(null);
+
+  const variableDisplayNames = {
+    noise: t('checkbox_noise'),
+    light: t('checkbox_light'),
+    tree: t('checkbox_tree'),
+    trafficLight: t('checkbox_traffic'),
+    tactile_pavement: t('checkbox_tactile'),
+    temperatureSummer: t('checkbox_temp_summer'),
+    temperatureWinter: t('checkbox_temp_winter'),
+    blueinf: t('checkbox_blue'),
+    greeninf: t('checkbox_green'),
+    station: t('checkbox_station'),
+    wcDisabled: t('checkbox_wc'),
+    narrowRoads: t('checkbox_narrow'),
+    ramp: t('checkbox_ramp'),
+    stair: t('checkbox_stair'),
+    elevator: t('checkbox_elevator'),
+    obstacle: t('checkbox_obstacle'),
+    slope: t('checkbox_slope'),
+    unevenSurface: t('checkbox_uneven'),
+    poorPavement: t('checkbox_poor'),
+    kerbsHigh: t('checkbox_kerb'),
+    facility: t('checkbox_facility'),
+    pedestrianFlow: t('checkbox_crowd'),
+  };
+
+  const weightLevels = [0.8, 0.85, 0.9, 1];
+  const weightLabels = [
+    "😩",
+    "☹️",
+    "😐",
+    "🙂"
+  ];
 
   // prevent scroll on wheel event when legend is expanded
   useEffect(() => {

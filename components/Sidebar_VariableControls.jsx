@@ -1,6 +1,7 @@
 import React from "react";
 import sty from "./Sidebar.module.css";
 import Tooltip from "./Sidebar_Tooltip";
+import { useTranslation } from 'next-i18next';
 
 export default function VariableControls({
   enabledVariables,
@@ -10,6 +11,7 @@ export default function VariableControls({
   openCategory,
   toggleCategory, 
 }) {
+  const { t } = useTranslation("common");
   const weightLevels = [0.8, 0.85, 0.9, 1]; //4 categories of comfort weights
   const weightLabels = ["😩", "☹️", "😐", "🙂"];
   const renderCheckbox = (layer, label) => {
@@ -84,7 +86,7 @@ export default function VariableControls({
   return (
     <div className={sty["sidebar-section"]}>
       <div className={sty["title-container"]}>
-        <h3 className={sty["sidebar-title"]}>Comfort Features</h3>
+        <h3 className={sty["sidebar-title"]}>{t('comfort_features')}</h3>
         <span
           className={sty["info-icon"]}
           ref={infoIconRef}
@@ -110,58 +112,58 @@ export default function VariableControls({
         <Category
           name={
             <span className={sty["title-with-tooltip"]}>
-              Environmental 
+              {t('env_category')} 
             </span>
           }
           open={openCategory === "venv"}
           onClick={() => toggleCategory("venv")}
         >
-          {renderCheckbox("noise", "Noise")}
-          {renderCheckbox("temperatureSummer", "Summer Heat")}
-          {renderCheckbox("temperatureWinter", "Winter Cold")}
+          {renderCheckbox("noise", t('checkbox_noise'))}
+          {renderCheckbox("temperatureSummer",  t('checkbox_temp_summer'))}
+          {renderCheckbox("temperatureWinter", t('checkbox_temp_winter'))}
         </Category>
 
         {/* Physical */}
         <Category
           name={
             <span className={sty["title-with-tooltip"]}>
-              Physical 
+              {t('phy_category')} 
             </span>
           }
           open={openCategory === "vphy"}
           onClick={() => toggleCategory("vphy")}
         >
-          {renderCheckbox("light", "No Street Lights")}
-          {renderCheckbox("trafficLight", "No Traffic Lights")}
-          {renderCheckbox("tactile_pavement", "No Tactile Path")} 
-          {renderCheckbox("tree", "No Tree Shade")} 
-          {renderCheckbox("greeninf", "No Green Space")}
-          {renderCheckbox("blueinf", "No Water Features")}
-          {renderCheckbox("station", "Far from Station")}
-          {renderCheckbox("narrowRoads", "Narrow Sidewalk")}
-          {renderCheckbox("wcDisabled", "No Access Toilet")}
-          {renderCheckbox("ramp", "No Ramp")}
-          {renderCheckbox("stair", "Stairs Only")}
-          {renderCheckbox("elevator", "No Elevator")}
-          {renderCheckbox("obstacle", "Obstacles")}
-          {renderCheckbox("slope", "Slope")}
-          {renderCheckbox("unevenSurface", "Uneven Surface")}
-          {renderCheckbox("poorPavement", "Poor Pavement")}
-          {renderCheckbox("kerbsHigh", "High Kerbs")}
+          {renderCheckbox("light", t('checkbox_light'))}
+          {renderCheckbox("trafficLight", t('checkbox_traffic'))}
+          {renderCheckbox("tactile_pavement", t('checkbox_tactile'))} 
+          {renderCheckbox("tree", t('checkbox_tree'))} 
+          {renderCheckbox("greeninf", t('checkbox_green'))}
+          {renderCheckbox("blueinf", t('checkbox_blue'))}
+          {renderCheckbox("station", t('checkbox_station'))}
+          {renderCheckbox("narrowRoads", t('checkbox_narrow'))}
+          {renderCheckbox("wcDisabled", t('checkbox_wc'))}
+          {renderCheckbox("ramp", t('checkbox_ramp'))}
+          {renderCheckbox("stair", t('checkbox_stair'))}
+          {renderCheckbox("elevator", t('checkbox_elevator'))}
+          {renderCheckbox("obstacle", t('checkbox_obstacle'))}
+          {renderCheckbox("slope", t('checkbox_slope'))}
+          {renderCheckbox("unevenSurface", t('checkbox_uneven'))}
+          {renderCheckbox("poorPavement", t('checkbox_poor'))}
+          {renderCheckbox("kerbsHigh", t('checkbox_kerb'))}
         </Category>
 
         {/* Psychological */}
         <Category
           name={
             <span className={sty["title-with-tooltip"]}>
-              Psychological 
+              {t('psy_category')} 
             </span>
           }
           open={openCategory === "vpsy"}
           onClick={() => toggleCategory("vpsy")}
         > 
-          {renderCheckbox("facility", "No Facilities")}
-          {renderCheckbox("pedestrianFlow", "Crowded area")}
+          {renderCheckbox("facility", t('checkbox_facility'))}
+          {renderCheckbox("pedestrianFlow", t('checkbox_crowd'))}
         </Category>
          
       </div>

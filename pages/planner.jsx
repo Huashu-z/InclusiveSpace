@@ -5,6 +5,7 @@ import { PageParamsProvider as PageParamsProvider__ } from "@plasmicapp/react-we
 import GlobalContextsProvider from "../components/plasmic/saa_s_website/PlasmicGlobalContextsProvider";
 import PlasmicPlanner from "../components/plasmic/saa_s_website/PlasmicPlanner";
 import { useRouter } from "next/router";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 function Planner() {
   // Use PlasmicPlanner to render this component as it was
@@ -37,3 +38,11 @@ function Planner() {
 }
 
 export default Planner;
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
