@@ -65,7 +65,7 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
   return (
     <div className={styles["legend-container"]}>
       <div className={styles["legend-header"]} onClick={() => setIsExpanded(!isExpanded)}>
-        <div className={styles["legend-header-title"]}>Catchment Area Results</div>
+        <div className={styles["legend-header-title"]}>{t('leg_catchment_result')}</div>
         <div className={styles["legend-header-toggle"]}>{isExpanded ? "▼" : "▲"}</div>
       </div>
 
@@ -95,10 +95,10 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                     : `Area ${entry.groupIndex}.${entry.subIndex}`}
                 </div>
 
-                <div>Time: {entry.time} min</div>
-                <div>Speed: {entry.speed} km/h</div>
-                <div>Area: {entry.area} ha</div>
-                {!entry.isDefault && <div>Comfort Area Ratio: {entry.weightedRatio}</div>}
+                <div>{t('leg_time_label')} {entry.time} min</div>
+                <div>{t('leg_speed_label')} {entry.speed} km/h</div>
+                <div>{t('leg_area_label')} {entry.area} ha</div>
+                {!entry.isDefault && <div>{t('leg_comfort_ratio')} {entry.weightedRatio}</div>}
 
                 <button
                   className={styles["toggle-button"]}
@@ -108,11 +108,11 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                       container.style.display === "none" ? "block" : "none";
                     e.currentTarget.innerText =
                       container.style.display === "none"
-                        ? "► Comfort Features Weights"
-                        : "▼ Comfort Features Weights";
+                        ? "► " + t('leg_comfort_weight_title')
+                        : "▼ " + t('leg_comfort_weight_title');
                   }}
                 >
-                  ► Comfort Features Weights
+                  {t('leg_catchment_result')}
                 </button>
 
                 <div style={{ display: "none", marginLeft: "8px" }}>
@@ -123,7 +123,7 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                       </div>
                     ))
                   ) : (
-                    <div className={styles["legend-none"]}>None</div>
+                    <div className={styles["legend-none"]}>{t('leg_none')}</div>
                   )}
                 </div>
               </div>

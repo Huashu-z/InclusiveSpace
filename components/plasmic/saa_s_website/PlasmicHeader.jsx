@@ -27,7 +27,7 @@ import plasmic_antd_5_hostless_css from "../antd_5_hostless/plasmic.module.css";
 import projectcss from "./plasmic.module.css"; // plasmic-import: uftrV6ZeR5SuVi5gnDLzFk/projectcss
 import sty from "./PlasmicHeader.module.css"; // plasmic-import: fDzUbLUclsbT/css
 import IconIcon from "./icons/PlasmicIcon__Icon"; // plasmic-import: YGMYbVzkkBki/icon
-
+import { useTranslation } from "next-i18next";
 
 createPlasmicElementProxy;
 
@@ -45,6 +45,7 @@ function useNextRouter() {
 }
 
 function PlasmicHeader__RenderFunc(props) {
+  const { t } = useTranslation("common");
   const { variants, overrides, forNode } = props;
   const args = React.useMemo(
     () =>
@@ -135,7 +136,7 @@ function PlasmicHeader__RenderFunc(props) {
               <button
                 onClick={() => setShowHelp(true)}
                 className={sty["help-button"]}
-                title="Tool Instruction"
+                title={t('header_tool_instruction')}
               >
                 ?
               </button>
@@ -144,7 +145,7 @@ function PlasmicHeader__RenderFunc(props) {
                 href={`/`}
                 className={`${sty["link__container"]} ${currentPath === "/" ? sty["active"] : ""}`}
               >
-                <div>User</div>
+                <div>{t('header_user')}</div>
               </Stack__>
 
               <Stack__
@@ -152,7 +153,7 @@ function PlasmicHeader__RenderFunc(props) {
                 href={`/planner`}
                 className={`${sty["link__container"]} ${currentPath === "/planner" ? sty["active"] : ""}`}
               >
-                <div>Planner</div>
+                <div>{t('header_planner')}</div>
               </Stack__>
             </Stack__>
 
@@ -162,10 +163,10 @@ function PlasmicHeader__RenderFunc(props) {
       {showHelp && (
         <div className={sty["modal-overlay"]} onClick={() => setShowHelp(false)}>
           <div className={sty["modal-content"]} onClick={(e) => e.stopPropagation()}>
-            <h2>👋 Welcome to the Comfort-Based Accessibility Tool!</h2>
+            <h2>{t('modal_help_title')}</h2>
 
             <p className={sty["section-intro"]}>
-              🌍 This tool helps you explore how walkable a location is based on your comfort preferences.
+              {t('modal_help_intro')}
             </p>
 
             <hr className={sty["modal-divider"]} />
@@ -173,33 +174,33 @@ function PlasmicHeader__RenderFunc(props) {
             <div className={sty["section"]}>
               <h3>How to use it:</h3>
               <ul>
-                <li>Click <strong>“Select Start Point”</strong> and pick a location on the map.</li>
-                <li>Adjust your <strong>walking time</strong> and <strong>speed</strong> using the sliders.</li>
-                <li>Enable features like <strong>Noise</strong>, <strong>Light</strong>, or <strong>Trees</strong>.</li>
-                <li>Click <strong>“Get Catchment Area”</strong> to visualize zones.</li>
-                <li>View results in the <strong>legend panel</strong>.</li>
+                <li>{t('modal_howto_step_select_start')}</li>
+                <li>{t('modal_howto_step_adjust')}</li>
+                <li>{t('modal_howto_step_enable_features')}</li>
+                <li>{t('modal_howto_step_get_area')}</li>
+                <li>{t('modal_howto_step_view_results')}</li>
               </ul>
             </div>
 
             <hr className={sty["modal-divider"]} />
 
             <div className={sty["section"]}>
-              <h3>Tips:</h3>
+              <h3>{t('modal_tips_title')}</h3>
               <ul>
-                <li>Toggle layers using the left-side menu</li>
-                <li>Adjust comfort weights, and click “Get Catchment Area” again to get new area</li>
-                <li>Press <strong>“Reset”</strong> to remove all results and start fresh</li>
+                <li>{t('modal_tips_step_toggle_layers')}</li>
+                <li>{t('modal_tips_step_adjust_weights')}</li>
+                <li>{t('modal_tips_step_reset')}</li>
               </ul>
             </div>
 
             <hr className={sty["modal-divider"]} />
 
             <p className={sty["section-outro"]}>
-              ✨ Let’s make your journey more comfortable and inclusive! 
+              {t('modal_outro')}
             </p>
 
             <button onClick={() => setShowHelp(false)} className={sty["modal-close"]}>
-              Close
+              {t('modal_close')}
             </button>
           </div>
 

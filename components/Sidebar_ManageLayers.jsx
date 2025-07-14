@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import sty from "./Sidebar.module.css";
+import { useTranslation } from 'next-i18next';
 
 export default function MapLayers({ selectedLayers, toggleLayer }) {
+  const { t } = useTranslation("common");
   const [openCategory, setOpenCategory] = useState(null);
 
   const toggleCategory = (category) => {
@@ -33,39 +35,40 @@ export default function MapLayers({ selectedLayers, toggleLayer }) {
 
   return (
     <div className={sty["sidebar-section"]}>
-      <h3 className={sty["sidebar-title"]}>Map Layers</h3>
+      <h3 className={sty["sidebar-title"]}>{t('map_layers')} </h3>
 
-      <Category name="env" label="Environmental">
-        {/* {renderCheckbox("noise_wms", "Noise")} */}
-        {renderCheckbox("temp_summer", "Temperature Summer")}
-        {renderCheckbox("temp_winter", "Temperature Winter")}
-      </Category>
+      <div className={sty["faq-container"]}> 
+        <Category name="env" label={t('env_category')}>
+          {/* {renderCheckbox("noise_wms", t('display_noise'))} */}
+          {renderCheckbox("temp_summer", t('display_summer_heat'))}
+          {renderCheckbox("temp_winter", t('display_winter_cold'))}
+        </Category>
 
-      <Category name="phy" label="Physical">
-        {renderCheckbox("streetlight", "Street Lights")}
-        {renderCheckbox("trafic_light_wms", "Traffic Lights")}
-        {renderCheckbox("tactile_guidance", "Tactile Guidance System")}
-        {renderCheckbox("tree_wms", "Tree Shading")}
-        {renderCheckbox("green_infrastructure", "Green Space")}
-        {renderCheckbox("blue_infrastructure", "Water Features")}
-        {renderCheckbox("transport_station_wms", "Transport Stations")}
-        {renderCheckbox("sidewalk_narrow", "Narrow Sidewalk")}
-        {renderCheckbox("wc_disabled", "Accessible Toilets")} 
-        {renderCheckbox("accessible_ramp", "Accessible Ramps")}
-        {renderCheckbox("stair", "Stairs")}
-        {renderCheckbox("elevator", "Elevators")}
-        {renderCheckbox("obstacle", "Obstacles")}
-        {renderCheckbox("slope", "Slope")}
-        {renderCheckbox("uneven_surfaces", "Uneven Surface")}
-        {renderCheckbox("poor_pavement", "Poor Pavement")}
-        {renderCheckbox("kerbs_high", "High Kerbs")}
-      </Category>
+        <Category name="phy" label={t('phy_category')}>
+          {renderCheckbox("streetlight", t('display_light'))}
+          {renderCheckbox("trafic_light_wms", t('display_traffic'))}
+          {renderCheckbox("tactile_guidance", t('display_tactile'))}
+          {renderCheckbox("tree_wms", t('display_tree'))}
+          {renderCheckbox("green_infrastructure", t('display_green_inf'))}
+          {renderCheckbox("blue_infrastructure", t('display_blue_inf'))}
+          {renderCheckbox("transport_station_wms", t('display_station'))}
+          {renderCheckbox("sidewalk_narrow", t('display_narrow'))}
+          {renderCheckbox("wc_disabled", t('display_wc'))} 
+          {renderCheckbox("accessible_ramp", t('display_ramp'))}
+          {renderCheckbox("stair", t('display_stair'))}
+          {renderCheckbox("elevator", t('display_elevator'))}
+          {renderCheckbox("obstacle", t('display_obstacle'))}
+          {renderCheckbox("slope", t('display_slope'))}
+          {renderCheckbox("uneven_surfaces", t('display_uneven'))}
+          {renderCheckbox("poor_pavement", t('display_pavement'))}
+          {renderCheckbox("kerbs_high", t('display_kerb_high'))}
+        </Category>
 
-      <Category name="psy" label="Psychological">
-        {renderCheckbox("facility_wms", "Facilities")}
-        {renderCheckbox("pedestrian_flow_wms", "Pedestrian Flow")}
-        {/* {renderCheckbox("noise_wms", "Noise")} */}
-      </Category>
+        <Category name="psy" label={t('psy_category')}>
+          {renderCheckbox("facility_wms", t('display_facility'))}
+          {renderCheckbox("pedestrian_flow_wms", t('display_pedestrian_flow'))}
+        </Category>
+      </div>
     </div>
   );
 }
