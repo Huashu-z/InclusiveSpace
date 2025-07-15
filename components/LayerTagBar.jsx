@@ -1,104 +1,106 @@
 import React from "react";
 import styles from "./Sidebar.module.css"; 
 import { isWmsLayer, getStyle, layerGroupMap } from "./LayerManager";
-
-// Label display name mapping
-const displayNames = {
-  noise_wms: "Noise",
-  tree_wms: "Tree Shading",
-  trafic_light_wms: "Traffic Lights",
-  streetlight: "Street Lights",
-  tactile_guidance: "Tactile System",
-  blue_infrastructure: "Water Features",
-  green_infrastructure: "Green Space",
-  transport_station_wms: "Transport Station",
-  wc_disabled: "Accessible Toilets",
-  temp_summer: "Summer Heat",
-  temp_winter: "Winter Cold",
-  sidewalk_narrow: "Narrow Sidewalk",
-  accessible_ramp: "Accessible Ramps",
-  stair: "Stairs",
-  elevator: "Elevators",
-  obstacle: "Obstacles",
-  slope: "Slope",
-  uneven_surfaces: "Uneven Surface",
-  poor_pavement: "Poor Pavement",
-  kerbs_high: "High Kerbs",
-  facility_wms: "Facilities",
-  pedestrian_flow: "Pedestrian Flow",
-};
-
-//color mapping for geojson layers
-const getChipColor = (layer) => {
-  if (isWmsLayer(layer)) return null;
-
-  // for group layer (e.g.tactile_guidance) 
-  const members = layerGroupMap[layer] || [layer];
-
-  for (const subLayer of members) {
-    const style = getStyle(subLayer);
-    if (style?.fillColor) return style.fillColor;
-    if (style?.color) return style.color;
-  }
-
-  return "#999"; 
-};
-
-// specific color palettes for temperature layers
-const tempPalette = {
-  temp_summer: ["#fee8c8", "#fdbb84", "#e34a33"], // comfort → hot
-  temp_winter: ["#deebf7", "#9ecae1", "#3182bd"]  // comfort → cold
-};
-
-const tempLabels = {
-  temp_summer: ["Comfortable", "Warm", "Hot"],
-  temp_winter: ["Comfortable", "Cold", "Very cold"]
-};
-
-// icon for wms layers
-const iconUrls = {
-  tree_wms: [
-    "/plasmic/saa_s_website/images/tree_completed.png",
-    "/plasmic/saa_s_website/images/tree_plan.png",
-    "/plasmic/saa_s_website/images/tree_unassigned.png"
-  ],
-  trafic_light_wms: ["/plasmic/saa_s_website/images/traffic-light.png"],
-  blue_infrastructure: [
-    "/plasmic/saa_s_website/images/blue_brackish.png",
-    "/plasmic/saa_s_website/images/blue_lake.png",
-    "/plasmic/saa_s_website/images/blue_waterbody.png",
-    "/plasmic/saa_s_website/images/blue_spring.png",
-    "/plasmic/saa_s_website/images/blue_hydraulic.png"
-  ],
-  transport_station_wms: ["/plasmic/saa_s_website/images/transport-station.png"],
-  wc_disabled: ["/plasmic/saa_s_website/images/wc.png"],
-  facility_wms: [
-    "/plasmic/saa_s_website/images/facility_culturcenter_burgerhaus.png",
-    "/plasmic/saa_s_website/images/facility_film_theater.png",
-    "/plasmic/saa_s_website/images/facility_museen.png",
-    "/plasmic/saa_s_website/images/facility_musik_ausstellung.png", 
-    "/plasmic/saa_s_website/images/facility_religioss.png",
-    "/plasmic/saa_s_website/images/facility_museum.png",
-    "/plasmic/saa_s_website/images/facility_spezialbibliotheken.png",], 
-};
-
-const wmsColorPalette = {
-  green_infrastructure: ["#70A800", "#89CD66", "#898944", "#FFAA00", "#A83800", "#CA7AF5", "#00E6A9", "#828282"],
-}
-
-const wmsLabels = {
-  trafic_light_wms: ["Traffic Lights"],
-  tree_wms: ["Planted Tree", "Planned Tree", "Unassigned Spot"],
-  blue_infrastructure: ["Brackish water", "Lake", "Waterbody", "Spring", "Hydraulic Structure"], 
-  temp_summer: ["Light = comfortable, Dark = hot"],
-  temp_winter: ["Light = comfortable, Dark = cold"],
-  transport_station_wms: ["Transport Station"],
-  green_infrastructure: ["Urban Park", "General green space", "Hiking trails", "Playgrounds", "Protective greenery", "Sports fields", "Garden green", "Other"],
-  // noise_wms: ["Noise Levels"]
-};
-
+import { useTranslation } from 'next-i18next';
+ 
 
 export default function LayerTagBar({ selectedLayers, toggleLayer }) {
+  const { t } = useTranslation("common");
+  // Label display name mapping
+  const displayNames = {
+    noise_wms: t('display_noise'),
+    tree_wms: t('display_tree'),
+    trafic_light_wms: t('display_traffic'),
+    streetlight: t('display_light'),
+    tactile_guidance: t('display_tactile'),
+    blue_infrastructure: t('display_blue_inf'),
+    green_infrastructure: t('display_green_inf'),
+    transport_station_wms: t('display_station'),
+    wc_disabled: t('display_wc'),
+    temp_summer: t('display_summer_heat'),
+    temp_winter: t('display_winter_cold'),
+    sidewalk_narrow: t('display_narrow'),
+    accessible_ramp: t('display_ramp'),
+    stair: t('display_stair'),
+    elevator: t('display_elevator'),
+    obstacle: t('display_obstacle'),
+    slope: t('display_slope'),
+    uneven_surfaces: t('display_uneven'),
+    poor_pavement: t('display_pavement'),
+    kerbs_high: t('display_kerb_high'),
+    facility_wms: t('display_facility'),
+    pedestrian_flow: t('display_pedestrian_flow'),
+  };
+
+  //color mapping for geojson layers
+  const getChipColor = (layer) => {
+    if (isWmsLayer(layer)) return null;
+
+    // for group layer (e.g.tactile_guidance) 
+    const members = layerGroupMap[layer] || [layer];
+
+    for (const subLayer of members) {
+      const style = getStyle(subLayer);
+      if (style?.fillColor) return style.fillColor;
+      if (style?.color) return style.color;
+    }
+
+    return "#999"; 
+  };
+
+  // specific color palettes for temperature layers
+  const tempPalette = {
+    temp_summer: ["#fee8c8", "#fdbb84", "#e34a33"], // comfort → hot
+    temp_winter: ["#deebf7", "#9ecae1", "#3182bd"]  // comfort → cold
+  };
+
+  const tempLabels = {
+    temp_summer: ["Comfortable", "Warm", "Hot"],
+    temp_winter: ["Comfortable", "Cold", "Very cold"]
+  };
+
+  // icon for wms layers
+  const iconUrls = {
+    tree_wms: [
+      "/plasmic/saa_s_website/images/tree_completed.png",
+      "/plasmic/saa_s_website/images/tree_plan.png",
+      "/plasmic/saa_s_website/images/tree_unassigned.png"
+    ],
+    trafic_light_wms: ["/plasmic/saa_s_website/images/traffic-light.png"],
+    blue_infrastructure: [
+      "/plasmic/saa_s_website/images/blue_brackish.png",
+      "/plasmic/saa_s_website/images/blue_lake.png",
+      "/plasmic/saa_s_website/images/blue_waterbody.png",
+      "/plasmic/saa_s_website/images/blue_spring.png",
+      "/plasmic/saa_s_website/images/blue_hydraulic.png"
+    ],
+    transport_station_wms: ["/plasmic/saa_s_website/images/transport-station.png"],
+    wc_disabled: ["/plasmic/saa_s_website/images/wc.png"],
+    facility_wms: [
+      "/plasmic/saa_s_website/images/facility_culturcenter_burgerhaus.png",
+      "/plasmic/saa_s_website/images/facility_film_theater.png",
+      "/plasmic/saa_s_website/images/facility_museen.png",
+      "/plasmic/saa_s_website/images/facility_musik_ausstellung.png", 
+      "/plasmic/saa_s_website/images/facility_religioss.png",
+      "/plasmic/saa_s_website/images/facility_museum.png",
+      "/plasmic/saa_s_website/images/facility_spezialbibliotheken.png",], 
+  };
+
+  const wmsColorPalette = {
+    green_infrastructure: ["#70A800", "#89CD66", "#898944", "#FFAA00", "#A83800", "#CA7AF5", "#00E6A9", "#828282"],
+  }
+
+  const wmsLabels = {
+    trafic_light_wms: ["Traffic Lights"],
+    tree_wms: ["Planted Tree", "Planned Tree", "Unassigned Spot"],
+    blue_infrastructure: ["Brackish water", "Lake", "Waterbody", "Spring", "Hydraulic Structure"], 
+    temp_summer: ["Light = comfortable, Dark = hot"],
+    temp_winter: ["Light = comfortable, Dark = cold"],
+    transport_station_wms: ["Transport Station"],
+    green_infrastructure: ["Urban Park", "General green space", "Hiking trails", "Playgrounds", "Protective greenery", "Sports fields", "Garden green", "Other"],
+    // noise_wms: ["Noise Levels"]
+  };
+
   if (!selectedLayers || selectedLayers.length === 0) return null;
 
   return (
