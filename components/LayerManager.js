@@ -142,36 +142,43 @@ export function getStyle(layer, feature) {
         stroke: false     
       };
 
-    case "temp_summer":
-      const comfort_summer = parseInt(feature?.properties?.comfort);
-      let fillColorSummer = "#ccc";
+    case "temp_summer":{
+      const breaks = [
+        { max: 4.6,  color: "#ffffff" },
+        { max: 9.6,  color: "#ffaaaa" },
+        { max: 14.9,  color: "#ff5555" },
+        { max: 100,  color: "#ff0000" },
+      ];
 
-      if ([1, -1, 5].includes(comfort_summer)) {
-        fillColorSummer = "#fee8c8"; 
-      } else if ([2, -2].includes(comfort_summer)) {
-        fillColorSummer = "#fdbb84";  
-      } else if ([3, -3].includes(comfort_summer)) {
-        fillColorSummer = "#e34a33"; 
-      }
+      const val = parseFloat(feature?.properties?.comfort);
+      const match = breaks.find(b => val < b.max) || breaks[breaks.length - 1];
 
       return {
-        color: "#000", 
+        color: "#000",
         weight: 0.1,
-        fillColor: fillColorSummer,
-        fillOpacity: 0.5
+        fillColor: match.color,
+        fillOpacity: 0.6
       };
+    }
 
-    case "temp_winter":
-      const comfort_winter = parseInt(feature?.properties?.comfort);
-      let fillColorWinter = "#ccc";
+    case "temp_winter": {
+      const breaks = [
+        { max: -5,  color: "#08306b" },
+        { max: -3.2,  color: "#3e8ec4" },
+        { max: -1.5,  color: "#afd1e7" },
+        { max: -0,  color: "#f7fbff" },
+      ];
 
-      if ([1, -1, 5].includes(comfort_winter)) {
-        fillColorWinter = "#deebf7";  
-      } else if ([2, -2].includes(comfort_winter)) {
-        fillColorWinter = "#9ecae1";  
-      } else if ([3, -3].includes(comfort_winter)) {
-        fillColorWinter = "#3182bd"; 
-      }
+      const val = parseFloat(feature?.properties?.comfort);
+      const match = breaks.find(b => val < b.max) || breaks[breaks.length - 1];
+
+      return {
+        color: "#000",
+        weight: 0.1,
+        fillColor: match.color,
+        fillOpacity: 0.6
+      };
+    }
 
       return {
         color: "#000", 
