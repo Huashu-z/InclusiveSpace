@@ -73,6 +73,26 @@ export default function Tooltip({ show, type, anchorRef, onClose }) {
     content = <p>{t('tooltip_narrow')}</p>;
   } else if (type === "wcDisabled") {
     content = <p>{t('tooltip_wc')}</p>;
+  } else if (type === "ramp") {
+    content = <p>{t('tooltip_ramp')}</p>;
+  } else if (type === "stair") {
+    content = <p>{t('tooltip_stair')}</p>;
+  } else if (type === "elevator") {
+    content = <p>{t('tooltip_elevator')}</p>;
+  } else if (type === "obstacle") {
+    content = <p>{t('tooltip_obstacle')}</p>;
+  } else if (type === "slope") {
+    content = <p>{t('tooltip_slope')}</p>;
+  } else if (type === "unevenSurface") {
+    content = <p>{t('tooltip_uneven')}</p>;
+  } else if (type === "poorPavement") {
+    content = <p>{t('tooltip_poor')}</p>;
+  } else if (type === "kerbsHigh") {
+    content = <p>{t('tooltip_kerb')}</p>;
+  } else if (type === "facility") {
+    content = <p>{t('tooltip_facility')}</p>;
+  } else if (type === "pedestrianFlow") {
+    content = <p>{t('tooltip_crowd')}</p>;
   }
 
   return ReactDOM.createPortal(

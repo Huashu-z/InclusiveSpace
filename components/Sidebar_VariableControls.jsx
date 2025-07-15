@@ -12,8 +12,8 @@ export default function VariableControls({
   toggleCategory, 
 }) {
   const { t } = useTranslation("common");
-  const weightLevels = [0.8, 0.85, 0.9, 1]; //4 categories of comfort weights
-  const weightLabels = ["😩", "☹️", "😐", "🙂"];
+  const weightLevels = [0.1, 0.3, 0.5, 0.8]; //4 categories of comfort weights
+  const weightLabels = ["❌","😩", "☹️", "😐"];
   const renderCheckbox = (layer, label) => {
     const enabled = enabledVariables.includes(layer);
     const value = layerValues[layer];
@@ -86,7 +86,7 @@ export default function VariableControls({
   return (
     <div className={sty["sidebar-section"]}>
       <div className={sty["title-container"]}>
-        <h3 className={sty["sidebar-title"]}>{t('comfort_features')}</h3>
+        <h3 className={sty["sidebar-title"]}>{t('leg_comfort_features')}</h3>
         <span
           className={sty["info-icon"]}
           ref={infoIconRef}
