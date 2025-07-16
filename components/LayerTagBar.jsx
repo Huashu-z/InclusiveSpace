@@ -50,13 +50,13 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
 
   // specific color palettes for temperature layers
   const tempPalette = {
-    temp_summer: ["#ffffff", "#ffaaaa", "#ff5555", "#ff0000"], // comfort → hot
-    temp_winter: ["#f7fbff", "#afd1e7", "#3e8ec4", "#08306b"]  // comfort → cold
+    temp_summer: ["#ffaaaa", "#ff5555", "#ff0000"], // comfort → hot
+    temp_winter: ["#afd1e7", "#3e8ec4", "#08306b"]  // comfort → cold
   };
 
   const tempLabels = {
-    temp_summer: ["Pleasant", "Warm", "Hot", "very Hot"],
-    temp_winter: ["Pleasant","Cool", "Cold", "Very cold"]
+    temp_summer: ["Warm", "Hot", "very Hot"],
+    temp_winter: ["Cool", "Cold", "Very cold"]
   };
 
   // icon for wms layers
