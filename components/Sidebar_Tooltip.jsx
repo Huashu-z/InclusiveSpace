@@ -39,13 +39,7 @@ export default function Tooltip({ show, type, anchorRef, onClose }) {
   if (type === "variable") {
     content = (
       <>
-        <p><strong>{t('tooltip_variable_title')}</strong></p>
-        <ul className={sty["tooltip-list"]}>
-          <li><strong>😩</strong>{t('tooltip_level_0')}</li>
-          <li><strong>☹️</strong>{t('tooltip_level_1')}</li>
-          <li><strong>😐</strong>{t('tooltip_level_2')}</li>
-          <li><strong>🙂</strong>{t('tooltip_level_3')}</li>
-        </ul>
+        <p>{t('tooltip_variable_title')}</p>
       </>
     );
   }

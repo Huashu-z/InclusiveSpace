@@ -31,8 +31,7 @@ export const isWmsLayer = (layer) =>
 // use circleMarker render point layers
 export const useCircleMarker = (layer) =>
   ["tactile_points"].includes(layer);
-
-// noise style map (multiple polygons)
+ 
 export function getStyle(layer, feature) { 
 
   switch (layer) { 

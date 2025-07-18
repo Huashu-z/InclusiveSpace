@@ -33,12 +33,11 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
     pedestrianFlow: t('checkbox_crowd'),
   };
 
-  const weightLevels = [0.8, 0.85, 0.9, 1];
+  const weightLevels = [0.01, 0.4, 0.7];
   const weightLabels = [
+    "❌",
     "😩",
-    "☹️",
-    "😐",
-    "🙂"
+    "😐"
   ];
 
   // prevent scroll on wheel event when legend is expanded
