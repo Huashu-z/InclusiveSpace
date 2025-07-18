@@ -57,8 +57,8 @@ export default function Sidebar({
             walkingSpeed={walkingSpeed}
             setWalkingSpeed={setWalkingSpeed}
             setSelectingStart={setSelectingStart}
-            startPoints={startPoints}
-            setComputeAccessibility={setComputeAccessibility}
+            // startPoints={startPoints}
+            // setComputeAccessibility={setComputeAccessibility}
             handleResetResults={handleResetResults}
           />
   
@@ -73,6 +73,10 @@ export default function Sidebar({
             toggleCategory={toggleCategory}
             showInfo={showInfo}
             setShowInfo={setShowInfo}
+            startPoints={startPoints}
+            setComputeAccessibility={setComputeAccessibility}
+            walkingTime={walkingTime}
+            walkingSpeed={walkingSpeed}
           />
   
           <MapLayers

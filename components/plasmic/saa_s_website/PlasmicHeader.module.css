@@ -6,7 +6,7 @@
   width: 100%;
   height: auto;
   max-width: 100%;
-  background: none;
+  background: #ffffff;
   position: relative;
   box-shadow: 0px 10px 16px 0px #00000033;
   min-width: 0;
@@ -164,7 +164,8 @@
   color: #05050599;
   font-size: 18px;
   line-height: 26px;
-  background: var(--token-dZqMxkaQqKyn);
+  /* background: var(--token-dZqMxkaQqKyn); */
+  background: #ffffff;
   border-radius: var(--token-Q8tvGz8J7GbZ);
   padding: var(--token-JiMzWtKPIxGh);
   border-width: var(--token-Q8tvGz8J7GbZ);
@@ -279,7 +280,8 @@
   color: #05050599;
   font-size: 18px;
   line-height: 26px;
-  background: var(--token-dZqMxkaQqKyn);
+  /* background: var(--token-dZqMxkaQqKyn); */
+  background: #ffffff;
   border-radius: var(--token-Q8tvGz8J7GbZ);
 }
 .svg__jBAc5 {

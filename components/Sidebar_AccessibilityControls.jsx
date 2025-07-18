@@ -8,8 +8,8 @@ export default function AccessibilityControls({
   walkingSpeed,
   setWalkingSpeed,
   setSelectingStart,
-  startPoints,
-  setComputeAccessibility,
+  // startPoints,
+  // setComputeAccessibility,
   handleResetResults
 }) {
   const { t } = useTranslation('common');
@@ -60,20 +60,6 @@ export default function AccessibilityControls({
           <span className={sty["sidebar-text-bold"]}>{t('reset')}</span>
         </button>
       </div> 
-      <div className={sty["button-container"]}>
-        <button
-          onClick={() => {
-            if (startPoints.length === 0) {
-              alert("Please select a starting point first!");
-              return;
-            }            
-            setComputeAccessibility(true);
-          }}
-          className={sty["get-catchment-button"]}
-        >
-          <span className={sty["sidebar-text-bold"]}>✚ {t('get_area')}</span>
-        </button>
-      </div>
     </div>
   );
 }

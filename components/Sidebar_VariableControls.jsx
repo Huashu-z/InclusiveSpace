@@ -10,6 +10,10 @@ export default function VariableControls({
   handleInputChange,
   openCategory,
   toggleCategory, 
+  startPoints,
+  setComputeAccessibility,
+  walkingTime,
+  walkingSpeed
 }) {
   const { t } = useTranslation("common");
   const weightLevels = [0.01, 0.4, 0.7]; //4 categories of comfort weights
@@ -26,7 +30,16 @@ export default function VariableControls({
         <label className={sty["checkbox-label"]}>
           <input
             type="checkbox"
-            onChange={() => toggleVariable(layer)}
+            onChange={() => {
+              toggleVariable(layer);
+              if (!enabled) {
+                // 勾选时，设置默认值为 1.0（最右档）
+                const fakeEvent = {
+                  target: { value: weightLevels[2] } // 对应 1.0
+                };
+                handleInputChange(fakeEvent, layer);
+              }
+            }}
             checked={enabled}
           />
           <span className={sty["sidebar-text"]}>{label}</span>
@@ -178,9 +191,24 @@ export default function VariableControls({
         > 
           {renderCheckbox("facility", t('checkbox_facility'))}
           {renderCheckbox("pedestrianFlow", t('checkbox_crowd'))}
-        </Category>
-         
+        </Category> 
       </div>
+
+      <div className={sty["button-container"]}>
+        <button
+          onClick={() => {
+            if (startPoints.length === 0) {
+              alert("Please select a starting point first!");
+              return;
+            }            
+            setComputeAccessibility(true);
+          }}
+          className={sty["get-catchment-button"]}
+        >
+          <span className={sty["sidebar-text-bold"]}>✚ {t('get_area')}</span>
+        </button>
+      </div>
+
     </div>
   );
 }
