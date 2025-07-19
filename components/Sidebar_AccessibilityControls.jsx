@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import sty from "./Sidebar.module.css";
 import { useTranslation } from 'next-i18next';
 
@@ -7,12 +8,38 @@ export default function AccessibilityControls({
   setWalkingTime,
   walkingSpeed,
   setWalkingSpeed,
-  setSelectingStart,
-  // startPoints,
-  // setComputeAccessibility,
-  handleResetResults
+  setSelectingStart, 
+  handleResetResults,
+  setStartPoints
 }) {
   const { t } = useTranslation('common');
+
+  const [address, setAddress] = useState("");
+
+  // address geocoding function
+  const geocodeAddress = async (addr) => {
+    try {
+      const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(addr)}`);
+      const data = await res.json();
+      if (data.length > 0) {
+        return [parseFloat(data[0].lon), parseFloat(data[0].lat)];
+      }
+    } catch (e) {
+      console.error("Geocoding failed:", e);
+    }
+    return null;
+  };
+
+  const handleAddressSubmit = async () => {
+    if (!address.trim()) return;
+    const coords = await geocodeAddress(address);
+    if (coords) {
+      setStartPoints([coords]);  // update start points with geocoded coordinates
+    } else {
+      alert("Address not found, please try another.");
+    }
+  };
+
   return (
     <div className={sty["sidebar-section"]}>
       <h3 className={sty["sidebar-title"]}>{t('accessibility_title')}</h3>
@@ -50,16 +77,52 @@ export default function AccessibilityControls({
         </div>
       </div> 
 
-      <div className={sty["button-container"]}>
-        <button onClick={() => setSelectingStart(true)} className={sty["setup-button"]}>
-          <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Location Icon" className={sty["img"]} />
-          <span className={sty["sidebar-text-bold"]}>{t('select_start')}</span>
-        </button>
+      {/* address ------------------------------------------------*/}
+      <hr className={sty["divider"]} />
+      <div className={sty["sidebar-text-bold"]}>
+        {t('select_start')} <br/>
+        <span className={sty["sidebar-text"]}>{t('select_start_notice')}</span>
+      </div>
+      <div className={sty["address-section"]}>
+        
+        <div className={sty["search-row"]}>
+          {/* search address */}
+          <div className={sty["search-bar"]}>
+            <input
+              type="text"
+              placeholder="Search address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              className={sty["search-input"]}
+            />
+            <button onClick={handleAddressSubmit} className={sty["search-button"]}>
+              🔍
+            </button>
+          </div>
 
-        <button onClick={handleResetResults} className={sty["setup-button"]}>
-          <span className={sty["sidebar-text-bold"]}>{t('reset')}</span>
-        </button>
-      </div> 
+          {/* select address by clicking the map */}
+          <button
+            onClick={() => setSelectingStart(true)}
+            className={sty["icon-button"]}
+            title={t('select_start')}  // mouseover tooltip
+          >
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/684/684908.png"
+              alt="Select Start"
+              className={sty["icon-img"]}
+            />
+          </button>
+        </div>
+      </div>
+      <hr className={sty["divider"]} />
+
+
+      <button onClick={handleResetResults} className={sty["setup-button"]}>
+        <span className={sty["sidebar-text-bold"]}>{t('reset')}</span>
+      </button>
+
+
+      
     </div>
   );
 }

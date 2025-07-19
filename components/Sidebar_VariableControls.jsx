@@ -16,7 +16,7 @@ export default function VariableControls({
   walkingSpeed
 }) {
   const { t } = useTranslation("common");
-  const weightLevels = [0.01, 0.4, 0.7]; //4 categories of comfort weights
+  const weightLevels = [0.1, 0.4, 0.7]; //4 categories of comfort weights
   const weightLabels = ["❌","😩", "😐"];
   const renderCheckbox = (layer, label) => {
     const enabled = enabledVariables.includes(layer);
@@ -33,9 +33,8 @@ export default function VariableControls({
             onChange={() => {
               toggleVariable(layer);
               if (!enabled) {
-                // 勾选时，设置默认值为 1.0（最右档）
                 const fakeEvent = {
-                  target: { value: weightLevels[2] } // 对应 1.0
+                  target: { value: weightLevels[2] } 
                 };
                 handleInputChange(fakeEvent, layer);
               }

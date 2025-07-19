@@ -33,7 +33,7 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
     pedestrianFlow: t('checkbox_crowd'),
   };
 
-  const weightLevels = [0.01, 0.4, 0.7];
+  const weightLevels = [0.1, 0.4, 0.7];
   const weightLabels = [
     "❌",
     "😩",

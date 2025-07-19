@@ -63,7 +63,7 @@ const MapComponent = ({
     geojson.features.length > 0;
 
   const colorPool = [
-    "#173F5F", "#3CAEA3", "#ED553B", "#20639B", "#F6D55C"
+    "#394Ba0", "#D54799", "#009F75", "#FAA31B"
   ]; // color pool for different calculation results/ accessibility analysis
 
   // Load Leaflet and React-Leaflet dynamically to avoid SSR issues
@@ -244,7 +244,7 @@ const MapComponent = ({
           setResultMetadata(prev => [
             ...prev,
             {
-              color: "#b6b6b6", // default color for the first result
+              color: "#676767ff", // default color for the first result
               layers: [],
               values: {},
               time: walkingTime,

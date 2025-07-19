@@ -179,6 +179,7 @@ function PlasmicPlanner__RenderFunc(props) {
             setWalkingSpeed={setWalkingSpeed}
             setSelectingStart={setSelectingStart}
             startPoints={startPoints}
+            setStartPoints={setStartPoints} 
             setComputeAccessibility={setComputeAccessibility}
             handleResetResults={handleResetResults}
             openCategory={openCategory}

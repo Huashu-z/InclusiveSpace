@@ -23,6 +23,7 @@
   "speed_medium": "Medium",
   "speed_fast": "Fast",
   "select_start": "Select Start Point",
+  "select_start_notice": "(Enter address or use pin)",
   "reset": "Reset",
   "get_area": "Get Catchment Area",
   "leg_catchment_result": "Catchment Area Results",

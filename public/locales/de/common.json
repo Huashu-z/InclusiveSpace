@@ -23,6 +23,7 @@
   "speed_medium": "Mittel",
   "speed_fast": "Schnell",
   "select_start": "Startpunkt",
+  "select_start_notice": "(Adresse eingeben oder Pin verwenden)",
   "reset": "Zurücksetzen",
   "get_area": "Einzugsgebiet berechnen",
   "leg_catchment_result": "Ergebnis des Einzugsgebiets",
