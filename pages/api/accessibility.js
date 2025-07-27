@@ -30,7 +30,7 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
     // Step 1: find the nearest vertex ID to the user
     const nearestVertexResult = await pool.query(`
       SELECT id
-      FROM ways_vertices_pgr
+      FROM hh_ways_vertices_pgr
       ORDER BY the_geom <-> ST_SetSRID(ST_MakePoint($1, $2), 4326)
       LIMIT 1;
     `, [lon, lat]);
@@ -74,7 +74,7 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
           )
         )
       ) AS geojson
-      FROM ways w
+      FROM hh_ways w
       WHERE gid IN (
         SELECT edge
         FROM pgr_drivingDistance(
@@ -103,7 +103,7 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
               CASE WHEN facilities_weight = 0 THEN ' || $23 || ' ELSE 1 END *
               CASE WHEN pedestrian_flow_weight = 1 THEN ' || $24 || ' ELSE 1 END
             ) AS cost
-          FROM ways',
+          FROM hh_ways',
           $1::integer,
           $2::float,
           false::boolean
