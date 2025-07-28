@@ -8,28 +8,28 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
   const { t } = useTranslation("common");
   // Label display name mapping
   const displayNames = {
-    noise_wms: t('display_noise'),
-    tree_wms: t('display_tree'),
-    trafic_light_wms: t('display_traffic'),
-    streetlight: t('display_light'),
-    tactile_guidance: t('display_tactile'),
-    blue_infrastructure: t('display_blue_inf'),
-    green_infrastructure: t('display_green_inf'),
-    transport_station_wms: t('display_station'),
-    wc_disabled: t('display_wc'),
-    temp_summer: t('display_summer_heat'),
-    temp_winter: t('display_winter_cold'),
-    sidewalk_narrow: t('display_narrow'),
-    accessible_ramp: t('display_ramp'),
-    stair: t('display_stair'),
-    elevator: t('display_elevator'),
-    obstacle: t('display_obstacle'),
-    slope: t('display_slope'),
-    uneven_surfaces: t('display_uneven'),
-    poor_pavement: t('display_pavement'),
-    kerbs_high: t('display_kerb_high'),
-    facility_wms: t('display_facility'),
-    pedestrian_flow: t('display_pedestrian_flow'),
+    hh_noise_wms: t('display_noise'),
+    hh_tree_wms: t('display_tree'),
+    hh_trafic_light_wms: t('display_traffic'),
+    hh_streetlight: t('display_light'),
+    hh_tactile_guidance: t('display_tactile'),
+    hh_blue_infrastructure: t('display_blue_inf'),
+    hh_green_infrastructure: t('display_green_inf'),
+    hh_transport_station_wms: t('display_station'),
+    hh_wc_disabled: t('display_wc'),
+    hh_temp_summer: t('display_summer_heat'),
+    hh_temp_winter: t('display_winter_cold'),
+    hh_sidewalk_narrow: t('display_narrow'),
+    hh_accessible_ramp: t('display_ramp'),
+    hh_stair: t('display_stair'),
+    hh_elevator: t('display_elevator'),
+    hh_obstacle: t('display_obstacle'),
+    hh_slope: t('display_slope'),
+    hh_uneven_surfaces: t('display_uneven'),
+    hh_poor_pavement: t('display_pavement'),
+    hh_kerbs_high: t('display_kerb_high'),
+    hh_facility_wms: t('display_facility'),
+    hh_pedestrian_flow_wms: t('display_pedestrian_flow'),
   };
 
   //color mapping for geojson layers
@@ -50,33 +50,33 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
 
   // specific color palettes for temperature layers
   const tempPalette = {
-    temp_summer: ["#ffaaaa", "#ff5555", "#ff0000"], // comfort → hot
-    temp_winter: ["#afd1e7", "#3e8ec4", "#08306b"]  // comfort → cold
+    hh_temp_summer: ["#ffaaaa", "#ff5555", "#ff0000"], // comfort → hot
+    hh_temp_winter: ["#afd1e7", "#3e8ec4", "#08306b"]  // comfort → cold
   };
 
   const tempLabels = {
-    temp_summer: ["Warm", "Hot", "very Hot"],
-    temp_winter: ["Cool", "Cold", "Very cold"]
+    hh_temp_summer: ["Warm", "Hot", "very Hot"],
+    hh_temp_winter: ["Cool", "Cold", "Very cold"]
   };
 
   // icon for wms layers
   const iconUrls = {
-    tree_wms: [
+    hh_tree_wms: [
       "/plasmic/saa_s_website/images/tree_completed.png",
       "/plasmic/saa_s_website/images/tree_plan.png",
       "/plasmic/saa_s_website/images/tree_unassigned.png"
     ],
-    trafic_light_wms: ["/plasmic/saa_s_website/images/traffic-light.png"],
-    blue_infrastructure: [
+    hh_trafic_light_wms: ["/plasmic/saa_s_website/images/traffic-light.png"],
+    hh_blue_infrastructure: [
       "/plasmic/saa_s_website/images/blue_brackish.png",
       "/plasmic/saa_s_website/images/blue_lake.png",
       "/plasmic/saa_s_website/images/blue_waterbody.png",
       "/plasmic/saa_s_website/images/blue_spring.png",
       "/plasmic/saa_s_website/images/blue_hydraulic.png"
     ],
-    transport_station_wms: ["/plasmic/saa_s_website/images/transport-station.png"],
-    wc_disabled: ["/plasmic/saa_s_website/images/wc.png"],
-    facility_wms: [
+    hh_transport_station_wms: ["/plasmic/saa_s_website/images/transport-station.png"],
+    hh_wc_disabled: ["/plasmic/saa_s_website/images/wc.png"],
+    hh_facility_wms: [
       "/plasmic/saa_s_website/images/facility_culturcenter_burgerhaus.png",
       "/plasmic/saa_s_website/images/facility_film_theater.png",
       "/plasmic/saa_s_website/images/facility_museen.png",
@@ -87,18 +87,18 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
   };
 
   const wmsColorPalette = {
-    green_infrastructure: ["#70A800", "#89CD66", "#898944", "#FFAA00", "#A83800", "#CA7AF5", "#00E6A9", "#828282"],
+    hh_green_infrastructure: ["#70A800", "#89CD66", "#898944", "#FFAA00", "#A83800", "#CA7AF5", "#00E6A9", "#828282"],
   }
 
   const wmsLabels = {
-    trafic_light_wms: ["Traffic Lights"],
-    tree_wms: ["Planted Tree", "Planned Tree", "Unassigned Spot"],
-    blue_infrastructure: ["Brackish water", "Lake", "Waterbody", "Spring", "Hydraulic Structure"], 
-    temp_summer: ["Light = comfortable, Dark = hot"],
-    temp_winter: ["Light = comfortable, Dark = cold"],
-    transport_station_wms: ["Transport Station"],
-    green_infrastructure: ["Urban Park", "General green space", "Hiking trails", "Playgrounds", "Protective greenery", "Sports fields", "Garden green", "Other"],
-    facility_wms: ["Cultural Center", "Cinema", "Museum", "Music Venue", "Religious Site", "Education Center", "Specialized Library"],
+    hh_trafic_light_wms: ["Traffic Lights"],
+    hh_tree_wms: ["Planted Tree", "Planned Tree", "Unassigned Spot"],
+    hh_blue_infrastructure: ["Brackish water", "Lake", "Waterbody", "Spring", "Hydraulic Structure"], 
+    hh_temp_summer: ["Light = comfortable, Dark = hot"],
+    hh_temp_winter: ["Light = comfortable, Dark = cold"],
+    hh_transport_station_wms: ["Transport Station"],
+    hh_green_infrastructure: ["Urban Park", "General green space", "Hiking trails", "Playgrounds", "Protective greenery", "Sports fields", "Garden green", "Other"],
+    hh_facility_wms: ["Cultural Center", "Cinema", "Museum", "Music Venue", "Religious Site", "Education Center", "Specialized Library"],
     // noise_wms: ["Noise Levels"]
   };
 

@@ -40,33 +40,33 @@ export default function MapLayers({ selectedLayers, toggleLayer }) {
       <div className={sty["faq-container"]}> 
         <Category name="env" label={t('env_category')}>
           {/* {renderCheckbox("noise_wms", t('display_noise'))} */}
-          {renderCheckbox("temp_summer", t('display_summer_heat'))}
-          {renderCheckbox("temp_winter", t('display_winter_cold'))}
+          {renderCheckbox("hh_temp_summer", t('display_summer_heat'))}
+          {renderCheckbox("hh_temp_winter", t('display_winter_cold'))}
         </Category>
 
         <Category name="phy" label={t('phy_category')}>
-          {renderCheckbox("streetlight", t('display_light'))}
-          {renderCheckbox("trafic_light_wms", t('display_traffic'))}
-          {renderCheckbox("tactile_guidance", t('display_tactile'))}
-          {renderCheckbox("tree_wms", t('display_tree'))}
-          {renderCheckbox("green_infrastructure", t('display_green_inf'))}
-          {renderCheckbox("blue_infrastructure", t('display_blue_inf'))}
-          {renderCheckbox("transport_station_wms", t('display_station'))}
-          {renderCheckbox("sidewalk_narrow", t('display_narrow'))}
-          {renderCheckbox("wc_disabled", t('display_wc'))} 
-          {renderCheckbox("accessible_ramp", t('display_ramp'))}
-          {renderCheckbox("stair", t('display_stair'))}
-          {renderCheckbox("elevator", t('display_elevator'))}
-          {renderCheckbox("obstacle", t('display_obstacle'))}
-          {renderCheckbox("slope", t('display_slope'))}
-          {renderCheckbox("uneven_surfaces", t('display_uneven'))}
-          {renderCheckbox("poor_pavement", t('display_pavement'))}
-          {renderCheckbox("kerbs_high", t('display_kerb_high'))}
+          {renderCheckbox("hh_streetlight", t('display_light'))}
+          {renderCheckbox("hh_trafic_light_wms", t('display_traffic'))}
+          {renderCheckbox("hh_tactile_guidance", t('display_tactile'))}
+          {renderCheckbox("hh_tree_wms", t('display_tree'))}
+          {renderCheckbox("hh_green_infrastructure", t('display_green_inf'))}
+          {renderCheckbox("hh_blue_infrastructure", t('display_blue_inf'))}
+          {renderCheckbox("hh_transport_station_wms", t('display_station'))}
+          {renderCheckbox("hh_sidewalk_narrow", t('display_narrow'))}
+          {renderCheckbox("hh_wc_disabled", t('display_wc'))} 
+          {renderCheckbox("hh_accessible_ramp", t('display_ramp'))}
+          {renderCheckbox("hh_stair", t('display_stair'))}
+          {renderCheckbox("hh_elevator", t('display_elevator'))}
+          {renderCheckbox("hh_obstacle", t('display_obstacle'))}
+          {renderCheckbox("hh_slope", t('display_slope'))}
+          {renderCheckbox("hh_uneven_surfaces", t('display_uneven'))}
+          {renderCheckbox("hh_poor_pavement", t('display_pavement'))}
+          {renderCheckbox("hh_kerbs_high", t('display_kerb_high'))}
         </Category>
 
         <Category name="psy" label={t('psy_category')}>
-          {renderCheckbox("facility_wms", t('display_facility'))}
-          {renderCheckbox("pedestrian_flow_wms", t('display_pedestrian_flow'))}
+          {renderCheckbox("hh_facility_wms", t('display_facility'))}
+          {renderCheckbox("hh_pedestrian_flow_wms", t('display_pedestrian_flow'))}
         </Category>
       </div>
     </div>

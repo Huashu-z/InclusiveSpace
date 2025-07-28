@@ -12,30 +12,30 @@ import { useEffect } from "react";
 
 // layer grounp for tactile guidance
 export const layerGroupMap = {
-  tactile_guidance: ["tactile_points", "tactile_lines", "tactile_polygons"]
+  hh_tactile_guidance: ["hh_tactile_points", "hh_tactile_lines", "hh_tactile_polygons"]
 };
 
 // seperate wms layers and geojson layers
 export const isWmsLayer = (layer) =>
   [
-    "noise_wms",
-    "tree_wms",
-    "trafic_light_wms",
-    "blue_infrastructure",
-    "green_infrastructure",
-    "transport_station_wms", 
-    "facility_wms",
-    "pedestrian_flow_wms"
+    "hh_noise_wms",
+    "hh_tree_wms",
+    "hh_trafic_light_wms",
+    "hh_blue_infrastructure",
+    "hh_green_infrastructure",
+    "hh_transport_station_wms", 
+    "hh_facility_wms",
+    "hh_pedestrian_flow_wms"
   ].includes(layer);
 
 // use circleMarker render point layers
 export const useCircleMarker = (layer) =>
-  ["tactile_points"].includes(layer);
+  ["hh_tactile_points"].includes(layer);
  
 export function getStyle(layer, feature) { 
 
   switch (layer) { 
-    case "streetlight":
+    case "hh_streetlight":
       return {
         radius: 5,
         fillColor: "#ffd166",
@@ -43,7 +43,7 @@ export function getStyle(layer, feature) {
         stroke: false
       };
     
-    case "tactile_points":
+    case "hh_tactile_points":
       return {
         radius: 5,
         fillColor: "#be609a",
@@ -51,14 +51,14 @@ export function getStyle(layer, feature) {
         stroke: false     
       };
 
-    case "tactile_lines":
+    case "hh_tactile_lines":
       return {
         color: "#be609a", 
         weight: 2,
         opacity: 0.9
       };
 
-    case "tactile_polygons":
+    case "hh_tactile_polygons":
       return {
         color: "#be609a",      
         fillColor: "#be609a",   
@@ -67,7 +67,7 @@ export function getStyle(layer, feature) {
         opacity: 0.6
       };
     
-    case "wc_disabled":
+    case "hh_wc_disabled":
       return {
         radius: 5,
         fillColor: "#e4a28b",
@@ -75,28 +75,28 @@ export function getStyle(layer, feature) {
         stroke: false     
       };
 
-    case "sidewalk_narrow":
+    case "hh_sidewalk_narrow":
       return {
         color: "#992842", 
         weight: 2,
         opacity: 0.9
       };
     
-    case "accessible_ramp":
+    case "hh_accessible_ramp":
       return {
         color: "#61916e", 
         weight: 2,
         opacity: 0.9
       };
 
-    case "stair":
+    case "hh_stair":
       return {
         color: "#91744a", 
         weight: 2,
         opacity: 0.9
       };
 
-    case "elevator":
+    case "hh_elevator":
       return {
         radius: 5,
         fillColor: "#a85432",
@@ -104,7 +104,7 @@ export function getStyle(layer, feature) {
         stroke: false     
       };
     
-    case "obstacle":
+    case "hh_obstacle":
       return {
         radius: 5,
         fillColor: "#d65a90",
@@ -112,28 +112,28 @@ export function getStyle(layer, feature) {
         stroke: false     
       };
 
-    case "slope":
+    case "hh_slope":
       return {
         color: "#6c8be0", 
         weight: 2,
         opacity: 0.9
       };
 
-    case "uneven_surfaces":
+    case "hh_uneven_surfaces":
       return {
         color: "#b30000", 
         weight: 2,
         opacity: 0.9
       };
 
-    case "poor_pavement":
+    case "hh_poor_pavement":
       return {
         color: "#a5ab59", 
         weight: 2,
         opacity: 0.9
       };
 
-    case "kerbs_high":
+    case "hh_kerbs_high":
       return {
         radius: 5,
         fillColor: "#d65a90",
@@ -141,7 +141,7 @@ export function getStyle(layer, feature) {
         stroke: false     
       };
 
-    case "temp_summer":{
+    case "hh_temp_summer":{
       const breaks = [ 
         { max: 11,  color: "#ffaaaa" },
         { max: 17,  color: "#ff5555" },
@@ -159,7 +159,7 @@ export function getStyle(layer, feature) {
       };
     }
 
-    case "temp_winter": {
+    case "hh_temp_winter": {
       const breaks = [
         { max: -7,  color: "#afd1e7" },
         { max: -4.5,  color: "#3e8ec4" },
@@ -323,13 +323,13 @@ export function PedestrianFlowWMSLayer() {
 } 
 
 export const wmsLayerComponents = {
-  noise_wms: NoiseWMSLayer,
-  tree_wms: TreeWMSLayer,
-  trafic_light_wms: TraficLightWMSLayer,
-  blue_infrastructure: BlueInfWMSLayer,
-  green_infrastructure: GreenInfWMSLayer,
-  transport_station_wms: StationWMSLayer,
-  facility_wms: FacilityWMSLayer,
-  pedestrian_flow_wms: PedestrianFlowWMSLayer
+  hh_noise_wms: NoiseWMSLayer,
+  hh_tree_wms: TreeWMSLayer,
+  hh_trafic_light_wms: TraficLightWMSLayer,
+  hh_blue_infrastructure: BlueInfWMSLayer,
+  hh_green_infrastructure: GreenInfWMSLayer,
+  hh_transport_station_wms: StationWMSLayer,
+  hh_facility_wms: FacilityWMSLayer,
+  hh_pedestrian_flow_wms: PedestrianFlowWMSLayer
 };
 
