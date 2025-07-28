@@ -123,7 +123,7 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                         : "▼ " + t('leg_comfort_weight_title');
                   }}
                 >
-                  ►  {t('leg_comfort_weight_title')}
+                  ► {t('leg_comfort_weight_title')}
                 </button> 
                 <div style={{ display: "none", marginLeft: "8px" }}>
                   {features.length > 0 ? (

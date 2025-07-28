@@ -198,6 +198,8 @@ const MapComponent = ({
 
     loadFacilities();
   }, []); 
+  console.log("POI features loaded:", geoJsonData["hh_facilities"]?.features?.length);
+
 
   // Perform reachability analysis, calculate road features and hulls
   useEffect(() => {
