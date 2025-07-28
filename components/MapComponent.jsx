@@ -262,12 +262,19 @@ const MapComponent = ({
 
           // calculate the number of POI in the default hull
           let poiCount = 0;
+          let poiCategoryCount = {};
           const poiLayer = geoJsonData["hh_facilities"];
           if (poiLayer && cleaned && cleaned.features.length > 0) {
             const filteredPOI = poiLayer.features.filter(f => f.geometry.type === "Point");
-            poiCount = filteredPOI.filter(f =>
+            const inAreaPOI = filteredPOI.filter(f =>
               cleaned.features.some(area => turf.booleanPointInPolygon(f, area))
-            ).length;
+            );
+            poiCount = inAreaPOI.length;
+            poiCategoryCount = inAreaPOI.reduce((acc, f) => {
+              const category = f.properties.layer || f.properties.category || "Unknown";
+              acc[category] = (acc[category] || 0) + 1;
+              return acc;
+            }, {});
           }
 
           setResultMetadata(prev => [
@@ -280,6 +287,7 @@ const MapComponent = ({
               speed: walkingSpeed,
               area: defaultArea.toFixed(2),
               poiCount,
+              poiCategoryCount,
               isDefault: true,
               groupIndex: newGroupIndex
             }
@@ -329,12 +337,20 @@ const MapComponent = ({
 
           // calculate the number of POI in the weighted hull
           let poiCount = 0;
+          let poiCategoryCount = {};
           const poiLayer = geoJsonData["hh_facilities"];
           if (poiLayer && cleaned2 && cleaned2.features.length > 0) {
             const filteredPOI = poiLayer.features.filter(f => f.geometry.type === "Point");
-            poiCount = filteredPOI.filter(f =>
+            const inAreaPOI = filteredPOI.filter(f =>
               cleaned2.features.some(area => turf.booleanPointInPolygon(f, area))
-            ).length;
+            );
+            poiCount = inAreaPOI.length;
+
+            poiCategoryCount = inAreaPOI.reduce((acc, f) => {
+              const category = f.properties.layer || f.properties.category || "Unknown";
+              acc[category] = (acc[category] || 0) + 1;
+              return acc;
+            }, {});
           }
 
           setResultMetadata(prev => [
@@ -348,6 +364,7 @@ const MapComponent = ({
               area: weightedArea.toFixed(2),
               weightedRatio: ratio,
               poiCount,
+              poiCategoryCount,
               isDefault: false,
               groupIndex: currentGroupIndex,
               subIndex: prev.filter(p => p.groupIndex === currentGroupIndex && !p.isDefault).length + 1

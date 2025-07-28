@@ -101,6 +101,17 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                 {entry.poiCount !== undefined && (
                   <div>{t('leg_poi_count')}: {entry.poiCount}</div>
                 )}
+                {entry.poiCategoryCount && Object.keys(entry.poiCategoryCount).length > 0 && (
+                  <div>
+                    <div style={{fontWeight: 500}}>{t('leg_poi_count_by_cat')}:</div>
+                    {Object.entries(entry.poiCategoryCount).map(([cat, count]) => (
+                      <div key={cat} style={{marginLeft: 8}}>
+                        {cat}: {count}
+                      </div>
+                    ))}
+                  </div>
+                )}
+
 
                 <button
                   className={styles["toggle-button"]}
