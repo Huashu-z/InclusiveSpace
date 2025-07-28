@@ -82,7 +82,7 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
       "/plasmic/saa_s_website/images/facility_museen.png",
       "/plasmic/saa_s_website/images/facility_musik_ausstellung.png", 
       "/plasmic/saa_s_website/images/facility_religioss.png",
-      "/plasmic/saa_s_website/images/facility_museum.png",
+      "/plasmic/saa_s_website/images/facility_weiterbildung.png",
       "/plasmic/saa_s_website/images/facility_spezialbibliotheken.png",], 
   };
 
@@ -98,6 +98,7 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
     temp_winter: ["Light = comfortable, Dark = cold"],
     transport_station_wms: ["Transport Station"],
     green_infrastructure: ["Urban Park", "General green space", "Hiking trails", "Playgrounds", "Protective greenery", "Sports fields", "Garden green", "Other"],
+    facility_wms: ["Cultural Center", "Cinema", "Museum", "Music Venue", "Religious Site", "Education Center", "Specialized Library"],
     // noise_wms: ["Noise Levels"]
   };
 
