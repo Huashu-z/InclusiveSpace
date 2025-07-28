@@ -40,6 +40,17 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
     "😐"
   ];
 
+  const poiCategoryNames = {
+    film_theater: t("leg_poi_cinema"), 
+    museen: t("leg_poi_museum"),  
+    musik_ausstellungen: t("leg_poi_music"), 
+    religioese_gemeinschaften: t("leg_poi_religious"), 
+    spezialbibliotheken: t("leg_poi_library"), 
+    stadtteilkulturzentren_buergerhaeuser: t("leg_poi_cultural_center"), 
+    weiterbildung: t("leg_poi_education"), 
+    Unknown: t("leg_poi_other")
+  };
+
   // prevent scroll on wheel event when legend is expanded
   useEffect(() => {
     const container = bodyRef.current;
@@ -98,21 +109,8 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                 <div>{t('leg_speed_label')} {entry.speed} km/h</div>
                 <div>{t('leg_area_label')} {entry.area} ha</div>
                 {!entry.isDefault && <div>{t('leg_comfort_ratio')} {entry.weightedRatio}</div>}
-                {entry.poiCount !== undefined && (
-                  <div>{t('leg_poi_count')}: {entry.poiCount}</div>
-                )}
-                {entry.poiCategoryCount && Object.keys(entry.poiCategoryCount).length > 0 && (
-                  <div>
-                    <div style={{fontWeight: 500}}>{t('leg_poi_count_by_cat')}:</div>
-                    {Object.entries(entry.poiCategoryCount).map(([cat, count]) => (
-                      <div key={cat} style={{marginLeft: 8}}>
-                        {cat}: {count}
-                      </div>
-                    ))}
-                  </div>
-                )}
 
-
+                {/* Comfort Feature Weight Categories */}
                 <button
                   className={styles["toggle-button"]}
                   onClick={(e) => {
@@ -126,8 +124,7 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                   }}
                 >
                   ►  {t('leg_comfort_weight_title')}
-                </button>
-
+                </button> 
                 <div style={{ display: "none", marginLeft: "8px" }}>
                   {features.length > 0 ? (
                     features.map((layer) => (
@@ -139,6 +136,40 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                     <div className={styles["legend-none"]}>{t('leg_none')}</div>
                   )}
                 </div>
+
+                {/* Points of Interest Count */}
+                {entry.poiCount !== undefined && (
+                  <div style={{marginTop: 0}}>
+                    <button
+                      className={styles["toggle-button"]}
+                      style={{marginBottom: 2}}
+                      onClick={(e) => {
+                        const btn = e.currentTarget;
+                        const container = btn.nextSibling;
+                        container.style.display =
+                          container.style.display === "none" ? "block" : "none";
+                        btn.innerText =
+                          container.style.display === "none"
+                            ? "► " + t('leg_poi_count') + `: ${entry.poiCount}`
+                            : "▼ " + t('leg_poi_count') + `: ${entry.poiCount}`;
+                      }}
+                    >
+                      ► {t('leg_poi_count')}: {entry.poiCount}
+                    </button>
+                    <div style={{ display: "none", marginLeft: 8 }}>
+                      {entry.poiCategoryCount && Object.keys(entry.poiCategoryCount).length > 0 ? (
+                        Object.entries(entry.poiCategoryCount).map(([cat, count]) => (
+                          <div key={cat}>
+                            • {poiCategoryNames[cat] || cat}: {count}
+                          </div>
+                        ))
+                      ) : (
+                        <div className={styles["legend-none"]}>{t('leg_none')}</div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
               </div>
             );
           })}
