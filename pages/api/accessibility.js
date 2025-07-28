@@ -1,14 +1,5 @@
 // pages/api/accessibility.js
-import { Pool } from "pg";
-
-//local postgis service
-// const pool = new Pool({
-//   user: "incspace",
-//   host: "localhost",
-//   database: "gis",
-//   password: "123456",
-//   port: 5432,
-// });
+import { Pool } from "pg"; 
 
 const pool = new Pool({
   connectionString: "postgresql://postgres.tcxrvmwzddsyivnfurdx:incspace123456@aws-0-eu-central-1.pooler.supabase.com:6543/postgres",

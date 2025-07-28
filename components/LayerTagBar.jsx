@@ -54,8 +54,16 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
   };
 
   const tempLabels = {
-    hh_temp_summer: ["Warm", "Hot", "very Hot"],
-    hh_temp_winter: ["Cool", "Cold", "Very cold"]
+    hh_temp_summer: [t('layertag_temp_summer_0'), t('layertag_temp_summer_1'), t('layertag_temp_summer_2')],
+    hh_temp_winter: [t('layertag_temp_winter_0'), t('layertag_temp_winter_1'), t('layertag_temp_winter_2')]
+  };
+
+  const flowPalette = {
+    hh_pedestrian_flow_wms: ["#4b5fd1", "#eccf46", "#b31e0c"] // low → high pedestrian flow
+  };
+
+  const flowLabels = {
+    hh_pedestrian_flow_wms: [t('layertag_flow_low'), t('layertag_flow_medium'), t('layertag_flow_high')]
   };
 
   // icon for wms layers
@@ -90,14 +98,41 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
   }
 
   const wmsLabels = {
-    hh_trafic_light_wms: ["Traffic Lights"],
-    hh_tree_wms: ["Planted Tree", "Planned Tree", "Unassigned Spot"],
-    hh_blue_infrastructure: ["Brackish water", "Lake", "Waterbody", "Spring", "Hydraulic Structure"], 
-    hh_temp_summer: ["Light = comfortable, Dark = hot"],
-    hh_temp_winter: ["Light = comfortable, Dark = cold"],
-    hh_transport_station_wms: ["Transport Station"],
-    hh_green_infrastructure: ["Urban Park", "General green space", "Hiking trails", "Playgrounds", "Protective greenery", "Sports fields", "Garden green", "Other"],
-    hh_facility_wms: ["Cultural Center", "Cinema", "Museum", "Music Venue", "Religious Site", "Education Center", "Specialized Library"],
+    hh_trafic_light_wms: [t('layertag_trafic_light')],
+    hh_tree_wms: [
+      t('layertag_tree_0'),
+      t('layertag_tree_1'),
+      t('layertag_tree_2')
+    ],
+    hh_blue_infrastructure: [
+      t('layertag_blue_0'),
+      t('layertag_blue_1'),
+      t('layertag_blue_2'),
+      t('layertag_blue_3'),
+      t('layertag_blue_4')
+    ],
+    hh_temp_summer: [t('layertag_temp_summer_note')],
+    hh_temp_winter: [t('layertag_temp_winter_note')],
+    hh_transport_station_wms: [t('layertag_transport_station')],
+    hh_green_infrastructure: [
+      t('layertag_green_0'),
+      t('layertag_green_1'),
+      t('layertag_green_2'),
+      t('layertag_green_3'),
+      t('layertag_green_4'),
+      t('layertag_green_5'),
+      t('layertag_green_6'),
+      t('layertag_green_7')
+    ],
+    hh_facility_wms: [
+      t('layertag_facility_0'),
+      t('layertag_facility_1'),
+      t('layertag_facility_2'),
+      t('layertag_facility_3'),
+      t('layertag_facility_4'),
+      t('layertag_facility_5'),
+      t('layertag_facility_6')
+    ]
     // noise_wms: ["Noise Levels"]
   };
 
@@ -115,7 +150,22 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
 
           {/* legend for each layer */}
           <div>
-            {tempPalette[layer] ? (
+            {flowPalette[layer] ? (
+              flowPalette[layer].map((color, i) => (
+                <div key={`${layer}-flow-${i}`} className={styles.layerTagLegendItem}>
+                  <div
+                    style={{
+                      width: "14px",
+                      height: "14px",
+                      borderRadius: "50%",
+                      backgroundColor: color,
+                      border: "1px solid #999"
+                    }}
+                  />
+                  <span>{flowLabels[layer][i]}</span>
+                </div>
+              ))
+            ) :tempPalette[layer] ? (
               tempPalette[layer].map((color, i) => (    // legend for temperature layers
                 <div key={`${layer}-${i}`} className={styles.layerTagLegendItem}>
                   <div
