@@ -34,6 +34,8 @@
   "leg_comfort_weight_title": "Gewichtung der Komfortfaktoren: ",
   "leg_none": "Keine",
   "leg_comfort_features": "Komfortfaktoren",
+  "leg_poi_count": "Anzahl der Einrichtungen im Gebiet",
+  "leg_poi_category_title": "Einrichtungskategorien",
   "env_category": "Umwelt",
   "phy_category": "Physisch",
   "psy_category": "Psychologisch",

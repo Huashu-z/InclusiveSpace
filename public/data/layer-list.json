@@ -21,5 +21,6 @@
     "hh_poor_pavement",
     "hh_kerbs_high",
     "hh_facility_wms",
-    "hh_pedestrian_flow_wms"
+    "hh_pedestrian_flow_wms",
+    "hh_facilities"
 ]

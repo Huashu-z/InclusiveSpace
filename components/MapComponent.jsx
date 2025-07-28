@@ -181,6 +181,24 @@ const MapComponent = ({
     }
   };  
 
+  // load poi data
+  useEffect(() => {
+    const loadFacilities = async () => {
+      try {
+        const res = await fetch("/data/hh_facilities.geojson");
+        const data = await res.json();
+        setGeoJsonData(prev => ({
+          ...prev,
+          hh_facilities: data
+        }));
+      } catch (err) {
+        console.error("Failed to load hh_facilities.geojson:", err);
+      }
+    };
+
+    loadFacilities();
+  }, []); 
+
   // Perform reachability analysis, calculate road features and hulls
   useEffect(() => {
     const performAnalysis = async () => {
@@ -241,6 +259,17 @@ const MapComponent = ({
           setDefaultResultCache(prev => ({ ...prev, [key]: { roads: defaultRes.roads, hull: cleaned, area: defaultArea } }));
           setReachableRoadsData(prev => [...prev, defaultRes.roads]);
           setReachableHullData(prev => [...prev, cleaned]);
+
+          // calculate the number of POI in the default hull
+          let poiCount = 0;
+          const poiLayer = geoJsonData["hh_facilities"];
+          if (poiLayer && cleaned && cleaned.features.length > 0) {
+            const filteredPOI = poiLayer.features.filter(f => f.geometry.type === "Point");
+            poiCount = filteredPOI.filter(f =>
+              cleaned.features.some(area => turf.booleanPointInPolygon(f, area))
+            ).length;
+          }
+
           setResultMetadata(prev => [
             ...prev,
             {
@@ -250,6 +279,7 @@ const MapComponent = ({
               time: walkingTime,
               speed: walkingSpeed,
               area: defaultArea.toFixed(2),
+              poiCount,
               isDefault: true,
               groupIndex: newGroupIndex
             }
@@ -296,6 +326,17 @@ const MapComponent = ({
 
           setReachableRoadsData(prev => [...prev, weightedRes.roads]);
           setReachableHullData(prev => [...prev, cleaned2]);
+
+          // calculate the number of POI in the weighted hull
+          let poiCount = 0;
+          const poiLayer = geoJsonData["hh_facilities"];
+          if (poiLayer && cleaned2 && cleaned2.features.length > 0) {
+            const filteredPOI = poiLayer.features.filter(f => f.geometry.type === "Point");
+            poiCount = filteredPOI.filter(f =>
+              cleaned2.features.some(area => turf.booleanPointInPolygon(f, area))
+            ).length;
+          }
+
           setResultMetadata(prev => [
             ...prev,
             {
@@ -306,6 +347,7 @@ const MapComponent = ({
               speed: walkingSpeed,
               area: weightedArea.toFixed(2),
               weightedRatio: ratio,
+              poiCount,
               isDefault: false,
               groupIndex: currentGroupIndex,
               subIndex: prev.filter(p => p.groupIndex === currentGroupIndex && !p.isDefault).length + 1
@@ -423,15 +465,17 @@ const MapComponent = ({
 
         {/* Render Geojson Layers based on selectedLayers*/}
         {Object.entries(geoJsonData).map(([layer, data]) => (
-          <GeoJSON
-            key={layer}
-            data={data}
-            pointToLayer={(feature, latlng) => {
-              const L = require("leaflet");
-              return L.circleMarker(latlng, getStyle(layer, feature));
-            }}
-            style={(feature) => getStyle(layer, feature)}
-          />
+          layer === "hh_facilities" ? null : (
+            <GeoJSON
+              key={layer}
+              data={data}
+              pointToLayer={(feature, latlng) => {
+                const L = require("leaflet");
+                return L.circleMarker(latlng, getStyle(layer, feature));
+              }}
+              style={(feature) => getStyle(layer, feature)}
+            />
+          )
         ))}
 
         {/* Legend */}

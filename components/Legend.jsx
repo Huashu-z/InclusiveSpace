@@ -98,6 +98,9 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                 <div>{t('leg_speed_label')} {entry.speed} km/h</div>
                 <div>{t('leg_area_label')} {entry.area} ha</div>
                 {!entry.isDefault && <div>{t('leg_comfort_ratio')} {entry.weightedRatio}</div>}
+                {entry.poiCount !== undefined && (
+                  <div>{t('leg_poi_count')}: {entry.poiCount}</div>
+                )}
 
                 <button
                   className={styles["toggle-button"]}
