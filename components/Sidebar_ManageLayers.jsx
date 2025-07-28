@@ -56,7 +56,6 @@ export default function MapLayers({ selectedLayers, toggleLayer }) {
           {renderCheckbox("hh_wc_disabled", t('display_wc'))} 
           {renderCheckbox("hh_accessible_ramp", t('display_ramp'))}
           {renderCheckbox("hh_stair", t('display_stair'))}
-          {renderCheckbox("hh_elevator", t('display_elevator'))}
           {renderCheckbox("hh_obstacle", t('display_obstacle'))}
           {renderCheckbox("hh_slope", t('display_slope'))}
           {renderCheckbox("hh_uneven_surfaces", t('display_uneven'))}

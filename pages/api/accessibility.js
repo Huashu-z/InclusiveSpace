@@ -53,8 +53,7 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
     const wcDisabledVariable = parseFloat(req.query.wcDisabled) || 1.0;
     const narrowRoadsVariable = parseFloat(req.query.narrowRoads) || 1.0;
     const rampVariable = parseFloat(req.query.ramp) || 1.0;
-    const stairVariable = parseFloat(req.query.stair) || 1.0;
-    const elevatorVariable = parseFloat(req.query.elevator) || 1.0;
+    const stairVariable = parseFloat(req.query.stair) || 1.0; 
     const obstacleVariable = parseFloat(req.query.obstacle) || 1.0;
     const slopeVariable = parseFloat(req.query.slope) || 1.0;
     const unevenSurfaceVariable = parseFloat(req.query.unevenSurface) || 1.0;
@@ -93,15 +92,14 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
               CASE WHEN wc_d_weight = 0 THEN ' || $13 || ' ELSE 1 END *
               CASE WHEN path_width_weight = 1 THEN ' || $14 || ' ELSE 1 END *
               CASE WHEN ramp_weight = 0 THEN ' || $15 || ' ELSE 1 END *
-              CASE WHEN stair_weight = 1 THEN ' || $16 || ' ELSE 1 END *
-              CASE WHEN elevator_weight = 0 THEN ' || $17 || ' ELSE 1 END *
-              CASE WHEN obstacle_weight = 1 THEN ' || $18 || ' ELSE 1 END *
-              CASE WHEN slope_weight = 1 THEN ' || $19 || ' ELSE 1 END *
-              CASE WHEN uneven_surfaces_weight = 1 THEN ' || $20 || ' ELSE 1 END *
-              CASE WHEN poor_pavement_weight = 1 THEN ' || $21 || ' ELSE 1 END *
-              CASE WHEN kerbs_h_weight = 1 THEN ' || $22 || ' ELSE 1 END *
-              CASE WHEN facilities_weight = 0 THEN ' || $23 || ' ELSE 1 END *
-              CASE WHEN pedestrian_flow_weight = 1 THEN ' || $24 || ' ELSE 1 END
+              CASE WHEN stair_weight = 1 THEN ' || $16 || ' ELSE 1 END * 
+              CASE WHEN obstacle_weight = 1 THEN ' || $17 || ' ELSE 1 END *
+              CASE WHEN slope_weight = 1 THEN ' || $18 || ' ELSE 1 END *
+              CASE WHEN uneven_surfaces_weight = 1 THEN ' || $19 || ' ELSE 1 END *
+              CASE WHEN poor_pavement_weight = 1 THEN ' || $20 || ' ELSE 1 END *
+              CASE WHEN kerbs_h_weight = 1 THEN ' || $21 || ' ELSE 1 END *
+              CASE WHEN facilities_weight = 0 THEN ' || $22 || ' ELSE 1 END *
+              CASE WHEN pedestrian_flow_weight = 1 THEN ' || $23 || ' ELSE 1 END
             ) AS cost
           FROM hh_ways',
           $1::integer,
@@ -124,8 +122,7 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
         wcDisabledVariable,
         narrowRoadsVariable,
         rampVariable,
-        stairVariable,
-        elevatorVariable,
+        stairVariable, 
         obstacleVariable,
         slopeVariable,
         unevenSurfaceVariable,

@@ -95,14 +95,6 @@ export function getStyle(layer, feature) {
         weight: 2,
         opacity: 0.9
       };
-
-    case "hh_elevator":
-      return {
-        radius: 5,
-        fillColor: "#a85432",
-        fillOpacity: 0.8,
-        stroke: false     
-      };
     
     case "hh_obstacle":
       return {
