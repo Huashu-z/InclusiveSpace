@@ -117,7 +117,7 @@ function PlasmicHeader__RenderFunc(props) {
             {/* Right side: User & Planner button */}
             <Stack__ as={"div"} className={sty["link-container-wrapper"]} hasGap={true}>
               <span className={sty["lang-switch-wrap"]}>
-                {["de", "en"].map((lng, idx) => ( 
+                {["de", "en", "el"].map((lng, idx, arr) => ( 
                   <React.Fragment key={lng}> 
                     <Link 
                       href={{ pathname: __nextRouter?.pathname || "/", query: __nextRouter?.query }} 
@@ -129,7 +129,7 @@ function PlasmicHeader__RenderFunc(props) {
                     > 
                       {lng} 
                     </Link> 
-                    {idx < 1 && " | "} 
+                    {idx < arr.length - 1 && " | "} 
                   </React.Fragment> 
                 ))} 
               </span>
