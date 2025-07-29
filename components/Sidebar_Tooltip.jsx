@@ -88,6 +88,18 @@ export default function Tooltip({ show, type, anchorRef, onClose }) {
   } else if (type === "pedestrianFlow") {
     content = <p>{t('tooltip_crowd')}</p>;
   }
+  else if (type === "walkingSpeed") {
+    content = (
+      <div>
+        <p>{t('tooltip_walking_speed_intro')}</p>
+        <ul style={{ margin: "4px 0", paddingLeft: "18px" }}>
+          <li>{t('tooltip_walking_speed_stroll')}</li>
+          <li>{t('tooltip_walking_speed_average')}</li>
+          <li>{t('tooltip_walking_speed_brisk')}</li>
+        </ul>
+      </div>
+    );
+  }
 
   return ReactDOM.createPortal(
     <div

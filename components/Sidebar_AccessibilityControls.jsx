@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import sty from "./Sidebar.module.css";
 import { useTranslation } from 'next-i18next';
+import Tooltip from "./Sidebar_Tooltip";
 
 export default function AccessibilityControls({
   walkingTime,
@@ -40,6 +41,9 @@ export default function AccessibilityControls({
     }
   };
 
+  const [showWalkingSpeedTooltip, setShowWalkingSpeedTooltip] = React.useState(false);
+  const walkingSpeedTooltipRef = React.useRef();
+
   return (
     <div className={sty["sidebar-section"]}>
       <h3 className={sty["sidebar-title"]}>{t('accessibility_title')}</h3>
@@ -58,8 +62,24 @@ export default function AccessibilityControls({
         />
       </div>
 
-      <div className={sty["sidebar-text-bold"]}>
-        {t('walking_speed')} <span className={sty["sidebar-text"]}>({walkingSpeed} km/h)</span>
+      <div className={sty["sidebar-text-bold"]}style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+        {t('walking_speed')} <span className={sty["sidebar-text"]} >({walkingSpeed} km/h)</span>
+        <span
+          className={sty["info-icon"]}
+          ref={walkingSpeedTooltipRef}
+          onClick={(e) => {
+            e.stopPropagation();
+            setShowWalkingSpeedTooltip(prev => !prev);
+          }}
+        >
+          i
+        </span>
+        <Tooltip
+          show={showWalkingSpeedTooltip}
+          type="walkingSpeed"
+          anchorRef={walkingSpeedTooltipRef}
+          onClose={() => setShowWalkingSpeedTooltip(false)}
+        />
       </div>
       <div className={sty["sidebar-slider"]}>
         <input
