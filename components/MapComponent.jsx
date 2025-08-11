@@ -197,24 +197,51 @@ const MapComponent = ({
   };  
 
   // load poi data
+  // useEffect(() => {
+  //   const loadFacilities = async () => {
+  //     try {
+  //       const res = await fetch("/data/hh_facilities.geojson");
+  //       const data = await res.json();
+  //       setGeoJsonData(prev => ({
+  //         ...prev,
+  //         hh_facilities: data
+  //       }));
+  //     } catch (err) {
+  //       console.error("Failed to load hh_facilities.geojson:", err);
+  //     }
+  //   };
+
+  //   loadFacilities();
+  // }, []); 
+  // console.log("POI features loaded:", geoJsonData["hh_facilities"]?.features?.length);
   useEffect(() => {
-    const loadFacilities = async () => {
-      try {
-        const res = await fetch("/data/hh_facilities.geojson");
-        const data = await res.json();
-        setGeoJsonData(prev => ({
-          ...prev,
-          hh_facilities: data
-        }));
-      } catch (err) {
-        console.error("Failed to load hh_facilities.geojson:", err);
+    const loadPOIGeoJsons = async () => {
+      const poiLayers = [
+        "poi_hh_gastronomy",
+        "poi_hh_haltstelle",
+        "poi_hh_health",
+        "poi_hh_kita_schule",
+        "poi_hh_park_spiel",
+        "poi_hh_supermarket",
+        "poi_hh_uni_fh"
+      ];
+      const newData = {};
+      for (const layer of poiLayers) {
+        try {
+          const res = await fetch(`/data/POI/${layer}.geojson`);
+          const data = await res.json();
+          newData[layer] = data;
+        } catch (err) {
+          console.error("Failed to load:", layer, err);
+        }
       }
+      setGeoJsonData(prev => ({
+        ...prev,
+        ...newData
+      }));
     };
-
-    loadFacilities();
-  }, []); 
-  console.log("POI features loaded:", geoJsonData["hh_facilities"]?.features?.length);
-
+    loadPOIGeoJsons();
+  }, []);
 
   // Perform reachability analysis, calculate road features and hulls
   useEffect(() => {
@@ -278,20 +305,41 @@ const MapComponent = ({
           setReachableHullData(prev => [...prev, cleaned]);
 
           // calculate the number of POI in the default hull
-          let poiCount = 0;
-          let poiCategoryCount = {};
-          const poiLayer = geoJsonData["hh_facilities"];
-          if (poiLayer && cleaned && cleaned.features.length > 0) {
-            const filteredPOI = poiLayer.features.filter(f => f.geometry.type === "Point");
-            const inAreaPOI = filteredPOI.filter(f =>
-              cleaned.features.some(area => turf.booleanPointInPolygon(f, area))
+          // let poiCount = 0;
+          // let poiCategoryCount = {};
+          // const poiLayer = geoJsonData["hh_facilities"];
+          // if (poiLayer && cleaned && cleaned.features.length > 0) {
+          //   const filteredPOI = poiLayer.features.filter(f => f.geometry.type === "Point");
+          //   const inAreaPOI = filteredPOI.filter(f =>
+          //     cleaned.features.some(area => turf.booleanPointInPolygon(f, area))
+          //   );
+          //   poiCount = inAreaPOI.length;
+          //   poiCategoryCount = inAreaPOI.reduce((acc, f) => {
+          //     const category = f.properties.layer || f.properties.category || "Unknown";
+          //     acc[category] = (acc[category] || 0) + 1;
+          //     return acc;
+          //   }, {});
+          // }
+          const poiLayers = [
+            "poi_hh_gastronomy",
+            "poi_hh_haltstelle",
+            "poi_hh_health",
+            "poi_hh_kita_schule",
+            "poi_hh_park_spiel",
+            "poi_hh_supermarket",
+            "poi_hh_uni_fh"
+          ];
+          let poiGroupCounts = {};
+          let totalPOI = 0;
+          for (const layerName of poiLayers) {
+            const poiData = geoJsonData[layerName];
+            if (!poiData || !cleaned.features.length) continue;
+            const filteredPOI = poiData.features.filter(f => f.geometry.type === "Point");
+            const inArea = filteredPOI.filter(f =>
+              cleaned.features.some(polygon => turf.booleanPointInPolygon(f, polygon))
             );
-            poiCount = inAreaPOI.length;
-            poiCategoryCount = inAreaPOI.reduce((acc, f) => {
-              const category = f.properties.layer || f.properties.category || "Unknown";
-              acc[category] = (acc[category] || 0) + 1;
-              return acc;
-            }, {});
+            poiGroupCounts[layerName] = inArea.length;
+            totalPOI += inArea.length;
           }
 
           setResultMetadata(prev => [
@@ -303,8 +351,8 @@ const MapComponent = ({
               time: walkingTime,
               speed: walkingSpeed,
               area: defaultArea.toFixed(2),
-              poiCount,
-              poiCategoryCount,
+              poiCount: totalPOI,
+              poiGroupCounts,
               isDefault: true,
               groupIndex: newGroupIndex
             }
@@ -353,21 +401,46 @@ const MapComponent = ({
           setReachableHullData(prev => [...prev, cleaned2]);
 
           // calculate the number of POI in the weighted hull
-          let poiCount = 0;
-          let poiCategoryCount = {};
-          const poiLayer = geoJsonData["hh_facilities"];
-          if (poiLayer && cleaned2 && cleaned2.features.length > 0) {
-            const filteredPOI = poiLayer.features.filter(f => f.geometry.type === "Point");
-            const inAreaPOI = filteredPOI.filter(f =>
-              cleaned2.features.some(area => turf.booleanPointInPolygon(f, area))
-            );
-            poiCount = inAreaPOI.length;
+          // let poiCount = 0;
+          // let poiCategoryCount = {};
+          // const poiLayer = geoJsonData["hh_facilities"];
+          // if (poiLayer && cleaned2 && cleaned2.features.length > 0) {
+          //   const filteredPOI = poiLayer.features.filter(f => f.geometry.type === "Point");
+          //   const inAreaPOI = filteredPOI.filter(f =>
+          //     cleaned2.features.some(area => turf.booleanPointInPolygon(f, area))
+          //   );
+          //   poiCount = inAreaPOI.length;
 
-            poiCategoryCount = inAreaPOI.reduce((acc, f) => {
-              const category = f.properties.layer || f.properties.category || "Unknown";
-              acc[category] = (acc[category] || 0) + 1;
-              return acc;
-            }, {});
+          //   poiCategoryCount = inAreaPOI.reduce((acc, f) => {
+          //     const category = f.properties.layer || f.properties.category || "Unknown";
+          //     acc[category] = (acc[category] || 0) + 1;
+          //     return acc;
+          //   }, {});
+          // }
+          const poiLayers = [
+            "poi_hh_gastronomy",
+            "poi_hh_haltstelle",
+            "poi_hh_health",
+            "poi_hh_kita_schule",
+            "poi_hh_park_spiel",
+            "poi_hh_supermarket",
+            "poi_hh_uni_fh"
+          ];
+
+          let poiGroupCounts = {};
+          let totalPOI = 0;
+
+          for (const layerName of poiLayers) {
+            const poiData = geoJsonData[layerName];
+            if (!poiData || !cleaned2.features.length) continue;
+
+            const filteredPOI = poiData.features.filter(f => f.geometry.type === "Point");
+            const inArea = filteredPOI.filter(f =>
+              cleaned2.features.some(polygon => turf.booleanPointInPolygon(f, polygon))
+            );
+
+            poiGroupCounts[layerName] = inArea.length;
+            totalPOI += inArea.length;
           }
 
           setResultMetadata(prev => [
@@ -380,8 +453,8 @@ const MapComponent = ({
               speed: walkingSpeed,
               area: weightedArea.toFixed(2),
               weightedRatio: ratio,
-              poiCount,
-              poiCategoryCount,
+              poiCount: totalPOI,
+              poiGroupCounts,
               isDefault: false,
               groupIndex: currentGroupIndex,
               subIndex: prev.filter(p => p.groupIndex === currentGroupIndex && !p.isDefault).length + 1
@@ -499,7 +572,7 @@ const MapComponent = ({
 
         {/* Render Geojson Layers based on selectedLayers*/}
         {Object.entries(geoJsonData).map(([layer, data]) => (
-          layer === "hh_facilities" ? null : (
+          layer.startsWith("poi_") && !selectedLayers.includes(layer) ? null : (
             <GeoJSON
               key={layer}
               data={data}

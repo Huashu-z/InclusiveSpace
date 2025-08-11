@@ -40,15 +40,24 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
     "😐"
   ];
 
+  // const poiCategoryNames = {
+  //   film_theater: t("leg_poi_cinema"), 
+  //   museen: t("leg_poi_museum"),  
+  //   musik_ausstellungen: t("leg_poi_music"), 
+  //   religioese_gemeinschaften: t("leg_poi_religious"), 
+  //   spezialbibliotheken: t("leg_poi_library"), 
+  //   stadtteilkulturzentren_buergerhaeuser: t("leg_poi_cultural_center"), 
+  //   weiterbildung: t("leg_poi_education"), 
+  //   Unknown: t("leg_poi_other")
+  // };
   const poiCategoryNames = {
-    film_theater: t("leg_poi_cinema"), 
-    museen: t("leg_poi_museum"),  
-    musik_ausstellungen: t("leg_poi_music"), 
-    religioese_gemeinschaften: t("leg_poi_religious"), 
-    spezialbibliotheken: t("leg_poi_library"), 
-    stadtteilkulturzentren_buergerhaeuser: t("leg_poi_cultural_center"), 
-    weiterbildung: t("leg_poi_education"), 
-    Unknown: t("leg_poi_other")
+    poi_hh_gastronomy: t("leg_poi_gastronomy"),
+    poi_hh_haltstelle: t("leg_poi_haltstelle"),
+    poi_hh_health: t("leg_poi_health"),
+    poi_hh_kita_schule: t("leg_poi_kita_schule"),
+    poi_hh_park_spiel: t("leg_poi_park_spiel"),
+    poi_hh_supermarket: t("leg_poi_supermarket"),
+    poi_hh_uni_fh: t("leg_poi_uni_fh"),
   };
 
   // prevent scroll on wheel event when legend is expanded
@@ -157,8 +166,8 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                       ► {t('leg_poi_count')}: {entry.poiCount}
                     </button>
                     <div style={{ display: "none", marginLeft: 8 }}>
-                      {entry.poiCategoryCount && Object.keys(entry.poiCategoryCount).length > 0 ? (
-                        Object.entries(entry.poiCategoryCount).map(([cat, count]) => (
+                      {entry.poiGroupCounts && Object.keys(entry.poiGroupCounts).length > 0 ? (
+                        Object.entries(entry.poiGroupCounts).map(([cat, count]) => (
                           <div key={cat}>
                             • {poiCategoryNames[cat] || cat}: {count}
                           </div>
