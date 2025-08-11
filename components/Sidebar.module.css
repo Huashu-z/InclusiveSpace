@@ -256,7 +256,7 @@
 
   .search-bar {
     display: flex;
-    flex: 1; /* 搜索框占据大部分宽度 */
+    flex: 1;
     max-width: 80%; 
     border: 1px solid #ccc;
     border-radius: 6px;
@@ -272,6 +272,7 @@
     padding: 10px 10px;
     font-size: 14px;
     outline: none;
+    background-color: #f5f8ff;
   }
 
   .search-button {

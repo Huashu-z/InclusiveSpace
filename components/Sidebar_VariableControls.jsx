@@ -12,6 +12,7 @@ export default function VariableControls({
   toggleCategory, 
   startPoints,
   setComputeAccessibility,
+  handleClearResult,
   walkingTime,
   walkingSpeed
 }) {
@@ -192,6 +193,7 @@ export default function VariableControls({
         </Category> 
       </div>
 
+      {/* Get Catchment Area button */}
       <div className={sty["button-container"]}>
         <button
           onClick={() => {
@@ -206,6 +208,13 @@ export default function VariableControls({
           <span className={sty["sidebar-text-bold"]}>✚ {t('get_area')}</span>
         </button>
       </div>
+      {/* Clear Result Button */}
+      <button
+        onClick={handleClearResult}
+        className={sty["setup-button"]}  
+      >
+        <span className={sty["sidebar-text-bold"]}> {t('clear_result')}</span>
+      </button>
 
     </div>
   );

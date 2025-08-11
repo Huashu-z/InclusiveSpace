@@ -39,6 +39,8 @@ const MapComponent = ({
   setComputeAccessibility,
   resetTrigger,
   onResetHandled,
+  clearTrigger,
+  onClearHandled,
   layerValues,
   onFocusArea,
   highlightedIndex,
@@ -105,16 +107,28 @@ const MapComponent = ({
   useEffect(() => {
     if (resetTrigger) {
       setStartPoints([]);
+      // setReachableRoadsData([]);
+      // setReachableHullData([]);
+      // setResultMetadata([]);
+      onResetHandled && onResetHandled();
+      // setDefaultResultCache({});
+      // setGroupMapping({});
+      // setDefaultGroupIndex(1);
+    }
+  }, [resetTrigger, onResetHandled]);  
+
+  // clean "get catchment area" result
+  useEffect(() => {
+    if (clearTrigger) {
       setReachableRoadsData([]);
       setReachableHullData([]);
       setResultMetadata([]);
-      onResetHandled && onResetHandled();
-      setDefaultResultCache({});
-      setGroupMapping({});
-      setDefaultGroupIndex(1);
-
+      setDefaultGroupIndex([]);
+      setDefaultResultCache([]);
+      setGroupMapping([]);
+      onClearHandled?.();
     }
-  }, [resetTrigger, onResetHandled]);  
+  }, [clearTrigger, onClearHandled]);
 
   // Load GeoJSON data for the selected layers (sidebar map layers)
   useEffect(() => {

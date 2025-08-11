@@ -26,6 +26,7 @@ export default function Sidebar({
     setStartPoints,
     setComputeAccessibility,
     handleResetResults,
+    handleClearResult,
     openCategory,
     toggleCategory,
     showInfo,
@@ -62,6 +63,7 @@ export default function Sidebar({
             setStartPoints={setStartPoints}
             // setComputeAccessibility={setComputeAccessibility}
             handleResetResults={handleResetResults}
+            handleClearResult={handleClearResult}
           />
   
           <VariableControls
@@ -79,6 +81,7 @@ export default function Sidebar({
             setComputeAccessibility={setComputeAccessibility}
             walkingTime={walkingTime}
             walkingSpeed={walkingSpeed}
+            handleClearResult={handleClearResult}
           />
   
           <MapLayers

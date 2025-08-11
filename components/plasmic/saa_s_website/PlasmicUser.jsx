@@ -57,6 +57,7 @@ function PlasmicUser__RenderFunc(props) {
   const [openCategory, setOpenCategory] = React.useState(null);
   const [showInfo, setShowInfo] = React.useState(false);
   const [resetTrigger, setResetTrigger] = React.useState(false);
+  const [clearTrigger, setClearTrigger] = React.useState(false);
   const [sidebarOpen, setSidebarOpen] = React.useState(true);
   const [highlightedIndex, setHighlightedIndex] = React.useState(null);
   const [cityCenter, setCityCenter] = React.useState([53.5503, 9.9920]); // hamburg as default
@@ -90,9 +91,16 @@ function PlasmicUser__RenderFunc(props) {
     setEnabledVariables([]);
     setLayerValues({}); 
   };
+  const handleClearResult = () => {
+    setClearTrigger(true);
+  };
+
 
   const onResetHandled = () => {
     setResetTrigger(false);
+  };
+  const onClearHandled = () => {
+    setClearTrigger(false);
   };
 
   const toggleVariable = (layer) => {
@@ -181,6 +189,8 @@ function PlasmicUser__RenderFunc(props) {
               setComputeAccessibility={setComputeAccessibility}
               resetTrigger={resetTrigger}
               onResetHandled={onResetHandled}
+              clearTrigger={clearTrigger}
+              onClearHandled={onClearHandled}
               layerValues={layerValues}
               highlightedIndex={highlightedIndex} 
               setHighlightedIndex={setHighlightedIndex} 
@@ -205,6 +215,7 @@ function PlasmicUser__RenderFunc(props) {
             setStartPoints={setStartPoints} 
             setComputeAccessibility={setComputeAccessibility}
             handleResetResults={handleResetResults}
+            handleClearResult={handleClearResult}
             openCategory={openCategory}
             toggleCategory={toggleCategory}
             showInfo={showInfo}
