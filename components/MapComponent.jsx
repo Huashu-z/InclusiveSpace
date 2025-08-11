@@ -26,6 +26,7 @@ proj4.defs("EPSG:4326", "+proj=longlat +datum=WGS84 +no_defs");
 proj4.defs("EPSG:25832", "+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs");
  
 const MapComponent = ({ 
+  cityCenter = [53.5503, 9.9920],
   selectedLayers, 
   enabledVariables,
   selectingStart, 
@@ -443,7 +444,7 @@ const MapComponent = ({
         </div>
       )}
 
-      <MapContainer center={[53.5503, 9.9920]} zoom={13} style={{ width: "100%", height: "100vh" }}>
+      <MapContainer center={cityCenter} zoom={13} style={{ width: "100%", height: "100vh" }}>
         <Pane name="highlight-pane" style={{ zIndex: 650 }} />
         <TileLayer
           //different base map

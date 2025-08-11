@@ -59,6 +59,18 @@ function PlasmicUser__RenderFunc(props) {
   const [resetTrigger, setResetTrigger] = React.useState(false);
   const [sidebarOpen, setSidebarOpen] = React.useState(true);
   const [highlightedIndex, setHighlightedIndex] = React.useState(null);
+  const [cityCenter, setCityCenter] = React.useState([53.5503, 9.9920]); // hamburg as default
+
+  React.useEffect(() => {
+    const storedCenter = localStorage.getItem("selectedCityCenter");
+    if (storedCenter) {
+      try {
+        setCityCenter(JSON.parse(storedCenter));
+      } catch (e) {
+        console.error("Invalid city center in storage", e);
+      }
+    }
+  }, []);
 
   React.useEffect(() => {
     fetch("/data/layer-list.json")
@@ -156,6 +168,7 @@ function PlasmicUser__RenderFunc(props) {
           <div data-plasmic-name="mapBox" data-plasmic-override={overrides?.mapBox} className={classNames(projectcss.all, sty.mapBox)} id="map">
             <LayerTagBar selectedLayers={selectedLayers} toggleLayer={toggleLayer} />
             <MapComponent
+              cityCenter={cityCenter}
               selectedLayers={selectedLayers}
               enabledVariables={enabledVariables}
               selectingStart={selectingStart}

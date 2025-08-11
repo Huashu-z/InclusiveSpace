@@ -3,7 +3,7 @@
 import * as React from "react";
 import { PageParamsProvider as PageParamsProvider__ } from "@plasmicapp/react-web/lib/host";
 import GlobalContextsProvider from "../components/plasmic/saa_s_website/PlasmicGlobalContextsProvider";
-import PlasmicUser from "../components/plasmic/saa_s_website/PlasmicUser";
+import PlasmicLanding from "../components/plasmic/saa_s_website/PlasmicLanding";
 import { useRouter } from "next/router";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
@@ -31,7 +31,7 @@ function User() {
         params={useRouter()?.query}
         query={useRouter()?.query}
       >
-        <PlasmicUser />
+        <PlasmicLanding />
       </PageParamsProvider__>
     </GlobalContextsProvider>
   );

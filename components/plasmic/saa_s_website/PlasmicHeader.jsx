@@ -71,6 +71,13 @@ function PlasmicHeader__RenderFunc(props) {
   });
   const [showHelp, setShowHelp] = React.useState(false);
 
+  const cities = [
+    { id: "hamburg", name: "Hamburg", center: [53.5503, 9.9920] },
+    { id: "aachen", name: "Aachen", center: [50.7753, 6.0839] },
+    { id: "penteli", name: "Penteli", center: [38.0491, 23.8653] }
+  ];
+  const [showCityMenu, setShowCityMenu] = React.useState(false);
+
   return (
     <div
       data-plasmic-name={"root"}
@@ -114,13 +121,25 @@ function PlasmicHeader__RenderFunc(props) {
               </Link>
             </Stack__>
 
+            {/* Middle: CAT logo */}
+            <Link href={`/`}>
+              <div className={sty["center-logo"]}>
+                <img
+                  src="/plasmic/saa_s_website/images/CAT_logo.png"  // ← 替换为你的主 Logo 路径
+                  alt="Tool Logo"
+                  className={sty["CAT-logo"]}
+                />
+              </div>
+            </Link>
+            
+
             {/* Right side: User & Planner button */}
             <Stack__ as={"div"} className={sty["link-container-wrapper"]} hasGap={true}>
               <span className={sty["lang-switch-wrap"]}>
                 {["de", "en", "el"].map((lng, idx, arr) => ( 
                   <React.Fragment key={lng}> 
                     <Link 
-                      href={{ pathname: __nextRouter?.pathname || "/", query: __nextRouter?.query }} 
+                      href={{ pathname: __nextRouter?.pathname || "/user", query: __nextRouter?.query }} 
                       as={__nextRouter?.asPath} 
                       locale={lng} 
                       className={ 
@@ -140,10 +159,48 @@ function PlasmicHeader__RenderFunc(props) {
               >
                 ?
               </button>
-              <Stack__
+              {/* city selection */}
+              <div className={sty["city-button-wrapper"]}>
+                <button
+                  onClick={() => setShowCityMenu(prev => !prev)}
+                  className={sty["city-button"]}
+                  title="Select City"
+                >
+                  <img
+                    src="/plasmic/saa_s_website/images/select_city.png"  // ← 你要的 PNG 路径
+                    alt="Select Map"
+                    className={sty["city-icon"]}
+                  />
+                </button>
+
+                {showCityMenu && (
+                  <div className={sty["city-dropdown"]}>
+                    {cities.map(city => (
+                      <div
+                        key={city.id}
+                        className={sty["city-item"]}
+                        onClick={() => {
+                          setShowCityMenu(false);
+                          if (city.id !== "hamburg") {
+                            alert(`Sorry, ${city.name} map is still under construction.`);
+                            return;
+                          }
+                          localStorage.setItem("selectedCity", city.id);
+                          localStorage.setItem("selectedCityCenter", JSON.stringify(city.center));
+                          window.location.href = `/user?city=${city.id}`;
+                        }}
+                      >
+                        {city.name}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* <Stack__
                 as={Link}
-                href={`/`}
-                className={`${sty["link__container"]} ${currentPath === "/" ? sty["active"] : ""}`}
+                href={`/user`}
+                className={`${sty["link__container"]} ${currentPath === "/user" ? sty["active"] : ""}`}
               >
                 <div>{t('header_user')}</div>
               </Stack__>
@@ -154,7 +211,7 @@ function PlasmicHeader__RenderFunc(props) {
                 className={`${sty["link__container"]} ${currentPath === "/planner" ? sty["active"] : ""}`}
               >
                 <div>{t('header_planner')}</div>
-              </Stack__>
+              </Stack__> */}
             </Stack__>
 
           </Stack__>
