@@ -7,11 +7,14 @@ const pool = new Pool({
 });
 
 export default async function handler(req, res) { 
-const { lat, lon, time, speed } = req.query;
+const { lat, lon, time, speed, n } = req.query;
 
 const walkingTime = parseFloat(time) || 15; // minutes
 const walkingSpeed = parseFloat(speed) || 5; // km/h
 const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
+
+const nInt = Number.parseInt(n, 10);
+const nWeights = Number.isFinite(nInt) && nInt > 0 ? nInt : 1; //number of weights, at least 1 as default
 
   if (!lat || !lon) {
     return res.status(400).json({ error: "Missing lat/lon" });
@@ -43,7 +46,6 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
     const stationVariable = parseFloat(req.query.station) || 1.0;
     const wcDisabledVariable = parseFloat(req.query.wcDisabled) || 1.0;
     const narrowRoadsVariable = parseFloat(req.query.narrowRoads) || 1.0;
-    const rampVariable = parseFloat(req.query.ramp) || 1.0;
     const stairVariable = parseFloat(req.query.stair) || 1.0; 
     const obstacleVariable = parseFloat(req.query.obstacle) || 1.0;
     const slopeVariable = parseFloat(req.query.slope) || 1.0;
@@ -69,29 +71,30 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
         SELECT edge
         FROM pgr_drivingDistance(
           'SELECT gid AS id, source, target, 
-            cost / (
-              CASE WHEN noise_weight = 0 THEN ' || $3 || ' ELSE 1 END *
-              CASE WHEN light_weight = 0 THEN ' || $4 || ' ELSE 1 END *
-              CASE WHEN crossing_weight = 1 THEN ' || $5 || ' ELSE 1 END *
-              CASE WHEN tactile_weight = 0 THEN ' || $6 || ' ELSE 1 END *
-              CASE WHEN tree_weight = 0 THEN ' || $7 || ' ELSE 1 END *
-              CASE WHEN temp_weight_s = 1 THEN ' || $8 || ' ELSE 1 END *
-              CASE WHEN temp_weight_w = 1 THEN ' || $9 || ' ELSE 1 END *
-              CASE WHEN blue_weight = 0 THEN ' || $10 || ' ELSE 1 END *
-              CASE WHEN green_weight = 0 THEN ' || $11 || ' ELSE 1 END *
-              CASE WHEN station_weight = 0 THEN ' || $12 || ' ELSE 1 END *
-              CASE WHEN wc_d_weight = 0 THEN ' || $13 || ' ELSE 1 END *
-              CASE WHEN path_width_weight = 1 THEN ' || $14 || ' ELSE 1 END *
-              CASE WHEN ramp_weight = 0 THEN ' || $15 || ' ELSE 1 END *
-              CASE WHEN stair_weight = 1 THEN ' || $16 || ' ELSE 1 END * 
-              CASE WHEN obstacle_weight = 1 THEN ' || $17 || ' ELSE 1 END *
-              CASE WHEN slope_weight = 1 THEN ' || $18 || ' ELSE 1 END *
-              CASE WHEN uneven_surfaces_weight = 1 THEN ' || $19 || ' ELSE 1 END *
-              CASE WHEN poor_pavement_weight = 1 THEN ' || $20 || ' ELSE 1 END *
-              CASE WHEN kerbs_h_weight = 1 THEN ' || $21 || ' ELSE 1 END *
-              CASE WHEN facilities_weight = 0 THEN ' || $22 || ' ELSE 1 END *
-              CASE WHEN pedestrian_flow_weight = 1 THEN ' || $23 || ' ELSE 1 END
-            ) AS cost
+            cost / GREATEST(
+              POWER((
+                CASE WHEN noise_weight = 0 THEN ' || $3 || ' ELSE 1 END *
+                CASE WHEN light_weight = 0 THEN ' || $4 || ' ELSE 1 END *
+                CASE WHEN crossing_weight = 1 THEN ' || $5 || ' ELSE 1 END *
+                CASE WHEN tactile_weight = 0 THEN ' || $6 || ' ELSE 1 END *
+                CASE WHEN tree_weight = 0 THEN ' || $7 || ' ELSE 1 END *
+                CASE WHEN temp_weight_s = 1 THEN ' || $8 || ' ELSE 1 END *
+                CASE WHEN temp_weight_w = 1 THEN ' || $9 || ' ELSE 1 END *
+                CASE WHEN blue_weight = 0 THEN ' || $10 || ' ELSE 1 END *
+                CASE WHEN green_weight = 0 THEN ' || $11 || ' ELSE 1 END *
+                CASE WHEN station_weight = 0 THEN ' || $12 || ' ELSE 1 END *
+                CASE WHEN wc_d_weight = 0 THEN ' || $13 || ' ELSE 1 END *
+                CASE WHEN path_width_weight = 1 THEN ' || $14 || ' ELSE 1 END *
+                CASE WHEN stair_weight = 1 THEN ' || $15 || ' ELSE 1 END * 
+                CASE WHEN obstacle_weight = 1 THEN ' || $16 || ' ELSE 1 END *
+                CASE WHEN slope_weight = 1 THEN ' || $17 || ' ELSE 1 END *
+                CASE WHEN uneven_surfaces_weight = 1 THEN ' || $18 || ' ELSE 1 END *
+                CASE WHEN poor_pavement_weight = 1 THEN ' || $19 || ' ELSE 1 END *
+                CASE WHEN kerbs_h_weight = 1 THEN ' || $20 || ' ELSE 1 END *
+                CASE WHEN facilities_weight = 0 THEN ' || $21 || ' ELSE 1 END *
+                CASE WHEN pedestrian_flow_weight = 1 THEN ' || $22 || ' ELSE 1 END
+              ), 1.0 / ' || $23 || '),
+            1e-6) AS cost
           FROM hh_ways',
           $1::integer,
           $2::float,
@@ -112,7 +115,6 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
         stationVariable,
         wcDisabledVariable,
         narrowRoadsVariable,
-        rampVariable,
         stairVariable, 
         obstacleVariable,
         slopeVariable,
@@ -120,7 +122,8 @@ const maxDistance = (walkingSpeed * 1000 * walkingTime) / 60; // units in meters
         poorPavementVariable,
         kerbsHighVariable,
         facilityVariable,
-        pedestrianFlowVariable]);
+        pedestrianFlowVariable,
+        nWeights]);
       
  
     const geojson = result.rows[0].geojson;

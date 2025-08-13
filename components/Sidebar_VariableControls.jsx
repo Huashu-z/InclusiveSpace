@@ -169,7 +169,6 @@ export default function VariableControls({
           {renderCheckbox("station", t('checkbox_station'))}
           {renderCheckbox("narrowRoads", t('checkbox_narrow'))}
           {renderCheckbox("wcDisabled", t('checkbox_wc'))}
-          {renderCheckbox("ramp", t('checkbox_ramp'))}
           {renderCheckbox("stair", t('checkbox_stair'))} 
           {renderCheckbox("obstacle", t('checkbox_obstacle'))}
           {renderCheckbox("slope", t('checkbox_slope'))}

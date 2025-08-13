@@ -176,9 +176,7 @@ const MapComponent = ({
         station: selected.includes("station") ? variableSettings.station ?? 1 : 1,
         wcDisabled: selected.includes("wcDisabled") ? variableSettings.wcDisabled ?? 1 : 1,
         narrowRoads: selected.includes("narrowRoads") ? variableSettings.narrowRoads ?? 1 : 1,
-        ramp: selected.includes("ramp") ? variableSettings.ramp ?? 1 : 1,
         stair: selected.includes("stair") ? variableSettings.stair ?? 1 : 1,
-        elevator: selected.includes("elevator") ? variableSettings.elevator ?? 1 : 1,
         obstacle: selected.includes("obstacle") ? variableSettings.obstacle ?? 1 : 1,
         slope: selected.includes("slope") ? variableSettings.slope ?? 1 : 1,
         unevenSurface: selected.includes("unevenSurface") ? variableSettings.unevenSurface ?? 1 : 1,
@@ -187,6 +185,7 @@ const MapComponent = ({
         facility: selected.includes("facility") ? variableSettings.facility ?? 1 : 1,
         pedestrianFlow: selected.includes("pedestrianFlow") ? variableSettings.pedestrianFlow ?? 1 : 1
       });
+      params.append("n", Math.max(1, selected.length));
       const res = await fetch(`/api/accessibility?${params}`);
       if (!res.ok) throw new Error("API call failed");
       return await res.json();

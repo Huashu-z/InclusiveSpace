@@ -82,13 +82,6 @@ export function getStyle(layer, feature) {
         opacity: 0.9
       };
     
-    case "hh_accessible_ramp":
-      return {
-        color: "#61916e", 
-        weight: 2,
-        opacity: 0.9
-      };
-
     case "hh_stair":
       return {
         color: "#91744a", 

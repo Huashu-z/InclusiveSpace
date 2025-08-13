@@ -20,7 +20,6 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
     hh_temp_summer: t('display_summer_heat'),
     hh_temp_winter: t('display_winter_cold'),
     hh_sidewalk_narrow: t('display_narrow'),
-    hh_accessible_ramp: t('display_ramp'),
     hh_stair: t('display_stair'), 
     hh_obstacle: t('display_obstacle'),
     hh_slope: t('display_slope'),

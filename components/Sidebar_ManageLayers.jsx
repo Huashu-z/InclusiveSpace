@@ -54,7 +54,6 @@ export default function MapLayers({ selectedLayers, toggleLayer }) {
           {renderCheckbox("hh_transport_station_wms", t('display_station'))}
           {renderCheckbox("hh_sidewalk_narrow", t('display_narrow'))}
           {renderCheckbox("hh_wc_disabled", t('display_wc'))} 
-          {renderCheckbox("hh_accessible_ramp", t('display_ramp'))}
           {renderCheckbox("hh_stair", t('display_stair'))}
           {renderCheckbox("hh_obstacle", t('display_obstacle'))}
           {renderCheckbox("hh_slope", t('display_slope'))}
