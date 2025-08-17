@@ -2,6 +2,35 @@
   "header_tool_instruction": "Werkzeuganleitung",
   "header_user": "Nutzer",
   "header_planner": "Planer",
+
+  "landing_banner_title": "Was ist das?",
+  "landing_banner_intro": "CAT (Comfort-based Accessibility Tool) unterstützt Sie dabei, fußläufige Bereiche nicht nur nach Zeit und Geschwindigkeit, sondern auch nach wahrgenommenen Komfortfaktoren zu erkunden – wie Lärm, Beleuchtung, Querungen, Tastbelag, Baumschatten und mehr. Wählen Sie einen Startpunkt, passen Sie an, was Ihnen wichtig ist, und sehen Sie, wie sich der erreichbare Bereich verändert.",
+  "landing_banner_contact_caption": "Interessieren Sie sich dafür, das Tool für Ihre Stadt zu nutzen?",
+  "landing_banner_contact_btn": "Kontaktieren Sie uns!",
+  "landing_banner_share_btn": "Teilen Sie uns Ihre Meinung mit",
+  "landing_city_hamburg": "Hamburg",
+  "landing_city_hamburg_desc": "Als zweitgrößte Stadt Deutschlands vereint Hamburg historische Hafenlandschaften mit vielfältigen, fußläufigen Stadtvierteln und einem modernen öffentlichen Verkehrssystem.",
+  "landing_city_penteli": "Penteli",
+  "landing_city_penteli_desc": "Penteli, nördlich von Athen, bietet grüne Wohngebiete und hügeliges Gelände, was die Zugänglichkeit und städtische Mobilität einzigartig prägt.",
+  "landing_details_title": "Details zum Tool",
+  "landing_details_blocks": [
+    "Das Comfort-based Accessibility Tool (CAT) wurde an der Technischen Universität München entwickelt, um datenbasierte, menschenzentrierte Stadtplanung zu unterstützen.",
+    "Wichtige Funktionen: CAT integriert Reisezeit, Gehgeschwindigkeit und verschiedene Komfortfaktoren – darunter Lärm, Beleuchtung, Grünflächen, Querungen und Oberflächenbeschaffenheit – um dynamische, personalisierte Fußläufigkeitsanalysen und Isochronen-Karten zu erstellen. Nutzende können interaktiv auswählen, welche Faktoren für sie wichtig sind, und sehen, wie sich ihr Erreichbarkeitsbereich in Echtzeit verändert.",
+    "Zielgruppen: CAT richtet sich an Stadtplaner:innen, Mobilitätsforscher:innen, Entscheidungsträger:innen und Gemeinschaftsorganisationen, die die städtische Zugänglichkeit und den Fußwegkomfort verbessern wollen.",
+    "Vorteile: Die Plattform ermöglicht Szenariotests, Beteiligung von Interessengruppen und eine transparente Kommunikation von Herausforderungen in der Fußläufigkeit und dient so als praxisnahes Entscheidungsunterstützungstool für inklusive, resiliente Stadtentwicklung."
+  ],
+  "landing_general_title": "Allgemeine Informationen",
+  "landing_general_blocks": [
+    "InclusiveSpaces wird von der Europäischen Union gefördert. Das Projekt widmet sich der inklusiven Gestaltung, Überwachung und Bewertung urbaner Räume. Durch Co-Design-Konzepte und die direkte Einbindung von Menschen mit Behinderungen und älteren Erwachsenen fördert das Projekt sozialen Zusammenhalt und unterstützt die Anpassung an den Klimawandel.",
+    "InclusiveSpaces entwickelt innovative Planungswerkzeuge und Assistenztechnologien auf Basis universeller Designprinzipien, stärkt unterschiedliche Nutzergruppen und fördert klimafreundliche Ansätze. Die Lösungen werden in sechs europäischen Städten demonstriert und evaluiert: Athen-Penteli, Genf, Madrid, Larnaka, Hamburg und Budapest."
+  ],
+  "landing_contact_title": "Kontakt:",
+  "landing_contact_duran": "Dr.-Ing. David Duran",
+  "landing_contact_buettner": "Dr.-Ing. Benjamin Büttner",
+  "landing_contact_zuckriegl": "M.Sc. Lea Zuckriegl",
+  "landing_contact_zuniga": "M.Sc. Maria Jose Zuniga",
+  "landing_city_not_ready": "Entschuldigung, die Karte von {{city}} ist noch in Bearbeitung.",
+
   "modal_help_title": "Willkommen beim komfortbasierten Erreichbarkeits-Tool!",
   "modal_help_intro": "Dieses Tool hilft dir dabei, die Begehbarkeit eines Ortes anhand deiner Komfortvorlieben zu erkunden.",
   "modal_howto_title": "So geht's:",

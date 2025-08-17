@@ -125,7 +125,7 @@ function PlasmicHeader__RenderFunc(props) {
             <Link href={`/`}>
               <div className={sty["center-logo"]}>
                 <img
-                  src="/plasmic/saa_s_website/images/CAT_logo.png"  // ← 替换为你的主 Logo 路径
+                  src="/plasmic/saa_s_website/images/CAT_logo_blue.svg"  // ← 替换为你的主 Logo 路径
                   alt="Tool Logo"
                   className={sty["CAT-logo"]}
                 />

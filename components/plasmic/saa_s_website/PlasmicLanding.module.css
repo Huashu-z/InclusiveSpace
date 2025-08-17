@@ -27,18 +27,11 @@
   margin-top: 20px;
 }
 
-.cityCard {
-  width: 120px;
-  height: 120px;
-  border: 2px solid #cbd5e1;
-  border-radius: 8px;
+.cityCard { 
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  flex-shrink: 0;
+  flex-direction: column;
+  align-items: center; /* 让内容水平居中 */
+  position: relative;
 }
 
 .cityCard:hover {
@@ -48,37 +41,341 @@
 .cityCardActive {
   border: 3px solid #173F5F;
   box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4);
+} 
+
+/* === Banner Area === */
+.banner {
+  width: 100%;
+  background: #174060;
+  color: #ffffff;
 }
 
-.cityLogo {
-  max-width: 80px;
-  max-height: 80px;
-  object-fit: contain;
+.bannerInner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr; /* 左右两列，右列先留空 */
+  gap: 20px;
 }
 
-.cityName {
-  margin-top: 8px;
-  font-weight: 400;
-  font-size: 1rem;
-  color: #1e293b;
-  text-align: center;
+/* 左侧纵向堆叠：logo -> 介绍卡片 -> 联系我们 */
+.bannerLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
 }
 
-.bigButton {
-  padding: 16px 32px;
-  font-size: 1.25rem;
-  background-color: #ffffff;
-  color: #173F5F;
-  border: 2px solid #173F5F;
-  border-radius: 10px;
-  font-weight: 700;
+/* 让 logo 与下方介绍卡片“等宽”：用同一个包裹宽度 */
+.brandWrap {
+  width: min(460px, 100%);
+}
+
+/* 顶部 CAT 白色标题 */
+.catTitleImg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 介绍文字框（与上方 logo 同宽） */
+.introCard {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px dashed rgba(255, 255, 255, 0.35);
+  border-radius: 12px;
+  padding: 16px 18px;
+}
+
+.introHeading {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  margin: 0 0 8px;
+}
+
+.introText {
+  font-size: 16px;
+  margin: 0;
+  line-height: 1.6;
+  color: #deefff; /* 更柔和的白 */
+}
+
+/* Contact us 按钮区（同宽） */
+.contactWrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center; 
+  text-align: center;  
+}
+
+.contactCaption {
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+.contactBtn {
+  width: fit-content;
+  background: #ffffff;
+  color: #174060;
+  font-weight: 800;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 16px;
   cursor: pointer;
-  margin-top: 40px;
-  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4);
-  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(14, 30, 70, 0.25);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.contactBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(14, 30, 70, 0.35);
 }
 
-.bigButton:hover {
-  background-color: #ebebeb;
-  box-shadow: 0 6px 14px #173F5F(37, 99, 235, 0.6);
+/* 移动端：左右两列变一列、居中展示 */
+@media (max-width: 900px) {
+  .bannerInner {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .bannerLeft {
+    align-items: center;
+    text-align: center;
+  }
+  .contactWrap {
+    align-items: center;
+  }
+}
+/* ===== 右侧城市卡区域 ===== */
+.cityCol {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+}
+
+/* 单个城市卡：左圆右矩形 */
+.cityCardRow {
+  position: relative;               /* 允许子元素绝对定位 */
+  display: flex;
+  flex-direction: row;
+  align-items: center; 
+  justify-content: flex-start;
+  width: 100%; 
+  gap: 16px;
+  /* background: rgba(255,255,255,0.06); */
+  /* border: 2px solid rgba(255,255,255,0.25); */
+  border-radius: 12px;
+  padding: 14px 16px;     /* 顶部会被圆形覆盖，不用太大内边距 */
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+}
+.cityCardRow:hover {
+  transform: translateY(-1px);
+  border-color: #72e3cd;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+}
+
+/* 左侧圆形缩略图（“气泡”） */
+.cityCircleLabel {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  color: #174060;           /* 深蓝色或你喜欢的对比色 */
+  font-weight: 900;
+  font-size: 22px;;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 10px rgba(255,255,255,0.6);
+  pointer-events: none;     /* 避免遮挡点击 */
+}
+.cityCircle {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  min-width: 180px;
+  min-height: 180px;
+  border-radius: 50%;
+  border: 6px solid #72e3cd;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  z-index: 2;            /* 在信息框之上 */
+  margin-right: -70px;
+}
+.cityThumb {
+  width: 82%;
+  height: 82%;
+  object-fit: cover;      /* 图片填满圆形 */
+}
+
+/* 右侧矩形信息块 */
+.cityRect {
+  position: relative;
+  z-index: 1;                            /* 在圆形之下 */
+  min-height: 105px;
+  width: 100%;
+  border-radius: 10px;
+  background: #cdd5df;
+  border: 6px solid #72e3cd;        /* 同款薄荷绿边框 */
+  display: flex;
+  align-items: center;
+  color: #0e2741;
+  font-weight: 400;
+  letter-spacing: .2px;
+  padding: 14px 16px 14px 65px; /* 给左侧留位 */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05); /* 轻微浮起感 */
+}
+
+/* 右侧下方：Share your thoughts（与左侧 Contact 同风格） */
+.feedbackWrap {
+  margin-top: 14px;
+  /* background: rgba(255,255,255,0.05); */
+  /* border: 2px dashed rgba(255,255,255,0.35); */
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.feedbackBtn {
+  width: fit-content;
+  background: #ffffff;
+  color: #174060;
+  font-weight: 800;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(14, 30, 70, 0.25);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.feedbackBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(14, 30, 70, 0.35);
+}
+
+/* 移动端：给城市卡更友好的间距 */
+@media (max-width: 900px) {
+  .cityCardRow {
+    position: relative;               /* 允许子元素绝对定位 */
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+    justify-content: flex-start;
+    width: 80%; 
+    gap: 16px;
+    /* background: rgba(255,255,255,0.06); */
+    /* border: 2px solid rgba(255,255,255,0.25); */
+    border-radius: 12px;
+    padding: 14px 16px;     /* 顶部会被圆形覆盖，不用太大内边距 */
+    cursor: pointer;
+    transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+  }
+  .cityCircle {
+    width: 120px;
+    height: 120px;
+    border-width: 6px;
+  }
+  .cityRect {
+    border-width: 6px;
+    padding: 14px 16px 14px 65px;
+  }
+}
+
+/* === Tool Details Section === */
+.toolDetailsSection {
+  width: 100%;
+  /* background: #51ccad; */
+  padding: 48px 0 40px 0;
+  display: flex;
+  justify-content: left;
+}
+
+.toolDetailsInner {
+  width: 95%;
+  margin: 0 auto;
+  padding: 0 24px;
+  text-align: left;
+}
+
+.toolDetailsTitle {
+  color: #174060;
+  font-size: 22px;
+  font-weight: 900;
+  margin-bottom: 16px;
+  letter-spacing: 0.2px;
+}
+
+.toolDetailsText {
+  font-size: 16px;
+  line-height: 1.7;
+  width: 90%;
+  margin: 0 auto;
+}
+
+/* === General Info === */
+.generalInfoSection {
+  background: #fff;
+  padding: 48px 0 40px 0;
+  display: flex;
+  justify-content: left;
+}
+
+.generalInfoInner {
+  width: 95%;
+  margin: 0 auto;
+  padding: 0 24px;
+  text-align: left;
+}
+
+.generalInfoTitle {
+  color: #174060;
+  font-size: 22px;
+  font-weight: 900;
+  margin-bottom: 16px;
+  letter-spacing: 0.2px;
+}
+
+.generalInfoText {
+  /* color: #135b45; */
+  width: 90%;
+  font-size: 16px;
+  line-height: 1.7;
+  margin: 0 auto 24px auto;
+}
+
+.partnerLogos {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 32px auto 0 auto;
+  /* gap: 100px; */
+  align-items: center;
+  width: 90%;
+}
+
+.partnerLogos img {
+  max-height: 56px;
+  width: auto;
+  background: #fff;
+  /* border-radius: 8px; */
+  /* box-shadow: 0 2px 8px rgba(30,64,96,0.10); */
+  padding: 6px 12px;
+}
+
+.contactInfoBlock {
+  margin-top: 32px;
+  margin-bottom: 50px;
+  /* color: #135b45; */
+  font-size: 16px;
+  text-align: left;
+  line-height: 1.7;
+}
+.contactInfoBlock a {
+  color: #174060;
+  text-decoration: underline;
+  word-break: break-all;
 }

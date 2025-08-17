@@ -2,6 +2,35 @@
   "header_tool_instruction": "Tool Instruction",
   "header_user": "User",
   "header_planner": "Planner",
+
+  "landing_banner_title": "What is it?",
+  "landing_banner_intro": "CAT (Comfort-based Accessibility Tool) helps you explore walkable areas not only by time and speed, but also by perceived comfort factors—such as noise, lighting, crossings, tactile paving, tree shade, and more. Pick a start point, tune what matters to you, and see how the reachable area changes.",
+  "landing_banner_contact_caption": "Are you interested in having the tool for your city?",
+  "landing_banner_contact_btn": "Contact us!",
+  "landing_banner_share_btn": "Share your thoughts",
+  "landing_city_hamburg": "Hamburg",
+  "landing_city_hamburg_desc": "Germany’s second-largest city, Hamburg combines historic port landscapes with diverse, walkable urban districts and advanced public transport.",
+  "landing_city_penteli": "Penteli",
+  "landing_city_penteli_desc": "Overlooking Athens, Penteli features green residential areas and hilly terrain, shaping its unique accessibility and urban mobility.",
+  "landing_details_title": "Details about the tool",
+  "landing_details_blocks": [
+    "The Comfort-based Accessibility Tool (CAT) was developed at the Technical University of Munich to support data-driven, human-centered urban planning.",
+    "Key Features: CAT integrates travel time, walking speed, and a range of comfort factors—including noise, lighting, greenery, crossings, and surface quality—to generate dynamic, personalized walkability analyses and isochrone maps. Users can interactively select which factors matter most, and see how their accessibility area changes in real time.",
+    "Intended Users: CAT is designed for city planners, mobility researchers, policymakers, and community organizations aiming to improve urban accessibility and pedestrian comfort.",
+    "Advantages: The platform allows for scenario testing, stakeholder participation, and transparent communication of walkability challenges, making it a practical decision-support tool for inclusive, resilient urban development."
+  ],
+  "landing_general_title": "General information",
+  "landing_general_blocks": [
+    "InclusiveSpaces is funded by the European Union. It's a project dedicated to inclusive design, monitoring, and evaluation of urban spaces. By introducing co-design concepts and directly engaging people with disabilities and older adults, the project fosters social cohesion and supports climate adaptation.",
+    "InclusiveSpaces develops innovative planning tools and assistive technologies rooted in universal design principles, empowering diverse user groups and advancing climate-friendly practices. These solutions are demonstrated and evaluated in six European cities: Athens-Penteli, Geneva, Madrid, Larnaka, Hamburg, and Budapest."
+  ],
+  "landing_contact_title": "Contact:",
+  "landing_contact_duran": "Dr.-Ing. David Duran",
+  "landing_contact_buettner": "Dr.-Ing. Benjamin Büttner",
+  "landing_contact_zuckriegl": "M.Sc. Lea Zuckriegl",
+  "landing_contact_zuniga": "M.Sc. Maria Jose Zuniga",
+  "landing_city_not_ready": "Sorry, {{city}} map is still under construction.",
+
   "modal_help_title": "Welcome to the Comfort-Based Accessibility Tool!",
   "modal_help_intro": "This tool helps you explore how walkable a location is based on your comfort preferences.",
   "modal_howto_title": "How to use it:",
