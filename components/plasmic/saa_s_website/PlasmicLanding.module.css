@@ -313,6 +313,7 @@
   line-height: 1.7;
   width: 90%;
   margin: 0 auto;
+  color: #135b45; 
 }
 
 /* === General Info === */
@@ -339,7 +340,7 @@
 }
 
 .generalInfoText {
-  /* color: #135b45; */
+  color: #135b45;
   width: 90%;
   font-size: 16px;
   line-height: 1.7;

@@ -184,6 +184,7 @@ export default function PlasmicLanding() {
               {t('landing_contact_buettner')} (<a href="mailto:benjamin.buettner@tum.de">benjamin.buettner@tum.de</a>)<br />
               {t('landing_contact_zuckriegl')} (<a href="mailto:lea.zuckriegl@tum.de">lea.zuckriegl@tum.de</a>)<br />
               {t('landing_contact_zuniga')} (<a href="mailto:mariajose.zuniga@tum.de">mariajose.zuniga@tum.de</a>)<br />
+              {t('landing_contact_huashu')} (<a href="mailto:huashuzhan@tum.de">huashu.zhan@tum.de</a>)<br />
             </div>
           </div>
           

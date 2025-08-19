@@ -4,7 +4,7 @@
   "header_planner": "Planer",
 
   "landing_banner_title": "Was ist das?",
-  "landing_banner_intro": "CAT (Comfort-based Accessibility Tool) unterstützt Sie dabei, fußläufige Bereiche nicht nur nach Zeit und Geschwindigkeit, sondern auch nach wahrgenommenen Komfortfaktoren zu erkunden – wie Lärm, Beleuchtung, Querungen, Tastbelag, Baumschatten und mehr. Wählen Sie einen Startpunkt, passen Sie an, was Ihnen wichtig ist, und sehen Sie, wie sich der erreichbare Bereich verändert.",
+  "landing_banner_intro": "CAT (Comfort-based Accessibility Tool) unterstützt Sie dabei, fußläufige Bereiche nicht nur nach Zeit und Geschwindigkeit, sondern auch nach wahrgenommenen Komfortfaktoren zu erkunden, wie Lärm, Beleuchtung, Querungen, Tastbelag, Baumschatten und mehr. Wählen Sie einen Startpunkt, passen Sie an, was Ihnen wichtig ist, und sehen Sie, wie sich der erreichbare Bereich verändert.",
   "landing_banner_contact_caption": "Interessieren Sie sich dafür, das Tool für Ihre Stadt zu nutzen?",
   "landing_banner_contact_btn": "Kontaktieren Sie uns!",
   "landing_banner_share_btn": "Teilen Sie uns Ihre Meinung mit",
@@ -29,6 +29,7 @@
   "landing_contact_buettner": "Dr.-Ing. Benjamin Büttner",
   "landing_contact_zuckriegl": "M.Sc. Lea Zuckriegl",
   "landing_contact_zuniga": "M.Sc. Maria Jose Zuniga",
+  "landing_contact_huashu": "B.Sc. Huashu Zhan",
   "landing_city_not_ready": "Entschuldigung, die Karte von {{city}} ist noch in Bearbeitung.",
 
   "modal_help_title": "Willkommen beim komfortbasierten Erreichbarkeits-Tool!",

@@ -4,7 +4,7 @@
   "header_planner": "Planner",
 
   "landing_banner_title": "What is it?",
-  "landing_banner_intro": "CAT (Comfort-based Accessibility Tool) helps you explore walkable areas not only by time and speed, but also by perceived comfort factors—such as noise, lighting, crossings, tactile paving, tree shade, and more. Pick a start point, tune what matters to you, and see how the reachable area changes.",
+  "landing_banner_intro": "CAT (Comfort-based Accessibility Tool) helps you explore walkable areas not only by time and speed, but also by perceived comfort factors, such as noise, lighting, crossings, tactile paving, tree shade, and more. Pick a start point, tune what matters to you, and see how the reachable area changes.",
   "landing_banner_contact_caption": "Are you interested in having the tool for your city?",
   "landing_banner_contact_btn": "Contact us!",
   "landing_banner_share_btn": "Share your thoughts",
@@ -29,6 +29,7 @@
   "landing_contact_buettner": "Dr.-Ing. Benjamin Büttner",
   "landing_contact_zuckriegl": "M.Sc. Lea Zuckriegl",
   "landing_contact_zuniga": "M.Sc. Maria Jose Zuniga",
+  "landing_contact_huashu": "B.Sc. Huashu Zhan",
   "landing_city_not_ready": "Sorry, {{city}} map is still under construction.",
 
   "modal_help_title": "Welcome to the Comfort-Based Accessibility Tool!",
