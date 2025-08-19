@@ -186,6 +186,10 @@ const MapComponent = ({
         pedestrianFlow: selected.includes("pedestrianFlow") ? variableSettings.pedestrianFlow ?? 1 : 1
       });
       params.append("n", Math.max(1, selected.length));
+
+      const city = (typeof window !== "undefined" && (localStorage.getItem("selectedCity") || "hamburg")) || "hamburg";
+      params.append("city", city);
+
       const res = await fetch(`/api/accessibility?${params}`);
       if (!res.ok) throw new Error("API call failed");
       return await res.json();
@@ -530,7 +534,7 @@ const MapComponent = ({
         </div>
       )}
 
-      <MapContainer center={cityCenter} zoom={13} style={{ width: "100%", height: "100vh" }}>
+      <MapContainer center={cityCenter} zoom={15} style={{ width: "100%", height: "100vh" }}>
         <Pane name="highlight-pane" style={{ zIndex: 650 }} />
         <TileLayer
           //different base map

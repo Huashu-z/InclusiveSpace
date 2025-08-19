@@ -72,8 +72,7 @@ function PlasmicHeader__RenderFunc(props) {
   const [showHelp, setShowHelp] = React.useState(false);
 
   const cities = [
-    { id: "hamburg", name: "Hamburg", center: [53.5503, 9.9920] },
-    { id: "aachen", name: "Aachen", center: [50.7753, 6.0839] },
+    { id: "hamburg", name: "Hamburg", center: [53.5503, 9.9920] }, 
     { id: "penteli", name: "Penteli", center: [38.0491, 23.8653] }
   ];
   const [showCityMenu, setShowCityMenu] = React.useState(false);
@@ -181,10 +180,10 @@ function PlasmicHeader__RenderFunc(props) {
                         className={sty["city-item"]}
                         onClick={() => {
                           setShowCityMenu(false);
-                          if (city.id !== "hamburg") {
-                            alert(`Sorry, ${city.name} map is still under construction.`);
-                            return;
-                          }
+                          // if (city.id !== "hamburg") {
+                          //   alert(`Sorry, ${city.name} map is still under construction.`);
+                          //   return;
+                          // }
                           localStorage.setItem("selectedCity", city.id);
                           localStorage.setItem("selectedCityCenter", JSON.stringify(city.center));
                           window.location.href = `/user?city=${city.id}`;

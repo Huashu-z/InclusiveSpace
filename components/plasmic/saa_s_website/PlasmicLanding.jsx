@@ -20,10 +20,10 @@ export default function PlasmicLanding() {
     if (!selected) return;
 
     // temporary, other cities not yet finished
-    if (selected.id !== "hamburg") {
-        alert(`Sorry, ${selected.name} map is still under construction.`);
-        return;
-    }
+    // if (selected.id !== "hamburg") {
+    //     alert(`Sorry, ${selected.name} map is still under construction.`);
+    //     return;
+    // }
 
     localStorage.setItem("selectedCity", selectedCity);
     localStorage.setItem("selectedCityCenter", JSON.stringify(selected.center));
@@ -119,11 +119,18 @@ export default function PlasmicLanding() {
               {/* === City: Penteli（未完成 -> 弹窗提示） === */}
               <div
                 className={sty.cityCardRow}
+                // onClick={() => {
+                //   alert("Penteli map is still under construction.");
+                // }}
                 onClick={() => {
-                  alert("Penteli map is still under construction.");
+                  // 进入 Penteli
+                  localStorage.setItem("selectedCity", "penteli");
+                  localStorage.setItem("selectedCityCenter", JSON.stringify([38.0491, 23.8653]));
+                  window.location.href = "/user?city=penteli";
                 }}
                 role="button"
-                aria-label="Penteli map (under construction)"
+                // aria-label="Penteli map (under construction)"
+                aria-label="Enter Penteli map"
               >
                 <div className={sty.cityCircle}>
                   <span className={sty.cityCircleLabel}>{t('landing_city_penteli')}</span>

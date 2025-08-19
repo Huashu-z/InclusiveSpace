@@ -7,7 +7,15 @@ const pool = new Pool({
 });
 
 export default async function handler(req, res) { 
-const { lat, lon, time, speed, n } = req.query;
+const { lat, lon, time, speed, n, city } = req.query;
+const cityId = (city || "hamburg").toLowerCase();
+
+let waysTable = "hh_ways";
+let verticesTable = "hh_ways_vertices_pgr";
+if (cityId === "penteli") {
+  waysTable = "pt_ways";
+  verticesTable = "pt_ways_vertices_pgr";
+}
 
 const walkingTime = parseFloat(time) || 15; // minutes
 const walkingSpeed = parseFloat(speed) || 5; // km/h
@@ -24,7 +32,7 @@ const nWeights = Number.isFinite(nInt) && nInt > 0 ? nInt : 1; //number of weigh
     // Step 1: find the nearest vertex ID to the user
     const nearestVertexResult = await pool.query(`
       SELECT id
-      FROM hh_ways_vertices_pgr
+      FROM ${verticesTable}
       ORDER BY the_geom <-> ST_SetSRID(ST_MakePoint($1, $2), 4326)
       LIMIT 1;
     `, [lon, lat]);
@@ -66,7 +74,7 @@ const nWeights = Number.isFinite(nInt) && nInt > 0 ? nInt : 1; //number of weigh
           )
         )
       ) AS geojson
-      FROM hh_ways w
+      FROM ${waysTable} w
       WHERE gid IN (
         SELECT edge
         FROM pgr_drivingDistance(
@@ -95,7 +103,7 @@ const nWeights = Number.isFinite(nInt) && nInt > 0 ? nInt : 1; //number of weigh
                 CASE WHEN pedestrian_flow_weight = 1 THEN ' || $22 || ' ELSE 1 END
               ), 1.0 / ' || $23 || '),
             1e-6) AS cost
-          FROM hh_ways',
+          FROM ${waysTable}',
           $1::integer,
           $2::float,
           false::boolean
