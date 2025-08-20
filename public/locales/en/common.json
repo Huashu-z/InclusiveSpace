@@ -11,18 +11,17 @@
   "landing_city_hamburg": "Hamburg",
   "landing_city_hamburg_desc": "Germany’s second-largest city, Hamburg combines historic port landscapes with diverse, walkable urban districts and advanced public transport.",
   "landing_city_penteli": "Penteli",
-  "landing_city_penteli_desc": "Overlooking Athens, Penteli features green residential areas and hilly terrain, shaping its unique accessibility and urban mobility.",
-  "landing_details_title": "Details about the tool",
+  "landing_city_penteli_desc": "Overlooking Athens, Penteli features green residential areas and hilly terrain, shaping its unique accessibility and urban mobility.", 
   "landing_details_blocks": [
-    "The Comfort-based Accessibility Tool (CAT) was developed at the Technical University of Munich to support data-driven, human-centered urban planning.",
-    "Key Features: CAT integrates travel time, walking speed, and a range of comfort factors—including noise, lighting, greenery, crossings, and surface quality—to generate dynamic, personalized walkability analyses and isochrone maps. Users can interactively select which factors matter most, and see how their accessibility area changes in real time.",
-    "Intended Users: CAT is designed for city planners, mobility researchers, policymakers, and community organizations aiming to improve urban accessibility and pedestrian comfort.",
-    "Advantages: The platform allows for scenario testing, stakeholder participation, and transparent communication of walkability challenges, making it a practical decision-support tool for inclusive, resilient urban development."
+    "With a design-for-all approach, the project InclusiveSpaces is designing, monitoring, and evaluating urban spaces to ensure they are inclusive, accessible, and climate adaptive.",
+    "By introducing co-design accessibility concepts, we engage people with in vulnerable situations to enhance inclusiveness, social cohesion, and climate change mitigation and adaptation.",
+    "InclusiveSpaces is an initiative to standardise and digitise design frameworks towards a transition to an inclusive and climate-friendly built environment."
   ],
+  "landing_visit_inclusive": "Visit the InclusiveSpaces website!",
   "landing_general_title": "General information",
   "landing_general_blocks": [
-    "InclusiveSpaces is funded by the European Union. It's a project dedicated to inclusive design, monitoring, and evaluation of urban spaces. By introducing co-design concepts and directly engaging people with disabilities and older adults, the project fosters social cohesion and supports climate adaptation.",
-    "InclusiveSpaces develops innovative planning tools and assistive technologies rooted in universal design principles, empowering diverse user groups and advancing climate-friendly practices. These solutions are demonstrated and evaluated in six European cities: Athens-Penteli, Geneva, Madrid, Larnaka, Hamburg, and Budapest."
+    "InclusiveSpaces is a Horizon Europe project supported by the European Commission under Grant Agreement No. 101147881. The UK participants in this project are co-funded by the UK. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or European Climate, Infrastructure and Environment Executive Agency (CINEA). Neither the European Union nor the granting authority can be held responsible for them.",
+    "The InclusiveSpaces project is funded under the framework of the Built4People partnership."
   ],
   "landing_contact_title": "Contact:",
   "landing_contact_duran": "Dr.-Ing. David Duran",

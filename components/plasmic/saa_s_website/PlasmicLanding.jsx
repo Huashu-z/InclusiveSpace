@@ -67,19 +67,7 @@ export default function PlasmicLanding() {
               <div className = {sty.contactWrap}>
                 <div className={sty.contactCaption}>
                   {t('landing_banner_contact_caption')}
-                </div>
-                <button
-                  className={sty.contactBtn}
-                  onClick={() => {
-                    const block = document.getElementById('contact-info');
-                    if (block) {
-                      block.scrollIntoView({ behavior: 'smooth' });
-                    }
-                  }}
-                  aria-label="Contact us about deploying CAT in your city"
-                >
-                  {t('landing_banner_contact_btn')}
-                </button>
+                </div> 
               </div>
             </div>
           </div>
@@ -104,7 +92,7 @@ export default function PlasmicLanding() {
                 <div className={sty.cityCircle}>
                   <span className={sty.cityCircleLabel}>{t('landing_city_hamburg')}</span>
                   <img
-                    src="/plasmic/saa_s_website/images/hamburg_map_logo.png"
+                    src="/plasmic/saa_s_website/images/hamburg_map.png"
                     alt="Hamburg preview"
                     className={sty.cityThumb}
                   />
@@ -135,7 +123,7 @@ export default function PlasmicLanding() {
                 <div className={sty.cityCircle}>
                   <span className={sty.cityCircleLabel}>{t('landing_city_penteli')}</span>
                   <img
-                    src="/plasmic/saa_s_website/images/penteli_map_logo.png"
+                    src="/plasmic/saa_s_website/images/penteli_map.png"
                     alt="Penteli preview"
                     className={sty.cityThumb}
                   />
@@ -147,44 +135,98 @@ export default function PlasmicLanding() {
                 </div>
               </div>
 
-              {/* === Share your thoughts === */}
-              <div className={sty.feedbackWrap}>
-                <button
-                  className={sty.feedbackBtn}
-                  onClick={() =>
-                    alert("Feature under construction.")
-                  }
-                  aria-label="Share your thoughts"
-                >
-                  {t('landing_banner_share_btn')}
-                </button>
-              </div>
-
             </div>
+          </div>
+        </div>
+        <div className={sty.bannerBtnRow}>
+          {/* Contact us */}
+          <div className={sty.bannerBtnCol}>
+            {/* <div className={sty.contactCaption}>{t('landing_banner_contact_caption')}</div> */}
+            <button
+              className={sty.contactBtn}
+              onClick={() => {
+                const block = document.getElementById('contact-info');
+                if (block) block.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
+              {t('landing_banner_contact_btn')}
+            </button>
+          </div>
+
+          {/* Share your thoughts */}
+          <div className={sty.bannerBtnCol}>
+            <button
+              className={sty.feedbackBtn}
+              onClick={() => alert(t('feature_under_construction'))}
+            >
+              {t('landing_banner_share_btn')}
+            </button>
           </div>
         </div>
       </section> 
 
       {/* === Details about CAT === */}
       <section className={sty.toolDetailsSection}>
+        <h2 className={sty.toolDetailsTitle}>{t('landing_general_title')}</h2>
         <div className={sty.toolDetailsInner}>
-          <h2 className={sty.toolDetailsTitle}>{t('landing_details_title')}</h2>
-          <div className={sty.toolDetailsText}>
-            {t("landing_details_blocks", { returnObjects: true }).map((p, idx) => (
-              <p key={idx}>{p}</p>
-            ))}
+          {/* 左侧 logo */}
+          <div className={sty.toolDetailsLogoWrap}>
+            <img
+              src="/plasmic/saa_s_website/images/logoIS2.png"
+              alt="InclusiveSpaces Logo"
+              className={sty.toolDetailsLogo}
+            />
           </div>
+          {/* 右侧文字与按钮 */}
+          <div className={sty.toolDetailsRight}>
+            <div className={sty.toolDetailsText}>
+              {t("landing_details_blocks", { returnObjects: true }).map((p, idx) => (
+                <p key={idx}>{p}</p>
+              ))}
+            </div>
+            <button
+              className={sty.toolDetailsBtn}
+              onClick={() => {
+                window.open("https://inclusivespaces-heproject.eu/", "_blank");
+              }}
+            >
+              {t('landing_visit_inclusive')}
+            </button>
+          </div>
+        </div>
+        {/* general information section 2 */}
+        <div className={sty.toolDetailsInner}>
+          {/* 左侧文字与按钮 */}
+          <div className={sty.toolDetailsRight}>
+            <div className={sty.toolDetailsText}>
+              {t("landing_general_blocks", { returnObjects: true }).map((p, idx) => (
+                <p key={idx}>{p}</p>
+              ))}
+            </div>
+          </div>
+          {/* 右侧 logo *2 */}
+          <div className={sty.toolDetailsLogoWrap}>
+            <img
+              src="/plasmic/saa_s_website/images/logo_co-founded-eu_full.png"
+              alt="InclusiveSpaces Logo"
+              className={sty.toolDetailsLogo}
+            />
+          </div>
+          <div className={sty.toolDetailsLogoWrap}>
+            <img
+              src="/plasmic/saa_s_website/images/build4people_logo.png"
+              alt="InclusiveSpaces Logo"
+              className={sty.toolDetailsLogo}
+            />
+          </div>
+          
         </div>
       </section>
 
       {/* === General information === */}
       <section className={sty.generalInfoSection}>
-        <div className={sty.generalInfoInner}>
-          <h2 className={sty.generalInfoTitle}>{t('landing_general_title')}</h2>
-          <div className={sty.generalInfoText}>
-            {t("landing_general_blocks", { returnObjects: true }).map((p, idx) => (
-              <p key={idx}>{p}</p>
-            ))}
+        <div className={sty.generalInfoInner}> 
+          <div className={sty.generalInfoText}> 
             <div id="contact-info" className={sty.contactInfoBlock}>
               <b>{t('landing_contact_title')}</b><br />
               {t('landing_contact_duran')} (<a href="mailto:david.duran@tum.de">david.duran@tum.de</a>)<br />

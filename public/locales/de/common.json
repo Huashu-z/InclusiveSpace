@@ -11,18 +11,17 @@
   "landing_city_hamburg": "Hamburg",
   "landing_city_hamburg_desc": "Als zweitgrößte Stadt Deutschlands vereint Hamburg historische Hafenlandschaften mit vielfältigen, fußläufigen Stadtvierteln und einem modernen öffentlichen Verkehrssystem.",
   "landing_city_penteli": "Penteli",
-  "landing_city_penteli_desc": "Penteli, nördlich von Athen, bietet grüne Wohngebiete und hügeliges Gelände, was die Zugänglichkeit und städtische Mobilität einzigartig prägt.",
-  "landing_details_title": "Details zum Tool",
+  "landing_city_penteli_desc": "Penteli, nördlich von Athen, bietet grüne Wohngebiete und hügeliges Gelände, was die Zugänglichkeit und städtische Mobilität einzigartig prägt.", 
   "landing_details_blocks": [
-    "Das Comfort-based Accessibility Tool (CAT) wurde an der Technischen Universität München entwickelt, um datenbasierte, menschenzentrierte Stadtplanung zu unterstützen.",
-    "Wichtige Funktionen: CAT integriert Reisezeit, Gehgeschwindigkeit und verschiedene Komfortfaktoren – darunter Lärm, Beleuchtung, Grünflächen, Querungen und Oberflächenbeschaffenheit – um dynamische, personalisierte Fußläufigkeitsanalysen und Isochronen-Karten zu erstellen. Nutzende können interaktiv auswählen, welche Faktoren für sie wichtig sind, und sehen, wie sich ihr Erreichbarkeitsbereich in Echtzeit verändert.",
-    "Zielgruppen: CAT richtet sich an Stadtplaner:innen, Mobilitätsforscher:innen, Entscheidungsträger:innen und Gemeinschaftsorganisationen, die die städtische Zugänglichkeit und den Fußwegkomfort verbessern wollen.",
-    "Vorteile: Die Plattform ermöglicht Szenariotests, Beteiligung von Interessengruppen und eine transparente Kommunikation von Herausforderungen in der Fußläufigkeit und dient so als praxisnahes Entscheidungsunterstützungstool für inklusive, resiliente Stadtentwicklung."
+    "Mit einem Universal Design Ansatz entwirft, überwacht und bewertet das Projekt InclusiveSpaces städtische Räume, um sicherzustellen, dass sie inklusiv, barrierefrei und klimafreundlich sind.",
+    "Durch die Einführung von Co-Design-Barrierefreiheitskonzepten beziehen wir Menschen in prekären Situationen ein, um Inklusion, sozialen Zusammenhalt sowie Klimaschutz und Anpassung an den Klimawandel zu fördern.",
+    "InclusiveSpaces ist eine Initiative zur Standardisierung und Digitalisierung von Design-Rahmenwerken für den Übergang zu einer inklusiven und klimafreundlichen gebauten Umwelt."
   ],
+  "landing_visit_inclusive": "Besuchen Sie die Website von InclusiveSpaces!",
   "landing_general_title": "Allgemeine Informationen",
   "landing_general_blocks": [
-    "InclusiveSpaces wird von der Europäischen Union gefördert. Das Projekt widmet sich der inklusiven Gestaltung, Überwachung und Bewertung urbaner Räume. Durch Co-Design-Konzepte und die direkte Einbindung von Menschen mit Behinderungen und älteren Erwachsenen fördert das Projekt sozialen Zusammenhalt und unterstützt die Anpassung an den Klimawandel.",
-    "InclusiveSpaces entwickelt innovative Planungswerkzeuge und Assistenztechnologien auf Basis universeller Designprinzipien, stärkt unterschiedliche Nutzergruppen und fördert klimafreundliche Ansätze. Die Lösungen werden in sechs europäischen Städten demonstriert und evaluiert: Athen-Penteli, Genf, Madrid, Larnaka, Hamburg und Budapest."
+    "InclusiveSpaces ist ein Projekt im Rahmen von Horizon Europe, das von der Europäischen Kommission unter der Fördervereinbarung Nr. 101147881 unterstützt wird. Die britischen Teilnehmer an diesem Projekt werden vom Vereinigten Königreich kofinanziert. Die geäußerten Ansichten und Meinungen sind jedoch ausschließlich die der Autoren und spiegeln nicht unbedingt die der Europäischen Union oder der Exekutivagentur für Klima, Infrastruktur und Umwelt (CINEA) wider. Weder die Europäische Union noch die Förderbehörde können dafür verantwortlich gemacht werden.",
+    "Das Projekt InclusiveSpaces wird im Rahmen der Built4People-Partnerschaft finanziert."
   ],
   "landing_contact_title": "Kontakt:",
   "landing_contact_duran": "Dr.-Ing. David Duran",
