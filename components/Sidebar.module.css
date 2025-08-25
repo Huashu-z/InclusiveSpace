@@ -273,6 +273,8 @@
     font-size: 14px;
     outline: none;
     background-color: #f5f8ff;
+    color: #173F5F; 
+    opacity: 1;
   }
 
   .search-button {

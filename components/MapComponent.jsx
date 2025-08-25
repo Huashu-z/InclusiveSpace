@@ -490,7 +490,7 @@ const MapComponent = ({
   };
 
   if (!MapModule || !MapModule.MapContainer) return null;
-  const { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMapEvents, Pane } = MapModule;
+  const { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMapEvents, useMap, Pane } = MapModule;
 
   // Listen for map click events
   // This component handles the click event on the map to select the starting point
@@ -508,6 +508,18 @@ const MapComponent = ({
     });
     return null;
   };
+
+  // zoom to selected start point
+  function AutoZoomToStart({ startPoints }) {
+    const map = useMap();
+    useEffect(() => {
+      if (startPoints.length > 0) {
+        const [lon, lat] = startPoints[startPoints.length - 1];
+        map.setView([lat, lon], 16); // 17: zoom level
+      }
+    }, [startPoints, map]);
+    return null;
+  }
 
   return (
     <div className="mapBox" style={{ position: "relative" }}>
@@ -536,6 +548,7 @@ const MapComponent = ({
 
       <MapContainer center={cityCenter} zoom={15} style={{ width: "100%", height: "100vh" }}>
         <Pane name="highlight-pane" style={{ zIndex: 650 }} />
+        <AutoZoomToStart startPoints={startPoints} />
         <TileLayer
           //different base map
 
