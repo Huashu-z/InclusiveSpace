@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Sidebar.module.css"; 
-import { isWmsLayer, getStyle, layerGroupMap } from "./LayerManager";
+import { isWmsLayer, getStyle, layerGroupMap } from "./LayerStyleManager";
 import { useTranslation } from 'next-i18next';
  
 
@@ -8,26 +8,26 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
   const { t } = useTranslation("common");
   // Label display name mapping
   const displayNames = {
-    hh_noise_wms: t('display_noise'),
-    hh_tree_wms: t('display_tree'),
-    hh_trafic_light_wms: t('display_traffic'),
-    hh_streetlight: t('display_light'),
-    hh_tactile_guidance: t('display_tactile'),
-    hh_blue_infrastructure: t('display_blue_inf'),
-    hh_green_infrastructure: t('display_green_inf'),
-    hh_transport_station_wms: t('display_station'),
-    hh_wc_disabled: t('display_wc'),
-    hh_temp_summer: t('display_summer_heat'),
-    hh_temp_winter: t('display_winter_cold'),
-    hh_sidewalk_narrow: t('display_narrow'),
-    hh_stair: t('display_stair'), 
-    hh_obstacle: t('display_obstacle'),
-    hh_slope: t('display_slope'),
-    hh_uneven_surfaces: t('display_uneven'),
-    hh_poor_pavement: t('display_pavement'),
-    hh_kerbs_high: t('display_kerb_high'),
-    hh_facility_wms: t('display_facility'),
-    hh_pedestrian_flow_wms: t('display_pedestrian_flow'),
+    noise_wms: t('display_noise'),
+    tree_wms: t('display_tree'),
+    trafic_light_wms: t('display_traffic'),
+    streetlight: t('display_light'),
+    tactile_guidance: t('display_tactile'),
+    blue_infrastructure: t('display_blue_inf'),
+    green_infrastructure: t('display_green_inf'),
+    transport_station_wms: t('display_station'),
+    wc_disabled: t('display_wc'),
+    temp_summer: t('display_summer_heat'),
+    temp_winter: t('display_winter_cold'),
+    sidewalk_narrow: t('display_narrow'),
+    stair: t('display_stair'), 
+    obstacle: t('display_obstacle'),
+    slope: t('display_slope'),
+    uneven_surfaces: t('display_uneven'),
+    poor_pavement: t('display_pavement'),
+    kerbs_high: t('display_kerb_high'),
+    facility_wms: t('display_facility'),
+    pedestrian_flow_wms: t('display_pedestrian_flow'),
   };
 
   //color mapping for geojson layers
@@ -48,41 +48,41 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
 
   // specific color palettes for temperature layers
   const tempPalette = {
-    hh_temp_summer: ["#ffaaaa", "#ff5555", "#ff0000"], // comfort → hot
-    hh_temp_winter: ["#afd1e7", "#3e8ec4", "#08306b"]  // comfort → cold
+    temp_summer: ["#ffaaaa", "#ff5555", "#ff0000"], // comfort → hot
+    temp_winter: ["#afd1e7", "#3e8ec4", "#08306b"]  // comfort → cold
   };
 
   const tempLabels = {
-    hh_temp_summer: [t('layertag_temp_summer_0'), t('layertag_temp_summer_1'), t('layertag_temp_summer_2')],
-    hh_temp_winter: [t('layertag_temp_winter_0'), t('layertag_temp_winter_1'), t('layertag_temp_winter_2')]
+    temp_summer: [t('layertag_temp_summer_0'), t('layertag_temp_summer_1'), t('layertag_temp_summer_2')],
+    temp_winter: [t('layertag_temp_winter_0'), t('layertag_temp_winter_1'), t('layertag_temp_winter_2')]
   };
 
   const flowPalette = {
-    hh_pedestrian_flow_wms: ["#4b5fd1", "#eccf46", "#b31e0c"] // low → high pedestrian flow
+    pedestrian_flow_wms: ["#4b5fd1", "#eccf46", "#b31e0c"] // low → high pedestrian flow
   };
 
   const flowLabels = {
-    hh_pedestrian_flow_wms: [t('layertag_flow_low'), t('layertag_flow_medium'), t('layertag_flow_high')]
+    pedestrian_flow_wms: [t('layertag_flow_low'), t('layertag_flow_medium'), t('layertag_flow_high')]
   };
 
   // icon for wms layers
   const iconUrls = {
-    hh_tree_wms: [
+    tree_wms: [
       "/plasmic/saa_s_website/images/tree_completed.png",
       "/plasmic/saa_s_website/images/tree_plan.png",
       "/plasmic/saa_s_website/images/tree_unassigned.png"
     ],
-    hh_trafic_light_wms: ["/plasmic/saa_s_website/images/traffic-light.png"],
-    hh_blue_infrastructure: [
+    trafic_light_wms: ["/plasmic/saa_s_website/images/traffic-light.png"],
+    blue_infrastructure: [
       "/plasmic/saa_s_website/images/blue_brackish.png",
       "/plasmic/saa_s_website/images/blue_lake.png",
       "/plasmic/saa_s_website/images/blue_waterbody.png",
       "/plasmic/saa_s_website/images/blue_spring.png",
       "/plasmic/saa_s_website/images/blue_hydraulic.png"
     ],
-    hh_transport_station_wms: ["/plasmic/saa_s_website/images/transport-station.png"],
-    hh_wc_disabled: ["/plasmic/saa_s_website/images/wc.png"],
-    hh_facility_wms: [
+    transport_station_wms: ["/plasmic/saa_s_website/images/transport-station.png"],
+    wc_disabled: ["/plasmic/saa_s_website/images/wc.png"],
+    facility_wms: [
       "/plasmic/saa_s_website/images/facility_culturcenter_burgerhaus.png",
       "/plasmic/saa_s_website/images/facility_film_theater.png",
       "/plasmic/saa_s_website/images/facility_museen.png",
@@ -93,27 +93,27 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
   };
 
   const wmsColorPalette = {
-    hh_green_infrastructure: ["#70A800", "#89CD66", "#898944", "#FFAA00", "#A83800", "#CA7AF5", "#00E6A9", "#828282"],
+    green_infrastructure: ["#70A800", "#89CD66", "#898944", "#FFAA00", "#A83800", "#CA7AF5", "#00E6A9", "#828282"],
   }
 
   const wmsLabels = {
-    hh_trafic_light_wms: [t('layertag_trafic_light')],
-    hh_tree_wms: [
+    trafic_light_wms: [t('layertag_trafic_light')],
+    tree_wms: [
       t('layertag_tree_0'),
       t('layertag_tree_1'),
       t('layertag_tree_2')
     ],
-    hh_blue_infrastructure: [
+    blue_infrastructure: [
       t('layertag_blue_0'),
       t('layertag_blue_1'),
       t('layertag_blue_2'),
       t('layertag_blue_3'),
       t('layertag_blue_4')
     ],
-    hh_temp_summer: [t('layertag_temp_summer_note')],
-    hh_temp_winter: [t('layertag_temp_winter_note')],
-    hh_transport_station_wms: [t('layertag_transport_station')],
-    hh_green_infrastructure: [
+    temp_summer: [t('layertag_temp_summer_note')],
+    temp_winter: [t('layertag_temp_winter_note')],
+    transport_station_wms: [t('layertag_transport_station')],
+    green_infrastructure: [
       t('layertag_green_0'),
       t('layertag_green_1'),
       t('layertag_green_2'),
@@ -123,7 +123,7 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
       t('layertag_green_6'),
       t('layertag_green_7')
     ],
-    hh_facility_wms: [
+    facility_wms: [
       t('layertag_facility_0'),
       t('layertag_facility_1'),
       t('layertag_facility_2'),

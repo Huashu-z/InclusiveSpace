@@ -2,6 +2,7 @@ import React from "react";
 import sty from "./Sidebar.module.css";
 import Tooltip from "./Sidebar_Tooltip";
 import { useTranslation } from 'next-i18next';
+import { cityLayerConfig } from "./cityVariableConfig";
 
 export default function VariableControls({
   enabledVariables,
@@ -16,6 +17,9 @@ export default function VariableControls({
   walkingTime,
   walkingSpeed
 }) {
+  const city = (typeof window !== "undefined" && (localStorage.getItem("selectedCity") || "hamburg")) || "hamburg";
+  const availableFeatures = cityLayerConfig[city]?.discomfortFeatures || [];
+
   const { t } = useTranslation("common");
   const weightLevels = [0.1, 0.4, 0.7]; //4 categories of comfort weights
   const weightLabels = ["❌","😩", "😐"];
@@ -145,9 +149,9 @@ export default function VariableControls({
           open={openCategory === "venv"}
           onClick={() => toggleCategory("venv")}
         >
-          {renderCheckbox("noise", t('checkbox_noise'))}
-          {renderCheckbox("temperatureSummer",  t('checkbox_temp_summer'))}
-          {renderCheckbox("temperatureWinter", t('checkbox_temp_winter'))}
+          {availableFeatures.includes("noise") && renderCheckbox("noise", t('checkbox_noise'))}
+          {availableFeatures.includes("temperatureSummer") && renderCheckbox("temperatureSummer",  t('checkbox_temp_summer'))}
+          {availableFeatures.includes("temperatureWinter") && renderCheckbox("temperatureWinter", t('checkbox_temp_winter'))}
         </Category>
 
         {/* Physical */}
@@ -160,21 +164,21 @@ export default function VariableControls({
           open={openCategory === "vphy"}
           onClick={() => toggleCategory("vphy")}
         >
-          {renderCheckbox("light", t('checkbox_light'))}
-          {renderCheckbox("trafficLight", t('checkbox_traffic'))}
-          {renderCheckbox("tactile_pavement", t('checkbox_tactile'))} 
-          {renderCheckbox("tree", t('checkbox_tree'))} 
-          {renderCheckbox("greeninf", t('checkbox_green'))}
-          {renderCheckbox("blueinf", t('checkbox_blue'))}
-          {renderCheckbox("station", t('checkbox_station'))}
-          {renderCheckbox("narrowRoads", t('checkbox_narrow'))}
-          {renderCheckbox("wcDisabled", t('checkbox_wc'))}
-          {renderCheckbox("stair", t('checkbox_stair'))} 
-          {renderCheckbox("obstacle", t('checkbox_obstacle'))}
-          {renderCheckbox("slope", t('checkbox_slope'))}
-          {renderCheckbox("unevenSurface", t('checkbox_uneven'))}
-          {renderCheckbox("poorPavement", t('checkbox_poor'))}
-          {renderCheckbox("kerbsHigh", t('checkbox_kerb'))}
+          {availableFeatures.includes("light") && renderCheckbox("light", t('checkbox_light'))}
+          {availableFeatures.includes("trafficLight") && renderCheckbox("trafficLight", t('checkbox_traffic'))}
+          {availableFeatures.includes("tactile_pavement") && renderCheckbox("tactile_pavement", t('checkbox_tactile'))} 
+          {availableFeatures.includes("tree") && renderCheckbox("tree", t('checkbox_tree'))} 
+          {availableFeatures.includes("greeninf") && renderCheckbox("greeninf", t('checkbox_green'))}
+          {availableFeatures.includes("blueinf") && renderCheckbox("blueinf", t('checkbox_blue'))}
+          {availableFeatures.includes("station") && renderCheckbox("station", t('checkbox_station'))}
+          {availableFeatures.includes("narrowRoads") && renderCheckbox("narrowRoads", t('checkbox_narrow'))}
+          {availableFeatures.includes("wcDisabled") && renderCheckbox("wcDisabled", t('checkbox_wc'))}
+          {availableFeatures.includes("stair") && renderCheckbox("stair", t('checkbox_stair'))} 
+          {availableFeatures.includes("obstacle") && renderCheckbox("obstacle", t('checkbox_obstacle'))}
+          {availableFeatures.includes("slope") && renderCheckbox("slope", t('checkbox_slope'))}
+          {availableFeatures.includes("unevenSurface") && renderCheckbox("unevenSurface", t('checkbox_uneven'))}
+          {availableFeatures.includes("poorPavement") && renderCheckbox("poorPavement", t('checkbox_poor'))}
+          {availableFeatures.includes("kerbsHigh") && renderCheckbox("kerbsHigh", t('checkbox_kerb'))}
         </Category>
 
         {/* Psychological */}
@@ -187,8 +191,8 @@ export default function VariableControls({
           open={openCategory === "vpsy"}
           onClick={() => toggleCategory("vpsy")}
         > 
-          {renderCheckbox("facility", t('checkbox_facility'))}
-          {renderCheckbox("pedestrianFlow", t('checkbox_crowd'))}
+          {availableFeatures.includes("facility") && renderCheckbox("facility", t('checkbox_facility'))}
+          {availableFeatures.includes("pedestrianFlow") && renderCheckbox("pedestrianFlow", t('checkbox_crowd'))}
         </Category> 
       </div>
 

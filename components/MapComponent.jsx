@@ -7,20 +7,13 @@ import * as turf from "@turf/turf";
 import proj4 from "proj4"; 
 import Legend from "./Legend";
 import sty from './MapComponent.module.css'; 
-import {getStyle, useCircleMarker,isWmsLayer, layerGroupMap, wmsLayerComponents} from "./LayerManager"; // Import the style functions 
+import {getStyle, useCircleMarker,isWmsLayer, layerGroupMap, wmsLayerComponents} from "./LayerStyleManager"; // Import the style functions 
 
 // Dynamic import for react-leaflet
 const MapLib = dynamic(
   () => import("react-leaflet"),
   { ssr: false }
-);
-
-//icon for start point, mark the position the user clicked
-// const customMarkerIcon = new L.Icon({
-//   iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
-//   iconSize: [32, 32],
-// });
-
+); 
 
 proj4.defs("EPSG:4326", "+proj=longlat +datum=WGS84 +no_defs");
 proj4.defs("EPSG:25832", "+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs");
@@ -139,11 +132,12 @@ const MapComponent = ({
         return layerGroupMap[layer] || [layer]; // Expand the tactile_guidance and other grouped layers
       });
 
+      const city = (typeof window !== "undefined" && (localStorage.getItem("selectedCity") || "hamburg")) || "hamburg";
       for (const layer of expandedLayers) {
         if (isWmsLayer(layer)) continue;
 
         try {
-          const res = await fetch(`/data/${layer}.geojson`);
+          const res = await fetch(`/data/${city}/${layer}.geojson`);
           const data = await res.json();
           newGeoJsonData[layer] = data;
         } catch (err) {
@@ -198,25 +192,7 @@ const MapComponent = ({
       return null;
     }
   };  
-
-  // load poi data
-  // useEffect(() => {
-  //   const loadFacilities = async () => {
-  //     try {
-  //       const res = await fetch("/data/hh_facilities.geojson");
-  //       const data = await res.json();
-  //       setGeoJsonData(prev => ({
-  //         ...prev,
-  //         hh_facilities: data
-  //       }));
-  //     } catch (err) {
-  //       console.error("Failed to load hh_facilities.geojson:", err);
-  //     }
-  //   };
-
-  //   loadFacilities();
-  // }, []); 
-  // console.log("POI features loaded:", geoJsonData["hh_facilities"]?.features?.length);
+ 
   useEffect(() => {
     const loadPOIGeoJsons = async () => {
       const poiLayers = [
@@ -306,23 +282,7 @@ const MapComponent = ({
           setDefaultResultCache(prev => ({ ...prev, [key]: { roads: defaultRes.roads, hull: cleaned, area: defaultArea } }));
           setReachableRoadsData(prev => [...prev, defaultRes.roads]);
           setReachableHullData(prev => [...prev, cleaned]);
-
-          // calculate the number of POI in the default hull
-          // let poiCount = 0;
-          // let poiCategoryCount = {};
-          // const poiLayer = geoJsonData["hh_facilities"];
-          // if (poiLayer && cleaned && cleaned.features.length > 0) {
-          //   const filteredPOI = poiLayer.features.filter(f => f.geometry.type === "Point");
-          //   const inAreaPOI = filteredPOI.filter(f =>
-          //     cleaned.features.some(area => turf.booleanPointInPolygon(f, area))
-          //   );
-          //   poiCount = inAreaPOI.length;
-          //   poiCategoryCount = inAreaPOI.reduce((acc, f) => {
-          //     const category = f.properties.layer || f.properties.category || "Unknown";
-          //     acc[category] = (acc[category] || 0) + 1;
-          //     return acc;
-          //   }, {});
-          // }
+ 
           const poiLayers = [
             "poi_hh_gastronomy",
             "poi_hh_haltstelle",
@@ -402,24 +362,7 @@ const MapComponent = ({
 
           setReachableRoadsData(prev => [...prev, weightedRes.roads]);
           setReachableHullData(prev => [...prev, cleaned2]);
-
-          // calculate the number of POI in the weighted hull
-          // let poiCount = 0;
-          // let poiCategoryCount = {};
-          // const poiLayer = geoJsonData["hh_facilities"];
-          // if (poiLayer && cleaned2 && cleaned2.features.length > 0) {
-          //   const filteredPOI = poiLayer.features.filter(f => f.geometry.type === "Point");
-          //   const inAreaPOI = filteredPOI.filter(f =>
-          //     cleaned2.features.some(area => turf.booleanPointInPolygon(f, area))
-          //   );
-          //   poiCount = inAreaPOI.length;
-
-          //   poiCategoryCount = inAreaPOI.reduce((acc, f) => {
-          //     const category = f.properties.layer || f.properties.category || "Unknown";
-          //     acc[category] = (acc[category] || 0) + 1;
-          //     return acc;
-          //   }, {});
-          // }
+ 
           const poiLayers = [
             "poi_hh_gastronomy",
             "poi_hh_haltstelle",

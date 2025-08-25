@@ -74,10 +74,11 @@ function PlasmicUser__RenderFunc(props) {
   }, []);
 
   React.useEffect(() => {
-    fetch("/data/layer-list.json")
+    const city = (typeof window !== "undefined" && (localStorage.getItem("selectedCity") || "hamburg")) || "hamburg";
+    fetch(`/data/${city}/layer-list.json`)
       .then((res) => res.json())
       .then(setAvailableLayers)
-      .catch((err) => console.error("Failed to load layer list:", err));
+      .catch((err) => setAvailableLayers([])); 
   }, []);
 
   const toggleCategory = (category) => {

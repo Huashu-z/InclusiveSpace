@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import sty from "./Sidebar.module.css";
 import { useTranslation } from 'next-i18next';
+import { cityLayerConfig } from "./cityVariableConfig";
 
 export default function MapLayers({ selectedLayers, toggleLayer }) {
+  const city = (typeof window !== "undefined" && (localStorage.getItem("selectedCity") || "hamburg")) || "hamburg";
+  const availableMapLayers = cityLayerConfig[city]?.mapLayers || [];
+
   const { t } = useTranslation("common");
   const [openCategory, setOpenCategory] = useState(null);
 
@@ -40,31 +44,31 @@ export default function MapLayers({ selectedLayers, toggleLayer }) {
       <div className={sty["faq-container"]}> 
         <Category name="env" label={t('env_category')}>
           {/* {renderCheckbox("noise_wms", t('display_noise'))} */}
-          {renderCheckbox("hh_temp_summer", t('display_summer_heat'))}
-          {renderCheckbox("hh_temp_winter", t('display_winter_cold'))}
+          {availableMapLayers.includes("temp_summer") && renderCheckbox("temp_summer", t('display_summer_heat'))}
+          {availableMapLayers.includes("temp_winter") && renderCheckbox("temp_winter", t('display_winter_cold'))}
         </Category>
 
         <Category name="phy" label={t('phy_category')}>
-          {renderCheckbox("hh_streetlight", t('display_light'))}
-          {renderCheckbox("hh_trafic_light_wms", t('display_traffic'))}
-          {renderCheckbox("hh_tactile_guidance", t('display_tactile'))}
-          {renderCheckbox("hh_tree_wms", t('display_tree'))}
-          {renderCheckbox("hh_green_infrastructure", t('display_green_inf'))}
-          {renderCheckbox("hh_blue_infrastructure", t('display_blue_inf'))}
-          {renderCheckbox("hh_transport_station_wms", t('display_station'))}
-          {renderCheckbox("hh_sidewalk_narrow", t('display_narrow'))}
-          {renderCheckbox("hh_wc_disabled", t('display_wc'))} 
-          {renderCheckbox("hh_stair", t('display_stair'))}
-          {renderCheckbox("hh_obstacle", t('display_obstacle'))}
-          {renderCheckbox("hh_slope", t('display_slope'))}
-          {renderCheckbox("hh_uneven_surfaces", t('display_uneven'))}
-          {renderCheckbox("hh_poor_pavement", t('display_pavement'))}
-          {renderCheckbox("hh_kerbs_high", t('display_kerb_high'))}
+          {availableMapLayers.includes("streetlight") && renderCheckbox("streetlight", t('display_light'))}
+          {availableMapLayers.includes("trafic_light_wms") && renderCheckbox("trafic_light_wms", t('display_traffic'))}
+          {availableMapLayers.includes("tactile_guidance") && renderCheckbox("tactile_guidance", t('display_tactile'))}
+          {availableMapLayers.includes("tree_wms") && renderCheckbox("tree_wms", t('display_tree'))}
+          {availableMapLayers.includes("green_infrastructure") && renderCheckbox("green_infrastructure", t('display_green_inf'))}
+          {availableMapLayers.includes("blue_infrastructure") && renderCheckbox("blue_infrastructure", t('display_blue_inf'))}
+          {availableMapLayers.includes("transport_station_wms") && renderCheckbox("transport_station_wms", t('display_station'))}
+          {availableMapLayers.includes("sidewalk_narrow") && renderCheckbox("sidewalk_narrow", t('display_narrow'))}
+          {availableMapLayers.includes("wc_disabled") && renderCheckbox("wc_disabled", t('display_wc'))} 
+          {availableMapLayers.includes("stair") && renderCheckbox("stair", t('display_stair'))}
+          {availableMapLayers.includes("obstacle") && renderCheckbox("obstacle", t('display_obstacle'))}
+          {availableMapLayers.includes("slope") && renderCheckbox("slope", t('display_slope'))}
+          {availableMapLayers.includes("uneven_surfaces") && renderCheckbox("uneven_surfaces", t('display_uneven'))}
+          {availableMapLayers.includes("poor_pavement") && renderCheckbox("poor_pavement", t('display_pavement'))}
+          {availableMapLayers.includes("kerbs_high") && renderCheckbox("kerbs_high", t('display_kerb_high'))}
         </Category>
 
         <Category name="psy" label={t('psy_category')}>
-          {renderCheckbox("hh_facility_wms", t('display_facility'))}
-          {renderCheckbox("hh_pedestrian_flow_wms", t('display_pedestrian_flow'))}
+          {availableMapLayers.includes("facility_wms") && renderCheckbox("facility_wms", t('display_facility'))}
+          {availableMapLayers.includes("pedestrian_flow_wms") && renderCheckbox("pedestrian_flow_wms", t('display_pedestrian_flow'))}
         </Category>
       </div>
     </div>

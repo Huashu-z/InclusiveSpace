@@ -49,11 +49,12 @@ function PlasmicPlanner__RenderFunc(props) {
   const [highlightedIndex, setHighlightedIndex] = React.useState(null);
 
   React.useEffect(() => {
-      fetch("/data/layer-list.json")
-        .then((res) => res.json())
-        .then(setAvailableLayers)
-        .catch((err) => console.error("Failed to load layer list:", err));
-    }, []);
+    const city = (typeof window !== "undefined" && (localStorage.getItem("selectedCity") || "hamburg")) || "hamburg";
+    fetch(`/data/${city}/layer-list.json`)
+      .then((res) => res.json())
+      .then(setAvailableLayers)
+      .catch((err) => setAvailableLayers([])); 
+  }, []);
 
   const toggleCategory = (category) => {
     setOpenCategory(openCategory === category ? null : category);
