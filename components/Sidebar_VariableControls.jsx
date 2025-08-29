@@ -23,6 +23,38 @@ export default function VariableControls({
   const { t } = useTranslation("common");
   const weightLevels = [0.1, 0.4, 0.7]; //4 categories of comfort weights
   const weightLabels = ["❌","😩", "😐"];
+
+  // 1. array of all features in categories
+  const envCheckboxes = [
+    availableFeatures.includes("noise") && renderCheckbox("noise", t('checkbox_noise')),
+    availableFeatures.includes("temperatureSummer") && renderCheckbox("temperatureSummer", t('checkbox_temp_summer')),
+    availableFeatures.includes("temperatureWinter") && renderCheckbox("temperatureWinter", t('checkbox_temp_winter'))
+  ].filter(Boolean);
+
+  const phyCheckboxes = [
+    availableFeatures.includes("light") && renderCheckbox("light", t('checkbox_light')),
+    availableFeatures.includes("trafficLight") && renderCheckbox("trafficLight", t('checkbox_traffic')),
+    availableFeatures.includes("tactile_pavement") && renderCheckbox("tactile_pavement", t('checkbox_tactile')),
+    availableFeatures.includes("tree") && renderCheckbox("tree", t('checkbox_tree')),
+    availableFeatures.includes("greeninf") && renderCheckbox("greeninf", t('checkbox_green')),
+    availableFeatures.includes("blueinf") && renderCheckbox("blueinf", t('checkbox_blue')),
+    availableFeatures.includes("station") && renderCheckbox("station", t('checkbox_station')),
+    availableFeatures.includes("narrowRoads") && renderCheckbox("narrowRoads", t('checkbox_narrow')),
+    availableFeatures.includes("wcDisabled") && renderCheckbox("wcDisabled", t('checkbox_wc')),
+    availableFeatures.includes("stair") && renderCheckbox("stair", t('checkbox_stair')),
+    availableFeatures.includes("obstacle") && renderCheckbox("obstacle", t('checkbox_obstacle')),
+    availableFeatures.includes("slope") && renderCheckbox("slope", t('checkbox_slope')),
+    availableFeatures.includes("unevenSurface") && renderCheckbox("unevenSurface", t('checkbox_uneven')),
+    availableFeatures.includes("poorPavement") && renderCheckbox("poorPavement", t('checkbox_poor')),
+    availableFeatures.includes("kerbsHigh") && renderCheckbox("kerbsHigh", t('checkbox_kerb'))
+  ].filter(Boolean);
+
+  const psyCheckboxes = [
+    availableFeatures.includes("facility") && renderCheckbox("facility", t('checkbox_facility')),
+    availableFeatures.includes("pedestrianFlow") && renderCheckbox("pedestrianFlow", t('checkbox_crowd'))
+  ].filter(Boolean);
+
+
   const renderCheckbox = (layer, label) => {
     const enabled = enabledVariables.includes(layer);
     const value = layerValues[layer];

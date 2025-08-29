@@ -236,6 +236,11 @@ const MapComponent = ({
         let defaultArea;
         let currentGroupIndex;
 
+        const city =
+          (typeof window !== "undefined" &&
+            (localStorage.getItem("selectedCity") || "hamburg")) || "hamburg";
+        const bufferDistance = city === "penteli" ? 0.1 : 0.02;
+
         // --------- Step 1: Default Reslut (only speed/time/start) ---------
         if (!defaultResultCache[key]) {
           const newGroupIndex = Object.keys(groupMapping).length + 1;
@@ -262,11 +267,6 @@ const MapComponent = ({
 
           const combined = turf.combine(fc);
           const simplified = turf.simplify(combined, { tolerance: 0.002, highQuality: false });
-          
-          const city =
-            (typeof window !== "undefined" &&
-              (localStorage.getItem("selectedCity") || "hamburg")) || "hamburg";
-          const bufferDistance = city === "penteli" ? 0.1 : 0.02;  
           
           const buffered = turf.buffer(simplified, bufferDistance, { units: "kilometers" });
           const cleaned = {
@@ -346,7 +346,7 @@ const MapComponent = ({
           const fc2 = turf.featureCollection(weightedRoads);
           const combined2 = turf.combine(fc2);
           const simplified2 = turf.simplify(combined2, { tolerance: 0.002, highQuality: false });
-          const buffered2 = turf.buffer(simplified2, 0.02, { units: "kilometers" });
+          const buffered2 = turf.buffer(simplified2, bufferDistance, { units: "kilometers" });
           const cleaned2 = {
             type: "FeatureCollection",
             features: buffered2.features.map(f => {

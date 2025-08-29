@@ -145,7 +145,7 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                 </div>
 
                 {/* Points of Interest Count */}
-                {entry.poiCount !== undefined && (
+                {entry.poiCount > 0 && (
                   <div style={{marginTop: 0}}>
                     <button
                       className={styles["toggle-button"]}
