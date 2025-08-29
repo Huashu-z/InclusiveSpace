@@ -81,7 +81,7 @@ const nWeights = Number.isFinite(nInt) && nInt > 0 ? nInt : 1; //number of weigh
           'SELECT gid AS id, source, target, 
             cost / GREATEST(
               POWER((
-                CASE WHEN noise_weight = 0 THEN ' || $3 || ' ELSE 1 END *
+                CASE WHEN noise_weight = 1 THEN ' || $3 || ' ELSE 1 END *
                 CASE WHEN light_weight = 0 THEN ' || $4 || ' ELSE 1 END *
                 CASE WHEN crossing_weight = 1 THEN ' || $5 || ' ELSE 1 END *
                 CASE WHEN tactile_weight = 0 THEN ' || $6 || ' ELSE 1 END *

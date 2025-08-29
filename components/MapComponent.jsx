@@ -260,7 +260,13 @@ const MapComponent = ({
 
           const combined = turf.combine(fc);
           const simplified = turf.simplify(combined, { tolerance: 0.002, highQuality: false });
-          const buffered = turf.buffer(simplified, 0.02, { units: "kilometers" });
+          
+          const city =
+            (typeof window !== "undefined" &&
+              (localStorage.getItem("selectedCity") || "hamburg")) || "hamburg";
+          const bufferDistance = city === "penteli" ? 0.1 : 0.02;  
+          
+          const buffered = turf.buffer(simplified, bufferDistance, { units: "kilometers" });
           const cleaned = {
             type: "FeatureCollection",
             features: buffered.features.map(f => {
