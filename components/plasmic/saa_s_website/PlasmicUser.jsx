@@ -61,6 +61,7 @@ function PlasmicUser__RenderFunc(props) {
   const [sidebarOpen, setSidebarOpen] = React.useState(true);
   const [highlightedIndex, setHighlightedIndex] = React.useState(null);
   const [cityCenter, setCityCenter] = React.useState([53.5503, 9.9920]); // hamburg as default
+  const [isSearchZoom, setIsSearchZoom] = React.useState(false);
 
   React.useEffect(() => {
     const storedCenter = localStorage.getItem("selectedCityCenter");
@@ -194,7 +195,9 @@ function PlasmicUser__RenderFunc(props) {
               onClearHandled={onClearHandled}
               layerValues={layerValues}
               highlightedIndex={highlightedIndex} 
-              setHighlightedIndex={setHighlightedIndex} 
+              setHighlightedIndex={setHighlightedIndex}
+              isSearchZoom={isSearchZoom}
+              setIsSearchZoom={setIsSearchZoom} 
             />
           </div>
           <Sidebar
@@ -221,6 +224,8 @@ function PlasmicUser__RenderFunc(props) {
             toggleCategory={toggleCategory}
             showInfo={showInfo}
             setShowInfo={setShowInfo}
+            isSearchZoom={isSearchZoom}
+            setIsSearchZoom={setIsSearchZoom}
           />
         </Stack__>
       </div>

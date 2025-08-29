@@ -38,6 +38,8 @@ const MapComponent = ({
   onFocusArea,
   highlightedIndex,
   setHighlightedIndex,
+  isSearchZoom, 
+  setIsSearchZoom,  
 }) => {
   const [MapModule, setMapModule] = useState(null);
   const [customMarkerIcon, setCustomMarkerIcon] = useState(null);
@@ -459,14 +461,15 @@ const MapComponent = ({
   };
 
   // zoom to selected start point
-  function AutoZoomToStart({ startPoints }) {
+  function AutoZoomToStart({ startPoints, isSearchZoom, setIsSearchZoom }) {
     const map = useMap();
     useEffect(() => {
-      if (startPoints.length > 0) {
+      if (isSearchZoom && startPoints.length > 0) {
         const [lon, lat] = startPoints[startPoints.length - 1];
-        map.setView([lat, lon], 16); // 17: zoom level
+        map.setView([lat, lon], 16);
+        setIsSearchZoom(false); // zoom 后重置标记
       }
-    }, [startPoints, map]);
+    }, [startPoints, isSearchZoom, setIsSearchZoom, map]);
     return null;
   }
 
@@ -497,7 +500,11 @@ const MapComponent = ({
 
       <MapContainer center={cityCenter} zoom={15} style={{ width: "100%", height: "100vh" }}>
         <Pane name="highlight-pane" style={{ zIndex: 650 }} />
-        <AutoZoomToStart startPoints={startPoints} />
+        <AutoZoomToStart
+          startPoints={startPoints}
+          isSearchZoom={isSearchZoom}
+          setIsSearchZoom={setIsSearchZoom}
+        />
         <TileLayer
           //different base map
 

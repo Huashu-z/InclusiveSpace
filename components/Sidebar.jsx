@@ -30,7 +30,9 @@ export default function Sidebar({
     openCategory,
     toggleCategory,
     showInfo,
-    setShowInfo
+    setShowInfo,
+    isSearchZoom,
+    setIsSearchZoom
   }) {
     return (
         <div
@@ -64,6 +66,8 @@ export default function Sidebar({
             // setComputeAccessibility={setComputeAccessibility}
             handleResetResults={handleResetResults}
             handleClearResult={handleClearResult}
+            isSearchZoom = {isSearchZoom}
+            setIsSearchZoom={setIsSearchZoom}
           />
   
           <VariableControls
@@ -88,6 +92,8 @@ export default function Sidebar({
             selectedLayers={selectedLayers}
             toggleLayer={toggleLayer}
             availableLayers={availableLayers}
+            isSearchZoom={isSearchZoom}
+            setIsSearchZoom={setIsSearchZoom}
           />
         </div>
       </div>

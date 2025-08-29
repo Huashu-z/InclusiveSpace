@@ -11,7 +11,8 @@ export default function AccessibilityControls({
   setWalkingSpeed,
   setSelectingStart, 
   handleResetResults,
-  setStartPoints
+  setStartPoints,
+  setIsSearchZoom, 
 }) {
   const { t } = useTranslation('common');
 
@@ -36,6 +37,7 @@ export default function AccessibilityControls({
     const coords = await geocodeAddress(address);
     if (coords) {
       setStartPoints([coords]);  // update start points with geocoded coordinates
+      setIsSearchZoom?.(true);
     } else {
       alert("Address not found, please try another.");
     }

@@ -47,6 +47,7 @@ function PlasmicPlanner__RenderFunc(props) {
   const [resetTrigger, setResetTrigger] = React.useState(false);
   const [sidebarOpen, setSidebarOpen] = React.useState(true);
   const [highlightedIndex, setHighlightedIndex] = React.useState(null);
+  const [isSearchZoom, setIsSearchZoom] = React.useState(false);
 
   React.useEffect(() => {
     const city = (typeof window !== "undefined" && (localStorage.getItem("selectedCity") || "hamburg")) || "hamburg";
@@ -161,6 +162,8 @@ function PlasmicPlanner__RenderFunc(props) {
               layerValues={layerValues}
               highlightedIndex={highlightedIndex} 
               setHighlightedIndex={setHighlightedIndex} 
+              isSearchZoom={isSearchZoom}
+              setIsSearchZoom={setIsSearchZoom}
             />
           </div>
 
@@ -187,6 +190,8 @@ function PlasmicPlanner__RenderFunc(props) {
             toggleCategory={toggleCategory}
             showInfo={showInfo}
             setShowInfo={setShowInfo}
+            isSearchZoom={isSearchZoom}
+            setIsSearchZoom={setIsSearchZoom}
           />
         </Stack__>
       </div>
