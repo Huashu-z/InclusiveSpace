@@ -13,8 +13,8 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
     trafic_light_wms: t('display_traffic'),
     streetlight: t('display_light'),
     tactile_guidance: t('display_tactile'),
-    blue_infrastructure: t('display_blue_inf'),
-    green_infrastructure: t('display_green_inf'),
+    blue_infrastructure_wms: t('display_blue_inf'),
+    green_infrastructure_wms: t('display_green_inf'),
     transport_station_wms: t('display_station'),
     wc_disabled: t('display_wc'),
     temp_summer: t('display_summer_heat'),
@@ -28,6 +28,11 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
     kerbs_high: t('display_kerb_high'),
     facility_wms: t('display_facility'),
     pedestrian_flow_wms: t('display_pedestrian_flow'),
+    trafic_light: t('display_traffic'),
+    green_infrastructure: t('display_green_inf'),
+    transport_station: t('display_station'),
+    facilities: t('display_facility'),
+    pedestrian_flow: t('display_pedestrian_flow'),
   };
 
   //color mapping for geojson layers
@@ -73,7 +78,7 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
       "/plasmic/saa_s_website/images/tree_unassigned.png"
     ],
     trafic_light_wms: ["/plasmic/saa_s_website/images/traffic-light.png"],
-    blue_infrastructure: [
+    blue_infrastructure_wms: [
       "/plasmic/saa_s_website/images/blue_brackish.png",
       "/plasmic/saa_s_website/images/blue_lake.png",
       "/plasmic/saa_s_website/images/blue_waterbody.png",
@@ -93,7 +98,7 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
   };
 
   const wmsColorPalette = {
-    green_infrastructure: ["#70A800", "#89CD66", "#898944", "#FFAA00", "#A83800", "#CA7AF5", "#00E6A9", "#828282"],
+    green_infrastructure_wms: ["#70A800", "#89CD66", "#898944", "#FFAA00", "#A83800", "#CA7AF5", "#00E6A9", "#828282"],
   }
 
   const wmsLabels = {
@@ -103,7 +108,7 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
       t('layertag_tree_1'),
       t('layertag_tree_2')
     ],
-    blue_infrastructure: [
+    blue_infrastructure_wms: [
       t('layertag_blue_0'),
       t('layertag_blue_1'),
       t('layertag_blue_2'),
@@ -113,7 +118,7 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
     temp_summer: [t('layertag_temp_summer_note')],
     temp_winter: [t('layertag_temp_winter_note')],
     transport_station_wms: [t('layertag_transport_station')],
-    green_infrastructure: [
+    green_infrastructure_wms: [
       t('layertag_green_0'),
       t('layertag_green_1'),
       t('layertag_green_2'),

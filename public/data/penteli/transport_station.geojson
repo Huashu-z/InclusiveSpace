@@ -1,0 +1,5293 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2025-08-25T10:37:03Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/294163742",
+        "bus": "yes",
+        "name": "ΝΑΥΤΙΚΗ ΒΑΣΗ",
+        "public_transport": "stop_position",
+        "ref": "550092"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8406143,
+          38.0458267
+        ]
+      },
+      "id": "node/294163742"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/365310982",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8413703,
+          38.0477416
+        ]
+      },
+      "id": "node/365310982"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/365310987",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8471528,
+          38.0521761
+        ]
+      },
+      "id": "node/365310987"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/365310994",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8540249,
+          38.0531301
+        ]
+      },
+      "id": "node/365310994"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/653316943",
+        "bus": "yes",
+        "name": "ΜΕΤΑΜΟΡΦΩΣΕΩΣ",
+        "public_transport": "stop_position",
+        "ref": "550035"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8421303,
+          38.0470602
+        ]
+      },
+      "id": "node/653316943"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/736968938",
+        "bus": "yes",
+        "name": "ΠΛΑΤΕΙΑ ΑΓΙΟΥ ΣΙΛΑ - ΤΕΡΜΑ 450",
+        "network": "ΟΣΥ",
+        "note": "446,450,451,530",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "stop_position",
+        "ref": "670009"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8583417,
+          38.0639896
+        ]
+      },
+      "id": "node/736968938"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/736968942",
+        "bus": "yes",
+        "name": "2η Αγίου Σίλα",
+        "network": "ΟΣΥ",
+        "note": "450,451,530",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8562784,
+          38.0623111
+        ]
+      },
+      "id": "node/736968942"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/737252888",
+        "bus": "yes",
+        "name": "ΙΟΥΣΤΙΝΙΑΝΟΥ",
+        "network": "ΟΣΥ",
+        "note": "450,451",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "stop_position",
+        "ref": "670032"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8592567,
+          38.0639901
+        ]
+      },
+      "id": "node/737252888"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/797375846",
+        "bus": "yes",
+        "name": "ΚΙΣΣΑΒΟΥ",
+        "public_transport": "stop_position",
+        "ref": "550066"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8433914,
+          38.038864
+        ]
+      },
+      "id": "node/797375846"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/938501946",
+        "bus": "yes",
+        "name": "ΘΕΑΤΡΟΥ",
+        "public_transport": "stop_position",
+        "ref": "550091"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8444192,
+          38.0480798
+        ]
+      },
+      "id": "node/938501946"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/938502372",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8387469,
+          38.0460542
+        ]
+      },
+      "id": "node/938502372"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/938502407",
+        "bus": "yes",
+        "name": "ΞΑΝΘΟΥ",
+        "public_transport": "stop_position",
+        "ref": "550090"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8423377,
+          38.0447966
+        ]
+      },
+      "id": "node/938502407"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/984772767",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8598478,
+          38.052414
+        ]
+      },
+      "id": "node/984772767"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1849640756",
+        "bench": "yes",
+        "bus": "yes",
+        "name": "2η ΝΟΣΟΚΟΜΕΙΟ ΠΑΙΔΩΝ",
+        "network": "ΟΣΥ",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "stop_position",
+        "ref": "720005",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.874215,
+          38.0528502
+        ]
+      },
+      "id": "node/1849640756"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786680541",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8731766,
+          38.0567105
+        ]
+      },
+      "id": "node/2786680541"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786680579",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΑΓΡΑΦΩΝ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8465518,
+          38.0422723
+        ]
+      },
+      "id": "node/2786680579"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786680689",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8370047,
+          38.044855
+        ]
+      },
+      "id": "node/2786680689"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786680690",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8369829,
+          38.0447254
+        ]
+      },
+      "id": "node/2786680690"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786681021",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΑΝΑΠΑΥΣΕΩΣ(ΤΕΡΜΑ)",
+        "public_transport": "platform",
+        "ref": "550089"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8474812,
+          38.0416759
+        ]
+      },
+      "id": "node/2786681021"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786681085",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΑΝΘΕΩΝ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8818619,
+          38.0366672
+        ]
+      },
+      "id": "node/2786681085"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786681131",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8345331,
+          38.0429521
+        ]
+      },
+      "id": "node/2786681131"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786681133",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8344191,
+          38.0429772
+        ]
+      },
+      "id": "node/2786681133"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786681514",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΑΦΕΤΗΡΙΑ 410-ΤΕΡΜΑ 405",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.841833,
+          38.065727
+        ]
+      },
+      "id": "node/2786681514"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786681790",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΑΧΕΛΩΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8528665,
+          38.0620013
+        ]
+      },
+      "id": "node/2786681790"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786681791",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΑΧΕΛΩΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8540577,
+          38.0630262
+        ]
+      },
+      "id": "node/2786681791"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786681856",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΒΑΛΤΕΤΣΙΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8347844,
+          38.0564244
+        ]
+      },
+      "id": "node/2786681856"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786681858",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΒΑΛΤΕΤΣΙΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8349536,
+          38.0564821
+        ]
+      },
+      "id": "node/2786681858"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786681964",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΒΙΓΛΑΣ",
+        "public_transport": "platform",
+        "wheelchair": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8398462,
+          38.0616514
+        ]
+      },
+      "id": "node/2786681964"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786682360",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΓΕΦΥΡΑ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.850523,
+          38.059151
+        ]
+      },
+      "id": "node/2786682360"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786682361",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΓΕΦΥΡΑ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8503421,
+          38.0595428
+        ]
+      },
+      "id": "node/2786682361"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786682432",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΓΕΦΥΡΑΚΙ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8299973,
+          38.0634235
+        ]
+      },
+      "id": "node/2786682432"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786682433",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΓΕΦΥΡΑΚΙ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8290558,
+          38.0639452
+        ]
+      },
+      "id": "node/2786682433"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786682528",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΓΗΠΕΔΟ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.882315,
+          38.037582
+        ]
+      },
+      "id": "node/2786682528"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786682600",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΓΟΥΝΑΡΗ",
+        "public_transport": "platform",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8409157,
+          38.0530491
+        ]
+      },
+      "id": "node/2786682600"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786682769",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΔΑΒΑΚΗ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8357268,
+          38.0607963
+        ]
+      },
+      "id": "node/2786682769"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786682772",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΔΑΒΑΚΗ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8343566,
+          38.0613796
+        ]
+      },
+      "id": "node/2786682772"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786682796",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΔΑΝΑΗΣ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8488823,
+          38.0343473
+        ]
+      },
+      "id": "node/2786682796"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786682797",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΔΑΝΑΗΣ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.849063,
+          38.0349177
+        ]
+      },
+      "id": "node/2786682797"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786683129",
+        "bench": "yes",
+        "bin": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "lit": "no",
+        "name": "ΔΙΑΣΤΑΥΡΩΣΗ ΜΕΛΙΣΣΙΩΝ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "451,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "640049",
+        "shelter": "yes",
+        "wheelchair": "limited"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8387067,
+          38.046198
+        ]
+      },
+      "id": "node/2786683129"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786683130",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΔΙΑΣΤΑΥΡΩΣΗ ΝΕΑΣ ΠΕΝΤΕΛΗΣ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "670001",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8549339,
+          38.0527811
+        ]
+      },
+      "id": "node/2786683130"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786683132",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΔΙΑΣΤΑΥΡΩΣΗ ΝΕΑΣ ΠΕΝΤΕΛΗΣ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "450,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "670002",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8540829,
+          38.0532259
+        ]
+      },
+      "id": "node/2786683132"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786683167",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8294873,
+          38.0391989
+        ]
+      },
+      "id": "node/2786683167"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786683170",
+        "bus": "yes",
+        "name": "ΔΙΑΣΤΑΥΡΩΣΗ ΣΙΣΜΑΝΟΓΛΕΙΟΥ",
+        "public_transport": "stop_position",
+        "ref": "550020"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8299112,
+          38.0396348
+        ]
+      },
+      "id": "node/2786683170"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786683196",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΔΙΑΣΤΑΥΡΩΣΗ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8856601,
+          38.0425664
+        ]
+      },
+      "id": "node/2786683196"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786683201",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΔΙΑΣΤΑΥΡΩΣΗ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8379467,
+          38.051572
+        ]
+      },
+      "id": "node/2786683201"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786683204",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΔΙΑΣΤΑΥΡΩΣΗ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8395292,
+          38.0522074
+        ]
+      },
+      "id": "node/2786683204"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786683252",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΔΙΟΣ",
+        "public_transport": "platform",
+        "ref": "550036"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8460611,
+          38.0427696
+        ]
+      },
+      "id": "node/2786683252"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786683253",
+        "bench": "no",
+        "bin": "no",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "lit": "no",
+        "name": "ΔΙΟΣ",
+        "public_transport": "platform",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8445754,
+          38.0434423
+        ]
+      },
+      "id": "node/2786683253"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786683758",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΕΡΜΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8474692,
+          38.0433703
+        ]
+      },
+      "id": "node/2786683758"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786683760",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΕΡΜΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8526577,
+          38.0620329
+        ]
+      },
+      "id": "node/2786683760"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786684045",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΕΥΡΥΑΛΗΣ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8311271,
+          38.0787862
+        ]
+      },
+      "id": "node/2786684045"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786684049",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΕΥΡΥΑΛΗΣ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8312811,
+          38.0788732
+        ]
+      },
+      "id": "node/2786684049"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786684302",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8759942,
+          38.0588532
+        ]
+      },
+      "id": "node/2786684302"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786684304",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8759926,
+          38.0589503
+        ]
+      },
+      "id": "node/2786684304"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786684412",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΗΣΙΟΔΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8510114,
+          38.038933
+        ]
+      },
+      "id": "node/2786684412"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786684414",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΗΣΙΟΔΟΥ",
+        "public_transport": "platform",
+        "wheelchair": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8513797,
+          38.0388222
+        ]
+      },
+      "id": "node/2786684414"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786684445",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΘΕΑΤΡΟΥ",
+        "public_transport": "platform",
+        "ref": "550091"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8444226,
+          38.0480626
+        ]
+      },
+      "id": "node/2786684445"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786684447",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΠΑΥΛΟΥ ΜΕΛΑ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "451,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "550012",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8471774,
+          38.052141
+        ]
+      },
+      "id": "node/2786684447"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786684449",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΜΗΤΣΟΣ - ΑΝΝΑ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "450,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "640021",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8464985,
+          38.0518834
+        ]
+      },
+      "id": "node/2786684449"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786684499",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΘΕΡΜΟΠΥΛΩΝ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "public_transport": "platform",
+        "ref": "550068"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8397832,
+          38.0381251
+        ]
+      },
+      "id": "node/2786684499"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786684512",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΘΕΤΙΔΟΣ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8290026,
+          38.0763259
+        ]
+      },
+      "id": "node/2786684512"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786684514",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΘΕΤΙΔΟΣ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8292404,
+          38.0766363
+        ]
+      },
+      "id": "node/2786684514"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786684910",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΚΑΛΑΜΠΟΚΗ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.830558,
+          38.0514414
+        ]
+      },
+      "id": "node/2786684910"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786684913",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΚΑΛΑΜΠΟΚΗ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8308419,
+          38.0515853
+        ]
+      },
+      "id": "node/2786684913"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786684920",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΚΑΛΕΡΓΗ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8326445,
+          38.052447
+        ]
+      },
+      "id": "node/2786684920"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786684944",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΚΑΛΛΙΠΟΛΕΩΣ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.838365,
+          38.0645972
+        ]
+      },
+      "id": "node/2786684944"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786684947",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΚΑΛΛΙΠΟΛΕΩΣ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8385776,
+          38.0646932
+        ]
+      },
+      "id": "node/2786684947"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786685383",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΚΙΣΣΑΒΟΥ",
+        "public_transport": "platform",
+        "ref": "550066"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8434493,
+          38.0388325
+        ]
+      },
+      "id": "node/2786685383"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786685827",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΚΥΠΡΟΥ",
+        "public_transport": "platform",
+        "ref": "550007",
+        "shelter": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8342063,
+          38.0335408
+        ]
+      },
+      "id": "node/2786685827"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786685998",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΛΕΥΚΗΣ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8507637,
+          38.0363387
+        ]
+      },
+      "id": "node/2786685998"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786685999",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΛΕΥΚΗΣ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8506275,
+          38.0366229
+        ]
+      },
+      "id": "node/2786685999"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786686011",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΛΕΩΦΩΡΟΣ ΠΕΝΤΕΛΗΣ",
+        "public_transport": "platform",
+        "ref": "550028"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8301836,
+          38.0405096
+        ]
+      },
+      "id": "node/2786686011"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786686137",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΛΥΡΑΚΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8508867,
+          38.0601337
+        ]
+      },
+      "id": "node/2786686137"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786686138",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΛΥΡΑΚΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.850952,
+          38.060547
+        ]
+      },
+      "id": "node/2786686138"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786686148",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "Μ.ΜΠΟΤΣΑΡΗ",
+        "public_transport": "platform",
+        "ref": "550008"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8464914,
+          38.0459787
+        ]
+      },
+      "id": "node/2786686148"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786686153",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΜΑΓΕΙΡΙΝΑ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "451,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "550018",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.850296,
+          38.0523356
+        ]
+      },
+      "id": "node/2786686153"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786686155",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8503531,
+          38.0523715
+        ]
+      },
+      "id": "node/2786686155"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786686166",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8760554,
+          38.0579077
+        ]
+      },
+      "id": "node/2786686166"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786686169",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8759943,
+          38.0578407
+        ]
+      },
+      "id": "node/2786686169"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786686171",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΜΑΙΝΑΛΟΥ",
+        "public_transport": "platform",
+        "ref": "550087"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.838534,
+          38.0368729
+        ]
+      },
+      "id": "node/2786686171"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786686172",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΜΑΙΝΑΛΟΥ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "public_transport": "platform",
+        "ref": "550042"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8398592,
+          38.0373346
+        ]
+      },
+      "id": "node/2786686172"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786686374",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΜΑΥΡΟΜΙΧΑΛΗ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8353944,
+          38.0578493
+        ]
+      },
+      "id": "node/2786686374"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786686472",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΜΕΣΣΗΝΗΣ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8759762,
+          38.0346569
+        ]
+      },
+      "id": "node/2786686472"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786686500",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΜΕΤΑΜΟΡΦΩΣΕΩΣ",
+        "public_transport": "platform",
+        "ref": "550035"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8421662,
+          38.0470516
+        ]
+      },
+      "id": "node/2786686500"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786686548",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΜΗΤΡΟΠΟΥΛΟΥ",
+        "public_transport": "platform",
+        "ref": "550040"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8406957,
+          38.0420483
+        ]
+      },
+      "id": "node/2786686548"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786686553",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8440611,
+          38.0495461
+        ]
+      },
+      "id": "node/2786686553"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786686634",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΜΟΝΑΣΤΗΡΙ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "720017",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.86586,
+          38.0522123
+        ]
+      },
+      "id": "node/2786686634"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786686636",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΜΟΝΑΣΤΗΡΙ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "720002",
+        "shelter": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8661143,
+          38.0520736
+        ]
+      },
+      "id": "node/2786686636"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786686693",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΜΟΥΣΣΩΝ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8404247,
+          38.0655126
+        ]
+      },
+      "id": "node/2786686693"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786686696",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΜΟΥΣΣΩΝ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.840113,
+          38.065689
+        ]
+      },
+      "id": "node/2786686696"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786686711",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8319123,
+          38.0410924
+        ]
+      },
+      "id": "node/2786686711"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786686712",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8322128,
+          38.0412019
+        ]
+      },
+      "id": "node/2786686712"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786686783",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΜΠΟΜΠΟΛΑ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8423942,
+          38.0545934
+        ]
+      },
+      "id": "node/2786686783"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786686785",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΜΠΟΜΠΟΛΑ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8407294,
+          38.0553292
+        ]
+      },
+      "id": "node/2786686785"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786686810",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΜΠΟΥΜΠΟΥΛΙΝΑΣ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.838621,
+          38.054737
+        ]
+      },
+      "id": "node/2786686810"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786686953",
+        "bench": "yes",
+        "bin": "no",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "lit": "no",
+        "name": "ΝΑΥΤΙΚΗ ΒΑΣΗ",
+        "public_transport": "platform",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8401541,
+          38.0460228
+        ]
+      },
+      "id": "node/2786686953"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786686955",
+        "bench": "no",
+        "bin": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "lit": "no",
+        "name": "ΝΑΥΤΙΚΗ ΒΑΣΗ",
+        "public_transport": "platform",
+        "ref": "550092",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8406729,
+          38.0458646
+        ]
+      },
+      "id": "node/2786686955"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786687027",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΝΕΚΡΟΤΑΦΕΙΟ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.849421,
+          38.04044
+        ]
+      },
+      "id": "node/2786687027"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786687029",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΝΕΚΡΟΤΑΦΕΙΟ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8495916,
+          38.0406284
+        ]
+      },
+      "id": "node/2786687029"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786687043",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΝΕΚΡΟΤΑΦΕΙΟ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8506198,
+          38.0704765
+        ]
+      },
+      "id": "node/2786687043"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786687133",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΝΙΕΝ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8472893,
+          38.056461
+        ]
+      },
+      "id": "node/2786687133"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786687135",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΝΙΕΝ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.847725,
+          38.0566045
+        ]
+      },
+      "id": "node/2786687135"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786687172",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΝΟΣ.ΤΣΑΓΚΑΡΗ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.833696,
+          38.0543144
+        ]
+      },
+      "id": "node/2786687172"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786687204",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8701971,
+          38.0511029
+        ]
+      },
+      "id": "node/2786687204"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786687205",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8701549,
+          38.0508634
+        ]
+      },
+      "id": "node/2786687205"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786687257",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΞΑΝΘΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8425513,
+          38.0445377
+        ]
+      },
+      "id": "node/2786687257"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786687259",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΞΑΝΘΟΥ",
+        "public_transport": "platform",
+        "ref": "550090"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.842358,
+          38.0448563
+        ]
+      },
+      "id": "node/2786687259"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786687278",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8734766,
+          38.0556828
+        ]
+      },
+      "id": "node/2786687278"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786687396",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΟΛΥΜΠΟΥ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "public_transport": "platform",
+        "ref": "550067"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8404907,
+          38.0375655
+        ]
+      },
+      "id": "node/2786687396"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786687414",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΟΜΗΡΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.87925,
+          38.044846
+        ]
+      },
+      "id": "node/2786687414"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786687646",
+        "bench": "yes",
+        "bin": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "lit": "no",
+        "name": "ΠΑΛ.ΛΑΤΟΜΕΙΟ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "public_transport": "platform",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.839741,
+          38.048328
+        ]
+      },
+      "id": "node/2786687646"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786687648",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΠΑΛ.ΛΑΤΟΜΕΙΟ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8397614,
+          38.0502653
+        ]
+      },
+      "id": "node/2786687648"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786687965",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8548324,
+          38.0536486
+        ]
+      },
+      "id": "node/2786687965"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786688020",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΠΑΠΑΔΗΜΗΤΡΙΟΥ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8428393,
+          38.0541986
+        ]
+      },
+      "id": "node/2786688020"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786688046",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΠΑΠΑΝΙΚΟΛΑΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8324827,
+          38.0510912
+        ]
+      },
+      "id": "node/2786688046"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786688047",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΠΑΠΑΝΙΚΟΛΑΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.833006,
+          38.0512284
+        ]
+      },
+      "id": "node/2786688047"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786688190",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΠΑΤΗΜΑ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "451,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "550017",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.841431,
+          38.0476789
+        ]
+      },
+      "id": "node/2786688190"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786688193",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΠΑΤΗΜΑ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "450,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "640044",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8417565,
+          38.0481372
+        ]
+      },
+      "id": "node/2786688193"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786688252",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΠΕΛΟΠΟΝΝΗΣΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8566072,
+          38.0644427
+        ]
+      },
+      "id": "node/2786688252"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786688253",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΠΕΛΟΠΟΝΝΗΣΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8567179,
+          38.0646333
+        ]
+      },
+      "id": "node/2786688253"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786688465",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΠΛΑΤΕΙΑ ΑΓΙΟΥ ΣΙΛΑ - ΤΕΡΜΑ 450",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,450,451,530",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "670009",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8582988,
+          38.0640388
+        ]
+      },
+      "id": "node/2786688465"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786688479",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΠΛ.25ης ΜΑΡΤΙΟΥ",
+        "public_transport": "platform",
+        "ref": "000122"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8472422,
+          38.0480014
+        ]
+      },
+      "id": "node/2786688479"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786688933",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΠΛ.ΜΕΛΙΣΣΙΩΝ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8346036,
+          38.0510061
+        ]
+      },
+      "id": "node/2786688933"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786688936",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΠΛ.ΜΕΛΙΣΣΙΩΝ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8352592,
+          38.0512305
+        ]
+      },
+      "id": "node/2786688936"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786688950",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.857853,
+          38.0587568
+        ]
+      },
+      "id": "node/2786688950"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786688953",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8583009,
+          38.0591752
+        ]
+      },
+      "id": "node/2786688953"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786689152",
+        "bench": "yes",
+        "bus": "yes",
+        "departures_board": "realtime",
+        "highway": "bus_stop",
+        "name": "ΠΛΑΤΕΙΑ ΧΑΡΑΥΓΗΣ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "720016",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8687513,
+          38.0498099
+        ]
+      },
+      "id": "node/2786689152"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786689155",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΠΛ.ΧΑΡΑΥΓΗΣ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8697904,
+          38.049891
+        ]
+      },
+      "id": "node/2786689155"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786689232",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΠΛΑΤΑΙΩΝ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8342003,
+          38.0337555
+        ]
+      },
+      "id": "node/2786689232"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786689259",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΠΛΑΤΕΙΑ ΑΓ.ΣΙΛΑ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.858471,
+          38.063992
+        ]
+      },
+      "id": "node/2786689259"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786689262",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΠΛΑΤΕΙΑ ΑΓΙΑΣ ΤΡΙΑΔΑΣ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "720007",
+        "shelter": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8713944,
+          38.054742
+        ]
+      },
+      "id": "node/2786689262"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786689423",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΠΛΕΖΑΝΣ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "720001",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8599049,
+          38.0523721
+        ]
+      },
+      "id": "node/2786689423"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786689425",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΠΛΕΖΑΝΣ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "720018",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8597545,
+          38.0524807
+        ]
+      },
+      "id": "node/2786689425"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786689481",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΠΟΛΙΤΙΣΤΙΚΟ ΚΕΝΤΡΟ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.836361,
+          38.061386
+        ]
+      },
+      "id": "node/2786689481"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786690016",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΡΟΔΟΠΗΣ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "public_transport": "platform",
+        "ref": "550081"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8407637,
+          38.0404376
+        ]
+      },
+      "id": "node/2786690016"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786690498",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΣΜΥΡΝΗΣ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8367869,
+          38.0624039
+        ]
+      },
+      "id": "node/2786690498"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786690501",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΣΜΥΡΝΗΣ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8369993,
+          38.0627655
+        ]
+      },
+      "id": "node/2786690501"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786690643",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΣΠΕΡΧΕΙΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8545858,
+          38.0632007
+        ]
+      },
+      "id": "node/2786690643"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786691135",
+        "bench": "yes",
+        "bin": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "lit": "no",
+        "name": "ΣΤΡΟΦΗ ΜΕΛΙΣΣΙΩΝ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "550016",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8387958,
+          38.0460078
+        ]
+      },
+      "id": "node/2786691135"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786691145",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8547356,
+          38.0534763
+        ]
+      },
+      "id": "node/2786691145"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786691336",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΣΤΡΟΦΗ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8388857,
+          38.0523396
+        ]
+      },
+      "id": "node/2786691336"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786691851",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΣΧΟΛΕΙΟ",
+        "public_transport": "platform",
+        "ref": "550088"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8452571,
+          38.0400787
+        ]
+      },
+      "id": "node/2786691851"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786691864",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΣΧΟΛΕΙΟ",
+        "public_transport": "platform",
+        "ref": "550070"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8454013,
+          38.0443494
+        ]
+      },
+      "id": "node/2786691864"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786691890",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8577804,
+          38.0569874
+        ]
+      },
+      "id": "node/2786691890"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786691895",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΣΤΡΟΦΗ ΝΕΑΣ ΠΕΝΤΕΛΗΣ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,451",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "670003",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8548797,
+          38.0534323
+        ]
+      },
+      "id": "node/2786691895"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786691899",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΣΧΟΛΕΙΟ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8352774,
+          38.05785
+        ]
+      },
+      "id": "node/2786691899"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786692373",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΤΕΡΜΑ ΚΑΛΛΙΣΙΩΝ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8909166,
+          38.0446743
+        ]
+      },
+      "id": "node/2786692373"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786692381",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΤΕΡΜΑ Ν.ΠΕΝΤΕΛΗΣ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.859177,
+          38.064335
+        ]
+      },
+      "id": "node/2786692381"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786692386",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8704416,
+          38.0553333
+        ]
+      },
+      "id": "node/2786692386"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786692394",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΤΕΡΜΑ ΤΣΑΓΚΑΡΗ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8335537,
+          38.0543358
+        ]
+      },
+      "id": "node/2786692394"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786693273",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΤΡΟΙΑΣ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8390486,
+          38.0566953
+        ]
+      },
+      "id": "node/2786693273"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786693442",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΤΥΡΝΑΒΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.874243,
+          38.033592
+        ]
+      },
+      "id": "node/2786693442"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786693511",
+        "bench": "yes",
+        "bin": "no",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΥΜΗΤΤΟΥ",
+        "public_transport": "platform",
+        "ref": "550098",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8376922,
+          38.0350892
+        ]
+      },
+      "id": "node/2786693511"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786693514",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΥΜΗΤΤΟΥ",
+        "public_transport": "platform",
+        "ref": "550033"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8368883,
+          38.035639
+        ]
+      },
+      "id": "node/2786693514"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786693538",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΥΠΟΛ.ΑΛΕΞ.ΔΙΑΚΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.833065,
+          38.061821
+        ]
+      },
+      "id": "node/2786693538"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786693542",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΥΠΟΛ.ΑΛΕΞ.ΔΙΑΚΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8326997,
+          38.0622066
+        ]
+      },
+      "id": "node/2786693542"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786693877",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΦΙΛΩΝΟΣ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8707167,
+          38.0498454
+        ]
+      },
+      "id": "node/2786693877"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786693880",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΦΙΛΩΝΟΣ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8706643,
+          38.05003
+        ]
+      },
+      "id": "node/2786693880"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786693920",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΦΛΩΡΙΝΗΣ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8299227,
+          38.0369523
+        ]
+      },
+      "id": "node/2786693920"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786694171",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΦΟΥΡΝΟΣ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8376144,
+          38.0587135
+        ]
+      },
+      "id": "node/2786694171"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786694175",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΦΟΥΡΝΟΣ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8378114,
+          38.0587724
+        ]
+      },
+      "id": "node/2786694175"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786694416",
+        "bench": "yes",
+        "bus": "yes",
+        "departures_board": "realtime",
+        "highway": "bus_stop",
+        "name": "ΧΑΡΑΥΓΗ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "720003",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.868577,
+          38.0495022
+        ]
+      },
+      "id": "node/2786694416"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786695320",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "12η ΑΝΘΟΥΣΑΣ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.879961,
+          38.034653
+        ]
+      },
+      "id": "node/2786695320"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786695821",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "1η 25ης ΜΑΡΤΙΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8492659,
+          38.0564326
+        ]
+      },
+      "id": "node/2786695821"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786696063",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "1η ΑΓΙΟΥ ΣΙΛΑ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,450,451,530",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "670007",
+        "shelter": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.856636,
+          38.0607559
+        ]
+      },
+      "id": "node/2786696063"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786696066",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.85656,
+          38.0608024
+        ]
+      },
+      "id": "node/2786696066"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786696343",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "1η ΙΑΣΩΝΟΣ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.878897,
+          38.037445
+        ]
+      },
+      "id": "node/2786696343"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786696380",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "1η ΚΑΛΛΙΣΙΩΝ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.87447,
+          38.047211
+        ]
+      },
+      "id": "node/2786696380"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786696383",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "1η ΚΑΛΛΙΣΙΩΝ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.873957,
+          38.047974
+        ]
+      },
+      "id": "node/2786696383"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786696652",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "1η ΝΟΣΟΚΟΜΕΙΟ ΠΑΙΔΩΝ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "720004",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8744563,
+          38.0508322
+        ]
+      },
+      "id": "node/2786696652"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786696769",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "1η ΣΙΣΜΑΝΟΓΛΕΙΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.829323,
+          38.0435279
+        ]
+      },
+      "id": "node/2786696769"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786696856",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "1η ΤΣΑΓΚΑΡΗ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8326021,
+          38.0525915
+        ]
+      },
+      "id": "node/2786696856"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786697025",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "25ης ΜΑΡΤΙΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8495376,
+          38.0571266
+        ]
+      },
+      "id": "node/2786697025"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786697028",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "25ης ΜΑΡΤΙΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.849386,
+          38.057201
+        ]
+      },
+      "id": "node/2786697028"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786697105",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "2η 25ης ΜΑΡΤΙΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8524198,
+          38.0552789
+        ]
+      },
+      "id": "node/2786697105"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786697108",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "2η 25ης ΜΑΡΤΙΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8524861,
+          38.0554548
+        ]
+      },
+      "id": "node/2786697108"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786697230",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "2η ΑΓΙΟΥ ΣΙΛΑ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "450,451,530",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "670010",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8562207,
+          38.0623143
+        ]
+      },
+      "id": "node/2786697230"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786697234",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "2η ΑΓΙΟΥ ΣΙΛΑ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,450,451,530",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "670008",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8563368,
+          38.0623079
+        ]
+      },
+      "id": "node/2786697234"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786697579",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "2η ΙΑΣΩΝΟΣ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.875334,
+          38.035351
+        ]
+      },
+      "id": "node/2786697579"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786697608",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "2η ΚΑΛΛΙΣΙΩΝ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.877945,
+          38.047611
+        ]
+      },
+      "id": "node/2786697608"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786697652",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "2η ΚΙΣΣΑΒΟΥ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "public_transport": "platform",
+        "ref": "550073"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.84073,
+          38.0413025
+        ]
+      },
+      "id": "node/2786697652"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786697874",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "2η ΝΕΚΡΟΤΑΦΕΙΟ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.877092,
+          38.046986
+        ]
+      },
+      "id": "node/2786697874"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786697886",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "2η ΝΟΣΟΚΟΜΕΙΟ ΠΑΙΔΩΝ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "720005",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8741159,
+          38.0529584
+        ]
+      },
+      "id": "node/2786697886"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786698309",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "3η 25ης ΜΑΡΤΙΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.855122,
+          38.056435
+        ]
+      },
+      "id": "node/2786698309"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786698311",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "3η 25ης ΜΑΡΤΙΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8550263,
+          38.0565711
+        ]
+      },
+      "id": "node/2786698311"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786698633",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "3η ΚΑΛΛΙΣΙΩΝ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.881861,
+          38.043602
+        ]
+      },
+      "id": "node/2786698633"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786698636",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "3η ΚΑΛΛΙΣΙΩΝ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.881119,
+          38.044079
+        ]
+      },
+      "id": "node/2786698636"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786698939",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "3η ΣΙΣΜΑΝΟΓΛΕΙΟΥ",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8292507,
+          38.0434754
+        ]
+      },
+      "id": "node/2786698939"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786699501",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "4η ΚΑΛΛΙΣΙΩΝ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8859784,
+          38.043366
+        ]
+      },
+      "id": "node/2786699501"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2786699506",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "4η ΚΑΛΛΙΣΙΩΝ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8858487,
+          38.043555
+        ]
+      },
+      "id": "node/2786699506"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2900993975",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΔΗΜΟΤΙΚΟ ΣΧΟΛΕΙΟ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,450,451,530",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "670004",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8578196,
+          38.0569555
+        ]
+      },
+      "id": "node/2900993975"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2900998509",
+        "bus": "yes",
+        "name": "ΣΧΟΛΕΙΟ",
+        "network": "ΟΣΥ",
+        "note": "446,450,451,530",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "stop_position",
+        "ref": "670013"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8575241,
+          38.0571566
+        ]
+      },
+      "id": "node/2900998509"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395163893",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΑΓΙΟΥ ΤΡΥΦΩΝΑ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "720012",
+        "shelter": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8731585,
+          38.0567705
+        ]
+      },
+      "id": "node/3395163893"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395163993",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΗΠΕΙΡΟΥ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "720009",
+        "shelter": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8760608,
+          38.0588531
+        ]
+      },
+      "id": "node/3395163993"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395164093",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΗΠΕΙΡΟΥ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "720011",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8759483,
+          38.0589461
+        ]
+      },
+      "id": "node/3395164093"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395164094",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΝΟΣΟΚΟΜΕΙΟ ΠΑΙΔΩΝ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "720015",
+        "shelter": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8702364,
+          38.0510648
+        ]
+      },
+      "id": "node/3395164094"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395164097",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8743722,
+          38.0508295
+        ]
+      },
+      "id": "node/3395164097"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395164193",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8706246,
+          38.0504987
+        ]
+      },
+      "id": "node/3395164193"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395164293",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΜΑΘΗΤΙΚΕΣ ΚΑΤΑΣΚΗΝΏΣΕΙΣ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "720024",
+        "shelter": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8759512,
+          38.0578333
+        ]
+      },
+      "id": "node/3395164293"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395164393",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΜΑΘΗΤΙΚΕΣ ΚΑΤΑΣΚΗΝΏΣΕΙΣ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "720025",
+        "shelter": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8761268,
+          38.057875
+        ]
+      },
+      "id": "node/3395164393"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395164493",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΝΟΣΟΚΟΜΕΙΟ ΠΑΙΔΩΝ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "720006",
+        "shelter": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8701903,
+          38.0508347
+        ]
+      },
+      "id": "node/3395164493"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395164593",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΞΗΡΟΜΕΡΟΥ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "720008",
+        "shelter": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8734978,
+          38.0556468
+        ]
+      },
+      "id": "node/3395164593"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395164693",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8713624,
+          38.0547562
+        ]
+      },
+      "id": "node/3395164693"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395164694",
+        "bench": "yes",
+        "bin": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "lit": "yes",
+        "name": "ΤΕΡΜΑ ΠΑΛΑΙΑΣ ΠΕΝΤΕΛΗΣ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "720013",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8704822,
+          38.055415
+        ]
+      },
+      "id": "node/3395164694"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395164793",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΣΤΡΑΤΙΩΤΙΚΟ ΝΟΣΟΚΟΜΕΙΟ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "720010"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8751772,
+          38.0594322
+        ]
+      },
+      "id": "node/3395164793"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395164893",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8751915,
+          38.0594413
+        ]
+      },
+      "id": "node/3395164893"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395618502",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8596754,
+          38.0524214
+        ]
+      },
+      "id": "node/3395618502"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395620799",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΜΑΓΕΙΡΙΝΑ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "450,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "640043",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8504315,
+          38.0524427
+        ]
+      },
+      "id": "node/3395620799"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395624196",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8418097,
+          38.0481094
+        ]
+      },
+      "id": "node/3395624196"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395632594",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΘΕΑΤΡΟΥ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "450,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "640052",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8440175,
+          38.0495882
+        ]
+      },
+      "id": "node/3395632594"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395632595",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8441933,
+          38.0496609
+        ]
+      },
+      "id": "node/3395632595"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395632895",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΘΕΑΤΡΟΥ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "451,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "550047",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8442347,
+          38.0496288
+        ]
+      },
+      "id": "node/3395632895"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395638293",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8549689,
+          38.0528958
+        ]
+      },
+      "id": "node/3395638293"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395638393",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8465382,
+          38.0518385
+        ]
+      },
+      "id": "node/3395638393"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395638394",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8686685,
+          38.0498092
+        ]
+      },
+      "id": "node/3395638394"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395638493",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8686146,
+          38.049477
+        ]
+      },
+      "id": "node/3395638493"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395639493",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.865892,
+          38.0522438
+        ]
+      },
+      "id": "node/3395639493"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395780493",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΑΝΩ ΒΡΙΛΗΣΣΙΑ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "450,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "550014",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8345762,
+          38.0429122
+        ]
+      },
+      "id": "node/3395780493"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395780494",
+        "bench": "yes",
+        "bin": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "lit": "no",
+        "name": "ΑΘΗΝΑΣ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "450,460,461",
+        "operator": "ΟΑΣΑ",
+        "passenger_information_display": "no",
+        "public_transport": "platform",
+        "ref": "550015",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8370215,
+          38.0447049
+        ]
+      },
+      "id": "node/3395780494"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395780593",
+        "bus": "yes",
+        "covered": "yes",
+        "highway": "bus_stop",
+        "name": "ΑΝΩ ΒΡΙΛΗΣΣΙΑ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "451,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "550019"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.834394,
+          38.0429983
+        ]
+      },
+      "id": "node/3395780593"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395780793",
+        "bench": "no",
+        "bin": "no",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "lit": "no",
+        "name": "ΑΘΗΝΑΣ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "451,460,461",
+        "operator": "ΟΑΣΑ",
+        "passenger_information_display": "no",
+        "public_transport": "platform",
+        "ref": "640050",
+        "shelter": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8369534,
+          38.0448848
+        ]
+      },
+      "id": "node/3395780793"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3395780893",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8387515,
+          38.0461633
+        ]
+      },
+      "id": "node/3395780893"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3397112294",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΔΙΑΣΤΑΥΡΩΣΗ ΣΙΣΜΑΝΟΓΛΕΙΟΥ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "450,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "550013",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8295157,
+          38.0391734
+        ]
+      },
+      "id": "node/3397112294"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3397112295",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΔΙΑΣΤΑΥΡΩΣΗ ΣΙΣΜΑΝΟΓΛΕΙΟΥ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "411,451,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "550020",
+        "shelter": "yes",
+        "wheelchair": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8298782,
+          38.0396649
+        ]
+      },
+      "id": "node/3397112295"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3397112393",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΜΠΑΚΟΓΙΑΝΝΗ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "451,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "550046",
+        "shelter": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.831873,
+          38.0411274
+        ]
+      },
+      "id": "node/3397112393"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3397112493",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΜΠΑΚΟΓΙΑΝΝΗ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "450,460,461",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "550045",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8322399,
+          38.0411783
+        ]
+      },
+      "id": "node/3397112493"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3413059793",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΠΑΝΑΓΟΥΛΗ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,450",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "670005",
+        "shelter": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8547809,
+          38.0536647
+        ]
+      },
+      "id": "node/3413059793"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3413059893",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΠΛΑΤΕΙΑ ΝΕΑΣ ΠΕΝΤΕΛΗΣ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,450,451,530",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "670012",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8577993,
+          38.058759
+        ]
+      },
+      "id": "node/3413059893"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3413059993",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΠΛΑΤΕΙΑ ΝΕΑΣ ΠΕΝΤΕΛΗΣ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,450,451,530",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "670006",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8583865,
+          38.0592162
+        ]
+      },
+      "id": "node/3413059993"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3413059997",
+        "bus": "yes",
+        "name": "1η Αγίου Σίλα",
+        "network": "ΟΣΥ",
+        "note": "446,450,451,530",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "stop_position",
+        "ref": "670007"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8565966,
+          38.0607358
+        ]
+      },
+      "id": "node/3413059997"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3413060093",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΣΧΟΛΕΙΟ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,450,451,530",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "670013",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8574587,
+          38.0571567
+        ]
+      },
+      "id": "node/3413060093"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3413060597",
+        "bench": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "1η ΑΓΙΟΥ ΣΙΛΑ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "446,450,451,530",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "670011",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8564987,
+          38.0607802
+        ]
+      },
+      "id": "node/3413060597"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3442534494",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΙΟΥΣΤΙΝΙΑΝΟΥ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "note": "450,451",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "670032",
+        "shelter": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8593202,
+          38.0639686
+        ]
+      },
+      "id": "node/3442534494"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4214477211",
+        "bench": "yes",
+        "bus": "yes",
+        "description": "447",
+        "highway": "bus_stop",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.845643,
+          38.0442689
+        ]
+      },
+      "id": "node/4214477211"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4508928296",
+        "bus": "yes",
+        "name": "ΑΛΦΕΙΟΥ",
+        "public_transport": "stop_position",
+        "ref": "550003"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8479292,
+          38.0420586
+        ]
+      },
+      "id": "node/4508928296"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4967317284",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΙΠΠΟΚΡΑΤΟΥΣ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "720033",
+        "route_ref": "446;460;461",
+        "shelter": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8706283,
+          38.0504662
+        ]
+      },
+      "id": "node/4967317284"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4967317285",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΙΠΠΟΚΡΑΤΟΥΣ",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "operator": "ΟΑΣΑ",
+        "public_transport": "platform",
+        "ref": "720033",
+        "route_ref": "446;460;461",
+        "shelter": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8706175,
+          38.0505291
+        ]
+      },
+      "id": "node/4967317285"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6177998410",
+        "bus": "yes",
+        "name": "ΚΥΠΡΟΥ",
+        "public_transport": "stop_position",
+        "ref": "550007"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8341547,
+          38.0335327
+        ]
+      },
+      "id": "node/6177998410"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6177998411",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8341092,
+          38.0337077
+        ]
+      },
+      "id": "node/6177998411"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6177998412",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8298583,
+          38.0369065
+        ]
+      },
+      "id": "node/6177998412"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7044937681",
+        "bus": "yes",
+        "name": "ΟΛΥΜΠΟΥ",
+        "public_transport": "stop_position",
+        "ref": "550067"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8405283,
+          38.0375929
+        ]
+      },
+      "id": "node/7044937681"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7044937682",
+        "bus": "yes",
+        "name": "ΜΑΙΝΑΛΟΥ",
+        "public_transport": "stop_position",
+        "ref": "550087"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8385091,
+          38.036885
+        ]
+      },
+      "id": "node/7044937682"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7044937683",
+        "bus": "yes",
+        "name": "ΥΜΗΤΤΟΥ",
+        "public_transport": "stop_position",
+        "ref": "550033"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8368664,
+          38.0356364
+        ]
+      },
+      "id": "node/7044937683"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7045231594",
+        "bus": "yes",
+        "name": "ΠΛ.25ης ΜΑΡΤΙΟΥ",
+        "public_transport": "stop_position",
+        "ref": "000122"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.847238,
+          38.0480206
+        ]
+      },
+      "id": "node/7045231594"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7045231595",
+        "bus": "yes",
+        "name": "ΕΡΜΟΥ",
+        "public_transport": "stop_position",
+        "ref": "550038"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8463017,
+          38.0425597
+        ]
+      },
+      "id": "node/7045231595"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7045231596",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΕΡΜΟΥ",
+        "public_transport": "platform",
+        "ref": "550038"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8463415,
+          38.0426117
+        ]
+      },
+      "id": "node/7045231596"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7045231597",
+        "bus": "yes",
+        "name": "ΑΝΑΠΑΥΣΕΩΣ(ΤΕΡΜΑ)",
+        "public_transport": "stop_position",
+        "ref": "550089"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8474672,
+          38.0416872
+        ]
+      },
+      "id": "node/7045231597"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7045231598",
+        "bus": "yes",
+        "name": "ΑΝΑΠΑΥΣΕΩΣ(ΤΕΡΜΑ)",
+        "public_transport": "stop_position",
+        "ref": "550089"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8475257,
+          38.0416498
+        ]
+      },
+      "id": "node/7045231598"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7045231608",
+        "bus": "yes",
+        "name": "ΣΧΟΛΕΙΟ",
+        "public_transport": "stop_position",
+        "ref": "550088"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.84519,
+          38.0401362
+        ]
+      },
+      "id": "node/7045231608"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7046555136",
+        "bus": "yes",
+        "name": "ΜΗΤΡΟΠΟΥΛΟΥ",
+        "network": "OASA",
+        "public_transport": "stop_position",
+        "ref": "550040"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8406108,
+          38.0419114
+        ]
+      },
+      "id": "node/7046555136"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7046555137",
+        "bus": "yes",
+        "name": "2η ΚΙΣΣΑΒΟΥ",
+        "public_transport": "stop_position",
+        "ref": "550073"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8407806,
+          38.0413578
+        ]
+      },
+      "id": "node/7046555137"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7046555138",
+        "bus": "yes",
+        "name": "ΡΟΔΟΠΗΣ",
+        "public_transport": "stop_position",
+        "ref": "550081"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8408095,
+          38.0404052
+        ]
+      },
+      "id": "node/7046555138"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7046555139",
+        "bus": "yes",
+        "name": "ΘΕΡΜΟΠΥΛΩΝ",
+        "public_transport": "stop_position",
+        "ref": "550068"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.839842,
+          38.0381616
+        ]
+      },
+      "id": "node/7046555139"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7046555140",
+        "bus": "yes",
+        "name": "ΜΑΙΝΑΛΟΥ",
+        "public_transport": "stop_position",
+        "ref": "550042"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8399029,
+          38.0372968
+        ]
+      },
+      "id": "node/7046555140"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7046555141",
+        "bus": "yes",
+        "name": "ΥΜΗΤΤΟΥ",
+        "public_transport": "stop_position",
+        "ref": "550098"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8377168,
+          38.0350882
+        ]
+      },
+      "id": "node/7046555141"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7046555149",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΑΛΦΕΙΟΥ",
+        "public_transport": "platform",
+        "ref": "550003"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8479016,
+          38.0420718
+        ]
+      },
+      "id": "node/7046555149"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7047155651",
+        "bus": "yes",
+        "name": "Μ.ΜΠΟΤΣΑΡΗ",
+        "public_transport": "stop_position",
+        "ref": "550008"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.846524,
+          38.0459646
+        ]
+      },
+      "id": "node/7047155651"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7047155652",
+        "bus": "yes",
+        "name": "ΣΧΟΛΕΙΟ",
+        "public_transport": "stop_position",
+        "ref": "550070"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8454171,
+          38.044374
+        ]
+      },
+      "id": "node/7047155652"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7047155653",
+        "bus": "yes",
+        "name": "ΔΙΟΣ",
+        "public_transport": "stop_position",
+        "ref": "550036"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8459996,
+          38.0427263
+        ]
+      },
+      "id": "node/7047155653"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7047155655",
+        "bus": "yes",
+        "name": "ΕΡΜΟΥ",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8475159,
+          38.0434199
+        ]
+      },
+      "id": "node/7047155655"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7485452187",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "network": "ΟΑΣΑ",
+        "network:el": "ΟΑΣΑ",
+        "network:en": "OASA",
+        "network:wikidata": "Q1814382",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8401703,
+          38.0399919
+        ]
+      },
+      "id": "node/7485452187"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7961882704",
+        "bus": "yes",
+        "public_transport": "stop_position"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8660503,
+          38.0520491
+        ]
+      },
+      "id": "node/7961882704"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13049798994",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "ΛΕΩΦΩΡΟΣ ΠΕΝΤΕΛΗΣ",
+        "public_transport": "platform",
+        "ref": "550028"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8301426,
+          38.0405033
+        ]
+      },
+      "id": "node/13049798994"
+    }
+  ]
+}

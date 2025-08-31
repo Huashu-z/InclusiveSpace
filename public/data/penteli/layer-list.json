@@ -1,8 +1,8 @@
-[  
-    "trafic_light_wms", 
-    "green_infrastructure",
-    "transport_station_wms",
-    "stair", 
-    "pedestrian_flow_wms",
-    "facilities"
+[
+  { "key": "trafic_light", "type": "geojson" },
+  { "key": "green_infrastructure", "type": "geojson" },
+  { "key": "transport_station", "type": "geojson" },
+  { "key": "stair", "type": "geojson" },
+  { "key": "pedestrian_flow", "type": "geojson" },
+  { "key": "facilities", "type": "geojson" }
 ]

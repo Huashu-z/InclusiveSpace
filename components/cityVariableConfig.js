@@ -9,13 +9,26 @@ export const cityLayerConfig = {
       "facility", "pedestrianFlow"
     ],
     mapLayers: [
-      "noise_wms", "temp_summer", "temp_winter", "streetlight",
-      "trafic_light_wms", "tactile_guidance", "tree_wms",
-      "green_infrastructure", "blue_infrastructure",
-      "transport_station_wms", "wc_disabled", "sidewalk_narrow",
-      "stair", "obstacle", "slope",
-      "uneven_surfaces", "poor_pavement", "kerbs_high",
-      "facility_wms", "pedestrian_flow_wms"
+      { key: "noise_wms", type: "wms" },
+      { key: "temp_summer", type: "geojson" },
+      { key: "temp_winter", type: "geojson" },
+      { key: "streetlight", type: "geojson" },
+      { key: "trafic_light_wms", type: "wms" },
+      { key: "tactile_guidance", type: "geojson" },
+      { key: "tree_wms", type: "wms" },
+      { key: "green_infrastructure_wms", type: "wms" },
+      { key: "blue_infrastructure_wms", type: "wms" },
+      { key: "transport_station_wms", type: "wms" },
+      { key: "wc_disabled", type: "geojson" },
+      { key: "sidewalk_narrow", type: "geojson" },
+      { key: "stair", type: "geojson" },
+      { key: "obstacle", type: "geojson" },
+      { key: "slope", type: "geojson" },
+      { key: "uneven_surfaces", type: "geojson" },
+      { key: "poor_pavement", type: "geojson" },
+      { key: "kerbs_high", type: "geojson" },
+      { key: "facility_wms", type: "wms" },
+      { key: "pedestrian_flow_wms", type: "wms" }
     ]
   },
   penteli: {
@@ -23,7 +36,12 @@ export const cityLayerConfig = {
       "trafficLight", "greeninf", "station", "stair", "facility", "pedestrianFlow"
     ],
     mapLayers: [
-      "trafic_light_wms", "green_infrastructure", "transport_station_wms", "stair", "facilities", "pedestrian_flow_wms"
+      { key: "trafic_light", type: "geojson" },
+      { key: "green_infrastructure", type: "geojson" },
+      { key: "transport_station", type: "geojson" },
+      { key: "stair", type: "geojson" },
+      { key: "facilities", type: "geojson" },
+      { key: "pedestrian_flow", type: "geojson" }
     ]
   }
   // 其他城市...

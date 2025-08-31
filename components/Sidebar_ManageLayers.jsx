@@ -3,9 +3,9 @@ import sty from "./Sidebar.module.css";
 import { useTranslation } from 'next-i18next';
 import { cityLayerConfig } from "./cityVariableConfig";
 
-export default function MapLayers({ selectedLayers, toggleLayer }) {
+export default function MapLayers({ selectedLayers, toggleLayer, availableLayers }) {
   const city = (typeof window !== "undefined" && (localStorage.getItem("selectedCity") || "hamburg")) || "hamburg";
-  const availableMapLayers = cityLayerConfig[city]?.mapLayers || [];
+  // const availableMapLayers = cityLayerConfig[city]?.mapLayers || [];
 
   const { t } = useTranslation("common");
   const [openCategory, setOpenCategory] = useState(null);
@@ -24,54 +24,67 @@ export default function MapLayers({ selectedLayers, toggleLayer }) {
     </div>
   );
 
+  const groups = [
+    { name: "env", label: t('env_category') },
+    { name: "phy", label: t('phy_category') },
+    { name: "psy", label: t('psy_category') }
+  ];
+
   const renderCheckbox = (layer, label) => (
-    <div key={layer} className={sty["checkbox-container"]}>
+    <div key={layer.key} className={sty["checkbox-container"]}>
       <label className={sty["checkbox-label"]}>
         <input
           type="checkbox"
-          checked={selectedLayers.includes(layer)}
-          onChange={() => toggleLayer(layer)}
+          checked={selectedLayers.includes(layer.key)}
+          onChange={() => toggleLayer(layer.key)}
         />
-        <span className={sty["sidebar-text"]}>{label}</span>
+        <span className={sty["sidebar-text"]}>
+          {label}
+        </span>
       </label>
     </div>
   );
 
+  const findLayer = (key) =>
+  availableLayers.find(l => l.key === key);
+
   return (
     <div className={sty["sidebar-section"]}>
-      <h3 className={sty["sidebar-title"]}>{t('map_layers')} </h3>
-
-      <div className={sty["faq-container"]}> 
+      <h3 className={sty["sidebar-title"]}>{t('map_layers')}</h3>
+      <div className={sty["faq-container"]}>
         <Category name="env" label={t('env_category')}>
-          {/* {renderCheckbox("noise_wms", t('display_noise'))} */}
-          {availableMapLayers.includes("temp_summer") && renderCheckbox("temp_summer", t('display_summer_heat'))}
-          {availableMapLayers.includes("temp_winter") && renderCheckbox("temp_winter", t('display_winter_cold'))}
-        </Category>
-
+          {findLayer("temp_summer") && renderCheckbox(findLayer("temp_summer"), t('display_summer_heat'))}
+          {findLayer("temp_winter") && renderCheckbox(findLayer("temp_winter"), t('display_winter_cold'))}
+        </Category> 
         <Category name="phy" label={t('phy_category')}>
-          {availableMapLayers.includes("streetlight") && renderCheckbox("streetlight", t('display_light'))}
-          {availableMapLayers.includes("trafic_light_wms") && renderCheckbox("trafic_light_wms", t('display_traffic'))}
-          {availableMapLayers.includes("tactile_guidance") && renderCheckbox("tactile_guidance", t('display_tactile'))}
-          {availableMapLayers.includes("tree_wms") && renderCheckbox("tree_wms", t('display_tree'))}
-          {availableMapLayers.includes("green_infrastructure") && renderCheckbox("green_infrastructure", t('display_green_inf'))}
-          {availableMapLayers.includes("blue_infrastructure") && renderCheckbox("blue_infrastructure", t('display_blue_inf'))}
-          {availableMapLayers.includes("transport_station_wms") && renderCheckbox("transport_station_wms", t('display_station'))}
-          {availableMapLayers.includes("sidewalk_narrow") && renderCheckbox("sidewalk_narrow", t('display_narrow'))}
-          {availableMapLayers.includes("wc_disabled") && renderCheckbox("wc_disabled", t('display_wc'))} 
-          {availableMapLayers.includes("stair") && renderCheckbox("stair", t('display_stair'))}
-          {availableMapLayers.includes("obstacle") && renderCheckbox("obstacle", t('display_obstacle'))}
-          {availableMapLayers.includes("slope") && renderCheckbox("slope", t('display_slope'))}
-          {availableMapLayers.includes("uneven_surfaces") && renderCheckbox("uneven_surfaces", t('display_uneven'))}
-          {availableMapLayers.includes("poor_pavement") && renderCheckbox("poor_pavement", t('display_pavement'))}
-          {availableMapLayers.includes("kerbs_high") && renderCheckbox("kerbs_high", t('display_kerb_high'))}
-        </Category>
-
+          {findLayer("streetlight") && renderCheckbox(findLayer("streetlight"), t('display_light'))}
+          {findLayer("trafic_light_wms") && renderCheckbox(findLayer("trafic_light_wms"), t('display_traffic'))}
+          {findLayer("trafic_light") && renderCheckbox(findLayer("trafic_light"), t('display_traffic'))}
+          {findLayer("tactile_guidance") && renderCheckbox(findLayer("tactile_guidance"), t('display_tactile'))}
+          {findLayer("tree_wms") && renderCheckbox(findLayer("tree_wms"), t('display_tree'))}
+          {findLayer("green_infrastructure_wms") && renderCheckbox(findLayer("green_infrastructure_wms"), t('display_green_inf'))}
+          {findLayer("green_infrastructure") && renderCheckbox(findLayer("green_infrastructure"), t('display_green_inf'))}
+          {findLayer("blue_infrastructure_wms") && renderCheckbox(findLayer("blue_infrastructure_wms"), t('display_blue_inf'))}
+          {findLayer("transport_station_wms") && renderCheckbox(findLayer("transport_station_wms"), t('display_station'))}
+          {findLayer("transport_station") && renderCheckbox(findLayer("transport_station"), t('display_station'))}
+          {findLayer("sidewalk_narrow") && renderCheckbox(findLayer("sidewalk_narrow"), t('display_narrow'))}
+          {findLayer("wc_disabled") && renderCheckbox(findLayer("wc_disabled"), t('display_wc'))}
+          {findLayer("stair") && renderCheckbox(findLayer("stair"), t('display_stair'))}
+          {findLayer("obstacle") && renderCheckbox(findLayer("obstacle"), t('display_obstacle'))}
+          {findLayer("slope") && renderCheckbox(findLayer("slope"), t('display_slope'))}
+          {findLayer("uneven_surfaces") && renderCheckbox(findLayer("uneven_surfaces"), t('display_uneven'))}
+          {findLayer("poor_pavement") && renderCheckbox(findLayer("poor_pavement"), t('display_pavement'))}
+          {findLayer("kerbs_high") && renderCheckbox(findLayer("kerbs_high"), t('display_kerb_high'))}
+        </Category> 
         <Category name="psy" label={t('psy_category')}>
-          {availableMapLayers.includes("facility_wms") && renderCheckbox("facility_wms", t('display_facility'))}
-          {availableMapLayers.includes("pedestrian_flow_wms") && renderCheckbox("pedestrian_flow_wms", t('display_pedestrian_flow'))}
+          {findLayer("facility_wms") && renderCheckbox(findLayer("facility_wms"), t('display_facility'))}
+          {findLayer("facilities") && renderCheckbox(findLayer("facilities"), t('display_facility'))}
+          {findLayer("pedestrian_flow_wms") && renderCheckbox(findLayer("pedestrian_flow_wms"), t('display_pedestrian_flow'))}
+          {findLayer("pedestrian_flow") && renderCheckbox(findLayer("pedestrian_flow"), t('display_pedestrian_flow'))}
         </Category>
       </div>
     </div>
   );
+
 }
  

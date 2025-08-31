@@ -21,8 +21,8 @@ export const isWmsLayer = (layer) =>
     "noise_wms",
     "tree_wms",
     "trafic_light_wms",
-    "blue_infrastructure",
-    "green_infrastructure",
+    "blue_infrastructure_wms",
+    "green_infrastructure_wms",
     "transport_station_wms", 
     "facility_wms",
     "pedestrian_flow_wms"
@@ -35,14 +35,13 @@ export const useCircleMarker = (layer) =>
 export function getStyle(layer, feature) { 
 
   switch (layer) { 
-    case "streetlight":
+    case "streetlight": // hamburg
       return {
         radius: 5,
         fillColor: "#ffd166",
         fillOpacity: 0.8,
         stroke: false
-      };
-    
+      }; 
     case "tactile_points":
       return {
         radius: 5,
@@ -161,6 +160,42 @@ export function getStyle(layer, feature) {
         fillOpacity: 0.6
       };
     }
+
+    // penteli-----------------
+    case "trafic_light":
+      return {
+        radius: 5,
+        fillColor: "#F09E45", // 推荐橙色和WMS区分
+        fillOpacity: 0.8,
+        stroke: false
+      };
+    case "green_infrastructure":
+      return {
+        color: "#6dbf52", // 推荐深绿色
+        weight: 2,
+        fillColor: "#93e086",
+        fillOpacity: 0.5
+      };
+    case "transport_station":
+      return {
+        radius: 5,
+        fillColor: "#5d69b3", // 深蓝色
+        fillOpacity: 0.8,
+        stroke: false
+      };
+    case "facilities":
+      return {
+        radius: 5,
+        fillColor: "#e377c2", // 粉色
+        fillOpacity: 0.8,
+        stroke: false
+      };
+    case "pedestrian_flow":
+      return {
+        color: "#fd7f0e",
+        weight: 2,
+        opacity: 0.7
+      };
 
       return {
         color: "#000", 
@@ -311,8 +346,8 @@ export const wmsLayerComponents = {
   noise_wms: NoiseWMSLayer,
   tree_wms: TreeWMSLayer,
   trafic_light_wms: TraficLightWMSLayer,
-  blue_infrastructure: BlueInfWMSLayer,
-  green_infrastructure: GreenInfWMSLayer,
+  blue_infrastructure_wms: BlueInfWMSLayer,
+  green_infrastructure_wms: GreenInfWMSLayer,
   transport_station_wms: StationWMSLayer,
   facility_wms: FacilityWMSLayer,
   pedestrian_flow_wms: PedestrianFlowWMSLayer
