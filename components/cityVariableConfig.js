@@ -33,7 +33,7 @@ export const cityLayerConfig = {
   },
   penteli: {
     discomfortFeatures: [
-      "trafficLight", "greeninf", "station", "stair", "facility", "pedestrianFlow"
+      "trafficLight", "temperatureSummer", "temperatureWinter", "greeninf", "station", "stair", "facility", "pedestrianFlow"
     ],
     mapLayers: [
       { key: "trafic_light", type: "geojson" },
@@ -41,7 +41,9 @@ export const cityLayerConfig = {
       { key: "transport_station", type: "geojson" },
       { key: "stair", type: "geojson" },
       { key: "facilities", type: "geojson" },
-      { key: "pedestrian_flow", type: "geojson" }
+      { key: "pedestrian_flow", type: "geojson" },
+      { key: "temp_summer", type: "geojson" },
+      { key: "temp_winter", type: "geojson" }
     ]
   }
   // 其他城市...
