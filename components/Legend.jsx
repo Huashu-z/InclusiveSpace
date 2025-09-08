@@ -108,8 +108,8 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                     style={{ backgroundColor: color }}
                   />
                   {entry.isDefault
-                    ? `Default ${entry.groupIndex}`
-                    : `Area ${entry.groupIndex}.${entry.subIndex}`}
+                    ? `${t('legend_default')} ${entry.groupIndex}`
+                    : `${t('leg_area_label')} ${entry.groupIndex}.${entry.subIndex}`}
                 </div>
 
                 <div>{t('leg_time_label')} {entry.time} min</div>
