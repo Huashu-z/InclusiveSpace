@@ -4,6 +4,8 @@
   { "key": "transport_station", "type": "geojson" },
   { "key": "stair", "type": "geojson" },
   { "key": "pedestrian_flow", "type": "geojson" },
-  { "key": "facilities", "type": "geojson" }
+  { "key": "facilities", "type": "geojson" },
+  { "key": "temp_summer", "type": "geojson" },
+  { "key": "temp_winter", "type": "geojson" }
 ]
 
