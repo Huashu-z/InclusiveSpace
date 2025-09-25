@@ -204,23 +204,24 @@ export default function PlasmicLanding() {
               ))}
             </div>
           </div>
-          {/* 右侧 logo *2 */}
-          <div className={sty.toolDetailsLogoWrap}>
-            <img
-              src="/plasmic/saa_s_website/images/logo_co-founded-eu_full.png"
-              alt="InclusiveSpaces Logo"
-              className={sty.toolDetailsLogo}
-            />
+          {/* 右侧 logos 垂直排列 */}
+          <div className={sty.toolDetailsLogosCol}>
+            <div className={sty.toolDetailsLogoWrap}>
+              <img
+                src="/plasmic/saa_s_website/images/logo_co-founded-eu_full.png"
+                alt="EU Logo"
+                className={sty.toolDetailsLogo}
+              />
+            </div>
+            <div className={sty.toolDetailsLogoWrap}>
+              <img
+                src="/plasmic/saa_s_website/images/build4people_logo.png"
+                alt="Build4People Logo"
+                className={sty.toolDetailsLogo}
+              />
+            </div>
           </div>
-          <div className={sty.toolDetailsLogoWrap}>
-            <img
-              src="/plasmic/saa_s_website/images/build4people_logo.png"
-              alt="InclusiveSpaces Logo"
-              className={sty.toolDetailsLogo}
-            />
-          </div>
-          
-        </div>
+        </div> 
       </section>
 
       {/* === General information === */}

@@ -13,13 +13,16 @@
   "landing_city_penteli": "Penteli",
   "landing_city_penteli_desc": "Penteli, nördlich von Athen, bietet grüne Wohngebiete und hügeliges Gelände, was die Zugänglichkeit und städtische Mobilität einzigartig prägt.", 
   "landing_details_blocks": [
-    "Mit einem Universal Design Ansatz entwirft, überwacht und bewertet das Projekt InclusiveSpaces städtische Räume, um sicherzustellen, dass sie inklusiv, barrierefrei und klimafreundlich sind.",
-    "Durch die Einführung von Co-Design-Barrierefreiheitskonzepten beziehen wir Menschen in prekären Situationen ein, um Inklusion, sozialen Zusammenhalt sowie Klimaschutz und Anpassung an den Klimawandel zu fördern.",
-    "InclusiveSpaces ist eine Initiative zur Standardisierung und Digitalisierung von Design-Rahmenwerken für den Übergang zu einer inklusiven und klimafreundlichen gebauten Umwelt."
+    "Das komfortbasierte Erreichbarkeitstool (CAT) wurde an der Technischen Universität München entwickelt, um datenbasierte, menschenzentrierte Stadtplanung zu unterstützen. Durch Informationen aus Literatur und geführten Interviews mit Planungsexperten sowie mit Menschen mit Mobilitätseinschränkung bietet das Tool einen umfassenden Ansatz, um die komfortbasierte Erreichbarkeit zu visualisieren.",
+    "CAT integriert Reisezeit, Gehgeschwindigkeit und eine Reihe von Komfortfaktoren, um personalisierte und komfortbasierte Erreichbarkeitsanalysen und Isochronenkarten zu erstellen. Benutzer können interaktiv auswählen, welche Faktoren am wichtigsten sind, und sehen, wie sich ihr Erreichbarkeitsbereich verändert.",
+    "CAT richtet sich an Stadtplanende, Mobilitätsforschende, politische Entscheidungstragende und Organisationen, die die städtische Erreichbarkeit und den Komfort für alle Zufußgehende und Rollstuhlfahrende verbessern möchten. Gleichzeitig steht das Tool auch der breiten Öffentlichkeit zu Verfügung, die damit erkunden kann, wie sich die Erreichbarkeit je nach individuellen Komfortpräferenzen verändert.",
+    "Die Plattform ermöglicht Szenariotests, Beteiligung von Interessengruppen und eine transparente Kommunikation von Herausforderungen in der Fußläufigkeit und dient so als praxisnahes Entscheidungsunterstützungstool für inklusive, resiliente Stadtentwicklung."
   ],
   "landing_visit_inclusive": "Besuchen Sie die Website von InclusiveSpaces!",
-  "landing_general_title": "Allgemeine Informationen",
+  "landing_general_title": "Allgemeine Informationen über das Forschungsprojekt",
   "landing_general_blocks": [
+    "Mit einem Universal Design Ansatz entwirft, überwacht und bewertet das Projekt InclusiveSpaces städtische Räume, um sicherzustellen, dass sie inklusiv, barrierefrei und klimafreundlich sind. Durch die Einführung von Co-Design-Barrierefreiheitskonzepten beziehen wir Menschen in prekären Situationen ein, um Inklusion, sozialen Zusammenhalt sowie Klimaschutz und Anpassung an den Klimawandel zu fördern. InclusiveSpaces ist eine Initiative zur Standardisierung und Digitalisierung von Design-Rahmenwerken für den Übergang zu einer inklusiven und klimafreundlichen gebauten Umwelt.",
+    "InclusiveSpaces entwickelt innovative Planungswerkzeuge und Assistenztechnologien auf Basis universeller Designprinzipien, stärkt unterschiedliche Nutzergruppen und fördert klimafreundliche Ansätze. Die Lösungen werden in sechs europäischen Städten demonstriert und evaluiert: Athen-Penteli, Genf, Madrid, Larnaka, Hamburg und Budapest.",
     "InclusiveSpaces ist ein Projekt im Rahmen von Horizon Europe, das von der Europäischen Kommission unter der Fördervereinbarung Nr. 101147881 unterstützt wird. Die britischen Teilnehmer an diesem Projekt werden vom Vereinigten Königreich kofinanziert. Die geäußerten Ansichten und Meinungen sind jedoch ausschließlich die der Autoren und spiegeln nicht unbedingt die der Europäischen Union oder der Exekutivagentur für Klima, Infrastruktur und Umwelt (CINEA) wider. Weder die Europäische Union noch die Förderbehörde können dafür verantwortlich gemacht werden.",
     "Das Projekt InclusiveSpaces wird im Rahmen der Built4People-Partnerschaft finanziert."
   ],
