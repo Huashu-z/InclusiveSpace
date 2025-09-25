@@ -80,29 +80,28 @@ const nWeights = Number.isFinite(nInt) && nInt > 0 ? nInt : 1; //number of weigh
         FROM pgr_drivingDistance(
           'SELECT gid AS id, source, target, 
             cost / GREATEST(
-              POWER((
-                CASE WHEN noise_weight = 1 THEN ' || $3 || ' ELSE 1 END *
-                CASE WHEN light_weight = 0 THEN ' || $4 || ' ELSE 1 END *
-                CASE WHEN crossing_weight = 1 THEN ' || $5 || ' ELSE 1 END *
-                CASE WHEN tactile_weight = 0 THEN ' || $6 || ' ELSE 1 END *
-                CASE WHEN tree_weight = 0 THEN ' || $7 || ' ELSE 1 END *
-                CASE WHEN temp_weight_s = 1 THEN ' || $8 || ' ELSE 1 END *
-                CASE WHEN temp_weight_w = 1 THEN ' || $9 || ' ELSE 1 END *
-                CASE WHEN blue_weight = 0 THEN ' || $10 || ' ELSE 1 END *
-                CASE WHEN green_weight = 0 THEN ' || $11 || ' ELSE 1 END *
-                CASE WHEN station_weight = 0 THEN ' || $12 || ' ELSE 1 END *
-                CASE WHEN wc_d_weight = 0 THEN ' || $13 || ' ELSE 1 END *
-                CASE WHEN path_width_weight = 1 THEN ' || $14 || ' ELSE 1 END *
-                CASE WHEN stair_weight = 1 THEN ' || $15 || ' ELSE 1 END * 
-                CASE WHEN obstacle_weight = 1 THEN ' || $16 || ' ELSE 1 END *
-                CASE WHEN slope_weight = 1 THEN ' || $17 || ' ELSE 1 END *
-                CASE WHEN uneven_surfaces_weight = 1 THEN ' || $18 || ' ELSE 1 END *
-                CASE WHEN poor_pavement_weight = 1 THEN ' || $19 || ' ELSE 1 END *
-                CASE WHEN kerbs_h_weight = 1 THEN ' || $20 || ' ELSE 1 END *
-                CASE WHEN facilities_weight = 0 THEN ' || $21 || ' ELSE 1 END *
+              LEAST(
+                CASE WHEN noise_weight = 1 THEN ' || $3 || ' ELSE 1 END,
+                CASE WHEN light_weight = 0 THEN ' || $4 || ' ELSE 1 END,
+                CASE WHEN crossing_weight = 1 THEN ' || $5 || ' ELSE 1 END,
+                CASE WHEN tactile_weight = 0 THEN ' || $6 || ' ELSE 1 END,
+                CASE WHEN tree_weight = 0 THEN ' || $7 || ' ELSE 1 END,
+                CASE WHEN temp_weight_s = 1 THEN ' || $8 || ' ELSE 1 END,
+                CASE WHEN temp_weight_w = 1 THEN ' || $9 || ' ELSE 1 END,
+                CASE WHEN blue_weight = 0 THEN ' || $10 || ' ELSE 1 END,
+                CASE WHEN green_weight = 0 THEN ' || $11 || ' ELSE 1 END,
+                CASE WHEN station_weight = 0 THEN ' || $12 || ' ELSE 1 END,
+                CASE WHEN wc_d_weight = 0 THEN ' || $13 || ' ELSE 1 END,
+                CASE WHEN path_width_weight = 1 THEN ' || $14 || ' ELSE 1 END,
+                CASE WHEN stair_weight = 1 THEN ' || $15 || ' ELSE 1 END, 
+                CASE WHEN obstacle_weight = 1 THEN ' || $16 || ' ELSE 1 END,
+                CASE WHEN slope_weight = 1 THEN ' || $17 || ' ELSE 1 END,
+                CASE WHEN uneven_surfaces_weight = 1 THEN ' || $18 || ' ELSE 1 END,
+                CASE WHEN poor_pavement_weight = 1 THEN ' || $19 || ' ELSE 1 END,
+                CASE WHEN kerbs_h_weight = 1 THEN ' || $20 || ' ELSE 1 END,
+                CASE WHEN facilities_weight = 0 THEN ' || $21 || ' ELSE 1 END,
                 CASE WHEN pedestrian_flow_weight = 1 THEN ' || $22 || ' ELSE 1 END
-              ), 1.0 / ' || $23 || '),
-            1e-6) AS cost
+              ), 1e-6) AS cost
           FROM ${waysTable}',
           $1::integer,
           $2::float,
@@ -130,8 +129,7 @@ const nWeights = Number.isFinite(nInt) && nInt > 0 ? nInt : 1; //number of weigh
         poorPavementVariable,
         kerbsHighVariable,
         facilityVariable,
-        pedestrianFlowVariable,
-        nWeights]);
+        pedestrianFlowVariable]);
       
  
     const geojson = result.rows[0].geojson;
