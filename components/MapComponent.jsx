@@ -52,6 +52,17 @@ const MapComponent = ({
   const [defaultResultCache, setDefaultResultCache] = useState({}); // key: `${lat},${lon}`, value: {roads, hull, area}
   const [defaultGroupIndex, setDefaultGroupIndex] = useState(1);  // default group index for the first result
   const [groupMapping, setGroupMapping] = useState({}); // mapping of group index to default results,index for weighted results
+  const [cityBoundaries, setCityBoundaries] = useState({});
+
+  // load city boundary
+  useEffect(() => {
+    Promise.all([
+      fetch(`/data/penteli/penteli_boundary.geojson`).then(res => res.json()),
+      fetch(`/data/hamburg/hamburg_boundary.geojson`).then(res => res.json())
+    ]).then(([hh, pt]) => {
+      setCityBoundaries({ hamburg: hh, penteli: pt });
+    });
+  }, []);
 
   // check if the generated reachability area is valid GeoJSON
   const isValidGeoJSON = (geojson) =>
@@ -535,6 +546,30 @@ const MapComponent = ({
             </Marker>
           ) : null
         ))}
+
+        {/* render boundary */}
+        {cityBoundaries.hamburg && (
+          <GeoJSON
+            data={cityBoundaries.hamburg}
+            style={{
+              color: "#2a9d8f",
+              weight: 2,
+              fillOpacity: 0,
+              dashArray: "5,5"
+            }}
+          />
+        )}
+        {cityBoundaries.penteli && (
+          <GeoJSON
+            data={cityBoundaries.penteli}
+            style={{
+              color: "#e76f51",
+              weight: 2,
+              fillOpacity: 0,
+              dashArray: "5,5"
+            }}
+          />
+        )}
  
         {/* Render WMS layers based on selectedLayers */}
         {selectedLayers.map((layer) => {
