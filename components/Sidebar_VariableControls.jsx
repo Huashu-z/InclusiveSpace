@@ -21,8 +21,8 @@ export default function VariableControls({
   const availableFeatures = cityLayerConfig[city]?.discomfortFeatures || [];
 
   const { t } = useTranslation("common");
-  const weightLevels = [0.1, 0.4, 0.7]; //4 categories of comfort weights
-  const weightLabels = ["❌","😩", "😐"];
+  const weightLevels = [0.9, 0.7, 0.4, 0.1]; //4 categories of comfort weights
+  const weightLabels = ["😐","☹️","😩","❌"];
   const renderCheckbox = (layer, label) => {
     const enabled = enabledVariables.includes(layer);
     const value = layerValues[layer];
@@ -69,14 +69,14 @@ export default function VariableControls({
           <input
             type="range"
             min="0"
-            max="2"
+            max="3"
             step="1"
             disabled={!enabled}
-            value={sliderIndex >= 0 ? sliderIndex : 2}
+            value={sliderIndex >= 0 ? sliderIndex : 3}
             className={!enabled ? sty["disabled"] : ""}
             style={{
               background: enabled
-                ? `linear-gradient(to right, #2a9d8f ${((sliderIndex + 0.5) / 3) * 100}%, #ccc ${((sliderIndex + 0.8) / 3) * 100}%)`
+                ? `linear-gradient(to right, #ff5e00ff ${((sliderIndex + 0.5) / 4) * 100}%, #ccc ${((sliderIndex + 0.8) / 4) * 100}%)`
                 : undefined
             }}
             onChange={(event) => {
@@ -125,15 +125,23 @@ export default function VariableControls({
       {/* --- Emoji legend for comfort variables--- */}
       <div className={sty["legend-container"]}>
         <h4 className={sty["legend-title"]}>{t('emoji_level_0')}</h4>
-        <div className={sty["legend-emoji-row"]}>
-          <span className={sty["legend-emoji"]}>❌</span>
-          <span className={sty["legend-emoji"]}>😩</span>
-          <span className={sty["legend-emoji"]}>😐</span>
-        </div>
-        <div className={sty["legend-text-row"]}>
-          <span className={sty["legend-label"]}>{t('emoji_level_1')}</span>
-          <span className={sty["legend-label"]}>{t('emoji_level_2')}</span>
-          <span className={sty["legend-label"]}>{t('emoji_level_3')}</span>
+        <div className={sty["legend-emoji-column"]}>
+          <div className={sty["legend-emoji-item"]}>
+            <span className={sty["legend-emoji"]}>❌</span>
+            <span className={sty["legend-label"]}>{t('emoji_level_1')}</span>
+          </div>
+          <div className={sty["legend-emoji-item"]}>
+            <span className={sty["legend-emoji"]}>😩</span>
+            <span className={sty["legend-label"]}>{t('emoji_level_2')}</span>
+          </div>
+          <div className={sty["legend-emoji-item"]}>
+            <span className={sty["legend-emoji"]}>☹️</span>
+            <span className={sty["legend-label"]}>{t('emoji_level_3')}</span>
+          </div>
+          <div className={sty["legend-emoji-item"]}>
+            <span className={sty["legend-emoji"]}>😐</span>
+            <span className={sty["legend-label"]}>{t('emoji_level_4')}</span>
+          </div>
         </div>
       </div>
 

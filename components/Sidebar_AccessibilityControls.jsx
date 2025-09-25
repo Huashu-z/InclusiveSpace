@@ -57,7 +57,7 @@ export default function AccessibilityControls({
         <input
           type="range"
           min="1"
-          max="60"
+          max="30"
           step="1"
           value={walkingTime}
           onChange={(e) => setWalkingTime(Number(e.target.value))}
@@ -86,8 +86,8 @@ export default function AccessibilityControls({
       <div className={sty["sidebar-slider"]}>
         <input
           type="range"
-          min="2"
-          max="8"
+          min="3"
+          max="6"
           step="0.1"
           value={walkingSpeed}
           onChange={(e) => setWalkingSpeed(Number(e.target.value))}

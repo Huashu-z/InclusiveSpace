@@ -31,10 +31,11 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
     pedestrianFlow: t('checkbox_crowd'),
   };
 
-  const weightLevels = [0.1, 0.4, 0.7];
+  const weightLevels = [0.1, 0.4, 0.7, 0.9];
   const weightLabels = [
     "❌",
     "😩",
+    "☹️",
     "😐"
   ];
 
@@ -107,9 +108,16 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                     className={styles["legend-color-box"]}
                     style={{ backgroundColor: color }}
                   />
-                  {entry.isDefault
-                    ? `${t('legend_default')} ${entry.groupIndex}`
-                    : `${t('leg_area_label')} ${entry.groupIndex}.${entry.subIndex}`}
+                  {entry.isDefault ? (
+                    <div>
+                      <div>{t('legend_base_area')} {entry.groupIndex}</div>
+                      <div style={{ fontSize: "1.0em", color: "#666" }}>
+                        {t('legend_without_factors')}
+                      </div>
+                    </div>
+                  ) : (
+                    `${t('leg_area_label')} ${entry.groupIndex}.${entry.subIndex}`
+                  )}
                 </div>
 
                 <div>{t('leg_time_label')} {entry.time} min</div>
