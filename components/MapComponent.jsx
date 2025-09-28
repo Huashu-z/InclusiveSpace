@@ -452,7 +452,7 @@ const MapComponent = ({
   };
 
   if (!MapModule || !MapModule.MapContainer) return null;
-  const { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMapEvents, useMap, Pane } = MapModule;
+  const { MapContainer, TileLayer, GeoJSON, Marker, Popup, Tooltip, useMapEvents, useMap, Pane } = MapModule;
 
   // Listen for map click events
   // This component handles the click event on the map to select the starting point
@@ -624,7 +624,18 @@ const MapComponent = ({
                 weight: 2,
                 opacity: 1
               }}
-            />
+            >
+              {/* Tooltip for result name */}
+              <Tooltip
+                sticky 
+                direction="top"
+                offset={[6, -6]}   // 这里设置偏移
+              >
+                {resultMetadata[i]?.isDefault
+                  ? `Base area ${resultMetadata[i]?.groupIndex}`
+                  : `Area ${resultMetadata[i]?.groupIndex}.${resultMetadata[i]?.subIndex}`}
+              </Tooltip>
+            </GeoJSON>
           ) : null
         )}
         {highlightedIndex !== null && reachableHullData[highlightedIndex] && (
