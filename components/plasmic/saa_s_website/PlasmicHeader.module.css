@@ -179,7 +179,18 @@
   flex-shrink: 0;
 }
 
+/* landing page header ----------------------------------------------------*/
+.landing-header-bg {
+  background: #123049 !important;  
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03); 
+}
 
+.landing-header-text {
+  color: #f5f5f5 !important;
+}
+.landing-header-text .lang-switch-wrap a {
+  color: #f5f5f5 !important;
+}
 /*-------------------------------------------------------------------------------*/
 /* Stack container - Keep User and Planner close together and to the right of the header */
 .link-container-wrapper {

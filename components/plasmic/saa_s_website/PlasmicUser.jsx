@@ -63,6 +63,28 @@ function PlasmicUser__RenderFunc(props) {
   const [cityCenter, setCityCenter] = React.useState([53.5503, 9.9920]); // hamburg as default
   const [isSearchZoom, setIsSearchZoom] = React.useState(false);
 
+  // when first time enter map, show help information/ instruction
+  // const [defaultShowHelp, setDefaultShowHelp] = React.useState(() => {
+  //   if (typeof window !== "undefined") {
+  //     return !localStorage.getItem("helpShown");
+  //   }
+  //   return false;
+  // });
+  // React.useEffect(() => {
+  //   if (defaultShowHelp && typeof window !== "undefined") {
+  //     localStorage.setItem("helpShown", "true");
+  //   }
+  // }, [defaultShowHelp]);
+  const [showHelp, setShowHelp] = React.useState(false);
+
+  React.useEffect(() => {
+    if (typeof window !== "undefined" && !sessionStorage.getItem("helpShown")) {
+      setShowHelp(true);
+      sessionStorage.setItem("helpShown", "true");
+    }
+  }, []);
+
+
   React.useEffect(() => {
     const storedCenter = localStorage.getItem("selectedCityCenter");
     if (storedCenter) {
@@ -174,7 +196,16 @@ function PlasmicUser__RenderFunc(props) {
             sty.root
           )}
         >
-          <Header data-plasmic-name="header" data-plasmic-override={overrides?.header} className={classNames("__wab_instance", sty.header)} />
+          <Header
+            // defaultShowHelp={defaultShowHelp}
+            // defaultShowHelp={true}
+            showHelp={showHelp}
+            setShowHelp={setShowHelp}
+            variant="map"
+            data-plasmic-name="header"
+            data-plasmic-override={overrides?.header}
+            className={classNames("__wab_instance", sty.header)}
+          />
           <div data-plasmic-name="mapBox" data-plasmic-override={overrides?.mapBox} className={classNames(projectcss.all, sty.mapBox)} id="map">
             <LayerTagBar selectedLayers={selectedLayers} toggleLayer={toggleLayer} />
             <MapComponent

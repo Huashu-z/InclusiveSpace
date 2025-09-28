@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import PlasmicHeader from "./PlasmicHeader";
+import Header from "../../Header";
 import sty from "./PlasmicLanding.module.css";
 import { useTranslation } from "next-i18next";
 
@@ -36,7 +36,7 @@ export default function PlasmicLanding() {
 
   return (
     <div className={sty.container}>
-      <PlasmicHeader />
+      <Header variant="landing"/>
 
       {/* === CAT === */}
       <section className={sty.banner}>
@@ -84,6 +84,7 @@ export default function PlasmicLanding() {
                   localStorage.setItem("selectedCity", "hamburg");
                   localStorage.setItem("selectedCityCenter", JSON.stringify([53.5503, 9.9920]));
                   // 跳转地图页
+                  sessionStorage.removeItem("helpShown");
                   window.location.href = "/user?city=hamburg";
                 }}
                 role="button"
@@ -114,6 +115,7 @@ export default function PlasmicLanding() {
                   // 进入 Penteli
                   localStorage.setItem("selectedCity", "penteli");
                   localStorage.setItem("selectedCityCenter", JSON.stringify([38.0491, 23.8653]));
+                  sessionStorage.removeItem("helpShown");
                   window.location.href = "/user?city=penteli";
                 }}
                 role="button"
