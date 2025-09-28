@@ -509,7 +509,7 @@ const MapComponent = ({
         </div>
       )}
 
-      <MapContainer center={cityCenter} zoom={15} style={{ width: "100%", height: "100vh" }}>
+      <MapContainer center={cityCenter} zoom={14} style={{ width: "100%", height: "100vh" }}>
         <Pane name="highlight-pane" style={{ zIndex: 650 }} />
         <AutoZoomToStart
           startPoints={startPoints}
