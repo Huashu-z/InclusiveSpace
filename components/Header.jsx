@@ -85,7 +85,7 @@ function Header(
           className={sty["help-button"]}
           title={t('header_tool_instruction')}
           onClick={() => setShowHelp(true)}
-        >?</button>
+        >i</button>
       )}
       {/* map 显示城市选择 */}
       {variant === "map" && (
