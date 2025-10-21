@@ -27,6 +27,7 @@ export default function Sidebar({
     setComputeAccessibility,
     handleResetResults,
     handleClearResult,
+    handleClearVariables,
     openCategory,
     toggleCategory,
     showInfo,
@@ -86,6 +87,7 @@ export default function Sidebar({
             walkingTime={walkingTime}
             walkingSpeed={walkingSpeed}
             handleClearResult={handleClearResult}
+            handleClearVariables={handleClearVariables}
           />
   
           <MapLayers

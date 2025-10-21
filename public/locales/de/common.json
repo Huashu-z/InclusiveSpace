@@ -58,6 +58,7 @@
   "select_start_notice": "(Adresse eingeben oder Pin verwenden)",
   "reset": "Adresse Zurücksetzen",
   "clear_result": "Ergebnisse löschen",
+  "clear_variables": "Merkmale löschen",
   "get_area": "Einzugsgebiet berechnen",
   "leg_catchment_result": "Ergebnis des Einzugsgebiets",
   "leg_time_label": "Zeit: ",

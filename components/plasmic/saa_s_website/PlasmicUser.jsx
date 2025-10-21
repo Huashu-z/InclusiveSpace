@@ -112,11 +112,15 @@ function PlasmicUser__RenderFunc(props) {
     setComputeAccessibility(false);
     setStartPoints([]);
     setResetTrigger(true);
-    setEnabledVariables([]);
-    setLayerValues({}); 
+    // setEnabledVariables([]);
+    // setLayerValues({}); 
   };
   const handleClearResult = () => {
     setClearTrigger(true);
+  };
+  const handleClearVariables = () => {
+    setEnabledVariables([]);
+    setLayerValues({});
   };
 
 
@@ -251,6 +255,7 @@ function PlasmicUser__RenderFunc(props) {
             setComputeAccessibility={setComputeAccessibility}
             handleResetResults={handleResetResults}
             handleClearResult={handleClearResult}
+            handleClearVariables={handleClearVariables}
             openCategory={openCategory}
             toggleCategory={toggleCategory}
             showInfo={showInfo}

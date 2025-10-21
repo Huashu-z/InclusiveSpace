@@ -14,6 +14,7 @@ export default function VariableControls({
   startPoints,
   setComputeAccessibility,
   handleClearResult,
+  handleClearVariables,
   walkingTime,
   walkingSpeed
 }) {
@@ -225,6 +226,16 @@ export default function VariableControls({
         className={sty["setup-button"]}  
       >
         <span className={sty["sidebar-text-bold"]}> {t('clear_result')}</span>
+      </button>
+        {/* NEW: Clear Variables Button */}
+      <button
+        onClick={handleClearVariables}
+        className={sty["setup-button"]}
+        style={{ marginTop: 6 }}
+      >
+        <span className={sty["sidebar-text-bold"]}>
+          {t('clear_variables')}
+        </span>
       </button>
 
     </div>
