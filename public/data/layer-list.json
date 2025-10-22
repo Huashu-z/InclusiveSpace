@@ -16,6 +16,7 @@
     "stair", 
     "obstacle",
     "slope",
+    "slope_penteli",
     "uneven_surfaces",
     "poor_pavement",
     "kerbs_high",

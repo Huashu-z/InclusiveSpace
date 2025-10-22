@@ -72,6 +72,7 @@ export default function MapLayers({ selectedLayers, toggleLayer, availableLayers
           {findLayer("stair") && renderCheckbox(findLayer("stair"), t('display_stair'))}
           {findLayer("obstacle") && renderCheckbox(findLayer("obstacle"), t('display_obstacle'))}
           {findLayer("slope") && renderCheckbox(findLayer("slope"), t('display_slope'))}
+          {findLayer("slope_penteli") && renderCheckbox(findLayer("slope_penteli"), t('display_slope'))}
           {findLayer("uneven_surfaces") && renderCheckbox(findLayer("uneven_surfaces"), t('display_uneven'))}
           {findLayer("poor_pavement") && renderCheckbox(findLayer("poor_pavement"), t('display_pavement'))}
           {findLayer("kerbs_high") && renderCheckbox(findLayer("kerbs_high"), t('display_kerb_high'))}

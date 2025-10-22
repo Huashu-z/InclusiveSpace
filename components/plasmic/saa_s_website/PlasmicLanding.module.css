@@ -160,7 +160,16 @@
     align-items: center;
   }
 }
+
 /* ===== 右侧城市卡区域 ===== */
+.cityTitle {
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 20px;
+  text-align: left;
+  color: #fff;
+}
+
 .cityCol {
   display: flex;
   flex-direction: column;

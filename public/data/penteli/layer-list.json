@@ -6,6 +6,7 @@
   { "key": "pedestrian_flow", "type": "geojson" },
   { "key": "facilities", "type": "geojson" },
   { "key": "temp_summer", "type": "geojson" },
-  { "key": "temp_winter", "type": "geojson" }
+  { "key": "temp_winter", "type": "geojson" },
+  { "key": "slope_penteli", "type": "geojson" }
 ]
 

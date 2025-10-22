@@ -186,6 +186,7 @@ const MapComponent = ({
         stair: selected.includes("stair") ? variableSettings.stair ?? 1 : 1,
         obstacle: selected.includes("obstacle") ? variableSettings.obstacle ?? 1 : 1,
         slope: selected.includes("slope") ? variableSettings.slope ?? 1 : 1,
+        slope_penteli: selected.includes("slope_penteli") ? variableSettings.slope_penteli ?? 1 : 1,
         unevenSurface: selected.includes("unevenSurface") ? variableSettings.unevenSurface ?? 1 : 1,
         poorPavement: selected.includes("poorPavement") ? variableSettings.poorPavement ?? 1 : 1,
         kerbsHigh: selected.includes("kerbsHigh") ? variableSettings.kerbsHigh ?? 1 : 1,

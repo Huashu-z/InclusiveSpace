@@ -3,6 +3,7 @@ import PlasmicHeader from "./plasmic/saa_s_website/PlasmicHeader";
 import sty from "./plasmic/saa_s_website/PlasmicHeader.module.css";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 function Header(
   {
@@ -14,6 +15,10 @@ function Header(
 ) {
   const [showCityMenu, setShowCityMenu] = React.useState(false);
   const { t } = useTranslation("common");
+
+  // language selection setting
+  const router = useRouter();
+  const currentLocale = router.locale || "en";
 
   // === 左侧部分 ===
   let left = null;
@@ -74,7 +79,7 @@ function Header(
       <span className={sty["lang-switch-wrap"]}>
         {["de", "en", "el"].map((lng, idx, arr) => (
           <React.Fragment key={lng}>
-            <Link href="#" locale={lng} className={lng === "en" ? sty["lang-active"] : ""}>{lng}</Link>
+            <Link href={router.asPath} locale={lng} className={currentLocale === lng ? sty["lang-active"] : ""}>{lng}</Link>
             {idx < arr.length - 1 && " | "}
           </React.Fragment>
         ))}

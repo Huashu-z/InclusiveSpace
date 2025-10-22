@@ -73,6 +73,8 @@ export default function Tooltip({ show, type, anchorRef, onClose }) {
     content = <p>{t('tooltip_obstacle')}</p>;
   } else if (type === "slope") {
     content = <p>{t('tooltip_slope')}</p>;
+    } else if (type === "slope_penteli") {
+    content = <p>{t('tooltip_slope')}</p>;
   } else if (type === "unevenSurface") {
     content = <p>{t('tooltip_uneven')}</p>;
   } else if (type === "poorPavement") {

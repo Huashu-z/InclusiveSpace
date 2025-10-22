@@ -69,6 +69,7 @@ export default function PlasmicLanding() {
 
             {/* 右侧城市卡 */}
             <div className={sty.bannerCol}>
+              <h3 className={sty.cityTitle}>{t('landing_city_section_title')}</h3>
               <div className={sty.cityCol}>
                 {/* Hamburg */}
                 <div

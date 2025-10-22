@@ -165,10 +165,28 @@ export function getStyle(layer, feature) {
     case "trafic_light":
       return {
         radius: 5,
-        fillColor: "#F09E45", // 推荐橙色和WMS区分
+        fillColor: "#F09E45", 
         fillOpacity: 0.8,
         stroke: false
       };
+    case "slope_penteli": {
+      const breaks = [
+        { max: 5, color: "#fee08b" }, 
+        { max: 12, color: "#fc8d59" },
+        { max: 20, color: "#d73027" } 
+      ];
+
+      const val = parseFloat(feature?.properties?.VALUE);
+
+      const match = breaks.find(b => val < b.max) || breaks[breaks.length - 1];
+
+      return {
+        color: "#999",
+        weight: 0.2,
+        fillColor: match.color,
+        fillOpacity: 0.6
+      };
+    }
     case "green_infrastructure":
       return {
         color: "#6dbf52", // 推荐深绿色

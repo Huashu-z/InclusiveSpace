@@ -62,6 +62,16 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
     temp_winter: [t('layertag_temp_winter_0'), t('layertag_temp_winter_1'), t('layertag_temp_winter_2')]
   };
 
+  // specific color palettes for penteli slope layers
+  const slopePalette = {
+    slope_penteli: ["#fee08b", "#fc8d59", "#d73027"], // comfort → steep
+  };
+
+  const slopeLabels = {
+    slope_penteli: [t('layertag_slope_penteli_0'), t('layertag_slope_penteli_1'), t('layertag_slope_penteli_2')],
+  };
+
+  // specific color palettes for pedestrian flow layers
   const flowPalette = {
     pedestrian_flow_wms: ["#4b5fd1", "#eccf46", "#b31e0c"] // low → high pedestrian flow
   };
@@ -182,6 +192,21 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
                     }}
                   />
                   <span>{tempLabels[layer][i]}</span>
+                </div>
+              ))
+            ) :slopePalette[layer] ? (
+              slopePalette[layer].map((color, i) => (    // legend for slope layers
+                <div key={`${layer}-${i}`} className={styles.layerTagLegendItem}>
+                  <div
+                    style={{
+                      width: "14px",
+                      height: "14px",
+                      borderRadius: "50%",
+                      backgroundColor: color,
+                      border: "1px solid #999"
+                    }}
+                  />
+                  <span>{slopeLabels[layer][i]}</span>
                 </div>
               ))
             ) : isWmsLayer(layer) ? (
