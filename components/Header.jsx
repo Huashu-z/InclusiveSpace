@@ -28,17 +28,17 @@ function Header(
       <>
         <Link href={`/`}>
           <div className={sty["logo-wrapper"]}>
-            <img src="/plasmic/saa_s_website/images/logo_co-founded-eu.png" alt="EU Logo" />
+            <img src="/images/logo_co-founded-eu.png" alt="EU Logo" />
           </div>
         </Link>
         <Link href={`/`}>
           <div className={sty["logo-wrapper"]}>
-            <img src="/plasmic/saa_s_website/images/logoIS.png" alt="IS Logo" />
+            <img src="/images/logoIS.png" alt="IS Logo" />
           </div>
         </Link>
         <Link href={`/`}>
           <div className={sty["logo-wrapper"]}>
-            <img src="/plasmic/saa_s_website/images/tum_logo.png" alt="TUM Logo" />
+            <img src="/images/tum_logo.png" alt="TUM Logo" />
           </div>
         </Link>
       </>
@@ -48,7 +48,7 @@ function Header(
     left = (
       <Link href={`/`}>
         <img
-          src="/plasmic/saa_s_website/images/CAT_logo_white.svg"
+          src="/images/CAT_logo_white.svg"
           alt="Tool Logo"
           className={sty["CAT-logo"]}
           style={{ marginLeft: 0 }}
@@ -64,7 +64,7 @@ function Header(
     center = (
       <Link href={`/`}>
         <img
-          src="/plasmic/saa_s_website/images/CAT_logo_blue.svg"
+          src="/images/CAT_logo_blue.svg"
           alt="Tool Logo"
           className={sty["CAT-logo"]}
         />
@@ -101,7 +101,7 @@ function Header(
             title="Select City"
           >
             <img
-              src="/plasmic/saa_s_website/images/select_city.png"
+              src="/images/select_city.png"
               alt="Select Map"
               className={sty["city-icon"]}
             />

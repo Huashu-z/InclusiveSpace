@@ -25,13 +25,11 @@
       "projectId": "ohDidvG9XsCeFumugENU3J",
       "projectApiToken": "YE6pw0s6HZvyAZENjWdhh22CZUvZbVXVeOr7IxU58m9rwk2ITG1RfJGcJjzF2uEC7DCqa4PDzPP1UXxfKuuQ",
       "projectName": "antd5 hostless",
-      "version": ">0.0.0",
-      "cssFilePath": "plasmic/antd_5_hostless/plasmic.module.css",
+      "version": ">0.0.0", 
       "components": [],
       "icons": [],
       "images": [],
-      "indirect": true,
-      "globalContextsFilePath": "plasmic/antd_5_hostless/PlasmicGlobalContextsProvider.jsx",
+      "indirect": true, 
       "splitsProviderFilePath": "",
       "codeComponents": [
         {
@@ -1299,8 +1297,7 @@
           "filePath": "../public/plasmic/saa_s_website/images/logoWithoutTextPng.png"
         }
       ],
-      "indirect": false,
-      "globalContextsFilePath": "plasmic/saa_s_website/PlasmicGlobalContextsProvider.jsx",
+      "indirect": false, 
       "splitsProviderFilePath": "",
       "codeComponents": [
         {
@@ -1324,8 +1321,7 @@
       {
         "id": "xtsyYlb80oMw",
         "name": "Screen",
-        "projectId": "uftrV6ZeR5SuVi5gnDLzFk",
-        "contextFilePath": "plasmic/saa_s_website/PlasmicGlobalVariant__Screen.jsx"
+        "projectId": "uftrV6ZeR5SuVi5gnDLzFk"
       }
     ]
   },

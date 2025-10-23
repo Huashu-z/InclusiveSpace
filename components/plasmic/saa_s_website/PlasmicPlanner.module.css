@@ -126,7 +126,7 @@
   left: 0px;
 }
 
-/* 🔁 copied utility checkbox styles */
+/* copied utility checkbox styles */
 .checkboxIntersection:global(.__wab_instance):global(.__wab_instance),
 .checkboxTactilePav:global(.__wab_instance):global(.__wab_instance),
 .checkboxLights:global(.__wab_instance):global(.__wab_instance),
@@ -136,7 +136,7 @@
   max-width: 100%;
 }
 
-/* 🔁 sidebar content (titles, buttons, sliders, etc.) — matching user */
+/* sidebar content (titles, buttons, sliders, etc.) — matching user */
 .sidebar-section {
   width: 100%;
   border: 1px solid #D6D6D6;

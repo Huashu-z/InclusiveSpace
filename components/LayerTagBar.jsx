@@ -83,28 +83,28 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
   // icon for wms layers
   const iconUrls = {
     tree_wms: [
-      "/plasmic/saa_s_website/images/tree_completed.png",
-      "/plasmic/saa_s_website/images/tree_plan.png",
-      "/plasmic/saa_s_website/images/tree_unassigned.png"
+      "/images/tree_completed.png",
+      "/images/tree_plan.png",
+      "/images/tree_unassigned.png"
     ],
-    trafic_light_wms: ["/plasmic/saa_s_website/images/traffic-light.png"],
+    trafic_light_wms: ["/images/traffic-light.png"],
     blue_infrastructure_wms: [
-      "/plasmic/saa_s_website/images/blue_brackish.png",
-      "/plasmic/saa_s_website/images/blue_lake.png",
-      "/plasmic/saa_s_website/images/blue_waterbody.png",
-      "/plasmic/saa_s_website/images/blue_spring.png",
-      "/plasmic/saa_s_website/images/blue_hydraulic.png"
+      "/images/blue_brackish.png",
+      "/images/blue_lake.png",
+      "/images/blue_waterbody.png",
+      "/images/blue_spring.png",
+      "/images/blue_hydraulic.png"
     ],
-    transport_station_wms: ["/plasmic/saa_s_website/images/transport-station.png"],
-    wc_disabled: ["/plasmic/saa_s_website/images/wc.png"],
+    transport_station_wms: ["/images/transport-station.png"],
+    wc_disabled: ["/images/wc.png"],
     facility_wms: [
-      "/plasmic/saa_s_website/images/facility_culturcenter_burgerhaus.png",
-      "/plasmic/saa_s_website/images/facility_film_theater.png",
-      "/plasmic/saa_s_website/images/facility_museen.png",
-      "/plasmic/saa_s_website/images/facility_musik_ausstellung.png", 
-      "/plasmic/saa_s_website/images/facility_religioss.png",
-      "/plasmic/saa_s_website/images/facility_weiterbildung.png",
-      "/plasmic/saa_s_website/images/facility_spezialbibliotheken.png",], 
+      "/images/facility_culturcenter_burgerhaus.png",
+      "/images/facility_film_theater.png",
+      "/images/facility_museen.png",
+      "/images/facility_musik_ausstellung.png", 
+      "/images/facility_religioss.png",
+      "/images/facility_weiterbildung.png",
+      "/images/facility_spezialbibliotheken.png",], 
   };
 
   const wmsColorPalette = {

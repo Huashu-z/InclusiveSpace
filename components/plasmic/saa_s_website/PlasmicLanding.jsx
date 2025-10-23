@@ -9,8 +9,8 @@ export default function PlasmicLanding() {
   const { t } = useTranslation("common");
 
   const cities = [
-    { id: "hamburg", name: "Hamburg", logo: "/plasmic/saa_s_website/images/hamburg_logo.png", center: [53.5503, 9.9920] }, 
-    { id: "penteli", name: "Penteli", logo: "/plasmic/saa_s_website/images/penteli_logo.png", center: [38.0491, 23.8653] },
+    { id: "hamburg", name: "Hamburg", logo: "/images/hamburg_logo.png", center: [53.5503, 9.9920] }, 
+    { id: "penteli", name: "Penteli", logo: "/images/penteli_logo.png", center: [38.0491, 23.8653] },
   ];
 
   const [selectedCity, setSelectedCity] = useState("hamburg");
@@ -41,7 +41,7 @@ export default function PlasmicLanding() {
             <div className={sty.bannerCol}>
               <div className={sty.brandWrap}>
                 <img
-                  src="/plasmic/saa_s_website/images/CAT_title_white.svg"
+                  src="/images/CAT_title_white.svg"
                   alt="CAT — Comfort-based Accessibility Tool"
                   className={sty.catTitleImg}
                 />
@@ -80,7 +80,7 @@ export default function PlasmicLanding() {
                   <div className={sty.cityCircle}>
                     <span className={sty.cityCircleLabel}>{t('landing_city_hamburg')}</span>
                     <img
-                      src="/plasmic/saa_s_website/images/hamburg_map.png"
+                      src="/images/hamburg_map.png"
                       alt="Hamburg preview"
                       className={sty.cityThumb}
                     />
@@ -104,7 +104,7 @@ export default function PlasmicLanding() {
                   <div className={sty.cityCircle}>
                     <span className={sty.cityCircleLabel}>{t('landing_city_penteli')}</span>
                     <img
-                      src="/plasmic/saa_s_website/images/penteli_map.png"
+                      src="/images/penteli_map.png"
                       alt="Penteli preview"
                       className={sty.cityThumb}
                     />
@@ -152,7 +152,7 @@ export default function PlasmicLanding() {
           {/* left: logo */}
           <div className={sty.toolDetailsLogoWrap}>
             <img
-              src="/plasmic/saa_s_website/images/logoIS2.png"
+              src="/images/logoIS2.png"
               alt="InclusiveSpaces Logo"
               className={sty.toolDetailsLogo}
             />
@@ -188,14 +188,14 @@ export default function PlasmicLanding() {
           <div className={sty.toolDetailsLogosCol}>
             <div className={sty.toolDetailsLogoWrap}>
               <img
-                src="/plasmic/saa_s_website/images/logo_co-founded-eu_full.png"
+                src="/images/logo_co-founded-eu_full.png"
                 alt="EU Logo"
                 className={sty.toolDetailsLogo}
               />
             </div>
             <div className={sty.toolDetailsLogoWrap}>
               <img
-                src="/plasmic/saa_s_website/images/build4people_logo.png"
+                src="/images/build4people_logo.png"
                 alt="Build4People Logo"
                 className={sty.toolDetailsLogo}
               />
@@ -220,9 +220,9 @@ export default function PlasmicLanding() {
           
           <div className={sty.partnerLogos}>
             {/* Place your logos here, e.g.: */}
-            <img src="/plasmic/saa_s_website/images/logo_co-founded-eu_full.png" alt="EU Logo f" />
-            <img src="/plasmic/saa_s_website/images/logoIS_full.png" alt="InclusiveSpaces Logo f" />
-            <img src="/plasmic/saa_s_website/images/tum_logo_full.png" alt="TUM Logo f" />
+            <img src="/images/logo_co-founded-eu_full.png" alt="EU Logo f" />
+            <img src="/images/logoIS_full.png" alt="InclusiveSpaces Logo f" />
+            <img src="/images/tum_logo_full.png" alt="TUM Logo f" />
             {/* Add other partner logos as needed */}
           </div>
         </div>
