@@ -63,8 +63,7 @@ export default function Sidebar({
             setWalkingSpeed={setWalkingSpeed}
             setSelectingStart={setSelectingStart}
             startPoints={startPoints}
-            setStartPoints={setStartPoints}
-            // setComputeAccessibility={setComputeAccessibility}
+            setStartPoints={setStartPoints} 
             handleResetResults={handleResetResults}
             handleClearResult={handleClearResult}
             isSearchZoom = {isSearchZoom}

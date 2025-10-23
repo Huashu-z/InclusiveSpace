@@ -295,7 +295,7 @@
     border-radius: 6px;
     padding: 5px;
     cursor: pointer;
-    flex-shrink: 0; /* 不随 flex 收缩 */
+    flex-shrink: 0;
   }
 
   .icon-img {

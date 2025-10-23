@@ -12,10 +12,12 @@ export default function Sidebar_Tooltip({ show, type, anchorRef, onClose }) {
     setMounted(true);
   }, []);
 
-  // Calculated positioning: stick to anchorRef, offset 8px downward, automatic overflow prevention
+  // Calculated positioning of tooptip pop up: stick to anchorRef, offset 8px downward, automatic overflow prevention
   const place = React.useCallback(() => {
     const el = anchorRef?.current;
+    const tip = containerRef.current;
     if (!el) return;
+
     const rect = el.getBoundingClientRect();
     const gap = 8;
     let top = rect.bottom + gap;
@@ -26,7 +28,13 @@ export default function Sidebar_Tooltip({ show, type, anchorRef, onClose }) {
     const viewportH = window.innerHeight;
 
     if (left + maxWidth > viewportW - 12) left = Math.max(12, viewportW - maxWidth - 12);
-    if (top > viewportH - 120) top = Math.max(12, rect.top - 12 - 220); // Try to put it up
+    
+    const tipH = tip ? tip.getBoundingClientRect().height : 200; 
+    const overflowBottom = top + tipH > viewportH - 12;
+    const canFlipUp = rect.top - gap - tipH >= 12;
+    if (overflowBottom && canFlipUp) {
+      top = rect.top - gap - tipH; 
+    }
 
     setPos({ top, left });
   }, [anchorRef]);
@@ -76,7 +84,7 @@ export default function Sidebar_Tooltip({ show, type, anchorRef, onClose }) {
 
     // 1) Data layer name：layer:<key>, to distinguish with features' key
     if (tp.startsWith("layer:")) {
-      const key = tp.slice(6); // e.g. "slope_penteli"
+      const key = tp.slice(6);
       const title = t(`tooltip_layer.${key}.title`, { defaultValue: key });
       const desc = t(`tooltip_layer.${key}.desc`, {
         defaultValue: t("tooltip_layer_generic_desc", {
@@ -185,7 +193,9 @@ export default function Sidebar_Tooltip({ show, type, anchorRef, onClose }) {
         borderRadius: 8,
         boxShadow: "0 8px 24px rgba(0,0,0,0.18)",
         padding: "10px 12px",
-        maxWidth: 320
+        maxWidth: 320,
+        maxHeight: "calc(100vh - 24px)",
+        overflow: "auto"
       }}
     >
       {contentFor(type)}

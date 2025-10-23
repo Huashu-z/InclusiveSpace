@@ -28,8 +28,7 @@ const nWeights = Number.isFinite(nInt) && nInt > 0 ? nInt : 1; //number of weigh
     return res.status(400).json({ error: "Missing lat/lon" });
   }
 
-  try {
-    // Step 1: find the nearest vertex ID to the user
+  try { 
     const nearestVertexResult = await pool.query(`
       SELECT id
       FROM ${verticesTable}
@@ -140,11 +139,9 @@ const nWeights = Number.isFinite(nInt) && nInt > 0 ? nInt : 1; //number of weigh
         message: "No reachable roads found for this setting.",
       });
     }
-
-    // res.status(200).json(geojson);
+ 
     res.status(200).json({
-        roads: result.rows[0].geojson,
-        // hull: JSON.parse(hullRes.rows[0].geojson),
+        roads: result.rows[0].geojson, 
       });
 
   } catch (error) {

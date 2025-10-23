@@ -189,7 +189,7 @@ export function getStyle(layer, feature) {
     }
     case "green_infrastructure":
       return {
-        color: "#6dbf52", // 推荐深绿色
+        color: "#6dbf52",
         weight: 2,
         fillColor: "#93e086",
         fillOpacity: 0.5
@@ -197,14 +197,14 @@ export function getStyle(layer, feature) {
     case "transport_station":
       return {
         radius: 5,
-        fillColor: "#5d69b3", // 深蓝色
+        fillColor: "#5d69b3",
         fillOpacity: 0.8,
         stroke: false
       };
     case "facilities":
       return {
         radius: 5,
-        fillColor: "#e377c2", // 粉色
+        fillColor: "#e377c2",
         fillOpacity: 0.8,
         stroke: false
       };

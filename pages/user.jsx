@@ -7,23 +7,7 @@ import PlasmicUser from "../components/plasmic/saa_s_website/PlasmicUser";
 import { useRouter } from "next/router";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
-function User() {
-  // Use PlasmicUser to render this component as it was
-  // designed in Plasmic, by activating the appropriate variants,
-  // attaching the appropriate event handlers, etc.  You
-  // can also install whatever React hooks you need here to manage state or
-  // fetch data.
-  //
-  // Props you can pass into PlasmicUser are:
-  // 1. Variants you want to activate,
-  // 2. Contents for slots you want to fill,
-  // 3. Overrides for any named node in the component to attach behavior and data,
-  // 4. Props to set on the root node.
-  //
-  // By default, PlasmicUser is wrapped by your project's global
-  // variant context providers. These wrappers may be moved to
-  // Next.js Custom App component
-  // (https://nextjs.org/docs/advanced-features/custom-app).
+function User() { 
   return (
     <GlobalContextsProvider>
       <PageParamsProvider__

@@ -144,7 +144,7 @@
 }
 
 /* --------------------------------------------- */
-/* 🟢 Sidebar Setting (Overall Container) */
+/* Sidebar Setting (Overall Container) */
 /* --------------------------------------------- */
 .sidebar-section {
   width: 100%;
@@ -197,7 +197,7 @@
 }
 
 /* --------------------------------------------- */
-/* 🟢 Sidebar Button (Select Start Point, Operation button) */
+/* Sidebar Button (Select Start Point, Operation button) */
 /* --------------------------------------------- */
 /* Button container, ensures that child elements are side by side */
 .button-container {
@@ -235,7 +235,7 @@
 }
 
 /* --------------------------------------------- */
-/* 🟢 Sidebar Walking Time Slider */
+/* Sidebar Walking Time Slider */
 /* --------------------------------------------- */
 .sidebar-slider {
   width: 100%;
@@ -277,7 +277,7 @@
   z-index: 2;
 }
 
-/* 🟢 thumb style - Firefox */
+/* thumb style - Firefox */
 .sidebar-slider input[type="range"]::-moz-range-thumb {
   width: 18px;
   height: 18px;
@@ -287,7 +287,7 @@
   cursor: pointer;
 }
 /* --------------------------------------------- */
-/* 🟢 Sidebar Category */
+/* Sidebar Category */
 /* --------------------------------------------- */
 .faq-container {
   width: 100%;

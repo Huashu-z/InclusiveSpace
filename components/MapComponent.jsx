@@ -1,6 +1,4 @@
-import { useState, useEffect, useRef } from "react";
-// import { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMapEvents, useMap } from "react-leaflet";
-// import L from "leaflet";
+import { useState, useEffect, useRef } from "react"; 
 import dynamic from "next/dynamic";
 import "leaflet/dist/leaflet.css"; 
 import * as turf from "@turf/turf";
@@ -112,14 +110,8 @@ const MapComponent = ({
   // Reset the state when resetTrigger changes 
   useEffect(() => {
     if (resetTrigger) {
-      setStartPoints([]);
-      // setReachableRoadsData([]);
-      // setReachableHullData([]);
-      // setResultMetadata([]);
-      onResetHandled && onResetHandled();
-      // setDefaultResultCache({});
-      // setGroupMapping({});
-      // setDefaultGroupIndex(1);
+      setStartPoints([]); 
+      onResetHandled && onResetHandled(); 
     }
   }, [resetTrigger, onResetHandled]);  
 
@@ -533,13 +525,7 @@ const MapComponent = ({
           // url="https://tile.jawg.io/jawg-light/{z}/{x}/{y}{r}.png?access-token=N8tyqxwOfghCwYKUCRWMrtYjDEs1VLvvtwYHg5MhjaJyatpgD5OGoH7O94u901Ko"
         />
         <MapClickHandler /> 
- 
-        {/* Display start point */}
-        {/*{startPoints.map((pt, i) => (
-          <Marker key={`start-${i}`} position={[pt[1], pt[0]]} icon={customMarkerIcon}>
-            <Popup>Analysis starting point {i + 1}</Popup>
-          </Marker>
-        ))} */}
+
         {startPoints.map((pt, i) => (
           customMarkerIcon ? (
             <Marker key={`start-${i}`} position={[pt[1], pt[0]]} icon={customMarkerIcon}>
@@ -630,7 +616,7 @@ const MapComponent = ({
               <Tooltip
                 sticky 
                 direction="top"
-                offset={[6, -6]}   // 这里设置偏移
+                offset={[6, -6]}
               >
                 {resultMetadata[i]?.isDefault
                   ? `Base area ${resultMetadata[i]?.groupIndex}`

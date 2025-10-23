@@ -20,9 +20,9 @@ function Header(
   const router = useRouter();
   const currentLocale = router.locale || "en";
 
-  // === 左侧部分 ===
+  // === left ===
   let left = null;
-  // map 页显示 logo，landing 只显示 CAT logo
+  // map page show all logos in header，landing only show CAT logo
   if (variant === "map") {
     left = (
       <>
@@ -44,7 +44,7 @@ function Header(
       </>
     );
   } else if (variant === "landing") {
-    // 只显示 CAT logo 蓝色（放左侧，不居中）
+    // only blue CAT logo on left
     left = (
       <Link href={`/`}>
         <img
@@ -57,10 +57,10 @@ function Header(
     );
   }
 
-  // === 中间部分 ===
+  // === middle ===
   let center = null;
   if (variant === "map") {
-    // 居中显示 CAT logo
+    // center: CAT logo
     center = (
       <Link href={`/`}>
         <img
@@ -72,10 +72,10 @@ function Header(
     );
   }
 
-  // === 右侧按钮 ===
+  // === right: button ===
   const right = (
     <>
-      {/* map 和 landing 都显示语言切换 */}
+      {/* language selection */}
       <span className={sty["lang-switch-wrap"]}>
         {["de", "en", "el"].map((lng, idx, arr) => (
           <React.Fragment key={lng}>
@@ -84,7 +84,7 @@ function Header(
           </React.Fragment>
         ))}
       </span>
-      {/* map 显示 help 按钮 */}
+      {/* map page show "help" button */}
       {variant === "map" && (
         <button
           className={sty["help-button"]}
@@ -92,7 +92,7 @@ function Header(
           onClick={() => setShowHelp(true)}
         >i</button>
       )}
-      {/* map 显示城市选择 */}
+      {/* map page show "city selection" */}
       {variant === "map" && (
         <div className={sty["city-button-wrapper"]}>
           <button
@@ -132,7 +132,7 @@ function Header(
     </>
   );
 
-  // 变体切换背景
+  // header color variation (landing, map pages)
   const headerClass =
     variant === "landing"
       ? [sty["header-container"], sty["landing-header-bg"], sty["landing-header-text"]].join(" ")
@@ -147,7 +147,7 @@ function Header(
         ref={ref}
         className={headerClass}
       />
-      {/* help 弹窗仅地图页显示 */}
+      {/* "help" pop up in map page */}
       {variant === "map" && showHelp && (
         <div className={sty["modal-overlay"]} onClick={() => setShowHelp(false)}>
           <div className={sty["modal-content"]} onClick={e => e.stopPropagation()}>
