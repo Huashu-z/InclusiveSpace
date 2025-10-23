@@ -6,6 +6,7 @@
   { "key": "tactile_points", "type": "geojson" },
   { "key": "tactile_lines", "type": "geojson" },
   { "key": "tactile_polygons", "type": "geojson" },
+  { "key": "tactile_guidance", "type": "geojson" },
   { "key": "blue_infrastructure_wms", "type": "geojson" },
   { "key": "green_infrastructure_wms", "type": "wms" },
   { "key": "transport_station_wms", "type": "wms" },

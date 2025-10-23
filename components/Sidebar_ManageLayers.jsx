@@ -39,8 +39,7 @@ function LayerCheckbox({ layerKey, label, checked, onToggle, t }) {
 }
 
 export default function MapLayers({ selectedLayers, toggleLayer, availableLayers }) {
-  const city = (typeof window !== "undefined" && (localStorage.getItem("selectedCity") || "hamburg")) || "hamburg";
-  // const availableMapLayers = cityLayerConfig[city]?.mapLayers || [];
+  const city = (typeof window !== "undefined" && (localStorage.getItem("selectedCity") || "hamburg")) || "hamburg"; 
 
   const [showInfo, setShowInfo] = useState(false);
   const infoIconRef = React.useRef();
@@ -110,6 +109,7 @@ export default function MapLayers({ selectedLayers, toggleLayer, availableLayers
       </div>
       <div className={sty["faq-container"]}>
         <Category name="env" label={t('env_category')}>
+          {/* {findLayer("noise_wms") && renderCheckbox(findLayer("noise_wms"), t('display_noise'))} */}
           {findLayer("temp_summer") && renderCheckbox(findLayer("temp_summer"), t('display_summer_heat'))}
           {findLayer("temp_winter") && renderCheckbox(findLayer("temp_winter"), t('display_winter_cold'))}
         </Category> 

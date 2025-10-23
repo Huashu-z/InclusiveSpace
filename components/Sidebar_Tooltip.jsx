@@ -143,7 +143,7 @@ export default function Sidebar_Tooltip({ show, type, anchorRef, onClose }) {
   if (type === "light") return <p>{t('tooltip_light')}</p>;
   if (type === "tree") return <p>{t('tooltip_tree')}</p>;
   if (type === "trafficLight") return <p>{t('tooltip_traffic')}</p>;
-  if (type === "tactile_pavement") return <p>{t('tooltip_tactile')}</p>;
+  if (type === "tactile_guidance") return <p>{t('tooltip_tactile')}</p>;
   if (type === "temperatureSummer") return <p>{t('tooltip_summer')}</p>;
   if (type === "temperatureWinter") return <p>{t('tooltip_winter')}</p>;
   if (type === "stair") return <p>{t('tooltip_stair')}</p>;

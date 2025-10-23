@@ -134,6 +134,150 @@
   "tooltip_kerb": "Erschweren hohe oder abrupte Bordsteine für dich das Überqueren oder Wechseln von Wegen?",
   "tooltip_facility": "Würde der Mangel an Einrichtungen in der Nähe (z. B. Läden, Bänke, Ruhebereiche) deine Bereitschaft zu Fuß zu gehen verringern?",
   "tooltip_crowd": "Fühlt sich das Gehen bei hohem Menschenaufkommen hier für dich stressig, unangenehm oder unsicher an?",
+  
+  "tooltip_default": "Keine Details.",
+  "tooltip_data_title": "Dateninformationen",
+  "tooltip_data_name_label": "Datenname:",
+  "tooltip_data_source_label": "Quelle:",
+  "tooltip_data_desc_label": "Beschreibung:",
+  "tooltip_data_name_value": "{{city}} Stadtebenen",
+  "tooltip_data_source_hh": "Geoportal Hamburg (Freie und Hansestadt Hamburg), aufbereitet durch das InclusiveSpaces-Projekt.",
+  "tooltip_data_source_pt": "Gemeinde Penteli, aufbereitet durch das InclusiveSpaces-Projekt.",
+  "tooltip_data_desc": "Diese Kartendaten enthalten Umwelt-, physische und psychologische Merkmale (z. B. Lärm, Licht, Steigung, Bäume, Einrichtungen, Fußgängerfluss), um komfortbasierte Erreichbarkeit zu visualisieren und zu analysieren.",
+  "tooltip_layer_generic_desc": "Diese Ebene visualisiert städtische Merkmale, die für Analysen der komfortbasierten Erreichbarkeit verwendet werden.",
+  "tooltip_layer": {
+    "noise_wms": {
+      "title": "Lärmkarten",
+      "desc": "Tag-Abend-Nacht-Lärmpegel aus dem Geoportal Hamburg WMS.",
+      "source": "Geoportal Hamburg (HH_WMS_Strassenverkehr)"
+    },
+    "temp_summer": {
+      "title": "Sommerliche thermische Behaglichkeit",
+      "desc": "Dieser Datensatz wurde erstellt, indem lokale Messpunkte der thermischen Behaglichkeit in ein 100×100 m Raster umgewandelt wurden, um räumliche Variationen der sommerlichen Wärmebelastung darzustellen.",
+      "source": "Bereitgestellt von der Technischen Universität München, Lehrstuhl für Gebäudetechnologie und klimagerechtes Entwerfen (2025), aufbereitet durch das InclusiveSpaces-Projekt."
+    },
+    "temp_winter": {
+      "title": "Winterliche thermische Behaglichkeit",
+      "desc": "Dieser Datensatz wurde erstellt, indem lokale Messpunkte der thermischen Behaglichkeit in ein 100×100 m Raster umgewandelt wurden, um räumliche Muster der Kältebelastung im Winter darzustellen.",
+      "source": "Bereitgestellt von der Technischen Universität München, Lehrstuhl für Gebäudetechnologie und klimagerechtes Entwerfen (2025), aufbereitet durch das InclusiveSpaces-Projekt."
+    },
+    "streetlight": {
+      "title": "Straßenbeleuchtung",
+      "desc": "Dieser Datensatz enthält die Position einzelner Straßenbeleuchtungen in Hamburg. Jeder Punkt stellt einen einzelnen Lichtmast dar; Gruppen oder Unterknoten sind nicht enthalten.",
+      "source": "OpenStreetMap, 2025"
+    },
+    "trafic_light_wms": {
+      "title": "Ampeln",
+      "desc": "Der Datensatz enthält Standort, Name und Knotennummer aller Ampeln im Hamburger Stadtgebiet (ohne Hafenbehörde HPA). Signalisierten Kreuzungen oder Unterknoten werden nicht separat angezeigt.",
+      "source": "Geoportal Hamburg (Lichtsignalanlagen Hamburg)"
+    },
+    "trafic_light": {
+      "title": "Ampeln",
+      "desc": "Dieser Datensatz enthält die Standorte von signalisierten Kreuzungen und Fußgängerüberwegen.",
+      "source": "Gemeinde Penteli, 2025"
+    },
+    "tactile_guidance": {
+      "title": "Taktile Unterstützungsbereiche",
+      "desc": "Dieser Datensatz zeigt Flächen und Liniensegmente mit taktilen Bodenindikatoren, die sehbehinderten Personen bei der Orientierung helfen.",
+      "source": "OpenStreetMap, 2025"
+    },
+    "tree_wms": {
+      "title": "Baumpflanzstandorte",
+      "desc": "Dieser Datensatz enthält Standorte von Baumpflanzflächen, kategorisiert als gepflanzt, geplant oder nicht zugewiesen. Die Daten stammen aus dem offiziellen Baumverwaltungssystem Hamburgs und werden über den Geoportal-WMS-Dienst veröffentlicht.",
+      "source": "Geoportal Hamburg (Pflanzstandorte)"
+    },
+    "green_infrastructure_wms": {
+      "title": "Grüne Infrastruktur",
+      "desc": "Informationen über verschiedene Grünflächenarten – Spielplätze, Parks, allgemeine Grünflächen, Wanderwege, Kleingartenanlagen, Schutzgrün, Sportflächen und Friedhöfe.",
+      "source": "Geoportal Hamburg (Kataster der öffentlichen Grünanlagen)"
+    },
+    "green_infrastructure": {
+      "title": "Grüne Infrastruktur",
+      "desc": "Informationen über öffentliche und natürliche Grünflächen, einschließlich Parks, Vegetationszonen und offene Landschaftsflächen.",
+      "source": "Gemeinde Penteli, 2025"
+    },
+    "blue_infrastructure_wms": {
+      "title": "Blaue Infrastruktur (Wasserflächen)",
+      "desc": "Dieser Datensatz enthält hydrologische und geomorphologische Merkmale wie Flüsse, Seen und wasserbezogene Landschaftselemente, die für den Geotourismus und die Landschaftsinterpretation relevant sind.",
+      "source": "Geoportal Hamburg (Wasser und Wasserbau)"
+    },
+    "transport_station_wms": {
+      "title": "Öffentliche Verkehrsstationen",
+      "desc": "Dieser Datensatz ist Teil der Erreichbarkeitsanalysen der Metropolregion Hamburg und enthält Ziele und Einrichtungen, die für Mobilitätsstudien relevant sind, darunter Bahnhöfe, Haltestellen, Schulen, Einkaufszentren und Supermärkte. Die Daten unterstützen Analysen zur regionalen Erreichbarkeit und Versorgungsabdeckung.",
+      "source": "Geoportal Hamburg (Haltestellen)"
+    },
+    "transport_station": {
+      "title": "Öffentliche Bushaltestellen",
+      "desc": "Dieser Datensatz enthält die Standorte öffentlicher Bushaltestellen in der Gemeinde Penteli.",
+      "source": "Gemeinde Penteli, 2025"
+    },
+    "wc_disabled": {
+      "title": "Barrierefreie Toiletten",
+      "desc": "Dieser Datensatz enthält die Standorte öffentlicher Toiletten mit rollstuhlgerechter Ausstattung.",
+      "source": "OpenStreetMap, 2025"
+    },
+    "sidewalk_narrow": {
+      "title": "Schmale Gehwege",
+      "desc": "Dieser Datensatz identifiziert Gehwege, die schmaler als 2 Meter sind, basierend auf Straßenbreiten und Geometrien aus OpenStreetMap. Diese Abschnitte können den Komfort oder die Sicherheit von Fußgängern, Rollstuhlfahrern oder Kinderwagen einschränken.",
+      "source": "OpenStreetMap, 2025"
+    },
+    "stair": {
+      "title": "Treppen",
+      "desc": "Dieser Datensatz wurde aus OpenStreetMap-Objekten mit dem Tag 'highway=steps' extrahiert. Er umfasst Außentreppen und Stufenwege, die Barrieren für Personen mit eingeschränkter Mobilität darstellen können.",
+      "source": "OpenStreetMap, 2025"
+    },
+    "obstacle": {
+      "title": "Hindernisse",
+      "desc": "Dieser Datensatz wurde aus OpenStreetMap-Objekten abgeleitet, die dauerhafte oder temporäre Hindernisse darstellen, z. B. Poller, Absperrungen oder Baustellen. Diese wurden anhand von Tags wie 'barrier=*' gefiltert.",
+      "source": "OpenStreetMap, 2025"
+    },
+    "slope": {
+      "title": "Straßenneigung",
+      "desc": "Dieser Datensatz identifiziert Straßenabschnitte mit deutlicher Steigung oder Gefälle, abgeleitet aus Höhenattributen und Straßengeometrie in OpenStreetMap. Stärkere Neigungen können die Zugänglichkeit oder den Gehkomfort beeinträchtigen.",
+      "source": "OpenStreetMap, 2025"
+    },
+    "slope_penteli": {
+      "title": "Straßenneigung",
+      "desc": "Dieser Datensatz zeigt Straßenabschnitte mit berechneten Steigungswerten, die aus digitalen Höhenmodellen (DEM) entlang des Straßennetzes abgeleitet wurden. Hohe Neigungen können die Zugänglichkeit und den Komfort für Fußgänger, Rollstuhlfahrer oder Radfahrer beeinträchtigen.",
+      "source": "Gemeinde Penteli (2025), aufbereitet durch das InclusiveSpaces-Projekt"
+    },
+    "uneven_surfaces": {
+      "title": "Unregelmäßige Oberflächen",
+      "desc": "Dieser Datensatz identifiziert Straßen- oder Gehwegabschnitte mit unebenen oder beschädigten Oberflächen, die den Gehkomfort oder die Barrierefreiheit verringern können. Die Daten wurden anhand von OpenStreetMap-Tags zu Oberflächenbedingungen (z. B. Kopfsteinpflaster, Risse) gefiltert.",
+      "source": "OpenStreetMap, 2025"
+    },
+    "poor_pavement": {
+      "title": "Schlechter Belagszustand",
+      "desc": "Dieser Datensatz identifiziert Straßen- oder Gehwegabschnitte mit beschädigtem oder minderwertigem Belag, basierend auf OpenStreetMap-Tags, die geringe Glätte oder schlechte Materialqualität angeben.",
+      "source": "OpenStreetMap, 2025"
+    },
+    "kerbs_high": {
+      "title": "Hohe Bordsteine",
+      "desc": "Dieser Datensatz zeigt Straßenübergänge oder Bordsteinkanten mit erhöhter Bordhöhe, die die barrierefreie Zugänglichkeit einschränken können. Die Daten wurden aus OpenStreetMap-Tags wie 'kerb=raised' extrahiert.",
+      "source": "OpenStreetMap, 2025"
+    },
+    "facility_wms": {
+      "title": "Bildungs- und Kultureinrichtungen",
+      "desc": "Dieser Datensatz enthält Einrichtungen im Bereich Bildung und Kultur, darunter Kinos, Theater, Museen, Musikstätten, Ausstellungsräume, Stadtteilkulturzentren, Bürgerhäuser, Spezialbibliotheken, Weiterbildungseinrichtungen und religiöse Gemeinschaften.",
+      "source": "Geoportal Hamburg (Bildung und Kultur)"
+    },
+    "facilities": {
+      "title": "Einrichtungen",
+      "desc": "Lokale Gemeinschafts-, Kultur- und Bildungseinrichtungen.",
+      "source": "Gemeinde Penteli, 2025"
+    },
+    "pedestrian_flow_wms": {
+      "title": "Fußgängerverkehr – Bedeutungsräume",
+      "desc": "Dieser Datensatz visualisiert die relative Bedeutung von Straßen und Wegen für den Fußverkehr in Hamburg. Die Werte wurden auf Basis des digitalen Landschaftsmodells und verschiedener Points of Interest (POI) berechnet, darunter ÖPNV-Haltestellen, Einzelhandel und Schulen. Jeder POI erhielt einen Einflussbereich und eine Gewichtung von 0 bis 15, wobei höhere Werte eine größere Bedeutung darstellen.",
+      "source": "Geoportal Hamburg (Bedeutungsräume für den Fußverkehr)"
+    },
+    "pedestrian_flow": {
+      "title": "Fußgängerverkehr",
+      "desc": "Dieser Datensatz zeigt die beobachtete Intensität der Fußgängerbewegungen in der Gemeinde Penteli, basierend auf lokalen Erhebungen und räumlichen Analysen im Rahmen des InclusiveSpaces-Projekts.",
+      "source": "Gemeinde Penteli, 2025"
+    }
+  },
+
   "legend_base_area": "Basisbereich",
   "legend_without_factors": "(ohne Komfortfaktoren)",
   "alert_no_area_time_speed": "Für diese Gehzeit/Geschwindigkeit wurde kein erreichbares Gebiet gefunden. Bitte andere Einstellung wählen.",
