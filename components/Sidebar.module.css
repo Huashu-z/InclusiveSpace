@@ -418,9 +418,15 @@
     display: flex;
     align-items: flex-start;
     flex-direction: column;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     width: 100%;
     margin-bottom: 8px;
+  }
+  .checkbox-top-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
   }
   .checkbox-input {
     width: 60px;

@@ -17,13 +17,7 @@ export default function PlasmicLanding() {
 
   const handleEnterMap = () => {
     const selected = cities.find(c => c.id === selectedCity);
-    if (!selected) return;
-
-    // temporary, other cities not yet finished
-    // if (selected.id !== "hamburg") {
-    //     alert(`Sorry, ${selected.name} map is still under construction.`);
-    //     return;
-    // }
+    if (!selected) return; 
 
     localStorage.setItem("selectedCity", selectedCity);
     localStorage.setItem("selectedCityCenter", JSON.stringify(selected.center));
@@ -41,9 +35,9 @@ export default function PlasmicLanding() {
       {/* === CAT === */}
       <section className={sty.banner}>
         <div className={sty.bannerGrid}>
-          {/* === 第一行：左 logo/介绍/contact，右 城市卡 === */}
+          {/* === First row: logo/introduction/contact on the left, city card on the right === */}
           <div className={sty.bannerRow}>
-            {/* 左侧内容 */}
+            {/* Left content */}
             <div className={sty.bannerCol}>
               <div className={sty.brandWrap}>
                 <img
@@ -67,7 +61,7 @@ export default function PlasmicLanding() {
               </div>
             </div>
 
-            {/* 右侧城市卡 */}
+            {/* Right city card */}
             <div className={sty.bannerCol}>
               <h3 className={sty.cityTitle}>{t('landing_city_section_title')}</h3>
               <div className={sty.cityCol}>
@@ -123,9 +117,9 @@ export default function PlasmicLanding() {
             </div>
           </div>
 
-          {/* === 第二行：左 Contact us, 右 Share your thoughts === */}
+          {/* === Second row：left: Contact us, right: Share your thoughts === */}
           <div className={sty.bannerRow}>
-            {/* 左 Contact us */}
+            {/* Contact us */}
             <div className={sty.bannerCol}>
               <button
                 className={sty.contactBtn}
@@ -137,7 +131,7 @@ export default function PlasmicLanding() {
                 {t('landing_banner_contact_btn')}
               </button>
             </div>
-            {/* 右 Share your thoughts */}
+            {/* Share your thoughts */}
             <div className={sty.bannerCol}>
               <button
                 className={sty.feedbackBtn}
@@ -155,7 +149,7 @@ export default function PlasmicLanding() {
       <section className={sty.toolDetailsSection}>
         <h2 className={sty.toolDetailsTitle}>{t('landing_general_title')}</h2>
         <div className={sty.toolDetailsInner}>
-          {/* 左侧 logo */}
+          {/* left: logo */}
           <div className={sty.toolDetailsLogoWrap}>
             <img
               src="/plasmic/saa_s_website/images/logoIS2.png"
@@ -163,7 +157,7 @@ export default function PlasmicLanding() {
               className={sty.toolDetailsLogo}
             />
           </div>
-          {/* 右侧文字与按钮 */}
+          {/* right: text and buttons */}
           <div className={sty.toolDetailsRight}>
             <div className={sty.toolDetailsText}>
               {t("landing_details_blocks", { returnObjects: true }).map((p, idx) => (
@@ -182,7 +176,7 @@ export default function PlasmicLanding() {
         </div>
         {/* general information section 2 */}
         <div className={sty.toolDetailsInner}>
-          {/* 左侧文字与按钮 */}
+          {/* left: text and buttons */}
           <div className={sty.toolDetailsRight}>
             <div className={sty.toolDetailsText}>
               {t("landing_general_blocks", { returnObjects: true }).map((p, idx) => (
@@ -190,7 +184,7 @@ export default function PlasmicLanding() {
               ))}
             </div>
           </div>
-          {/* 右侧 logos 垂直排列 */}
+          {/* right: logos arranged vertically */}
           <div className={sty.toolDetailsLogosCol}>
             <div className={sty.toolDetailsLogoWrap}>
               <img

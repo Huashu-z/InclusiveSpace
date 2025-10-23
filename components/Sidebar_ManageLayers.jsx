@@ -2,10 +2,49 @@ import React, { useState } from "react";
 import sty from "./Sidebar.module.css";
 import { useTranslation } from 'next-i18next';
 import { cityLayerConfig } from "./cityVariableConfig";
+import Tooltip from "./Sidebar_Tooltip";
+
+function LayerCheckbox({ layerKey, label, checked, onToggle, t }) {
+  const [showTooltip, setShowTooltip] = React.useState(false);
+  const tooltipRef = React.useRef(null);
+
+  return (
+    <div className={sty["checkbox-container"]}>
+      <div className={sty["checkbox-top-row"]}>
+        <label className={sty["checkbox-label"]}>
+          <input type="checkbox" checked={checked} onChange={onToggle} />
+          <span className={sty["sidebar-text"]}>{label}</span>
+        </label>
+        <span
+          className={sty["info-icon"]}
+          ref={tooltipRef}
+          onClick={(e) => {
+            e.stopPropagation();
+            setShowTooltip((prev) => !prev);
+          }}
+          title={t("tooltip_layer_title")}
+          style={{ marginLeft: 8, cursor: "pointer", userSelect: "none" }}
+        >
+          i
+        </span>
+      </div>
+      <Tooltip
+        show={showTooltip}
+        type={`layer:${layerKey}`}
+        anchorRef={tooltipRef}
+        onClose={() => setShowTooltip(false)}
+      />
+    </div>
+  );
+}
 
 export default function MapLayers({ selectedLayers, toggleLayer, availableLayers }) {
   const city = (typeof window !== "undefined" && (localStorage.getItem("selectedCity") || "hamburg")) || "hamburg";
   // const availableMapLayers = cityLayerConfig[city]?.mapLayers || [];
+
+  const [showInfo, setShowInfo] = useState(false);
+  const infoIconRef = React.useRef();
+
 
   const { t } = useTranslation("common");
   const [openCategory, setOpenCategory] = useState(null);
@@ -30,27 +69,45 @@ export default function MapLayers({ selectedLayers, toggleLayer, availableLayers
     { name: "psy", label: t('psy_category') }
   ];
 
-  const renderCheckbox = (layer, label) => (
-    <div key={layer.key} className={sty["checkbox-container"]}>
-      <label className={sty["checkbox-label"]}>
-        <input
-          type="checkbox"
-          checked={selectedLayers.includes(layer.key)}
-          onChange={() => toggleLayer(layer.key)}
-        />
-        <span className={sty["sidebar-text"]}>
-          {label}
-        </span>
-      </label>
-    </div>
-  );
+  const renderCheckbox = (layer, label) => {
+    if (!layer) return null;
+    return (
+      <LayerCheckbox
+        key={layer.key}
+        layerKey={layer.key}
+        label={label}
+        checked={selectedLayers.includes(layer.key)}
+        onToggle={() => toggleLayer(layer.key)}
+        t={t}
+      />
+    );
+  };
 
   const findLayer = (key) =>
   availableLayers.find(l => l.key === key);
 
   return (
     <div className={sty["sidebar-section"]}>
-      <h3 className={sty["sidebar-title"]}>{t('map_layers')}</h3>
+      <div className={sty["title-container"]}>
+        <h3 className={sty["sidebar-title"]}>{t('map_layers')}</h3>
+        <span
+          className={sty["info-icon"]}
+          ref={infoIconRef}
+          onClick={(e) => {
+            e.stopPropagation();
+            setShowInfo((prev) => !prev);
+          }}
+          title={t('tooltip_data_title')}
+        >
+          i
+        </span>
+        <Tooltip
+          show={showInfo}
+          type="dataInfo"
+          anchorRef={infoIconRef}
+          onClose={() => setShowInfo(false)}
+        />
+      </div>
       <div className={sty["faq-container"]}>
         <Category name="env" label={t('env_category')}>
           {findLayer("temp_summer") && renderCheckbox(findLayer("temp_summer"), t('display_summer_heat'))}

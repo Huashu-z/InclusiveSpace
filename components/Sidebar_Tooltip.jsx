@@ -1,93 +1,159 @@
-import React, { useEffect, useRef, useState } from "react";
-import ReactDOM from "react-dom";
-import sty from "./Sidebar.module.css";
-import { useTranslation } from 'next-i18next';
+import React from "react";
+import { createPortal } from "react-dom";
+import { useTranslation } from "next-i18next";
 
-export default function Tooltip({ show, type, anchorRef, onClose }) {
+export default function Sidebar_Tooltip({ show, type, anchorRef, onClose }) {
   const { t } = useTranslation("common");
-  const [position, setPosition] = useState({ top: 100, left: 400 });
+  const [pos, setPos] = React.useState({ top: 0, left: 0 });
+  const [mounted, setMounted] = React.useState(false);
+  const containerRef = React.useRef(null);
 
-  useEffect(() => {
-    if (anchorRef?.current && show) {
-      const rect = anchorRef.current.getBoundingClientRect();
-      setPosition({
-        top: rect.top + window.scrollY,
-        left: rect.right + 10
-      });
-    }
-  }, [anchorRef, show]);
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (!anchorRef?.current?.contains(e.target)) {
+  // Calculated positioning: stick to anchorRef, offset 8px downward, automatic overflow prevention
+  const place = React.useCallback(() => {
+    const el = anchorRef?.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const gap = 8;
+    let top = rect.bottom + gap;
+    let left = rect.left;
+
+    const maxWidth = 320;
+    const viewportW = window.innerWidth;
+    const viewportH = window.innerHeight;
+
+    if (left + maxWidth > viewportW - 12) left = Math.max(12, viewportW - maxWidth - 12);
+    if (top > viewportH - 120) top = Math.max(12, rect.top - 12 - 220); // Try to put it up
+
+    setPos({ top, left });
+  }, [anchorRef]);
+
+  React.useEffect(() => {
+    if (show) place();
+  }, [show, place, type]);
+
+  // Click outside to close & ESC to close
+  React.useEffect(() => {
+    if (!show) return;
+    const onDocClick = (e) => {
+      const c = containerRef.current;
+      if (!c) return;
+      if (!c.contains(e.target) && !anchorRef?.current?.contains(e.target)) {
         onClose?.();
       }
     };
-
-    if (show) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+    const onEsc = (e) => {
+      if (e.key === "Escape") onClose?.();
     };
-  }, [show, anchorRef, onClose]);
+    document.addEventListener("mousedown", onDocClick);
+    document.addEventListener("keydown", onEsc);
+    return () => {
+      document.removeEventListener("mousedown", onDocClick);
+      document.removeEventListener("keydown", onEsc);
+    };
+  }, [show, onClose, anchorRef]);
 
-  if (!show) return null;
+  // —— Content generation: Support layer:xxx / dataInfo / features —— //
+  const city =
+    (typeof window !== "undefined" && (localStorage.getItem("selectedCity") || "hamburg")) ||
+    "hamburg";
+  const defaultSource =
+    city === "hamburg"
+      ? t("tooltip_data_source_hh", {
+          defaultValue:
+            "Geoportal Hamburg (Freie und Hansestadt Hamburg), processed by the InclusiveSpaces project.",
+        })
+      : t("tooltip_data_source_pt", {
+          defaultValue:
+            "Municipality of Penteli, processed by the InclusiveSpaces project.",
+        });
 
-  let content;
+  function contentFor(tp) {
+    if (!tp) return <div>{t("tooltip_default", { defaultValue: "No details." })}</div>;
 
-  if (type === "variable") {
-    content = (
-      <>
-        <p>{t('tooltip_variable_title')}</p>
-      </>
-    );
-  }
-  else if (type === "noise") {
-    content = <p>{t('tooltip_noise')}</p>;
-  } else if (type === "light") {
-    content = <p>{t('tooltip_light')}</p>;
-  } else if (type === "trafficLight") {
-    content = <p>{t('tooltip_traffic')}</p>;
-  } else if (type === "tactile_pavement") {
-    content = <p>{t('tooltip_tactile')}</p>;
-  } else if (type === "tree") {
-    content = <p>{t('tooltip_tree')}</p>;
-  } else if (type === "temperatureSummer") {
-    content = <p>{t('tooltip_summer')}</p>;
-  } else if (type === "temperatureWinter") {
-    content = <p>{t('tooltip_winter')}</p>;
-  } else if (type === "greeninf") {
-    content = <p>{t('tooltip_green')}</p>;
-  } else if (type === "blueinf") {
-    content = <p>{t('tooltip_blue')}</p>;
-  } else if (type === "station") {
-    content = <p>{t('tooltip_station')}</p>;
-  } else if (type === "narrowRoads") {
-    content = <p>{t('tooltip_narrow')}</p>;
-  } else if (type === "wcDisabled") {
-    content = <p>{t('tooltip_wc')}</p>;
-  } else if (type === "stair") {
-    content = <p>{t('tooltip_stair')}</p>;
-  } else if (type === "obstacle") {
-    content = <p>{t('tooltip_obstacle')}</p>;
-  } else if (type === "slope") {
-    content = <p>{t('tooltip_slope')}</p>;
-    } else if (type === "slope_penteli") {
-    content = <p>{t('tooltip_slope')}</p>;
-  } else if (type === "unevenSurface") {
-    content = <p>{t('tooltip_uneven')}</p>;
-  } else if (type === "poorPavement") {
-    content = <p>{t('tooltip_poor')}</p>;
-  } else if (type === "kerbsHigh") {
-    content = <p>{t('tooltip_kerb')}</p>;
-  } else if (type === "facility") {
-    content = <p>{t('tooltip_facility')}</p>;
-  } else if (type === "pedestrianFlow") {
-    content = <p>{t('tooltip_crowd')}</p>;
-  }
-  else if (type === "walkingSpeed") {
-    content = (
+    // 1) Data layer name：layer:<key>, to distinguish with features' key
+    if (tp.startsWith("layer:")) {
+      const key = tp.slice(6); // e.g. "slope_penteli"
+      const title = t(`tooltip_layer.${key}.title`, { defaultValue: key });
+      const desc = t(`tooltip_layer.${key}.desc`, {
+        defaultValue: t("tooltip_layer_generic_desc", {
+          defaultValue:
+            "This layer visualizes city features used for comfort-based accessibility insights.",
+        }),
+      });
+      const source =
+        t(`tooltip_layer.${key}.source`, { defaultValue: "" }) || defaultSource;
+
+      return (
+        <div style={{ maxWidth: 300, lineHeight: 1.55 }}>
+          <div style={{ fontWeight: 700, marginBottom: 6 }}>{title}</div>
+          <div>
+            <b>{t("tooltip_data_source_label", { defaultValue: "Source:" })}</b> {source}
+          </div>
+          <div style={{ marginTop: 8 }}>{desc}</div>
+        </div>
+      );
+    }
+
+    // 2) title level：dataInfo
+    if (tp === "dataInfo") {
+      const cityLabel = city === "hamburg" ? "Hamburg" : "Penteli";
+      return (
+        <div style={{ maxWidth: 300, lineHeight: 1.55 }}>
+          <div style={{ fontWeight: 700, marginBottom: 6 }}>
+            {t("tooltip_data_title", { defaultValue: "Data information" })}
+          </div>
+          <div>
+            <b>{t("tooltip_data_name_label", { defaultValue: "Data name:" })}</b>{" "}
+            {t("tooltip_data_name_value", {
+              city: cityLabel,
+              defaultValue: `${cityLabel} city layers`,
+            })}
+          </div>
+          <div>
+            <b>{t("tooltip_data_source_label", { defaultValue: "Source:" })}</b>{" "}
+            {defaultSource}
+          </div>
+          <div style={{ marginTop: 8 }}>
+            <b>{t("tooltip_data_desc_label", { defaultValue: "Description:" })}</b>
+            <br />
+            {t("tooltip_data_desc", {
+              defaultValue:
+                "These map layers include environmental, physical, and psychological features (e.g., noise, light, slope, trees, facilities, pedestrian flow) to visualize and analyze comfort-based accessibility.",
+            })}
+          </div>
+        </div>
+      );
+    }
+
+  // tooltip for features, show features tooltip according to type
+  if (type === "variable") return <p>{t('tooltip_variable_title')}</p>;
+  if (type === "noise") return <p>{t('tooltip_noise')}</p>;
+  if (type === "light") return <p>{t('tooltip_light')}</p>;
+  if (type === "tree") return <p>{t('tooltip_tree')}</p>;
+  if (type === "trafficLight") return <p>{t('tooltip_traffic')}</p>;
+  if (type === "tactile_pavement") return <p>{t('tooltip_tactile')}</p>;
+  if (type === "temperatureSummer") return <p>{t('tooltip_summer')}</p>;
+  if (type === "temperatureWinter") return <p>{t('tooltip_winter')}</p>;
+  if (type === "stair") return <p>{t('tooltip_stair')}</p>;
+  if (type === "obstacle") return <p>{t('tooltip_obstacle')}</p>;
+  if (type === "unevenSurface") return <p>{t('tooltip_uneven')}</p>;
+  if (type === "poorPavement") return <p>{t('tooltip_poor')}</p>;
+  if (type === "kerbsHigh") return <p>{t('tooltip_kerb')}</p>;
+  if (type === "facility") return <p>{t('tooltip_facility')}</p>;
+  if (type === "pedestrianFlow") return <p>{t('tooltip_crowd')}</p>;
+  if (type === "greeninf") return <p>{t('tooltip_green')}</p>;
+  if (type === "blueinf") return <p>{t('tooltip_blue')}</p>;
+  if (type === "station") return <p>{t('tooltip_station')}</p>;
+  if (type === "narrowRoads") return <p>{t('tooltip_narrow')}</p>;
+  if (type === "wcDisabled") return <p>{t('tooltip_wc')}</p>;
+  if (type === "slope") return <p>{t('tooltip_slope')}</p>;
+  if (type === "slope_penteli") return <p>{t('tooltip_slope')}</p>;
+  if (type === "walkingSpeed") 
+    return (
       <div>
         <p>{t('tooltip_walking_speed_intro')}</p>
         <ul style={{ margin: "4px 0", paddingLeft: "18px" }}>
@@ -97,15 +163,34 @@ export default function Tooltip({ show, type, anchorRef, onClose }) {
         </ul>
       </div>
     );
+
+
+  return <div>{t("tooltip_default", { defaultValue: "No details." })}</div>;
   }
 
-  return ReactDOM.createPortal(
+  if (!show || !mounted) return null;
+
+  const tooltipNode = (
     <div
-      className={sty["tooltip-portal"]}
-      style={{ top: position.top, left: position.left }}
+      ref={containerRef}
+      role="dialog"
+      aria-live="polite"
+      style={{
+        position: "fixed",
+        top: pos.top,
+        left: pos.left,
+        zIndex: 9999,
+        background: "#fff",
+        border: "1px solid rgba(0,0,0,0.15)",
+        borderRadius: 8,
+        boxShadow: "0 8px 24px rgba(0,0,0,0.18)",
+        padding: "10px 12px",
+        maxWidth: 320
+      }}
     >
-      {content}
-    </div>,
-    document.body
+      {contentFor(type)}
+    </div>
   );
-}
+
+  return createPortal(tooltipNode, document.body);
+} 

@@ -33,38 +33,41 @@ export default function VariableControls({
 
     return (
       <div className={sty["checkbox-container"]}>
-        <label className={sty["checkbox-label"]}>
-          <input
-            type="checkbox"
-            onChange={() => {
-              toggleVariable(layer);
-              if (!enabled) {
-                const fakeEvent = {
-                  target: { value: weightLevels[2] } 
-                };
-                handleInputChange(fakeEvent, layer);
-              }
-            }}
-            checked={enabled}
-          />
-          <span className={sty["sidebar-text"]}>{label}</span>
+        <div className={sty["checkbox-top-row"]}>
+          <label className={sty["checkbox-label"]}>
+            <input
+              type="checkbox"
+              onChange={() => {
+                toggleVariable(layer);
+                if (!enabled) {
+                  const fakeEvent = {
+                    target: { value: weightLevels[2] } 
+                  };
+                  handleInputChange(fakeEvent, layer);
+                }
+              }}
+              checked={enabled}
+            />
+            <span className={sty["sidebar-text"]}>{label}</span>
+          </label>
           <span
-            className={sty["info-icon"]}
-            ref={tooltipRef}
-            onClick={(e) => {
-              e.stopPropagation();
-              setShowTooltip((prev) => !prev);
-            }}
-          >
-            i
+              className={sty["info-icon"]}
+              ref={tooltipRef}
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowTooltip((prev) => !prev);
+              }}
+            >
+              i
           </span>
+        </div>
+        
           <Tooltip
             show={showTooltip}
             type={layer}
             anchorRef={tooltipRef}
             onClose={() => setShowTooltip(false)}
-          />
-        </label>
+          /> 
 
         <div className={sty["slider-container"]}>
           <input

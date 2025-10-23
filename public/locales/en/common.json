@@ -133,6 +133,40 @@
   "tooltip_kerb": "Do high or abrupt kerbs here make crossing or transitioning paths more difficult?",
   "tooltip_facility": "Would the lack of nearby facilities (shops, benches, rest areas) reduce your willingness to walk here?",
   "tooltip_crowd": "Does a high level of crowding here make walking feel stressful, uncomfortable, or unsafe to you?",
+  
+  "tooltip_default": "No details.",
+  "tooltip_data_title": "Data information",
+  "tooltip_data_name_label": "Data name:",
+  "tooltip_data_source_label": "Source:",
+  "tooltip_data_desc_label": "Description:",
+  "tooltip_data_name_value": "{{city}} city layers",
+  "tooltip_data_source_hh": "Geoportal Hamburg (Freie und Hansestadt Hamburg), processed by the InclusiveSpaces project.",
+  "tooltip_data_source_pt": "Municipality of Penteli, processed by the InclusiveSpaces project.",
+  "tooltip_data_desc": "These map layers include environmental, physical, and psychological features (e.g., noise, light, slope, trees, facilities, pedestrian flow) to visualize and analyze comfort-based accessibility.",
+  "tooltip_layer_generic_desc": "This layer visualizes city features used for comfort-based accessibility insights.",
+  "tooltip_layer": {
+    "slope": {
+      "title": "Slope (Hamburg)",
+      "desc": "Street-level slope derived from elevation data; higher values indicate steeper segments.",
+      "source": ""
+    },
+    "slope_penteli": {
+      "title": "Slope (Penteli)",
+      "desc": "Parcel/grid slope classes (VALUE) derived from local DEM processing.",
+      "source": ""
+    },
+    "trafic_light_wms": {
+      "title": "Traffic lights (WMS)",
+      "desc": "Official signalized intersections rendered from Hamburg Geoportal WMS.",
+      "source": ""
+    },
+    "trafic_light": {
+      "title": "Traffic lights",
+      "desc": "Signalized intersections extracted from Penteli data.",
+      "source": ""
+    }
+  },
+  
   "legend_base_area": "Base Area",
   "legend_without_factors": "(without discomfort factors)",
   "alert_no_area_time_speed": "No reachable area found for this walking time/speed. Please try another setting.",

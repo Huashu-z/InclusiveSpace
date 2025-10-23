@@ -55,19 +55,19 @@
   color: #ffffff;
 } 
 
-/* 让 logo 与下方介绍卡片“等宽”：用同一个包裹宽度 */
+/* Make the logo and the introduction card "equal width": use the same wrapper width */
 .brandWrap {
   width: min(460px, 100%);
 }
 
-/* 顶部 CAT 白色标题 */
+/* Top CAT White Title */
 .catTitleImg {
   width: 100%;
   height: auto;
   display: block;
 }
 
-/* 介绍文字框（与上方 logo 同宽） */
+/* Introduction text box (same width as the logo above) */
 .introCard {
   width: 100%;
   background: rgba(255, 255, 255, 0.05);
@@ -91,27 +91,27 @@
   color: #deefff;
 }
 
-/* Contact us 按钮区（同宽） */
+/* Contact us button */
 .contactWrap {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  width: 100%;   /* 或根据实际需要限制宽度 */
+  width: 100%;
 }
 
 .bannerBtnRow {
   width: 100%;
-  max-width: 85%;          /* 用和 .bannerInner 一样的最大宽度 */
+  max-width: 85%;
   margin: 0px 10px 50px auto;
   display: grid;
-  grid-template-columns: 1.1fr 1fr;   /* 跟上方两栏一致 */
+  grid-template-columns: 1.1fr 1fr;
   gap: 20px;
 }
 .bannerBtnCol {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;  /* 左对齐和上方一致 */
+  align-items: flex-start; 
   text-align: center;
   gap: 12px;
 }
@@ -137,8 +137,7 @@
   background: #ffffff;
   color: #174060;
   font-size: 18px;
-  font-weight: 700;
-  /* border: 5px solid #72e3cd; */
+  font-weight: 700; 
   border-radius: 12px;
   padding: 10px 16px;
   cursor: pointer;
@@ -150,7 +149,7 @@
   box-shadow: 0 6px 14px rgba(14, 30, 70, 0.35);
 }
 
-/* 移动端：左右两列变一列、居中展示 */
+/* Mobile: Left and right columns become one column, centered display */
 @media (max-width: 900px) {
   .bannerInner {
     grid-template-columns: 1fr;
@@ -161,7 +160,7 @@
   }
 }
 
-/* ===== 右侧城市卡区域 ===== */
+/* ===== right: City card area ===== */
 .cityTitle {
   font-size: 24px;
   font-weight: 600;
@@ -177,19 +176,17 @@
   align-items: center;
 }
 
-/* 单个城市卡：左圆右矩形 */
+/* Single city card: circle on the left and rectangle on the right */
 .cityCardRow {
-  position: relative;               /* 允许子元素绝对定位 */
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center; 
   justify-content: flex-start;
   width: 100%; 
-  gap: 16px;
-  /* background: rgba(255,255,255,0.06); */
-  /* border: 2px solid rgba(255,255,255,0.25); */
+  gap: 16px; 
   border-radius: 12px;
-  padding: 14px 16px;     /* 顶部会被圆形覆盖，不用太大内边距 */
+  padding: 14px 16px; 
   cursor: pointer;
   transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
 }
@@ -199,20 +196,20 @@
   box-shadow: 0 4px 14px rgba(0,0,0,0.18);
 }
 
-/* 左侧圆形缩略图（“气泡”） */
+/* "bubble" on the left */
 .cityCircleLabel {
   position: absolute;
   top: 40%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;
-  color: #174060;           /* 深蓝色或你喜欢的对比色 */
+  color: #174060;
   font-weight: 700;
   font-size: 22px;;
   font-family: 'Commuters Sans', Arial, sans-serif !important;
   letter-spacing: 0.5px;
   text-shadow: 0 2px 10px rgba(255,255,255,0.6);
-  pointer-events: none;     /* 避免遮挡点击 */
+  pointer-events: none;
 }
 .cityCircle {
   position: relative;
@@ -226,41 +223,40 @@
   display: grid;
   place-items: center;
   overflow: hidden;
-  z-index: 2;            /* 在信息框之上 */
+  z-index: 2;
   margin-right: -70px;
 }
 .cityThumb {
   width: 110%;
   height: 110%;
-  object-fit: cover;      /* 图片填满圆形 */
+  object-fit: cover;
 }
 
-/* 右侧矩形信息块 */
+/* Right: rectangular information block */
 .cityRect {
   position: relative;
-  z-index: 1;                            /* 在圆形之下 */
+  z-index: 1;
   min-height: 105px;
   width: 100%;
   border-radius: 10px;
   background: #cdd5df;
-  border: 6px solid #72e3cd;        /* 同款薄荷绿边框 */
+  border: 6px solid #72e3cd;
   display: flex;
   align-items: center;
   color: #0e2741;
   font-weight: 400;
   letter-spacing: .2px;
-  padding: 14px 16px 14px 65px; /* 给左侧留位 */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05); /* 轻微浮起感 */
+  padding: 14px 16px 14px 65px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
 }
 
-/* 右侧下方：Share your thoughts（与左侧 Contact 同风格） */ 
+/* Lower right side：Share your thoughts */ 
 .feedbackBtn {
   width: fit-content;
   background: #ffffff;
   color: #174060;
   font-weight: 700;
   font-size: 18px;
-  /* border: 5px solid #72e3cd; */
   border-radius: 10px;
   padding: 10px 16px;
   cursor: pointer;
@@ -272,20 +268,18 @@
   box-shadow: 0 6px 14px rgba(14, 30, 70, 0.35);
 }
 
-/* 移动端：给城市卡更友好的间距 */
+/* Mobile terminal: Give city cards more friendly spacing */
 @media (max-width: 900px) {
   .cityCardRow {
-    position: relative;               /* 允许子元素绝对定位 */
+    position: relative;
     display: flex;
     flex-direction: row;
     align-items: center; 
     justify-content: flex-start;
     width: 85%; 
-    gap: 16px;
-    /* background: rgba(255,255,255,0.06); */
-    /* border: 2px solid rgba(255,255,255,0.25); */
+    gap: 16px; 
     border-radius: 12px;
-    padding: 14px 16px;     /* 顶部会被圆形覆盖，不用太大内边距 */
+    padding: 14px 16px; 
     cursor: pointer;
     transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
   }
