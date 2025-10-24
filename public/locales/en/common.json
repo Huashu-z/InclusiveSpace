@@ -139,10 +139,10 @@
   "tooltip_data_name_label": "Data name:",
   "tooltip_data_source_label": "Source:",
   "tooltip_data_desc_label": "Description:",
-  "tooltip_data_name_value": "{{city}} city layers",
-  "tooltip_data_source_hh": "Geoportal Hamburg (Freie und Hansestadt Hamburg), processed by the InclusiveSpaces project.",
-  "tooltip_data_source_pt": "Municipality of Penteli, processed by the InclusiveSpaces project.",
-  "tooltip_data_desc": "These map layers include environmental, physical, and psychological features (e.g., noise, light, slope, trees, facilities, pedestrian flow) to visualize and analyze comfort-based accessibility.",
+  "tooltip_data_name_value": "{{city}} city data visualization",
+  "tooltip_data_source_hh": "Mainly sourced from Geoportal Hamburg, OpenStreetMap, and the Technical University of Munich. For detailed information, please refer to the source indicated under each dataset below.",
+  "tooltip_data_source_pt": "Mainly sourced from the municipality of Penteli, OpenStreetMap, and the Technical University of Munich. For detailed information, please refer to the source indicated under each dataset below.",
+  "tooltip_data_desc": "The map layers combine environmental, infrastructural, and accessibility-related data from open data source. They include information such as noise, temperature, light, slope, greenery, street infrastructure, and pedestrian flow, supporting comfort-based accessibility analysis.",
   "tooltip_layer_generic_desc": "This layer visualizes city features used for comfort-based accessibility insights.",
   "tooltip_layer": {
     "noise_wms": {

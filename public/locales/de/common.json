@@ -141,9 +141,9 @@
   "tooltip_data_source_label": "Quelle:",
   "tooltip_data_desc_label": "Beschreibung:",
   "tooltip_data_name_value": "{{city}} Stadtebenen",
-  "tooltip_data_source_hh": "Geoportal Hamburg (Freie und Hansestadt Hamburg), aufbereitet durch das InclusiveSpaces-Projekt.",
-  "tooltip_data_source_pt": "Gemeinde Penteli, aufbereitet durch das InclusiveSpaces-Projekt.",
-  "tooltip_data_desc": "Diese Kartendaten enthalten Umwelt-, physische und psychologische Merkmale (z. B. Lärm, Licht, Steigung, Bäume, Einrichtungen, Fußgängerfluss), um komfortbasierte Erreichbarkeit zu visualisieren und zu analysieren.",
+  "tooltip_data_source_hh": "Hauptsächlich aus dem Geoportal Hamburg, OpenStreetMap und der Technischen Universität München. Weitere Details finden Sie in der jeweiligen Quellenangabe unter jedem Datensatz unten.",
+  "tooltip_data_source_pt": "Hauptsächlich aus den Daten der Gemeinde Penteli, OpenStreetMap und der Technischen Universität München. Weitere Details finden Sie in der jeweiligen Quellenangabe unter jedem Datensatz unten.",
+  "tooltip_data_desc": "Die Kartendaten kombinieren Umwelt-, Infrastruktur- und Barrierefreiheitsinformationen aus offenen Datenquellen. Sie umfassen Themen wie Lärm, Temperatur, Licht, Steigung, Grünflächen, Straßeninfrastruktur und Fußgängerverkehr und unterstützen Analysen der komfortbasierten Erreichbarkeit.",
   "tooltip_layer_generic_desc": "Diese Ebene visualisiert städtische Merkmale, die für Analysen der komfortbasierten Erreichbarkeit verwendet werden.",
   "tooltip_layer": {
     "noise_wms": {
