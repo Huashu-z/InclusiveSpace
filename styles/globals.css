@@ -1,15 +1,38 @@
+/* === Global color tokens (single palette for all modes) === */
 :root {
+  /* core tokens */
   --background: #ffffff;
   --foreground: #171717;
+
+  /* optional common tokens for panels/borders/tooltip */
+  --panel: #f7f9fb;
+  --muted-text: #333333;
+  --border: #e5e7eb;
+  --accent: #52ccae;
+
+  --tooltip-bg: #f5f8f6;
+  --tooltip-text: #000000;
+
+  /* force light UI even if system prefers dark */
+  color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* If some lib/class toggles dark mode, map it back to the same palette */
+:root.dark,
+.dark :root,
+[data-theme="dark"] {
+  --background: #ffffff;
+  --foreground: #171717;
+  --panel: #f7f9fb;
+  --muted-text: #333333;
+  --border: #e5e7eb;
+  --accent: #52ccae;
+  --tooltip-bg: #f5f8f6;
+  --tooltip-text: #000000;
+  color-scheme: light;
 }
 
+/* Base layout */
 html,
 body {
   max-width: 100vw;
@@ -17,13 +40,14 @@ body {
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  color: var(--foreground) !important;
+  background: var(--background) !important;
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Reset */
 * {
   box-sizing: border-box;
   padding: 0;
@@ -35,8 +59,16 @@ a {
   text-decoration: none;
 }
 
+body > .tooltip-portal,
+body .tooltip,
+[role="tooltip"] {
+  color: var(--tooltip-text) !important;
+  background: var(--tooltip-bg) !important;
+  border: 1px solid var(--accent) !important;
+  isolation: isolate;
+}
+
 @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+  :root { color-scheme: light; }
+  html { color-scheme: light; }
 }

@@ -147,7 +147,7 @@ export default function PlasmicLanding() {
 
       {/* === Details about CAT === */}
       <section className={sty.toolDetailsSection}>
-        <h2 className={sty.toolDetailsTitle}>{t('landing_general_title')}</h2>
+        <h2 className={sty.toolDetailsTitle}>{t('landing_details_title')}</h2>
         <div className={sty.toolDetailsInner}>
           {/* left: logo */}
           <div className={sty.toolDetailsLogoWrap}>
@@ -175,6 +175,7 @@ export default function PlasmicLanding() {
           </div>
         </div>
         {/* general information section 2 */}
+        <h2 className={sty.toolDetailsTitle}>{t('landing_general_title')}</h2>
         <div className={sty.toolDetailsInner}>
           {/* left: text and buttons */}
           <div className={sty.toolDetailsRight}>

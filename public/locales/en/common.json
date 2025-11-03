@@ -13,6 +13,7 @@
   "landing_city_hamburg_desc": "Germany’s second-largest city, Hamburg combines historic port landscapes with diverse, walkable urban districts and advanced public transport.",
   "landing_city_penteli": "Penteli",
   "landing_city_penteli_desc": "Overlooking Athens, Penteli features green residential areas and hilly terrain, shaping its unique accessibility and urban mobility.", 
+  "landing_details_title": "Details about CAT",
   "landing_details_blocks": [
     "The Comfort-Based Accessibility Tool (CAT) was developed at the Technical University of Munich to support data-driven, people-centered urban planning. Using information from literature and interviews with planning experts and people with limited mobility capabilities, the tool offers a comprehensive approach to visualizing comfort-based accessibility.",
     "CAT integrates travel time, walking speed, and a range of comfort factors to generate dynamic, personalized comfort-based accessibility analyses and isochrone maps. Users can interactively select which factors matter most, and see how their accessibility area changes.",

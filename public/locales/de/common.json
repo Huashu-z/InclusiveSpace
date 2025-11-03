@@ -13,6 +13,7 @@
   "landing_city_hamburg_desc": "Als zweitgrößte Stadt Deutschlands vereint Hamburg historische Hafenlandschaften mit vielfältigen, fußläufigen Stadtvierteln und einem modernen öffentlichen Verkehrssystem.",
   "landing_city_penteli": "Penteli",
   "landing_city_penteli_desc": "Penteli, nördlich von Athen, bietet grüne Wohngebiete und hügeliges Gelände, was die Zugänglichkeit und städtische Mobilität einzigartig prägt.", 
+  "landing_details_title": "Details über das CAT",
   "landing_details_blocks": [
     "Das komfortbasierte Erreichbarkeitstool (CAT) wurde an der Technischen Universität München entwickelt, um datenbasierte, menschenzentrierte Stadtplanung zu unterstützen. Durch Informationen aus Literatur und geführten Interviews mit Planungsexperten sowie mit Menschen mit Mobilitätseinschränkung bietet das Tool einen umfassenden Ansatz, um die komfortbasierte Erreichbarkeit zu visualisieren.",
     "CAT integriert Reisezeit, Gehgeschwindigkeit und eine Reihe von Komfortfaktoren, um personalisierte und komfortbasierte Erreichbarkeitsanalysen und Isochronenkarten zu erstellen. Benutzer können interaktiv auswählen, welche Faktoren am wichtigsten sind, und sehen, wie sich ihr Erreichbarkeitsbereich verändert.",
