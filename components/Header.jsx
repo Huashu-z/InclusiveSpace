@@ -28,17 +28,17 @@ function Header(
       <>
         <Link href={`/`}>
           <div className={sty["logo-wrapper"]}>
-            <img src="/images/logo_co-founded-eu.png" alt="EU Logo" />
+            <img src="/images/logo_co-founded-eu.png" alt={t('logo_EU')} />
           </div>
         </Link>
         <Link href={`/`}>
           <div className={sty["logo-wrapper"]}>
-            <img src="/images/logoIS.png" alt="IS Logo" />
+            <img src="/images/logoIS.png" alt={t('logo_IS')} />
           </div>
         </Link>
         <Link href={`/`}>
           <div className={sty["logo-wrapper"]}>
-            <img src="/images/tum_logo.png" alt="TUM Logo" />
+            <img src="/images/tum_logo.png" alt={t('logo_TUM')} />
           </div>
         </Link>
       </>
@@ -49,7 +49,7 @@ function Header(
       <Link href={`/`}>
         <img
           src="/images/CAT_logo_white.svg"
-          alt="Tool Logo"
+          alt={t('logo_CAT')}
           className={sty["CAT-logo"]}
           style={{ marginLeft: 0 }}
         />
@@ -65,7 +65,7 @@ function Header(
       <Link href={`/`}>
         <img
           src="/images/CAT_logo_blue.svg"
-          alt="Tool Logo"
+          alt={t('logo_CAT')}
           className={sty["CAT-logo"]}
         />
       </Link>
@@ -89,6 +89,8 @@ function Header(
         <button
           className={sty["help-button"]}
           title={t('header_tool_instruction')}
+          aria-label={t('header_tool_instruction')}
+          aria-haspopup="dialog"
           onClick={() => setShowHelp(true)}
         >i</button>
       )}
@@ -98,11 +100,15 @@ function Header(
           <button
             onClick={() => setShowCityMenu(prev => !prev)}
             className={sty["city-button"]}
-            title="Select City"
+            title={t('header_select_city')}
+            aria-label={t('header_select_city')}
+            aria-haspopup="menu"
+            aria-expanded={showCityMenu}
+            aria-controls="city-menu"
           >
             <img
               src="/images/select_city.png"
-              alt="Select Map"
+              alt={t('header_select_city')}
               className={sty["city-icon"]}
             />
           </button>
@@ -115,12 +121,14 @@ function Header(
                 <div
                   key={city.id}
                   className={sty["city-item"]}
+                  role="menuitem"
                   onClick={() => {
                     setShowCityMenu(false);
                     localStorage.setItem("selectedCity", city.id);
                     localStorage.setItem("selectedCityCenter", JSON.stringify(city.center));
                     window.location.href = `/user?city=${city.id}`;
                   }}
+                  aria-label={`Switch to ${city.name}`}
                 >
                   {city.name}
                 </div>

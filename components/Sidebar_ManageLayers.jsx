@@ -15,7 +15,7 @@ function LayerCheckbox({ layerKey, label, checked, onToggle, t }) {
           <input type="checkbox" checked={checked} onChange={onToggle} />
           <span className={sty["sidebar-text"]}>{label}</span>
         </label>
-        <span
+        {/* <span
           className={sty["info-icon"]}
           ref={tooltipRef}
           onClick={(e) => {
@@ -24,15 +24,35 @@ function LayerCheckbox({ layerKey, label, checked, onToggle, t }) {
           }}
           title={t("tooltip_layer_title")}
           style={{ marginLeft: 8, cursor: "pointer", userSelect: "none" }}
+          aria-label={t("tooltip_layer_title")} 
+          aria-haspopup="dialog"
+          aria-expanded={showTooltip}
+          aria-controls={`tip-layer-${layerKey}`}
         >
           i
-        </span>
+        </span> */}
+        <button
+          className={sty["info-icon"]}
+          ref={tooltipRef}
+          onClick={(e) => {
+            e.stopPropagation();
+            setShowTooltip((prev) => !prev);
+          }}
+          title={t("tooltip_layer_title")}
+          aria-label={t("tooltip_layer_title")}
+          aria-haspopup="dialog"
+          aria-expanded={showTooltip}
+          aria-controls={`tip-layer-${layerKey}`}
+        >
+          i
+        </button>
       </div>
       <Tooltip
         show={showTooltip}
         type={`layer:${layerKey}`}
         anchorRef={tooltipRef}
         onClose={() => setShowTooltip(false)}
+        id={`tip-layer-${layerKey}`}
       />
     </div>
   );
@@ -52,15 +72,30 @@ export default function MapLayers({ selectedLayers, toggleLayer, availableLayers
     setOpenCategory(openCategory === category ? null : category);
   };
 
-  const Category = ({ name, label, children }) => (
-    <div className={sty["faq-item"]}>
-      <button className={sty["faq-question"]} onClick={() => toggleCategory(name)}>
-        <span className={sty["sidebar-subtitle"]}>{label}</span>
-        <span className={sty["faq-icon"]}>{openCategory === name ? "−" : "+"}</span>
-      </button>
-      {openCategory === name && <div className={sty["faq-answer"]}>{children}</div>}
-    </div>
-  );
+  const Category = ({ name, label, children }) => {
+    const isOpen = openCategory === name;
+    const contentId = `category-content-${name}`;
+
+    return (
+      <div className={sty["faq-item"]}>
+        <button
+          className={sty["faq-question"]}
+          onClick={() => toggleCategory(name)}
+          aria-expanded={isOpen}
+          aria-controls={contentId}
+        >
+          <span className={sty["sidebar-subtitle"]}>{label}</span>
+          <span className={sty["faq-icon"]}>{isOpen ? "−" : "+"}</span>
+        </button>
+
+        {isOpen && (
+          <div id={contentId} className={sty["faq-answer"]}>
+            {children}
+          </div>
+        )}
+      </div>
+    );
+  };
 
   const groups = [
     { name: "env", label: t('env_category') },
@@ -89,7 +124,8 @@ export default function MapLayers({ selectedLayers, toggleLayer, availableLayers
     <div className={sty["sidebar-section"]}>
       <div className={sty["title-container"]}>
         <h3 className={sty["sidebar-title"]}>{t('map_layers')}</h3>
-        <span
+
+        <button
           className={sty["info-icon"]}
           ref={infoIconRef}
           onClick={(e) => {
@@ -97,16 +133,23 @@ export default function MapLayers({ selectedLayers, toggleLayer, availableLayers
             setShowInfo((prev) => !prev);
           }}
           title={t('tooltip_data_title')}
+          aria-label={t('tooltip_data_title')}
+          aria-haspopup="dialog"
+          aria-expanded={showInfo}
+          aria-controls="tip-datainfo"
         >
           i
-        </span>
+        </button>
+
         <Tooltip
           show={showInfo}
           type="dataInfo"
           anchorRef={infoIconRef}
           onClose={() => setShowInfo(false)}
+          id="tip-datainfo"
         />
       </div>
+
       <div className={sty["faq-container"]}>
         <Category name="env" label={t('env_category')}>
           {/* {findLayer("noise_wms") && renderCheckbox(findLayer("noise_wms"), t('display_noise'))} */}

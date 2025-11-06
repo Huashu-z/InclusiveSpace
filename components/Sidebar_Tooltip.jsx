@@ -45,7 +45,8 @@ export default function Sidebar_Tooltip({ show, type, anchorRef, onClose }) {
 
   // Click outside to close & ESC to close
   React.useEffect(() => {
-    if (!show) return;
+    if (show) containerRef.current?.focus();
+    // if (!show) return;
     const onDocClick = (e) => {
       const c = containerRef.current;
       if (!c) return;
@@ -183,6 +184,8 @@ export default function Sidebar_Tooltip({ show, type, anchorRef, onClose }) {
       ref={containerRef}
       role="dialog"
       aria-live="polite"
+      aria-modal="false"
+      tabIndex={-1} 
       style={{
         position: "fixed",
         top: pos.top,

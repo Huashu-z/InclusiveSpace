@@ -42,7 +42,7 @@ export default function PlasmicLanding() {
               <div className={sty.brandWrap}>
                 <img
                   src="/images/CAT_title_white.svg"
-                  alt="CAT — Comfort-based Accessibility Tool"
+                  alt={t('landing_cat_title')}
                   className={sty.catTitleImg}
                 />
               </div>
@@ -75,13 +75,20 @@ export default function PlasmicLanding() {
                     window.location.href = "/user?city=hamburg";
                   }}
                   role="button"
-                  aria-label="Enter Hamburg map"
+                  aria-label={t('landing_enter_hamburg')}
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault(); 
+                      router.push('/user?city=hamburg');
+                    }
+                  }}
                 >
                   <div className={sty.cityCircle}>
                     <span className={sty.cityCircleLabel}>{t('landing_city_hamburg')}</span>
                     <img
                       src="/images/hamburg_map.png"
-                      alt="Hamburg preview"
+                      alt={t('landing_city_hamburg')}
                       className={sty.cityThumb}
                     />
                   </div>
@@ -99,13 +106,20 @@ export default function PlasmicLanding() {
                     window.location.href = "/user?city=penteli";
                   }}
                   role="button"
-                  aria-label="Enter Penteli map"
+                  aria-label={t('landing_enter_penteli')}
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault(); 
+                      router.push('/user?city=penteli');
+                    }
+                  }}
                 >
                   <div className={sty.cityCircle}>
                     <span className={sty.cityCircleLabel}>{t('landing_city_penteli')}</span>
                     <img
                       src="/images/penteli_map.png"
-                      alt="Penteli preview"
+                      alt={t('landing_city_penteli')}
                       className={sty.cityThumb}
                     />
                   </div>
@@ -153,7 +167,7 @@ export default function PlasmicLanding() {
           <div className={sty.toolDetailsLogoWrap}>
             <img
               src="/images/logoIS2.png"
-              alt="InclusiveSpaces Logo"
+              alt={t('logo_IS')}
               className={sty.toolDetailsLogo}
             />
           </div>
@@ -190,14 +204,14 @@ export default function PlasmicLanding() {
             <div className={sty.toolDetailsLogoWrap}>
               <img
                 src="/images/logo_co-founded-eu_full.png"
-                alt="EU Logo"
+                alt={t('logo_EU')}
                 className={sty.toolDetailsLogo}
               />
             </div>
             <div className={sty.toolDetailsLogoWrap}>
               <img
                 src="/images/build4people_logo.png"
-                alt="Build4People Logo"
+                alt={t('logo_TUM')}
                 className={sty.toolDetailsLogo}
               />
             </div>
@@ -221,9 +235,9 @@ export default function PlasmicLanding() {
           
           <div className={sty.partnerLogos}>
             {/* Place your logos here, e.g.: */}
-            <img src="/images/logo_co-founded-eu_full.png" alt="EU Logo f" />
-            <img src="/images/logoIS_full.png" alt="InclusiveSpaces Logo f" />
-            <img src="/images/tum_logo_full.png" alt="TUM Logo f" />
+            <img src="/images/logo_co-founded-eu_full.png" alt={t('logo_EU')} />
+            <img src="/images/logoIS_full.png" alt={t('logo_IS')} />
+            <img src="/images/tum_logo_full.png" alt={t('logo_TUM')} />
             {/* Add other partner logos as needed */}
           </div>
         </div>

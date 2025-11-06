@@ -82,7 +82,16 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
 
   return (
     <div className={styles["legend-container"]}>
-      <div className={styles["legend-header"]} onClick={() => setIsExpanded(!isExpanded)}>
+      {/* Dedicated area for screen readers: Number of new results to be displayed */}
+      <div aria-live="polite" className={styles["sr-only"]} role="status">
+        {resultMetadata.length > 0 &&
+          `${resultMetadata.length} accessibility result${resultMetadata.length > 1 ? 's' : ''} loaded.`}
+      </div>
+
+      <div
+        className={styles["legend-header"]}
+        onClick={() => setIsExpanded(!isExpanded)}
+      >
         <div className={styles["legend-header-title"]}>{t('leg_catchment_result')}</div>
         <div className={styles["legend-header-toggle"]}>{isExpanded ? "▼" : "▲"}</div>
       </div>
@@ -94,8 +103,16 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
             const features = entry.layers;
             const values = entry.values;
 
+            const comfortId = `comfort-${index}`;
+            const poiId = `poi-${index}`;
+
             return (
-              <div key={index} className={styles["legend-section"]}>
+              <div
+                key={index}
+                className={styles["legend-section"]}
+                role="region"
+                aria-label={`${t('leg_area_label')} ${entry.groupIndex}.${entry.subIndex ?? ''}, ${t('leg_time_label')} ${entry.time} ${t('minutes')}`}
+              >
                 <div
                   className={styles["legend-title"]}
                   onClick={() => {
@@ -107,6 +124,8 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                   <span
                     className={styles["legend-color-box"]}
                     style={{ backgroundColor: color }}
+                    aria-hidden="true"
+                    role="presentation"
                   />
                   {entry.isDefault ? (
                     <div>
@@ -120,7 +139,7 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                   )}
                 </div>
 
-                <div>{t('leg_time_label')} {entry.time} min</div>
+                <div>{t('leg_time_label')} {entry.time} {t('minutes')}</div>
                 <div>{t('leg_speed_label')} {entry.speed} km/h</div>
                 <div>{t('leg_area_label')} {entry.area} ha</div>
                 {!entry.isDefault && <div>{t('leg_comfort_ratio')} {entry.weightedRatio}</div>}
@@ -128,19 +147,19 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                 {/* Comfort Feature Weight Categories */}
                 <button
                   className={styles["toggle-button"]}
+                  aria-expanded="false"
+                  aria-controls={comfortId}
                   onClick={(e) => {
                     const container = e.currentTarget.nextSibling;
-                    container.style.display =
-                      container.style.display === "none" ? "block" : "none";
-                    e.currentTarget.innerText =
-                      container.style.display === "none"
-                        ? "► " + t('leg_comfort_weight_title')
-                        : "▼ " + t('leg_comfort_weight_title');
+                    const isOpen = container.style.display !== "none";
+                    container.style.display = isOpen ? "none" : "block";
+                    e.currentTarget.setAttribute("aria-expanded", (!isOpen).toString());
+                    e.currentTarget.innerText = (!isOpen ? "▼ " : "► ") + t('leg_comfort_weight_title');
                   }}
                 >
                   ► {t('leg_comfort_weight_title')}
-                </button> 
-                <div style={{ display: "none", marginLeft: "8px" }}>
+                </button>
+                <div id={comfortId} style={{ display: "none", marginLeft: "8px" }}>
                   {features.length > 0 ? (
                     features.map((layer) => (
                       <div key={layer}>
@@ -154,24 +173,24 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
 
                 {/* Points of Interest Count */}
                 {entry.poiCount > 0 && (
-                  <div style={{marginTop: 0}}>
+                  <div style={{ marginTop: 0 }}>
                     <button
                       className={styles["toggle-button"]}
-                      style={{marginBottom: 2}}
+                      style={{ marginBottom: 2 }}
+                      aria-expanded="false"
+                      aria-controls={poiId}
                       onClick={(e) => {
                         const btn = e.currentTarget;
                         const container = btn.nextSibling;
-                        container.style.display =
-                          container.style.display === "none" ? "block" : "none";
-                        btn.innerText =
-                          container.style.display === "none"
-                            ? "► " + t('leg_poi_count') + `: ${entry.poiCount}`
-                            : "▼ " + t('leg_poi_count') + `: ${entry.poiCount}`;
+                        const isOpen = container.style.display !== "none";
+                        container.style.display = isOpen ? "none" : "block";
+                        btn.setAttribute("aria-expanded", (!isOpen).toString());
+                        btn.innerText = (!isOpen ? "▼ " : "► ") + t('leg_poi_count') + `: ${entry.poiCount}`;
                       }}
                     >
                       ► {t('leg_poi_count')}: {entry.poiCount}
                     </button>
-                    <div style={{ display: "none", marginLeft: 8 }}>
+                    <div id={poiId} style={{ display: "none", marginLeft: 8 }}>
                       {entry.poiGroupCounts && Object.keys(entry.poiGroupCounts).length > 0 ? (
                         Object.entries(entry.poiGroupCounts).map(([cat, count]) => (
                           <div key={cat}>
@@ -184,7 +203,6 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                     </div>
                   </div>
                 )}
-
               </div>
             );
           })}
@@ -192,6 +210,7 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
       )}
     </div>
   );
+
 };
 
 export default Legend;

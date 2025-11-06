@@ -18,6 +18,8 @@ export default function VariableControls({
   walkingTime,
   walkingSpeed
 }) {
+  const [liveMessage, setLiveMessage] = React.useState("");
+
   const city = (typeof window !== "undefined" && (localStorage.getItem("selectedCity") || "hamburg")) || "hamburg";
   const availableFeatures = cityLayerConfig[city]?.discomfortFeatures || [];
 
@@ -30,6 +32,7 @@ export default function VariableControls({
     const sliderIndex = weightLevels.indexOf(value);
     const [showTooltip, setShowTooltip] = React.useState(false);
     const tooltipRef = React.useRef();
+    const sliderId = `var-${layer}-slider`;
 
     return (
       <div className={sty["checkbox-container"]}>
@@ -39,6 +42,11 @@ export default function VariableControls({
               type="checkbox"
               onChange={() => {
                 toggleVariable(layer);
+                setLiveMessage(
+                  !enabled
+                    ? `${label} ${t('aria_enabled', { defaultValue: 'enabled' })}`
+                    : `${label} ${t('aria_disabled', { defaultValue: 'disabled' })}`
+                );
                 if (!enabled) {
                   const fakeEvent = {
                     target: { value: weightLevels[2] } 
@@ -50,16 +58,17 @@ export default function VariableControls({
             />
             <span className={sty["sidebar-text"]}>{label}</span>
           </label>
-          <span
-              className={sty["info-icon"]}
-              ref={tooltipRef}
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowTooltip((prev) => !prev);
-              }}
-            >
-              i
-          </span>
+          <button
+            className={sty["info-icon"]}
+            ref={tooltipRef}
+            onClick={(e) => { e.stopPropagation(); setShowTooltip(prev => !prev); }}
+            aria-label={t('tooltip_variable_title', { defaultValue: `${label} details` })}
+            aria-haspopup="dialog"
+            aria-expanded={showTooltip}
+            aria-controls={`tip-${layer}`}
+          >
+            i
+          </button>
         </div>
         
           <Tooltip
@@ -67,10 +76,13 @@ export default function VariableControls({
             type={layer}
             anchorRef={tooltipRef}
             onClose={() => setShowTooltip(false)}
+            id={`tip-${layer}`}
           /> 
 
         <div className={sty["slider-container"]}>
+          {/* <label htmlFor={sliderId} className={sty["sr-only"]}>{t('variable_weight_for', { defaultValue: `Weight for ${label}` })}</label> */}
           <input
+            id={sliderId}
             type="range"
             min="0"
             max="3"
@@ -78,6 +90,13 @@ export default function VariableControls({
             disabled={!enabled}
             value={sliderIndex >= 0 ? sliderIndex : 3}
             className={!enabled ? sty["disabled"] : ""}
+            aria-label={t('variable_weight_for', { defaultValue: `Weight for ${label}` })}
+            aria-valuemin={0}
+            aria-valuemax={3}
+            aria-valuenow={sliderIndex >= 0 ? sliderIndex : 3}
+            aria-valuetext={
+              sliderIndex >= 0 ? weightLabels[sliderIndex] : t('emoji_level_unknown', { defaultValue: 'Unknown' })
+            }
             style={{
               background: enabled
                 ? `linear-gradient(to right, #ff5e00ff ${((sliderIndex + 0.5) / 4) * 100}%, #ccc ${((sliderIndex + 0.8) / 4) * 100}%)`
@@ -106,23 +125,31 @@ export default function VariableControls({
 
   return (
     <div className={sty["sidebar-section"]}>
+      <div aria-live="polite" className="sr-only" role="status">
+        {liveMessage}
+      </div>
       <div className={sty["title-container"]}>
         <h3 className={sty["sidebar-title"]}>{t('leg_comfort_features')}</h3>
-        <span
+        <button
           className={sty["info-icon"]}
           ref={infoIconRef}
           onClick={(e) => {
             e.stopPropagation();
-            setShowInfo((prev) => !prev);
+            setShowInfo(prev => !prev);
           }}
+          aria-label={t('tooltip_comfort_features_title')}
+          aria-haspopup="dialog"
+          aria-expanded={showInfo}
+          aria-controls="tip-featureinfo"
         >
           i
-        </span>
+        </button>
         <Tooltip
           show={showInfo}
           type="variable"
           anchorRef={infoIconRef}
           onClose={() => setShowInfo(false)}
+          id="tip-featureinfo"
         />
       </div>
 
@@ -131,19 +158,19 @@ export default function VariableControls({
         <h4 className={sty["legend-title"]}>{t('emoji_level_0')}</h4>
         <div className={sty["legend-emoji-column"]}>
           <div className={sty["legend-emoji-item"]}>
-            <span className={sty["legend-emoji"]}>❌</span>
+            <span className={sty["legend-emoji"]} aria-hidden="true">❌</span>
             <span className={sty["legend-label"]}>{t('emoji_level_1')}</span>
           </div>
           <div className={sty["legend-emoji-item"]}>
-            <span className={sty["legend-emoji"]}>😩</span>
+            <span className={sty["legend-emoji"]} aria-hidden="true">😩</span>
             <span className={sty["legend-label"]}>{t('emoji_level_2')}</span>
           </div>
           <div className={sty["legend-emoji-item"]}>
-            <span className={sty["legend-emoji"]}>☹️</span>
+            <span className={sty["legend-emoji"]} aria-hidden="true">☹️</span>
             <span className={sty["legend-label"]}>{t('emoji_level_3')}</span>
           </div>
           <div className={sty["legend-emoji-item"]}>
-            <span className={sty["legend-emoji"]}>😐</span>
+            <span className={sty["legend-emoji"]} aria-hidden="true">😐</span>
             <span className={sty["legend-label"]}>{t('emoji_level_4')}</span>
           </div>
         </div>

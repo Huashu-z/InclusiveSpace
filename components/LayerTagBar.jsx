@@ -175,6 +175,8 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
                       backgroundColor: color,
                       border: "1px solid #999"
                     }}
+                    aria-hidden="true"
+                    role="presentation"
                   />
                   <span>{flowLabels[layer][i]}</span>
                 </div>
@@ -190,6 +192,8 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
                       backgroundColor: color,
                       border: "1px solid #999"
                     }}
+                    aria-hidden="true"
+                    role="presentation"
                   />
                   <span>{tempLabels[layer][i]}</span>
                 </div>
@@ -205,6 +209,8 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
                       backgroundColor: color,
                       border: "1px solid #999"
                     }}
+                    aria-hidden="true"
+                    role="presentation"
                   />
                   <span>{slopeLabels[layer][i]}</span>
                 </div>
@@ -228,6 +234,8 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
                             backgroundColor: color,
                             border: "1px solid #999"
                           }}
+                          aria-hidden="true"
+                          role="presentation"
                         />
                         <span>{wmsLabels[layer]?.[i] || `Item ${i + 1}`}</span>
                       </div>
@@ -243,6 +251,8 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
                     backgroundColor: getChipColor(layer),
                     border: "1px solid #ccc"
                   }}
+                  aria-hidden="true"
+                  role="presentation"
                 />
                 <span>{displayNames[layer] || "GeoJSON Layer"}</span>
               </div>

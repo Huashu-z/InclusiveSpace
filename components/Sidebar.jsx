@@ -33,7 +33,9 @@ export default function Sidebar({
     showInfo,
     setShowInfo,
     isSearchZoom,
-    setIsSearchZoom
+    setIsSearchZoom,
+    city,
+    cityBoundaries
   }) {
     return (
         <div
@@ -48,15 +50,20 @@ export default function Sidebar({
         >      
  
         <div className={sty.arrowToggleContainer}>
-          <ArrowSvgIcon
-            className={sty.sidebarToggleArrow}
+          <button
+            className={sty.sidebarToggleButton}
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            role="img"
-          />
+            aria-label={sidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
+            aria-expanded={sidebarOpen}
+          >
+            <ArrowSvgIcon className={sty.sidebarToggleArrow} aria-hidden="true" />
+          </button>
         </div>
   
         <div className={`${sty.freeBox} ${sidebarOpen ? sty.freeBoxsidebarOpen : ""}`}>
           <AccessibilityControls
+            city={city}
+            cityBoundaries={cityBoundaries}
             walkingTime={walkingTime}
             setWalkingTime={setWalkingTime}
             walkingSpeed={walkingSpeed}
