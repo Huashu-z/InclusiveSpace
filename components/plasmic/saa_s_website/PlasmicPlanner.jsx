@@ -16,6 +16,7 @@ import dynamic from "next/dynamic";
 import "leaflet/dist/leaflet.css";
 import Sidebar from "../../Sidebar";
 import LayerTagBar from "@/components/LayerTagBar";
+import Profile from "../../Profile";
 
 const MapComponent = dynamic(() => import("../../MapComponent"), { ssr: false });
 

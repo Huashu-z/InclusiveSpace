@@ -44,7 +44,7 @@
   
   .mapBox {
     display: block;
-    position: fixed;
+    position: relative;
     width: 100%;
     height: auto;
     max-width: 100%;
@@ -709,10 +709,137 @@
     white-space: nowrap; 
   }
 
+  /* ---------- profile ----------------------- */
+  /* 浮在地图右上角的 Profile 区域 */
+  .profilePanel {
+    position: absolute;
+    top: 30px;
+    right: 16px;
+    z-index: 6000;
+  }
+
+  /* 一行：左侧是选项图标，右侧是总 profile 图标 */
+  .profileBar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* 左侧的选项容器：几个小图标横向排布 */
+  .profileOptions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* 具体 profile 图标按钮：无边框，无圆圈 */
+  .profile-icon-button {
+    position: relative;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 60px;
+    height: 60px;
+
+    transition: transform 0.12s ease, filter 0.15s ease;
+  }
+
+  .profile-icon-button:hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+  }
+
+  /* 被选中时：轻微发光，但不画圈 */
+  .profile-icon-button-active {
+    filter: drop-shadow(0 0 6px rgba(23, 63, 95, 0.35));
+  }
+
+  /* 图标本体 */
+  .profile-icon-img {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+    pointer-events: none;
+  }
+
+  /* hover 才显示的小文字标签 */
+  .profile-icon-label {
+    position: absolute;
+    bottom: -26px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    background: #ffffff;
+    padding: 2px 6px;
+    border-radius: 4px;
+
+    font-size: 11px;
+    color: #173f5f;
+    white-space: nowrap;
+
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+    z-index: 10;
+  }
+
+  .profile-icon-button:hover .profile-icon-label {
+    opacity: 1;
+  }
+  /* ----- 总 Profile 图标按钮：保持 PNG 原样，不加背景，不加圆圈 ----- */
+  .profile-main-button {
+    position: relative;
+    background: #ffffff;
+    border: #52ccae 4px solid;
+    border-radius: 4px;
+
+    padding: 0;
+    cursor: pointer;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 60px;   /* 你 PNG 的显示尺寸，可改 */
+    height: 60px;
+
+    transition: filter 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  /* hover：轻微亮起来，不改变图标形状 */
+  .profile-main-button:hover {
+    filter: brightness(1.1);
+  }
+
+  /* 展开（active）时：给 PNG 外侧加矩形高亮边框 */
+  .profile-main-button-open {
+    box-shadow: 0 0 0 2px #173f5f;   /* ❗高亮边框（矩形） */
+    border-radius: 6px;              /* ❗轻微圆角，不裁图，可改成 0 */
+  }
+
+  /* 中间的 PNG 图标本体 */
+  .profile-main-button img {
+    width: 50px;       /* 必须比 wrapper 小一点，避免边框被挤压 */
+    height: 50px;
+    object-fit: contain;
+    pointer-events: none;
+  }
+
+
   /* ---------- Layer Tag Bar Styles ----------- */
   .layerTagBar {
     position: absolute;
-    top: 30px;
+    top: 100px;
     right: 16px;
     display: flex;
     flex-direction: column;

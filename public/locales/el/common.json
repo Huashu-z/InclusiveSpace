@@ -44,6 +44,11 @@
   "landing_contact_huashu": "B.Sc. Huashu Zhan",
   "landing_city_not_ready": "Συγγνώμη, ο χάρτης της πόλης {{city}} είναι υπό κατασκευή.",
 
+  "profile_title": "Pre-set profiles",
+  "profile_elderly": "Older adult",
+  "profile_stroller": "Person with stroller",
+  "profile_wheelchair": "Wheelchair user",
+  
   "modal_help_title": "Καλώς ήρθατε στο Εργαλείο Προσβασιμότητας με Βάση την Άνεση!",
   "modal_help_intro": "Αυτό το εργαλείο σας βοηθά να εξερευνήσετε πόσο βατό είναι ένα μέρος, με βάση τις προτιμήσεις σας για άνεση.",
   "modal_howto_title": "Πώς να το χρησιμοποιήσετε:",

@@ -44,6 +44,11 @@
   "landing_contact_huashu": "B.Sc. Huashu Zhan",
   "landing_city_not_ready": "Entschuldigung, die Karte von {{city}} ist noch in Bearbeitung.",
 
+  "profile_title": "Vordefinierte Profile",
+  "profile_elderly": "Älterer Erwachsener",
+  "profile_stroller": "Person mit Kinderwagen",
+  "profile_wheelchair": "Rollstuhlfahrer",
+
   "modal_help_title": "Willkommen beim komfortbasierten Erreichbarkeits-Tool!",
   "modal_help_intro": "Dieses Tool hilft dir dabei, die Begehbarkeit eines Ortes anhand deiner Komfortvorlieben zu erkunden.",
   "modal_howto_title": "So geht's:",
