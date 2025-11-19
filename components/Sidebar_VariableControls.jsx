@@ -24,7 +24,7 @@ export default function VariableControls({
   const availableFeatures = cityLayerConfig[city]?.discomfortFeatures || [];
 
   const { t } = useTranslation("common");
-  const weightLevels = [0.9, 0.7, 0.4, 0.1]; //4 categories of comfort weights
+  const weightLevels = [0.9, 0.7, 0.5, 0.1]; //4 categories of comfort weights
   const weightLabels = ["😐","☹️","😩","❌"];
   const renderCheckbox = (layer, label) => {
     const enabled = enabledVariables.includes(layer);

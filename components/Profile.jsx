@@ -1,5 +1,4 @@
-// Profile.jsx
-import React, { useState } from "react";
+import React, { useState } from "react"; 
 import sty from "./Sidebar.module.css";
 import { useTranslation } from "next-i18next";
 
@@ -10,23 +9,26 @@ const PROFILE_PRESETS = [
     defaultLabel: "Older adult",
     icon: "/images/profile_elderly.png",
     enabled: [
-      "noise",
+      "temperatureSummer",
+      "temperatureWinter",
       "light",
       "tree",
-      "slope",
-      "unevenSurface",
-      "poorPavement",
+      "narrowRoads",
+      "stair",
+      "unevenSurface", 
       "kerbsHigh",
     ],
     values: {
-      noise: 0.4,
-      light: 0.7,
-      tree: 0.7,
-      slope: 0.4,
-      unevenSurface: 0.4,
-      poorPavement: 0.4,
-      kerbsHigh: 0.4,
+      temperatureSummer: 0.1,
+      temperatureWinter: 0.1,
+      light: 0.5,
+      tree: 0.5,
+      narrowRoads: 0.7,
+      stair: 0.5,
+      unevenSurface: 0.5, 
+      kerbsHigh: 0.7,
     },
+    walkingSpeed: 3.7,
   },
   {
     id: "stroller",
@@ -34,23 +36,22 @@ const PROFILE_PRESETS = [
     defaultLabel: "Person with stroller",
     icon: "/images/profile_stroller.png",
     enabled: [
-      "noise",
+      "temperatureWinter",
       "light",
-      "tree",
-      "slope",
-      "unevenSurface",
+      "narrowRoads",
+      "obstacle",
       "poorPavement",
-      "kerbsHigh",
+      "pedestrianFlow",
     ],
     values: {
-      noise: 0.7,
-      light: 0.7,
-      tree: 0.7,
-      slope: 0.4,
-      unevenSurface: 0.4,
-      poorPavement: 0.4,
-      kerbsHigh: 0.4,
+      temperatureWinter: 0.7,
+      light: 0.5,
+      narrowRoads: 0.5,
+      obstacle: 0.7,
+      poorPavement: 0.7,
+      pedestrianFlow: 0.5,
     },
+    walkingSpeed: 3.8,
   },
   {
     id: "wheelchair",
@@ -58,33 +59,101 @@ const PROFILE_PRESETS = [
     defaultLabel: "Wheelchair user",
     icon: "/images/profile_wheelchair.png",
     enabled: [
-      "noise",
+      "temperatureWinter",
       "light",
-      "tree",
-      "slope",
+      "stair",
+      "obstacle",
       "unevenSurface",
       "poorPavement",
       "kerbsHigh",
+      "facility",
+    ],
+    values: {
+      temperatureWinter: 0.5,
+      light: 0.1,
+      stair: 0.1,
+      obstacle: 0.5,
+      unevenSurface: 0.1,
+      poorPavement: 0.1,
+      kerbsHigh: 0.1,
+      facility: 0.5,
+    },
+    walkingSpeed: 1.0,
+  },
+  {
+    id: "visual_impairment",
+    labelKey: "profile_visual_impairment",
+    defaultLabel: "Visual impairment",
+    icon: "/images/profile_blind.png",
+    enabled: [
+      "noise",
+      "trafficLight",
+      "tactile_pavement",
+      "obstacle",
+      "unevenSurface"
+    ],
+    values: {
+      noise: 0.7,
+      trafficLight: 0.7,
+      tactile_pavement: 0.7,
+      obstacle: 0.5,
+      unevenSurface: 0.7,
+    },
+    walkingSpeed: 3.1
+  },
+  {
+    id: "hearing_impairment",
+    labelKey: "profile_hearing_impairment",
+    defaultLabel: "Hearing impairment",
+    icon: "/images/profile_hearing.png",
+    enabled: [
+      "noise",
+      "light",
+      "trafficLight",
+      "pedestrianFlow"
     ],
     values: {
       noise: 0.7,
       light: 0.7,
-      tree: 0.7,
-      slope: 0.4,
-      unevenSurface: 0.4,
-      poorPavement: 0.4,
-      kerbsHigh: 0.1,
+      trafficLight: 0.7,
+      pedestrianFlow: 0.7
     },
+    walkingSpeed: 3.5
   },
+  {
+    id: "cognitive_impairment",
+    labelKey: "profile_cognitive_impairment",
+    defaultLabel: "Cognitive impairment",
+    icon: "/images/profile_cognitive.png",
+    enabled: [
+      "temperatureWinter",
+      "light",
+      "narrowRoads",
+      "unevenSurface",
+      "pedestrianFlow"
+    ],
+    values: {
+      temperatureWinter: 0.7,
+      light: 0.5,
+      narrowRoads: 0.7,
+      unevenSurface: 0.7,
+      pedestrianFlow: 0.5
+    },
+    walkingSpeed: 3.6
+  }
+
 ];
 
-export default function Profile({ setEnabledVariables, setLayerValues }) {
+export default function Profile({
+  setEnabledVariables,
+  setLayerValues,
+  setWalkingSpeed
+}) {
   const { t } = useTranslation("common");
   const [isOpen, setIsOpen] = useState(false);
   const [activeProfile, setActiveProfile] = useState(null);
 
-  const applyProfile = (profileId) => {
-    // 再次点击同一个 profile：只取消高亮，保持当前值
+  const applyProfile = (profileId) => { 
     if (activeProfile === profileId) {
       setActiveProfile(null);
       return;
@@ -103,20 +172,46 @@ export default function Profile({ setEnabledVariables, setLayerValues }) {
       return next;
     });
 
+    if (setWalkingSpeed && typeof profile.walkingSpeed === "number") {
+      setWalkingSpeed(profile.walkingSpeed);
+    }
+
     setActiveProfile(profileId);
   };
 
-  const mainLabel = t("profile_main_label", { defaultValue: "Profiles" });
+  const titleText = t("profile_section_title", {
+    defaultValue: "Predefined Profiles"
+  });
 
   return (
     <div className={sty.profilePanel}>
-      <div className={sty.profileBar}>
-        {/* 左侧展开的具体 profile 图标 */}
-        {isOpen && (
+      {/* Collapsed state */}
+      {!isOpen && (
+        <button
+          type="button"
+          className={sty.profileMainBox}
+          onClick={() => setIsOpen(true)}
+          aria-label={titleText}
+        >
+          <span className={sty.profileMainTitle}>{titleText}</span>
+          <span className={sty.profileMainIconWrapper}>
+            <img
+              src="/images/profile.png"
+              alt=""
+              aria-hidden="true"
+              className={sty.profileMainIcon}
+            />
+          </span>
+        </button>
+      )}
+
+      {/* Expanded state */}
+      {isOpen && (
+        <div className={sty.profileBarExpanded}>
           <div className={sty.profileOptions}>
             {PROFILE_PRESETS.map((profile) => {
               const label = t(profile.labelKey, {
-                defaultValue: profile.defaultLabel,
+                defaultValue: profile.defaultLabel
               });
               const isActive = activeProfile === profile.id;
 
@@ -141,27 +236,23 @@ export default function Profile({ setEnabledVariables, setLayerValues }) {
                 </button>
               );
             })}
-          </div>
-        )}
-
-        {/* 右侧总 profile 图标：控制展开/收起 + 永远有高亮边框 */}
-        <button
-          type="button"
-          onClick={() => setIsOpen((v) => !v)}
-          className={`${sty["profile-main-button"]} ${
-            isOpen ? sty["profile-main-button-open"] : ""
-          }`}
-          aria-pressed={isOpen}
-          aria-label={mainLabel}
-        >
-          <img
-            src="/images/profile.png"
-            alt=""
-            aria-hidden="true"
-            className={sty["profile-icon-img"]}
-          />
-        </button>
-      </div>
+          </div> 
+          {/* main profile */}
+          <button
+            type="button"
+            onClick={() => setIsOpen(false)}
+            className={sty.profileMainIconOnlyButton}
+            aria-label={titleText}
+          >
+            <img
+              src="/images/profile.png"
+              alt=""
+              aria-hidden="true"
+              className={sty.profileMainIcon}
+            />
+          </button>
+        </div>
+      )}
     </div>
   );
-}
+} 

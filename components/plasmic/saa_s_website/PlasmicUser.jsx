@@ -189,6 +189,7 @@ function PlasmicUser__RenderFunc(props) {
             <Profile
               setEnabledVariables={setEnabledVariables}
               setLayerValues={setLayerValues}
+              setWalkingSpeed={setWalkingSpeed}
             />
             <LayerTagBar selectedLayers={selectedLayers} toggleLayer={toggleLayer} />
             <MapComponent

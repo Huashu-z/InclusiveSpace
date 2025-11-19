@@ -128,7 +128,7 @@ export function getStyle(layer, feature) {
     case "temp_summer":{
       const breaks = [ 
         { max: 11,  color: "#ffaaaa" },
-        { max: 17,  color: "#ff5555" },
+        { max: 20,  color: "#ff5555" },
         { max: 100,  color: "#ff0000" },
       ];
 
@@ -145,9 +145,9 @@ export function getStyle(layer, feature) {
 
     case "temp_winter": {
       const breaks = [
-        { max: -7,  color: "#afd1e7" },
+        { max: -7.5,  color: "#08306b" },
         { max: -4.5,  color: "#3e8ec4" },
-        { max: 0,  color: "#08306b" }, 
+        { max: 0,  color: "#afd1e7" }, 
       ];
 
       const val = parseFloat(feature?.properties?.comfort);
