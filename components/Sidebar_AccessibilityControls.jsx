@@ -66,7 +66,11 @@ export default function AccessibilityControls({
     <div className={sty["sidebar-section"]}>
       <div role="status" aria-live="polite" className={sty["sr-only"]}>{liveMessage}</div>
 
-      <h3 className={sty["sidebar-title"]}>{t('accessibility_title')}</h3>
+      {/* <h3 className={sty["sidebar-title"]}>{t('accessibility_title')}</h3> */}
+      <div className={sty["sidebar-section-title"]}>
+        <img src="/images/icon_accessibility.png" alt="Accessibility icon" />
+        <span>{t("accessibility_title")}</span>
+      </div>
 
       <div className={sty["sidebar-text-bold"]}>
         {t('walking_time')} <span className={sty["sidebar-text"]}>({walkingTime} min)</span>

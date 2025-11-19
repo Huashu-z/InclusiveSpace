@@ -1,0 +1,470 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  background: #ffffff;
+  position: relative;
+  box-shadow: 0px 10px 16px 0px #00000033;
+  min-width: 0;
+  padding: 0px;
+}
+/* landing page header ----------------------------------------------------*/
+.landing-header-bg {
+  background: #123049 !important;  
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03); 
+}
+
+.landing-header-text {
+  color: #f5f5f5 !important;
+}
+.landing-header-text .lang-switch-wrap a {
+  color: #f5f5f5 !important;
+}
+/*-------------------------------------------------------------------------------*/
+/* Button default state */
+.link__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+ 
+.link__container:hover {
+  border: 2px solid #173F5F;
+}
+ 
+.link__container.active {
+  background: #173F5F;
+  color: white !important;
+}
+/* Text color change with state */
+.link__container div {
+  font-weight: 600;
+  font-size: 18px;
+  color: #173F5F;
+  transition: color 0.3s ease-in-out;
+}
+ 
+.link__container.active div {
+  color: white !important;
+}
+/*-------------------------------------------------------------------------------*/
+
+/* Logo ---------------------------------------------------*/
+
+.logo-wrapper {
+  width: 90%;  
+  height: 30px;           
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-wrapper img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* User & Planner button */
+.link-container-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+/*-------------------------------------------------------------------------------*/
+/* CAT logo--------------------------------------------- */
+
+.CAT-logo {
+  height: 35px; 
+  object-fit: contain;
+  opacity: 0.9;
+}
+/* ------------------------------------------------------ */
+
+/* Switch language -------------------------------------------------------------------*/
+.lang-switch-wrap {
+  align-self: center;
+  font-size: 14px;
+  color: #173F5F;     
+  margin-right: 14px; 
+}
+
+.lang-active {
+  font-weight: 700;
+}
+
+
+/* Help button -------------------------------------------------------------------*/
+
+.help-button {
+  background: none;
+  border: 2px solid #173F5F;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-weight: 500;
+  font-size: 16px;
+  color: #173F5F;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16px;
+  align-self: center;
+}
+.help-button:hover {
+  background-color: #f0f0f0;
+}
+
+/* ----------------- Modal styles -------------------*/
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-content {
+  background: white;
+  padding: 24px;
+  border-radius: 10px;
+  max-width: 750px;
+  width: 90%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+.modal-content h2 {
+  margin-top: 0;
+}
+.modal-close {
+  margin-top: 20px;
+  padding: 8px 20px;
+  font-size: 16px;
+  background: #173F5F;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.modal-close:hover {
+  background: #12517f;
+}
+.modal-divider {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 16px 0;
+}
+/* ===== Help Modal new layout ===== */
+
+.modal-header-block {
+  text-align: left;
+  margin-bottom: 16px;
+}
+
+.modal-main-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #173f5f;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+}
+.modal-subtitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #173f5f;
+  margin: 14px 0 6px 0;
+  text-align: left;   /* 如果你想居中改成 center */
+}
+
+/* 每一“行”板块：横向排列卡片，自动换行，兼容小屏 */
+.modal-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+/* 单个卡片 */
+.modal-card {
+  flex: 1 1 0;
+  min-width: 180px;
+  background: #173f5f;
+  border-radius: 8px;
+  padding: 10px 12px;
+  border: 1px solid #dde7f2;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.modal-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #dde7f2;
+  margin: 0 0 6px 0;
+}
+
+.modal-card-text {
+  font-size: 14px;
+  color: #dde7f2;
+  margin: 0 0 4px 0;
+  line-height: 1.4;
+}
+
+.modal-card-list {
+  margin: 4px 0 0 16px;
+  padding: 0;
+  font-size: 13px;
+  color: #dde7f2;
+}
+/* ===== Icon cards in third row ===== */
+
+.modal-card-icon {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: transparent; /* 去掉背景色 */
+  border: none;            /* 去掉默认实线边框 */
+  padding: 14px 12px 10px;
+}
+
+/* --- Profile card: Blue dashed --- */
+.icon-card-profile {
+  border: 2px dashed #4a90e2; /* 蓝色 */
+  border-radius: 10px;
+}
+
+/* --- Legend card: Orange dashed --- */
+.icon-card-legend {
+  border: 2px dashed #f5a623; /* 橙色 */
+  border-radius: 10px;
+}
+
+/* --- Layers card: Green dashed --- */
+.icon-card-layers {
+  border: 2px dashed #7ed321; /* 绿色 */
+  border-radius: 10px;
+}
+
+/* Icon at top center */
+.icon-circle-top {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: #173f5f;
+  margin-bottom: 6px;
+}
+
+.icon-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #173f5f;
+  margin: 2px 0 4px 0;
+}
+
+.icon-card-text {
+  font-size: 14px;
+  color: #173f5f;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* ===== Step badges (第二行：步骤 1 & 2) ===== */
+
+.modal-card-step {
+  position: relative;
+  top: 5px;
+  padding-top: 10px; /* 给圆圈留出空间 */
+  padding-left: 40px;
+  text-align: center;
+}
+
+.step-badge {
+  position: absolute;
+  top: 10px; 
+  left: 5px; 
+  width: 52px;
+  height: 52px;
+  border-radius: 9999px;
+  /* border: 2px solid #173f5f; */
+  background: #ddd;
+  color: #173f5f;
+  font-size: 18px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* box-shadow: 0 0 0 2px #ffffff; 可选：白色描边，让圆圈压在卡片上更舒服 */
+}
+.step-badge img {
+  width: 40px;        /* 保证图标居中不会变形 */
+  height: 40px;
+  object-fit: contain;
+}
+
+/* ===== Icon row (第三行：Profile / Legend / MapLayers) ===== */
+
+.icon-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 4px 0 12px 0;
+}
+
+.icon-item {
+  flex: 1 1 0;
+  min-width: 180px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.icon-circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 9999px;
+  border: 1px solid #dde7f2;
+  background: #f7fbff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #173f5f;
+}
+.icon-circle img {
+  max-width: 40px;
+  max-height: 40px;
+}
+
+.icon-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #173f5f;
+  margin-bottom: 2px;
+}
+
+.icon-text {
+  font-size: 12px;
+  color: #333333;
+  line-height: 1.4;
+}
+
+@media (max-width: 640px) {
+  .icon-item {
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .modal-card {
+    min-width: 100%;
+  }
+}
+/* ------------------------------------------- */
+
+.section {
+  margin-bottom: 12px;
+}
+
+.section-intro {
+  font-size: 16px;
+  margin-bottom: 5px;
+  line-height: 1.2;
+}
+
+.section-outro {
+  font-weight: 500;
+  font-size: 15px;
+  text-align: center;
+  margin-top: 16px;
+}
+
+.section h3 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  color: #173F5F;
+}
+
+.section ul {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.section ul li {
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+/* select city button---------------------------------------------------- */
+.city-button-wrapper {
+  position: relative;
+  margin-left: 5px;
+  height: 100%; 
+  display: flex;
+}
+
+.city-button {
+  align-items: center; 
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.city-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  transition: transform 0.2s;
+}
+
+.city-button:hover .city-icon {
+  transform: scale(1.1);
+}
+
+.city-dropdown {
+  position: absolute;
+  top: 36px;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  z-index: 1000;
+  min-width: 140px;
+}
+
+.city-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #173F5F;
+}
+
+.city-item:hover {
+  background-color: #f1f5f9;
+}

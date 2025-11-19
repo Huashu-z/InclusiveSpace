@@ -129,7 +129,11 @@ export default function VariableControls({
         {liveMessage}
       </div>
       <div className={sty["title-container"]}>
-        <h3 className={sty["sidebar-title"]}>{t('leg_comfort_features')}</h3>
+        {/* <h3 className={sty["sidebar-title"]}>{t('leg_comfort_features')}</h3> */}
+        <div className={sty["sidebar-section-title"]}>
+          <img src="/images/icon_features.png" alt="Comfort features icon" />
+          <span>{t("leg_comfort_features")}</span>
+        </div>
         <button
           className={sty["info-icon"]}
           ref={infoIconRef}

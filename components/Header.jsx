@@ -1,6 +1,6 @@
 import * as React from "react";
 import PlasmicHeader from "./plasmic/saa_s_website/PlasmicHeader";
-import sty from "./plasmic/saa_s_website/PlasmicHeader.module.css";
+import sty from "./Header.module.css";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -113,7 +113,7 @@ function Header(
             />
           </button>
           {showCityMenu && (
-            <div className={sty["city-dropdown"]}>
+            <div className={sty["city-dropdown"]} id="city-menu" role="menu">
               {[
                 { id: "hamburg", name: "Hamburg", center: [53.5503, 9.9920] },
                 { id: "penteli", name: "Penteli", center: [38.0491, 23.8653] },
@@ -157,36 +157,124 @@ function Header(
       />
       {/* "help" pop up in map page */}
       {variant === "map" && showHelp && (
-        <div className={sty["modal-overlay"]} onClick={() => setShowHelp(false)}>
-          <div className={sty["modal-content"]} onClick={e => e.stopPropagation()}>
-            <h2>{t('modal_help_title')}</h2>
-            <p className={sty["section-intro"]}>{t('modal_help_intro')}</p>
-            <hr className={sty["modal-divider"]} />
-            <div className={sty["section"]}>
-              <h3>How to use it:</h3>
-              <ul>
-                <li>{t('modal_howto_step_select_start')}</li>
-                <li>{t('modal_howto_step_adjust')}</li>
-                <li>{t('modal_howto_step_enable_features')}</li>
-                <li>{t('modal_howto_step_get_area')}</li>
-                <li>{t('modal_howto_step_view_results')}</li>
-              </ul>
+        <div
+          className={sty["modal-overlay"]}
+          onClick={() => setShowHelp(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="cat-help-title"
+        >
+          <div
+            className={sty["modal-content"]}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* ---------- 第一行：欢迎标题 ---------- */}
+            <div className={sty["modal-header-block"]}>
+              <h2 id="cat-help-title" className={sty["modal-main-title"]}>
+                {t("modal_help_title")}
+              </h2>
+              <p className={sty["section-intro"]}>
+                {t("modal_help_intro")}
+              </p>
             </div>
-            <hr className={sty["modal-divider"]} />
-            <div className={sty["section"]}>
-              <h3>{t('modal_tips_title')}</h3>
-              <ul>
-                <li>{t('modal_tips_step_toggle_layers')}</li>
-                <li>{t('modal_tips_step_adjust_weights')}</li>
-                <li>{t('modal_tips_step_reset')}</li>
-              </ul>
+
+            {/* ---------- 第二行：两个步骤卡片（AccessibilityControls + VariableControls） ---------- */}
+            <h3 className={sty["modal-subtitle"]}>
+              {t("modal_subtitle_steps")}
+            </h3>
+            <div className={sty["modal-row"]}>
+              {/* Step 1: AccessibilityControls */}
+              <div className={`${sty["modal-card"]} ${sty["modal-card-step"]}`}>
+                <div className={sty["step-badge"]}>
+                  <img src="/images/icon_accessibility.png" alt="Accessibility icon" />
+                </div>
+                <h3 className={sty["modal-card-title"]}>
+                  {t("accessibility_title")}
+                </h3>
+                <p className={sty["modal-card-text"]}>
+                  {t("modal_howto_step_select_start")}
+                </p>
+                <p className={sty["modal-card-text"]}>
+                  {t("modal_howto_step_adjust")}
+                </p>
+                
+              </div>
+
+              {/* Step 2: VariableControls */}
+              <div className={`${sty["modal-card"]} ${sty["modal-card-step"]}`}>
+                <div className={sty["step-badge"]}>
+                  <img src="/images/icon_features.png" alt="Accessibility icon" />
+                </div>
+                <h3 className={sty["modal-card-title"]}>
+                  {t("leg_comfort_features")}
+                </h3>
+                <p className={sty["modal-card-text"]}>
+                  {t("modal_howto_step_enable_features")}
+                </p>
+                <p className={sty["modal-card-text"]}>
+                  {t("modal_tips_step_adjust_weights")}
+                </p>
+                <p className={sty["modal-card-text"]}>
+                  {t("modal_howto_step_get_area")}
+                </p>
+              </div>
             </div>
-            <hr className={sty["modal-divider"]} />
-            <p className={sty["section-outro"]}>{t('modal_outro')}</p>
-            <button onClick={() => setShowHelp(false)} className={sty["modal-close"]}>
-              {t('modal_close')}
+
+            {/* ---------- 第三行：三个卡片（Profile / Legend / MapLayers） ---------- */}
+            <h3 className={sty["modal-subtitle"]}>
+              {t("modal_subtitle_more")}
+            </h3>
+            <div className={sty["modal-row"]}>
+              {/* Profile card */}
+              <div className={`${sty["modal-card"]} ${sty["modal-card-icon"]} ${sty["icon-card-profile"]}`}>
+                <div className={sty["icon-circle"]}>
+                  <img src="/images/profile.png" alt="Profile" />
+                </div>
+                <h3 className={sty["icon-card-title"]}>
+                  {t("profile_title")}
+                </h3>
+                <p className={sty["icon-card-text"]}>
+                  {t("modal_profile_desc")}
+                </p>
+              </div>
+
+              {/* Legend card */}
+              <div className={`${sty["modal-card"]} ${sty["modal-card-icon"]} ${sty["icon-card-legend"]}`}>
+                <div className={sty["icon-circle"]}>
+                  <img src="/images/help_result.png" alt="Profile" />
+                </div>
+                <h3 className={sty["icon-card-title"]}>
+                  {t("leg_catchment_result")}
+                </h3>
+                <p className={sty["icon-card-text"]}>
+                  {t("modal_legend_desc")}
+                </p>
+              </div>
+
+              {/* MapLayers card */}
+              <div className={`${sty["modal-card"]} ${sty["modal-card-icon"]} ${sty["icon-card-layers"]}`}>
+                <div className={sty["icon-circle"]}>
+                  <img src="/images/help_data.png" alt="Profile" />
+                </div>
+                <h3 className={sty["icon-card-title"]}>
+                  {t("map_layers")}
+                </h3>
+                <p className={sty["icon-card-text"]}>
+                  {t("modal_layers_desc")}
+                </p>
+              </div>
+            </div>
+
+
+            {/* ---------- close button ---------- */}
+            <button
+              onClick={() => setShowHelp(false)}
+              className={sty["modal-close"]}
+            >
+              {t("modal_close")}
             </button>
           </div>
+
         </div>
       )}
     </>

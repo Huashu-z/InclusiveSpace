@@ -200,7 +200,21 @@
     position: relative; 
     overflow: visible; 
   }
-  
+  .sidebar-section-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;             /* 图标与文字间隔 */
+    font-size: 16px;
+    font-weight: bold;
+    color: #173F5F;    
+    margin-bottom: 6px;
+  }
+
+  .sidebar-section-title img {
+    width: 18px;          /* 可以调整大小 */
+    height: 18px;
+    object-fit: contain;
+  }
   .sidebar-title {
     font-size: 16px;
     font-weight: bold;
@@ -210,10 +224,7 @@
     /* text-transform: capitalize; */
     margin-top: 15px;
     text-align: left;
-  }
-  .sidebar-title:first-child {
-    margin-top: 0;
-  }
+  } 
   .sidebar-subtitle {
     font-size: 16px;
     font-weight: bold;
