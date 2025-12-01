@@ -168,7 +168,7 @@ function Header(
             className={sty["modal-content"]}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* ---------- 第一行：欢迎标题 ---------- */}
+            {/* ---------- 1.Row welcome title ---------- */}
             <div className={sty["modal-header-block"]}>
               <h2 id="cat-help-title" className={sty["modal-main-title"]}>
                 {t("modal_help_title")}
@@ -178,7 +178,7 @@ function Header(
               </p>
             </div>
 
-            {/* ---------- 第二行：两个步骤卡片（AccessibilityControls + VariableControls） ---------- */}
+            {/* ---------- 2. Row（AccessibilityControls + VariableControls） ---------- */}
             <h3 className={sty["modal-subtitle"]}>
               {t("modal_subtitle_steps")}
             </h3>
@@ -186,7 +186,7 @@ function Header(
               {/* Step 1: AccessibilityControls */}
               <div className={`${sty["modal-card"]} ${sty["modal-card-step"]}`}>
                 <div className={sty["step-badge"]}>
-                  <img src="/images/icon_accessibility.png" alt="Accessibility icon" />
+                  <img src="/images/icon_accessibility.png" alt={t("icon_accessibility_control")} />
                 </div>
                 <h3 className={sty["modal-card-title"]}>
                   {t("accessibility_title")}
@@ -203,7 +203,7 @@ function Header(
               {/* Step 2: VariableControls */}
               <div className={`${sty["modal-card"]} ${sty["modal-card-step"]}`}>
                 <div className={sty["step-badge"]}>
-                  <img src="/images/icon_features.png" alt="Accessibility icon" />
+                  <img src="/images/icon_features.png" alt={t("icon_discomfort_feature")} />
                 </div>
                 <h3 className={sty["modal-card-title"]}>
                   {t("leg_comfort_features")}
@@ -220,15 +220,28 @@ function Header(
               </div>
             </div>
 
-            {/* ---------- 第三行：三个卡片（Profile / Legend / MapLayers） ---------- */}
+            {/* ---------- 3. Row：3 cards（Profile / Legend / MapLayers） ---------- */}
             <h3 className={sty["modal-subtitle"]}>
               {t("modal_subtitle_more")}
             </h3>
             <div className={sty["modal-row"]}>
+              {/* MapLayers card/ data information */}
+              <div className={`${sty["modal-card"]} ${sty["modal-card-icon"]} ${sty["icon-card-layers"]}`}>
+                <div className={sty["icon-circle"]}>
+                  <img src="/images/help_data.png" alt={t("icon_data_info")} />
+                </div>
+                <h3 className={sty["icon-card-title"]}>
+                  {t("map_layers")}
+                </h3>
+                <p className={sty["icon-card-text"]}>
+                  {t("modal_layers_desc")}
+                </p>
+              </div>
+
               {/* Profile card */}
               <div className={`${sty["modal-card"]} ${sty["modal-card-icon"]} ${sty["icon-card-profile"]}`}>
                 <div className={sty["icon-circle"]}>
-                  <img src="/images/profile.png" alt="Profile" />
+                  <img src="/images/profile.png" alt={t("icon_profile")} />
                 </div>
                 <h3 className={sty["icon-card-title"]}>
                   {t("profile_title")}
@@ -238,10 +251,10 @@ function Header(
                 </p>
               </div>
 
-              {/* Legend card */}
+              {/* Legend card/ catchemtn area results */}
               <div className={`${sty["modal-card"]} ${sty["modal-card-icon"]} ${sty["icon-card-legend"]}`}>
                 <div className={sty["icon-circle"]}>
-                  <img src="/images/help_result.png" alt="Profile" />
+                  <img src="/images/help_result.png" alt={t("icon_catchment_area")} />
                 </div>
                 <h3 className={sty["icon-card-title"]}>
                   {t("leg_catchment_result")}
@@ -250,19 +263,7 @@ function Header(
                   {t("modal_legend_desc")}
                 </p>
               </div>
-
-              {/* MapLayers card */}
-              <div className={`${sty["modal-card"]} ${sty["modal-card-icon"]} ${sty["icon-card-layers"]}`}>
-                <div className={sty["icon-circle"]}>
-                  <img src="/images/help_data.png" alt="Profile" />
-                </div>
-                <h3 className={sty["icon-card-title"]}>
-                  {t("map_layers")}
-                </h3>
-                <p className={sty["icon-card-text"]}>
-                  {t("modal_layers_desc")}
-                </p>
-              </div>
+              
             </div>
 
 

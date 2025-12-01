@@ -68,7 +68,7 @@ export default function AccessibilityControls({
 
       {/* <h3 className={sty["sidebar-title"]}>{t('accessibility_title')}</h3> */}
       <div className={sty["sidebar-section-title"]}>
-        <img src="/images/icon_accessibility.png" alt="Accessibility icon" />
+        <img src="/images/icon_accessibility.png" alt={t("icon_accessibility_control")} />
         <span>{t("accessibility_title")}</span>
       </div>
 

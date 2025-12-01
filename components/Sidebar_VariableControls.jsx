@@ -95,7 +95,7 @@ export default function VariableControls({
             aria-valuemax={3}
             aria-valuenow={sliderIndex >= 0 ? sliderIndex : 3}
             aria-valuetext={
-              sliderIndex >= 0 ? weightLabels[sliderIndex] : t('emoji_level_unknown', { defaultValue: 'Unknown' })
+              sliderIndex >= 0 ? weightLabels[sliderIndex] : t('emoji_level_unknown')
             }
             style={{
               background: enabled
@@ -131,7 +131,7 @@ export default function VariableControls({
       <div className={sty["title-container"]}>
         {/* <h3 className={sty["sidebar-title"]}>{t('leg_comfort_features')}</h3> */}
         <div className={sty["sidebar-section-title"]}>
-          <img src="/images/icon_features.png" alt="Comfort features icon" />
+          <img src="/images/icon_features.png" alt={t('icon_discomfort_feature')} />
           <span>{t("leg_comfort_features")}</span>
         </div>
         <button

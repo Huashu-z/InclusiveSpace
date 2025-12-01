@@ -44,6 +44,12 @@
   "landing_contact_huashu": "B.Sc. Huashu Zhan",
   "landing_city_not_ready": "Entschuldigung, die Karte von {{city}} ist noch in Bearbeitung.",
 
+  "icon_discomfort_feature": "Symbol für Unkomfort-Merkmale",
+  "icon_accessibility_control": "Symbol für Barrierefreiheit",
+  "icon_profile": "Profil-Symbol",
+  "icon_data_info": "Symbol für Dateninformation",
+  "icon_catchment_area": "Symbol für Einzugsgebietsergebnis",
+
   "profile_title": "Vordefinierte Profile",
   "profile_elderly": "Ältere Person",
   "profile_stroller": "Person mit Kinderwagen",

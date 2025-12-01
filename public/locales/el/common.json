@@ -44,6 +44,12 @@
   "landing_contact_huashu": "B.Sc. Huashu Zhan",
   "landing_city_not_ready": "Συγγνώμη, ο χάρτης της πόλης {{city}} είναι υπό κατασκευή.",
 
+  "icon_discomfort_feature": "Εικονίδιο χαρακτηριστικών δυσφορίας",
+  "icon_accessibility_control": "Εικονίδιο προσβασιμότητας",
+  "icon_profile": "Εικονίδιο προφίλ",
+  "icon_data_info": "Εικονίδιο πληροφοριών δεδομένων",
+  "icon_catchment_area": "Εικονίδιο αποτελέσματος περιοχής προσβασιμότητας",
+
   "profile_title": "Προκαθορισμένα προφίλ",
   "profile_elderly": "Ηλικιωμένο άτομο",
   "profile_stroller": "Άτομο με καρότσι",

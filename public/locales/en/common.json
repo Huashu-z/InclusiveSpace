@@ -44,6 +44,12 @@
   "landing_contact_huashu": "B.Sc. Huashu Zhan",
   "landing_city_not_ready": "Sorry, {{city}} map is still under construction.",
 
+  "icon_discomfort_feature": "Discomfort features icon",
+  "icon_accessibility_control": "Accessibility icon",
+  "icon_profile": "Profile icon",
+  "icon_data_info": "Data Information icon",
+  "icon_catchment_area": "Catchment Area Result icon",
+
   "profile_title": "Pre-set profiles",
   "profile_elderly": "Older adult",
   "profile_stroller": "Person with stroller",

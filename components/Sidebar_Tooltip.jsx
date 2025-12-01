@@ -71,14 +71,8 @@ export default function Sidebar_Tooltip({ show, type, anchorRef, onClose }) {
     "hamburg";
   const defaultSource =
     city === "hamburg"
-      ? t("tooltip_data_source_hh", {
-          defaultValue:
-            "Geoportal Hamburg (Freie und Hansestadt Hamburg), processed by the InclusiveSpaces project.",
-        })
-      : t("tooltip_data_source_pt", {
-          defaultValue:
-            "Municipality of Penteli, processed by the InclusiveSpaces project.",
-        });
+      ? t("tooltip_data_source_hh")
+      : t("tooltip_data_source_pt");
 
   function contentFor(tp) {
     if (!tp) return <div>{t("tooltip_default", { defaultValue: "No details." })}</div>;

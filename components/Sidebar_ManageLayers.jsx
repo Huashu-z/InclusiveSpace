@@ -125,7 +125,7 @@ export default function MapLayers({ selectedLayers, toggleLayer, availableLayers
       <div className={sty["title-container"]}>
         {/* <h3 className={sty["sidebar-title"]}>{t('map_layers')}</h3> */}
         <div className={sty["sidebar-section-title"]}>
-          <img src="/images/help_data.png" alt="Map layers icon" />
+          <img src="/images/help_data.png" alt={t("icon_data_info")} />
           <span>{t("map_layers")}</span>
         </div>
 
