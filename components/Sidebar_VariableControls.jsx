@@ -44,8 +44,8 @@ export default function VariableControls({
                 toggleVariable(layer);
                 setLiveMessage(
                   !enabled
-                    ? `${label} ${t('aria_enabled', { defaultValue: 'enabled' })}`
-                    : `${label} ${t('aria_disabled', { defaultValue: 'disabled' })}`
+                    ? `${label} ${t('aria_enabled')}`
+                    : `${label} ${t('aria_disabled')}`
                 );
                 if (!enabled) {
                   const fakeEvent = {
@@ -62,7 +62,7 @@ export default function VariableControls({
             className={sty["info-icon"]}
             ref={tooltipRef}
             onClick={(e) => { e.stopPropagation(); setShowTooltip(prev => !prev); }}
-            aria-label={t('tooltip_variable_title', { defaultValue: `${label} details` })}
+            aria-label={t('tooltip_variable_title')}
             aria-haspopup="dialog"
             aria-expanded={showTooltip}
             aria-controls={`tip-${layer}`}
@@ -80,7 +80,7 @@ export default function VariableControls({
           /> 
 
         <div className={sty["slider-container"]}>
-          {/* <label htmlFor={sliderId} className={sty["sr-only"]}>{t('variable_weight_for', { defaultValue: `Weight for ${label}` })}</label> */}
+          <label htmlFor={sliderId} className={sty["sr-only"]}>{t('variable_weight_for', { label })}</label>
           <input
             id={sliderId}
             type="range"
@@ -90,7 +90,7 @@ export default function VariableControls({
             disabled={!enabled}
             value={sliderIndex >= 0 ? sliderIndex : 3}
             className={!enabled ? sty["disabled"] : ""}
-            aria-label={t('variable_weight_for', { defaultValue: `Weight for ${label}` })}
+            aria-label={t('variable_weight_for' , { label })}
             aria-valuemin={0}
             aria-valuemax={3}
             aria-valuenow={sliderIndex >= 0 ? sliderIndex : 3}
@@ -124,13 +124,17 @@ export default function VariableControls({
   const infoIconRef = React.useRef();
 
   return (
-    <div className={sty["sidebar-section"]}>
-      <div aria-live="polite" className="sr-only" role="status">
+    <div 
+      className={sty["sidebar-section"]}
+      role = "region"
+      aria-labelledby="comfort-features-heading"
+    >
+      <div aria-live="polite" className={sty["sr-only"]} role="status">
         {liveMessage}
       </div>
       <div className={sty["title-container"]}>
         {/* <h3 className={sty["sidebar-title"]}>{t('leg_comfort_features')}</h3> */}
-        <div className={sty["sidebar-section-title"]}>
+        <div className={sty["sidebar-section-title"]} id="comfort-features-heading">
           <img src="/images/icon_features.png" alt={t('icon_discomfort_feature')} />
           <span>{t("leg_comfort_features")}</span>
         </div>
@@ -184,6 +188,7 @@ export default function VariableControls({
 
         {/* Environment */}
         <Category
+          id = "env"
           name={
             <span className={sty["title-with-tooltip"]}>
               {t('env_category')} 
@@ -199,6 +204,7 @@ export default function VariableControls({
 
         {/* Physical */}
         <Category
+          id = "phy"
           name={
             <span className={sty["title-with-tooltip"]}>
               {t('phy_category')} 
@@ -226,6 +232,7 @@ export default function VariableControls({
 
         {/* Psychological */}
         <Category
+          id = "psy"
           name={
             <span className={sty["title-with-tooltip"]}>
               {t('psy_category')} 
@@ -276,15 +283,34 @@ export default function VariableControls({
   );
 }
 
-function Category({ name, open, onClick, children }) {
+function Category({ id, name, open, onClick, children }) {
   const sty = require("./plasmic/saa_s_website/PlasmicUser.module.css");
+  const headingId = `var-category-heading-${id}`;
+  const contentId = `var-category-content-${id}`;
   return (
     <div className={sty["faq-item"]}>
-      <button className={sty["faq-question"]} onClick={onClick}>
-        <span className={sty["sidebar-subtitle"]}>{name}</span>
-        <span className={sty["faq-icon"]}>{open ? "−" : "+"}</span>
-      </button>
-      {open && <div className={sty["faq-answer"]}>{children}</div>}
+      <h3 className={sty["sidebar-subtitle"]} id={headingId}>
+        <button
+          className={sty["faq-question"]}
+          onClick={onClick}
+          aria-expanded={open}
+          aria-controls={contentId}
+        >
+          <span>{name}</span>
+          <span className={sty["faq-icon"]}>{open ? "−" : "+"}</span>
+        </button>
+      </h3>
+
+      {open && (
+        <div
+          className={sty["faq-answer"]}
+          role="group"
+          id={contentId}
+          aria-labelledby={headingId}
+        >
+          {children}
+        </div>
+      )}
     </div>
   );
 }

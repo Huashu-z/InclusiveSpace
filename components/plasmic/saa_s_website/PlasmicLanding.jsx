@@ -88,7 +88,9 @@ export default function PlasmicLanding() {
                     <span className={sty.cityCircleLabel}>{t('landing_city_hamburg')}</span>
                     <img
                       src="/images/hamburg_map.png"
-                      alt={t('landing_city_hamburg')}
+                      alt=""
+                      role="presentation"
+                      aria-hidden="true"
                       className={sty.cityThumb}
                     />
                   </div>
@@ -119,7 +121,9 @@ export default function PlasmicLanding() {
                     <span className={sty.cityCircleLabel}>{t('landing_city_penteli')}</span>
                     <img
                       src="/images/penteli_map.png"
-                      alt={t('landing_city_penteli')}
+                      alt=""
+                      role="presentation"
+                      aria-hidden="true"
                       className={sty.cityThumb}
                     />
                   </div>
@@ -211,7 +215,7 @@ export default function PlasmicLanding() {
             <div className={sty.toolDetailsLogoWrap}>
               <img
                 src="/images/build4people_logo.png"
-                alt={t('logo_TUM')}
+                alt={t('logo_Build4People')}
                 className={sty.toolDetailsLogo}
               />
             </div>

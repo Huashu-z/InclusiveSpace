@@ -184,7 +184,10 @@ export default function Profile({
   const titleText = t("profile_title");
 
   return (
-    <div className={sty.profilePanel}>
+    <section
+      className={sty.profilePanel}
+      aria-label={titleText}
+    >
       {/* Collapsed state */}
       {!isOpen && (
         <button
@@ -192,6 +195,7 @@ export default function Profile({
           className={sty.profileMainBox}
           onClick={() => setIsOpen(true)}
           aria-label={titleText}
+          aria-expanded={isOpen}
         >
           <span className={sty.profileMainTitle}>{titleText}</span>
           <span className={sty.profileMainIconWrapper}>
@@ -208,7 +212,11 @@ export default function Profile({
       {/* Expanded state */}
       {isOpen && (
         <div className={sty.profileBarExpanded}>
-          <div className={sty.profileOptions}>
+          <div
+            className={sty.profileOptions}
+            role="list"
+            aria-label={t("profile_title")}
+          >
             {PROFILE_PRESETS.map((profile) => {
               const label = t(profile.labelKey, {
                 defaultValue: profile.defaultLabel
@@ -225,6 +233,7 @@ export default function Profile({
                   }`}
                   aria-pressed={isActive}
                   aria-label={label}
+                  role="listitem"
                 >
                   <img
                     src={profile.icon}
@@ -253,6 +262,6 @@ export default function Profile({
           </button>
         </div>
       )}
-    </div>
+    </section>
   );
 } 

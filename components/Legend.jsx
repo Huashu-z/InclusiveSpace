@@ -79,25 +79,46 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
     const index = weightLevels.indexOf(Number(value));
     return index !== -1 ? weightLabels[index] : value;
   };
+  const legendBodyId = "legend-body";
 
   return (
-    <div className={styles["legend-container"]}>
+    <section
+      className={styles["legend-container"]}
+      aria-labelledby="legend-heading"
+    >
       {/* Dedicated area for screen readers: Number of new results to be displayed */}
       <div aria-live="polite" className={styles["sr-only"]} role="status">
         {resultMetadata.length > 0 &&
           `${resultMetadata.length} accessibility result${resultMetadata.length > 1 ? 's' : ''} loaded.`}
       </div>
 
-      <div
-        className={styles["legend-header"]}
-        onClick={() => setIsExpanded(!isExpanded)}
-      >
-        <div className={styles["legend-header-title"]}>{t('leg_catchment_result')}</div>
-        <div className={styles["legend-header-toggle"]}>{isExpanded ? "▼" : "▲"}</div>
+      <div className={styles["legend-header"]}>
+        <button
+          id="legend-heading"
+          className={styles["legend-header-button"]}
+          type="button"
+          aria-expanded={isExpanded}
+          aria-controls={legendBodyId}
+          onClick={() => setIsExpanded(!isExpanded)}
+        >
+          <span className={styles["legend-header-title"]}>
+            {t("leg_catchment_result")}
+          </span>
+          <span
+            className={styles["legend-header-toggle"]}
+            aria-hidden="true"
+          >
+            {isExpanded ? "▼" : "▲"}
+          </span>
+        </button>
       </div>
 
       {isExpanded && (
-        <div className={styles["legend-body"]} ref={bodyRef}>
+        <div
+          className={styles["legend-body"]}
+          id={legendBodyId}
+          ref={bodyRef}
+        >
           {resultMetadata.map((entry, index) => {
             const color = entry.color;
             const features = entry.layers;
@@ -106,37 +127,43 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
             const comfortId = `comfort-${index}`;
             const poiId = `poi-${index}`;
 
+            const sectionHeadingId = `legend-section-${index}-heading`;
+
             return (
               <div
                 key={index}
                 className={styles["legend-section"]}
                 role="region"
-                aria-label={`${t('leg_area_label')} ${entry.groupIndex}.${entry.subIndex ?? ''}, ${t('leg_time_label')} ${entry.time} ${t('minutes')}`}
+                aria-labelledby={sectionHeadingId}
               >
-                <div
-                  className={styles["legend-title"]}
-                  onClick={() => {
-                    if (typeof onFocusArea === "function") {
-                      onFocusArea(index);
-                    }
-                  }}
-                >
-                  <span
-                    className={styles["legend-color-box"]}
-                    style={{ backgroundColor: color }}
-                    aria-hidden="true"
-                    role="presentation"
-                  />
-                  {entry.isDefault ? (
-                    <div>
-                      <div>{t('legend_base_area')} {entry.groupIndex}</div>
-                      <div style={{ fontSize: "1.0em", color: "#666" }}>
-                        {t('legend_without_factors')}
-                      </div>
-                    </div>
-                  ) : (
-                    `${t('leg_area_label')} ${entry.groupIndex}.${entry.subIndex}`
-                  )}
+                <div className={styles["legend-title"]}>
+                  <button
+                    type="button"
+                    id={sectionHeadingId}
+                    className={styles["legend-title-button"]}
+                    onClick={() => {
+                      if (typeof onFocusArea === "function") {
+                        onFocusArea(index);
+                      }
+                    }}
+                  >
+                    <span
+                      className={styles["legend-color-box"]}
+                      style={{ backgroundColor: color }}
+                      aria-hidden="true"
+                      role="presentation"
+                    />
+                    {entry.isDefault ? (
+                      <span>
+                        <span>{t("legend_base_area")} {entry.groupIndex}</span>
+                        <span style={{ fontSize: "1.0em", color: "#666" }}>
+                          {t("legend_without_factors")}
+                        </span>
+                      </span>
+                    ) : (
+                      `${t("leg_area_label")} ${entry.groupIndex}.${entry.subIndex ?? ""}`
+                    )}
+                  </button>
                 </div>
 
                 <div>{t('leg_time_label')} {entry.time} {t('minutes')}</div>
@@ -161,13 +188,16 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                 </button>
                 <div id={comfortId} style={{ display: "none", marginLeft: "8px" }}>
                   {features.length > 0 ? (
-                    features.map((layer) => (
-                      <div key={layer}>
-                        • {variableDisplayNames[layer] || layer}: {getWeightLabel(values[layer]) ?? "N/A"}
-                      </div>
-                    ))
+                    <ul className={styles["legend-list"]}>
+                      {features.map((layer) => (
+                        <li key={layer}>
+                          {variableDisplayNames[layer] || layer}:{" "}
+                          {getWeightLabel(values[layer]) ?? "N/A"}
+                        </li>
+                      ))}
+                    </ul>
                   ) : (
-                    <div className={styles["legend-none"]}>{t('leg_none')}</div>
+                    <div className={styles["legend-none"]}>{t("leg_none")}</div>
                   )}
                 </div>
 
@@ -192,13 +222,15 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                     </button>
                     <div id={poiId} style={{ display: "none", marginLeft: 8 }}>
                       {entry.poiGroupCounts && Object.keys(entry.poiGroupCounts).length > 0 ? (
-                        Object.entries(entry.poiGroupCounts).map(([cat, count]) => (
-                          <div key={cat}>
-                            • {poiCategoryNames[cat] || cat}: {count}
-                          </div>
-                        ))
+                        <ul className={styles["legend-list"]}>
+                          {Object.entries(entry.poiGroupCounts).map(([cat, count]) => (
+                            <li key={cat}>
+                              {poiCategoryNames[cat] || cat}: {count}
+                            </li>
+                          ))}
+                        </ul>
                       ) : (
-                        <div className={styles["legend-none"]}>{t('leg_none')}</div>
+                        <div className={styles["legend-none"]}>{t("leg_none")}</div>
                       )}
                     </div>
                   </div>
@@ -208,7 +240,7 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
           })}
         </div>
       )}
-    </div>
+    </section>
   );
 
 };

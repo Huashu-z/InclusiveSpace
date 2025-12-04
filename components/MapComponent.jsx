@@ -5,7 +5,8 @@ import * as turf from "@turf/turf";
 import proj4 from "proj4"; 
 import Legend from "./Legend";
 import sty from './MapComponent.module.css'; 
-import {getStyle, useCircleMarker,isWmsLayer, layerGroupMap, wmsLayerComponents} from "./LayerStyleManager"; // Import the style functions 
+import {getStyle, useCircleMarker,isWmsLayer, layerGroupMap, wmsLayerComponents} from "./LayerStyleManager"; 
+import { useTranslation } from "next-i18next";
 
 // Dynamic import for react-leaflet
 const MapLib = dynamic(
@@ -51,6 +52,11 @@ const MapComponent = ({
   const [defaultGroupIndex, setDefaultGroupIndex] = useState(1);  // default group index for the first result
   const [groupMapping, setGroupMapping] = useState({}); // mapping of group index to default results,index for weighted results
   const [cityBoundaries, setCityBoundaries] = useState({});
+
+  const { t } = useTranslation("common");
+  const mapRegionLabel = t("aria_map_region", {
+    defaultValue: "Map view: walking accessibility and catchment areas",
+  });
 
   // load city boundary
   useEffect(() => {
@@ -478,9 +484,20 @@ const MapComponent = ({
   }
 
   return (
-    <div className="mapBox" style={{ position: "relative" }}>
-
+    <section
+      className="mapBox"
+      style={{ position: "relative" }}
+      aria-label={mapRegionLabel}
+      role="region"
+    >
       {/* Show loading overlay when calculating */}
+      {/* for screen reader */}
+      <div className={sty.visuallyHidden} aria-live="polite" role="status">
+        {isCalculating && t('sr_isCalculating')}
+        {selectingStart && t('sr_selectingStart')}
+      </div>
+
+      {/* normal user */}
       {isCalculating && (
         <div className={sty.loadingOverlay}>
           <div className={sty.spinnerContainer}>
@@ -488,8 +505,7 @@ const MapComponent = ({
             <div className={sty.loadingText}>Calculating...</div>
           </div>
         </div>
-      )}
-
+      )} 
       {selectingStart && (
         <div
           className={sty.mouseHint}
@@ -497,6 +513,7 @@ const MapComponent = ({
             top: mousePosition.y,
             left: mousePosition.x
           }}
+          aria-hidden="true"
         >
           📌
         </div>
@@ -643,7 +660,7 @@ const MapComponent = ({
         
          
       </MapContainer>
-    </div>
+    </section>
   );
 };
 

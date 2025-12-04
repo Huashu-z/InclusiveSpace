@@ -22,6 +22,7 @@ export default function Sidebar({
     walkingSpeed,
     setWalkingSpeed,
     setSelectingStart,
+    selectingStart,
     startPoints,
     setStartPoints,
     setComputeAccessibility,
@@ -69,6 +70,7 @@ export default function Sidebar({
             walkingSpeed={walkingSpeed}
             setWalkingSpeed={setWalkingSpeed}
             setSelectingStart={setSelectingStart}
+            selectingStart={selectingStart}
             startPoints={startPoints}
             setStartPoints={setStartPoints} 
             handleResetResults={handleResetResults}

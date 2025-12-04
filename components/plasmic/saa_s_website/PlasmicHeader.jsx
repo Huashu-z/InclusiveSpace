@@ -2,13 +2,23 @@ import * as React from "react";
 import sty from "./PlasmicHeader.module.css";
 
 function PlasmicHeader__RenderFunc(props) {
-  const { left, center, right, className = "" } = props;
+  const { left, center, right, className = "", navAriaLabel } = props;
+
   return (
-    <div className={[sty["header-container"], className].join(" ")}>
+    <header
+      className={[sty["header-container"], className].join(" ")}
+      role="banner"
+    >
       <div className={sty["logo-container"]}>{left}</div>
       <div className={sty["center-logo"]}>{center}</div>
-      <div className={sty["link-container-wrapper"]}>{right}</div>
-    </div>
+
+      <nav
+        className={sty["link-container-wrapper"]}
+        aria-label={navAriaLabel || "Main navigation"}
+      >
+        {right}
+      </nav>
+    </header>
   );
 }
 

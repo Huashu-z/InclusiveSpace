@@ -25,24 +25,46 @@ function Header(
   // map page show all logos in header，landing only show CAT logo
   if (variant === "map") {
     left = (
-      <>
-        <Link href={`/`}>
-          <div className={sty["logo-wrapper"]}>
-            <img src="/images/logo_co-founded-eu.png" alt={t('logo_EU')} />
-          </div>
-        </Link>
-        <Link href={`/`}>
-          <div className={sty["logo-wrapper"]}>
-            <img src="/images/logoIS.png" alt={t('logo_IS')} />
-          </div>
-        </Link>
-        <Link href={`/`}>
-          <div className={sty["logo-wrapper"]}>
-            <img src="/images/tum_logo.png" alt={t('logo_TUM')} />
-          </div>
-        </Link>
-      </>
+      <div
+        className={sty["logo-group"]}
+        role="group"
+        aria-label={t("header_partner_logos")}
+      >
+        {/* EU logo */}
+        <a
+          href="https://inclusivespaces-heproject.eu/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={sty["logo-wrapper"]}
+          aria-label={t("logo_EU")}
+        >
+          <img src="/images/logo_co-founded-eu.png" alt="" aria-hidden="true" />
+        </a>
+
+        {/* InclusiveSpaces logo */}
+        <a
+          href="https://inclusivespaces-heproject.eu/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={sty["logo-wrapper"]}
+          aria-label={t("logo_IS")}
+        >
+          <img src="/images/logoIS.png" alt="" aria-hidden="true" />
+        </a>
+
+        {/* TUM logo */}
+        <a
+          href="https://www.mos.ed.tum.de/sv/forschung-und-beratung/projekte/eu-projects/inclusivespaces/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={sty["logo-wrapper"]}
+          aria-label={t("logo_TUM")}
+        >
+          <img src="/images/tum_logo.png" alt="" aria-hidden="true" />
+        </a>
+      </div>
     );
+
   } else if (variant === "landing") {
     // only blue CAT logo on left
     left = (
@@ -59,31 +81,53 @@ function Header(
 
   // === middle ===
   let center = null;
-  if (variant === "map") {
-    // center: CAT logo
+  if (variant === "map") { 
     center = (
-      <Link href={`/`}>
-        <img
-          src="/images/CAT_logo_blue.svg"
-          alt={t('logo_CAT')}
-          className={sty["CAT-logo"]}
-        />
-      </Link>
+      <div
+        className={sty["center-title-wrapper"]}
+        role="heading"
+        aria-level={1}
+      >
+        <Link href={`/`}>
+          {/* The title text (for screen readers) */}
+          <span className={sty["sr-only"]}>
+            {t("logo_CAT_header")}
+          </span>
+          <img
+            src="/images/CAT_logo_blue.svg"
+            alt=""
+            aria-hidden="true"
+            className={sty["CAT-logo"]}
+          />
+        </Link>
+      </div>
     );
   }
 
   // === right: button ===
+  const languages = ["de", "en", "el"];
   const right = (
     <>
       {/* language selection */}
-      <span className={sty["lang-switch-wrap"]}>
-        {["de", "en", "el"].map((lng, idx, arr) => (
-          <React.Fragment key={lng}>
-            <Link href={router.asPath} locale={lng} className={currentLocale === lng ? sty["lang-active"] : ""}>{lng}</Link>
-            {idx < arr.length - 1 && " | "}
-          </React.Fragment>
-        ))}
-      </span>
+      <nav
+        className={sty["lang-switch-wrap"]}
+        aria-label={t("aria_language_switcher")}
+      >
+        <ul className={sty["lang-list"]}>
+          {languages.map((lng) => (
+            <li key={lng} className={sty["lang-list-item"]}>
+              <Link
+                href={router.asPath}
+                locale={lng}
+                className={currentLocale === lng ? sty["lang-active"] : ""}
+                aria-current={currentLocale === lng ? "page" : undefined}
+              >
+                {lng.toUpperCase()}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
       {/* map page show "help" button */}
       {variant === "map" && (
         <button
@@ -113,7 +157,12 @@ function Header(
             />
           </button>
           {showCityMenu && (
-            <div className={sty["city-dropdown"]} id="city-menu" role="menu">
+            <div
+              className={sty["city-dropdown"]}
+              id="city-menu"
+              role="menu"
+              aria-label={t("header_select_city")}
+            >
               {[
                 { id: "hamburg", name: "Hamburg", center: [53.5503, 9.9920] },
                 { id: "penteli", name: "Penteli", center: [38.0491, 23.8653] },
@@ -154,6 +203,7 @@ function Header(
         right={right}
         ref={ref}
         className={headerClass}
+        navAriaLabel={t("header_tools_nav")}
       />
       {/* "help" pop up in map page */}
       {variant === "map" && showHelp && (

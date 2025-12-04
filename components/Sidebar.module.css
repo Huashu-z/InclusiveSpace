@@ -285,6 +285,11 @@
     margin: 12px 0;
   }
 
+  .select-start-heading {
+    align-self: flex-start;
+    text-align: left;
+  }
+
   .address-section {
     display: flex;
     flex-direction: column;
@@ -968,4 +973,40 @@
     background-color: #e6f0ff;
   }
 
+  /* ===== Tooltip styles (used in Sidebar_Tooltip.jsx) ===== */
+  .tooltip-container {
+    position: fixed;
+    z-index: 9999;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    padding: 10px 12px;
+    max-width: 320px;
+    max-height: calc(100vh - 24px);
+    overflow: auto;
+  }
 
+  .tooltip-content {
+    max-width: 300px;
+    line-height: 1.55;
+  }
+
+  .tooltip-title {
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .tooltip-description {
+    margin-top: 8px;
+  }
+
+  .tooltip-list {
+    margin: 4px 0;
+    padding-left: 18px;
+  }
+
+  .tooltip-text {
+    line-height: 1.55;
+    margin: 0;
+  }

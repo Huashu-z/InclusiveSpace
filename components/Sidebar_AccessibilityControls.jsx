@@ -11,6 +11,7 @@ export default function AccessibilityControls({
   walkingSpeed,
   setWalkingSpeed,
   setSelectingStart,
+  selectingStart,
   handleResetResults,
   setStartPoints,
   setIsSearchZoom
@@ -46,16 +47,16 @@ export default function AccessibilityControls({
     setStartMethod('address');
     setAddrQuery(q);
     setActiveIndex(-1);
-    setLiveMessage(t('sr_search_in_progress', { defaultValue: 'Searching address...' }));
+    setLiveMessage(t('sr_search_in_progress'));
     try {
       const results = await searchAddressSuggestions(q);
       setAddrResults(results);
       setLiveMessage(results.length
-        ? t('sr_search_success', { defaultValue: 'Address suggestions updated' })
-        : t('sr_no_results', { defaultValue: 'No address found' }));
+        ? t('sr_search_success')
+        : t('sr_no_results'));
     } catch {
       setAddrResults([]);
-      setLiveMessage(t('sr_search_failed', { defaultValue: 'Address search failed' }));
+      setLiveMessage(t('sr_search_failed'));
     }
   };
 
@@ -63,18 +64,22 @@ export default function AccessibilityControls({
   const walkingSpeedTooltipRef = useRef();
 
   return (
-    <div className={sty["sidebar-section"]}>
+    <div className={sty["sidebar-section"]} aria-labelledby="accessibility-heading">
       <div role="status" aria-live="polite" className={sty["sr-only"]}>{liveMessage}</div>
 
       {/* <h3 className={sty["sidebar-title"]}>{t('accessibility_title')}</h3> */}
-      <div className={sty["sidebar-section-title"]}>
+      <div className={sty["sidebar-section-title"]} id="accessibility-heading">
         <img src="/images/icon_accessibility.png" alt={t("icon_accessibility_control")} />
         <span>{t("accessibility_title")}</span>
       </div>
 
+      {/* Walking time */}
       <div className={sty["sidebar-text-bold"]}>
         {t('walking_time')} <span className={sty["sidebar-text"]}>({walkingTime} min)</span>
       </div>
+      <label htmlFor="walking-time-slider" className={sty["sr-only"]}>
+        {t('walking_time')}
+      </label>
       <div className={sty["sidebar-slider"]}>
         <input
           type="range"
@@ -91,8 +96,10 @@ export default function AccessibilityControls({
         />
       </div>
 
+      {/* Walking speed */}
       <div className={sty["sidebar-text-bold"]} style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-        {t('walking_speed')} <span className={sty["sidebar-text"]}>({walkingSpeed} km/h)</span>
+        {t('walking_speed')}{" "}
+        <span className={sty["sidebar-text"]}>({walkingSpeed} km/h)</span>
         <button
           className={sty["info-icon"]}
           ref={walkingSpeedTooltipRef}
@@ -134,23 +141,44 @@ export default function AccessibilityControls({
         </div>
       </div>
 
-      {/* address input section */}
+      {/* Select start / address input section */}
       <hr className={sty["divider"]} />
-      <div className={sty["sidebar-text-bold"]}>
-        {t('select_start')} <br />
-        <span className={sty["sidebar-text"]}>{t('select_start_notice')}</span>
-      </div>
 
-      <div className={sty["address-section"]}> 
+      {/* address input section */}
+      <section
+        className={sty["address-section"]}
+        aria-labelledby="select-start-heading"
+      >
+        <div 
+          id="select-start-heading" 
+          className={`${sty["sidebar-text-bold"]} ${sty["select-start-heading"]}`}
+        >
+          {t('select_start')} <br />
+          <span className={sty["sidebar-text"]}>{t('select_start_notice')}</span>
+        </div> 
+        {/* for screen reader */}
+        <p id="sr-select-start-desc" className={sty["sr-only"]}>
+          {t('sr_select_start_description')}
+        </p>
+ 
         <div className={sty["search-row"]}>
           {/* address text + buttons always visible */}
           <div className={sty["search-bar"]}>
+            <label
+              htmlFor="address-input"
+              className={sty["sr-only"]}
+            > 
+              {t('search_address')}
+            </label>
             <input
+              id="address-input"
               placeholder={t('search_address')}
               value={address}
               onChange={(e) => setAddress(e.target.value)}
               className={sty["search-input"]}
               aria-label={t('search_address')}
+              aria-controls="address-listbox"
+              aria-describedby="sr-select-start-desc"
             />
             <button
               type="button"
@@ -164,7 +192,7 @@ export default function AccessibilityControls({
 
             {/* Dropdown list when address search is active */}
             {addrResults.length > 0 && (
-              <ul role="listbox" className={sty["addr-listbox"]}>
+              <ul id="address-listbox" role="listbox" className={sty["addr-listbox"]}>
                 {addrResults.map((r, i) => (
                   <li
                     key={r.label}
@@ -180,7 +208,7 @@ export default function AccessibilityControls({
                         Array.isArray(prev) ? [...prev, [r.lon, r.lat]] : [[r.lon, r.lat]]
                       );
                       setIsSearchZoom?.(true);
-                      setLiveMessage(t('sr_start_set_to', { defaultValue: 'Start set to' }) + ` ${r.label}`);
+                      setLiveMessage(t('sr_start_set_to') + ` ${r.label}`);
                     }}
                   >
                     {r.label}
@@ -193,7 +221,7 @@ export default function AccessibilityControls({
           <button 
             onClick={() => {
               setSelectingStart(true);
-              setLiveMessage(t('sr_select_start_enabled', { defaultValue: 'Select start mode enabled' }));
+              setLiveMessage(t('sr_select_start_enabled'));
             }}
             className={sty["icon-button"]}
             aria-label={t('select_start')}
@@ -206,8 +234,8 @@ export default function AccessibilityControls({
               className={sty["icon-img"]}
             />
           </button>
-        </div> 
-      </div>
+        </div>
+      </section>
 
       <hr className={sty["divider"]} /> 
 

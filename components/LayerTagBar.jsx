@@ -153,13 +153,28 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
   if (!selectedLayers || selectedLayers.length === 0) return null;
 
   return (
-    <div className={styles.layerTagBar}>
+    <div
+      className={styles.layerTagBar}
+      role="list"
+      aria-label={t('layertag_aria_desc')}
+    >
       {selectedLayers.map((layer) => (
-        <div key={layer} className={styles.layerTag}>
+        <div
+          key={layer}
+          className={styles.layerTag}
+          role="listitem"
+        >
           {/* map layer name */}
           <div className={styles.layerTagText}>
             {displayNames[layer] || layer}
-            <span className={styles.layerTagClose} onClick={() => toggleLayer(layer)}>✕</span>
+            <button
+              type="button"
+              className={styles.layerTagClose}
+              onClick={() => toggleLayer(layer)}
+              aria-label={`${t('layertag_aria_remove')} ${displayNames[layer] || layer}`}
+            >
+              ✕
+            </button>
           </div>
 
           {/* legend for each layer */}
@@ -219,7 +234,12 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
               iconUrls[layer]                           // legend with icons
                 ? iconUrls[layer].map((url, i) => (
                     <div key={`${layer}-icon-${i}`} className={styles.layerTagLegendItem}>
-                      <img src={url} alt={`${layer}-${i}`} className={styles.layerTagIcon} />
+                      <img
+                        src={url}
+                        alt=""
+                        aria-hidden="true"
+                        className={styles.layerTagIcon}
+                      />
                       <span>{wmsLabels[layer]?.[i] || `Item ${i + 1}`}</span>
                     </div>
                   ))

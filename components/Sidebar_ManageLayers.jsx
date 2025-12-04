@@ -75,6 +75,7 @@ export default function MapLayers({ selectedLayers, toggleLayer, availableLayers
   const Category = ({ name, label, children }) => {
     const isOpen = openCategory === name;
     const contentId = `category-content-${name}`;
+    const headingId = `category-heading-${name}`;
 
     return (
       <div className={sty["faq-item"]}>
@@ -83,13 +84,19 @@ export default function MapLayers({ selectedLayers, toggleLayer, availableLayers
           onClick={() => toggleCategory(name)}
           aria-expanded={isOpen}
           aria-controls={contentId}
+          id={headingId}
         >
           <span className={sty["sidebar-subtitle"]}>{label}</span>
           <span className={sty["faq-icon"]}>{isOpen ? "−" : "+"}</span>
         </button>
 
         {isOpen && (
-          <div id={contentId} className={sty["faq-answer"]}>
+          <div
+            id={contentId}
+            className={sty["faq-answer"]}
+            role="group"
+            aria-labelledby={headingId}
+          >
             {children}
           </div>
         )}
@@ -121,13 +128,13 @@ export default function MapLayers({ selectedLayers, toggleLayer, availableLayers
   availableLayers.find(l => l.key === key);
 
   return (
-    <div className={sty["sidebar-section"]}>
+    <div className={sty["sidebar-section"]} aria-labelledby="map-layers-heading">
       <div className={sty["title-container"]}>
         {/* <h3 className={sty["sidebar-title"]}>{t('map_layers')}</h3> */}
-        <div className={sty["sidebar-section-title"]}>
+        <h2 id="map-layers-heading" className={sty["sidebar-section-title"]}>
           <img src="/images/help_data.png" alt={t("icon_data_info")} />
           <span>{t("map_layers")}</span>
-        </div>
+        </h2>
 
         <button
           className={sty["info-icon"]}
