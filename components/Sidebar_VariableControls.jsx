@@ -26,6 +26,12 @@ export default function VariableControls({
   const { t } = useTranslation("common");
   const weightLevels = [0.9, 0.7, 0.5, 0.1]; //4 categories of comfort weights
   const weightLabels = ["😐","☹️","😩","❌"];
+  const weightTexts = [
+    t("emoji_level_4"), // 0.9  → Barely Noticeable
+    t("emoji_level_3"), // 0.7  → Slightly annoying
+    t("emoji_level_2"), // 0.5  → Moderately disturbing
+    t("emoji_level_1"), // 0.1  → Totally Unbearable
+  ];
   const renderCheckbox = (layer, label) => {
     const enabled = enabledVariables.includes(layer);
     const value = layerValues[layer];
@@ -112,8 +118,11 @@ export default function VariableControls({
               handleInputChange(fakeEvent, layer);
             }}
           />
-          <span className={sty["slider-value"]}>
+          <span className={sty["slider-value"]} aria-hidden="true">
             {sliderIndex >= 0 ? weightLabels[sliderIndex] : "-"}
+          </span>
+          <span className={sty["sr-only"]}>
+            {sliderIndex >= 0 ? weightTexts[sliderIndex] : t('emoji_level_unknown')}
           </span>
         </div>
       </div>

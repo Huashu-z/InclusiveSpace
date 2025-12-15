@@ -266,7 +266,7 @@
     border: 1.5px solid #173F5F;
     border-radius: 5px;
     cursor: pointer;
-    white-space: nowrap;
+    /* white-space: nowrap; */
     gap: 8px;
     width: 100%;
   }
@@ -332,7 +332,7 @@
 
   .search-button {
     background-color: #ebebeb;
-    color: white;
+    color: #173F5F;
     border: none;
     padding: 0 8px;
     cursor: pointer;
@@ -727,13 +727,13 @@
 
   
 
-  /* ---------------------------- profile ----------------------- */ 
-  /* 浮在地图上的整个 profile 区域 */
+  /* ---------------------------- profile ----------------------- */  
   .profilePanel {
     position: absolute;
     top: 30px;
     right: 16px;
     z-index: 6000;
+    max-width: calc(100vw - 32px);
   }
 
   /* Collapsed view: Left title + right main icon, placed in one box. */
@@ -797,13 +797,19 @@
     border-radius: 8px;
     border: 3px solid #52ccae;
     background: #ffffff;
+
+    box-sizing: border-box;
+    width: 100%; 
   }
- 
+
   .profileOptions {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 4px;
+    flex-wrap: wrap;
+    flex: 1 1 auto; 
+    min-width: 0; 
   }
 
   /* main icon when expanded */
@@ -932,6 +938,12 @@
     cursor: pointer;
     font-weight: bold;
     color: #173f5f;
+
+    /* 新增这几行，去掉按钮自带的边框和背景 */
+    background: transparent;
+    border: none;
+    padding: 0;          /* 防止有多余内边距 */
+    line-height: 1;      /* 让 “✕” 不那么松散，可选 */
   }
   .layerTagClose:hover {
     color: #ffaaaa;
