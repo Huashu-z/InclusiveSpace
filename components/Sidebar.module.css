@@ -311,7 +311,7 @@
     display: flex;
     flex: 1;
     max-width: 80%; 
-    border: 1px solid #ccc;
+    border: 1px solid #173F5F;
     border-radius: 6px;
     overflow: visible;
     background-color: #f5f8ff;
@@ -327,12 +327,15 @@
     outline: none;
     background-color: #f5f8ff;
     color: #173F5F; 
+    border-radius: 6px;
     opacity: 1;
   }
 
   .search-button {
     background-color: #ebebeb;
     color: #173F5F;
+    border: 1px solid #173F5F;
+    border-radius: 6px;
     border: none;
     padding: 0 8px;
     cursor: pointer;
@@ -344,7 +347,7 @@
 
   .icon-button {
     background: #ffffff;
-    border: 1px solid #ccc;
+    border: 1px solid #173F5F;
     border-radius: 6px;
     padding: 5px;
     cursor: pointer;
@@ -434,6 +437,61 @@
     margin-bottom: 12px;
     padding: 0 2px;
   }
+  /* Filled track for Walking Time / Walking Speed (stable) */
+  .sidebar-slider .range-filled {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 22px;
+    background: transparent;
+    outline: none;
+  }
+  /* ===== Chrome / Edge / Safari ===== */
+  .sidebar-slider .range-filled::-webkit-slider-runnable-track {
+    height: 7px;
+    border-radius: 5px;
+    border: 1.5px solid #173F5F;
+    background: linear-gradient(
+      to right,
+      #2a9d8f 0%,
+      #2a9d8f var(--pct, 50%),
+      #ffffff var(--pct, 50%),
+      #ffffff 100%
+    );
+  }
+  /* thumb */
+  .sidebar-slider .range-filled::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: #52ccae;
+    border: 2px solid #173F5F;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -7px;
+  }
+
+  /* ===== Firefox ===== */
+  .sidebar-slider .range-filled::-moz-range-track {
+    height: 6px;
+    border-radius: 5px;
+    border: 1px solid #173F5F;
+    background: #ffffff;
+  }
+  .sidebar-slider .range-filled::-moz-range-progress {
+    height: 6px;
+    border-radius: 5px;
+    background: #2a9d8f;
+  }
+  .sidebar-slider .range-filled::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: #52ccae;
+    border: 2px solid #173F5F;
+    border-radius: 50%;
+    cursor: pointer;
+  }
   
   .faq-container {
     width: 100%;
@@ -519,7 +577,7 @@
     width: 100px;
     height: 6px;
     border-radius: 3px;
-    background: linear-gradient(to right, #2a9d8f 50%, #ccc 50%);
+    background: linear-gradient(to right, #2a9d8f 50%, #9ca3af 50%);
     outline: none;
     transition: background 0.2s ease;
     cursor: pointer;
@@ -594,10 +652,10 @@
   }
   .info-icon:hover {
     background: #52ccae;
-    border: #52ccae;
+    border: 1px solid #173F5F;
   }
   .info-icon:focus {
-    background: #fff;
+    background: #52ccae;
   }
   .info-icon:focus-visible {
     outline: 2px solid #0A84FF;
@@ -747,7 +805,8 @@
     padding: 6px 10px;
 
     border-radius: 8px;
-    border: 3px solid #52ccae;
+    border: 2px solid #2a9d8f;
+    box-shadow: 0 0 0 2px #52ccae;
     background: #ffffff;
 
     cursor: pointer;
@@ -795,7 +854,8 @@
     gap: 6px;
     padding: 4px 6px;
     border-radius: 8px;
-    border: 3px solid #52ccae;
+    border: 2px solid #2a9d8f;
+    box-shadow: 0 0 0 2px #52ccae;
     background: #ffffff;
 
     box-sizing: border-box;
@@ -823,7 +883,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 0 0 2px #dddddd;
+    box-shadow: 0 0 0 2px #173f5f;
     border-radius: 6px;
     transition: background 0.15s ease, transform 0.1s ease;
   }
@@ -852,7 +912,8 @@
     transform: translateY(-1px);
   } 
   .profile-icon-button-active {
-    box-shadow: 0 0 0 2px #52ccae;
+    box-shadow: 0 0 0 1px #2a9d8f;
+    background-color: #8ed5c3;
     border-radius: 6px;
     filter: brightness(1.05);
   } 
@@ -881,6 +942,12 @@
   } 
   .profile-icon-button:hover .profile-icon-label {
     opacity: 1;
+  }
+  .profileMainBox:focus-visible,
+  .profileMainIconOnlyButton:focus-visible,
+  .profile-icon-button:focus-visible {
+    outline: 2px solid #0A84FF;
+    outline-offset: 3px;
   }
 
   /* ---------------------- Layer Tag Bar Styles ---------------------- */
@@ -937,13 +1004,11 @@
     margin-left: 8px;
     cursor: pointer;
     font-weight: bold;
-    color: #173f5f;
-
-    /* 新增这几行，去掉按钮自带的边框和背景 */
+    color: #173f5f; 
     background: transparent;
     border: none;
-    padding: 0;          /* 防止有多余内边距 */
-    line-height: 1;      /* 让 “✕” 不那么松散，可选 */
+    padding: 0; 
+    line-height: 1; 
   }
   .layerTagClose:hover {
     color: #ffaaaa;
@@ -963,18 +1028,19 @@
     left: 0;
     width: 100%;
     max-height: 180px;
-    margin-top: 4px;
+    margin-top: 1px;
     background: white;
     border: 1px solid #ccc;
     border-radius: 4px;
     overflow-y: auto;
     z-index: 1000;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   }
 
   .option {
     font-size: 14px;
-    padding: 8px 12px;
+    padding: 6px 10px;
+    color:#173f5f;
     cursor: pointer;
   }
 
@@ -990,9 +1056,9 @@
     position: fixed;
     z-index: 9999;
     background: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 8px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     padding: 10px 12px;
     max-width: 320px;
     max-height: calc(100vh - 24px);

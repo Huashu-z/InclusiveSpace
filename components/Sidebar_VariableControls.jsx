@@ -105,7 +105,22 @@ export default function VariableControls({
             }
             style={{
               background: enabled
-                ? `linear-gradient(to right, #ff5e00ff ${((sliderIndex + 0.5) / 4) * 100}%, #ccc ${((sliderIndex + 0.8) / 4) * 100}%)`
+                ? (() => {
+                    const pct = ((sliderIndex + 0.5) / 4) * 100;
+                    const pctGray = ((sliderIndex + 0.8) / 4) * 100;
+                    return `
+                      linear-gradient(to right,
+                        transparent 0%,
+                        transparent ${pct}%,
+                        #9ca3af ${pctGray}%,
+                        #9ca3af 100%
+                      ),
+                      linear-gradient(to right,
+                        #e6ea08ff 0%,
+                        #dc2626 100%
+                      )
+                    `;
+                  })()
                 : undefined
             }}
             onChange={(event) => {

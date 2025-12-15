@@ -85,8 +85,10 @@ const MapComponent = ({
       const leaflet = await import("leaflet");
       setCustomMarkerIcon(
         new leaflet.Icon({
-          iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
-          iconSize: [32, 32]
+          iconUrl: "/images/address_start.png",
+          iconSize: [32, 32],
+          iconAnchor: [16, 32],           // ✅ 底部中心 = [宽/2, 高]
+          popupAnchor: [0, -32],  
         })
       );
 
@@ -515,7 +517,12 @@ const MapComponent = ({
           }}
           aria-hidden="true"
         >
-          📌
+          <img
+            src="/images/address_start.png"
+            alt=""
+            className={sty.mouseHintIcon}
+            draggable="false"
+          />
         </div>
       )}
 

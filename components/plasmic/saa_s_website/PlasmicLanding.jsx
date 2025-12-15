@@ -95,7 +95,7 @@ export default function PlasmicLanding() {
                     />
                   </div>
                   <div className={sty.cityRect}>
-                    <div>{t('landing_city_hamburg_desc')}</div>
+                    <p>{t('landing_city_hamburg_desc')}</p>
                   </div>
                 </div>
                 {/* Penteli */}
@@ -128,7 +128,7 @@ export default function PlasmicLanding() {
                     />
                   </div>
                   <div className={sty.cityRect}>
-                    <div>{t('landing_city_penteli_desc')}</div>
+                    <p>{t('landing_city_penteli_desc')}</p>
                   </div>
                 </div>
               </div> 

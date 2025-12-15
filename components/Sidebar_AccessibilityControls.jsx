@@ -63,6 +63,14 @@ export default function AccessibilityControls({
   const [showWalkingSpeedTooltip, setShowWalkingSpeedTooltip] = useState(false);
   const walkingSpeedTooltipRef = useRef();
 
+  // control walking time and walking speed slider
+  const toPct = (val, min, max) => {
+    const pct = ((val - min) / (max - min)) * 100;
+    return Math.min(100, Math.max(0, pct));
+  };
+  const walkingTimePct = useMemo(() => toPct(walkingTime, 1, 30), [walkingTime]);
+  const walkingSpeedPct = useMemo(() => toPct(walkingSpeed, 3, 6), [walkingSpeed]);
+
   return (
     <div className={sty["sidebar-section"]} aria-labelledby="accessibility-heading">
       <div role="status" aria-live="polite" className={sty["sr-only"]}>{liveMessage}</div>
@@ -82,6 +90,9 @@ export default function AccessibilityControls({
       </label>
       <div className={sty["sidebar-slider"]}>
         <input
+          id="walking-time-slider"
+          className={sty["range-filled"]}
+          style={{ "--pct": `${walkingTimePct}%` }}
           type="range"
           min={1}
           max={30}
@@ -122,6 +133,9 @@ export default function AccessibilityControls({
 
       <div className={sty["sidebar-slider"]}>
         <input
+          id="walking-speed-slider"
+          className={sty["range-filled"]}
+          style={{ "--pct": `${walkingSpeedPct}%` }}
           type="range"
           min={3}
           max={6}

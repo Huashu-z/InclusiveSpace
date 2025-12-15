@@ -68,6 +68,12 @@
 .link__container.active div {
   color: white !important;
 }
+
+.link__container:focus-visible {
+  outline: 3px solid #0A84FF; /* 这颜色在白底上对比度够 */
+  outline-offset: 2px;
+  border-color: #173F5F; /* 给组件边界也更清楚 */
+}
 /*-------------------------------------------------------------------------------*/
 
 /* Logo ---------------------------------------------------*/
@@ -118,6 +124,8 @@
 .lang-list {
   list-style: none;
   display: inline-flex;
+  flex-wrap: wrap;
+  row-gap: 2px;
   gap: 0.25rem; 
   padding: 0;
   margin: 0;
@@ -482,7 +490,7 @@
   top: 36px;
   right: 0;
   background: white;
-  border: 1px solid #ccc;
+  border: 2px solid #173F5F;
   border-radius: 6px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   z-index: 1000;
