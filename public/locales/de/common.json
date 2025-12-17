@@ -152,6 +152,7 @@
   "checkbox_facility": "Keine Einrichtungen",
   "checkbox_crowd": "Überfüllter Bereich",
   "loading": "Berechnung läuft ...",
+  "loading_cancle": "Drücken Sie Esc, um abzubrechen.",
   "start_point_popup": "Startpunkt der Analyse",
   "emoji_level_0": "Unbehaglichkeitsskala:",
   "emoji_level_1": "Absolut unerträglich",

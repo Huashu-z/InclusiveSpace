@@ -151,6 +151,7 @@
   "checkbox_facility": "No Facilities",
   "checkbox_crowd": "Crowded Area",
   "loading": "Calculating...",
+  "loading_cancle": "Press Esc to cancel.",
   "start_point_popup": "Analysis starting point",
   "emoji_level_0": "Discomfort Scale:",
   "emoji_level_1": "Totally Unbearable",

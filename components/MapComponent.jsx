@@ -58,6 +58,44 @@ const MapComponent = ({
     defaultValue: "Map view: walking accessibility and catchment areas",
   });
 
+  // show calculating status/timer
+  const abortRef = useRef(null);
+  const [calcElapsed, setCalcElapsed] = useState(0);
+  const [calcStage, setCalcStage] = useState("");
+  const cancelCalculation = () => {
+    abortRef.current?.abort();
+    abortRef.current = null;
+    setComputeAccessibility(false);
+    setIsCalculating(false);
+    setCalcStage("");
+  };
+
+  // (1) 计时：显示 (Ns)
+  useEffect(() => {
+    if (!isCalculating) {
+      setCalcElapsed(0);
+      return;
+    }
+    const start = Date.now();
+    const timer = window.setInterval(() => {
+      setCalcElapsed(Math.floor((Date.now() - start) / 1000));
+    }, 1000);
+    return () => window.clearInterval(timer);
+  }, [isCalculating]);
+
+  // (2) Esc 取消
+  useEffect(() => {
+    if (!isCalculating) return;
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        cancelCalculation();
+      }
+    };
+    window.addEventListener("keydown", onKeyDown, true);
+    return () => window.removeEventListener("keydown", onKeyDown, true);
+  }, [isCalculating]);
+
   // load city boundary
   useEffect(() => {
     Promise.all([
@@ -165,7 +203,7 @@ const MapComponent = ({
   }, [selectedLayers]);
   
   // Fetch accessibility data from the backend 
-  const fetchAccessibilityFromBackend = async (lat, lon, time, speed, variableSettings) => {
+  const fetchAccessibilityFromBackend = async (lat, lon, time, speed, variableSettings, signal) => {
     try {
       const selected = enabledVariables || [];
 
@@ -198,10 +236,11 @@ const MapComponent = ({
       const city = (typeof window !== "undefined" && (localStorage.getItem("selectedCity") || "hamburg")) || "hamburg";
       params.append("city", city);
 
-      const res = await fetch(`/api/accessibility?${params}`);
+      const res = await fetch(`/api/accessibility?${params}`, { signal });
       if (!res.ok) throw new Error("API call failed");
       return await res.json();
     } catch (err) {
+      if (err?.name === "AbortError") throw err;
       console.error("Failed to obtain reachability area:", err);
       return null;
     }
@@ -243,6 +282,9 @@ const MapComponent = ({
       const [lon, lat] = startPoints[startPoints.length - 1]; // latest point
       const key = `${lat},${lon},${walkingTime},${walkingSpeed}`; //store basic parameters for default catchment area
       setIsCalculating(true);
+      const controller = new AbortController();
+      abortRef.current = controller;
+      setCalcStage(t('loading'));
 
       try {
         let defaultArea;
@@ -266,7 +308,7 @@ const MapComponent = ({
             temperatureSummer: 1, temperatureWinter: 1
           };
 
-          const defaultRes = await fetchAccessibilityFromBackend(lat, lon, walkingTime, walkingSpeed, defaultVars);
+          const defaultRes = await fetchAccessibilityFromBackend(lat, lon, walkingTime, walkingSpeed, defaultVars, controller.signal);
           
           if (!isValidGeoJSON(defaultRes.roads)) {
             alert("No reachable area found for this walking time/speed. Please try another setting.");
@@ -348,7 +390,7 @@ const MapComponent = ({
 
         // --------- Step 2: Weighted Result (with comfort features) ---------
         if (enabledVariables.length > 0) {
-          const weightedRes = await fetchAccessibilityFromBackend(lat, lon, walkingTime, walkingSpeed, layerValues);
+          const weightedRes = await fetchAccessibilityFromBackend(lat, lon, walkingTime, walkingSpeed, layerValues, controller.signal);
           if (!isValidGeoJSON(weightedRes.roads)) {
             alert("The selected comfort settings result in no reachable area. Try adjusting the sliders.");
             return;
@@ -429,9 +471,14 @@ const MapComponent = ({
         }
 
       } catch (err) {
+        if (err?.name === "AbortError") {
+          return;
+        }
         console.error("Reachability analysis error：", err);
       } finally {
+        abortRef.current = null;
         setIsCalculating(false);
+        setCalcStage("");
         setComputeAccessibility(false);
       }
     };
@@ -519,13 +566,23 @@ const MapComponent = ({
 
       {/* normal user */}
       {isCalculating && (
-        <div className={sty.loadingOverlay}>
-          <div className={sty.spinnerContainer}>
-            <div className={sty.spinnerCircle}></div>
-            <div className={sty.loadingText}>Calculating...</div>
+        <div className={sty.loadingOverlay} role="status" aria-live="polite">
+          <div className={sty.loadingPanel}>
+            <div className={sty.spinnerContainer}>
+              <div className={sty.spinnerCircle} aria-hidden="true"></div>
+
+              <div className={sty.loadingText}>
+                {calcStage || t('loading')} <span aria-hidden="true">({calcElapsed}s)</span>
+              </div>
+            </div>
+
+            <div className={sty.loadingHint}>
+              Press Esc to cancel.
+            </div>
           </div>
         </div>
-      )} 
+      )}
+
       {selectingStart && (
         <div
           className={sty.mouseHint}

@@ -151,6 +151,7 @@
   "checkbox_facility": "Χωρίς εγκαταστάσεις",
   "checkbox_crowd": "Πολυσύχναστη περιοχή",
   "loading": "Υπολογισμός...",
+  "loading_cancle": "Πατήστε Esc για ακύρωση.",
   "start_point_popup": "Σημείο εκκίνησης ανάλυσης",
   "emoji_level_0": "Κλίμακα δυσφορίας:",
   "emoji_level_1": "Αφόρητο",
