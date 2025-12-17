@@ -577,7 +577,7 @@ const MapComponent = ({
             </div>
 
             <div className={sty.loadingHint}>
-              Press Esc to cancel.
+              {t('loading_cancle')}
             </div>
           </div>
         </div>
