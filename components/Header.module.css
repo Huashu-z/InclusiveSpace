@@ -35,47 +35,7 @@
 .landing-header-text .lang-switch-wrap a {
   color: #f5f5f5 !important;
 }
-/*-------------------------------------------------------------------------------*/
-/* Button default state */
-.link__container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 14px;
-  background: transparent;
-  border: 2px solid transparent;
-  border-radius: 6px;
-  transition: all 0.3s ease-in-out;
-  cursor: pointer;
-}
- 
-.link__container:hover {
-  border: 2px solid #173F5F;
-}
- 
-.link__container.active {
-  background: #173F5F;
-  color: white !important;
-}
-/* Text color change with state */
-.link__container div {
-  font-weight: 600;
-  font-size: 18px;
-  color: #173F5F;
-  transition: color 0.3s ease-in-out;
-}
- 
-.link__container.active div {
-  color: white !important;
-}
-
-.link__container:focus-visible {
-  outline: 3px solid #0A84FF; /* 这颜色在白底上对比度够 */
-  outline-offset: 2px;
-  border-color: #173F5F; /* 给组件边界也更清楚 */
-}
-/*-------------------------------------------------------------------------------*/
-
+/*-------------------------------------------------------------------------------*/ 
 /* Logo ---------------------------------------------------*/
 .logo-group {
   display: flex;
@@ -106,12 +66,35 @@
 }
 /*-------------------------------------------------------------------------------*/
 /* CAT logo--------------------------------------------- */
-
+/* CAT in landing page header */
 .CAT-logo {
   height: 35px; 
   object-fit: contain;
   opacity: 0.9;
 }
+/* Center CAT logo wrapper */
+.center-title-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.center-title-wrapper :global(a) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.center-title-wrapper :global(a):focus-visible {
+  outline: 3px solid #0A84FF;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+/* Map header partner logos focus ring (so they won’t use the default black ring) */
+.logo-wrapper:focus-visible {
+  outline: 3px solid #0A84FF;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
 /* ------------------------------------------------------ */
 
 /* Switch language -------------------------------------------------------------------*/
@@ -142,6 +125,14 @@
 
 .lang-active {
   font-weight: 700;
+}
+
+.langLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 1px;
+  border-radius: 6px;
 }
 
 
@@ -203,6 +194,11 @@
 }
 .modal-close:hover {
   background: #12517f;
+}
+.modal-close:focus-visible {
+  outline: 3px solid #0A84FF;
+  outline-offset: 2px;
+  border-radius: 6px;
 }
 .modal-divider {
   border: none;
@@ -355,15 +351,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* box-shadow: 0 0 0 2px #ffffff; 可选：白色描边，让圆圈压在卡片上更舒服 */
+  /* box-shadow: 0 0 0 2px #ffffff; */
 }
 .step-badge img {
-  width: 40px;        /* 保证图标居中不会变形 */
+  width: 40px;
   height: 40px;
   object-fit: contain;
 }
 
-/* ===== Icon row (第三行：Profile / Legend / MapLayers) ===== */
+/* ===== Icon row (third row：Profile / Legend / MapLayers) ===== */
 
 .icon-row {
   display: flex;
@@ -498,12 +494,30 @@
 }
 
 .city-item {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
   padding: 8px 12px;
   cursor: pointer;
   font-size: 14px;
   color: #173F5F;
 }
 
+.city-item:focus-visible {
+  outline: 3px solid #0A84FF;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+
 .city-item:hover {
   background-color: #f1f5f9;
+}
+
+/* Reusable focus ring for header interactive elements */
+.focusRing:focus-visible {
+  outline: 3px solid #0A84FF;
+  outline-offset: 2px;
+  border-radius: 6px;
 }

@@ -173,6 +173,7 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
 
                 {/* Comfort Feature Weight Categories */}
                 <button
+                  type="button"
                   className={styles["toggle-button"]}
                   aria-expanded="false"
                   aria-controls={comfortId}
@@ -205,6 +206,7 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                 {entry.poiCount > 0 && (
                   <div style={{ marginTop: 0 }}>
                     <button
+                      type="button"
                       className={styles["toggle-button"]}
                       style={{ marginBottom: 2 }}
                       aria-expanded="false"

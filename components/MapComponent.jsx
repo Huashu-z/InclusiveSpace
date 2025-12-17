@@ -452,6 +452,24 @@ const MapComponent = ({
     console.log("setHighlightedIndex to", idx);
   };
 
+  useEffect(() => {
+    const root = document.querySelector("." + sty.leafletMap);
+    if (!root) return;
+
+    const apply = () => {
+      root
+        .querySelectorAll(".leaflet-control-attribution a, .leaflet-control-zoom a")
+        .forEach((a) => a.setAttribute("tabindex", "-1"));
+    };
+
+    apply();
+
+    const obs = new MutationObserver(apply);
+    obs.observe(root, { subtree: true, childList: true });
+
+    return () => obs.disconnect();
+  }, []);
+
   if (!MapModule || !MapModule.MapContainer) return null;
   const { MapContainer, TileLayer, GeoJSON, Marker, Popup, Tooltip, useMapEvents, useMap, Pane } = MapModule;
 
@@ -479,7 +497,7 @@ const MapComponent = ({
       if (isSearchZoom && startPoints.length > 0) {
         const [lon, lat] = startPoints[startPoints.length - 1];
         map.setView([lat, lon], 16);
-        setIsSearchZoom(false); // zoom 后重置标记
+        setIsSearchZoom(false);
       }
     }, [startPoints, isSearchZoom, setIsSearchZoom, map]);
     return null;
@@ -526,7 +544,14 @@ const MapComponent = ({
         </div>
       )}
 
-      <MapContainer center={cityCenter} zoom={14} style={{ width: "100%", height: "100vh" }}>
+      <MapContainer
+        center={cityCenter}
+        zoom={14}
+        className={sty.leafletMap}
+        keyboard={true}
+        zoomControl={false}
+        attributionControl={false}
+      >
         <Pane name="highlight-pane" style={{ zIndex: 650 }} />
         <AutoZoomToStart
           startPoints={startPoints}

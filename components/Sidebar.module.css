@@ -294,14 +294,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 6px;
   }
 
   .search-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 8px; 
+    gap: 6px; 
     width: 100%;
     margin: 5px 0;
   }
@@ -329,6 +329,18 @@
     color: #173F5F; 
     border-radius: 6px;
     opacity: 1;
+  }
+  /* 1) 鼠标点击聚焦时，不要高亮框（仍然保持可用） */
+  .search-input:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  /* 2) 只有键盘 focus-visible 才显示统一高亮框 */
+  .search-input:focus-visible {
+    outline: 2px solid #0A84FF;
+    outline-offset: 2px;
+    border-radius: 4px;
   }
 
   .search-button {
@@ -403,6 +415,11 @@
     background: #173F5F;
     margin-top: 10px;
     margin-bottom: 20px;
+  }
+  .sidebar-slider input[type="range"]:focus-visible {
+    outline: 2px solid #0A84FF;
+    outline-offset: 5px;
+    border-radius: 4px;
   }
   .sidebar-slider input[type="range"]:hover {
     opacity: 1;
@@ -582,6 +599,13 @@
     transition: background 0.2s ease;
     cursor: pointer;
   } 
+  /* Ensure range slider shows keyboard focus ring */
+  .slider-container input[type="range"]:focus-visible {
+    outline: 2px solid #0A84FF !important;
+    outline-offset: 4px !important;
+    border-radius: 4px;
+   
+  }
   .slider-container input[type="range"].disabled {
     background: #ddd;
     cursor: not-allowed;
@@ -1013,6 +1037,11 @@
   .layerTagClose:hover {
     color: #ffaaaa;
   }
+  .layerTagClose:focus-visible {
+    outline: 2px solid #0A84FF;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
   .colorDot {
     width: 14px;
     height: 14px;
@@ -1088,3 +1117,15 @@
     line-height: 1.55;
     margin: 0;
   }
+
+  .kbdFocus:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  .kbdFocus:focus-visible {
+    outline: 2px solid #0A84FF;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+

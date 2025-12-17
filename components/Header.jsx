@@ -20,6 +20,64 @@ function Header(
   const router = useRouter();
   const currentLocale = router.locale || "en";
 
+  const helpBtnRef = React.useRef(null);
+  const closeBtnRef = React.useRef(null);
+  const modalContentRef = React.useRef(null);
+  const lastFocusRef = React.useRef(null);
+
+  const closeHelp = React.useCallback(() => {
+    setShowHelp(false);
+  }, [setShowHelp]);
+
+  React.useEffect(() => {
+    if (!showHelp) return;
+    lastFocusRef.current = document.activeElement;
+    requestAnimationFrame(() => {
+      closeBtnRef.current?.focus();
+    });
+
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        closeHelp();
+        return;
+      }
+
+      if (e.key === "Tab") {
+        const root = modalContentRef.current;
+        if (!root) return;
+
+        const focusables = root.querySelectorAll(
+          'button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])'
+        );
+        if (!focusables.length) return;
+
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown, true);
+    return () => window.removeEventListener("keydown", onKeyDown, true);
+  }, [showHelp, closeHelp]);
+
+  React.useEffect(() => {
+    if (showHelp) return;
+    requestAnimationFrame(() => {
+      const el = lastFocusRef.current;
+      if (el && typeof el.focus === "function") el.focus();
+      else helpBtnRef.current?.focus();
+    });
+  }, [showHelp]);
+
   // === left ===
   let left = null;
   // map page show all logos in header，landing only show CAT logo
@@ -35,7 +93,7 @@ function Header(
           href="https://inclusivespaces-heproject.eu/"
           target="_blank"
           rel="noopener noreferrer"
-          className={sty["logo-wrapper"]}
+          className={`${sty["logo-wrapper"]} ${sty.focusRing}`}
           aria-label={t("logo_EU")}
         >
           <img src="/images/logo_co-founded-eu.png" alt="" aria-hidden="true" />
@@ -46,7 +104,7 @@ function Header(
           href="https://inclusivespaces-heproject.eu/"
           target="_blank"
           rel="noopener noreferrer"
-          className={sty["logo-wrapper"]}
+          className={`${sty["logo-wrapper"]} ${sty.focusRing}`}
           aria-label={t("logo_IS")}
         >
           <img src="/images/logoIS.png" alt="" aria-hidden="true" />
@@ -57,7 +115,7 @@ function Header(
           href="https://www.mos.ed.tum.de/sv/forschung-und-beratung/projekte/eu-projects/inclusivespaces/"
           target="_blank"
           rel="noopener noreferrer"
-          className={sty["logo-wrapper"]}
+          className={`${sty["logo-wrapper"]} ${sty.focusRing}`}
           aria-label={t("logo_TUM")}
         >
           <img src="/images/tum_logo.png" alt="" aria-hidden="true" />
@@ -66,9 +124,9 @@ function Header(
     );
 
   } else if (variant === "landing") {
-    // only blue CAT logo on left
+    // only white CAT logo on left
     left = (
-      <Link href={`/`}>
+      <Link href={`/`} className={sty.focusRing}>
         <img
           src="/images/CAT_logo_white.svg"
           alt={t('logo_CAT')}
@@ -119,7 +177,11 @@ function Header(
               <Link
                 href={router.asPath}
                 locale={lng}
-                className={currentLocale === lng ? sty["lang-active"] : ""}
+                className={[
+                  sty.langLink,
+                  sty.focusRing,
+                  currentLocale === lng ? sty["lang-active"] : ""
+                ].filter(Boolean).join(" ")}
                 aria-current={currentLocale === lng ? "page" : undefined}
               >
                 {lng.toUpperCase()}
@@ -131,19 +193,25 @@ function Header(
       {/* map page show "help" button */}
       {variant === "map" && (
         <button
-          className={sty["help-button"]}
+          ref={helpBtnRef}
+          type="button"
+          className={`${sty["help-button"]} ${sty.focusRing}`}
           title={t('header_tool_instruction')}
           aria-label={t('header_tool_instruction')}
           aria-haspopup="dialog"
+          aria-expanded={showHelp}
+          aria-controls="help-dialog"
           onClick={() => setShowHelp(true)}
-        >i</button>
+        >
+          i
+        </button>
       )}
       {/* map page show "city selection" */}
       {variant === "map" && (
         <div className={sty["city-button-wrapper"]}>
           <button
             onClick={() => setShowCityMenu(prev => !prev)}
-            className={sty["city-button"]}
+            className={`${sty["city-button"]} ${sty.focusRing}`}
             title={t('header_select_city')}
             aria-label={t('header_select_city')}
             aria-haspopup="menu"
@@ -162,13 +230,17 @@ function Header(
               id="city-menu"
               role="menu"
               aria-label={t("header_select_city")}
+              onKeyDown={(e) => {
+                if (e.key === "Escape") setShowCityMenu(false);
+              }}
             >
               {[
                 { id: "hamburg", name: "Hamburg", center: [53.5503, 9.9920] },
                 { id: "penteli", name: "Penteli", center: [38.0491, 23.8653] },
               ].map(city => (
-                <div
+                <button
                   key={city.id}
+                  type="button"
                   className={sty["city-item"]}
                   role="menuitem"
                   onClick={() => {
@@ -180,7 +252,7 @@ function Header(
                   aria-label={`Switch to ${city.name}`}
                 >
                   {city.name}
-                </div>
+                </button>
               ))}
             </div>
           )}
@@ -213,9 +285,11 @@ function Header(
           role="dialog"
           aria-modal="true"
           aria-labelledby="cat-help-title"
+          id="help-dialog"
         >
           <div
             className={sty["modal-content"]}
+            ref={modalContentRef}
             onClick={(e) => e.stopPropagation()}
           >
             {/* ---------- 1.Row welcome title ---------- */}
@@ -319,6 +393,8 @@ function Header(
 
             {/* ---------- close button ---------- */}
             <button
+              ref={closeBtnRef}
+              type="button"
               onClick={() => setShowHelp(false)}
               className={sty["modal-close"]}
             >

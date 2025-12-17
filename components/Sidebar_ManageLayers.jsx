@@ -8,31 +8,30 @@ function LayerCheckbox({ layerKey, label, checked, onToggle, t }) {
   const [showTooltip, setShowTooltip] = React.useState(false);
   const tooltipRef = React.useRef(null);
 
+  const checkboxRef = React.useRef(null);
+
   return (
     <div className={sty["checkbox-container"]}>
       <div className={sty["checkbox-top-row"]}>
         <label className={sty["checkbox-label"]}>
-          <input type="checkbox" checked={checked} onChange={onToggle} />
+          <input
+            ref={checkboxRef} 
+            type="checkbox"
+            checked={checked}
+            onChange={() => {
+              onToggle();
+              requestAnimationFrame(() => {
+                checkboxRef.current?.focus();
+              });
+            }}
+            className={sty.kbdFocus}
+          />
           <span className={sty["sidebar-text"]}>{label}</span>
         </label>
-        {/* <span
-          className={sty["info-icon"]}
-          ref={tooltipRef}
-          onClick={(e) => {
-            e.stopPropagation();
-            setShowTooltip((prev) => !prev);
-          }}
-          title={t("tooltip_layer_title")}
-          style={{ marginLeft: 8, cursor: "pointer", userSelect: "none" }}
-          aria-label={t("tooltip_layer_title")} 
-          aria-haspopup="dialog"
-          aria-expanded={showTooltip}
-          aria-controls={`tip-layer-${layerKey}`}
-        >
-          i
-        </span> */}
+
         <button
-          className={sty["info-icon"]}
+          type="button"
+          className={`${sty["info-icon"]} ${sty.kbdFocus}`}
           ref={tooltipRef}
           onClick={(e) => {
             e.stopPropagation();
@@ -51,9 +50,44 @@ function LayerCheckbox({ layerKey, label, checked, onToggle, t }) {
         show={showTooltip}
         type={`layer:${layerKey}`}
         anchorRef={tooltipRef}
-        onClose={() => setShowTooltip(false)}
+        onClose={() => {
+          setShowTooltip(false);
+          tooltipRef.current?.focus();
+        }}
         id={`tip-layer-${layerKey}`}
       />
+    </div>
+  );
+}
+
+function Category({ name, label, isOpen, onToggle, children, sty }) {
+  const contentId = `category-content-${name}`;
+  const headingId = `category-heading-${name}`;
+
+  return (
+    <div className={sty["faq-item"]}>
+      <button
+        type="button"
+        className={`${sty["faq-question"]} ${sty.kbdFocus}`}
+        onClick={onToggle}
+        aria-expanded={isOpen}
+        aria-controls={contentId}
+        id={headingId}
+      >
+        <span className={sty["sidebar-subtitle"]}>{label}</span>
+        <span className={sty["faq-icon"]}>{isOpen ? "−" : "+"}</span>
+      </button>
+
+      {isOpen && (
+        <div
+          id={contentId}
+          className={sty["faq-answer"]}
+          role="group"
+          aria-labelledby={headingId}
+        >
+          {children}
+        </div>
+      )}
     </div>
   );
 }
@@ -70,38 +104,6 @@ export default function MapLayers({ selectedLayers, toggleLayer, availableLayers
 
   const toggleCategory = (category) => {
     setOpenCategory(openCategory === category ? null : category);
-  };
-
-  const Category = ({ name, label, children }) => {
-    const isOpen = openCategory === name;
-    const contentId = `category-content-${name}`;
-    const headingId = `category-heading-${name}`;
-
-    return (
-      <div className={sty["faq-item"]}>
-        <button
-          className={sty["faq-question"]}
-          onClick={() => toggleCategory(name)}
-          aria-expanded={isOpen}
-          aria-controls={contentId}
-          id={headingId}
-        >
-          <span className={sty["sidebar-subtitle"]}>{label}</span>
-          <span className={sty["faq-icon"]}>{isOpen ? "−" : "+"}</span>
-        </button>
-
-        {isOpen && (
-          <div
-            id={contentId}
-            className={sty["faq-answer"]}
-            role="group"
-            aria-labelledby={headingId}
-          >
-            {children}
-          </div>
-        )}
-      </div>
-    );
   };
 
   const groups = [
@@ -137,7 +139,8 @@ export default function MapLayers({ selectedLayers, toggleLayer, availableLayers
         </h2>
 
         <button
-          className={sty["info-icon"]}
+          type="button"
+          className={`${sty["info-icon"]} ${sty.kbdFocus}`}
           ref={infoIconRef}
           onClick={(e) => {
             e.stopPropagation();
@@ -156,18 +159,33 @@ export default function MapLayers({ selectedLayers, toggleLayer, availableLayers
           show={showInfo}
           type="dataInfo"
           anchorRef={infoIconRef}
-          onClose={() => setShowInfo(false)}
+          onClose={() => {
+            setShowTooltip(false);
+            tooltipRef.current?.focus();
+          }}
           id="tip-datainfo"
         />
       </div>
 
       <div className={sty["faq-container"]}>
-        <Category name="env" label={t('env_category')}>
+        <Category
+          name="env"
+          label={t('env_category')}
+          isOpen={openCategory === "env"}
+          onToggle={() => toggleCategory("env")}
+          sty={sty}
+        >
           {/* {findLayer("noise_wms") && renderCheckbox(findLayer("noise_wms"), t('display_noise'))} */}
           {findLayer("temp_summer") && renderCheckbox(findLayer("temp_summer"), t('display_summer_heat'))}
           {findLayer("temp_winter") && renderCheckbox(findLayer("temp_winter"), t('display_winter_cold'))}
         </Category> 
-        <Category name="phy" label={t('phy_category')}>
+        <Category
+          name="phy"
+          label={t('phy_category')}
+          isOpen={openCategory === "phy"}
+          onToggle={() => toggleCategory("phy")}
+          sty={sty}
+        >
           {findLayer("streetlight") && renderCheckbox(findLayer("streetlight"), t('display_light'))}
           {findLayer("trafic_light_wms") && renderCheckbox(findLayer("trafic_light_wms"), t('display_traffic'))}
           {findLayer("trafic_light") && renderCheckbox(findLayer("trafic_light"), t('display_traffic'))}
@@ -188,7 +206,13 @@ export default function MapLayers({ selectedLayers, toggleLayer, availableLayers
           {findLayer("poor_pavement") && renderCheckbox(findLayer("poor_pavement"), t('display_pavement'))}
           {findLayer("kerbs_high") && renderCheckbox(findLayer("kerbs_high"), t('display_kerb_high'))}
         </Category> 
-        <Category name="psy" label={t('psy_category')}>
+        <Category 
+          name="psy"
+          label={t('psy_category')}
+          isOpen={openCategory === "psy"}
+          onToggle={() => toggleCategory("psy")}
+          sty={sty}
+        >
           {findLayer("facility_wms") && renderCheckbox(findLayer("facility_wms"), t('display_facility'))}
           {findLayer("facilities") && renderCheckbox(findLayer("facilities"), t('display_facility'))}
           {findLayer("pedestrian_flow_wms") && renderCheckbox(findLayer("pedestrian_flow_wms"), t('display_pedestrian_flow'))}

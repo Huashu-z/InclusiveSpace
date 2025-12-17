@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef } from "react";
+import React, { useState, useMemo, useRef, useEffect } from "react";
 import sty from "./Sidebar.module.css";
 import { useTranslation } from 'next-i18next';
 import Tooltip from "./Sidebar_Tooltip";
@@ -51,6 +51,8 @@ export default function AccessibilityControls({
     try {
       const results = await searchAddressSuggestions(q);
       setAddrResults(results);
+      requestAnimationFrame(() => inputRef.current?.focus());
+      setActiveIndex(results.length > 0 ? 0 : -1);
       setLiveMessage(results.length
         ? t('sr_search_success')
         : t('sr_no_results'));
@@ -70,6 +72,52 @@ export default function AccessibilityControls({
   };
   const walkingTimePct = useMemo(() => toPct(walkingTime, 1, 30), [walkingTime]);
   const walkingSpeedPct = useMemo(() => toPct(walkingSpeed, 3, 6), [walkingSpeed]);
+
+  const inputRef = useRef(null);
+  const listboxRef = useRef(null);
+  const optionElsRef = useRef([]);
+
+  React.useEffect(() => {
+    if (!selectingStart) return;
+
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setSelectingStart(false);
+        setLiveMessage("");
+      }
+    };
+    window.addEventListener("keydown", onKeyDown, true);
+    return () => window.removeEventListener("keydown", onKeyDown, true);
+  }, [selectingStart, setSelectingStart]);
+
+  React.useEffect(() => {
+    if (addrResults.length > 0 && activeIndex < 0) {
+      setActiveIndex(0);
+    }
+  }, [addrResults, activeIndex]);
+
+  const selectAddressResult = (r) => {
+    setAddrQuery(r.label);
+    setAddress(r.label);
+    setAddrResults([]);
+    setActiveIndex(-1);
+
+    setStartPoints((prev) =>
+      Array.isArray(prev) ? [...prev, [r.lon, r.lat]] : [[r.lon, r.lat]]
+    );
+    setIsSearchZoom?.(true);
+
+    setLiveMessage(t("sr_start_set_to") + ` ${r.label}`);
+  };
+
+  useEffect(() => {
+    if (activeIndex < 0) return;
+    const el = optionElsRef.current[activeIndex];
+    if (el && typeof el.scrollIntoView === "function") {
+      el.scrollIntoView({ block: "nearest" });
+    }
+  }, [activeIndex]);
 
   return (
     <div className={sty["sidebar-section"]} aria-labelledby="accessibility-heading">
@@ -91,7 +139,7 @@ export default function AccessibilityControls({
       <div className={sty["sidebar-slider"]}>
         <input
           id="walking-time-slider"
-          className={sty["range-filled"]}
+          className={`${sty["range-filled"]} ${sty.kbdFocus}`}
           style={{ "--pct": `${walkingTimePct}%` }}
           type="range"
           min={1}
@@ -112,7 +160,7 @@ export default function AccessibilityControls({
         {t('walking_speed')}{" "}
         <span className={sty["sidebar-text"]}>({walkingSpeed} km/h)</span>
         <button
-          className={sty["info-icon"]}
+          className={`${sty["info-icon"]} ${sty.kbdFocus}`}
           ref={walkingSpeedTooltipRef}
           onClick={(e) => { e.stopPropagation(); setShowWalkingSpeedTooltip(prev => !prev); }}
           aria-label={t('tooltip_walking_speed_title')}
@@ -134,7 +182,7 @@ export default function AccessibilityControls({
       <div className={sty["sidebar-slider"]}>
         <input
           id="walking-speed-slider"
-          className={sty["range-filled"]}
+          className={`${sty["range-filled"]} ${sty.kbdFocus}`}
           style={{ "--pct": `${walkingSpeedPct}%` }}
           type="range"
           min={3}
@@ -186,18 +234,52 @@ export default function AccessibilityControls({
             </label>
             <input
               id="address-input"
+              role="combobox"
+              aria-autocomplete="list"
+              aria-expanded={addrResults.length > 0}
+              aria-controls="address-listbox"
+              aria-activedescendant={activeIndex >= 0 ? `addr-option-${activeIndex}` : undefined}
               placeholder={t('search_address')}
               value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              className={sty["search-input"]}
+              onChange={(e) => {
+                setAddress(e.target.value);
+                setActiveIndex(-1);
+              }}
+              ref={inputRef}
+              onKeyDown={(e) => {
+                const hasList = addrResults.length > 0;
+
+                if (e.key === "ArrowDown" && hasList) {
+                  e.preventDefault();
+                  setActiveIndex((prev) => Math.min(prev + 1, addrResults.length - 1));
+                  return;
+                } else if (e.key === "ArrowUp" && hasList) {
+                  e.preventDefault();
+                  setActiveIndex((prev) => Math.max(prev - 1, 0));
+                } else if (e.key === "Enter") {
+                  const hasList = addrResults.length > 0;
+                  if (hasList && activeIndex >= 0) {
+                    e.preventDefault();
+                    selectAddressResult(addrResults[activeIndex]);
+                  } else {
+                    e.preventDefault();
+                    handleAddressSubmit();
+                  }
+                } else if (e.key === "Escape" && hasList) {
+                  e.preventDefault();
+                  setAddrResults([]);
+                  setActiveIndex(-1);
+                }
+              }}
+              className={`${sty["search-input"]} ${sty.kbdFocus}`}
               aria-label={t('search_address')}
-              aria-controls="address-listbox"
-              aria-describedby="sr-select-start-desc"
+              aria-describedby="sr-select-start-desc" 
             />
             <button
               type="button"
+              onMouseDown={(e) => e.preventDefault()}
               onClick={handleAddressSubmit}
-              className={sty["search-button"]}
+              className={`${sty["search-button"]} ${sty.kbdFocus}`}
               aria-label={t('search_address')}
               title={t('search_address')}
             >
@@ -206,23 +288,24 @@ export default function AccessibilityControls({
 
             {/* Dropdown list when address search is active */}
             {addrResults.length > 0 && (
-              <ul id="address-listbox" role="listbox" className={sty["addr-listbox"]}>
+              <ul
+                id="address-listbox"
+                role="listbox"
+                className={sty["addr-listbox"]}
+                ref={listboxRef}
+              >
                 {addrResults.map((r, i) => (
                   <li
                     key={r.label}
                     id={`addr-option-${i}`}
                     role="option"
                     aria-selected={i === activeIndex}
+                    ref={(el) => (optionElsRef.current[i] = el)}
                     className={i === activeIndex ? sty["option-active"] : sty["option"]}
+                    onMouseEnter={() => setActiveIndex(i)}
                     onMouseDown={(e) => {
                       e.preventDefault();
-                      setAddrQuery(r.label);
-                      setAddrResults([]);
-                      setStartPoints((prev) =>
-                        Array.isArray(prev) ? [...prev, [r.lon, r.lat]] : [[r.lon, r.lat]]
-                      );
-                      setIsSearchZoom?.(true);
-                      setLiveMessage(t('sr_start_set_to') + ` ${r.label}`);
+                      selectAddressResult(r);
                     }}
                   >
                     {r.label}
@@ -232,13 +315,18 @@ export default function AccessibilityControls({
             )}
           </div>
 
-          <button 
+          <button
+            type="button"
             onClick={() => {
-              setSelectingStart(true);
-              setLiveMessage(t('sr_select_start_enabled'));
+              setSelectingStart((prev) => {
+                const next = !prev;
+                setLiveMessage(next ? t('sr_select_start_enabled') : "");
+                return next;
+              });
             }}
-            className={sty["icon-button"]}
+            className={`${sty["icon-button"]} ${sty.kbdFocus}`}
             aria-label={t('select_start')}
+            aria-pressed={!!selectingStart}
             title={t('select_start')}
           >
             <img
@@ -253,7 +341,7 @@ export default function AccessibilityControls({
 
       <hr className={sty["divider"]} /> 
 
-      <button onClick={handleResetResults} className={sty["setup-button"]}>
+      <button onClick={handleResetResults} className={`${sty["setup-button"]} ${sty.kbdFocus}`}>
         <span className={sty["sidebar-text-bold"]}>{t('reset')}</span>
       </button> 
     </div>

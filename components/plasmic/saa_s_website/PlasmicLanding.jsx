@@ -26,7 +26,14 @@ export default function PlasmicLanding() {
         pathname: "/user",
         query: { city: selectedCity }
     });
-    };
+  };
+
+  const enterCity = (id, center) => {
+    localStorage.setItem("selectedCity", id);
+    localStorage.setItem("selectedCityCenter", JSON.stringify(center));
+    sessionStorage.removeItem("helpShown");
+    router.push(`/user?city=${id}`);
+  };
 
   return (
     <div className={sty.container}>
@@ -68,19 +75,14 @@ export default function PlasmicLanding() {
                 {/* Hamburg */}
                 <div
                   className={sty.cityCardRow}
-                  onClick={() => {
-                    localStorage.setItem("selectedCity", "hamburg");
-                    localStorage.setItem("selectedCityCenter", JSON.stringify([53.5503, 9.9920]));
-                    sessionStorage.removeItem("helpShown");
-                    window.location.href = "/user?city=hamburg";
-                  }}
+                  onClick={() => enterCity("hamburg", [53.5503, 9.9920])}
                   role="button"
                   aria-label={t('landing_enter_hamburg')}
                   tabIndex={0}
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault(); 
-                      router.push('/user?city=hamburg');
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      enterCity("hamburg", [53.5503, 9.9920]);
                     }
                   }}
                 >
@@ -101,19 +103,14 @@ export default function PlasmicLanding() {
                 {/* Penteli */}
                 <div
                   className={sty.cityCardRow}
-                  onClick={() => {
-                    localStorage.setItem("selectedCity", "penteli");
-                    localStorage.setItem("selectedCityCenter", JSON.stringify([38.0491, 23.8653]));
-                    sessionStorage.removeItem("helpShown");
-                    window.location.href = "/user?city=penteli";
-                  }}
+                  onClick={() => enterCity("penteli", [38.0491, 23.8653])}
                   role="button"
                   aria-label={t('landing_enter_penteli')}
                   tabIndex={0}
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault(); 
-                      router.push('/user?city=penteli');
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      enterCity("penteli", [38.0491, 23.8653]);
                     }
                   }}
                 >

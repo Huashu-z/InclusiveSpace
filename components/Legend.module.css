@@ -171,3 +171,17 @@
   outline: 2px solid #000;
   outline-offset: 2px;
 }
+
+/* Unified focus-visible ring for Legend controls */
+.legend-header-button:focus-visible,
+.legend-title-button:focus-visible,
+.toggle-button:focus-visible {
+  outline: 3px solid #0A84FF;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* If the toggle button is very small, slightly tighter radius */
+.toggle-button:focus-visible {
+  border-radius: 4px;
+}

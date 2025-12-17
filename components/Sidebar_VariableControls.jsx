@@ -46,6 +46,7 @@ export default function VariableControls({
           <label className={sty["checkbox-label"]}>
             <input
               type="checkbox"
+              className={sty.kbdFocus}
               onChange={() => {
                 toggleVariable(layer);
                 setLiveMessage(
@@ -65,7 +66,8 @@ export default function VariableControls({
             <span className={sty["sidebar-text"]}>{label}</span>
           </label>
           <button
-            className={sty["info-icon"]}
+            type="button"
+            className={`${sty["info-icon"]} ${sty.kbdFocus}`}
             ref={tooltipRef}
             onClick={(e) => { e.stopPropagation(); setShowTooltip(prev => !prev); }}
             aria-label={t('tooltip_variable_title')}
@@ -95,7 +97,7 @@ export default function VariableControls({
             step="1"
             disabled={!enabled}
             value={sliderIndex >= 0 ? sliderIndex : 3}
-            className={!enabled ? sty["disabled"] : ""}
+            className={`${sty.kbdFocus} ${!enabled ? sty["disabled"] : ""}`}
             aria-label={t('variable_weight_for' , { label })}
             aria-valuemin={0}
             aria-valuemax={3}
@@ -163,7 +165,8 @@ export default function VariableControls({
           <span>{t("leg_comfort_features")}</span>
         </div>
         <button
-          className={sty["info-icon"]}
+          type="button"
+          className={`${sty["info-icon"]} ${sty.kbdFocus}`}
           ref={infoIconRef}
           onClick={(e) => {
             e.stopPropagation();
@@ -273,6 +276,7 @@ export default function VariableControls({
       {/* Get Catchment Area button */}
       <div className={sty["button-container"]}>
         <button
+          type="button"
           onClick={() => {
             if (startPoints.length === 0) {
               alert("Please select a starting point first!");
@@ -280,22 +284,24 @@ export default function VariableControls({
             }            
             setComputeAccessibility(true);
           }}
-          className={sty["get-catchment-button"]}
+          className={`${sty["get-catchment-button"]} ${sty.kbdFocus}`}
         >
           <span className={sty["sidebar-text-bold"]}>✚ {t('get_area')}</span>
         </button>
       </div>
       {/* Clear Result Button */}
       <button
+        type="button"
         onClick={handleClearResult}
-        className={sty["setup-button"]}  
+        className={`${sty["setup-button"]} ${sty.kbdFocus}`} 
       >
         <span className={sty["sidebar-text-bold"]}> {t('clear_result')}</span>
       </button>
         {/* NEW: Clear Variables Button */}
       <button
+        type="button"
         onClick={handleClearVariables}
-        className={sty["setup-button"]}
+        className={`${sty["setup-button"]} ${sty.kbdFocus}`}
         style={{ marginTop: 6 }}
       >
         <span className={sty["sidebar-text-bold"]}>
@@ -307,15 +313,15 @@ export default function VariableControls({
   );
 }
 
-function Category({ id, name, open, onClick, children }) {
-  const sty = require("./plasmic/saa_s_website/PlasmicUser.module.css");
+function Category({ id, name, open, onClick, children }) { 
   const headingId = `var-category-heading-${id}`;
   const contentId = `var-category-content-${id}`;
   return (
     <div className={sty["faq-item"]}>
       <h3 className={sty["sidebar-subtitle"]} id={headingId}>
         <button
-          className={sty["faq-question"]}
+          type="button"
+          className={`${sty["faq-question"]} ${sty.kbdFocus}`}
           onClick={onClick}
           aria-expanded={open}
           aria-controls={contentId}
