@@ -170,12 +170,12 @@ function Header(
     // only white CAT logo on left
     left = (
       <Link href={`/`} className={sty.focusRing}>
-        <img
+        {/* <img
           src="/images/CAT_logo_white.svg"
           alt={t('logo_CAT')}
           className={sty["CAT-logo"]}
           style={{ marginLeft: 0 }}
-        />
+        /> */}
       </Link>
     );
   }
