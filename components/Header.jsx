@@ -510,7 +510,7 @@ function Header(
                 <span className={sty.kbdCombo}>
                   <img src="/images/key_alt.svg" alt="" aria-hidden="true" className={sty.keyIcon} />
                   <span className={sty.kbdPlus}>+</span>
-                  <img src="/images/key_n.png" alt="" aria-hidden="true" className={sty.keyIcon} />
+                  <img src="/images/key_N.svg" alt="" aria-hidden="true" className={sty.keyIcon} />
                 </span>
                 <span className={sty.shortcutText}>
                   {t("modal_shortcut_skipnav_suffix")}
