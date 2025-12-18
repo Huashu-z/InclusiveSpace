@@ -1,6 +1,11 @@
 {
   "page_title_landing": "CAT – Αρχική",
   "page_title_map": "CAT – Χάρτης",
+  "nav_links": "Γραμμή πλοήγησης",
+  "nav_to_profile": "Μετάβαση στο προφίλ",
+  "nav_to_sidebar": "Μετάβαση στην πλαϊνή μπάρα",
+  "nav_to_results": "Μετάβαση στα αποτελέσματα",
+  "nav_to_map": "Μετάβαση στον χάρτη",
   
   "aria_enabled": "ενεργοποιήθηκε",
   "aria_disabled": "απενεργοποιήθηκε",

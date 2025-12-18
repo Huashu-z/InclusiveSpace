@@ -1,6 +1,11 @@
 {
   "page_title_landing":"CAT – Home",
   "page_title_map":"CAT – Map",
+  "nav_links": "Navigation bar",
+  "nav_to_profile": "Navigate to profile",
+  "nav_to_sidebar": "Navigate to sidebar",
+  "nav_to_results": "Navigate to results",
+  "nav_to_map": "Navigate to map",
 
   "aria_enabled": "enabled",
   "aria_disabled": "disabled",

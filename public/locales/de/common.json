@@ -1,6 +1,11 @@
 {
   "page_title_landing": "CAT – Startseite",
   "page_title_map": "CAT – Karte",
+  "nav_links": "Navigationsleiste",
+  "nav_to_profile": "Zum Profil springen",
+  "nav_to_sidebar": "Zur Seitenleiste springen",
+  "nav_to_results": "Zu den Ergebnissen springen",
+  "nav_to_map": "Zur Karte springen",
   
   "aria_enabled": "aktiviert",
   "aria_disabled": "deaktiviert",

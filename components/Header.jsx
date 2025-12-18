@@ -46,23 +46,19 @@ function Header(
 
   // naviagation bar for keyboard user
   React.useEffect(() => {
-    const onKeyDown = (e) => {
-      // 不要在用户输入时抢快捷键
+    const onKeyDown = (e) => { 
       if (isTypingTarget(e.target)) return;
 
-      // Alt+Shift+N：打开并聚焦 skip links
+      // Alt+N：navigation links
       if (e.altKey && e.code === "KeyN") {
         e.preventDefault();
-        setSkipOpen(true);
-
-        // 下一帧再 focus，确保 nav 已渲染/已展开
+        setSkipOpen(true); 
         requestAnimationFrame(() => {
           firstSkipRef.current?.focus();
         });
         return;
       }
-
-      // Esc：关闭（可选）
+      // Esc
       if (e.key === "Escape") {
         if (skipOpen) {
           e.preventDefault();
@@ -328,9 +324,8 @@ function Header(
       <nav
         ref={skipNavRef}
         className={`${sty.skipLinks} ${skipOpen ? sty.skipLinksOpen : ""}`}
-        aria-label={t("skip_links_nav", { defaultValue: "Skip links" })}
-        onBlur={(e) => {
-          // 焦点完全离开 skipLinks 才收起（避免在内部 tab 时收起）
+        aria-label={t("nav_links")}
+        onBlur={(e) => { 
           if (!e.currentTarget.contains(e.relatedTarget)) {
             setSkipOpen(false);
           }
@@ -344,7 +339,7 @@ function Header(
               className={sty.skipLink}
               onClick={(e) => focusTarget(e, "profile")}
             >
-              {t("skip_to_profile", { defaultValue: "Navigate to profile" })}
+              {t("nav_to_profile")}
             </a>
 
             <a
@@ -352,7 +347,7 @@ function Header(
               className={sty.skipLink}
               onClick={(e) => focusTarget(e, "sidebar")}
             >
-              {t("skip_to_sidebar", { defaultValue: "Navigate to sidebar" })}
+              {t("nav_to_sidebar")}
             </a>
 
             <a
@@ -360,7 +355,7 @@ function Header(
               className={sty.skipLink}
               onClick={(e) => focusTarget(e, "legend")}
             >
-              {t("skip_to_results", { defaultValue: "Navigate to results" })}
+              {t("nav_to_results")}
             </a>
 
             <a
@@ -368,7 +363,7 @@ function Header(
               className={sty.skipLink}
               onClick={(e) => focusTarget(e, "map-region")}
             >
-              {t("skip_to_map", { defaultValue: "Navigate to map" })}
+              {t("nav_to_map")}
             </a>
           </>
         )}
