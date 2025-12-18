@@ -191,6 +191,34 @@ function PlasmicUser__RenderFunc(props) {
               setLayerValues={setLayerValues}
               setWalkingSpeed={setWalkingSpeed}
             />
+            <Sidebar
+              sidebarOpen={sidebarOpen}
+              setSidebarOpen={setSidebarOpen}
+              enabledVariables={enabledVariables}
+              toggleVariable={toggleVariable}
+              selectedLayers={selectedLayers}
+              toggleLayer={toggleLayer}
+              layerValues={layerValues}
+              availableLayers={availableLayers}
+              handleInputChange={handleInputChange}
+              walkingTime={walkingTime}
+              setWalkingTime={setWalkingTime}
+              walkingSpeed={walkingSpeed}
+              setWalkingSpeed={setWalkingSpeed}
+              setSelectingStart={setSelectingStart}
+              startPoints={startPoints}
+              setStartPoints={setStartPoints} 
+              setComputeAccessibility={setComputeAccessibility}
+              handleResetResults={handleResetResults}
+              handleClearResult={handleClearResult}
+              handleClearVariables={handleClearVariables}
+              openCategory={openCategory}
+              toggleCategory={toggleCategory}
+              showInfo={showInfo}
+              setShowInfo={setShowInfo}
+              isSearchZoom={isSearchZoom}
+              setIsSearchZoom={setIsSearchZoom}
+            />            
             <LayerTagBar selectedLayers={selectedLayers} toggleLayer={toggleLayer} />
             <MapComponent
               cityCenter={cityCenter}
@@ -215,34 +243,7 @@ function PlasmicUser__RenderFunc(props) {
               setIsSearchZoom={setIsSearchZoom} 
             />
           </div>
-          <Sidebar
-            sidebarOpen={sidebarOpen}
-            setSidebarOpen={setSidebarOpen}
-            enabledVariables={enabledVariables}
-            toggleVariable={toggleVariable}
-            selectedLayers={selectedLayers}
-            toggleLayer={toggleLayer}
-            layerValues={layerValues}
-            availableLayers={availableLayers}
-            handleInputChange={handleInputChange}
-            walkingTime={walkingTime}
-            setWalkingTime={setWalkingTime}
-            walkingSpeed={walkingSpeed}
-            setWalkingSpeed={setWalkingSpeed}
-            setSelectingStart={setSelectingStart}
-            startPoints={startPoints}
-            setStartPoints={setStartPoints} 
-            setComputeAccessibility={setComputeAccessibility}
-            handleResetResults={handleResetResults}
-            handleClearResult={handleClearResult}
-            handleClearVariables={handleClearVariables}
-            openCategory={openCategory}
-            toggleCategory={toggleCategory}
-            showInfo={showInfo}
-            setShowInfo={setShowInfo}
-            isSearchZoom={isSearchZoom}
-            setIsSearchZoom={setIsSearchZoom}
-          />
+
         </Stack__>
       </div>
     </React.Fragment>

@@ -185,6 +185,8 @@ export default function Profile({
 
   return (
     <section
+      id="profile"
+      tabIndex={-1}
       className={sty.profilePanel}
       aria-label={titleText}
     >

@@ -16,6 +16,21 @@ function Header(
   const [showCityMenu, setShowCityMenu] = React.useState(false);
   const { t } = useTranslation("common");
 
+  // navigation bar for keyboard user
+  const [skipOpen, setSkipOpen] = React.useState(false);
+  const skipNavRef = React.useRef(null);
+  const firstSkipRef = React.useRef(null);
+
+  const isTypingTarget = (target) => {
+    if (!target) return false;
+    const tag = target.tagName?.toLowerCase();
+    return (
+      tag === "input" ||
+      tag === "textarea" ||
+      target.isContentEditable
+    );
+  };
+
   // language selection setting
   const router = useRouter();
   const currentLocale = router.locale || "en";
@@ -29,6 +44,38 @@ function Header(
     setShowHelp(false);
   }, [setShowHelp]);
 
+  // naviagation bar for keyboard user
+  React.useEffect(() => {
+    const onKeyDown = (e) => {
+      // 不要在用户输入时抢快捷键
+      if (isTypingTarget(e.target)) return;
+
+      // Alt+Shift+N：打开并聚焦 skip links
+      if (e.altKey && e.code === "KeyN") {
+        e.preventDefault();
+        setSkipOpen(true);
+
+        // 下一帧再 focus，确保 nav 已渲染/已展开
+        requestAnimationFrame(() => {
+          firstSkipRef.current?.focus();
+        });
+        return;
+      }
+
+      // Esc：关闭（可选）
+      if (e.key === "Escape") {
+        if (skipOpen) {
+          e.preventDefault();
+          setSkipOpen(false);
+        }
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown, true);
+    return () => window.removeEventListener("keydown", onKeyDown, true);
+  }, [skipOpen]);
+
+  // show help
   React.useEffect(() => {
     if (!showHelp) return;
     lastFocusRef.current = document.activeElement;
@@ -267,8 +314,66 @@ function Header(
       ? [sty["header-container"], sty["landing-header-bg"], sty["landing-header-text"]].join(" ")
       : sty["header-container"];
 
+  const focusTarget = (e, id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    e.preventDefault();
+    el.setAttribute("tabindex", "-1");
+    el.focus();
+    window.location.hash = id;
+  };
+
   return (
     <>
+      <nav
+        ref={skipNavRef}
+        className={`${sty.skipLinks} ${skipOpen ? sty.skipLinksOpen : ""}`}
+        aria-label={t("skip_links_nav", { defaultValue: "Skip links" })}
+        onBlur={(e) => {
+          // 焦点完全离开 skipLinks 才收起（避免在内部 tab 时收起）
+          if (!e.currentTarget.contains(e.relatedTarget)) {
+            setSkipOpen(false);
+          }
+        }}
+      >
+        {variant === "map" && (
+          <>
+            <a
+              ref={firstSkipRef}
+              href="#profile"
+              className={sty.skipLink}
+              onClick={(e) => focusTarget(e, "profile")}
+            >
+              {t("skip_to_profile", { defaultValue: "Navigate to profile" })}
+            </a>
+
+            <a
+              href="#sidebar"
+              className={sty.skipLink}
+              onClick={(e) => focusTarget(e, "sidebar")}
+            >
+              {t("skip_to_sidebar", { defaultValue: "Navigate to sidebar" })}
+            </a>
+
+            <a
+              href="#legend"
+              className={sty.skipLink}
+              onClick={(e) => focusTarget(e, "legend")}
+            >
+              {t("skip_to_results", { defaultValue: "Navigate to results" })}
+            </a>
+
+            <a
+              href="#map-region"
+              className={sty.skipLink}
+              onClick={(e) => focusTarget(e, "map-region")}
+            >
+              {t("skip_to_map", { defaultValue: "Navigate to map" })}
+            </a>
+          </>
+        )}
+      </nav>
+
       <PlasmicHeader
         left={left}
         center={center}
@@ -350,7 +455,7 @@ function Header(
             </h3>
             <div className={sty["modal-row"]}>
               {/* MapLayers card/ data information */}
-              <div className={`${sty["modal-card"]} ${sty["modal-card-icon"]} ${sty["icon-card-layers"]}`}>
+              <div className={`${sty["modal-card"]} ${sty["modal-card-icon"]} ${sty["icon-card"]}`}>
                 <div className={sty["icon-circle"]}>
                   <img src="/images/help_data.png" alt={t("icon_data_info")} />
                 </div>
@@ -363,7 +468,7 @@ function Header(
               </div>
 
               {/* Profile card */}
-              <div className={`${sty["modal-card"]} ${sty["modal-card-icon"]} ${sty["icon-card-profile"]}`}>
+              <div className={`${sty["modal-card"]} ${sty["modal-card-icon"]} ${sty["icon-card"]}`}>
                 <div className={sty["icon-circle"]}>
                   <img src="/images/profile.png" alt={t("icon_profile")} />
                 </div>
@@ -376,7 +481,7 @@ function Header(
               </div>
 
               {/* Legend card/ catchemtn area results */}
-              <div className={`${sty["modal-card"]} ${sty["modal-card-icon"]} ${sty["icon-card-legend"]}`}>
+              <div className={`${sty["modal-card"]} ${sty["modal-card-icon"]} ${sty["icon-card"]}`}>
                 <div className={sty["icon-circle"]}>
                   <img src="/images/help_result.png" alt={t("icon_catchment_area")} />
                 </div>
@@ -390,6 +495,33 @@ function Header(
               
             </div>
 
+            {/* Keyboard shortcut hint */}
+            <p className={sty["modal-shortcut-hint"]}>
+              {/* Screen reader only (no SVG) */}
+              <span className={sty.srOnly}>
+                {t("modal_shortcut_skipnav_sr")}
+              </span>
+              {/* Visual line (SVGs), hidden from screen readers */}
+              <span className={sty.shortcutVisual} aria-hidden="true">
+                <img
+                  src="/images/keyboard.svg"
+                  alt=""
+                  aria-hidden="true"
+                  className={sty.shortcutIcon}
+                />
+                <span className={sty.shortcutText}>
+                  {t("modal_shortcut_skipnav_prefix")}
+                </span>
+                <span className={sty.kbdCombo}>
+                  <img src="/images/key_alt.svg" alt="" aria-hidden="true" className={sty.keyIcon} />
+                  <span className={sty.kbdPlus}>+</span>
+                  <img src="/images/key_n.svg" alt="" aria-hidden="true" className={sty.keyIcon} />
+                </span>
+                <span className={sty.shortcutText}>
+                  {t("modal_shortcut_skipnav_suffix")}
+                </span>
+              </span>
+            </p>
 
             {/* ---------- close button ---------- */}
             <button

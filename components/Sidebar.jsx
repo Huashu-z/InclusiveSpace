@@ -40,6 +40,8 @@ export default function Sidebar({
   }) {
     return (
         <div
+            id="sidebar"
+            tabIndex={-1}
             className={classNames(
             projectcss.all,
             sty.sideBarBox,

@@ -552,6 +552,8 @@ const MapComponent = ({
 
   return (
     <section
+      id="map-region"
+      tabIndex={-1}
       className="mapBox"
       style={{ position: "relative" }}
       aria-label={mapRegionLabel}

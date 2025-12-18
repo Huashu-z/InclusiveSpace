@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_图层_2" data-name="图层 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 183.14 112.31">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #143e5c;
+      }
+    </style>
+  </defs>
+  <g id="_图层_1-2" data-name="图层 1">
+    <g>
+      <path class="cls-1" d="M9.65.12l163.09-.12c4.88.38,8.86,2.79,10.4,7.57v97.18c-1.54,4.78-5.52,7.18-10.4,7.57H10.65c-5.33-.42-9.66-3.33-10.65-8.81V8.81C.86,3.86,4.78.7,9.65.12ZM174.04,9.37H9.36v93.57h164.68V9.37Z"/>
+      <g>
+        <path class="cls-1" d="M49.3,76.07l84.14-.09c5.06,1.07,5.05,7.93,0,9H49.96c-4.71-1.03-5.16-7.02-.66-8.91Z"/>
+        <circle class="cls-1" cx="115.14" cy="56.15" r="5.77"/>
+        <circle class="cls-1" cx="79.95" cy="31.87" r="5.77"/>
+        <circle class="cls-1" cx="33.04" cy="31.87" r="5.76"/>
+        <circle class="cls-1" cx="103.41" cy="31.87" r="5.76"/>
+        <circle class="cls-1" cx="150.36" cy="31.87" r="5.76"/>
+        <circle class="cls-1" cx="138.59" cy="56.15" r="5.76"/>
+        <circle class="cls-1" cx="44.81" cy="56.16" r="5.76"/>
+        <circle class="cls-1" cx="68.22" cy="56.15" r="5.76"/>
+        <circle class="cls-1" cx="56.52" cy="31.86" r="5.73"/>
+        <circle class="cls-1" cx="126.88" cy="31.86" r="5.73"/>
+        <circle class="cls-1" cx="91.7" cy="56.15" r="5.72"/>
+      </g>
+    </g>
+  </g>
+</svg>

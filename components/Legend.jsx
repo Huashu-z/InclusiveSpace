@@ -83,6 +83,8 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
 
   return (
     <section
+      id="legend"
+      tabIndex={-1}
       className={styles["legend-container"]}
       aria-labelledby="legend-heading"
     >
