@@ -35,214 +35,247 @@ export default function PlasmicLanding() {
     router.push(`/user?city=${id}`);
   };
 
+  const bannerBgUrl = "/images/landing_bg2.png";
+  const overlayOpacity = 0.3;
+
   return (
     <div className={sty.container}>
       <Header variant="landing"/>
 
       {/* === CAT === */}
-      <section className={sty.banner}>
+      <section
+        className={sty.banner}
+        style={{
+          "--banner-bg-image": `url("${bannerBgUrl}")`,
+          "--banner-overlay-opacity": overlayOpacity,
+        }}
+      >
         <div className={sty.bannerGrid}>
-          {/* === First row: logo/introduction/contact on the left, city card on the right === */}
+          {/* === First row: left (60%) + right (40%) === */}
           <div className={sty.bannerRow}>
-            {/* Left content */}
-            <div className={sty.bannerCol}>
-              <div className={sty.brandWrap}>
+            {/* Left content (wider) */}
+            <div className={`${sty.bannerCol} ${sty.bannerColLeft}`}>
+              <div className={`${sty.brandWrap} ${sty.brandWrapLogo}`}>
                 <img
                   src="/images/CAT_title_white.svg"
                   alt={t('landing_cat_title')}
                   className={sty.catTitleImg}
                 />
               </div>
-              <div className={sty.brandWrap}>
-                <div className={sty.introCard}>
-                  <div className={sty.introHeading}>{t('landing_banner_title')}</div>
+
+              <div className={`${sty.brandWrap} ${sty.brandWrapFull}`}>
+                <div className={sty.introCard}> 
                   <p className={sty.introText}>{t('landing_banner_intro')}</p>
                 </div>
               </div>
-              <div className={sty.brandWrap}>
-                <div className={sty.contactWrap}>
+
+              <div className={`${sty.brandWrap} ${sty.brandWrapFull}`}>
+                <div className={sty.contactActionBlock}>
                   <div className={sty.contactCaption}>
                     {t('landing_banner_contact_caption')}
+                  </div>
+
+                  <div className={sty.contactActions}>
+                    <button
+                      className={sty.contactBtn}
+                      onClick={() => {
+                        const block = document.getElementById('contact-info');
+                        if (block) block.scrollIntoView({ behavior: 'smooth' });
+                      }}
+                    >
+                      {t('landing_banner_contact_btn')}
+                    </button>
+
+                    {/* <button
+                      className={sty.feedbackBtn}
+                      onClick={() => alert(t('feature_under_construction'))}
+                    >
+                      {t('landing_banner_share_btn')}
+                    </button> */}
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Right city card */}
-            <div className={sty.bannerCol}>
-              <h3 className={sty.cityTitle}>{t('landing_city_section_title')}</h3>
-              <div className={sty.cityCol}>
-                {/* Hamburg */}
-                <div
-                  className={sty.cityCardRow}
-                  onClick={() => enterCity("hamburg", [53.5503, 9.9920])}
-                  role="button"
-                  aria-label={t('landing_enter_hamburg')}
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      enterCity("hamburg", [53.5503, 9.9920]);
-                    }
-                  }}
-                >
-                  <div className={sty.cityCircle}>
-                    <span className={sty.cityCircleLabel}>{t('landing_city_hamburg')}</span>
-                    <img
-                      src="/images/hamburg_map.png"
-                      alt=""
-                      role="presentation"
-                      aria-hidden="true"
-                      className={sty.cityThumb}
-                    />
-                  </div>
-                  <div className={sty.cityRect}>
-                    <p>{t('landing_city_hamburg_desc')}</p>
-                  </div>
-                </div>
-                {/* Penteli */}
-                <div
-                  className={sty.cityCardRow}
-                  onClick={() => enterCity("penteli", [38.0491, 23.8653])}
-                  role="button"
-                  aria-label={t('landing_enter_penteli')}
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      enterCity("penteli", [38.0491, 23.8653]);
-                    }
-                  }}
-                >
-                  <div className={sty.cityCircle}>
-                    <span className={sty.cityCircleLabel}>{t('landing_city_penteli')}</span>
-                    <img
-                      src="/images/penteli_map.png"
-                      alt=""
-                      role="presentation"
-                      aria-hidden="true"
-                      className={sty.cityThumb}
-                    />
-                  </div>
-                  <div className={sty.cityRect}>
-                    <p>{t('landing_city_penteli_desc')}</p>
-                  </div>
-                </div>
-              </div> 
-            </div>
-          </div>
+            {/* Right city cards */}
+            <div className={`${sty.bannerCol} ${sty.bannerColRight}`}>
+              <div className={sty.cityBoard}>
+                <h3 className={sty.cityTitle}>{t('landing_city_section_title')}</h3>
 
-          {/* === Second row：left: Contact us, right: Share your thoughts === */}
-          <div className={sty.bannerRow}>
-            {/* Contact us */}
-            <div className={sty.bannerCol}>
-              <button
-                className={sty.contactBtn}
-                onClick={() => {
-                  const block = document.getElementById('contact-info');
-                  if (block) block.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                {t('landing_banner_contact_btn')}
-              </button>
-            </div>
-            {/* Share your thoughts */}
-            <div className={sty.bannerCol}>
-              <button
-                className={sty.feedbackBtn}
-                onClick={() => alert(t('feature_under_construction'))}
-              >
-                {t('landing_banner_share_btn')}
-              </button>
+                <div>
+                  {/* Hamburg */}
+                  <div
+                    className={sty.cityCardRow}
+                    onClick={() => enterCity("hamburg", [53.5503, 9.9920])}
+                    role="button"
+                    aria-label={t('landing_enter_hamburg')}
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        enterCity("hamburg", [53.5503, 9.9920]);
+                      }
+                    }}
+                  >
+                    <div className={sty.cityCircle}>
+                      <span className={sty.cityCircleLabel}>{t('landing_city_hamburg')}</span>
+                      <img
+                        src="/images/hamburg_map.png"
+                        alt=""
+                        role="presentation"
+                        aria-hidden="true"
+                        className={sty.cityThumb}
+                      />
+                    </div>
+                    <div className={sty.cityRect}>
+                      <p>{t('landing_city_hamburg_desc')}</p>
+                    </div>
+                  </div>
+
+                  {/* Penteli */}
+                  <div
+                    className={sty.cityCardRow}
+                    onClick={() => enterCity("penteli", [38.0491, 23.8653])}
+                    role="button"
+                    aria-label={t('landing_enter_penteli')}
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        enterCity("penteli", [38.0491, 23.8653]);
+                      }
+                    }}
+                  >
+                    <div className={sty.cityCircle}>
+                      <span className={sty.cityCircleLabel}>{t('landing_city_penteli')}</span>
+                      <img
+                        src="/images/penteli_map.png"
+                        alt=""
+                        role="presentation"
+                        aria-hidden="true"
+                        className={sty.cityThumb}
+                      />
+                    </div>
+                    <div className={sty.cityRect}>
+                      <p>{t('landing_city_penteli_desc')}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
 
-      {/* === Details about CAT === */}
+      {/* === More description === */}
       <section className={sty.toolDetailsSection}>
-        <h2 className={sty.toolDetailsTitle}>{t('landing_details_title')}</h2>
-        <div className={sty.toolDetailsInner}>
-          {/* left: logo */}
-          <div className={sty.toolDetailsLogoWrap}>
-            <img
-              src="/images/logoIS2.png"
-              alt={t('logo_IS')}
-              className={sty.toolDetailsLogo}
-            />
-          </div>
-          {/* right: text and buttons */}
-          <div className={sty.toolDetailsRight}>
-            <div className={sty.toolDetailsText}>
-              {t("landing_details_blocks", { returnObjects: true }).map((p, idx) => (
-                <p key={idx}>{p}</p>
-              ))}
+        {/* ---- Details about CAT ---- */}
+        <div className={sty.stickerCard}>
+          <h2 className={sty.toolDetailsTitle}>{t('landing_details_title')}</h2>
+          <div className={sty.toolDetailsInner}>
+            {/* left: logo + button */}
+            <div className={sty.toolDetailsLeftCol}>
+              <div className={sty.toolDetailsLogoWrap}>
+                <img
+                  src="/images/logoIS2.png"
+                  alt={t("logo_IS")}
+                  className={sty.toolDetailsLogo}
+                />
+              </div>
+              <button
+                className={sty.toolDetailsBtn}
+                onClick={() => window.open("https://inclusivespaces-heproject.eu/", "_blank")}
+              >
+                {t("landing_visit_inclusive")}
+              </button>
             </div>
-            <button
-              className={sty.toolDetailsBtn}
-              onClick={() => {
-                window.open("https://inclusivespaces-heproject.eu/", "_blank");
-              }}
-            >
-              {t('landing_visit_inclusive')}
-            </button>
+
+            {/* right: text only */}
+            <div className={sty.toolDetailsRight}>
+              <div className={sty.toolDetailsText}>
+                {t("landing_details_blocks", { returnObjects: true }).map((p, idx) => (
+                  <p key={idx}>{p}</p>
+                ))}
+              </div>
+            </div> 
           </div>
         </div>
-        {/* general information section 2 */}
-        <h2 className={sty.toolDetailsTitle}>{t('landing_general_title')}</h2>
-        <div className={sty.toolDetailsInner}>
-          {/* left: text and buttons */}
-          <div className={sty.toolDetailsRight}>
-            <div className={sty.toolDetailsText}>
-              {t("landing_general_blocks", { returnObjects: true }).map((p, idx) => (
-                <p key={idx}>{p}</p>
-              ))}
+
+        {/* ---- General information ---- */}
+        <div className={sty.stickerCard}>
+          <h2 className={sty.toolDetailsTitle}>{t('landing_general_title')}</h2>
+          <div className={sty.toolDetailsInner}>
+            {/* left: text and buttons */}
+            <div className={sty.toolDetailsLeftCol}>
+              <div className={sty.toolDetailsLogoWrap}>
+                <img
+                  src="/images/logo_co-founded-eu_full.png"
+                  alt={t('logo_EU')}
+                  className={sty.toolDetailsLogo}
+                />
+              </div>
+              <div className={sty.toolDetailsLogoWrap}>
+                <img
+                  src="/images/build4people_logo.png"
+                  alt={t('logo_Build4People')}
+                  className={sty.toolDetailsLogo}
+                />
+              </div>
             </div>
-          </div>
-          {/* right: logos arranged vertically */}
-          <div className={sty.toolDetailsLogosCol}>
-            <div className={sty.toolDetailsLogoWrap}>
-              <img
-                src="/images/logo_co-founded-eu_full.png"
-                alt={t('logo_EU')}
-                className={sty.toolDetailsLogo}
-              />
+            {/* right: logos arranged vertically */}
+            <div className={sty.toolDetailsRight}>
+              <div className={sty.toolDetailsText}>
+                {t("landing_general_blocks", { returnObjects: true }).map((p, idx) => (
+                  <p key={idx}>{p}</p>
+                ))}
+              </div>
             </div>
-            <div className={sty.toolDetailsLogoWrap}>
-              <img
-                src="/images/build4people_logo.png"
-                alt={t('logo_Build4People')}
-                className={sty.toolDetailsLogo}
-              />
-            </div>
-          </div>
-        </div> 
+          </div> 
+        </div>
       </section>
 
-      {/* === General information === */}
-      <section className={sty.generalInfoSection}>
-        <div className={sty.generalInfoInner}> 
-          <div className={sty.generalInfoText}> 
-            <div id="contact-info" className={sty.contactInfoBlock}>
-              <b>{t('landing_contact_title')}</b><br />
-              {t('landing_contact_duran')} (<a href="mailto:david.duran@tum.de">david.duran@tum.de</a>)<br />
-              {t('landing_contact_buettner')} (<a href="mailto:benjamin.buettner@tum.de">benjamin.buettner@tum.de</a>)<br />
-              {t('landing_contact_zuckriegl')} (<a href="mailto:lea.zuckriegl@tum.de">lea.zuckriegl@tum.de</a>)<br />
-              {t('landing_contact_zuniga')} (<a href="mailto:mariajose.zuniga@tum.de">mariajose.zuniga@tum.de</a>)<br />
-              {t('landing_contact_huashu')} (<a href="mailto:huashuzhan@tum.de">huashu.zhan@tum.de</a>)<br />
-            </div>
+      {/* === Contact info (green footer) === */}
+      <section className={sty.contactSection} aria-labelledby="contact-title">
+        <div className={sty.contactSectionInner}>
+          <h2 id="contact-title" className={sty.toolDetailsTitle}>
+            {t("landing_contact_title")}
+          </h2>
+
+          <div id="contact-info" className={sty.toolDetailsText}>
+            <ul className={sty.contactList}>
+              <li>
+                {t("landing_contact_duran")} (
+                <a href="mailto:david.duran@tum.de">david.duran@tum.de</a>)
+              </li>
+              <li>
+                {t("landing_contact_buettner")} (
+                <a href="mailto:benjamin.buettner@tum.de">benjamin.buettner@tum.de</a>)
+              </li>
+              <li>
+                {t("landing_contact_zuckriegl")} (
+                <a href="mailto:lea.zuckriegl@tum.de">lea.zuckriegl@tum.de</a>)
+              </li>
+              <li>
+                {t("landing_contact_zuniga")} (
+                <a href="mailto:mariajose.zuniga@tum.de">mariajose.zuniga@tum.de</a>)
+              </li>
+              <li>
+                {t("landing_contact_huashu")} (
+                <a href="mailto:huashu.zhan@tum.de">huashu.zhan@tum.de</a>)
+              </li>
+            </ul>
           </div>
-          
-          <div className={sty.partnerLogos}>
-            {/* Place your logos here, e.g.: */}
-            <img src="/images/logo_co-founded-eu_full.png" alt={t('logo_EU')} />
-            <img src="/images/logoIS_full.png" alt={t('logo_IS')} />
-            <img src="/images/tum_logo_full.png" alt={t('logo_TUM')} />
+
+          {/* partner logos */}
+          <div className={sty.partnerLogoBar}>
+            <img className={sty.partnerLogoImg} src="/images/logo_co-founded-eu_full.png" alt={t('logo_EU')} />
+            <img className={sty.partnerLogoImg} src="/images/logoIS_full.png" alt={t('logo_IS')} />
+            <img className={sty.partnerLogoImg} src="/images/tum_logo_full.png" alt={t('logo_TUM')} />
             {/* Add other partner logos as needed */}
           </div>
         </div>
-      </section>
+      </section> 
     </div>
   );
 }

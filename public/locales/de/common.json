@@ -28,7 +28,7 @@
   "landing_banner_share_btn": "Teilen Sie uns Ihre Meinung mit",
   "landing_enter_hamburg": "Hamburg-Karte aufrufen",
   "landing_enter_penteli": "Penteli-Karte aufrufen",
-  "landing_city_section_title": "Erkunde eine Stadt:",
+  "landing_city_section_title": "Stadtansicht-Viewer →",
   "landing_city_hamburg": "Hamburg",
   "landing_city_hamburg_desc": "Als zweitgrößte Stadt Deutschlands vereint Hamburg historische Hafenlandschaften mit vielfältigen, fußläufigen Stadtvierteln und einem modernen öffentlichen Verkehrssystem.",
   "landing_city_penteli": "Penteli",
@@ -338,7 +338,8 @@
     }
   },
 
-  "legend_base_area": "Basisbereich",
+  "legend_base_area": "Standard-Gehbereich",
+  "legend_adjusted_area": "Komfort-angepasster Gehbereich",
   "legend_without_factors": "(ohne Komfortfaktoren)",
   "alert_no_area_time_speed": "Für diese Gehzeit/Geschwindigkeit wurde kein erreichbares Gebiet gefunden. Bitte andere Einstellung wählen.",
   "alert_no_area_comfort": "Mit den gewählten Komforteinstellungen ergibt sich kein erreichbares Gebiet. Passe die Regler an.",

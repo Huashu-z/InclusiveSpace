@@ -114,7 +114,7 @@ const MapComponent = ({
     geojson.features.length > 0;
 
   const colorPool = [
-    "#394Ba0", "#D54799", "#009F75", "#FAA31B"
+    "#0066FF", "#FF0055", "#FF8C00 ", "#7C00FF", "#00C853"
   ]; // color pool for different calculation results/ accessibility analysis
 
   // Load Leaflet and React-Leaflet dynamically to avoid SSR issues
@@ -721,15 +721,12 @@ const MapComponent = ({
               }}
             >
               {/* Tooltip for result name */}
-              <Tooltip
-                sticky 
-                direction="top"
-                offset={[6, -6]}
-              >
+              <Tooltip sticky direction="top" offset={[6, -6]}>
                 {resultMetadata[i]?.isDefault
-                  ? `Base area ${resultMetadata[i]?.groupIndex}`
-                  : `Area ${resultMetadata[i]?.groupIndex}.${resultMetadata[i]?.subIndex}`}
+                  ? `${t("legend_base_area", { defaultValue: "Standard Walking Area" })} ${resultMetadata[i]?.groupIndex}`
+                  : `${t("legend_adjusted_area", { defaultValue: "Comfort-Adjusted Walking Area" })} ${resultMetadata[i]?.groupIndex}.${resultMetadata[i]?.subIndex}`}
               </Tooltip>
+
             </GeoJSON>
           ) : null
         )}

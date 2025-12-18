@@ -163,7 +163,7 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                         </span>
                       </span>
                     ) : (
-                      `${t("leg_area_label")} ${entry.groupIndex}.${entry.subIndex ?? ""}`
+                      `${t("legend_adjusted_area")} ${entry.groupIndex}.${entry.subIndex ?? ""}`
                     )}
                   </button>
                 </div>
@@ -205,40 +205,46 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                 </div>
 
                 {/* Points of Interest Count */}
-                {entry.poiCount > 0 && (
-                  <div style={{ marginTop: 0 }}>
-                    <button
-                      type="button"
-                      className={styles["toggle-button"]}
-                      style={{ marginBottom: 2 }}
-                      aria-expanded="false"
-                      aria-controls={poiId}
-                      onClick={(e) => {
-                        const btn = e.currentTarget;
-                        const container = btn.nextSibling;
-                        const isOpen = container.style.display !== "none";
-                        container.style.display = isOpen ? "none" : "block";
-                        btn.setAttribute("aria-expanded", (!isOpen).toString());
-                        btn.innerText = (!isOpen ? "▼ " : "► ") + t('leg_poi_count') + `: ${entry.poiCount}`;
-                      }}
-                    >
-                      ► {t('leg_poi_count')}: {entry.poiCount}
-                    </button>
-                    <div id={poiId} style={{ display: "none", marginLeft: 8 }}>
-                      {entry.poiGroupCounts && Object.keys(entry.poiGroupCounts).length > 0 ? (
-                        <ul className={styles["legend-list"]}>
-                          {Object.entries(entry.poiGroupCounts).map(([cat, count]) => (
-                            <li key={cat}>
-                              {poiCategoryNames[cat] || cat}: {count}
-                            </li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <div className={styles["legend-none"]}>{t("leg_none")}</div>
-                      )}
+                {(() => {
+                  const poiCount = Number(entry.poiCount ?? 0);
+                  const hasGroups =
+                    entry.poiGroupCounts && Object.keys(entry.poiGroupCounts).length > 0;
+
+                  return (
+                    <div style={{ marginTop: 0 }}>
+                      <button
+                        className={styles["toggle-button"]}
+                        style={{ marginBottom: 2 }}
+                        aria-expanded="false"
+                        aria-controls={poiId}
+                        onClick={(e) => {
+                          const btn = e.currentTarget;
+                          const container = btn.nextSibling;
+                          const isOpen = container.style.display !== "none";
+                          container.style.display = isOpen ? "none" : "block";
+                          btn.setAttribute("aria-expanded", (!isOpen).toString());
+                          btn.innerText =
+                            (!isOpen ? "▼ " : "► ") + t("leg_poi_count") + `: ${poiCount}`;
+                        }}
+                      >
+                        ► {t("leg_poi_count")}: {poiCount}
+                      </button>
+
+                      <div id={poiId} style={{ display: "none", marginLeft: 8 }}>
+                        {hasGroups ? (
+                          Object.entries(entry.poiGroupCounts).map(([cat, count]) => (
+                            <div key={cat}>
+                              • {poiCategoryNames[cat] || cat}: {count}
+                            </div>
+                          ))
+                        ) : (
+                          <div className={styles["legend-none"]}>{t("leg_none")}</div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  );
+                })()}
+
               </div>
             );
           })}

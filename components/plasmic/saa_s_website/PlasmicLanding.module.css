@@ -5,10 +5,33 @@
   background-color: #fff;
 }
 
-/* === Banner Area === */
+.banner {
+  width: 100%;
+  color: #fff;
+
+  background-color: #173F5F;
+  background-image: var(--banner-bg-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  position: relative;
+  isolation: isolate;
+  padding-bottom: 40px;
+}
+
+.banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgb(0 0 0 / var(--banner-overlay-opacity, 0.5));
+  z-index: 0;
+}
+
 .bannerGrid {
-  width: 90%;
-  /* max-width: 1400px; */
+  position: relative;
+  z-index: 1;
+  width: 90%; 
   margin: 0 auto;
 }
 
@@ -16,47 +39,47 @@
   display: flex;
   width: 100%;
   min-height: 200px;
-  gap: 100px;
+  gap: clamp(24px, 6vw, 100px);
   margin-top: 40px;
-  /* margin-bottom: -100px; */
+  flex-wrap: wrap; 
+  align-items: flex-start;
 }
+
 .bannerRow + .bannerRow {
   margin-top: 40px;
 }
 
-.bannerCol {
-  flex: 1 1 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-width: 0;
-  min-height: 320px;
-  box-sizing: border-box;
-  gap: 36px; 
-}
-
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .bannerRow {
     flex-direction: column;
-    min-height: unset;
-    margin-bottom: 60px;
-  }
-  .bannerCol {
-    min-height: 180px;
+  } 
+  .bannerColLeft,
+  .bannerColRight {
     width: 100%;
+    align-items: center;
+  }
+  .contactActionBlock,
+  .contactActions {
+    align-items: center;
+    text-align: center;
   }
 }
-
-.banner {
-  width: 100%;
-  background: #174060;
-  color: #ffffff;
-} 
 
 /* Make the logo and the introduction card "equal width": use the same wrapper width */
 .brandWrap {
   width: min(460px, 100%);
+  margin-bottom: 30px;
+  margin-top: 40px;
+}
+/* keep the logo from becoming huge */
+.brandWrapLogo {
+  width: min(520px, 100%);
+}
+
+/* make intro/contact fill the left column width */
+.brandWrapFull {
+  width: 100%;
+  max-width: 100%;
 }
 
 /* Top CAT White Title */
@@ -69,14 +92,15 @@
 /* Introduction text box (same width as the logo above) */
 .introCard {
   width: 100%;
-  background: rgba(255, 255, 255, 0.05);
-  border: 2px dashed rgba(255, 255, 255, 0.6);
+  /* background: rgba(255, 255, 255, 0.05); */
+  /* border: 2px dashed rgba(255, 255, 255, 0.6); */
   border-radius: 12px;
-  padding: 16px 18px;
+  padding: 0px 0px;
 }
 
 .introHeading {
-  font-size: 18px;
+  font-size: 24px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 600;
   letter-spacing: 0.3px;
   margin: 0 0 8px;
@@ -84,10 +108,11 @@
 }
 
 .introText {
-  font-size: 16px;
-  margin: 0;
+  font-size: 24px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0 0 8px;
   line-height: 1.6;
-  color: #deefff;
+  color: #fff;
   text-align: justify;
   text-justify: inter-word;
   hyphens: auto;
@@ -103,43 +128,71 @@
   width: 100%;
 }
 
-.bannerBtnRow {
-  width: 100%;
-  max-width: 85%;
-  margin: 0px 10px 50px auto;
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 20px;
+/* === New: 60/40 layout for landing banner === */
+.bannerColLeft {
+  flex: 1 1 560px;
+  align-items: flex-start;
 }
-.bannerBtnCol {
+
+.bannerColRight {
+  flex: 1 1 420px;
+}
+
+/* Put both buttons in the left column */
+.bannerActions {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start; 
-  text-align: center;
-  gap: 12px;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 10px;
 }
+
+/* Right side: floating board for city cards */
+.cityBoard {
+  width: 100%;
+  /* max-width: 620px; */
+  padding: 22px 0px 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0);
+  /* border: 1px solid rgba(255, 255, 255, 0.22); */
+  /* box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25); */
+}
+
+/* Optional: make city title sit nicely inside board */
+.cityBoard .cityTitle {
+  margin-top: 0;
+}
+
+/* Mobile: stack like before */
 @media (max-width: 900px) {
-  .bannerBtnRow {
-    grid-template-columns: 1fr;
-    max-width: 96vw;
-    gap: 20px;
-  }
-  .bannerBtnCol {
+  .bannerColLeft,
+  .bannerColRight {
+    flex: 1 1 100%;
     align-items: center;
-    text-align: center;
+  }
+
+  .bannerActions {
+    justify-content: center;
+  }
+
+  .cityBoard {
+    max-width: 96vw;
   }
 }
 
 .contactCaption {
-  font-size: 16px;
+  font-size: 24px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   opacity: 0.9;
 }
 
 .contactBtn {
   width: fit-content;
-  background: #ffffff;
-  color: #174060;
-  font-size: 18px;
+  background: #72e3cd;
+  color: #173F5F;
+  font-size: 24px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 700; 
   border-radius: 12px;
   padding: 10px 16px;
@@ -150,6 +203,23 @@
 .contactBtn:hover {
   transform: translateY(-1px);
   box-shadow: 0 6px 14px rgba(14, 30, 70, 0.35);
+}
+/* caption + buttons as one block */
+.contactActionBlock {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* vertical buttons */
+.contactActions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
 }
 
 /* Mobile: Left and right columns become one column, centered display */
@@ -165,19 +235,14 @@
 
 /* ===== right: City card area ===== */
 .cityTitle {
-  font-size: 24px;
+  font-size: 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 600;
   margin-top: 20px;
+  margin-bottom: 20px;
   text-align: left;
   color: #fff;
-}
-
-.cityCol {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  align-items: center;
-}
+} 
 
 /* Single city card: circle on the left and rectangle on the right */
 .cityCardRow {
@@ -188,17 +253,12 @@
   justify-content: flex-start;
   width: 100%; 
   gap: 16px; 
+  margin-bottom: 20px;
   border-radius: 12px;
   padding: 14px 16px; 
   cursor: pointer;
   transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
-}
-.cityCardRow:hover {
-  transform: translateY(-1px);
-  border-color: #72e3cd;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.18);
-}
-
+} 
 /* "bubble" on the left */
 .cityCircleLabel {
   position: absolute;
@@ -209,9 +269,9 @@
   text-align: center;
   white-space: normal;
   z-index: 3;
-  color: #174060;
+  color: #173F5F;
   font-weight: 700;
-  font-size: 24px;;
+  font-size: 36px;;
   font-family: 'Commuters Sans', Arial, sans-serif !important;
   letter-spacing: 0.5px;
   text-shadow: 0 2px 10px rgba(255,255,255,0.6);
@@ -219,10 +279,10 @@
 }
 .cityCircle {
   position: relative;
-  width: 180px;
-  height: 180px;
-  min-width: 180px;
-  min-height: 180px;
+  width: 250px;
+  height: 250px;
+  min-width: 250px;
+  min-height: 250px;
   border-radius: 50%;
   border: 6px solid #72e3cd;
   background: #fff;
@@ -230,7 +290,12 @@
   place-items: center;
   overflow: hidden;
   z-index: 2;
-  margin-right: -70px;
+  margin-right: -120px;
+}
+.cityCircle:hover {
+  transform: translateY(-1px);
+  border-color: #FAA31B;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.18);
 }
 .cityThumb {
   width: 110%;
@@ -242,21 +307,23 @@
 .cityRect {
   position: relative;
   z-index: 1;
-  min-height: 105px;
+  min-height: 120px;
   width: 100%;
   border-radius: 10px;
-  background: #cdd5df;
-  border: 6px solid #72e3cd;
+  background: #72e3cc;
+  /* border: 1px solid #72e3cd; */
   display: flex;
   align-items: center;
   text-align: justify;
   text-justify: inter-word;
-  hyphens: auto;
-  overflow-wrap: break-word;
-  color: #174060;
+  /* hyphens: auto; */
+  /* overflow-wrap: break-word; */
+  color: #173F5F;
   font-weight: 400;
-  letter-spacing: .2px;
-  padding: 14px 16px 14px 65px;
+  font-size: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* letter-spacing: .2px; */
+  padding: 20px 20px 20px 120px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.05);
 }
 
@@ -264,9 +331,10 @@
 .feedbackBtn {
   width: fit-content;
   background: #ffffff;
-  color: #174060;
+  color: #173F5F;
   font-weight: 700;
   font-size: 18px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   border-radius: 10px;
   padding: 10px 16px;
   cursor: pointer;
@@ -286,27 +354,18 @@
     flex-direction: row;
     align-items: center; 
     justify-content: flex-start;
-    width: 85%; 
+    width: 100%; 
     gap: 16px; 
     border-radius: 12px;
     padding: 14px 16px; 
     cursor: pointer;
     transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
-  }
-  .cityCircle {
-    width: 120px;
-    height: 120px;
-    border-width: 6px;
-  }
-  .cityRect {
-    border-width: 6px;
-    padding: 14px 16px 14px 65px;
-  }
+  } 
 }
 
 /* === Tool Details Section === */
 .toolDetailsSection {
-  width: 85%;
+  width: 90%;
   margin: 0 auto; 
   /* background: #51ccad; */
   background: #fff;
@@ -314,6 +373,42 @@
   /* display: flex; */
   justify-content: left;
 } 
+/* === Sticker-style box === */
+.stickerCard {
+  position: relative;
+  background: #fff;
+  border: 3px solid #72e3cd;
+  border-radius: 18px;
+  padding: 28px 24px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
+  margin-bottom: 30px;
+}
+
+/* dashed inner edge -> “sticker” feeling */
+.stickerCard::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 2px dashed rgba(23, 63, 95, 0.22);
+  border-radius: 14px;
+  pointer-events: none;
+}
+
+/* small “tape” on top */
+.stickerCard::after {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 26px;
+  width: 140px;
+  height: 30px;
+  background: rgba(114, 227, 205, 0.40);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 14px;
+  transform: rotate(-2deg);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.14);
+  pointer-events: none;
+}
 .toolDetailsInner {
   width: 100%;
   margin: 0 auto;
@@ -327,15 +422,23 @@
   width: 100%;
   text-align: left;
   font-size: 26px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 760;
   font-family: 'Commuters Sans', Arial, sans-serif !important;
-  color: #174060;
+  color: #173F5F;
   margin-bottom: 30px;
   letter-spacing: 0.2px;
 }
+.toolDetailsLeftCol {
+  flex: 0 0 240px;          /* width same as logo wrap*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
 .toolDetailsLogoWrap {
   flex: 0 0 150px;
-  width: 220px;
+  width: 240px;
   height: 150px;
   display: flex;
   align-items: center;
@@ -367,22 +470,25 @@
   align-items: flex-start;
 } 
 .toolDetailsText {
-  font-size: 16px;
-  line-height: 1.7;
+  font-size: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  font-weight: 450;
   width: 100%;
-  color: #174060;
+  color: #173F5F;
   margin-bottom: 16px;
   text-align: justify;
 }
 .toolDetailsBtn {
   margin-top: 5px;
   background: #ffffff;
-  color: #174060;
+  color: #173F5F;
   font-weight: bold;
   border: 4px solid #72e3cd;
   border-radius: 10px;
   padding: 12px 26px;
-  font-size: 18px;
+  font-size: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   cursor: pointer;
   box-shadow: 0 4px 16px rgba(14, 30, 70, 0.15);
   /* transition: background 0.15s; */
@@ -398,6 +504,9 @@
     align-items: center;
     gap: 28px;
   }
+  .toolDetailsLeftCol {
+    width: 100%;
+  }
   .toolDetailsLogoWrap {
     justify-content: center;
     align-items: center;
@@ -409,47 +518,62 @@
   }
 }
 
-/* === General Info === */
-.generalInfoSection {
-  background: #fff;
-  padding: 48px 0 40px 0;
-  display: flex;
-  justify-content: left;
+/* === Green footer for Contact info === */
+.contactSection {
+  background: #72e3cd;
+  padding: 40px 0 0px 0;
 }
 
-.generalInfoInner {
-  width: 95%;
+.contactSectionInner {
+  width: 90%;
   margin: 0 auto;
-  padding: 0 24px;
-  text-align: left;
-} 
-
-.generalInfoText {
-  color: #174060;
-  width: 90%;
-  font-size: 16px;
-  line-height: 1.7;
-  margin: 0 auto 24px auto;
-}
-
-.partnerLogos {
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 32px auto 0 auto;
-  /* gap: 100px; */
-  align-items: center;
-  width: 90%;
+  flex-direction: column;
+  gap: 22px;
 }
 
-.partnerLogos img {
-  max-height: 56px;
+.contactList {
+  list-style: none;
+  padding: 0;
+  margin-top: -20px;
+}
+
+.contactList li {
+  margin: 5px 0;
+}
+
+/* Optional: links inside the contact card */
+.contactCard a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* full-width logo strip at the very bottom of the green section */
+.partnerLogoBar {
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 18px;
+
+  padding: 14px 18px;
+  /* margin-top: 18px; */
+
+  /* optional: a slightly different strip color */
+  background: rgba(255, 255, 255, 1.0);
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.partnerLogoImg {
+  height: 80px;
+  max-width: 160px;
   width: auto;
-  background: #fff;
-  /* border-radius: 8px; */
-  /* box-shadow: 0 2px 8px rgba(30,64,96,0.10); */
-  padding: 6px 12px;
+  height: auto;
+  object-fit: contain;
 }
 
 .contactInfoBlock {
@@ -457,11 +581,22 @@
   margin-bottom: 50px;
   /* color: #135b45; */
   font-size: 16px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-align: left;
   line-height: 1.7;
 }
 .contactInfoBlock a {
-  color: #174060;
+  color: #173F5F;
   text-decoration: underline;
   word-break: break-all;
+}
+@media (max-width: 700px) {
+  .partnerLogoBar {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .partnerLogoImg {
+    max-height: 38px;
+    max-width: 140px;
+  }
 }

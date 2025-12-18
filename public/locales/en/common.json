@@ -28,7 +28,7 @@
   "landing_banner_share_btn": "Share your thoughts",
   "landing_enter_hamburg": "Enter Hamburg map",
   "landing_enter_penteli": "Enter Penteli map",
-  "landing_city_section_title": "Explore a city:",
+  "landing_city_section_title": "City Viewer →",
   "landing_city_hamburg": "Hamburg",
   "landing_city_hamburg_desc": "Germany’s second-largest city, Hamburg combines historic port landscapes with diverse, walkable urban districts and advanced public transport.",
   "landing_city_penteli": "Penteli",
@@ -337,7 +337,8 @@
     }
   },
   
-  "legend_base_area": "Base Area",
+  "legend_base_area": "Standard Walking Area",
+  "legend_adjusted_area": "Comfort-Adjusted Walking Area",
   "legend_without_factors": "(without discomfort factors)",
   "alert_no_area_time_speed": "No reachable area found for this walking time/speed. Please try another setting.",
   "alert_no_area_comfort": "The selected comfort settings result in no reachable area. Try adjusting the sliders.",
