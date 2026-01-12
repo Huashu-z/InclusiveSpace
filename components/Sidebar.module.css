@@ -599,6 +599,15 @@
     transition: background 0.2s ease;
     cursor: pointer;
   } 
+  .slider-container input[type="range"]:focus {
+    outline: 2px solid #0A84FF !important;
+    outline-offset: 4px !important;
+    border-radius: 4px;
+  }
+
+  .slider-container input[type="range"]:focus:not(:focus-visible) {
+    outline: none !important;
+  }
   /* Ensure range slider shows keyboard focus ring */
   .slider-container input[type="range"]:focus-visible {
     outline: 2px solid #0A84FF !important;
@@ -1119,9 +1128,13 @@
   }
 
   .kbdFocus:focus {
-    outline: none;
-    box-shadow: none;
+    outline: 2px solid #0A84FF;
+    outline-offset: 2px;
+    border-radius: 4px;
   }
+  .kbdFocus:focus:not(:focus-visible) {
+    outline: none;
+  } 
 
   .kbdFocus:focus-visible {
     outline: 2px solid #0A84FF;

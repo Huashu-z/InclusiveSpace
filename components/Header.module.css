@@ -567,10 +567,9 @@
   outline-offset: 2px;
   border-radius: 6px;
 }
-
-/* 整条 skip links 容器：默认藏到屏幕上方 */
+ 
 .skipLinks {
-  position: absolute;
+  position: fixed;
   left: 8px;
   top: 8px;
   z-index: 100000;
