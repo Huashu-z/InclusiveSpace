@@ -131,69 +131,50 @@ function Header(
         role="group"
         aria-label={t("header_partner_logos")}
       >
-        {/* EU logo */}
-        <a
-          href="https://inclusivespaces-heproject.eu/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`${sty["logo-wrapper"]} ${sty.focusRing}`}
-          aria-label={t("logo_EU")}
-        >
-          <img src="/images/logo_co-founded-eu.png" alt="" aria-hidden="true" />
-        </a>
+        {/* EU logo (display only) */}
+        <span className={sty["logo-wrapper"]}>
+          <img
+            src="/images/logo_co-founded-eu.png"
+            alt={t("logo_EU")}
+          />
+        </span>
 
-        {/* InclusiveSpaces logo */}
-        <a
-          href="https://inclusivespaces-heproject.eu/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`${sty["logo-wrapper"]} ${sty.focusRing}`}
-          aria-label={t("logo_IS")}
-        >
-          <img src="/images/logoIS.png" alt="" aria-hidden="true" />
-        </a>
+        {/* InclusiveSpaces logo  */}
+        <span className={sty["logo-wrapper"]}>
+          <img
+            src="/images/logoIS.png"
+            alt={t("logo_IS")}
+          />
+        </span>
 
-        {/* TUM logo */}
-        <a
-          href="https://www.mos.ed.tum.de/sv/forschung-und-beratung/projekte/eu-projects/inclusivespaces/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`${sty["logo-wrapper"]} ${sty.focusRing}`}
-          aria-label={t("logo_TUM")}
-        >
-          <img src="/images/tum_logo.png" alt="" aria-hidden="true" />
-        </a>
+        {/* TUM logo (display only) */}
+        <span className={sty["logo-wrapper"]}>
+          <img
+            src="/images/tum_logo.png"
+            alt={t("logo_TUM")}
+          />
+        </span>
       </div>
     );
 
   } else if (variant === "landing") {
     // only white CAT logo on left
-    left = (
-      <Link href={`/`} className={sty.focusRing}>
-        {/* <img
-          src="/images/CAT_logo_white.svg"
-          alt={t('logo_CAT')}
-          className={sty["CAT-logo"]}
-          style={{ marginLeft: 0 }}
-        /> */}
-      </Link>
-    );
+    left = null;
   }
 
   // === middle ===
   let center = null;
-  if (variant === "map") { 
+  if (variant === "map") {
     center = (
-      <div
-        className={sty["center-title-wrapper"]}
-        role="heading"
-        aria-level={1}
-      >
-        <Link href={`/`}>
-          {/* The title text (for screen readers) */}
-          <span className={sty["sr-only"]}>
-            {t("logo_CAT_header")}
-          </span>
+      <div className={sty["center-title-wrapper"]}>
+        <h1 className={sty["sr-only"]}>{t("landing_cat_title")}</h1>
+        <Link
+          href="/"
+          aria-label={t("CAT_link_home")}
+          title={t("CAT_link_home")}
+          className={sty.focusRing}
+        >
+          <span className={sty["sr-only"]}>{t("CAT_link_home")}</span>
           <img
             src="/images/CAT_logo_blue.svg"
             alt=""
@@ -207,6 +188,11 @@ function Header(
 
   // === right: button ===
   const languages = ["de", "en", "el"];
+  const languageName = {
+    de: t("lang_german"),
+    en: t("lang_english"),
+    el: t("lang_greek"),
+  };
   const right = (
     <>
       {/* language selection */}
@@ -225,9 +211,13 @@ function Header(
                   sty.focusRing,
                   currentLocale === lng ? sty["lang-active"] : ""
                 ].filter(Boolean).join(" ")}
-                aria-current={currentLocale === lng ? "page" : undefined}
+                aria-label={t("link_switch_language", { language: languageName[lng] })}
+                title={t("link_switch_language", { language: languageName[lng] })}
               >
                 {lng.toUpperCase()}
+                <span className={sty["sr-only"]}>
+                  {" "}{t("link_switch_language", { language: languageName[lng] })}
+                </span>
               </Link>
             </li>
           ))}
@@ -292,7 +282,8 @@ function Header(
                     localStorage.setItem("selectedCityCenter", JSON.stringify(city.center));
                     window.location.href = `/user?city=${city.id}`;
                   }}
-                  aria-label={`Switch to ${city.name}`}
+                  aria-label={t("header_switch_city", { city: city.name })}
+                  title={t("header_switch_city", { city: city.name })}
                 >
                   {city.name}
                 </button>
@@ -375,7 +366,11 @@ function Header(
         right={right}
         ref={ref}
         className={headerClass}
-        navAriaLabel={t("header_tools_nav")}
+        navAriaLabel={
+          variant === "landing"
+            ? t("aria_language_switcher")
+            : t("header_tools_nav")
+        }
       />
       {/* "help" pop up in map page */}
       {variant === "map" && showHelp && (

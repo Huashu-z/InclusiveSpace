@@ -37,8 +37,8 @@ function LayerCheckbox({ layerKey, label, checked, onToggle, t }) {
             e.stopPropagation();
             setShowTooltip((prev) => !prev);
           }}
-          title={t("tooltip_layer_title")}
-          aria-label={t("tooltip_layer_title")}
+          title={t("aria_layer_info_button", { layer: label })}
+          aria-label={t("aria_layer_info_button", { layer: label })}
           aria-haspopup="dialog"
           aria-expanded={showTooltip}
           aria-controls={`tip-layer-${layerKey}`}

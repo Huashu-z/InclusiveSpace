@@ -55,10 +55,13 @@ export default function PlasmicLanding() {
           <div className={sty.bannerRow}>
             {/* Left content (wider) */}
             <div className={`${sty.bannerCol} ${sty.bannerColLeft}`}>
+              <h1 className={sty["sr-only"]}>{t("landing_cat_title")}</h1>
+
               <div className={`${sty.brandWrap} ${sty.brandWrapLogo}`}>
                 <img
                   src="/images/CAT_title_white.svg"
-                  alt={t('landing_cat_title')}
+                  alt="" 
+                  aria-hidden="true"
                   className={sty.catTitleImg}
                 />
               </div>
@@ -100,7 +103,7 @@ export default function PlasmicLanding() {
             {/* Right city cards */}
             <div className={`${sty.bannerCol} ${sty.bannerColRight}`}>
               <div className={sty.cityBoard}>
-                <h3 className={sty.cityTitle}>{t('landing_city_section_title')}</h3>
+                <h2 className={sty.cityTitle}>{t('landing_city_section_title')}</h2>
 
                 <div>
                   {/* Hamburg */}

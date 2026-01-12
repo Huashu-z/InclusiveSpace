@@ -29,7 +29,35 @@ export default function Sidebar_Tooltip({ show, type, anchorRef, onClose, id }) 
     }
 
     if (type === "variable") {
-      return t("tooltip_variable_title");
+      return t("tooltip_comfort_features_title");
+    }
+
+    const featureLabelKey = {
+      noise: "checkbox_noise",
+      light: "checkbox_light",
+      tree: "checkbox_tree",
+      trafficLight: "checkbox_traffic",
+      tactile_pavement: "checkbox_tactile",
+      temperatureSummer: "checkbox_temp_summer",
+      temperatureWinter: "checkbox_temp_winter",
+      stair: "checkbox_stair",
+      obstacle: "checkbox_obstacle",
+      unevenSurface: "checkbox_uneven",
+      poorPavement: "checkbox_poor",
+      kerbsHigh: "checkbox_kerb",
+      facility: "checkbox_facility",
+      pedestrianFlow: "checkbox_crowd",
+      greeninf: "checkbox_green",
+      blueinf: "checkbox_blue",
+      station: "checkbox_station",
+      narrowRoads: "checkbox_narrow",
+      wcDisabled: "checkbox_wc",
+      slope: "checkbox_slope",
+      slope_penteli: "checkbox_slope",
+    };
+
+    if (featureLabelKey[type]) {
+      return t(featureLabelKey[type], { defaultValue: type });
     }
 
     // Map layers：layer:noise, layer:light...
@@ -206,27 +234,7 @@ function contentFor(type, t) {
         <div className={sty["tooltip-title"]}>
           {t("tooltip_data_title", { defaultValue: "Data information" })}
         </div>
-        <div>
-          <b>
-            {t("tooltip_data_name_label", { defaultValue: "Data name:" })}
-          </b>{" "}
-          {t("tooltip_data_name_value", {
-            defaultValue: "Comfort-based Accessibility Tool (CAT) data",
-          })}
-        </div>
-        <div>
-          <b>
-            {t("tooltip_data_city_label", { defaultValue: "City:" })}
-          </b>{" "}
-          {cityLabel}
-        </div>
-        <div className={sty["tooltip-description"]}>
-          <b>
-            {t("tooltip_data_desc_label", {
-              defaultValue: "Description:",
-            })}
-          </b>
-          <br />
+        <div className={sty["tooltip-description"]}> 
           {t("tooltip_data_desc", {
             defaultValue:
               "This tool uses street network and environmental data to estimate accessible areas for different walking comfort profiles.",

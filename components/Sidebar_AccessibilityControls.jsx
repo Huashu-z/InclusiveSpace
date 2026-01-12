@@ -124,10 +124,10 @@ export default function AccessibilityControls({
       <div role="status" aria-live="polite" className={sty["sr-only"]}>{liveMessage}</div>
 
       {/* <h3 className={sty["sidebar-title"]}>{t('accessibility_title')}</h3> */}
-      <div className={sty["sidebar-section-title"]} id="accessibility-heading">
-        <img src="/images/icon_accessibility.png" alt={t("icon_accessibility_control")} />
+      <h2 className={sty["sidebar-section-title"]} id="accessibility-heading">
+        <img src="/images/icon_accessibility.png" alt="" aria-hidden="true" />
         <span>{t("accessibility_title")}</span>
-      </div>
+      </h2>
 
       {/* Walking time */}
       <div className={sty["sidebar-text-bold"]}>
@@ -211,13 +211,13 @@ export default function AccessibilityControls({
         className={sty["address-section"]}
         aria-labelledby="select-start-heading"
       >
-        <div 
-          id="select-start-heading" 
+        <h3
+          id="select-start-heading"
           className={`${sty["sidebar-text-bold"]} ${sty["select-start-heading"]}`}
         >
           {t('select_start')} <br />
           <span className={sty["sidebar-text"]}>{t('select_start_notice')}</span>
-        </div> 
+        </h3> 
         {/* for screen reader */}
         <p id="sr-select-start-desc" className={sty["sr-only"]}>
           {t('sr_select_start_description')}

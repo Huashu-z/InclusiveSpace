@@ -70,7 +70,8 @@ export default function VariableControls({
             className={`${sty["info-icon"]} ${sty.kbdFocus}`}
             ref={tooltipRef}
             onClick={(e) => { e.stopPropagation(); setShowTooltip(prev => !prev); }}
-            aria-label={t('tooltip_variable_title')}
+            aria-label={t("aria_feature_info_button", { feature: label })}
+            title={t("aria_feature_info_button", { feature: label })}
             aria-haspopup="dialog"
             aria-expanded={showTooltip}
             aria-controls={`tip-${layer}`}

@@ -253,7 +253,8 @@ export default function Profile({
             type="button"
             onClick={() => setIsOpen(false)}
             className={sty.profileMainIconOnlyButton}
-            aria-label={titleText}
+            aria-label={t("profile_collapse")}
+            title={t("profile_collapse")}
           >
             <img
               src="/images/profile.png"
