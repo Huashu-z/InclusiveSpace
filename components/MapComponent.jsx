@@ -505,7 +505,8 @@ const MapComponent = ({
 
     const apply = () => {
       root
-        .querySelectorAll(".leaflet-control-attribution a, .leaflet-control-zoom a")
+        // .querySelectorAll(".leaflet-control-attribution a, .leaflet-control-zoom a")
+        .querySelectorAll(".leaflet-control-attribution a")
         .forEach((a) => a.setAttribute("tabindex", "-1"));
     };
 
@@ -608,7 +609,7 @@ const MapComponent = ({
         zoom={14}
         className={sty.leafletMap}
         keyboard={true}
-        zoomControl={false}
+        zoomControl={true}
         attributionControl={false}
       >
         <Pane name="highlight-pane" style={{ zIndex: 650 }} />
