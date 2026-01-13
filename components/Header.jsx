@@ -485,33 +485,105 @@ function Header(
               
             </div>
 
-            {/* Keyboard shortcut hint */}
-            <p className={sty["modal-shortcut-hint"]}>
-              {/* Screen reader only (no SVG) */}
-              <span className={sty.srOnly}>
-                {t("modal_shortcut_skipnav_sr")}
-              </span>
-              {/* Visual line (SVGs), hidden from screen readers */}
-              <span className={sty.shortcutVisual} aria-hidden="true">
-                <img
-                  src="/images/keyboard.svg"
-                  alt=""
-                  aria-hidden="true"
-                  className={sty.shortcutIcon}
-                />
-                <span className={sty.shortcutText}>
-                  {t("modal_shortcut_skipnav_prefix")}
+            {/* Keyboard shortcut hints */}
+            <div className={sty.shortcutHints}>
+
+              {/* --- Hint 1: Keyboard user tip (Skip navigation) --- */}
+              <div className={sty.shortcutHint}>
+                {/* Screen reader only */}
+                <span className={sty.srOnly}>
+                  {t("modal_shortcut_skipnav_sr")}
                 </span>
-                <span className={sty.kbdCombo}>
-                  <img src="/images/key_alt.svg" alt="" aria-hidden="true" className={sty.keyIcon} />
-                  <span className={sty.kbdPlus}>+</span>
-                  <img src="/images/key_N.svg" alt="" aria-hidden="true" className={sty.keyIcon} />
+
+                {/* Visual block, hidden from screen readers */}
+                <div className={sty.shortcutBlock} aria-hidden="true">
+                  {/* Left column: icon + title */}
+                  <div className={sty.shortcutLeft}>
+                    <img
+                      src="/images/keyboard.svg"
+                      alt=""
+                      aria-hidden="true"
+                      className={sty.shortcutIcon}
+                    />
+                    <span className={`${sty.shortcutText} ${sty.shortcutTitleText}`}>
+                      {t("modal_shortcut_skipnav_title")}
+                    </span>
+                  </div>
+
+                  {/* Right column: instructions (multiple rows) */}
+                  <div className={sty.shortcutRight}>
+                    <div className={sty.shortcutLine}>
+                      <span className={sty.shortcutText}>{t("modal_shortcut_skipnav_line1_prefix")}</span>
+                      <span className={sty.kbdCombo}>
+                        <span className={sty.kbdKey}>Alt</span>
+                        <span className={sty.kbdPlus}>+</span>
+                        <span className={sty.kbdKey}>N</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* --- Hint 2: Map navigation with keyboard (WCAG 2.5.7) --- */}
+              <div className={sty.shortcutHint}>
+                {/* Screen reader only */}
+                <span className={sty.srOnly}>
+                  {t("modal_shortcut_map_nav_sr")}
                 </span>
-                <span className={sty.shortcutText}>
-                  {t("modal_shortcut_skipnav_suffix")}
-                </span>
-              </span>
-            </p>
+
+                {/* Visual block, hidden from screen readers */}
+                <div className={sty.shortcutBlock} aria-hidden="true">
+                  {/* Left column: icon + title */}
+                  <div className={sty.shortcutLeft}>
+                    <img
+                      src="/images/keyboard.svg"
+                      alt=""
+                      aria-hidden="true"
+                      className={sty.shortcutIcon}
+                    />
+                    <span className={`${sty.shortcutText} ${sty.shortcutTitleText}`}>
+                      {t("modal_shortcut_map_nav_title")}
+                    </span>
+                  </div>
+
+                  {/* Right column: 3 rows */}
+                  <div className={sty.shortcutRight}>
+                    <div className={sty.shortcutLine}>
+                      <span className={sty.shortcutText}>
+                        {t("modal_shortcut_map_nav_line1_prefix")}
+                      </span>
+                      <span className={sty.kbdCombo}>
+                        <span className={sty.kbdKey}>Tab</span>
+                      </span>
+                    </div>
+
+                    <div className={sty.shortcutLine}>
+                      <span className={sty.shortcutText}>
+                        {t("modal_shortcut_map_nav_line2_prefix")}
+                      </span>
+                      <span className={sty.kbdCombo}>
+                        <span className={sty.kbdKey}>↑</span>
+                        <span className={sty.kbdKey}>↓</span>
+                        <span className={sty.kbdKey}>←</span>
+                        <span className={sty.kbdKey}>→</span>
+                      </span>
+                    </div>
+
+                    <div className={sty.shortcutLine}>
+                      <span className={sty.shortcutText}>
+                        {t("modal_shortcut_map_nav_line3_prefix")}
+                      </span>
+                      <span className={sty.kbdCombo}>
+                        <span className={sty.kbdKey}>+</span>
+                        <span className={sty.kbdPlus}>/</span>
+                        <span className={sty.kbdKey}>-</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
 
             {/* ---------- close button ---------- */}
             <button

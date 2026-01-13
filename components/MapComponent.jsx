@@ -551,6 +551,26 @@ const MapComponent = ({
     return null;
   }
 
+  function MakeMapKeyboardAccessible() {
+    const map = useMap();
+
+    useEffect(() => {
+      if (!map) return;
+      const el = map.getContainer();
+
+      if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "0");
+
+      if (!el.hasAttribute("aria-label")) {
+        el.setAttribute(
+          "aria-label",
+          "Interactive map. To navigate without dragging, focus the map and use arrow keys to pan and plus/minus to zoom."
+        );
+      }
+    }, [map]);
+
+    return null;
+  }
+
   return (
     <section
       id="map-region"
@@ -618,6 +638,7 @@ const MapComponent = ({
           isSearchZoom={isSearchZoom}
           setIsSearchZoom={setIsSearchZoom}
         />
+        <MakeMapKeyboardAccessible />
         <TileLayer
           //different base map
 

@@ -321,15 +321,85 @@
 .shortcutText {
   color: #173f5f;
 }
+.shortcutTitleText {
+  padding-top: 3px;  /* 如果还偏低就加大；偏高就减小或用 0 */
+  line-height: 1.4;  /* 避免标题两行时看起来“漂” */
+  font-size: 14 px;
+  font-weight: 600;
+}
+
+/* --- Shortcut hints: two-column layout --- */
+.shortcutHints {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* each hint block */
+.shortcutHint {
+  text-align: left; 
+}
+
+/* grid: left column (icon+title) | right column (instructions) */
+.shortcutBlock {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  /* column-gap: 16px; */
+  align-items: start;
+}
+
+/* left column */
+.shortcutLeft {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+/* right column: vertical stack */
+.shortcutRight {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+/* each instruction line (allow wrap but keep it as a “row”) */
+.shortcutLine {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* responsive: stack into one column on small screens */
+@media (max-width: 640px) {
+  .shortcutBlock {
+    grid-template-columns: 1fr;
+  }
+}
 
 .kbdCombo {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 3px 8px;
-  border: 1px solid #173f5f;
+  /* border: 1px solid #173f5f; */
   border-radius: 8px;
   background: #ffffff;
+}
+.kbdKey {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.1rem 0.5rem;
+  color: #173f5f;
+  font-weight: 500;
+  border: 1px solid #173f5f;
+  border-radius: 6px;
+  font-size: 12 px;
+  line-height: 1.2;
+  white-space: nowrap;
 }
 
 .keyIcon {
