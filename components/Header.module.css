@@ -157,7 +157,11 @@
 .help-button:hover {
   background-color: #f0f0f0;
 }
-
+.helpButtonImg{
+  width: 12px;
+  height: 12px;
+  display: block;
+}
 /* ----------------- Modal styles -------------------*/
 .modal-overlay {
   position: fixed;

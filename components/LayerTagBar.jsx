@@ -171,9 +171,15 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
               type="button"
               className={styles.layerTagClose}
               onClick={() => toggleLayer(layer)}
-              aria-label={`${t('layertag_aria_remove')} ${displayNames[layer] || layer}`}
+              aria-label={`${t("layertag_aria_remove")} ${displayNames[layer] || layer}`}
+              title={`${t("layertag_aria_remove")} ${displayNames[layer] || layer}`}
             >
-              ✕
+              <img
+                src="/images/icon_close.png "
+                alt=""
+                aria-hidden="true"
+                className={styles.layerTagCloseIcon}
+              />
             </button>
           </div>
 

@@ -160,6 +160,7 @@ export default function AccessibilityControls({
         {t('walking_speed')}{" "}
         <span className={sty["sidebar-text"]}>({walkingSpeed} km/h)</span>
         <button
+          type="button"
           className={`${sty["info-icon"]} ${sty.kbdFocus}`}
           ref={walkingSpeedTooltipRef}
           onClick={(e) => { e.stopPropagation(); setShowWalkingSpeedTooltip(prev => !prev); }}
@@ -168,7 +169,12 @@ export default function AccessibilityControls({
           aria-expanded={showWalkingSpeedTooltip}
           aria-controls="tip-walking-speed"
         >
-          i
+          <img
+            src="/images/icon_info.png"
+            alt=""
+            aria-hidden="true"
+            className={sty.infoIconImg}
+          />
         </button>
         <Tooltip
           show={showWalkingSpeedTooltip}

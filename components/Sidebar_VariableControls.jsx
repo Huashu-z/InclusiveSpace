@@ -76,7 +76,7 @@ export default function VariableControls({
             aria-expanded={showTooltip}
             aria-controls={`tip-${layer}`}
           >
-            i
+            <img src="/images/icon_info.png" alt="" aria-hidden="true" className={sty.infoIconImg} />
           </button>
         </div>
         
@@ -173,12 +173,13 @@ export default function VariableControls({
             e.stopPropagation();
             setShowInfo(prev => !prev);
           }}
+          title={t('tooltip_comfort_features_title')}
           aria-label={t('tooltip_comfort_features_title')}
           aria-haspopup="dialog"
           aria-expanded={showInfo}
           aria-controls="tip-featureinfo"
         >
-          i
+          <img src="/images/icon_info.png" alt="" aria-hidden="true" className={sty.infoIconImg} />
         </button>
         <Tooltip
           show={showInfo}

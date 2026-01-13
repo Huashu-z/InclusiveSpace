@@ -211,7 +211,7 @@ function Header(
                   sty.focusRing,
                   currentLocale === lng ? sty["lang-active"] : ""
                 ].filter(Boolean).join(" ")}
-                aria-label={t("link_switch_language", { language: languageName[lng] })}
+                aria-current={currentLocale === lng ? "page" : undefined}
                 title={t("link_switch_language", { language: languageName[lng] })}
               >
                 {lng.toUpperCase()}
@@ -236,7 +236,7 @@ function Header(
           aria-controls="help-dialog"
           onClick={() => setShowHelp(true)}
         >
-          i
+          <img src="/images/icon_info.png" alt="" aria-hidden="true" className={sty.helpButtonImg} />
         </button>
       )}
       {/* map page show "city selection" */}

@@ -43,7 +43,7 @@ function LayerCheckbox({ layerKey, label, checked, onToggle, t }) {
           aria-expanded={showTooltip}
           aria-controls={`tip-layer-${layerKey}`}
         >
-          i
+          <img src="/images/icon_info.png" alt="" aria-hidden="true" className={sty.infoIconImg} />
         </button>
       </div>
       <Tooltip
@@ -152,7 +152,7 @@ export default function MapLayers({ selectedLayers, toggleLayer, availableLayers
           aria-expanded={showInfo}
           aria-controls="tip-datainfo"
         >
-          i
+          <img src="/images/icon_info.png" alt="" aria-hidden="true" className={sty.infoIconImg} />
         </button>
 
         <Tooltip

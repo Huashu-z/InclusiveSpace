@@ -111,7 +111,7 @@ export default function PlasmicLanding() {
                     className={sty.cityCardRow}
                     onClick={() => enterCity("hamburg", [53.5503, 9.9920])}
                     role="button"
-                    aria-label={t('landing_enter_hamburg')}
+                    aria-label={t('landing_city_hamburg')}
                     tabIndex={0}
                     onKeyDown={(e) => {
                       if (e.key === "Enter" || e.key === " ") {
@@ -140,7 +140,7 @@ export default function PlasmicLanding() {
                     className={sty.cityCardRow}
                     onClick={() => enterCity("penteli", [38.0491, 23.8653])}
                     role="button"
-                    aria-label={t('landing_enter_penteli')}
+                    aria-label={t('landing_city_penteli')}
                     tabIndex={0}
                     onKeyDown={(e) => {
                       if (e.key === "Enter" || e.key === " ") {
