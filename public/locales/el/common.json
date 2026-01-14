@@ -10,6 +10,9 @@
   "aria_enabled": "ενεργοποιήθηκε",
   "aria_disabled": "απενεργοποιήθηκε",
   "aria_language_switcher": "Επιλογή γλώσσας",
+  "aria_collapse_sidebar": "Σύμπτυξη πλευρικής μπάρας",
+  "aria_expand_sidebar": "Ανάπτυξη πλευρικής μπάρας",
+  "alert_select_start_first": "Παρακαλώ επέλεξε πρώτα ένα σημείο εκκίνησης!",
 
   "header_tool_instruction": "Οδηγίες εργαλείου",
   "header_select_city": "Επιλέξτε Πόλη",
@@ -131,7 +134,10 @@
   "get_area": "Λήψη περιοχής κάλυψης",
   "clear_result": "Καθαρισμός αποτελεσμάτων",
   "clear_variables": "Καθαρισμός χαρακτηριστικών",
+  "aria_interactive_map": "Διαδραστικός χάρτης",
+  "sr_map_keyboard_instructions": "Πλοήγηση με πληκτρολόγιο: χρησιμοποίησε τα βελάκια για μετακίνηση. Χρησιμοποίησε το συν και το πλην για ζουμ.",
 
+  "sr_results_loaded": "Φορτώθηκε {{count}} αποτέλεσμα προσβασιμότητας.",
   "leg_catchment_result": "Αποτελέσματα περιοχής κάλυψης",
   "leg_time_label": "Χρόνος: ",
   "leg_speed_label": "Ταχύτητα: ",

@@ -10,6 +10,9 @@
   "aria_enabled": "enabled",
   "aria_disabled": "disabled",
   "aria_language_switcher": "Language selection",
+  "aria_collapse_sidebar": "Collapse sidebar",
+  "aria_expand_sidebar": "Expand sidebar",
+  "alert_select_start_first": "Please select a starting point first!",
 
   "header_tool_instruction": "Tool Instruction",
   "header_select_city": "Select City",
@@ -131,7 +134,10 @@
   "get_area": "Get Catchment Area",
   "clear_result": "Clear Results",
   "clear_variables": "Clear Features",
+  "aria_interactive_map": "Interactive map",
+  "sr_map_keyboard_instructions": "Keyboard navigation: use arrow keys to pan. Use plus and minus to zoom.",
 
+  "sr_results_loaded": "{{count}} accessibility result loaded.",
   "leg_catchment_result": "Catchment Area Results",
   "leg_time_label": "Time: ",
   "leg_speed_label": "Speed: ",

@@ -89,9 +89,13 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
       aria-labelledby="legend-heading"
     >
       {/* Dedicated area for screen readers: Number of new results to be displayed */}
-      <div aria-live="polite" className={styles["sr-only"]} role="status">
+      {/* <div aria-live="polite" className={styles["sr-only"]} role="status">
         {resultMetadata.length > 0 &&
           `${resultMetadata.length} accessibility result${resultMetadata.length > 1 ? 's' : ''} loaded.`}
+      </div> */}
+      <div aria-live="polite" className={styles["sr-only"]} role="status">
+        {resultMetadata.length > 0 &&
+          t("sr_results_loaded", { count: resultMetadata.length })}
       </div>
 
       <div className={styles["legend-header"]}>

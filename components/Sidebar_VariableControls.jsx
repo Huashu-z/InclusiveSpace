@@ -281,7 +281,7 @@ export default function VariableControls({
           type="button"
           onClick={() => {
             if (startPoints.length === 0) {
-              alert("Please select a starting point first!");
+              alert(t("alert_select_start_first"));
               return;
             }            
             setComputeAccessibility(true);

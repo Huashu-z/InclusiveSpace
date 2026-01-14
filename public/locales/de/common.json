@@ -10,6 +10,9 @@
   "aria_enabled": "aktiviert",
   "aria_disabled": "deaktiviert",
   "aria_language_switcher": "Sprachauswahl",
+  "aria_collapse_sidebar": "Seitenleiste einklappen",
+  "aria_expand_sidebar": "Seitenleiste ausklappen",
+  "alert_select_start_first": "Bitte wähle zuerst einen Startpunkt aus!",
 
   "header_tool_instruction": "Werkzeuganleitung",
   "header_select_city": "Stadt auswählen",
@@ -131,7 +134,10 @@
   "get_area": "Einzugsgebiet berechnen",
   "clear_result": "Ergebnisse löschen",
   "clear_variables": "Merkmale löschen",
+  "aria_interactive_map": "Interaktive Karte",
+  "sr_map_keyboard_instructions": "Tastaturnavigation: Mit den Pfeiltasten verschieben. Mit Plus und Minus zoomen.",
 
+  "sr_results_loaded": "{{count}} Ergebnis zur Erreichbarkeit geladen.",
   "leg_catchment_result": "Ergebnis des Einzugsgebiets",
   "leg_time_label": "Zeit: ",
   "leg_speed_label": "Geschwindigkeit: ",

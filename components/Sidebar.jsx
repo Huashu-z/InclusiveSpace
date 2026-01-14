@@ -6,6 +6,7 @@ import ArrowSvgIcon from "./plasmic/saa_s_website/icons/PlasmicIcon__ArrowSvg";
 import AccessibilityControls from "./Sidebar_AccessibilityControls";
 import VariableControls from "./Sidebar_VariableControls";
 import MapLayers from "./Sidebar_ManageLayers";
+import { useTranslation } from "next-i18next";
 
 export default function Sidebar({
     sidebarOpen,
@@ -38,6 +39,7 @@ export default function Sidebar({
     city,
     cityBoundaries
   }) {
+    const { t } = useTranslation("common");
     return (
         <div
             id="sidebar"
@@ -56,7 +58,7 @@ export default function Sidebar({
           <button
             className={sty.sidebarToggleButton}
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            aria-label={sidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
+            aria-label={sidebarOpen ? t("aria_collapse_sidebar") : t("aria_expand_sidebar")}
             aria-expanded={sidebarOpen}
           >
             <ArrowSvgIcon className={sty.sidebarToggleArrow} aria-hidden="true" />

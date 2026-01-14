@@ -560,13 +560,9 @@ const MapComponent = ({
 
       if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "0");
 
-      if (!el.hasAttribute("aria-label")) {
-        el.setAttribute(
-          "aria-label",
-          "Interactive map. To navigate without dragging, focus the map and use arrow keys to pan and plus/minus to zoom."
-        );
-      }
-    }, [map]);
+      el.setAttribute("aria-label", t("aria_interactive_map"));
+      el.setAttribute("aria-describedby", "map-kbd-desc");
+    }, [map, t]);
 
     return null;
   }
@@ -624,6 +620,9 @@ const MapComponent = ({
         </div>
       )}
 
+      <p id="map-kbd-desc" className={sty.srOnly}>
+        {t("sr_map_keyboard_instructions")}
+      </p>
       <MapContainer
         center={cityCenter}
         zoom={14}
