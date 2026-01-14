@@ -661,13 +661,11 @@
 
   transform: translateY(-200%);
 }
-
-/* 只要其中任意一个链接获得焦点，就整条显示出来 */
+ 
 .skipLinks:focus-within {
   transform: translateY(0);
 }
-
-/* 单个链接样式（清晰、可点、可看） */
+ 
 .skipLink {
   display: inline-block;
   padding: 6px 10px;

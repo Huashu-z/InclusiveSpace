@@ -70,7 +70,7 @@ const MapComponent = ({
     setCalcStage("");
   };
 
-  // (1) 计时：显示 (Ns)
+  // (1) timer (Ns)
   useEffect(() => {
     if (!isCalculating) {
       setCalcElapsed(0);
@@ -83,7 +83,7 @@ const MapComponent = ({
     return () => window.clearInterval(timer);
   }, [isCalculating]);
 
-  // (2) Esc 取消
+  // (2) Esc to cancel
   useEffect(() => {
     if (!isCalculating) return;
     const onKeyDown = (e) => {
@@ -125,7 +125,7 @@ const MapComponent = ({
         new leaflet.Icon({
           iconUrl: "/images/address_start.png",
           iconSize: [32, 32],
-          iconAnchor: [16, 32],           // ✅ 底部中心 = [宽/2, 高]
+          iconAnchor: [16, 32], 
           popupAnchor: [0, -32],  
         })
       );

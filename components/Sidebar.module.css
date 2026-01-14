@@ -330,13 +330,12 @@
     border-radius: 6px;
     opacity: 1;
   }
-  /* 1) 鼠标点击聚焦时，不要高亮框（仍然保持可用） */
+
   .search-input:focus {
     outline: none;
     box-shadow: none;
   }
-
-  /* 2) 只有键盘 focus-visible 才显示统一高亮框 */
+ 
   .search-input:focus-visible {
     outline: 2px solid #0A84FF;
     outline-offset: 2px;
@@ -474,15 +473,7 @@
     margin-bottom: 12px;
     padding: 0 2px;
   }
-  /* Filled track for Walking Time / Walking Speed (stable) */
-  /* .sidebar-slider .range-filled {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 22px;
-    background: transparent;
-    outline: none;
-  } */
+
   /* ===== Chrome / Edge / Safari ===== */
   .sidebar-slider .range-filled::-webkit-slider-runnable-track {
     height: 7px;
@@ -495,19 +486,7 @@
       #ffffff var(--pct, 50%),
       #ffffff 100%
     );
-  }
-  /* thumb */
-  /* .sidebar-slider .range-filled::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 18px;
-    height: 18px;
-    background: #52ccae;
-    border: 2px solid #173F5F;
-    border-radius: 50%;
-    cursor: pointer;
-    margin-top: -7px;
-  } */
+  } 
 
   /* ===== Firefox ===== */
   .sidebar-slider .range-filled::-moz-range-track {
@@ -520,15 +499,7 @@
     height: 6px;
     border-radius: 5px;
     background: #2a9d8f;
-  }
-  /* .sidebar-slider .range-filled::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
-    background: #52ccae;
-    border: 2px solid #173F5F;
-    border-radius: 50%;
-    cursor: pointer;
-  } */
+  } 
   
   .faq-container {
     width: 100%;
@@ -639,26 +610,7 @@
     background: #ddd;
     cursor: not-allowed;
   } 
-  /* .slider-container input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    height: 14px;
-    width: 14px;
-    border-radius: 50%;
-    background: #470d00;
-    border: none;
-    cursor: pointer;
-    margin-top: -1px;
-    transition: transform 0.2s;
-  }
 
-  .slider-container input[type="range"]::-moz-range-thumb {
-    height: 16px;
-    width: 16px;
-    border-radius: 50%;
-    background: #173f5f;
-    border: none;
-    cursor: pointer;
-  } */
   .slider-container input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 24px;
