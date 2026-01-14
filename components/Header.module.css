@@ -128,6 +128,8 @@
 }
 
 .langLink {
+  min-width: 24px;
+  min-height: 24px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -322,8 +324,8 @@
   color: #173f5f;
 }
 .shortcutTitleText {
-  padding-top: 3px;  /* 如果还偏低就加大；偏高就减小或用 0 */
-  line-height: 1.4;  /* 避免标题两行时看起来“漂” */
+  padding-top: 3px;
+  line-height: 1.4; 
   font-size: 14 px;
   font-weight: 600;
 }
