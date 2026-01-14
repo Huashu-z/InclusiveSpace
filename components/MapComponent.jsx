@@ -309,9 +309,14 @@ const MapComponent = ({
           };
 
           const defaultRes = await fetchAccessibilityFromBackend(lat, lon, walkingTime, walkingSpeed, defaultVars, controller.signal);
-          
+          if (!defaultRes || !defaultRes.roads) {
+            alert(t("err_api_failed_try_again"));
+            setComputeAccessibility(false);
+            setIsCalculating(false);
+            return;
+          }
           if (!isValidGeoJSON(defaultRes.roads)) {
-            alert("No reachable area found for this walking time/speed. Please try another setting.");
+            alert(t("err_no_reachable_default"));
             setComputeAccessibility(false);
             setIsCalculating(false);
             return;
@@ -391,8 +396,12 @@ const MapComponent = ({
         // --------- Step 2: Weighted Result (with comfort features) ---------
         if (enabledVariables.length > 0) {
           const weightedRes = await fetchAccessibilityFromBackend(lat, lon, walkingTime, walkingSpeed, layerValues, controller.signal);
+          if (!weightedRes || !weightedRes.roads) {
+            alert(t("err_api_failed_try_again"));
+            return;
+          }
           if (!isValidGeoJSON(weightedRes.roads)) {
-            alert("The selected comfort settings result in no reachable area. Try adjusting the sliders.");
+            alert(t("err_no_reachable_weighted"));
             return;
           }
           const weightedRoads = weightedRes.roads.features;
@@ -471,10 +480,9 @@ const MapComponent = ({
         }
 
       } catch (err) {
-        if (err?.name === "AbortError") {
-          return;
-        }
+        if (err?.name === "AbortError") return;
         console.error("Reachability analysis error：", err);
+        alert(t("err_unexpected_try_again"));
       } finally {
         abortRef.current = null;
         setIsCalculating(false);

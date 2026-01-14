@@ -136,7 +136,11 @@
   "clear_variables": "Merkmale löschen",
   "aria_interactive_map": "Interaktive Karte",
   "sr_map_keyboard_instructions": "Tastaturnavigation: Mit den Pfeiltasten verschieben. Mit Plus und Minus zoomen.",
-
+  "err_no_reachable_default": "Für diese Gehzeit/Geschwindigkeit wurde keine erreichbare Fläche gefunden. Bitte probiere andere Einstellungen.",
+  "err_no_reachable_weighted": "Mit den gewählten Komfort-Einstellungen wurde keine erreichbare Fläche gefunden. Bitte passe die Regler an.",
+  "err_api_failed_try_again": "Die Analyse konnte nicht abgeschlossen werden. Bitte prüfe deine Internetverbindung und versuche es erneut.",
+  "err_unexpected_try_again": "Bei der Analyse ist ein Fehler aufgetreten. Bitte versuche es erneut. Falls es weiterhin passiert, probiere andere Einstellungen.",
+  
   "sr_results_loaded": "{{count}} Ergebnis zur Erreichbarkeit geladen.",
   "leg_catchment_result": "Ergebnis des Einzugsgebiets",
   "leg_time_label": "Zeit: ",

@@ -136,6 +136,10 @@
   "clear_variables": "Clear Features",
   "aria_interactive_map": "Interactive map",
   "sr_map_keyboard_instructions": "Keyboard navigation: use arrow keys to pan. Use plus and minus to zoom.",
+  "err_no_reachable_default": "No reachable area found for this walking time/speed. Please try another setting.",
+  "err_no_reachable_weighted": "The selected comfort settings result in no reachable area. Try adjusting the sliders.",
+  "err_api_failed_try_again": "The analysis could not be completed. Please check your connection and try again.",
+  "err_unexpected_try_again": "Something went wrong during the analysis. Please try again. If it keeps happening, try different settings.",
 
   "sr_results_loaded": "{{count}} accessibility result loaded.",
   "leg_catchment_result": "Catchment Area Results",
