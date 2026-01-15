@@ -41,7 +41,7 @@ function LayerCheckbox({ layerKey, label, checked, onToggle, t }) {
           aria-label={t("aria_layer_info_button", { layer: label })}
           aria-haspopup="dialog"
           aria-expanded={showTooltip}
-          aria-controls={`tip-layer-${layerKey}`}
+          aria-controls={showTooltip ? `tip-layer-${layerKey}` : undefined}
         >
           <img src="/images/icon_info.png" alt="" aria-hidden="true" className={sty.infoIconImg} />
         </button>
@@ -71,7 +71,7 @@ function Category({ name, label, isOpen, onToggle, children, sty }) {
         className={`${sty["faq-question"]} ${sty.kbdFocus}`}
         onClick={onToggle}
         aria-expanded={isOpen}
-        aria-controls={contentId}
+        aria-controls={isOpen ? contentId : undefined}
         id={headingId}
       >
         <span className={sty["sidebar-subtitle"]}>{label}</span>
@@ -150,7 +150,7 @@ export default function MapLayers({ selectedLayers, toggleLayer, availableLayers
           aria-label={t('tooltip_data_title')}
           aria-haspopup="dialog"
           aria-expanded={showInfo}
-          aria-controls="tip-datainfo"
+          aria-controls={showInfo ? "tip-datainfo" : undefined}
         >
           <img src="/images/icon_info.png" alt="" aria-hidden="true" className={sty.infoIconImg} />
         </button>
@@ -160,8 +160,8 @@ export default function MapLayers({ selectedLayers, toggleLayer, availableLayers
           type="dataInfo"
           anchorRef={infoIconRef}
           onClose={() => {
-            setShowTooltip(false);
-            tooltipRef.current?.focus();
+            setShowInfo(false);
+            infoIconRef.current?.focus();
           }}
           id="tip-datainfo"
         />

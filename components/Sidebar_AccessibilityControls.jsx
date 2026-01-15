@@ -167,7 +167,7 @@ export default function AccessibilityControls({
           aria-label={t('tooltip_walking_speed_title')}
           aria-haspopup="dialog"
           aria-expanded={showWalkingSpeedTooltip}
-          aria-controls="tip-walking-speed"
+          aria-controls={showWalkingSpeedTooltip ? "tip-walking-speed" : undefined}
         >
           <img
             src="/images/icon_info.png"

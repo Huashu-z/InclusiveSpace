@@ -104,7 +104,7 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
           className={styles["legend-header-button"]}
           type="button"
           aria-expanded={isExpanded}
-          aria-controls={legendBodyId}
+          aria-controls={isExpanded ? legendBodyId : undefined}
           onClick={() => setIsExpanded(!isExpanded)}
         >
           <span className={styles["legend-header-title"]}>
