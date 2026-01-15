@@ -1,5 +1,5 @@
 /* aria setting, for screen reader only (Visually impaired users) */
-.sr-only {
+.srOnly {
   position: absolute !important;
   width: 1px;
   height: 1px;

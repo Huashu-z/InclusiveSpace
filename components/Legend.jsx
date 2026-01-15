@@ -8,6 +8,9 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
   const [isExpanded, setIsExpanded] = useState(true);
   const bodyRef = useRef(null);
 
+  const [openComfort, setOpenComfort] = React.useState({});
+  const [openPoi, setOpenPoi] = React.useState({});
+
   const variableDisplayNames = {
     noise: t('checkbox_noise'),
     light: t('checkbox_light'),
@@ -38,17 +41,7 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
     "☹️",
     "😐"
   ];
-
-  // const poiCategoryNames = {
-  //   film_theater: t("leg_poi_cinema"), 
-  //   museen: t("leg_poi_museum"),  
-  //   musik_ausstellungen: t("leg_poi_music"), 
-  //   religioese_gemeinschaften: t("leg_poi_religious"), 
-  //   spezialbibliotheken: t("leg_poi_library"), 
-  //   stadtteilkulturzentren_buergerhaeuser: t("leg_poi_cultural_center"), 
-  //   weiterbildung: t("leg_poi_education"), 
-  //   Unknown: t("leg_poi_other")
-  // };
+ 
   const poiCategoryNames = {
     poi_hh_gastronomy: t("leg_poi_gastronomy"),
     poi_hh_haltstelle: t("leg_poi_haltstelle"),
@@ -88,12 +81,8 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
       className={styles["legend-container"]}
       aria-labelledby="legend-heading"
     >
-      {/* Dedicated area for screen readers: Number of new results to be displayed */}
-      {/* <div aria-live="polite" className={styles["sr-only"]} role="status">
-        {resultMetadata.length > 0 &&
-          `${resultMetadata.length} accessibility result${resultMetadata.length > 1 ? 's' : ''} loaded.`}
-      </div> */}
-      <div aria-live="polite" className={styles["sr-only"]} role="status">
+      {/* Dedicated area for screen readers: Number of new results to be displayed */} 
+      <div aria-live="polite" className={styles["srOnly"]} role="status">
         {resultMetadata.length > 0 &&
           t("sr_results_loaded", { count: resultMetadata.length })}
       </div>
@@ -178,7 +167,7 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                 {!entry.isDefault && <div>{t('leg_comfort_ratio')} {entry.weightedRatio}</div>}
 
                 {/* Comfort Feature Weight Categories */}
-                <button
+                {/* <button
                   type="button"
                   className={styles["toggle-button"]}
                   aria-expanded="false"
@@ -206,7 +195,42 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                   ) : (
                     <div className={styles["legend-none"]}>{t("leg_none")}</div>
                   )}
-                </div>
+                </div> */}
+                {/* Comfort Feature Weight Categories */}
+                {(() => {
+                  const isComfortOpen = !!openComfort[index];
+
+                  return (
+                    <>
+                      <button
+                        type="button"
+                        className={styles["toggle-button"]}
+                        aria-expanded={isComfortOpen}
+                        aria-controls={comfortId}
+                        onClick={() =>
+                          setOpenComfort((prev) => ({ ...prev, [index]: !prev[index] }))
+                        }
+                      >
+                        {(isComfortOpen ? "▼ " : "► ") + t("leg_comfort_weight_title")}
+                      </button>
+
+                      <div id={comfortId} hidden={!isComfortOpen} style={{ marginLeft: "8px" }}>
+                        {features.length > 0 ? (
+                          <ul className={styles["legend-list"]}>
+                            {features.map((layer) => (
+                              <li key={layer}>
+                                {variableDisplayNames[layer] || layer}:{" "}
+                                {getWeightLabel(values[layer]) ?? "N/A"}
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <div className={styles["legend-none"]}>{t("leg_none")}</div>
+                        )}
+                      </div>
+                    </>
+                  );
+                })()}
 
                 {/* Points of Interest Count */}
                 {(() => {
@@ -219,22 +243,16 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                       <button
                         className={styles["toggle-button"]}
                         style={{ marginBottom: 2 }}
-                        aria-expanded="false"
+                        aria-expanded={!!openPoi[index]}
                         aria-controls={poiId}
-                        onClick={(e) => {
-                          const btn = e.currentTarget;
-                          const container = btn.nextSibling;
-                          const isOpen = container.style.display !== "none";
-                          container.style.display = isOpen ? "none" : "block";
-                          btn.setAttribute("aria-expanded", (!isOpen).toString());
-                          btn.innerText =
-                            (!isOpen ? "▼ " : "► ") + t("leg_poi_count") + `: ${poiCount}`;
-                        }}
+                        onClick={() =>
+                          setOpenPoi((prev) => ({ ...prev, [index]: !prev[index] }))
+                        }
                       >
-                        ► {t("leg_poi_count")}: {poiCount}
+                        {(openPoi[index] ? "▼ " : "► ") + t("leg_poi_count") + `: ${poiCount}`}
                       </button>
 
-                      <div id={poiId} style={{ display: "none", marginLeft: 8 }}>
+                      <div id={poiId} hidden={!openPoi[index]} style={{ marginLeft: 8 }}>
                         {hasGroups ? (
                           Object.entries(entry.poiGroupCounts).map(([cat, count]) => (
                             <div key={cat}>
@@ -247,6 +265,7 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                       </div>
                     </div>
                   );
+
                 })()}
 
               </div>

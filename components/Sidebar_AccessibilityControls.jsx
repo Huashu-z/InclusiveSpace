@@ -121,7 +121,7 @@ export default function AccessibilityControls({
 
   return (
     <div className={sty["sidebar-section"]} aria-labelledby="accessibility-heading">
-      <div role="status" aria-live="polite" className={sty["sr-only"]}>{liveMessage}</div>
+      <div role="status" aria-live="polite" className={sty["srOnly"]}>{liveMessage}</div>
 
       {/* <h3 className={sty["sidebar-title"]}>{t('accessibility_title')}</h3> */}
       <h2 className={sty["sidebar-section-title"]} id="accessibility-heading">
@@ -133,7 +133,7 @@ export default function AccessibilityControls({
       <div className={sty["sidebar-text-bold"]}>
         {t('walking_time')} <span className={sty["sidebar-text"]}>({walkingTime} min)</span>
       </div>
-      <label htmlFor="walking-time-slider" className={sty["sr-only"]}>
+      <label htmlFor="walking-time-slider" className={sty["srOnly"]}>
         {t('walking_time')}
       </label>
       <div className={sty["sidebar-slider"]}>
@@ -225,7 +225,7 @@ export default function AccessibilityControls({
           <span className={sty["sidebar-text"]}>{t('select_start_notice')}</span>
         </h3> 
         {/* for screen reader */}
-        <p id="sr-select-start-desc" className={sty["sr-only"]}>
+        <p id="sr-select-start-desc" className={sty["srOnly"]}>
           {t('sr_select_start_description')}
         </p>
  
@@ -234,7 +234,7 @@ export default function AccessibilityControls({
           <div className={sty["search-bar"]}>
             <label
               htmlFor="address-input"
-              className={sty["sr-only"]}
+              className={sty["srOnly"]}
             > 
               {t('search_address')}
             </label>
@@ -243,7 +243,7 @@ export default function AccessibilityControls({
               role="combobox"
               aria-autocomplete="list"
               aria-expanded={addrResults.length > 0}
-              aria-controls="address-listbox"
+              aria-controls={addrResults.length > 0 ? "address-listbox" : undefined}
               aria-activedescendant={activeIndex >= 0 ? `addr-option-${activeIndex}` : undefined}
               placeholder={t('search_address')}
               value={address}

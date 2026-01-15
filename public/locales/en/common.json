@@ -140,6 +140,9 @@
   "err_no_reachable_weighted": "The selected comfort settings result in no reachable area. Try adjusting the sliders.",
   "err_api_failed_try_again": "The analysis could not be completed. Please check your connection and try again.",
   "err_unexpected_try_again": "Something went wrong during the analysis. Please try again. If it keeps happening, try different settings.",
+  "aria_zoom_in": "Zoom in",
+  "aria_zoom_out": "Zoom out",
+  "aria_map_region": "Map view: walking accessibility and catchment areas",
 
   "sr_results_loaded": "{{count}} accessibility result loaded.",
   "leg_catchment_result": "Catchment Area Results",

@@ -40,6 +40,7 @@ export default function Sidebar({
     cityBoundaries
   }) {
     const { t } = useTranslation("common");
+    const [srStatus, setSrStatus] = React.useState("");
     return (
         <div
             id="sidebar"
@@ -53,7 +54,9 @@ export default function Sidebar({
             }
             )}
         >      
- 
+        <p className={sty.srOnly} role="status" aria-live="polite" aria-atomic="true">
+          {srStatus}
+        </p>
         <div className={sty.arrowToggleContainer}>
           <button
             className={sty.sidebarToggleButton}

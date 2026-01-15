@@ -54,9 +54,7 @@ const MapComponent = ({
   const [cityBoundaries, setCityBoundaries] = useState({});
 
   const { t } = useTranslation("common");
-  const mapRegionLabel = t("aria_map_region", {
-    defaultValue: "Map view: walking accessibility and catchment areas",
-  });
+  const mapRegionLabel = t("aria_map_region");
 
   // show calculating status/timer
   const abortRef = useRef(null);
@@ -512,10 +510,30 @@ const MapComponent = ({
     if (!root) return;
 
     const apply = () => {
-      root
-        // .querySelectorAll(".leaflet-control-attribution a, .leaflet-control-zoom a")
+      // Attribution links: keep out of tab order (as you already do)
+      root 
         .querySelectorAll(".leaflet-control-attribution a")
         .forEach((a) => a.setAttribute("tabindex", "-1"));
+
+      // Zoom controls: ensure stable accessible name (and role if you want)
+      const zoomIn = root.querySelector("a.leaflet-control-zoom-in");
+      const zoomOut = root.querySelector("a.leaflet-control-zoom-out");
+
+      if (zoomIn) {
+        zoomIn.setAttribute(
+          "aria-label",
+          t("aria_zoom_in")
+        );
+        zoomIn.setAttribute("role", "button");
+      }
+
+      if (zoomOut) {
+        zoomOut.setAttribute(
+          "aria-label",
+          t("aria_zoom_out")
+        );
+        zoomOut.setAttribute("role", "button");
+      }
     };
 
     apply();
@@ -524,7 +542,7 @@ const MapComponent = ({
     obs.observe(root, { subtree: true, childList: true });
 
     return () => obs.disconnect();
-  }, []);
+  }, [t]);
 
   if (!MapModule || !MapModule.MapContainer) return null;
   const { MapContainer, TileLayer, GeoJSON, Marker, Popup, Tooltip, useMapEvents, useMap, Pane } = MapModule;
@@ -752,8 +770,8 @@ const MapComponent = ({
               {/* Tooltip for result name */}
               <Tooltip sticky direction="top" offset={[6, -6]}>
                 {resultMetadata[i]?.isDefault
-                  ? `${t("legend_base_area", { defaultValue: "Standard Walking Area" })} ${resultMetadata[i]?.groupIndex}`
-                  : `${t("legend_adjusted_area", { defaultValue: "Comfort-Adjusted Walking Area" })} ${resultMetadata[i]?.groupIndex}.${resultMetadata[i]?.subIndex}`}
+                  ? `${t("legend_base_area")} ${resultMetadata[i]?.groupIndex}`
+                  : `${t("legend_adjusted_area")} ${resultMetadata[i]?.groupIndex}.${resultMetadata[i]?.subIndex}`}
               </Tooltip>
 
             </GeoJSON>

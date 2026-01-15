@@ -233,7 +233,7 @@ function Header(
           aria-label={t('header_tool_instruction')}
           aria-haspopup="dialog"
           aria-expanded={showHelp}
-          aria-controls="help-dialog"
+          aria-controls={showHelp ? "help-dialog" : undefined}
           onClick={() => setShowHelp(true)}
         >
           <img src="/images/icon_info.png" alt="" aria-hidden="true" className={sty.helpButtonImg} />

@@ -89,7 +89,7 @@ export default function VariableControls({
           /> 
 
         <div className={sty["slider-container"]}>
-          <label htmlFor={sliderId} className={sty["sr-only"]}>{t('variable_weight_for', { label })}</label>
+          <label htmlFor={sliderId} className={sty["srOnly"]}>{t('variable_weight_for', { label })}</label>
           <input
             id={sliderId}
             type="range"
@@ -139,7 +139,7 @@ export default function VariableControls({
           <span className={sty["slider-value"]} aria-hidden="true">
             {sliderIndex >= 0 ? weightLabels[sliderIndex] : "-"}
           </span>
-          <span className={sty["sr-only"]}>
+          <span className={sty["srOnly"]}>
             {sliderIndex >= 0 ? weightTexts[sliderIndex] : t('emoji_level_unknown')}
           </span>
         </div>
@@ -156,7 +156,7 @@ export default function VariableControls({
       role = "region"
       aria-labelledby="comfort-features-heading"
     >
-      <div aria-live="polite" className={sty["sr-only"]} role="status">
+      <div aria-live="polite" className={sty["srOnly"]} role="status">
         {liveMessage}
       </div>
       <div className={sty["title-container"]}>
@@ -326,7 +326,7 @@ function Category({ id, name, open, onClick, children }) {
           className={`${sty["faq-question"]} ${sty.kbdFocus}`}
           onClick={onClick}
           aria-expanded={open}
-          aria-controls={contentId}
+          aria-controls={open ? contentId : undefined}
         >
           <span>{name}</span>
           <span className={sty["faq-icon"]}>{open ? "−" : "+"}</span>
