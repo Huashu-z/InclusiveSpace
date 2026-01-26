@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import sty from "./Sidebar.module.css";
-import { useTranslation } from 'next-i18next';
-import { cityLayerConfig } from "./cityVariableConfig";
+import { useTranslation } from 'next-i18next'; 
 import Tooltip from "./Sidebar_Tooltip";
 
 function LayerCheckbox({ layerKey, label, checked, onToggle, t }) {

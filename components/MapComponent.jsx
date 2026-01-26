@@ -1,11 +1,11 @@
-import { useState, useEffect, useRef } from "react"; 
+import { useState, useEffect, useRef, useMemo } from "react"; 
 import dynamic from "next/dynamic";
 import "leaflet/dist/leaflet.css"; 
 import * as turf from "@turf/turf";
 import proj4 from "proj4"; 
 import Legend from "./Legend";
 import sty from './MapComponent.module.css'; 
-import {getStyle, useCircleMarker,isWmsLayer, layerGroupMap, wmsLayerComponents} from "./LayerStyleManager"; 
+import {getStyle, useCircleMarker,isWmsLayer, buildLayerTypeMap, layerGroupMap, wmsLayerComponents} from "./LayerStyleManager"; 
 import { useTranslation } from "next-i18next";
 
 // Dynamic import for react-leaflet
@@ -20,6 +20,7 @@ proj4.defs("EPSG:25832", "+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m 
 const MapComponent = ({ 
   cityCenter = [53.5503, 9.9920],
   selectedLayers, 
+  availableLayers,
   enabledVariables,
   selectingStart, 
   setSelectingStart, 
@@ -55,6 +56,11 @@ const MapComponent = ({
 
   const { t } = useTranslation("common");
   const mapRegionLabel = t("aria_map_region");
+
+  const layerTypeMap = useMemo(
+    () => buildLayerTypeMap(availableLayers),
+    [availableLayers]
+  );
 
   // show calculating status/timer
   const abortRef = useRef(null);
@@ -183,7 +189,7 @@ const MapComponent = ({
 
       const city = (typeof window !== "undefined" && (localStorage.getItem("selectedCity") || "hamburg")) || "hamburg";
       for (const layer of expandedLayers) {
-        if (isWmsLayer(layer)) continue;
+        if (isWmsLayer(layer, layerTypeMap)) continue;
 
         try {
           const res = await fetch(`/data/${city}/${layer}.geojson`);
@@ -715,6 +721,7 @@ const MapComponent = ({
  
         {/* Render WMS layers based on selectedLayers */}
         {selectedLayers.map((layer) => {
+          if (!isWmsLayer(layer, layerTypeMap)) return null;
           const WmsComponent = wmsLayerComponents[layer];
           return WmsComponent ? <WmsComponent key={layer} /> : null;
         })}

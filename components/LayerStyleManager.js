@@ -15,18 +15,15 @@ export const layerGroupMap = {
   tactile_guidance: ["tactile_points", "tactile_lines", "tactile_polygons"]
 };
 
-// seperate wms layers and geojson layers
-export const isWmsLayer = (layer) =>
-  [
-    "noise_wms",
-    "tree_wms",
-    "trafic_light_wms",
-    "blue_infrastructure_wms",
-    "green_infrastructure_wms",
-    "transport_station_wms", 
-    "facility_wms",
-    "pedestrian_flow_wms"
-  ].includes(layer);
+// Build a fast lookup for layer type from availableLayers config [{key,type}, ...]
+export const buildLayerTypeMap = (availableLayers = []) => {
+  return new Map((availableLayers || []).map((l) => [l.key, l.type]));
+};
+
+// Single source of truth: WMS if layerTypeMap says so
+export const isWmsLayer = (layerKey, layerTypeMap) => {
+  return layerTypeMap?.get(layerKey) === "wms";
+};
 
 // use circleMarker render point layers
 export const useCircleMarker = (layer) =>

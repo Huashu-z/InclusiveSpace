@@ -1,12 +1,17 @@
 import React from "react";
 import styles from "./Sidebar.module.css"; 
-import { isWmsLayer, getStyle, layerGroupMap } from "./LayerStyleManager";
+import { isWmsLayer, buildLayerTypeMap, getStyle, layerGroupMap } from "./LayerStyleManager";
 import { useTranslation } from 'next-i18next';
  
 
-export default function LayerTagBar({ selectedLayers, toggleLayer }) {
+export default function LayerTagBar({ selectedLayers, toggleLayer, availableLayers = [] }) {
   const { t } = useTranslation("common");
   // Label display name mapping
+  const layerTypeMap = React.useMemo(
+    () => buildLayerTypeMap(availableLayers),
+    [availableLayers]
+  );
+
   const displayNames = {
     noise_wms: t('display_noise'),
     tree_wms: t('display_tree'),
@@ -37,7 +42,7 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
 
   //color mapping for geojson layers
   const getChipColor = (layer) => {
-    if (isWmsLayer(layer)) return null;
+    if (isWmsLayer(layer, layerTypeMap)) return null;
 
     // for group layer (e.g.tactile_guidance) 
     const members = layerGroupMap[layer] || [layer];
@@ -236,7 +241,7 @@ export default function LayerTagBar({ selectedLayers, toggleLayer }) {
                   <span>{slopeLabels[layer][i]}</span>
                 </div>
               ))
-            ) : isWmsLayer(layer) ? (
+            ) : isWmsLayer(layer, layerTypeMap) ? (
               iconUrls[layer]                           // legend with icons
                 ? iconUrls[layer].map((url, i) => (
                     <div key={`${layer}-icon-${i}`} className={styles.layerTagLegendItem}>

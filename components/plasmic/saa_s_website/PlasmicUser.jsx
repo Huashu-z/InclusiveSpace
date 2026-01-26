@@ -18,6 +18,7 @@ import "leaflet/dist/leaflet.css";
 import Sidebar from "../../Sidebar";
 import LayerTagBar from "@/components/LayerTagBar";
 import Profile from "../../Profile";
+import { cityLayerConfig } from "../../cityVariableConfig";
 
 const MapComponent = dynamic(() => import("../../MapComponent"), { ssr: false });
 
@@ -75,11 +76,12 @@ function PlasmicUser__RenderFunc(props) {
   }, []);
 
   React.useEffect(() => {
-    const city = (typeof window !== "undefined" && (localStorage.getItem("selectedCity") || "hamburg")) || "hamburg";
-    fetch(`/data/${city}/layer-list.json`)
-      .then((res) => res.json())
-      .then(setAvailableLayers)
-      .catch((err) => setAvailableLayers([])); 
+    const city =
+      (typeof window !== "undefined" &&
+        (localStorage.getItem("selectedCity") || "hamburg")) ||
+      "hamburg";
+
+    setAvailableLayers(cityLayerConfig?.[city]?.mapLayers || []);
   }, []);
 
   const toggleCategory = (category) => {
@@ -219,10 +221,15 @@ function PlasmicUser__RenderFunc(props) {
               isSearchZoom={isSearchZoom}
               setIsSearchZoom={setIsSearchZoom}
             />            
-            <LayerTagBar selectedLayers={selectedLayers} toggleLayer={toggleLayer} />
+            <LayerTagBar
+              selectedLayers={selectedLayers}
+              toggleLayer={toggleLayer}
+              availableLayers={availableLayers}
+            />
             <MapComponent
               cityCenter={cityCenter}
               selectedLayers={selectedLayers}
+              availableLayers={availableLayers}
               enabledVariables={enabledVariables}
               selectingStart={selectingStart}
               setSelectingStart={setSelectingStart}
