@@ -67,6 +67,7 @@
   "landing_contact_zuniga": "M.Sc. Maria Jose Zuniga",
   "landing_contact_huashu": "B.Sc. Huashu Zhan",
   "landing_city_not_ready": "Sorry, {{city}} map is still under construction.",
+  "landing_disclaimer": "InclusiveSpaces is a Horizon Europe project supported by the European Commission under Grant Agreement No. 101147881. The UK participants in this project are co-funded by the UK. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or European Climate, Infrastructure and Environment Executive Agency (CINEA). Neither the European Union nor the granting authority can be held responsible for them. ",
 
   "icon_discomfort_feature": "Discomfort features icon",
   "icon_accessibility_control": "Accessibility icon",
@@ -83,8 +84,7 @@
   "profile_hearing": "Person with hearing impairment",
   "profile_cognitive": "Person with cognitive impairment",
 
-  "modal_help_title": "How to start?",
-  "modal_help_intro": "Discover how walkable an area is, based on the comfort factors that matter to you.",
+  "modal_help_title": "How to start?", 
   "modal_subtitle_steps": "Follow the steps below to get started:",
   "modal_subtitle_more": "More tools to explore your results",
   "modal_howto_step_select_start": "1️⃣ Choose your starting point.",

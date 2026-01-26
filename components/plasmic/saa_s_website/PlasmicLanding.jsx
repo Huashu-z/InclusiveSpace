@@ -271,11 +271,22 @@ export default function PlasmicLanding() {
           </div>
 
           {/* partner logos */}
-          <div className={sty.partnerLogoBar}>
-            <img className={sty.partnerLogoImg} src="/images/logo_co-founded-eu_full.png" alt={t('logo_EU')} />
-            <img className={sty.partnerLogoImg} src="/images/logoIS_full.png" alt={t('logo_IS')} />
-            <img className={sty.partnerLogoImg} src="/images/tum_logo_full.png" alt={t('logo_TUM')} />
-            {/* Add other partner logos as needed */}
+          <div className={sty.partnerBarWrap}>
+            <div className={sty.partnerLogoBar}>
+              <img className={sty.partnerLogoImg} src="/images/logo_co-founded-eu_full.png" alt={t('logo_EU')} />
+              <img className={sty.partnerLogoImg} src="/images/logoIS_full.png" alt={t('logo_IS')} />
+              <img className={sty.partnerLogoImg} src="/images/tum_logo_full.png" alt={t('logo_TUM')} />
+              {/* Add other partner logos as needed */}
+            </div>
+            {/* disclaimer */}
+            <div className={sty.partnerDisclaimerWrap}>
+              <p className={sty.partnerDisclaimer}>
+                {t("landing_disclaimer", {
+                  defaultValue:
+                    "InclusiveSpaces is a Horizon Europe project supported by the European Commission under Grant Agreement No. 101147881. ...",
+                })}
+              </p>
+            </div>
           </div>
         </div>
       </section> 

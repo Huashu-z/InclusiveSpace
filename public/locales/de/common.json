@@ -67,6 +67,7 @@
   "landing_contact_zuniga": "M.Sc. Maria Jose Zuniga",
   "landing_contact_huashu": "B.Sc. Huashu Zhan",
   "landing_city_not_ready": "Entschuldigung, die Karte von {{city}} ist noch in Bearbeitung.",
+  "landing_disclaimer": "InclusiveSpaces ist ein Horizon-Europe-Projekt, das von der Europäischen Kommission im Rahmen der Finanzhilfevereinbarung Nr. 101147881 unterstützt wird. Die britischen Projektpartner werden im Rahmen dieses Projekts zusätzlich vom Vereinigten Königreich kofinanziert. Die geäußerten Ansichten und Meinungen stammen jedoch ausschließlich von den Autorinnen und Autoren und spiegeln nicht notwendigerweise die Auffassung der Europäischen Union oder der Exekutivagentur für Klima, Infrastruktur und Umwelt (CINEA) wider. Weder die Europäische Union noch die Bewilligungsbehörde können für diese Inhalte verantwortlich gemacht werden.",
 
   "icon_discomfort_feature": "Symbol für Unkomfort-Merkmale",
   "icon_accessibility_control": "Symbol für Barrierefreiheit",
@@ -83,8 +84,7 @@
   "profile_hearing": "Person mit Hörbeeinträchtigung",
   "profile_cognitive": "Person mit kognitiver Beeinträchtigung",
   
-  "modal_help_title": "Wie beginne ich?",
-  "modal_help_intro": "Entdecken Sie, wie begehbar ein Gebiet ist – basierend auf den Komfortfaktoren, die für Sie wichtig sind.",
+  "modal_help_title": "Wie beginne ich?", 
   "modal_subtitle_steps": "Folgen Sie den Schritten unten, um zu starten:",
   "modal_subtitle_more": "Weitere Werkzeuge zur Analyse Ihrer Ergebnisse",
   "modal_howto_step_select_start": "1️⃣ Wählen Sie Ihren Startpunkt.",

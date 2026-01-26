@@ -391,10 +391,7 @@ function Header(
             <div className={sty["modal-header-block"]}>
               <h2 id="cat-help-title" className={sty["modal-main-title"]}>
                 {t("modal_help_title")}
-              </h2>
-              <p className={sty["section-intro"]}>
-                {t("modal_help_intro")}
-              </p>
+              </h2> 
             </div>
 
             {/* ---------- 2. Row（AccessibilityControls + VariableControls） ---------- */}

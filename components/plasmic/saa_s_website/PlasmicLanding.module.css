@@ -61,7 +61,7 @@
   margin-top: 40px;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1000px) {
   .bannerRow {
     flex-direction: column;
   } 
@@ -177,7 +177,7 @@
 }
 
 /* Mobile: stack like before */
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   .bannerColLeft,
   .bannerColRight {
     flex: 1 1 100%;
@@ -235,7 +235,7 @@
 }
 
 /* Mobile: Left and right columns become one column, centered display */
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   .bannerInner {
     grid-template-columns: 1fr;
     gap: 24px;
@@ -359,7 +359,7 @@
 }
 
 /* Mobile terminal: Give city cards more friendly spacing */
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   .cityCardRow {
     position: relative;
     display: flex;
@@ -510,7 +510,7 @@
   border: 3px solid #173F5F; */
   transform: translateY(-1px);
 }
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
   .toolDetailsInner {
     flex-direction: column;
     align-items: center;
@@ -562,10 +562,22 @@
 }
 
 /* full-width logo strip at the very bottom of the green section */
-.partnerLogoBar {
+.partnerBarWrap {
   width: 100vw;
   margin-left: 50%;
   transform: translateX(-50%);
+  background: rgba(255, 255, 255, 1);
+
+  display: flex;
+  flex-direction: column;
+  gap: 0;          /* 关键：不要缝 */
+}
+.partnerLogoBar {
+  width: 100vw;
+  /* margin-left: 50%;
+  transform: translateX(-50%); */
+  margin-left: 0;
+  transform: none;
 
   display: flex;
   justify-content: space-evenly;
@@ -576,16 +588,37 @@
   /* margin-top: 18px; */
 
   /* optional: a slightly different strip color */
-  background: rgba(255, 255, 255, 1.0);
-  border-top: 1px solid rgba(255, 255, 255, 0.35);
-}
-
+  /* background: rgba(255, 255, 255, 1.0); */
+  /* border-top: 1px solid rgba(255, 255, 255, 0.35); */
+} 
 .partnerLogoImg {
   height: 80px;
   max-width: 160px;
   width: auto;
   height: auto;
   object-fit: contain;
+}
+
+.partnerDisclaimerWrap {
+  width: 90%;
+  margin: 0 auto;
+
+  /* 让它“贴着”logo bar：不要上边距 */
+  padding-top: 8px;
+  padding-bottom: 16px;
+}
+
+.partnerDisclaimer {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  opacity: 0.75;
+
+  text-align: justify;
+  text-justify: inter-word;
+
+  hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .contactInfoBlock {
@@ -602,7 +635,7 @@
   text-decoration: underline;
   word-break: break-all;
 }
-@media (max-width: 700px) {
+@media (max-width: 1000px) {
   .partnerLogoBar {
     flex-wrap: wrap;
     justify-content: center;
