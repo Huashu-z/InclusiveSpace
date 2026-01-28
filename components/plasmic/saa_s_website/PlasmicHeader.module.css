@@ -1,19 +1,4 @@
-.root {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: center;
-  width: 100%;
-  height: auto;
-  max-width: 100%;
-  background: #ffffff;
-  position: relative;
-  box-shadow: 0px 10px 16px 0px #00000033;
-  min-width: 0;
-  padding: 0px;
-} 
-/*-------------------------------------------------------------------------------*/
-/* Header container */
+/* Header container */ 
 .header-container {
   width: 100%;
   display: flex;
@@ -23,6 +8,7 @@
   height: 50px;
   position: relative;
   padding: 6px 16px;
+  background: #fff;
 }
 
 /* Logo ---------------------------------------------------*/

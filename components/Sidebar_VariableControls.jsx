@@ -288,7 +288,7 @@ export default function VariableControls({
           }}
           className={`${sty["get-catchment-button"]} ${sty.kbdFocus}`}
         >
-          <span className={sty["sidebar-text-bold"]}>✚ {t('get_area')}</span>
+          <span>✚ {t('get_area')}</span>
         </button>
       </div>
       {/* Clear Result Button */}
@@ -297,7 +297,7 @@ export default function VariableControls({
         onClick={handleClearResult}
         className={`${sty["setup-button"]} ${sty.kbdFocus}`} 
       >
-        <span className={sty["sidebar-text-bold"]}> {t('clear_result')}</span>
+        <span> {t('clear_result')}</span>
       </button>
         {/* NEW: Clear Variables Button */}
       <button
@@ -306,7 +306,7 @@ export default function VariableControls({
         className={`${sty["setup-button"]} ${sty.kbdFocus}`}
         style={{ marginTop: 6 }}
       >
-        <span className={sty["sidebar-text-bold"]}>
+        <span>
           {t('clear_variables')}
         </span>
       </button>

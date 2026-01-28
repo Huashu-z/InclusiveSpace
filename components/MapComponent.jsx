@@ -118,7 +118,7 @@ const MapComponent = ({
     geojson.features.length > 0;
 
   const colorPool = [
-    "#0066FF", "#FF0055", "#FF8C00 ", "#7C00FF", "#00C853"
+    "#f53c16", "#584898", "#c69a43 ", "#0fa321", "#924467"
   ]; // color pool for different calculation results/ accessibility analysis
 
   // Load Leaflet and React-Leaflet dynamically to avoid SSR issues
@@ -700,7 +700,7 @@ const MapComponent = ({
           <GeoJSON
             data={cityBoundaries.hamburg}
             style={{
-              color: "#2a9d8f",
+              color: "#846bfb",
               weight: 2,
               fillOpacity: 0,
               dashArray: "5,5"
@@ -711,7 +711,7 @@ const MapComponent = ({
           <GeoJSON
             data={cityBoundaries.penteli}
             style={{
-              color: "#e76f51",
+              color: "#846bfb",
               weight: 2,
               fillOpacity: 0,
               dashArray: "5,5"
@@ -754,7 +754,7 @@ const MapComponent = ({
               key={`roads-${i}`}
               data={roads}
               style={{
-                color: resultMetadata[i]?.color || '#173F5F',
+                color: resultMetadata[i]?.color || '#413190',
                 weight: 0.5,
                 opacity: 0.8
               }}

@@ -35,8 +35,7 @@ export default function PlasmicLanding() {
     router.push(`/user?city=${id}`);
   };
 
-  const bannerBgUrl = "/images/landing_bg2.png";
-  const overlayOpacity = 0.3;
+  const bannerBgUrl = "/images/landing_bg2.png"; 
 
   return (
     <div className={sty.container}>
@@ -46,8 +45,7 @@ export default function PlasmicLanding() {
       <section
         className={sty.banner}
         style={{
-          "--banner-bg-image": `url("${bannerBgUrl}")`,
-          "--banner-overlay-opacity": overlayOpacity,
+          "--banner-bg-image": `url("${bannerBgUrl}")`
         }}
       >
         <div className={sty.bannerGrid}>

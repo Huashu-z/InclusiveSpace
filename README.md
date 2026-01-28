@@ -44,7 +44,7 @@ Then visit: `http://localhost:3000/`
 
 ---
 
-## 2) Project structure (what lives where)
+## 2) Project structure
 
 ```
 components/
@@ -79,7 +79,7 @@ plasmic.json / plasmic.lock
 
 ---
 
-## 3) How the app works (high-level)
+## 3) Tech Stack
 
 ### Frontend (Next.js + Plasmic + i18n)
 

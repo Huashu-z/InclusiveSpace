@@ -12,7 +12,7 @@
 } 
 
 .legend-container {
-  background: rgba(255, 255, 255, 0.95);
+  background: #F5F5F5;
   padding: 0;
   border-radius: 6px;
   font-size: 14px; 
@@ -28,8 +28,9 @@
 }
 
 .legend-header {
-  background: #173f5f;
-  color: #fff;
+  background: #836bfbc9;
+  color: #111111;
+  font-weight: 600;
   padding: 6px 10px;
   display: flex;
   align-items: center;
@@ -62,7 +63,7 @@
 .legend-section {
   margin-bottom: 12px;
   padding-bottom: 8px;
-  border-bottom: 1px dashed #173f5f;
+  border-bottom: 1px dashed #413190;
 } 
 
 .legend-title {
@@ -75,7 +76,7 @@
   transition: color 0.2s ease;
 }
 .legend-title:hover {
-  color: #173f5f;
+  color: #413190;
 }
 
 .legend-color-box {
@@ -88,7 +89,7 @@
 .toggle-button {
   border: none;
   background: none;
-  color: #173f5f;
+  color: #413190;
   cursor: pointer;
   padding: 4px 0;
   text-align: left;
