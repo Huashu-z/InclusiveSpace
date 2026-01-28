@@ -178,6 +178,8 @@ The API switches tables by `city` query param:
 
 ## 7) Adding a new city (ops checklist)
 
+**Database management and operation destails see in Database_instruction.pdf**
+
 ### A) Frontend city entry points (Landing + Header)
 
 Add the city in **both** places so users can select it from the landing page and from the header dropdown.
@@ -255,9 +257,7 @@ cityLayerConfig["<cityId>"] = {
 ---
 
 ### D) Backend routing tables (pgRouting)
-
-Database management and operation destails see in Database_instruction.pdf
-
+ 
 File: `pages/api/accessibility.js`
 
 Add a `cityId` mapping for the new city to select the correct pgRouting tables:
