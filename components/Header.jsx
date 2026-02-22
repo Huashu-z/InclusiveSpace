@@ -131,35 +131,98 @@ function Header(
         role="group"
         aria-label={t("header_partner_logos")}
       >
-        {/* EU logo (display only) */}
-        <span className={sty["logo-wrapper"]}>
+        {/* CAT logo*/}
+        {/* <span className={sty["logo-wrapper"]}>
           <img
-            src="/images/logo_co-founded-eu.png"
-            alt={t("logo_EU")}
+            src="/images/CAT_White.png"
+            alt={t("logo_CAT_header")}
           />
-        </span>
+        </span> */}
 
         {/* InclusiveSpaces logo  */}
         <span className={sty["logo-wrapper"]}>
           <img
-            src="/images/logoIS.png"
+            src="/images/Color_InclusiveSpaces.png"
             alt={t("logo_IS")}
-          />
-        </span>
-
-        {/* TUM logo (display only) */}
-        <span className={sty["logo-wrapper"]}>
-          <img
-            src="/images/tum_logo.png"
-            alt={t("logo_TUM")}
           />
         </span>
       </div>
     );
+    // left = (
+    //   <div
+    //     className={sty["logo-group"]}
+    //     role="group"
+    //     aria-label={t("header_partner_logos")}
+    //   >
+    //     {/* EU logo (display only) */}
+    //     <span className={sty["logo-wrapper"]}>
+    //       <img
+    //         src="/images/logo_co-founded-eu.png"
+    //         alt={t("logo_EU")}
+    //       />
+    //     </span>
+
+    //     {/* InclusiveSpaces logo  */}
+    //     <span className={sty["logo-wrapper"]}>
+    //       <img
+    //         src="/images/logoIS.png"
+    //         alt={t("logo_IS")}
+    //       />
+    //     </span>
+
+    //     {/* TUM logo (display only) */}
+    //     <span className={sty["logo-wrapper"]}>
+    //       <img
+    //         src="/images/tum_logo.png"
+    //         alt={t("logo_TUM")}
+    //       />
+    //     </span>
+    //   </div>
+    // );
 
   } else if (variant === "landing") {
-    // only white CAT logo on left
-    left = null;
+    // left = null;
+    left = (
+      <div
+        className={sty["logo-group"]}
+        role="group"
+        aria-label={t("header_partner_logos")}
+      >
+        {/* CAT logo*/}
+        <Link
+          href="/"
+          aria-label={t("CAT_link_home")}
+          title={t("CAT_link_home")}
+          className={`${sty["logo-wrapper"]} ${sty.focusRing}`}
+        >
+          <span className={sty["sr-only"]}>{t("CAT_link_home")}</span>
+          <img
+            src="/images/CAT_White.png"
+            alt=""
+            aria-hidden="true"
+          />
+        </Link>
+
+        <p>by</p>
+        <p>  </p>
+
+        {/* InclusiveSpaces logo  */}
+        <span className={sty["logo-wrapper"]}>
+          <img
+            src="/images/White_inclusive spaces.png"
+            alt={t("logo_IS")}
+          />
+        </span>
+
+        <Link
+          href="/methodology"
+          className={sty.methodologyBtn}
+          aria-label="Open Methodology page"
+        >
+          Methodology
+        </Link>
+      </div>
+    ); 
   }
 
   // === middle ===
