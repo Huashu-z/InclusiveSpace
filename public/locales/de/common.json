@@ -46,11 +46,15 @@
   "landing_city_penteli": "Penteli",
   "landing_city_penteli_desc": "Penteli, nördlich von Athen, bietet grüne Wohngebiete und hügeliges Gelände, was die Zugänglichkeit und städtische Mobilität einzigartig prägt.", 
   "landing_details_title": "Details über das CAT",
+  "landing_about": "Über",
   "landing_details_blocks": [
     "Das komfortbasierte Erreichbarkeitstool (CAT) wurde an der Technischen Universität München entwickelt, um datenbasierte, menschenzentrierte Stadtplanung zu unterstützen. Durch Informationen aus Literatur und geführten Interviews mit Planungsexperten sowie mit Menschen mit Mobilitätseinschränkung bietet das Tool einen umfassenden Ansatz, um die komfortbasierte Erreichbarkeit zu visualisieren.",
-    "CAT integriert Reisezeit, Gehgeschwindigkeit und eine Reihe von Komfortfaktoren, um personalisierte und komfortbasierte Erreichbarkeitsanalysen und Isochronenkarten zu erstellen. Benutzer können interaktiv auswählen, welche Faktoren am wichtigsten sind, und sehen, wie sich ihr Erreichbarkeitsbereich verändert.",
+    "CAT integriert Reisezeit, Gehgeschwindigkeit und eine Reihe von Komfortfaktoren, um personalisierte und komfortbasierte Erreichbarkeitsanalysen und Isochronenkarten zu erstellen. Benutzer können interaktiv auswählen, welche Faktoren am wichtigsten sind, und sehen, wie sich ihr Erreichbarkeitsbereich verändert."
+    ],
+  "landing_target_group_title": "Zielgruppe",
+  "landing_target_group_blocks": [
     "CAT richtet sich an Stadtplanende, Mobilitätsforschende, politische Entscheidungstragende und Organisationen, die die städtische Erreichbarkeit und den Komfort für alle Zufußgehende und Rollstuhlfahrende verbessern möchten. Gleichzeitig steht das Tool auch der breiten Öffentlichkeit zu Verfügung, die damit erkunden kann, wie sich die Erreichbarkeit je nach individuellen Komfortpräferenzen verändert.",
-    "Die Plattform ermöglicht Szenariotests, Beteiligung von Interessengruppen und eine transparente Kommunikation von Herausforderungen in der Fußläufigkeit und dient so als praxisnahes Entscheidungsunterstützungstool für inklusive, resiliente Stadtentwicklung."
+    "Darüber hinaus ermöglicht das Tool Szenariotests, fördert die Beteiligung von Stakeholdern und unterstützt eine transparente Kommunikation von Herausforderungen der fußläufigen Erreichbarkeit. Dadurch dient es als praktisches Entscheidungsunterstützungsinstrument für eine inklusive und resiliente Stadtentwicklung."
   ],
   "landing_visit_inclusive": "⤷ Besuchen Sie die Website von InclusiveSpaces!",
   "landing_general_title": "Allgemeine Informationen über das Forschungsprojekt",
@@ -67,7 +71,8 @@
   "landing_contact_zuniga": "M.Sc. Maria Jose Zuniga",
   "landing_contact_huashu": "B.Sc. Huashu Zhan",
   "landing_city_not_ready": "Entschuldigung, die Karte von {{city}} ist noch in Bearbeitung.",
-  "landing_disclaimer": "InclusiveSpaces ist ein Horizon-Europe-Projekt, das von der Europäischen Kommission im Rahmen der Finanzhilfevereinbarung Nr. 101147881 unterstützt wird. Die britischen Projektpartner werden im Rahmen dieses Projekts zusätzlich vom Vereinigten Königreich kofinanziert. Die geäußerten Ansichten und Meinungen stammen jedoch ausschließlich von den Autorinnen und Autoren und spiegeln nicht notwendigerweise die Auffassung der Europäischen Union oder der Exekutivagentur für Klima, Infrastruktur und Umwelt (CINEA) wider. Weder die Europäische Union noch die Bewilligungsbehörde können für diese Inhalte verantwortlich gemacht werden.",
+  "landing_disclaimer_1": "Das Comfort-Based Accessibility Tool (CAT) wurde im Rahmen des",
+  "landing_disclaimer_2": "Projekts entwickelt. InclusiveSpaces ist ein Horizon-Europe-Projekt, das von der Europäischen Kommission im Rahmen der Finanzhilfevereinbarung Nr. 101147881 unterstützt wird. Die britischen Projektpartner werden im Rahmen dieses Projekts zusätzlich vom Vereinigten Königreich kofinanziert. Die geäußerten Ansichten und Meinungen stammen jedoch ausschließlich von den Autorinnen und Autoren und spiegeln nicht notwendigerweise die Auffassung der Europäischen Union oder der Exekutivagentur für Klima, Infrastruktur und Umwelt (CINEA) wider. Weder die Europäische Union noch die Bewilligungsbehörde können für diese Inhalte verantwortlich gemacht werden.",
 
   "icon_discomfort_feature": "Symbol für Unkomfort-Merkmale",
   "icon_accessibility_control": "Symbol für Barrierefreiheit",

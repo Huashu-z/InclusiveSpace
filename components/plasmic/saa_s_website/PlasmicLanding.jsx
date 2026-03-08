@@ -49,9 +49,9 @@ export default function PlasmicLanding() {
         }}
       >
         <div className={sty.bannerGrid}>
-          {/* === First row: left (60%) + right (40%) === */}
+          {/* === First row: CAT intro + city card === */}
           <div className={sty.bannerRow}>
-            {/* Left content (wider) */}
+            {/* Left content */}
             <div className={`${sty.bannerCol} ${sty.bannerColLeft}`}>
               <h1 className={sty["sr-only"]}>{t("landing_cat_title")}</h1>
 
@@ -172,42 +172,37 @@ export default function PlasmicLanding() {
       {/* === More description === */}
       <section className={sty.toolDetailsSection}>
         {/* ---- Details about CAT ---- */}
-        <div className={sty.stickerCard}>
-          <h2 className={sty.toolDetailsTitle}>{t('landing_details_title')}</h2>
-          <div className={sty.toolDetailsInner}>
-            {/* left: logo + button */}
-            <div className={sty.toolDetailsLeftCol}>
-              <div className={sty.toolDetailsLogoWrap}>
-                <img
-                  src="/images/logoIS2.png"
-                  alt={t("logo_IS")}
-                  className={sty.toolDetailsLogo}
-                />
-              </div>
-              <button
-                className={sty.toolDetailsBtn}
-                onClick={() => window.open("https://inclusivespaces-heproject.eu/", "_blank")}
-              >
-                {t("landing_visit_inclusive")}
-              </button>
+        <div className={sty.toolDetailsGrid}>
+          <div className={sty.stickerCard}>
+            <h2 className={sty.toolDetailsTitle}>
+              {t("landing_about")}{" "}
+              <img
+                src="/images/CAT_dark_Purple.png"
+                alt="CAT"
+                className={sty.inlineCatLogo}
+              />
+            </h2>
+            <div className={sty.toolDetailsText}>
+              {t("landing_details_blocks", { returnObjects: true }).map((p, idx) => (
+                <p key={idx}>{p}</p>
+              ))}
             </div>
-
-            {/* right: text only */}
-            <div className={sty.toolDetailsRight}>
-              <div className={sty.toolDetailsText}>
-                {t("landing_details_blocks", { returnObjects: true }).map((p, idx) => (
-                  <p key={idx}>{p}</p>
-                ))}
-              </div>
-            </div> 
+          </div>
+          <div className={sty.stickerCard}>
+            <h2 className={sty.toolDetailsTitle}>{t('landing_target_group_title')}</h2>
+            <div className={sty.toolDetailsText}>
+              {t("landing_target_group_blocks", { returnObjects: true }).map((p, idx) => (
+                <p key={idx}>{p}</p>
+              ))}
+            </div>
           </div>
         </div>
 
         {/* ---- General information ---- */}
-        <div className={sty.stickerCard}>
+        {/* <div className={sty.stickerCard}>
           <h2 className={sty.toolDetailsTitle}>{t('landing_general_title')}</h2>
           <div className={sty.toolDetailsInner}>
-            {/* left: text and buttons */}
+
             <div className={sty.toolDetailsLeftCol}>
               <div className={sty.toolDetailsLogoWrap}>
                 <img
@@ -224,7 +219,7 @@ export default function PlasmicLanding() {
                 />
               </div>
             </div>
-            {/* right: logos arranged vertically */}
+
             <div className={sty.toolDetailsRight}>
               <div className={sty.toolDetailsText}>
                 {t("landing_general_blocks", { returnObjects: true }).map((p, idx) => (
@@ -233,11 +228,11 @@ export default function PlasmicLanding() {
               </div>
             </div>
           </div> 
-        </div>
+        </div> */}
       </section>
 
       {/* === Contact info (green footer) === */}
-      <section className={sty.contactSection} aria-labelledby="contact-title">
+      {/* <section className={sty.contactSection} aria-labelledby="contact-title">
         <div className={sty.contactSectionInner}>
           <h2 id="contact-title" className={sty.toolDetailsTitle}>
             {t("landing_contact_title")}
@@ -268,15 +263,13 @@ export default function PlasmicLanding() {
             </ul>
           </div>
 
-          {/* partner logos */}
           <div className={sty.partnerBarWrap}>
             <div className={sty.partnerLogoBar}>
               <img className={sty.partnerLogoImg} src="/images/logo_co-founded-eu_full.png" alt={t('logo_EU')} />
               <img className={sty.partnerLogoImg} src="/images/logoIS_full.png" alt={t('logo_IS')} />
               <img className={sty.partnerLogoImg} src="/images/tum_logo_full.png" alt={t('logo_TUM')} />
-              {/* Add other partner logos as needed */}
             </div>
-            {/* disclaimer */}
+
             <div className={sty.partnerDisclaimerWrap}>
               <p className={sty.partnerDisclaimer}>
                 {t("landing_disclaimer", {
@@ -287,7 +280,109 @@ export default function PlasmicLanding() {
             </div>
           </div>
         </div>
-      </section> 
+      </section>  */}
+
+      {/* === Contact info (green footer) === */}
+      <section className={sty.contactSection}>
+        <div className={sty.contactInner}>
+          {/* left big column */}
+          <div className={sty.contactHalf}>
+            <div className={sty.contactHalfInnerLeft}>
+              <div className={sty.contactLogoSide}>
+                <img
+                  src="/images/CAT_White.png"
+                  alt="CAT"
+                  className={sty.contactCatLogo}
+                />
+              </div>
+
+              <div className={sty.contactContentSide}>
+                <div className={sty.contactText}>
+                  <p>
+                    {t("landing_disclaimer_1")}{" "}
+                    <a
+                      href="https://inclusivespaces-heproject.eu/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      InclusiveSpaces
+                    </a>{" "}
+                    {t("landing_disclaimer_2")}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* right big column */}
+          <div className={sty.contactHalf}>
+            <div className={sty.contactHalfInnerRight}>
+              <div className={sty.contactContentSide}>
+                <div id="contact-info" className={sty.contactText}>
+                  <h3 className={sty.contactMiniTitle}>{t("landing_contact_title")}</h3>
+
+                  <div className={sty.contactList}>
+                    <div className={sty.contactLine}>
+                      <span className={sty.contactName}>{t("landing_contact_duran")}</span>
+                      <a className={sty.contactEmail} href="mailto:david.duran@tum.de">
+                        david.duran@tum.de
+                      </a>
+                    </div>
+
+                    <div className={sty.contactLine}>
+                      <span className={sty.contactName}>{t("landing_contact_buettner")}</span>
+                      <a className={sty.contactEmail} href="mailto:benjamin.buettner@tum.de">
+                        benjamin.buettner@tum.de
+                      </a>
+                    </div>
+
+                    <div className={sty.contactLine}>
+                      <span className={sty.contactName}>{t("landing_contact_zuckriegl")}</span>
+                      <a className={sty.contactEmail} href="mailto:lea.zuckriegl@tum.de">
+                        lea.zuckriegl@tum.de
+                      </a>
+                    </div>
+
+                    <div className={sty.contactLine}>
+                      <span className={sty.contactName}>{t("landing_contact_zuniga")}</span>
+                      <a className={sty.contactEmail} href="mailto:mariajose.zuniga@tum.de">
+                        mariajose.zuniga@tum.de
+                      </a>
+                    </div>
+
+                    <div className={sty.contactLine}>
+                      <span className={sty.contactName}>{t("landing_contact_huashu")}</span>
+                      <a className={sty.contactEmail} href="mailto:huashu.zhan@tum.de">
+                        huashu.zhan@tum.de
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className={sty.contactLogoSide}>
+                <div className={sty.partnerLogoColumn}>
+                  <img
+                    src="/images/logoIS_full.png"
+                    alt={t("logo_IS")}
+                    className={sty.partnerLogoImg}
+                  />
+                  <img
+                    src="/images/tum_logo_full.png"
+                    alt={t("logo_TUM")}
+                    className={sty.partnerLogoImg}
+                  />
+                  <img
+                    src="/images/logo_co-founded-eu_full.png"
+                    alt={t("logo_EU")}
+                    className={sty.partnerLogoImg}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
