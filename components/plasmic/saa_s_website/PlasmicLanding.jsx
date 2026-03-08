@@ -229,58 +229,7 @@ export default function PlasmicLanding() {
             </div>
           </div> 
         </div> */}
-      </section>
-
-      {/* === Contact info (green footer) === */}
-      {/* <section className={sty.contactSection} aria-labelledby="contact-title">
-        <div className={sty.contactSectionInner}>
-          <h2 id="contact-title" className={sty.toolDetailsTitle}>
-            {t("landing_contact_title")}
-          </h2>
-
-          <div id="contact-info" className={sty.toolDetailsText}>
-            <ul className={sty.contactList}>
-              <li>
-                {t("landing_contact_duran")} (
-                <a href="mailto:david.duran@tum.de">david.duran@tum.de</a>)
-              </li>
-              <li>
-                {t("landing_contact_buettner")} (
-                <a href="mailto:benjamin.buettner@tum.de">benjamin.buettner@tum.de</a>)
-              </li>
-              <li>
-                {t("landing_contact_zuckriegl")} (
-                <a href="mailto:lea.zuckriegl@tum.de">lea.zuckriegl@tum.de</a>)
-              </li>
-              <li>
-                {t("landing_contact_zuniga")} (
-                <a href="mailto:mariajose.zuniga@tum.de">mariajose.zuniga@tum.de</a>)
-              </li>
-              <li>
-                {t("landing_contact_huashu")} (
-                <a href="mailto:huashu.zhan@tum.de">huashu.zhan@tum.de</a>)
-              </li>
-            </ul>
-          </div>
-
-          <div className={sty.partnerBarWrap}>
-            <div className={sty.partnerLogoBar}>
-              <img className={sty.partnerLogoImg} src="/images/logo_co-founded-eu_full.png" alt={t('logo_EU')} />
-              <img className={sty.partnerLogoImg} src="/images/logoIS_full.png" alt={t('logo_IS')} />
-              <img className={sty.partnerLogoImg} src="/images/tum_logo_full.png" alt={t('logo_TUM')} />
-            </div>
-
-            <div className={sty.partnerDisclaimerWrap}>
-              <p className={sty.partnerDisclaimer}>
-                {t("landing_disclaimer", {
-                  defaultValue:
-                    "InclusiveSpaces is a Horizon Europe project supported by the European Commission under Grant Agreement No. 101147881. ...",
-                })}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>  */}
+      </section> 
 
       {/* === Contact info (green footer) === */}
       <section className={sty.contactSection}>

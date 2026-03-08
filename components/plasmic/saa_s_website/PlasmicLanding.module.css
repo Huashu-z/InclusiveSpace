@@ -372,7 +372,7 @@
   margin: 0 auto; 
   /* background: #51ccad; */
   background: #f5f5f5;
-  padding: 48px 0 40px 0;
+  padding: 20px 0 20px 0;
   /* display: flex; */
   justify-content: left;
 } 
@@ -707,5 +707,107 @@
 
   .partnerLogoImg {
     max-width: 110px;
+  }
+}
+
+/* =========================
+   Methodology Page
+========================= */
+
+.methodologyPageTitle {
+  display: flex;
+  justify-content: left;
+  align-items: baseline;
+  gap: 18px;
+
+  margin-bottom: 0px;
+
+  font-size: 42px;
+  font-weight: 600;
+  text-align: start;
+  color: #5045a0;
+}
+
+.methodologyLogo {
+  height: 36px;
+}
+
+.methodologySectionBlock {
+  width: 100%;
+}
+
+.methodologyThreeCol {
+  display: grid;
+  grid-template-columns: 1fr 5.0fr 1fr;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.methodologySideCol {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  height: 100%;
+}
+
+.methodologyCenterCol {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.methodologyMainImageWrap {
+  width: 100%;
+  background: #ffffff;
+  /* border: 3px solid #5045a0; */
+  /* border-radius: 18px; */
+  padding: 14px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
+}
+
+.methodologyMainImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.methodologyDescBox {
+  width: 100%;
+  flex: 1;
+  background: #ffffff;
+  border: 1.5px solid #66dbb7;
+  border-radius: 8px;
+  padding: 6px 10px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+.methodologyDescTitle {
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Commuters Sans', Arial, sans-serif !important;
+  color: #5045a0;
+  margin-bottom: 0px;
+  line-height: 1.4;
+}
+
+.methodologyDescText {
+  font-size: 14px;
+  line-height: 1.4;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #111111;
+  text-align: justify;
+}
+
+/* Tablet / mobile */
+@media (max-width: 1100px) {
+  .methodologyThreeCol {
+    grid-template-columns: 1fr;
+  }
+
+  .methodologyCenterCol {
+    order: -1;
   }
 }
