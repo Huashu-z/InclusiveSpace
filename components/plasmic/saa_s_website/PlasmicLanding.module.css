@@ -544,64 +544,90 @@
 
 /* === Green footer for Contact info === */
 .contactSection {
+  position: relative;
   width: 100%;
-  background: #7fc9a6;
-  padding: 15px 0;
+  padding: 18px 0;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
-.contactInner {
-  width: 90%;
-  margin: 0 auto;
+/* left green background: 0% -> 86% */
+.contactSection::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    #7fc9a6 0%,
+    #7fc9a6 86%,
+    transparent 86%,
+    transparent 100%
+  );
+  z-index: 0;
+}
+
+/* right white background: 85% -> 100% */
+.contactSection::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 15%;
+  height: 100%;
+  background: #f5f5f5;
+  z-index: 0;
+}
+
+.contactGrid {
+  position: relative;
+  z-index: 1;
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: 24px;
+
+  /* 5% | 9% | 36% | 36% | 9% | 5%
+     col1 = 5%~14%   => 9%
+     col2 = 14%~50%  => 36%
+     col3 = 50%~86%  => 36%
+     col4 = 86%~95%  => 9%
+  */
+  grid-template-columns: 5% 9% 36% 36% 9% 5%;
   align-items: stretch;
 }
 
-.contactHalf {
-  min-width: 0;
-}
-.contactHalf:first-child {
-  padding-right: 20px;
-}
-
-.contactHalf:last-child {
-  padding-left: 0px;
-}
-
-.contactHalfInnerLeft {
-  display: grid;
-  grid-template-columns: 20% 80%;
-  column-gap: 20px;
-  height: 100%;
-  align-items: start;
-}
-
-.contactHalfInnerRight {
-  display: grid;
-  grid-template-columns: 80% 20%;
-  column-gap: 20px;
-  height: 100%;
-  align-items: start;
-}
-
-.contactLogoSide {
-  display: flex; 
-  align-items: center;
+.contactColLogo {
+  grid-column: 2;
+  display: flex;
+  align-items: flex-start;
   justify-content: center;
   min-width: 0;
 }
 
-.contactHalfInnerRight .contactLogoSide {
-  background: #ffffff;
-  padding: 18px 12px;
-  border-radius: 6px;
-  align-self: stretch;
+.contactColDisclaimer {
+  grid-column: 3;
+  display: flex;
+  align-items: flex-start;
+  min-width: 0;
+  padding: 0 12px;
+  box-sizing: border-box;
 }
 
-.contactContentSide {
+.contactColInfo {
+  grid-column: 4;
+  display: flex;
+  align-items: flex-start;
   min-width: 0;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.contactColPartners {
+  grid-column: 5;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  min-width: 0;
+  padding: 0 12px;
+  box-sizing: border-box;
 }
 
 .contactCatLogo {
@@ -612,26 +638,34 @@
 }
 
 .contactText {
-  font-size: 14px;
-  line-height: 1.4;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #1f2a22;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.disclaimerText {
+  font-size: 12px;
+  line-height: 1.2;
   color: #1f2a22;
   text-align: justify;
   text-justify: inter-word;
   font-style: italic;
 }
-.contactText p {
+.disclaimerText p {
   margin: 0;
 }
-.contactText a {
+.disclaimerText a {
   color: inherit;
   text-decoration: underline;
 }
 
 .contactMiniTitle {
   margin: 0 0 0px 0;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 700;
-  line-height: 1.4;
+  line-height: 1.2;
   color: #1f2a22;
 }
 
@@ -644,20 +678,20 @@
 .contactLine {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 12px;
   align-items: baseline;
-  font-size: 14px;
-  line-height: 1.4;
+  font-size: 12px;
+  line-height: 1.2;
 }
 
 .contactName {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 400;
   color: #1f2a22;
 }
 
 .contactEmail {
-  font-size: 14px;
+  font-size: 12px;
   color: #1f2a22;
   text-decoration: none;
   word-break: break-word;
@@ -670,14 +704,14 @@
 .partnerLogoColumn {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  gap: 14px;
+  gap: 6px;
   width: 100%;
 }
 
 .partnerLogoImg {
-  width: 100%;
+  width: 80%;
   max-width: 130px;
   height: auto;
   object-fit: contain;
@@ -689,13 +723,17 @@
     grid-template-columns: 1fr;
   }
 
-  .contactHalfInnerLeft,
-  .contactHalfInnerRight {
+  .contactHalfInnerLeft {
     grid-template-columns: 1fr;
     gap: 16px;
   }
 
   .contactLogoSide {
+    justify-content: flex-start;
+  }
+
+  .contactRightColumn {
+    align-items: flex-start;
     justify-content: flex-start;
   }
 
@@ -737,22 +775,65 @@
 }
 
 .methodologyThreeCol {
-  display: grid;
-  grid-template-columns: 1fr 5.0fr 1fr;
-  gap: 12px;
-  align-items: stretch;
+  position: relative;
+  width: 100%;
+  display: block;
 }
 
 .methodologySideCol {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: calc((100% - 24px) * 1 / 7);
+  display: grid;
+  grid-template-rows: repeat(100, 1fr);
+  min-height: 0;
+}
+
+.methodologyLeftCol {
+  left: 0;
+}
+
+.methodologyRightCol {
+  right: 0;
+}
+
+/* height devision left column */
+.methodologyLeftBox1 {
+  grid-row: 5 / 36;
+}
+
+.methodologyLeftBox2 {
+  grid-row: 37 / 63;
+}
+
+.methodologyLeftBox3 {
+  grid-row: 64 / 77;
+}
+
+.methodologyLeftBox4 {
+  grid-row: 78 / 97;
+}
+/* height devision left column */
+.methodologyRightBox1 {
+  grid-row: 1 / 10;
+}
+
+.methodologyRightBox2 {
+  grid-row: 11 / 20;
+}
+
+.methodologyRightBox3 {
+  grid-row: 21 / 90;
+}
+
+.methodologyRightBox4 {
+  grid-row: 91 / 101;
 }
 
 .methodologyCenterCol {
-  width: 100%;
+  width: calc((100% - 24px) * 5 / 7);
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -763,7 +844,7 @@
   background: #ffffff;
   /* border: 3px solid #5045a0; */
   /* border-radius: 18px; */
-  padding: 14px;
+  padding: 5px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
 }
 
@@ -776,12 +857,14 @@
 
 .methodologyDescBox {
   width: 100%;
-  flex: 1;
+  min-height: 0;
   background: #ffffff;
   border: 1.5px solid #66dbb7;
   border-radius: 8px;
   padding: 6px 10px;
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+  overflow: auto;
 }
 
 .methodologyDescTitle {
@@ -809,5 +892,23 @@
 
   .methodologyCenterCol {
     order: -1;
+  }
+
+  .methodologySideCol {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: auto;
+  }
+
+  .methodologyLeftBox1,
+  .methodologyLeftBox2,
+  .methodologyLeftBox3,
+  .methodologyLeftBox4,
+  .methodologyRightBox1,
+  .methodologyRightBox2,
+  .methodologyRightBox3,
+  .methodologyRightBox4 {
+    grid-row: auto;
   }
 }

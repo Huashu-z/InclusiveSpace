@@ -231,103 +231,98 @@ export default function PlasmicLanding() {
         </div> */}
       </section> 
 
-      {/* === Contact info (green footer) === */}
+      {/* === Contact info (footer) === */}
       <section className={sty.contactSection}>
-        <div className={sty.contactInner}>
-          {/* left big column */}
-          <div className={sty.contactHalf}>
-            <div className={sty.contactHalfInnerLeft}>
-              <div className={sty.contactLogoSide}>
-                <img
-                  src="/images/CAT_White.png"
-                  alt="CAT"
-                  className={sty.contactCatLogo}
-                />
-              </div>
+        <div className={sty.contactGrid}>
+          {/* col 1: CAT logo */}
+          <div className={sty.contactColLogo}>
+            <img
+              src="/images/CAT_White.png"
+              alt="CAT"
+              className={sty.contactCatLogo}
+            />
+          </div>
 
-              <div className={sty.contactContentSide}>
-                <div className={sty.contactText}>
-                  <p>
-                    {t("landing_disclaimer_1")}{" "}
-                    <a
-                      href="https://inclusivespaces-heproject.eu/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      InclusiveSpaces
-                    </a>{" "}
-                    {t("landing_disclaimer_2")}
-                  </p>
+          {/* col 2: disclaimer text */}
+          <div className={sty.contactColDisclaimer}>
+            <div className={sty.disclaimerText}>
+              <p>
+                {t("landing_disclaimer_1")}{" "}
+                <a
+                  href="https://inclusivespaces-heproject.eu/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  InclusiveSpaces
+                </a>{" "}
+                {t("landing_disclaimer_2")}
+              </p>
+              <p>{t("landing_disclaimer_3")}</p>
+            </div>
+          </div>
+
+          {/* col 3: contact info */}
+          <div className={sty.contactColInfo}>
+            <div id="contact-info" className={sty.contactText}>
+              <h3 className={sty.contactMiniTitle}>{t("landing_contact_title")}</h3>
+
+              <div className={sty.contactList}>
+                <div className={sty.contactLine}>
+                  <span className={sty.contactName}>{t("landing_contact_duran")}</span>
+                  <a className={sty.contactEmail} href="mailto:david.duran@tum.de">
+                    david.duran@tum.de
+                  </a>
+                </div>
+
+                <div className={sty.contactLine}>
+                  <span className={sty.contactName}>{t("landing_contact_buettner")}</span>
+                  <a className={sty.contactEmail} href="mailto:benjamin.buettner@tum.de">
+                    benjamin.buettner@tum.de
+                  </a>
+                </div>
+
+                <div className={sty.contactLine}>
+                  <span className={sty.contactName}>{t("landing_contact_zuckriegl")}</span>
+                  <a className={sty.contactEmail} href="mailto:lea.zuckriegl@tum.de">
+                    lea.zuckriegl@tum.de
+                  </a>
+                </div>
+
+                <div className={sty.contactLine}>
+                  <span className={sty.contactName}>{t("landing_contact_zuniga")}</span>
+                  <a className={sty.contactEmail} href="mailto:mariajose.zuniga@tum.de">
+                    mariajose.zuniga@tum.de
+                  </a>
+                </div>
+
+                <div className={sty.contactLine}>
+                  <span className={sty.contactName}>{t("landing_contact_huashu")}</span>
+                  <a className={sty.contactEmail} href="mailto:huashu.zhan@tum.de">
+                    huashu.zhan@tum.de
+                  </a>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* right big column */}
-          <div className={sty.contactHalf}>
-            <div className={sty.contactHalfInnerRight}>
-              <div className={sty.contactContentSide}>
-                <div id="contact-info" className={sty.contactText}>
-                  <h3 className={sty.contactMiniTitle}>{t("landing_contact_title")}</h3>
-
-                  <div className={sty.contactList}>
-                    <div className={sty.contactLine}>
-                      <span className={sty.contactName}>{t("landing_contact_duran")}</span>
-                      <a className={sty.contactEmail} href="mailto:david.duran@tum.de">
-                        david.duran@tum.de
-                      </a>
-                    </div>
-
-                    <div className={sty.contactLine}>
-                      <span className={sty.contactName}>{t("landing_contact_buettner")}</span>
-                      <a className={sty.contactEmail} href="mailto:benjamin.buettner@tum.de">
-                        benjamin.buettner@tum.de
-                      </a>
-                    </div>
-
-                    <div className={sty.contactLine}>
-                      <span className={sty.contactName}>{t("landing_contact_zuckriegl")}</span>
-                      <a className={sty.contactEmail} href="mailto:lea.zuckriegl@tum.de">
-                        lea.zuckriegl@tum.de
-                      </a>
-                    </div>
-
-                    <div className={sty.contactLine}>
-                      <span className={sty.contactName}>{t("landing_contact_zuniga")}</span>
-                      <a className={sty.contactEmail} href="mailto:mariajose.zuniga@tum.de">
-                        mariajose.zuniga@tum.de
-                      </a>
-                    </div>
-
-                    <div className={sty.contactLine}>
-                      <span className={sty.contactName}>{t("landing_contact_huashu")}</span>
-                      <a className={sty.contactEmail} href="mailto:huashu.zhan@tum.de">
-                        huashu.zhan@tum.de
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className={sty.contactLogoSide}>
-                <div className={sty.partnerLogoColumn}>
-                  <img
-                    src="/images/logoIS_full.png"
-                    alt={t("logo_IS")}
-                    className={sty.partnerLogoImg}
-                  />
-                  <img
-                    src="/images/tum_logo_full.png"
-                    alt={t("logo_TUM")}
-                    className={sty.partnerLogoImg}
-                  />
-                  <img
-                    src="/images/logo_co-founded-eu_full.png"
-                    alt={t("logo_EU")}
-                    className={sty.partnerLogoImg}
-                  />
-                </div>
-              </div>
+          {/* col 4: partner logos */}
+          <div className={sty.contactColPartners}>
+            <div className={sty.partnerLogoColumn}>
+              <img
+                src="/images/logoIS_full.png"
+                alt={t("logo_IS")}
+                className={sty.partnerLogoImg}
+              />
+              <img
+                src="/images/tum_logo_full.png"
+                alt={t("logo_TUM")}
+                className={sty.partnerLogoImg}
+              />
+              <img
+                src="/images/logo_co-founded-eu_full.png"
+                alt={t("logo_EU")}
+                className={sty.partnerLogoImg}
+              />
             </div>
           </div>
         </div>
