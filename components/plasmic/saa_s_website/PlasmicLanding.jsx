@@ -243,8 +243,8 @@ export default function PlasmicLanding() {
             />
           </div>
 
-          {/* col 2: disclaimer text */}
-          <div className={sty.contactColDisclaimer}>
+          {/* middle area: disclaimer + contact */}
+          <div className={sty.contactColMain}>
             <div className={sty.disclaimerText}>
               <p>
                 {t("landing_disclaimer_1")}{" "}
@@ -259,10 +259,7 @@ export default function PlasmicLanding() {
               </p>
               <p>{t("landing_disclaimer_3")}</p>
             </div>
-          </div>
-
-          {/* col 3: contact info */}
-          <div className={sty.contactColInfo}>
+ 
             <div id="contact-info" className={sty.contactText}>
               <h3 className={sty.contactMiniTitle}>{t("landing_contact_title")}</h3>
 
