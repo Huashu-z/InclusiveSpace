@@ -10,17 +10,18 @@ export default function Methodology() {
       {/* Left navigation */}
       <aside className={sty.methodologyNav} aria-label="Methodology navigation">
         <div className={sty.methodologyNavInner}>
+          <div className={sty.methodologyNavTitle}>Navigation</div>
           <a href="#method-step-1" className={sty.methodologyNavItem}>
-            Step 1
+            CAT Interface
           </a>
           <a href="#method-step-2" className={sty.methodologyNavItem}>
-            Step 2
+            Use Guideline
           </a>
           <a href="#method-step-3" className={sty.methodologyNavItem}>
-            Step 3
+            Additional Feature
           </a>
           <a href="#method-step-4" className={sty.methodologyNavItem}>
-            Step 4
+            CAT Set Up
           </a>
         </div>
       </aside>

@@ -44,7 +44,7 @@
 }
 .logo-wrapper {
   width: 90%;  
-  height: 30px;           
+  height: 50px;           
   display: flex;
   align-items: center;
   justify-content: center;
@@ -100,7 +100,7 @@
 /* Switch language -------------------------------------------------------------------*/
 .lang-switch-wrap {
   align-self: center;
-  font-size: 14px;
+  font-size: 16px;
   color: #5045a0;     
   margin-right: 14px; 
 }
@@ -141,25 +141,29 @@
 
 
 .methodologyBtn {
-  margin-left: 16px; 
+  margin-left: 40px; 
   padding: 6px 10px;
   border: 2px solid rgba(245, 245, 245, 0.0);
   border-radius: 10px;
   text-decoration: none;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1;
   color: #f5f5f5;
   /* background: rgba(255, 255, 255, 0.12); */
 }
-
-/* .methodologyBtn:hover {
-  background: rgba(255, 255, 255, 0.18);
-} */
-
+.methodologyBtn:hover {
+  /* color:#17cbac; */
+  /* transform: translateY(-1px); */
+  font-weight: 700;
+}
 .methodologyBtn:focus-visible {
   outline: 3px solid #0A84FF;
   outline-offset: 2px;
+}
+
+.methodologyBtnActive {
+  font-weight: 700;
 }
 
 /* Help button -------------------------------------------------------------------*/

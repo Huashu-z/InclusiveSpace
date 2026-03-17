@@ -159,8 +159,7 @@ export default function VariableControls({
       <div aria-live="polite" className={sty["srOnly"]} role="status">
         {liveMessage}
       </div>
-      <div className={sty["title-container"]}>
-        {/* <h3 className={sty["sidebar-title"]}>{t('leg_comfort_features')}</h3> */}
+      <div className={sty["title-container"]}> 
         <div className={sty["sidebar-section-title"]} id="comfort-features-heading">
           <img src="/images/icon_features.png" alt={t('icon_discomfort_feature')} />
           <span>{t("leg_comfort_features")}</span>

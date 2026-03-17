@@ -123,7 +123,6 @@ export default function AccessibilityControls({
     <div className={sty["sidebar-section"]} aria-labelledby="accessibility-heading">
       <div role="status" aria-live="polite" className={sty["srOnly"]}>{liveMessage}</div>
 
-      {/* <h3 className={sty["sidebar-title"]}>{t('accessibility_title')}</h3> */}
       <h2 className={sty["sidebar-section-title"]} id="accessibility-heading">
         <img src="/images/icon_accessibility.png" alt="" aria-hidden="true" />
         <span>{t("accessibility_title")}</span>

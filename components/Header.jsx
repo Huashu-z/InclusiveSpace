@@ -35,6 +35,8 @@ function Header(
   const router = useRouter();
   const currentLocale = router.locale || "en";
 
+  const isMethodologyPage = router.pathname === "/methodology";
+
   const helpBtnRef = React.useRef(null);
   const closeBtnRef = React.useRef(null);
   const modalContentRef = React.useRef(null);
@@ -216,8 +218,9 @@ function Header(
 
         <Link
           href="/methodology"
-          className={sty.methodologyBtn}
+          className={`${sty.methodologyBtn} ${isMethodologyPage ? sty.methodologyBtnActive : ""}`}
           aria-label="Open Methodology page"
+          aria-current={isMethodologyPage ? "page" : undefined}
         >
           Methodology
         </Link>

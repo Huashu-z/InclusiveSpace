@@ -131,7 +131,6 @@ export default function MapLayers({ selectedLayers, toggleLayer, availableLayers
   return (
     <div className={sty["sidebar-section"]} aria-labelledby="map-layers-heading">
       <div className={sty["title-container"]}>
-        {/* <h3 className={sty["sidebar-title"]}>{t('map_layers')}</h3> */}
         <h2 id="map-layers-heading" className={sty["sidebar-section-title"]}>
           <img src="/images/help_data.png" alt={t("icon_data_info")} />
           <span>{t("map_layers")}</span>
