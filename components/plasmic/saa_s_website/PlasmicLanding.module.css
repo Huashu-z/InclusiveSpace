@@ -855,17 +855,17 @@
 }
 
 .methodologyDescTitle {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   font-family: 'Commuters Sans', Arial, sans-serif !important;
   color: #5045a0;
   margin-bottom: 0px;
-  line-height: 1.4;
+  line-height: 1.2;
 }
 
 .methodologyDescText {
   font-size: 14px;
-  line-height: 1.4;
+  line-height: 1.2;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #111111;
   text-align: justify;
@@ -879,19 +879,19 @@
 
 .methodologyNav {
   position: fixed;
-  top: 120px;
-  left: 50px;
-  width: 200px;
+  top: 100px;
+  left: 30px;
+  width: 220px;
   max-height: calc(100vh - 140px);
   /* overflow-y: auto; */
-  background: #ffffff;
+  /* background: #ffffff;
   border: 1px solid rgba(80, 69, 160, 0.12);
   border-radius: 20px;
   box-shadow:
     0 8px 24px rgba(0, 0, 0, 0.08),
-    0 2px 8px rgba(80, 69, 160, 0.08);
+    0 2px 8px rgba(80, 69, 160, 0.08); */
 
-  padding: 18px 16px;
+  padding: 18px 0px;
 }
 
 .methodologyContent {
@@ -901,35 +901,62 @@
 }
 
 .methodologyNavInner {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 18px;
-  flex-wrap: nowrap;
+  padding-left: 28px;
+}
+
+.methodologyNavInner::before {
+  content: "";
+  position: absolute;
+  top: 46px;
+  bottom: 6px;
+  left: 35px;
+  width: 2px;
+  background: #d9dde5;
+  border-radius: 999px;
 }
 
 .methodologyNavTitle {
-  color: #5045a0;
-  font-family: 'Commuters Sans', Arial, sans-serif !important;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
-  line-height: 1.4;
-  margin-bottom: 6px;
-  cursor: default;
+  color: #846bfb;
+  margin-bottom: 3px;
 }
 
 .methodologyNavItem {
+  position: relative;
   display: block;
-  color: #5045a0;
-  text-decoration: none;
-  font-family: 'Commuters Sans', Arial, sans-serif !important;
-  font-size: 18px;
+  padding-left: 34px;
+  font-size: 16px;
   font-weight: 600;
   line-height: 1.4;
-  transition: transform 0.15s ease, color 0.15s ease;
-} 
+  color: #4b5563;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+/* 每个 item 左边的小圆点 */
+.methodologyNavItem::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #846bfb;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
 .methodologyNavItem:hover {
-  color: #17cbac;
-  transform: translateX(3px);
+  color: #846bfb;
+  transform: translateX(2px);
 }
 
 .methodologyNavItem:focus-visible {
@@ -958,6 +985,67 @@
 
 .methodologyAnchorSection {
   scroll-margin-top: 100px;
+}
+
+/* ===== Methodology section 3 + 4 split layout ===== */
+
+.methodologyStepsSplit {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.methodologyStepsLeft,
+.methodologyStepsRight {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.methodologyOffsetCard {
+  margin-top: 180px;
+}
+
+.methodologySetupSection {
+  margin-top: 24px;
+}
+
+.methodologySetupTitle {
+  width: 100%;
+  text-align: left;
+  font-size: 26px;
+  font-weight: 760;
+  font-family: 'Commuters Sans', Arial, sans-serif !important;
+  color: #66cdb1;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stickerCardAlt {
+  border-color: #66cdb1;
+}
+
+.stickerCardAlt::before {
+  border-color: #8b7cf6;
+}
+
+.methodologyStepImageWrap {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.methodologyStepImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+.stepBlock {
+  width: 100%;
 }
 
 /* Tablet / mobile */
@@ -1003,5 +1091,47 @@
   .methodologyRightBox3,
   .methodologyRightBox4 {
     grid-row: auto;
+  }
+
+  .methodologyStepsSplit {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .methodologyStepsLeft,
+  .methodologyStepsRight {
+    display: contents;
+  }
+
+  .methodologyOffsetCard {
+    margin-top: 0;
+  }
+
+  .methodologySetupSection {
+    margin-top: 0;
+  }
+
+  .stepTitle3 {
+    order: 1;
+  }
+
+  .step1 {
+    order: 2;
+  }
+
+  .step2 {
+    order: 3;
+  }
+
+  .step3 {
+    order: 4;
+  }
+
+  .step5 {
+    order: 5;
+  }
+
+  .step4Section {
+    order: 6;
   }
 } 

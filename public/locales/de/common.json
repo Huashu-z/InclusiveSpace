@@ -75,6 +75,69 @@
   "landing_disclaimer_2": "Projekts entwickelt.",
   "landing_disclaimer_3": "InclusiveSpaces ist ein Horizon-Europe-Projekt, das von der Europäischen Kommission im Rahmen der Finanzhilfevereinbarung Nr. 101147881 unterstützt wird. Die britischen Projektpartner werden im Rahmen dieses Projekts zusätzlich vom Vereinigten Königreich kofinanziert. Die geäußerten Ansichten und Meinungen stammen jedoch ausschließlich von den Autorinnen und Autoren und spiegeln nicht notwendigerweise die Auffassung der Europäischen Union oder der Exekutivagentur für Klima, Infrastruktur und Umwelt (CINEA) wider. Weder die Europäische Union noch die Bewilligungsbehörde können für diese Inhalte verantwortlich gemacht werden.",
 
+  "page_title_methodology": "Mehr erfahren",
+  "header_learn_more": "Mehr erfahren",
+  "header_open_methodology": "Seite „Mehr erfahren“ öffnen",
+  "methodology": {
+    "nav_aria": "Navigation „Mehr erfahren“",
+    "nav_title": "Navigation",
+    "nav_interface": "CAT-Oberfläche",
+    "nav_guidelines": "Nutzungsleitfaden",
+    "nav_features": "Zusätzliche Funktionen",
+    "nav_setup": "CAT-Einrichtung",
+
+    "logo_alt": "CAT",
+    "page_title": "Mehr erfahren",
+
+    "section1_title": "1. Wie sieht die CAT-Oberfläche aus?",
+    "section2_title": "2. Wie verwendet man CAT?",
+    "section3_title": "3. Zusätzliche Funktionen",
+    "section4_title": "4. Was wird für die Einrichtung von CAT benötigt?",
+
+    "section3_anchor_label": "Zusätzliche Funktionen",
+
+    "section1": {
+      "main_image_alt": "Hauptseite der CAT-Oberfläche",
+
+      "box1_title": "1. xxx",
+      "box1_text": "xxx",
+      "box2_title": "2. xxx",
+      "box2_text": "xxx",
+      "box3_title": "3. xxx",
+      "box3_text": "xxx",
+      "box4_title": "4. xxx",
+      "box4_text": "xxx",
+      "box5_title": "5. xxx",
+      "box5_text": "xxx",
+      "box6_title": "6. xxx",
+      "box6_text": "xxx",
+      "box7_title": "7. xxx",
+      "box7_text": "xxx",
+      "box8_title": "8. xxx",
+      "box8_text": "xxx"
+    },
+
+    "step1_title": "Schritt 1: CAT starten",
+    "step1_text": "xxxxxx",
+    "step1_image_alt": "Benutzeroberfläche von Schritt 1",
+
+    "step2_title": "Schritt 2: Standardkarte erstellen",
+    "step2_text": "xxxxxx",
+    "step2_image_alt": "Benutzeroberfläche von Schritt 2",
+
+    "step3_title": "Schritt 3: Komfortbasierte Erreichbarkeitskarte erstellen",
+    "step3_text": "xxxxxx",
+    "step3_image_alt": "Benutzeroberfläche von Schritt 3",
+
+    "step4_title": "Schritt 4: Voreingestellte Profile anwenden (optional)",
+    "step4_text": "xxxxxx",
+    "step4_image_alt": "Benutzeroberfläche von Schritt 4",
+
+    "step5_title": "Schritt 5: Kartenebenen erkunden (optional)",
+    "step5_text": "xxxxxx",
+    "step5_image_alt": "Benutzeroberfläche von Schritt 5"
+  },
+
   "icon_discomfort_feature": "Symbol für Faktoren des Unbehagens",
   "icon_accessibility_control": "Symbol für Barrierefreiheit",
   "icon_profile": "Profil-Symbol",

@@ -218,11 +218,10 @@ function Header(
 
         <Link
           href="/methodology"
-          className={`${sty.methodologyBtn} ${isMethodologyPage ? sty.methodologyBtnActive : ""}`}
-          aria-label="Open Methodology page"
-          aria-current={isMethodologyPage ? "page" : undefined}
+          className={sty.methodologyBtn}
+          aria-label={t("header_open_methodology")}
         >
-          Methodology
+          {t("header_learn_more")}
         </Link>
       </div>
     ); 

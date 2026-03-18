@@ -3,12 +3,14 @@ import Head from "next/head";
 import Header from "../components/Header";
 import Methodology from "../components/plasmic/saa_s_website/PlasmicMethodology";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 export default function MethodologyPage() {
+  const { t } = useTranslation("common");
   return (
     <>
       <Head>
-        <title>Methodology</title>
+        <title>{t("page_title_methodology")}</title>
       </Head>
 
       <div style={{ minHeight: "100vh", background: "#f5f5f5" }}>

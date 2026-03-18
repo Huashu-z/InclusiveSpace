@@ -75,6 +75,69 @@
   "landing_disclaimer_2": "Project.",
   "landing_disclaimer_3": "InclusiveSpaces is a Horizon Europe project supported by the European Commission under Grant Agreement No. 101147881. The UK participants in this project are co-funded by the UK. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or European Climate, Infrastructure and Environment Executive Agency (CINEA). Neither the European Union nor the granting authority can be held responsible for them. ",
 
+  "page_title_methodology": "Learn More",
+  "header_learn_more": "Learn more",
+  "header_open_methodology": "Open Learn More page",
+  "methodology": {
+    "nav_aria": "Learn More navigation",
+    "nav_title": "Navigation",
+    "nav_interface": "CAT Interface",
+    "nav_guidelines": "Use Guidelines",
+    "nav_features": "Additional Features",
+    "nav_setup": "CAT Setup",
+
+    "logo_alt": "CAT",
+    "page_title": "Learn More",
+
+    "section1_title": "1. What does the CAT interface look like?",
+    "section2_title": "2. How to use CAT?",
+    "section3_title": "3. Additional features",
+    "section4_title": "4. What do you need to set up CAT?",
+
+    "section3_anchor_label": "Additional features",
+
+    "section1": {
+      "main_image_alt": "Main page of the CAT interface",
+
+      "box1_title": "1. xxx",
+      "box1_text": "xxx",
+      "box2_title": "2. xxx",
+      "box2_text": "xxx",
+      "box3_title": "3. xxx",
+      "box3_text": "xxx",
+      "box4_title": "4. xxx",
+      "box4_text": "xxx",
+      "box5_title": "5. xxx",
+      "box5_text": "xxx",
+      "box6_title": "6. xxx",
+      "box6_text": "xxx",
+      "box7_title": "7. xxx",
+      "box7_text": "xxx",
+      "box8_title": "8. xxx",
+      "box8_text": "xxx"
+    },
+
+    "step1_title": "Step 1: Start using CAT",
+    "step1_text": "xxxxxx",
+    "step1_image_alt": "Step 1 interface",
+
+    "step2_title": "Step 2: Create the standard map",
+    "step2_text": "xxxxxx",
+    "step2_image_alt": "Step 2 interface",
+
+    "step3_title": "Step 3: Create comfort-based accessibility map",
+    "step3_text": "xxxxxx",
+    "step3_image_alt": "Step 3 interface",
+
+    "step4_title": "Step 4: Apply pre-set profiles (optional)",
+    "step4_text": "xxxxxx",
+    "step4_image_alt": "Step 4 interface",
+
+    "step5_title": "Step 5: Explore map layers (optional)",
+    "step5_text": "xxxxxx",
+    "step5_image_alt": "Step 5 interface"
+  },
+
   "icon_discomfort_feature": "Discomfort features icon",
   "icon_accessibility_control": "Accessibility icon",
   "icon_profile": "Profile icon",
