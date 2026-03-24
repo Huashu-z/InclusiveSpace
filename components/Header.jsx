@@ -216,13 +216,24 @@ function Header(
           />
         </span>
 
-        <Link
+        {/* mehr verfahren paeg under construction */}
+        <button
+          type="button"
+          className={sty.methodologyBtn}
+          aria-label={t("header_open_methodology")}
+          onClick={() => alert("This page is currently under construction.")}
+        >
+          {t("header_learn_more")}
+        </button>
+
+        {/* after finishing mehr verfahren paeg */}
+        {/* <Link
           href="/methodology"
           className={sty.methodologyBtn}
           aria-label={t("header_open_methodology")}
         >
           {t("header_learn_more")}
-        </Link>
+        </Link> */}
       </div>
     ); 
   }

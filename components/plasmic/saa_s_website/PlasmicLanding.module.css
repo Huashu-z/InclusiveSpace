@@ -937,8 +937,7 @@
   text-decoration: none;
   transition: color 0.2s ease, transform 0.2s ease;
 }
-
-/* 每个 item 左边的小圆点 */
+ 
 .methodologyNavItem::before {
   content: "";
   position: absolute;
