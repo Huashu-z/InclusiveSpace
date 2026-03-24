@@ -217,23 +217,23 @@ function Header(
         </span>
 
         {/* mehr verfahren paeg under construction */}
-        <button
+        {/* <button
           type="button"
           className={sty.methodologyBtn}
           aria-label={t("header_open_methodology")}
           onClick={() => alert("This page is currently under construction.")}
         >
           {t("header_learn_more")}
-        </button>
+        </button> */}
 
         {/* after finishing mehr verfahren paeg */}
-        {/* <Link
+        <Link
           href="/methodology"
-          className={sty.methodologyBtn}
+          className={`${sty.methodologyBtn} ${isMethodologyPage ? sty.methodologyBtnActive : ""}`}
           aria-label={t("header_open_methodology")}
         >
           {t("header_learn_more")}
-        </Link> */}
+        </Link>
       </div>
     ); 
   }

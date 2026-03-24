@@ -1,6 +1,6 @@
 import React from "react";
 import sty from "./PlasmicLanding.module.css";
-import { useTranslation } from "next-i18next";
+import { useTranslation, Trans } from "next-i18next";
 
 export default function Methodology() {
   const { t } = useTranslation("common");
@@ -21,6 +21,9 @@ export default function Methodology() {
             {t("methodology.nav_features")}
           </a>
           <a href="#method-sec-4" className={sty.methodologyNavItem}>
+            {t("methodology.nav_research")}
+          </a>
+          <a href="#method-sec-5" className={sty.methodologyNavItem}>
             {t("methodology.nav_setup")}
           </a>
         </div>
@@ -55,7 +58,7 @@ export default function Methodology() {
               <div className={`${sty.methodologySideCol} ${sty.methodologyLeftCol}`}>
                 <div className={`${sty.methodologyDescBox} ${sty.methodologyLeftBox1}`}>
                   <div className={sty.methodologyDescTitle}>
-                    {t("methodology.section1.box1_title")}
+                    {/* {t("methodology.section1.box1_title")} */}
                   </div>
                   <div className={sty.methodologyDescText}>
                     {t("methodology.section1.box1_text")}
@@ -63,27 +66,27 @@ export default function Methodology() {
                 </div>
 
                 <div className={`${sty.methodologyDescBox} ${sty.methodologyLeftBox2}`}>
-                  <div className={sty.methodologyDescTitle}>
+                  {/* <div className={sty.methodologyDescTitle}>
                     {t("methodology.section1.box2_title")}
-                  </div>
+                  </div> */}
                   <div className={sty.methodologyDescText}>
                     {t("methodology.section1.box2_text")}
                   </div>
                 </div>
 
                 <div className={`${sty.methodologyDescBox} ${sty.methodologyLeftBox3}`}>
-                  <div className={sty.methodologyDescTitle}>
+                  {/* <div className={sty.methodologyDescTitle}>
                     {t("methodology.section1.box3_title")}
-                  </div>
+                  </div> */}
                   <div className={sty.methodologyDescText}>
                     {t("methodology.section1.box3_text")}
                   </div>
                 </div>
 
                 <div className={`${sty.methodologyDescBox} ${sty.methodologyLeftBox4}`}>
-                  <div className={sty.methodologyDescTitle}>
+                  {/* <div className={sty.methodologyDescTitle}>
                     {t("methodology.section1.box4_title")}
-                  </div>
+                  </div> */}
                   <div className={sty.methodologyDescText}>
                     {t("methodology.section1.box4_text")}
                   </div>
@@ -92,6 +95,15 @@ export default function Methodology() {
 
               {/* Center column */}
               <div className={sty.methodologyCenterCol}>
+                <div className={`${sty.methodologyDescBox} ${sty.methodologyFloatingTopRightBox}`}>
+                  {/* <div className={sty.methodologyDescTitle}>
+                    {t("methodology.section1.box5_title")}
+                  </div> */}
+                  <div className={sty.methodologyDescText}>
+                    {t("methodology.section1.box5_text")}
+                  </div>
+                </div>
+
                 <div className={sty.methodologyMainImageWrap}>
                   <img
                     src="/images/method_map.png"
@@ -101,39 +113,32 @@ export default function Methodology() {
                 </div>
               </div>
 
-              {/* Right column */}
-              <div className={`${sty.methodologySideCol} ${sty.methodologyRightCol}`}>
-                <div className={`${sty.methodologyDescBox} ${sty.methodologyRightBox1}`}>
-                  <div className={sty.methodologyDescTitle}>
-                    {t("methodology.section1.box5_title")}
-                  </div>
-                  <div className={sty.methodologyDescText}>
-                    {t("methodology.section1.box5_text")}
-                  </div>
-                </div>
+              {/* Right column */} 
+              <div className={`${sty.methodologySideCol} ${sty.methodologyRightCol}`}> 
 
                 <div className={`${sty.methodologyDescBox} ${sty.methodologyRightBox2}`}>
-                  <div className={sty.methodologyDescTitle}>
+                  {/* <div className={sty.methodologyDescTitle}>
                     {t("methodology.section1.box6_title")}
-                  </div>
+                    Pre-set Profiles
+                  </div> */}
                   <div className={sty.methodologyDescText}>
                     {t("methodology.section1.box6_text")}
                   </div>
                 </div>
 
                 <div className={`${sty.methodologyDescBox} ${sty.methodologyRightBox3}`}>
-                  <div className={sty.methodologyDescTitle}>
+                  {/* <div className={sty.methodologyDescTitle}>
                     {t("methodology.section1.box7_title")}
-                  </div>
+                  </div> */}
                   <div className={sty.methodologyDescText}>
                     {t("methodology.section1.box7_text")}
                   </div>
                 </div>
 
                 <div className={`${sty.methodologyDescBox} ${sty.methodologyRightBox4}`}>
-                  <div className={sty.methodologyDescTitle}>
+                  {/* <div className={sty.methodologyDescTitle}>
                     {t("methodology.section1.box8_title")}
-                  </div>
+                  </div> */}
                   <div className={sty.methodologyDescText}>
                     {t("methodology.section1.box8_text")}
                   </div>
@@ -251,35 +256,80 @@ export default function Methodology() {
           </div>
         </section>
 
-        {/* Section 4 */}
+        {/* Section 4 User Research*/}
         <section
           id="method-sec-4"
           className={`${sty.toolDetailsSection} ${sty.methodologyAnchorSection}`}
         >
-          <h1 className={sty.toolDetailsTitle}>4. What do you need to set up CAT?</h1>
+          <h1 className={sty.toolDetailsTitle}>
+            {t("methodology.section4_title")}
+          </h1>
+
+          {/* <div className={sty.toolDetailsGrid}> */}
+            <div className={sty.stickerCard}>
+              {/* <h2 className={sty.toolDetailsTitle}>Data</h2> */}
+              <div className={sty.toolDetailsText}>
+                <p>Under Construction ... </p>
+              </div>
+            </div>
+
+            {/* <div className={sty.stickerCard}>
+              <h2 className={sty.toolDetailsTitle}>Data Management</h2>
+              <div className={sty.toolDetailsText}>
+                <p>xxxxxx</p>
+              </div>
+            </div> */}
+          {/* </div> */}
+        </section>
+
+        {/* Section 5 */}
+        <section
+          id="method-sec-5"
+          className={`${sty.toolDetailsSection} ${sty.methodologyAnchorSection}`}
+        >
+          <h1 className={sty.toolDetailsTitle}>
+            {t("methodology.section5_title")}
+          </h1>
 
           <div className={sty.toolDetailsText}>
-            <p>xxxxxx</p>
+            <p>{t("methodology.section5_intro")}</p>
           </div>
 
           <div className={sty.toolDetailsGrid}>
             <div className={sty.stickerCard}>
-              <h2 className={sty.toolDetailsTitle}>Data</h2>
+              <h2 className={sty.toolDetailsTitle}>
+                {t("methodology.section5_data_title")}
+              </h2>
               <div className={sty.toolDetailsText}>
-                <p>xxxxxx</p>
+                <p>{t("methodology.section5_data_text")}</p>
               </div>
             </div>
 
             <div className={sty.stickerCard}>
-              <h2 className={sty.toolDetailsTitle}>Data Management</h2>
+              <h2 className={sty.toolDetailsTitle}>
+                {t("methodology.section5_management_title")}
+              </h2>
               <div className={sty.toolDetailsText}>
-                <p>xxxxxx</p>
+                <p>
+                  <Trans
+                    i18nKey="methodology.section5_management_text"
+                    t={t}
+                    components={{
+                      github: (
+                        <a
+                          href="https://github.com/Huashu-z/InclusiveSpace"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        />
+                      ),
+                    }}
+                  />
+                </p>
               </div>
             </div>
           </div>
         </section>
 
-        
 
       </main>
       

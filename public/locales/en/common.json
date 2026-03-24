@@ -84,6 +84,7 @@
     "nav_interface": "CAT Interface",
     "nav_guidelines": "Use Guidelines",
     "nav_features": "Additional Features",
+    "nav_research": "Research Basis",
     "nav_setup": "CAT Setup",
 
     "logo_alt": "CAT",
@@ -92,49 +93,56 @@
     "section1_title": "1. What does the CAT interface look like?",
     "section2_title": "2. How to use CAT?",
     "section3_title": "3. Additional features",
-    "section4_title": "4. What do you need to set up CAT?",
+    "section4_title": "4. Research Basis for the Profiles",
+    "section5_title": "5. What do you need to set up CAT?",
+
+    "section5_intro": "CAT relies on both routing data and city-specific environmental information. In order to generate meaningful accessibility results, it needs a street network for calculating reachable areas, as well as additional datasets that describe local conditions related to comfort and accessibility. These data are prepared and connected in the background so that users can explore them through the CAT interface.",
+    "section5_data_title": "Data",
+    "section5_data_text": "CAT relies on several types of data. A street and path network forms the basis for routing and accessibility analysis, while city boundary data and thematic map layers provide additional local context. These layers may include information such as noise, street lights, trees, tactile support, obstacles, slopes, pavement conditions, or nearby facilities. The routing network is based on OpenStreetMap data, and further city-specific geographic data can be taken from official sources. In Hamburg, for example, such data can be obtained through Geoportal Hamburg. If available, some datasets can also be used as WMS services for visualization in CAT. Datasets needed for the actual accessibility calculation are processed separately in the background.",
+    "section5_management_title": "Data Management",
+    "section5_management_text": "Before these datasets can be used in CAT, they need to be processed and linked to the street network. In the background, environmental information is translated into road-based weight values so that different conditions can influence the accessibility result. For example, point, line, or area datasets are matched to nearby street segments, and these segments are then marked according to whether a factor is present or relevant. The processed routing data and related weight fields are managed in Supabase, which supports the database structure used by CAT. For more technical details about the project structure and database workflow, please see the project <github>GitHub repository</github>.",
 
     "section3_anchor_label": "Additional features",
 
     "section1": {
       "main_image_alt": "Main page of the CAT interface",
 
-      "box1_title": "1. xxx",
-      "box1_text": "xxx",
-      "box2_title": "2. xxx",
-      "box2_text": "xxx",
-      "box3_title": "3. xxx",
-      "box3_text": "xxx",
-      "box4_title": "4. xxx",
-      "box4_text": "xxx",
-      "box5_title": "5. xxx",
-      "box5_text": "xxx",
-      "box6_title": "6. xxx",
-      "box6_text": "xxx",
-      "box7_title": "7. xxx",
-      "box7_text": "xxx",
-      "box8_title": "8. xxx",
-      "box8_text": "xxx"
+      "box1_title": "1. Comfort-based Accessibility",
+      "box1_text": "1. Main settings for walking time, walking speed, and start point selection.",
+      "box2_title": "2. Discomfort Features",
+      "box2_text": "2. Comfort-related factors that can be activated to influence the analysis.",
+      "box3_title": "3. Action Buttons",
+      "box3_text": "3. Controls for running, clearing, and resetting the current analysis.",
+      "box4_title": "4. Data Information",
+      "box4_text": "4. Additional map layers for exploring environmental and accessibility conditions.",
+      "box5_title": "5. Language and Help Options",
+      "box5_text": "5. Header tools for home navigation, language selection, instructions, and city switching.",
+      "box6_title": "6. Pre-set Profiles",
+      "box6_text": "6. Ready-made settings for different user needs and mobility perspectives.",
+      "box7_title": "7. Interactive Map View",
+      "box7_text": "7. The main area where spatial results and selected layers are displayed.",
+      "box8_title": "8. Catchment Area Results",
+      "box8_text": "8. A summary panel for reviewing and comparing accessibility results."
     },
 
     "step1_title": "Step 1: Start using CAT",
-    "step1_text": "xxxxxx",
+    "step1_text": "When a city is selected and the map interface is open, a quick start guide introduces the main functions of the tool. It gives users an overview of the workflow and highlights additional tools such as data layers, pre-set profiles, and the result panel.",
     "step1_image_alt": "Step 1 interface",
 
     "step2_title": "Step 2: Create the standard map",
-    "step2_text": "xxxxxx",
+    "step2_text": "To begin the analysis, users define the main travel settings in the Comfort-based Accessibility panel. This includes selecting the walking time, adjusting walking speed, and choosing a starting point either on the map or through address search.",
     "step2_image_alt": "Step 2 interface",
 
     "step3_title": "Step 3: Create comfort-based accessibility map",
-    "step3_text": "xxxxxx",
+    "step3_text": "Users can then activate discomfort features and adjust how strongly they should influence the analysis. CAT displays both the standard walking area and the comfort-adjusted walking area, allowing users to compare the results directly.",
     "step3_image_alt": "Step 3 interface",
 
     "step4_title": "Step 4: Apply pre-set profiles (optional)",
-    "step4_text": "xxxxxx",
+    "step4_text": "Instead of selecting every factor manually, users can also choose a pre-set profile. These profiles apply predefined settings that reflect different needs and offer a quicker way to generate a comfort-based result.",
     "step4_image_alt": "Step 4 interface",
 
     "step5_title": "Step 5: Explore map layers (optional)",
-    "step5_text": "xxxxxx",
+    "step5_text": "To better understand the conditions behind the analysis, users can open Data Information and activate additional map layers. These layers provide environmental and accessibility-related information that helps interpret the final result.",
     "step5_image_alt": "Step 5 interface"
   },
 
