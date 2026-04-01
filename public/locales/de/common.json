@@ -36,7 +36,7 @@
 
   "landing_cat_title": "CAT: Komfortbasiertes Zugänglichkeits-Tool",
   "landing_banner_title": "Was ist das?",
-  "landing_banner_intro": "CAT (Comfort-based Accessibility Tool) unterstützt Sie dabei, fußläufige Bereiche nicht nur nach Zeit und Geschwindigkeit, sondern auch nach wahrgenommenen Komfortfaktoren zu erkunden, wie Lärm, Beleuchtung, Querungen, Tastbelag, Baumschatten und mehr. Wählen Sie einen Startpunkt, passen Sie an, was Ihnen wichtig ist, und sehen Sie, wie sich der erreichbare Bereich verändert.",
+  "landing_banner_intro": "CAT (Comfort-based Accessibility Tool) im InclusiveSpaces-Projekt hilft Ihnen, fußläufig erreichbare Bereiche nicht nur nach Zeit und Geschwindigkeit, sondern auch nach wahrgenommenen Komfortfaktoren wie Lärm, Beleuchtung, Querungen, taktilen Leitsystemen, Baumschatten und mehr zu erkunden. Wählen Sie einen Startpunkt, passen Sie an, was Ihnen wichtig ist, und sehen Sie, wie sich der erreichbare Bereich verändert.",
   "landing_banner_contact_caption": "Interessieren Sie sich dafür, das Tool für Ihre Stadt zu nutzen?",
   "landing_banner_contact_btn": "Kontaktieren Sie uns!",
   "landing_banner_share_btn": "Teilen Sie uns Ihre Meinung mit", 
@@ -75,8 +75,7 @@
   "landing_disclaimer_2": "Projekts entwickelt.",
   "landing_disclaimer_3": "InclusiveSpaces ist ein Horizon-Europe-Projekt, das von der Europäischen Kommission im Rahmen der Finanzhilfevereinbarung Nr. 101147881 unterstützt wird. Die britischen Projektpartner werden im Rahmen dieses Projekts zusätzlich vom Vereinigten Königreich kofinanziert. Die geäußerten Ansichten und Meinungen stammen jedoch ausschließlich von den Autorinnen und Autoren und spiegeln nicht notwendigerweise die Auffassung der Europäischen Union oder der Exekutivagentur für Klima, Infrastruktur und Umwelt (CINEA) wider. Weder die Europäische Union noch die Bewilligungsbehörde können für diese Inhalte verantwortlich gemacht werden.",
 
-  "page_title_methodology": "Mehr erfahren",
-  "header_learn_more": "Mehr erfahren",
+  "header_learn_more": "Mehr erfahren", 
   "header_open_methodology": "Seite „Mehr erfahren“ öffnen",
   "methodology": {
     "nav_aria": "Navigation „Mehr erfahren“",
@@ -88,7 +87,7 @@
     "nav_setup": "CAT-Einrichtung",
 
     "logo_alt": "CAT",
-    "page_title": "Mehr erfahren",
+    "page_title": "Mehr erfahren über",
 
     "section1_title": "1. Wie sieht die CAT-Oberfläche aus?",
     "section2_title": "2. Wie verwendet man CAT?",
@@ -107,22 +106,15 @@
     "section1": {
       "main_image_alt": "Hauptseite der CAT-Oberfläche",
 
-      "box1_title": "1. Erreichbarkeit und Komfort",
-      "box1_text": "1. Grundeinstellungen für Gehzeit, Gehgeschwindigkeit und Startpunkt.",
-      "box2_title": "2. Komfortfaktoren",
-      "box2_text": "2. Faktoren, die aktiviert werden können, um die Analyse zu beeinflussen.",
-      "box3_title": "3. Aktionsbuttons",
-      "box3_text": "3. Steuerung zum Starten, Löschen und Zurücksetzen der aktuellen Analyse.",
-      "box4_title": "4. Dateninfos",
-      "box4_text": "4. Zusätzliche Kartenebenen für Umwelt- und Zugangsbedingungen.",
-      "box5_title": "5. Sprache und Hilfe",
-      "box5_text": "5. Optionen im Header für Startseite, Sprache, Anleitung und Stadtwahl.",
-      "box6_title": "6. Vorgegebene Profile",
-      "box6_text": "6. Vordefinierte Profile für verschiedene Bedürfnisse und Mobilitätsarten.",
-      "box7_title": "7. Interaktive Karte",
-      "box7_text": "7. Der Hauptbereich, in dem Ergebnisse und gewählte Ebenen gezeigt werden.",
-      "box8_title": "8. Ergebnisse",
-      "box8_text": "8. Ein Übersichtsbereich zum Prüfen und Vergleichen der Ergebnisse."
+      "box1_text": "1. Komfortbasierte Erreichbarkeit: Zentrale Einstellungen, um bevorzugte Gehzeit und Gehgeschwindigkeit festzulegen und die Ergebnisse an Ihre Bedürfnisse anzupassen.",
+      "box2_text": "2. Auf der Karte auswählen: Markieren oder geben Sie die genaue Adresse ein, die Sie erkunden möchten.",
+      "box3_text": "3. Unbehaglichkeitsfaktoren: Nutzer können Belastungsfaktoren aus drei Kategorien auswählen. Deren Intensität kann eingestellt werden und beeinflusst direkt die Erreichbarkeitsanalyse (Einzugsgebiet).",
+      "box4_text": "4. Steuerung: Es gibt Schaltflächen, um die Analyse jederzeit auszuführen, zu löschen oder zurückzusetzen.", 
+      "box5_text": "5. Dateninformationen: Es bietet zusätzliche Kartenebenen, mit denen Nutzer Umwelt- und Zugänglichkeitsbedingungen in der Stadt erkunden können.",
+      "box6_text": "6. Kopfzeilen-Werkzeuge für Startseitennavigation, Sprachauswahl, Hinweise und Stadtwechsel.", 
+      "box7_text": "7. Voreingestellte Profile: Es bietet fertige Konfigurationen, die auf unterschiedliche Nutzerbedürfnisse und Mobilitätsperspektiven zugeschnitten sind.",
+      "box8_text": "8. Kartenbereich: Er zeigt den Stadtplan, auf dem räumliche Erreichbarkeitsergebnisse und ausgewählte Datenebenen dargestellt werden.",
+      "box9_text": "9. Ergebnisse des Einzugsgebiets: Es fasst die detaillierten Ergebnisse für jedes Einzugsgebiet zusammen und ermöglicht den Vergleich der Erreichbarkeit in verschiedenen unangenehmen Situationen und an verschiedenen Orten."
     },
 
     "step1_title": "Schritt 1: CAT starten",
@@ -130,7 +122,7 @@
     "step1_image_alt": "Schritt-1-Oberfläche",
 
     "step2_title": "Schritt 2: Standardkarte erstellen",
-    "step2_text": "Für den Start der Analyse legen Nutzer die Grundeinstellungen im Bereich „Erreichbarkeit und Komfort“ fest. Dazu gehören Gehzeit, Gehgeschwindigkeit und die Wahl eines Startpunkts auf der Karte oder über die Adresssuche.",
+    "step2_text": "Um die Analyse zu starten, legen die Nutzerinnen und Nutzer im Bereich „Komfortbasierte Erreichbarkeit“ die wichtigsten Bewegungseinstellungen fest. Dazu gehören die Auswahl der Gehzeit, die Anpassung der Gehgeschwindigkeit sowie das Festlegen eines Startpunkts, entweder durch das Ziehen eines Markers auf die Karte oder durch die manuelle Eingabe einer Adresse.",
     "step2_image_alt": "Schritt-2-Oberfläche",
 
     "step3_title": "Schritt 3: Komfortkarte erstellen",

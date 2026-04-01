@@ -36,7 +36,7 @@
 
   "landing_cat_title": "CAT: Comfort-based Accessibility Tool",
   "landing_banner_title": "What is it?",
-  "landing_banner_intro": "CAT (Comfort-based Accessibility Tool) helps you explore walkable areas not only by time and speed, but also by perceived comfort factors, such as noise, lighting, crossings, tactile paving, tree shade, and more. Pick a start point, tune what matters to you, and see how the reachable area changes.",
+  "landing_banner_intro": "CAT (Comfort-based Accessibility Tool) under the InclusiveSpaces Project helps you explore walkable areas not only by time and speed, but also by perceived comfort factors, such as noise, lighting, crossings, tactile paving, tree shade, and more. Pick a start point, tune what matters to you, and see how the reachable area changes.",
   "landing_banner_contact_caption": "Are you interested in having the tool for your city?",
   "landing_banner_contact_btn": "Contact us!",
   "landing_banner_share_btn": "Share your thoughts", 
@@ -75,54 +75,45 @@
   "landing_disclaimer_2": "Project.",
   "landing_disclaimer_3": "InclusiveSpaces is a Horizon Europe project supported by the European Commission under Grant Agreement No. 101147881. The UK participants in this project are co-funded by the UK. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or European Climate, Infrastructure and Environment Executive Agency (CINEA). Neither the European Union nor the granting authority can be held responsible for them. ",
 
-  "page_title_methodology": "Learn More",
-  "header_learn_more": "Learn more",
+  "header_learn_more": "Learn more", 
   "header_open_methodology": "Open Learn More page",
   "methodology": {
-    "nav_aria": "Learn More navigation",
+    "nav_aria": "Learn more navigation",
     "nav_title": "Navigation",
-    "nav_interface": "CAT Interface",
-    "nav_guidelines": "Use Guidelines",
-    "nav_features": "Additional Features",
-    "nav_research": "Research Basis",
-    "nav_setup": "CAT Setup",
+    "nav_interface": "CAT interface",
+    "nav_guidelines": "Use guidelines",
+    "nav_features": "Additional features",
+    "nav_research": "Research basis",
+    "nav_setup": "CAT setup",
 
     "logo_alt": "CAT",
-    "page_title": "Learn More",
+    "page_title": "Learning more about",
 
     "section1_title": "1. What does the CAT interface look like?",
     "section2_title": "2. How to use CAT?",
     "section3_title": "3. Additional features",
-    "section4_title": "4. Research Basis for the Profiles",
+    "section4_title": "4. Research basis for the Profiles",
     "section5_title": "5. What do you need to set up CAT?",
 
     "section5_intro": "CAT relies on both routing data and city-specific environmental information. In order to generate meaningful accessibility results, it needs a street network for calculating reachable areas, as well as additional datasets that describe local conditions related to comfort and accessibility. These data are prepared and connected in the background so that users can explore them through the CAT interface.",
     "section5_data_title": "Data",
     "section5_data_text": "CAT relies on several types of data. A street and path network forms the basis for routing and accessibility analysis, while city boundary data and thematic map layers provide additional local context. These layers may include information such as noise, street lights, trees, tactile support, obstacles, slopes, pavement conditions, or nearby facilities. The routing network is based on OpenStreetMap data, and further city-specific geographic data can be taken from official sources. In Hamburg, for example, such data can be obtained through Geoportal Hamburg. If available, some datasets can also be used as WMS services for visualization in CAT. Datasets needed for the actual accessibility calculation are processed separately in the background.",
-    "section5_management_title": "Data Management",
+    "section5_management_title": "Data management",
     "section5_management_text": "Before these datasets can be used in CAT, they need to be processed and linked to the street network. In the background, environmental information is translated into road-based weight values so that different conditions can influence the accessibility result. For example, point, line, or area datasets are matched to nearby street segments, and these segments are then marked according to whether a factor is present or relevant. The processed routing data and related weight fields are managed in Supabase, which supports the database structure used by CAT. For more technical details about the project structure and database workflow, please see the project <github>GitHub repository</github>.",
 
     "section3_anchor_label": "Additional features",
 
     "section1": {
-      "main_image_alt": "Main page of the CAT interface",
-
-      "box1_title": "1. Comfort-based Accessibility",
-      "box1_text": "1. Main settings for walking time, walking speed, and start point selection.",
-      "box2_title": "2. Discomfort Features",
-      "box2_text": "2. Comfort-related factors that can be activated to influence the analysis.",
-      "box3_title": "3. Action Buttons",
-      "box3_text": "3. Controls for running, clearing, and resetting the current analysis.",
-      "box4_title": "4. Data Information",
-      "box4_text": "4. Additional map layers for exploring environmental and accessibility conditions.",
-      "box5_title": "5. Language and Help Options",
-      "box5_text": "5. Header tools for home navigation, language selection, instructions, and city switching.",
-      "box6_title": "6. Pre-set Profiles",
-      "box6_text": "6. Ready-made settings for different user needs and mobility perspectives.",
-      "box7_title": "7. Interactive Map View",
-      "box7_text": "7. The main area where spatial results and selected layers are displayed.",
-      "box8_title": "8. Catchment Area Results",
-      "box8_text": "8. A summary panel for reviewing and comparing accessibility results."
+      "main_image_alt": "Main page of the CAT interface", 
+      "box1_text": "1. Comfort-Based Accessibility: Main controls to set your preferred walking time and walking speed to tailor results to your needs.", 
+      "box2_text": "2. Select on map: Pinpoint or write down the specific address you want to explore.", 
+      "box3_text": "3. Discomfort Features: It lets users to select discomfort factors within three categories. You can set their intensity which directly influences the accessibility analysis (catchment area).", 
+      "box4_text": "4. Controls: It provides buttons to run, clear, or reset the analysis at any time.", 
+      "box5_text": "5. Data information: It offers additional map layers for users to explore environmental and accessibility conditions across the city.", 
+      "box6_text": "6. Header tools for home navigation, language selection, instructions, and city switching.", 
+      "box7_text": "7. Pre-set profiles: It provides ready-made configurations tailored to different user needs and mobility perspectives.", 
+      "box8_text": "8. Map area: It displays the city map, where spatial-accessibility results and selected data layers are rendered.", 
+      "box9_text": "9. Catchment area results: It summarizes the detailed results for each catchment area, allowing users to compare accessibility across different umcorfortable situations and across different locations."
     },
 
     "step1_title": "Step 1: Start using CAT",
@@ -130,7 +121,7 @@
     "step1_image_alt": "Step 1 interface",
 
     "step2_title": "Step 2: Create the standard map",
-    "step2_text": "To begin the analysis, users define the main travel settings in the Comfort-based Accessibility panel. This includes selecting the walking time, adjusting walking speed, and choosing a starting point either on the map or through address search.",
+    "step2_text": "To begin the analysis, users define the main travel settings in the Comfort-based Accessibility panel. This includes selecting the walking time, adjusting walking speed, and setting a starting point either by dragging a marker onto the map or by manually entering an address.",
     "step2_image_alt": "Step 2 interface",
 
     "step3_title": "Step 3: Create comfort-based accessibility map",

@@ -422,10 +422,10 @@
   text-align: left;
   font-size: 26px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-weight: 760;
+  font-weight: 700;
   font-family: 'Commuters Sans', Arial, sans-serif !important;
   color: #5045a0;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   letter-spacing: 0.2px;
   display: flex;
   align-items: center;
@@ -477,9 +477,9 @@
   align-items: flex-start;
 } 
 .toolDetailsText {
-  font-size: 18px;
+  font-size: 16px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.5;
+  line-height: 1.4;
   font-weight: 450;
   width: 100%;
   color: #111111;
@@ -543,8 +543,8 @@
   background: linear-gradient(
     to right,
     #7fc9a6 0%,
-    #7fc9a6 86%,
-    transparent 86%,
+    #7fc9a6 88%,
+    transparent 88%,
     transparent 100%
   );
   z-index: 0;
@@ -556,7 +556,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  width: 15%;
+  width: 12%;
   height: 100%;
   background: #f5f5f5;
   z-index: 0;
@@ -573,7 +573,7 @@
      col2+3 = 14%~86%  => 72%
      col4 = 86%~95%  => 9%
   */
-  grid-template-columns: 5% 9% minmax(0, 1fr) 9% 5%;
+  grid-template-columns: 4% 10% minmax(0, 1fr) 10% 4%;
   align-items: start;
 }
 
@@ -600,7 +600,7 @@
   grid-column: 4;
   display: flex;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-end;
   min-width: 0;
   padding: 0 4px;
   box-sizing: border-box;
@@ -692,17 +692,18 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-end;
   gap: 6px;
   width: 100%;
 }
 
 .partnerLogoImg {
-  width: 70%;
+  width: 90%;
   max-width: 100px;
   height: auto;
   object-fit: contain;
   display: block;
+  margin-left: auto;
 }
 
 @media (max-width: 1000px) {
@@ -773,9 +774,9 @@
   position: absolute;
   top: 20px;
   bottom: 20px;
-  width: calc((100% - 24px) * 1 / 7);
-  display: grid;
-  grid-template-rows: repeat(100, 1fr);
+  width: calc((100% - 24px) * 1 / 5);
+  /* display: grid;
+  grid-template-rows: repeat(100, 1fr); */
   min-height: 0;
 }
 
@@ -786,24 +787,46 @@
 .methodologyRightCol {
   right: 0;
 }
-
-/* height devision left column */ 
+ 
 .methodologyLeftBox1 {
-  grid-row: 8 / 33;
-} 
+  position: absolute;
+  top: 8%;
+  left: 0;
+  right: 0;
+  max-height: 17%;
+}
 .methodologyLeftBox2 {
-  grid-row: 34 / 56;
-} 
+  position: absolute;
+  top: 25%;
+  left: 0;
+  right: 0;
+  max-height: 14%;
+}
 .methodologyLeftBox3 {
-  grid-row: 57 / 75;
-} 
+  position: absolute;
+  top: 40%;
+  left: 0;
+  right: 0;
+  max-height: 28%;
+}
 .methodologyLeftBox4 {
-  grid-row: 76 / 101;
-} 
+  position: absolute;
+  top: 68%;
+  left: 0;
+  right: 0;
+  max-height: 13%;
+}
+.methodologyLeftBox5 {
+  position: absolute;
+  top: 82%;
+  left: 0;
+  right: 0;
+  max-height: 18%;
+}
 
 
 /* height devision right column */ 
-.methodologyRightBox2 {
+/* .methodologyRightBox2 {
   grid-row: 1 / 22;
 } 
 .methodologyRightBox3 {
@@ -811,10 +834,34 @@
 } 
 .methodologyRightBox4 {
   grid-row: 77 / 101;
-} 
+}  */
+.methodologyRightBox2 {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  right: 0;
+  max-height: 25%;
+}
+
+.methodologyRightBox3 {
+  position: absolute;
+  top: 36%;
+  left: 0;
+  right: 0;
+  max-height: 29%;
+}
+
+.methodologyRightBox4 {
+  position: absolute;
+  top: 65%;
+  left: 0;
+  right: 0;
+  max-height: 35%;
+}
+
 .methodologyCenterCol {
   position: relative;
-  width: calc((100% - 24px) * 5 / 7);
+  width: calc((100% - 24px) * 3 / 5);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -835,15 +882,7 @@
   width: 100%;
   height: auto;
   border-radius: 10px;
-}
-
-.methodologyFloatingTopRightBox {
-  align-self: flex-end;
-  /* width: 600px; */
-  /* height: 64px; */
-  margin-bottom: 6px;
-  text-align: end;
-}
+} 
 
 .methodologyDescBox {
   width: 100%;
@@ -855,15 +894,43 @@
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
   box-sizing: border-box;
   overflow: auto;
+
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(80, 69, 160, 0.12) transparent;
+}
+/* Chrome / Edge / Safari */
+.methodologyDescBox::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.methodologyDescBox::-webkit-scrollbar-track {
+  background: transparent;
+}
+.methodologyDescBox::-webkit-scrollbar-thumb {
+  background: rgba(80, 69, 160, 0.12);
+  border-radius: 999px;
+}
+.methodologyDescBox::-webkit-scrollbar-thumb:hover {
+  background: rgba(80, 69, 160, 0.2);
 }
 
-.methodologyDescBox.methodologyFloatingTopRightBox {
+.methodologyFloatingTopRightBox {
+  align-self: flex-end;
+  width: fit-content;
+  max-width: min(700px, 100%);
+  max-height: 120px;
+  margin-bottom: 6px;
+  text-align: left;
+}
+
+/* .methodologyDescBox.methodologyFloatingTopRightBox {
   width: 700px;
   max-width: none;
-}
+} */
 
 .methodologyDescTitle {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   font-family: 'Commuters Sans', Arial, sans-serif !important;
   color: #111111;
@@ -872,7 +939,7 @@
 }
 
 .methodologyDescText {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.2;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #111111;
@@ -1076,6 +1143,7 @@
   .methodologyThreeCol {
     display: grid;
     grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   .methodologyCenterCol {
@@ -1096,11 +1164,29 @@
   .methodologyLeftBox2,
   .methodologyLeftBox3,
   .methodologyLeftBox4,
-  .methodologyRightBox1,
+  .methodologyLeftBox5,
   .methodologyRightBox2,
   .methodologyRightBox3,
   .methodologyRightBox4 {
-    grid-row: auto;
+    position: static;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    max-height: none;
+    width: 100%;
+  }
+
+  .methodologyFloatingTopRightBox {
+    align-self: stretch;
+    width: 100%;
+    max-width: 100%;
+    max-height: none;
+    margin-bottom: 0;
+  }
+
+  .methodologyDescBox {
+    overflow: visible;
   }
 
   .methodologyStepsSplit {
@@ -1113,35 +1199,15 @@
     display: contents;
   }
 
-  .methodologyOffsetCard {
-    margin-top: 0;
-  }
-
+  .methodologyOffsetCard,
   .methodologySetupSection {
     margin-top: 0;
   }
 
-  .stepTitle3 {
-    order: 1;
-  }
-
-  .step1 {
-    order: 2;
-  }
-
-  .step2 {
-    order: 3;
-  }
-
-  .step3 {
-    order: 4;
-  }
-
-  .step5 {
-    order: 5;
-  }
-
-  .step4Section {
-    order: 6;
-  }
-} 
+  .stepTitle3 { order: 1; }
+  .step1 { order: 2; }
+  .step2 { order: 3; }
+  .step3 { order: 4; }
+  .step5 { order: 5; }
+  .step4Section { order: 6; }
+}

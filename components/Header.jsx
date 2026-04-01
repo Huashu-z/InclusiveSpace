@@ -142,12 +142,19 @@ function Header(
         </span> */}
 
         {/* InclusiveSpaces logo  */}
-        <span className={sty["logo-wrapper"]}>
+        <Link
+          href="https://inclusivespaces-heproject.eu/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={t("logo_IS")}
+          title={t("logo_IS")}
+          className={`${sty["logo-wrapper"]} ${sty.focusRing}`}
+        >
           <img
             src="/images/Color_InclusiveSpaces.png"
             alt={t("logo_IS")}
           />
-        </span>
+        </Link>
       </div>
     );
     // left = (
@@ -209,12 +216,19 @@ function Header(
         <p>  </p>
 
         {/* InclusiveSpaces logo  */}
-        <span className={sty["logo-wrapper"]}>
+        <a
+          href="https://inclusivespaces-heproject.eu/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={t("logo_IS")}
+          title={t("logo_IS")}
+          className={`${sty["logo-wrapper"]} ${sty.focusRing}`}
+        >
           <img
             src="/images/White_inclusive spaces.png"
             alt={t("logo_IS")}
           />
-        </span>
+        </a>
 
         {/* mehr verfahren paeg under construction */}
         {/* <button

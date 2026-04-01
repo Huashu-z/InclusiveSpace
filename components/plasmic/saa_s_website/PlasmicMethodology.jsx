@@ -34,12 +34,12 @@ export default function Methodology() {
         {/* Page title */}
         <section className={sty.toolDetailsSection}>
           <h1 className={sty.methodologyPageTitle}>
+            {t("methodology.page_title")}
             <img
               src="/images/CAT_dark_Purple.png"
               alt="CAT"
               className={sty.methodologyLogo}
-            />
-            {t("methodology.page_title")}
+            /> 
           </h1>
         </section>
 
@@ -56,51 +56,42 @@ export default function Methodology() {
             <div className={sty.methodologyThreeCol}>
               {/* Left column */}
               <div className={`${sty.methodologySideCol} ${sty.methodologyLeftCol}`}>
-                <div className={`${sty.methodologyDescBox} ${sty.methodologyLeftBox1}`}>
-                  <div className={sty.methodologyDescTitle}>
-                    {/* {t("methodology.section1.box1_title")} */}
-                  </div>
+                <div className={`${sty.methodologyDescBox} ${sty.methodologyLeftBox1}`}> 
                   <div className={sty.methodologyDescText}>
                     {t("methodology.section1.box1_text")}
                   </div>
                 </div>
 
-                <div className={`${sty.methodologyDescBox} ${sty.methodologyLeftBox2}`}>
-                  {/* <div className={sty.methodologyDescTitle}>
-                    {t("methodology.section1.box2_title")}
-                  </div> */}
+                <div className={`${sty.methodologyDescBox} ${sty.methodologyLeftBox2}`}> 
                   <div className={sty.methodologyDescText}>
                     {t("methodology.section1.box2_text")}
                   </div>
                 </div>
 
-                <div className={`${sty.methodologyDescBox} ${sty.methodologyLeftBox3}`}>
-                  {/* <div className={sty.methodologyDescTitle}>
-                    {t("methodology.section1.box3_title")}
-                  </div> */}
+                <div className={`${sty.methodologyDescBox} ${sty.methodologyLeftBox3}`}> 
                   <div className={sty.methodologyDescText}>
                     {t("methodology.section1.box3_text")}
                   </div>
                 </div>
 
-                <div className={`${sty.methodologyDescBox} ${sty.methodologyLeftBox4}`}>
-                  {/* <div className={sty.methodologyDescTitle}>
-                    {t("methodology.section1.box4_title")}
-                  </div> */}
+                <div className={`${sty.methodologyDescBox} ${sty.methodologyLeftBox4}`}> 
                   <div className={sty.methodologyDescText}>
                     {t("methodology.section1.box4_text")}
+                  </div>
+                </div>
+
+                <div className={`${sty.methodologyDescBox} ${sty.methodologyLeftBox5}`}> 
+                  <div className={sty.methodologyDescText}>
+                    {t("methodology.section1.box5_text")}
                   </div>
                 </div>
               </div>
 
               {/* Center column */}
               <div className={sty.methodologyCenterCol}>
-                <div className={`${sty.methodologyDescBox} ${sty.methodologyFloatingTopRightBox}`}>
-                  {/* <div className={sty.methodologyDescTitle}>
-                    {t("methodology.section1.box5_title")}
-                  </div> */}
+                <div className={`${sty.methodologyDescBox} ${sty.methodologyFloatingTopRightBox}`}> 
                   <div className={sty.methodologyDescText}>
-                    {t("methodology.section1.box5_text")}
+                    {t("methodology.section1.box6_text")}
                   </div>
                 </div>
 
@@ -116,31 +107,21 @@ export default function Methodology() {
               {/* Right column */} 
               <div className={`${sty.methodologySideCol} ${sty.methodologyRightCol}`}> 
 
-                <div className={`${sty.methodologyDescBox} ${sty.methodologyRightBox2}`}>
-                  {/* <div className={sty.methodologyDescTitle}>
-                    {t("methodology.section1.box6_title")}
-                    Pre-set Profiles
-                  </div> */}
-                  <div className={sty.methodologyDescText}>
-                    {t("methodology.section1.box6_text")}
-                  </div>
-                </div>
-
-                <div className={`${sty.methodologyDescBox} ${sty.methodologyRightBox3}`}>
-                  {/* <div className={sty.methodologyDescTitle}>
-                    {t("methodology.section1.box7_title")}
-                  </div> */}
+                <div className={`${sty.methodologyDescBox} ${sty.methodologyRightBox2}`}> 
                   <div className={sty.methodologyDescText}>
                     {t("methodology.section1.box7_text")}
                   </div>
                 </div>
 
-                <div className={`${sty.methodologyDescBox} ${sty.methodologyRightBox4}`}>
-                  {/* <div className={sty.methodologyDescTitle}>
-                    {t("methodology.section1.box8_title")}
-                  </div> */}
+                <div className={`${sty.methodologyDescBox} ${sty.methodologyRightBox3}`}> 
                   <div className={sty.methodologyDescText}>
                     {t("methodology.section1.box8_text")}
+                  </div>
+                </div>
+
+                <div className={`${sty.methodologyDescBox} ${sty.methodologyRightBox4}`}> 
+                  <div className={sty.methodologyDescText}>
+                    {t("methodology.section1.box9_text")}
                   </div>
                 </div>
 
@@ -196,7 +177,7 @@ export default function Methodology() {
               </div>
 
               <div className={`${sty.stepBlock} ${sty.step5}`}>
-                <div className={sty.stickerCard}>
+                <div className={`${sty.stickerCard} ${sty.stickerCardAlt}`}>
                   <h2 className={sty.toolDetailsTitle}>{t("methodology.step5_title")}</h2>
                   <div className={sty.toolDetailsText}>
                     <p>{t("methodology.step5_text")}</p>
@@ -235,7 +216,7 @@ export default function Methodology() {
                 className={`${sty.methodologySetupSection} ${sty.stepBlock} ${sty.step4Section}`}
               >
                 <h1 className={sty.methodologySetupTitle}>
-                  {t("methodology.section4_title")}
+                  {t("methodology.section3_title")}
                 </h1>
 
                 <div className={`${sty.stickerCard} ${sty.stickerCardAlt}`}>
@@ -265,21 +246,12 @@ export default function Methodology() {
             {t("methodology.section4_title")}
           </h1>
 
-          {/* <div className={sty.toolDetailsGrid}> */}
-            <div className={sty.stickerCard}>
-              {/* <h2 className={sty.toolDetailsTitle}>Data</h2> */}
-              <div className={sty.toolDetailsText}>
-                <p>Under Construction ... </p>
-              </div>
+          <div className={sty.stickerCard}>
+            {/* <h2 className={sty.toolDetailsTitle}>Data</h2> */}
+            <div className={sty.toolDetailsText}>
+              <p>Under Construction ... </p>
             </div>
-
-            {/* <div className={sty.stickerCard}>
-              <h2 className={sty.toolDetailsTitle}>Data Management</h2>
-              <div className={sty.toolDetailsText}>
-                <p>xxxxxx</p>
-              </div>
-            </div> */}
-          {/* </div> */}
+          </div> 
         </section>
 
         {/* Section 5 */}

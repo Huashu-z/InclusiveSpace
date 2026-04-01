@@ -11,6 +11,13 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
   const [openComfort, setOpenComfort] = React.useState({});
   const [openPoi, setOpenPoi] = React.useState({});
 
+  //temperorial, only show amenities for hamburg (no data for penteli)
+  const city =
+    (typeof window !== "undefined" &&
+      (localStorage.getItem("selectedCity") || "hamburg")) ||
+    "hamburg";
+  const showAmenities = city === "hamburg";
+
   const variableDisplayNames = {
     noise: t('checkbox_noise'),
     light: t('checkbox_light'),
@@ -165,37 +172,7 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                 <div>{t('leg_speed_label')} {entry.speed} km/h</div>
                 <div>{t('leg_area_label')} {entry.area} ha</div>
                 {!entry.isDefault && <div>{t('leg_comfort_ratio')} {entry.weightedRatio}</div>}
-
-                {/* Comfort Feature Weight Categories */}
-                {/* <button
-                  type="button"
-                  className={styles["toggle-button"]}
-                  aria-expanded="false"
-                  aria-controls={comfortId}
-                  onClick={(e) => {
-                    const container = e.currentTarget.nextSibling;
-                    const isOpen = container.style.display !== "none";
-                    container.style.display = isOpen ? "none" : "block";
-                    e.currentTarget.setAttribute("aria-expanded", (!isOpen).toString());
-                    e.currentTarget.innerText = (!isOpen ? "▼ " : "► ") + t('leg_comfort_weight_title');
-                  }}
-                >
-                  ► {t('leg_comfort_weight_title')}
-                </button>
-                <div id={comfortId} style={{ display: "none", marginLeft: "8px" }}>
-                  {features.length > 0 ? (
-                    <ul className={styles["legend-list"]}>
-                      {features.map((layer) => (
-                        <li key={layer}>
-                          {variableDisplayNames[layer] || layer}:{" "}
-                          {getWeightLabel(values[layer]) ?? "N/A"}
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <div className={styles["legend-none"]}>{t("leg_none")}</div>
-                  )}
-                </div> */}
+ 
                 {/* Comfort Feature Weight Categories */}
                 {(() => {
                   const isComfortOpen = !!openComfort[index];
@@ -232,41 +209,41 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
                   );
                 })()}
 
-                {/* Points of Interest Count */}
-                {(() => {
-                  const poiCount = Number(entry.poiCount ?? 0);
-                  const hasGroups =
-                    entry.poiGroupCounts && Object.keys(entry.poiGroupCounts).length > 0;
+                {/* Amenities / POI Count - Hamburg only */}
+                {showAmenities &&
+                  (() => {
+                    const poiCount = Number(entry.poiCount ?? 0);
+                    const hasGroups =
+                      entry.poiGroupCounts && Object.keys(entry.poiGroupCounts).length > 0;
 
-                  return (
-                    <div style={{ marginTop: 0 }}>
-                      <button
-                        className={styles["toggle-button"]}
-                        style={{ marginBottom: 2 }}
-                        aria-expanded={!!openPoi[index]}
-                        aria-controls={poiId}
-                        onClick={() =>
-                          setOpenPoi((prev) => ({ ...prev, [index]: !prev[index] }))
-                        }
-                      >
-                        {(openPoi[index] ? "▼ " : "► ") + t("leg_poi_count") + `: ${poiCount}`}
-                      </button>
+                    return (
+                      <div style={{ marginTop: 0 }}>
+                        <button
+                          className={styles["toggle-button"]}
+                          style={{ marginBottom: 2 }}
+                          aria-expanded={!!openPoi[index]}
+                          aria-controls={poiId}
+                          onClick={() =>
+                            setOpenPoi((prev) => ({ ...prev, [index]: !prev[index] }))
+                          }
+                        >
+                          {(openPoi[index] ? "▼ " : "► ") + t("leg_poi_count") + `: ${poiCount}`}
+                        </button>
 
-                      <div id={poiId} hidden={!openPoi[index]} style={{ marginLeft: 8 }}>
-                        {hasGroups ? (
-                          Object.entries(entry.poiGroupCounts).map(([cat, count]) => (
-                            <div key={cat}>
-                              • {poiCategoryNames[cat] || cat}: {count}
-                            </div>
-                          ))
-                        ) : (
-                          <div className={styles["legend-none"]}>{t("leg_none")}</div>
-                        )}
+                        <div id={poiId} hidden={!openPoi[index]} style={{ marginLeft: 8 }}>
+                          {hasGroups ? (
+                            Object.entries(entry.poiGroupCounts).map(([cat, count]) => (
+                              <div key={cat}>
+                                • {poiCategoryNames[cat] || cat}: {count}
+                              </div>
+                            ))
+                          ) : (
+                            <div className={styles["legend-none"]}>{t("leg_none")}</div>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  );
-
-                })()}
+                    );
+                  })()}
 
               </div>
             );
