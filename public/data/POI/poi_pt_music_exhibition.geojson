@@ -1,0 +1,12 @@
+{
+"type": "FeatureCollection",
+"name": "poi_pt_music_exhibition",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": "1", "name": "ΩΔΕΙΟ ΦΙΛΙΠΠΟΣ ΝΑΚΑΣ" }, "geometry": { "type": "Point", "coordinates": [ 23.839312370725445, 38.050992736598694 ] } },
+{ "type": "Feature", "properties": { "id": "2", "name": "ΩΔΕΙΟ ΠΕΝΤΕΛΗΣ" }, "geometry": { "type": "Point", "coordinates": [ 23.8585414697428, 38.058019195856708 ] } },
+{ "type": "Feature", "properties": { "id": "3", "name": "ΠΟΛΙΤΙΣΤΙΚΟ ΚΕΝΤΡΟ ΜΕΛΙΣΣΙΩΝ" }, "geometry": { "type": "Point", "coordinates": [ 23.836473395581624, 38.061433465632746 ] } },
+{ "type": "Feature", "properties": { "id": "4", "name": "ΠΛΑΤΕΙΑ ΝΕΑΣ ΠΕΝΤΕΛΗΣ" }, "geometry": { "type": "Point", "coordinates": [ 23.858040892048457, 38.058161408555378 ] } },
+{ "type": "Feature", "properties": { "id": "5", "name": "ΜΕΓΑΡΟ ΔΟΥΚΙΣΣΗΣ ΠΛΑΚΕΝΤΙΑΣ" }, "geometry": { "type": "Point", "coordinates": [ 23.870833079864923, 38.04549951375791 ] } }
+]
+}

@@ -1,0 +1,17 @@
+{
+"type": "FeatureCollection",
+"name": "poi_pt_health",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": "1", "name": "ΝΟΣΟΚΟΜΕΙΟ ΑΜΑΛΙΑ ΦΛΕΜΙΝΓΚ" }, "geometry": { "type": "Point", "coordinates": [ 23.834966197839055, 38.054296469610172 ] } },
+{ "type": "Feature", "properties": { "id": "2", "name": "ΠΤΕΡΥΓΑ ΜΠΟΜΠΟΛΑ" }, "geometry": { "type": "Point", "coordinates": [ 23.841574797107494, 38.055164314435878 ] } },
+{ "type": "Feature", "properties": { "id": "3", "name": "414 ΣΤΡΑΤΙΩΤΙΚΟ ΝΟΣΟΚΟΜΕΙΟ" }, "geometry": { "type": "Point", "coordinates": [ 23.874136485948746, 38.060728675284736 ] } },
+{ "type": "Feature", "properties": { "id": "4", "name": "ΝΟΣΟΚΟΜΕΙΟ ΠΑΙΔΩΝ ΠΕΝΤΕΛΗΣ" }, "geometry": { "type": "Point", "coordinates": [ 23.875190621080211, 38.050292324255885 ] } },
+{ "type": "Feature", "properties": { "id": "5", "name": "ΚΑΠΗ ΝΕΑΣ ΠΕΝΤΕΛΗΣ" }, "geometry": { "type": "Point", "coordinates": [ 23.851141795591438, 38.055541012037985 ] } },
+{ "type": "Feature", "properties": { "id": "6", "name": "Β ΚΑΠΗ" }, "geometry": { "type": "Point", "coordinates": [ 23.832164779722202, 38.047970835173828 ] } },
+{ "type": "Feature", "properties": { "id": "7", "name": "Α ΚΑΠΗ" }, "geometry": { "type": "Point", "coordinates": [ 23.829995007441831, 38.053840350981794 ] } },
+{ "type": "Feature", "properties": { "id": "8", "name": "Γ ΚΑΠΗ" }, "geometry": { "type": "Point", "coordinates": [ 23.836909145139511, 38.058493620049774 ] } },
+{ "type": "Feature", "properties": { "id": "9", "name": "Δ ΚΑΠΗ" }, "geometry": { "type": "Point", "coordinates": [ 23.83463407520917, 38.046049897100019 ] } },
+{ "type": "Feature", "properties": { "id": "10", "name": "ΚΑΠΗ ΠΕΝΤΕΛΗΣ" }, "geometry": { "type": "Point", "coordinates": [ 23.868294621195826, 38.049196355917914 ] } }
+]
+}

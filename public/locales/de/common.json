@@ -104,8 +104,7 @@
     "section3_anchor_label": "Zusätzliche Funktionen",
 
     "section1": {
-      "main_image_alt": "Hauptseite der CAT-Oberfläche",
-
+      "main_image_alt": "Hauptseite der CAT-Oberfläche", 
       "box1_text": "1. Komfortbasierte Erreichbarkeit: Zentrale Einstellungen, um bevorzugte Gehzeit und Gehgeschwindigkeit festzulegen und die Ergebnisse an Ihre Bedürfnisse anzupassen.",
       "box2_text": "2. Auf der Karte auswählen: Markieren oder geben Sie die genaue Adresse ein, die Sie erkunden möchten.",
       "box3_text": "3. Unbehaglichkeitsfaktoren: Nutzer können Belastungsfaktoren aus drei Kategorien auswählen. Deren Intensität kann eingestellt werden und beeinflusst direkt die Erreichbarkeitsanalyse (Einzugsgebiet).",
@@ -230,7 +229,12 @@
   "leg_poi_park_spiel": "Parks & Spielplätze",
   "leg_poi_supermarket": "Supermärkte",
   "leg_poi_uni_fh": "Universitäten",
-  "leg_poi_other": "Andere",
+  "leg_poi_education": "Bildung",
+  "leg_poi_library": "Bibliothek",
+  "leg_poi_music_exhibition": "Musik / Ausstellung",
+  "leg_poi_other": "Sonstiges",
+  "leg_poi_religious": "Religiös",
+
   "env_category": "Umwelt",
   "phy_category": "Physisch",
   "psy_category": "Psychologisch",

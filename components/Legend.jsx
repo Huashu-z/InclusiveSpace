@@ -16,7 +16,7 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
     (typeof window !== "undefined" &&
       (localStorage.getItem("selectedCity") || "hamburg")) ||
     "hamburg";
-  const showAmenities = city === "hamburg";
+  const showAmenities = city === "hamburg" || city === "penteli";
 
   const variableDisplayNames = {
     noise: t('checkbox_noise'),
@@ -57,6 +57,15 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
     poi_hh_park_spiel: t("leg_poi_park_spiel"),
     poi_hh_supermarket: t("leg_poi_supermarket"),
     poi_hh_uni_fh: t("leg_poi_uni_fh"),
+
+    poi_pt_education: t("leg_poi_education"),
+    poi_pt_gastronomy: t("leg_poi_gastronomy"),
+    poi_pt_haltstelle: t("leg_poi_haltstelle"),
+    poi_pt_health: t("leg_poi_health"),
+    poi_pt_library: t("leg_poi_library"),
+    poi_pt_music_exhibition: t("leg_poi_music_exhibition"),
+    poi_pt_other: t("leg_poi_other"),
+    poi_pt_religious: t("leg_poi_religious")
   };
 
   // prevent scroll on wheel event when legend is expanded

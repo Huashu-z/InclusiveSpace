@@ -1,0 +1,19 @@
+{
+"type": "FeatureCollection",
+"name": "poi_pt_religious",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": null, "name": "I.N. ΑΓΙΑΣ ΤΡΙΑΔΟΣ" }, "geometry": { "type": "Point", "coordinates": [ 23.869988701123663, 38.054511880965023 ] } },
+{ "type": "Feature", "properties": { "id": null, "name": "Ι.Μ. ΘΕΟΤΟΚΟΥ ΠΕΝΤΕΛΗΣ" }, "geometry": { "type": "Point", "coordinates": [ 23.867119605044124, 38.052538715477098 ] } },
+{ "type": "Feature", "properties": { "id": null, "name": "Ι.Ν. ΑΓΙΟΥ ΣΕΡΑΦΕΙΜ" }, "geometry": { "type": "Point", "coordinates": [ 23.870624842817254, 38.051434098755458 ] } },
+{ "type": "Feature", "properties": { "id": null, "name": "ΑΓΙΟΣ ΝΙΚΟΛΑΟΣ ΜΕΤΟΧΙ" }, "geometry": { "type": "Point", "coordinates": [ 23.867386100118242, 38.050620064072824 ] } },
+{ "type": "Feature", "properties": { "id": null, "name": "Ι.Ν. ΑΓΙΟΥ ΓΕΩΡΓΙΟΥ ΠΕΝΤΕΛΗΣ" }, "geometry": { "type": "Point", "coordinates": [ 23.854008075304581, 38.049281461047947 ] } },
+{ "type": "Feature", "properties": { "id": null, "name": "ΑΓΙΑ ΜΑΡΙΝΑ ΜΕΛΙΣΣΙΩΝ" }, "geometry": { "type": "Point", "coordinates": [ 23.84437854134022, 38.052086896667362 ] } },
+{ "type": "Feature", "properties": { "id": null, "name": "ΖΩΟΔΟΧΟΣ ΠΗΓΗ" }, "geometry": { "type": "Point", "coordinates": [ 23.834462060406569, 38.050859413435553 ] } },
+{ "type": "Feature", "properties": { "id": null, "name": "ΑΓΙΟΣ ΓΕΩΡΓΙΟΣ" }, "geometry": { "type": "Point", "coordinates": [ 23.836889958948028, 38.061315588354539 ] } },
+{ "type": "Feature", "properties": { "id": null, "name": "ΑΓΙΟΣ ΣΙΛΑΣ" }, "geometry": { "type": "Point", "coordinates": [ 23.857696309879675, 38.064729396443681 ] } },
+{ "type": "Feature", "properties": { "id": null, "name": "Ι.Ν. ΑΓΙΑΣ ΠΑΡΑΣΚΕΥΗΣ" }, "geometry": { "type": "Point", "coordinates": [ 23.85709322052104, 38.059320924578763 ] } },
+{ "type": "Feature", "properties": { "id": null, "name": "ΠΡΟΦΗΤΗΣ ΗΛΙΑΣ" }, "geometry": { "type": "Point", "coordinates": [ 23.854650740161734, 38.059167746378371 ] } },
+{ "type": "Feature", "properties": { "id": null, "name": "Ι.Ν. ΑΓΙΟΥ ΔΗΜΗΤΡΙΟΥ ΠΕΝΤΕΛΗΣ" }, "geometry": { "type": "Point", "coordinates": [ 23.859566777380834, 38.041713294044122 ] } }
+]
+}

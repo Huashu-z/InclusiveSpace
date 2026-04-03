@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "poi_pt_library",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": "1", "name": "ΔΗΜΟΤΙΚΗ ΒΙΒΛΙΟΘΗΚΗ ΜΕΛΙΣΣΙΩΝ" }, "geometry": { "type": "Point", "coordinates": [ 23.836393155489471, 38.06133674270923 ] } },
+{ "type": "Feature", "properties": { "id": "2", "name": "ΔΗΜΟΤΙΚΗ ΒΙΒΛΙΟΘΗΚΗ ΝΕΑΣ ΠΕΝΤΕΛΗΣ" }, "geometry": { "type": "Point", "coordinates": [ 23.858132446749071, 38.058714754617341 ] } }
+]
+}

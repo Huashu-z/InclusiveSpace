@@ -1,0 +1,32 @@
+{
+"type": "FeatureCollection",
+"name": "poi_pt_education",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": "1", "name": "ΠΑΙΔΙΚΟΣ ΣΤΑΘΜΟΣ \"Ο ΠΑΙΔΙΚΟΣ ΓΑΛΑΞΙΑΣ\"" }, "geometry": { "type": "Point", "coordinates": [ 23.837503245553748, 38.05298083637318 ] } },
+{ "type": "Feature", "properties": { "id": "2", "name": "ΠΑΙΔΙΚΟΣ ΣΤΑΘΜΟΣ \"BABY SMILE\"" }, "geometry": { "type": "Point", "coordinates": [ 23.836734864189779, 38.059643472617651 ] } },
+{ "type": "Feature", "properties": { "id": "3", "name": "ΠΑΙΔΙΚΟΣ ΣΤΑΘΜΟΣ \"ΤΟ ΣΠΙΤΙ ΤΩΝ ΠΑΙΔΙΩΝ\"" }, "geometry": { "type": "Point", "coordinates": [ 23.837114455853179, 38.053386790768542 ] } },
+{ "type": "Feature", "properties": { "id": "4", "name": "ΠΑΙΔΙΚΟΣ ΣΤΑΘΜΟΣ \"FROGGY\"" }, "geometry": { "type": "Point", "coordinates": [ 23.829164029855566, 38.052191995396448 ] } },
+{ "type": "Feature", "properties": { "id": "5", "name": "ΔΕΥΤΕΡΟΣ ΠΑΙΔΙΚΟΣ ΣΤΑΘΜΟΣ ΜΕΛΙΣΣΙΩΝ" }, "geometry": { "type": "Point", "coordinates": [ 23.831947301975962, 38.048096751008984 ] } },
+{ "type": "Feature", "properties": { "id": "6", "name": "ΕΙΔΙΚΟ ΔΗΜΟΤΙΚΟ ΣΧΟΛΕΙΟ ΠΕΝΤΕΛΗΣ" }, "geometry": { "type": "Point", "coordinates": [ 23.875840185314164, 38.052017811488852 ] } },
+{ "type": "Feature", "properties": { "id": "7", "name": "ΤΡΤΟΣ ΠΑΙΔΙΚΟΣ ΣΤΑΘΜΟΣ ΜΕΛΙΣΣΙΩΝ" }, "geometry": { "type": "Point", "coordinates": [ 23.836090709386376, 38.065557647474279 ] } },
+{ "type": "Feature", "properties": { "id": "8", "name": "ΠΑΙΔΙΚΟΣ ΣΤΑΘΜΟΣ ΝΕΑΣ ΠΕΝΤΕΛΗΣ" }, "geometry": { "type": "Point", "coordinates": [ 23.852938508739744, 38.053513304649087 ] } },
+{ "type": "Feature", "properties": { "id": "9", "name": "ΠΡΩΤΟ & ΕΚΤΟ ΝΗΠΙΑΓΩΓΕΙΟ ΜΕΛΙΣΣΙΩΝ" }, "geometry": { "type": "Point", "coordinates": [ 23.838112149681464, 38.048116698790416 ] } },
+{ "type": "Feature", "properties": { "id": "10", "name": "ΔΕΥΤΕΡΟ ΝΗΠΙΑΓΩΓΕΙΟ ΜΕΛΙΣΣΙΩΝ" }, "geometry": { "type": "Point", "coordinates": [ 23.834948537401758, 38.058672788038443 ] } },
+{ "type": "Feature", "properties": { "id": "11", "name": "ΤΡΙΤΟ & ΠΕΜΠΤΟ ΝΗΠΙΑΓΩΓΕΙΟ ΚΑΙ ΔΗΜΟΤΙΚΟ ΜΕΛΙΣΣΙΩΝ" }, "geometry": { "type": "Point", "coordinates": [ 23.844576307590394, 38.05983825489011 ] } },
+{ "type": "Feature", "properties": { "id": "12", "name": "ΤΕΤΑΡΤΟ ΝΗΠΙΑΓΩΓΕΙΟ & ΔΗΜΟΤΙΚΟ ΜΕΛΙΣΣΙΩΝ" }, "geometry": { "type": "Point", "coordinates": [ 23.847787245437285, 38.054053039160713 ] } },
+{ "type": "Feature", "properties": { "id": "13", "name": "ΔΗΜΟΤΙΚΟ ΣΧΟΛΕΙΟ ΝΕΑΣ ΠΕΝΤΕΛΗΣ" }, "geometry": { "type": "Point", "coordinates": [ 23.858399217922411, 38.057152237282423 ] } },
+{ "type": "Feature", "properties": { "id": "14", "name": "ΠΡΩΤΟ ΝΗΠΙΑΓΩΓΕΙΟ ΠΕΝΤΕΛΗΣ" }, "geometry": { "type": "Point", "coordinates": [ 23.868329447299161, 38.047419042003241 ] } },
+{ "type": "Feature", "properties": { "id": "15", "name": "ΔΕΥΤΕΡΟ ΝΗΠΙΑΓΩΓΕΙΟ ΚΑΙ ΔΗΜΟΤΙΚΟ ΠΕΝΤΕΛΗΣ" }, "geometry": { "type": "Point", "coordinates": [ 23.876166472490905, 38.036796832353268 ] } },
+{ "type": "Feature", "properties": { "id": "16", "name": "ΠΡΩΤΟ & ΕΚΤΟ ΔΗΜΟΤΙΚΟ ΜΕΛΙΣΣΙΩΝ" }, "geometry": { "type": "Point", "coordinates": [ 23.836557950612789, 38.050103911732791 ] } },
+{ "type": "Feature", "properties": { "id": "17", "name": "ΠΡΩΤΟΣ ΠΑΙΔΙΚΟΣ ΣΤΑΘΜΟΣ ΜΕΛΙΣΣΙΩΝ" }, "geometry": { "type": "Point", "coordinates": [ 23.83757853348585, 38.049575641272121 ] } },
+{ "type": "Feature", "properties": { "id": "18", "name": "ΔΕΥΤΕΡΟ ΔΗΜΟΤΙΚΟ ΜΕΛΙΣΣΙΩΝ" }, "geometry": { "type": "Point", "coordinates": [ 23.835764797892743, 38.060105275818565 ] } },
+{ "type": "Feature", "properties": { "id": "19", "name": "ΝΗΠΙΑΓΩΓΕΙΟ ΝΕΑΣ ΠΕΝΤΕΛΗΣ" }, "geometry": { "type": "Point", "coordinates": [ 23.857797018530174, 38.056790286559398 ] } },
+{ "type": "Feature", "properties": { "id": "20", "name": "ΚΡΥΣΤΑΛΛΕΙΟ ΔΗΜΟΤΙΚΟ ΠΕΝΤΕΛΗΣ" }, "geometry": { "type": "Point", "coordinates": [ 23.867639824372329, 38.049561285876244 ] } },
+{ "type": "Feature", "properties": { "id": "21", "name": "ΠΡΩΤΟ ΓΥΜΝΑΣΙΟ ΜΕΛΙΣΣΙΩΝ" }, "geometry": { "type": "Point", "coordinates": [ 23.840547094450574, 38.049066046041247 ] } },
+{ "type": "Feature", "properties": { "id": "22", "name": "ΔΕΥΤΕΡΟ ΓΥΜΝΑΣΙΟ ΜΕΛΙΣΣΙΩΝ" }, "geometry": { "type": "Point", "coordinates": [ 23.84310523517102, 38.06001614262297 ] } },
+{ "type": "Feature", "properties": { "id": "23", "name": "ΛΥΚΕΙΟ ΜΕΛΙΣΣΙΩΝ" }, "geometry": { "type": "Point", "coordinates": [ 23.839988947932611, 38.053786997469778 ] } },
+{ "type": "Feature", "properties": { "id": "24", "name": "ΓΥΜΝΑΣΙΟ ΚΑΙ ΛΥΚΕΙΟ ΝΕΑΣ ΠΕΝΤΕΛΗΣ" }, "geometry": { "type": "Point", "coordinates": [ 23.855281137876471, 38.053443657484358 ] } },
+{ "type": "Feature", "properties": { "id": "25", "name": "ΓΥΜΝΑΣΙΟ ΛΥΚΕΙΟ ΠΕΝΤΕΛΗΣ" }, "geometry": { "type": "Point", "coordinates": [ 23.868772463452583, 38.047935044314684 ] } }
+]
+}
