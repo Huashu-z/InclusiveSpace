@@ -52,6 +52,8 @@ function PlasmicUser__RenderFunc(props) {
   const [sidebarOpen, setSidebarOpen] = React.useState(true);
   const [highlightedIndex, setHighlightedIndex] = React.useState(null);
   const [cityCenter, setCityCenter] = React.useState([53.5503, 9.9920]); // hamburg as default
+  const [selectedCity, setSelectedCity] = React.useState("hamburg");
+  const [userProfile, setUserProfile] = React.useState(null);
   const [isSearchZoom, setIsSearchZoom] = React.useState(false);
  
   const [showHelp, setShowHelp] = React.useState(false);
@@ -76,13 +78,16 @@ function PlasmicUser__RenderFunc(props) {
   }, []);
 
   React.useEffect(() => {
-    const city =
-      (typeof window !== "undefined" &&
-        (localStorage.getItem("selectedCity") || "hamburg")) ||
-      "hamburg";
-
-    setAvailableLayers(cityLayerConfig?.[city]?.mapLayers || []);
+    if (typeof window !== "undefined") {
+      const city = localStorage.getItem("selectedCity") || "hamburg";
+      setSelectedCity(city);
+      setAvailableLayers(cityLayerConfig?.[city]?.mapLayers || []);
+    }
   }, []);
+
+  React.useEffect(() => {
+    setAvailableLayers(cityLayerConfig?.[selectedCity]?.mapLayers || []);
+  }, [selectedCity]);
 
   const toggleCategory = (category) => {
     setOpenCategory(openCategory === category ? null : category);
@@ -101,8 +106,43 @@ function PlasmicUser__RenderFunc(props) {
   const handleClearVariables = () => {
     setEnabledVariables([]);
     setLayerValues({});
+    setUserProfile(null);
   };
 
+  const handleApplyAgentSettings = (settings) => {
+    if (!settings || typeof settings !== "object") return;
+    setLayerValues((prev) => ({ ...prev, ...settings }));
+    setEnabledVariables((prev) => {
+      const next = new Set(prev);
+      Object.keys(settings).forEach((key) => next.add(key));
+      return Array.from(next);
+    });
+  };
+
+  const onLoadDemoScenario = (scenario) => {
+    if (!scenario) return;
+    if (scenario.map?.city) {
+      setSelectedCity(scenario.map.city);
+      localStorage.setItem("selectedCity", scenario.map.city);
+    }
+    if (scenario.map?.center) {
+      setCityCenter(scenario.map.center);
+    }
+    if (Array.isArray(scenario.selectedLayers)) {
+      setSelectedLayers(scenario.selectedLayers);
+    }
+    if (scenario.startPoint) {
+      setStartPoints([scenario.startPoint]);
+    } else {
+      setStartPoints([]);
+    }
+    if (scenario.userProfile) {
+      setUserProfile(scenario.userProfile);
+    }
+    if (typeof scenario.question === "string") {
+      // AgentPanel will also set the prompt text internally
+    }
+  };
 
   const onResetHandled = () => {
     setResetTrigger(false);
@@ -192,6 +232,7 @@ function PlasmicUser__RenderFunc(props) {
               setEnabledVariables={setEnabledVariables}
               setLayerValues={setLayerValues}
               setWalkingSpeed={setWalkingSpeed}
+              setUserProfile={setUserProfile}
             />
             <Sidebar
               sidebarOpen={sidebarOpen}
@@ -220,7 +261,11 @@ function PlasmicUser__RenderFunc(props) {
               setShowInfo={setShowInfo}
               isSearchZoom={isSearchZoom}
               setIsSearchZoom={setIsSearchZoom}
-            />            
+              agentProfile={userProfile}
+              selectedCity={selectedCity}
+              onApplyAgentSettings={handleApplyAgentSettings}
+              onLoadDemoScenario={onLoadDemoScenario}
+            />  
             <LayerTagBar
               selectedLayers={selectedLayers}
               toggleLayer={toggleLayer}

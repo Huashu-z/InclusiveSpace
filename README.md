@@ -137,7 +137,36 @@ The API switches tables by `city` query param:
 
 ---
 
-## 5) Sidebar panels (what to modify)
+## 5) AI Agent (新功能)
+
+### 新增路由
+* `pages/api/agent.js` 提供自然语言分析接口
+* 使用 `POST /api/agent`，请求 body 包含：
+  * `prompt`：用户问题文本
+  * `profile`：当前已选择的用户画像信息
+  * `selectedCity`：当前城市 id
+  * `layerIds`：当前可见/选中图层列表
+
+### 实现细节
+* `utils/spatialRag.js` 负责从现有 `public/data/<city>` 和 `public/data/POI` 读取 geojson，并生成图层摘要、要素计数、示例高亮 id
+* 后端优先使用 `OPENAI_API_KEY` 调用 OpenAI；如果未配置或 `USE_MOCK_AGENT=true`，则退回本地 mock agent
+* 响应格式包含：
+  * `reply`：AI 解释文本
+  * `score`：可达性评分
+  * `factors`：影响因素列表
+  * `suggestedSettings`：推荐变量设置
+  * `highlights`：建议高亮的 layer->featureId 映射
+  * `rawSummary`：空间数据摘要
+
+### 前端支持
+* 新增 `components/AgentPanel.jsx`，集成到 `components/Sidebar.jsx`
+* 在侧边栏展示聊天输入、AI 解释和推荐参数
+* 通过 `components/Profile.jsx` 传递当前画像到 agent
+* 通过 `components/plasmic/saa_s_website/PlasmicUser.jsx` 连接整个状态流
+
+---
+
+## 6) Sidebar panels (what to modify)
 
 ### Accessibility controls
 

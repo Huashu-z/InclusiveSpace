@@ -198,7 +198,8 @@ const MapComponent = ({
         if (isWmsLayer(layer, layerTypeMap)) continue;
 
         try {
-          const res = await fetch(`/data/${selectedCity}/${layer}.geojson`);
+          const layerPath = layer.startsWith("poi_") ? `/data/POI/${layer}.geojson` : `/data/${selectedCity}/${layer}.geojson`;
+          const res = await fetch(layerPath);
           const data = await res.json();
           newGeoJsonData[layer] = data;
         } catch (err) {

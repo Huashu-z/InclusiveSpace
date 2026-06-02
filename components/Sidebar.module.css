@@ -718,6 +718,67 @@
     background: #17cbac;
     border: 1px solid #413190;
   }
+
+  .agentPanel {
+    margin: 12px 0;
+    padding: 12px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid #d1d1d1;
+  }
+  .agentForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .agentInput {
+    width: 100%;
+    min-height: 90px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 14px;
+    resize: vertical;
+    background: #fff;
+    color: #111;
+  }
+  .agentResultBox {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    background: #f6f8ff;
+    border: 1px solid #d6d6d6;
+  }
+  .agentFactorList {
+    list-style: none;
+    padding-left: 0;
+    margin: 8px 0 0;
+  }
+  .agentFactorItem {
+    padding: 6px 0;
+    border-bottom: 1px solid #eaeaea;
+    font-size: 14px;
+  }
+  .agentSettingsPre {
+    margin: 8px 0;
+    padding: 10px;
+    background: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .sidebarError {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #b02a37;
+    background: #ffe8e8;
+    border: 1px solid #f0c6c6;
+    padding: 8px;
+    border-radius: 6px;
+  }
   .info-icon:focus {
     background: #17cbac;
   }

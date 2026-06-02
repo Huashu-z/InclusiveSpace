@@ -6,6 +6,7 @@ import ArrowSvgIcon from "./plasmic/saa_s_website/icons/PlasmicIcon__ArrowSvg";
 import AccessibilityControls from "./Sidebar_AccessibilityControls";
 import VariableControls from "./Sidebar_VariableControls";
 import MapLayers from "./Sidebar_ManageLayers";
+import AgentPanel from "./AgentPanel";
 import { useTranslation } from "next-i18next";
 
 export default function Sidebar({
@@ -37,7 +38,11 @@ export default function Sidebar({
     isSearchZoom,
     setIsSearchZoom,
     city,
-    cityBoundaries
+    cityBoundaries,
+    agentProfile,
+    selectedCity,
+    onApplyAgentSettings,
+    onLoadDemoScenario,
   }) {
     const { t } = useTranslation("common");
     const [srStatus, setSrStatus] = React.useState("");
@@ -85,7 +90,17 @@ export default function Sidebar({
             isSearchZoom = {isSearchZoom}
             setIsSearchZoom={setIsSearchZoom}
           />
-  
+
+          <AgentPanel
+            selectedCity={selectedCity}
+            selectedLayers={selectedLayers}
+            agentProfile={agentProfile}
+            startPoint={startPoints?.[startPoints.length - 1]}
+            setStartPoints={setStartPoints}
+            onApplySettings={onApplyAgentSettings}
+            onLoadScenario={onLoadDemoScenario}
+          />
+
           <VariableControls
             enabledVariables={enabledVariables} 
             toggleVariable={toggleVariable}  

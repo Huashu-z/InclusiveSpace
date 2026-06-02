@@ -7,7 +7,8 @@ import { useTranslation } from "next-i18next";
 export default function Profile({
   setEnabledVariables,
   setLayerValues,
-  setWalkingSpeed
+  setWalkingSpeed,
+  setUserProfile
 }) {
   const { t } = useTranslation("common");
   const [isOpen, setIsOpen] = useState(false);
@@ -158,6 +159,7 @@ export default function Profile({
   const applyProfile = (profileId) => { 
     if (activeProfile === profileId) {
       setActiveProfile(null);
+      setUserProfile?.(null);
       return;
     }
 
@@ -178,6 +180,7 @@ export default function Profile({
       setWalkingSpeed(profile.walkingSpeed);
     }
 
+    setUserProfile?.(profile);
     setActiveProfile(profileId);
   };
 
