@@ -21,6 +21,10 @@ import Profile from "../../Profile";
 import { cityLayerConfig } from "../../cityVariableConfig";
 
 const MapComponent = dynamic(() => import("../../MapComponent"), { ssr: false });
+const cityCenters = {
+  hamburg: [53.5503, 9.9920],
+  penteli: [38.0491, 23.8653]
+};
 
 createPlasmicElementProxy;
 
@@ -55,6 +59,7 @@ function PlasmicUser__RenderFunc(props) {
   const [selectedCity, setSelectedCity] = React.useState("hamburg");
   const [userProfile, setUserProfile] = React.useState(null);
   const [isSearchZoom, setIsSearchZoom] = React.useState(false);
+  const [latestResultMetadata, setLatestResultMetadata] = React.useState([]);
  
   const [showHelp, setShowHelp] = React.useState(false);
 
@@ -109,14 +114,123 @@ function PlasmicUser__RenderFunc(props) {
     setUserProfile(null);
   };
 
+  const normalizeAgentSettingKey = (key) => {
+    const keyMap = {
+      wc_disabled: "wcDisabled",
+      sidewalk_narrow: "narrowRoads",
+      poor_pavement: "poorPavement",
+      kerbs_high: "kerbsHigh",
+      tactile_guidance: "tactile_pavement",
+      tactile: "tactile_pavement",
+      traffic_light: "trafficLight",
+      trafic_light: "trafficLight",
+      streetlight: "light",
+      slope_penteli: "slope",
+      pedestrian_flow: "pedestrianFlow",
+      facilities: "facility",
+      facility_wms: "facility",
+      transport_station: "station",
+      temp_summer: "temperatureSummer",
+      temp_winter: "temperatureWinter"
+    };
+    return keyMap[key] || key;
+  };
+
+  const getSupportedAgentSettings = (settings) => {
+    const supportedFeatures = new Set(cityLayerConfig?.[selectedCity]?.discomfortFeatures || []);
+    return Object.entries(settings || {}).reduce((acc, [rawKey, rawValue]) => {
+      const key = normalizeAgentSettingKey(rawKey);
+      const value = Number(rawValue);
+      if (!supportedFeatures.has(key) || !Number.isFinite(value)) return acc;
+      acc[key] = Math.max(0.1, Math.min(1, value));
+      return acc;
+    }, {});
+  };
+
   const handleApplyAgentSettings = (settings) => {
-    if (!settings || typeof settings !== "object") return;
-    setLayerValues((prev) => ({ ...prev, ...settings }));
+    const supportedSettings = getSupportedAgentSettings(settings);
+    if (Object.keys(supportedSettings).length === 0) return;
+    setLayerValues((prev) => ({ ...prev, ...supportedSettings }));
     setEnabledVariables((prev) => {
       const next = new Set(prev);
-      Object.keys(settings).forEach((key) => next.add(key));
+      Object.keys(supportedSettings).forEach((key) => next.add(key));
       return Array.from(next);
     });
+  };
+
+  const handleRunAgentComputation = ({ startPointOverride } = {}) => {
+    if (startPointOverride) {
+      setStartPoints((prev) =>
+        Array.isArray(prev) ? [...prev, startPointOverride] : [startPointOverride]
+      );
+      setIsSearchZoom(true);
+    }
+
+    if (startPoints.length === 0 && !startPointOverride) return false;
+
+    setComputeAccessibility(false);
+    window.setTimeout(() => {
+      setComputeAccessibility(true);
+    }, 0);
+    return true;
+  };
+
+  const handleExecuteAgentAction = (action, { run = false } = {}) => {
+    if (!action || action.type === "ANSWER_ONLY") return false;
+
+    if (action.city && action.city !== selectedCity && cityLayerConfig[action.city]) {
+      setSelectedCity(action.city);
+      localStorage.setItem("selectedCity", action.city);
+      setAvailableLayers(cityLayerConfig[action.city]?.mapLayers || []);
+      if (cityCenters[action.city]) {
+        setCityCenter(cityCenters[action.city]);
+        localStorage.setItem("selectedCityCenter", JSON.stringify(cityCenters[action.city]));
+      }
+    }
+
+    if (Number.isFinite(Number(action.walkingTime))) {
+      setWalkingTime(Number(action.walkingTime));
+    }
+    if (Number.isFinite(Number(action.walkingSpeed))) {
+      setWalkingSpeed(Number(action.walkingSpeed));
+    }
+
+    if (Array.isArray(action.enabledVariables)) {
+      setEnabledVariables(action.enabledVariables);
+    }
+    if (action.layerValues && typeof action.layerValues === "object") {
+      setLayerValues(action.layerValues);
+    }
+    if (action.profile) {
+      setUserProfile((prev) => ({
+        ...(prev || {}),
+        id: action.profile,
+        presetId: action.profile,
+        label: action.profile,
+      }));
+    }
+
+    const hasCoordinates = Array.isArray(action.coordinates) &&
+      action.coordinates.length === 2 &&
+      action.coordinates.every((value) => Number.isFinite(Number(value)));
+
+    if (hasCoordinates) {
+      setStartPoints([action.coordinates]);
+      setCityCenter([action.coordinates[1], action.coordinates[0]]);
+      setIsSearchZoom(true);
+    } else {
+      setSelectingStart(true);
+      if (run) return false;
+    }
+
+    if (run && hasCoordinates) {
+      setComputeAccessibility(false);
+      window.setTimeout(() => {
+        setComputeAccessibility(true);
+      }, 0);
+    }
+
+    return true;
   };
 
   const onLoadDemoScenario = (scenario) => {
@@ -232,6 +346,7 @@ function PlasmicUser__RenderFunc(props) {
               setEnabledVariables={setEnabledVariables}
               setLayerValues={setLayerValues}
               setWalkingSpeed={setWalkingSpeed}
+              setWalkingTime={setWalkingTime}
               setUserProfile={setUserProfile}
             />
             <Sidebar
@@ -263,7 +378,10 @@ function PlasmicUser__RenderFunc(props) {
               setIsSearchZoom={setIsSearchZoom}
               agentProfile={userProfile}
               selectedCity={selectedCity}
+              resultMetadata={latestResultMetadata}
               onApplyAgentSettings={handleApplyAgentSettings}
+              onRunAgentComputation={handleRunAgentComputation}
+              onExecuteAgentAction={handleExecuteAgentAction}
               onLoadDemoScenario={onLoadDemoScenario}
             />  
             <LayerTagBar
@@ -293,6 +411,7 @@ function PlasmicUser__RenderFunc(props) {
               setHighlightedIndex={setHighlightedIndex}
               isSearchZoom={isSearchZoom}
               setIsSearchZoom={setIsSearchZoom} 
+              onResultMetadataChange={setLatestResultMetadata}
             />
           </div>
 

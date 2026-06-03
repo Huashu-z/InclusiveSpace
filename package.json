@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build:rag": "node scripts/buildRagIndex.mjs",
+    "build:rag": "node scripts/build-rag-index.js",
     "test:rag": "node scripts/testRagQuery.mjs",
     "test:rag:mock": "node scripts/mockRagEvaluation.mjs",
     "test:agent:mock": "node scripts/testMockAgentApi.mjs"

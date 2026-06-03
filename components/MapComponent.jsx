@@ -39,7 +39,8 @@ const MapComponent = ({
   highlightedIndex,
   setHighlightedIndex,
   isSearchZoom, 
-  setIsSearchZoom,  
+  setIsSearchZoom,
+  onResultMetadataChange,
 }) => {
   const [MapModule, setMapModule] = useState(null);
   const [customMarkerIcon, setCustomMarkerIcon] = useState(null);
@@ -63,6 +64,10 @@ const MapComponent = ({
   const [selectedCity, setSelectedCity] = useState(getSelectedCity);
 
   const mapRegionLabel = t("aria_map_region");
+
+  useEffect(() => {
+    onResultMetadataChange?.(resultMetadata);
+  }, [resultMetadata, onResultMetadataChange]);
 
   const layerTypeMap = useMemo(
     () => buildLayerTypeMap(availableLayers),

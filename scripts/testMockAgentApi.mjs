@@ -34,7 +34,14 @@ const tests = [
     },
     assert: (res) => {
       const data = res.body;
-      return data.mode === "mock" && Array.isArray(data.ragResults) && data.ragResults.length > 0 && data.reply && data.score !== undefined;
+      return data.schemaVersion &&
+        data.runtimeMode === "mock" &&
+        data.mode === "point_analysis" &&
+        data.execution?.canRunRealComputation === true &&
+        Array.isArray(data.ragResults) &&
+        data.ragResults.length > 0 &&
+        data.reply &&
+        data.score !== undefined;
     },
   },
   {
@@ -49,7 +56,54 @@ const tests = [
     },
     assert: (res) => {
       const data = res.body;
-      return data.mode === "mock" && Array.isArray(data.recommendedRegions) && data.recommendedRegions.length > 0 && data.reply;
+      return data.schemaVersion &&
+        data.runtimeMode === "mock" &&
+        data.mode === "region_recommendation" &&
+        data.execution?.canRunRealComputation === true &&
+        Array.isArray(data.recommendedRegions) &&
+        data.recommendedRegions.length > 0 &&
+        data.reply;
+    },
+  },
+  {
+    id: "how_to_use_knowledge_answer",
+    payload: {
+      prompt: "How do I use this CAT webpage?",
+      profile: null,
+      selectedCity: "hamburg",
+      layerIds: [],
+      startPoint: null,
+      mode: "analysis"
+    },
+    assert: (res) => {
+      const data = res.body;
+      return data.schemaVersion &&
+        data.mode === "how_to_use" &&
+        data.score === null &&
+        data.execution?.canRunRealComputation === false &&
+        Array.isArray(data.ragResults) &&
+        data.ragResults.some((doc) => doc.collection === "faq" || doc.collection === "methodology") &&
+        /CAT|walking time|起点|comfort/i.test(data.reply);
+    },
+  },
+  {
+    id: "city_availability_knowledge_answer",
+    payload: {
+      prompt: "Does Penteli have noise data?",
+      profile: null,
+      selectedCity: "hamburg",
+      layerIds: [],
+      startPoint: null,
+      mode: "analysis"
+    },
+    assert: (res) => {
+      const data = res.body;
+      return data.schemaVersion &&
+        data.mode === "ask_data_availability" &&
+        data.execution?.selectedCity === "penteli" &&
+        data.score === null &&
+        /noise/.test(data.reply) &&
+        /不可用|limited|Unavailable/i.test(data.reply);
     },
   },
 ];

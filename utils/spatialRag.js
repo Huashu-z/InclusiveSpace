@@ -202,6 +202,106 @@ export function describeProfile(profile) {
   return "匿名用户画像，已选择特定可达性偏好。";
 }
 
+const defaultNegativeWeights = {
+  stair: 8,
+  obstacle: 8,
+  sidewalk_narrow: 7,
+  slope: 7,
+  poor_pavement: 7,
+  kerbs_high: 8,
+};
+
+const profileScoringWeights = {
+  wheelchair: {
+    stair: 14,
+    kerbs_high: 12,
+    obstacle: 10,
+    slope: 10,
+    poor_pavement: 8,
+    sidewalk_narrow: 8,
+    wc_disabled: { bonus: 8, missingPenalty: 8 },
+    streetlight: { bonus: 4, missingPenalty: 4 },
+  },
+  elderly: {
+    slope: 10,
+    stair: 8,
+    kerbs_high: 7,
+    poor_pavement: 7,
+    obstacle: 7,
+    streetlight: { bonus: 6, missingPenalty: 6 },
+    wc_disabled: { bonus: 4, missingPenalty: 4 },
+  },
+  visual_impairment: {
+    obstacle: 10,
+    tactile_guidance: { bonus: 10, missingPenalty: 10 },
+    streetlight: { bonus: 8, missingPenalty: 8 },
+    trafic_light: { bonus: 6, missingPenalty: 6 },
+    trafic_light_wms: { bonus: 6, missingPenalty: 6 },
+  },
+  stroller: {
+    stair: 10,
+    kerbs_high: 10,
+    obstacle: 8,
+    sidewalk_narrow: 9,
+    poor_pavement: 8,
+    slope: 7,
+    streetlight: { bonus: 4, missingPenalty: 4 },
+  },
+};
+
+const supportLayerDefaults = {
+  wc_disabled: { bonus: 5, missingPenalty: 5 },
+  tactile_guidance: { bonus: 6, missingPenalty: 6 },
+  streetlight: { bonus: 4, missingPenalty: 4 },
+  light: { bonus: 4, missingPenalty: 4 },
+  trafic_light: { bonus: 4, missingPenalty: 4 },
+  trafic_light_wms: { bonus: 4, missingPenalty: 4 },
+};
+
+const profileScoreCaps = {
+  wheelchair: { negative: 27, positive: 20 },
+  elderly: { negative: 30, positive: 18 },
+  visual_impairment: { negative: 30, positive: 20 },
+  stroller: { negative: 32, positive: 18 },
+  default: { negative: 34, positive: 16 },
+};
+
+function clampScore(value) {
+  return Math.max(0, Math.min(100, Math.round(value)));
+}
+
+function getPenaltyByCount(count, maxPenalty) {
+  if (count <= 0) return 0;
+  if (count <= 2) return maxPenalty * 0.25;
+  if (count <= 10) return maxPenalty * 0.5;
+  if (count <= 50) return maxPenalty * 0.8;
+  return maxPenalty;
+}
+
+function getProfileWeight(profileId, layerId) {
+  const profileWeights = profileScoringWeights[profileId] || {};
+  const profileValue = profileWeights[layerId];
+  if (typeof profileValue === "number") return profileValue;
+  return defaultNegativeWeights[layerId] || 0;
+}
+
+function getSupportWeight(profileId, layerId) {
+  const profileWeights = profileScoringWeights[profileId] || {};
+  const profileValue = profileWeights[layerId];
+  if (profileValue && typeof profileValue === "object") return profileValue;
+  return supportLayerDefaults[layerId] || null;
+}
+
+function getSupportThreshold(layerId) {
+  if (["streetlight", "light"].includes(layerId)) return 6;
+  if (["trafic_light", "trafic_light_wms"].includes(layerId)) return 2;
+  return 1;
+}
+
+function getProfileScoreCaps(profileId) {
+  return profileScoreCaps[profileId] || profileScoreCaps.default;
+}
+
 export function generateMockAgentResponse({ prompt, profile, layerIds, spatialSummary, legendSummary, startPoint }) {
   const normalizedPrompt = (prompt || "").toLowerCase();
   const isElderly = profile?.id === "elderly" || /老年/.test(normalizedPrompt);
@@ -212,10 +312,19 @@ export function generateMockAgentResponse({ prompt, profile, layerIds, spatialSu
   const isNoise = /噪声|嘈杂/.test(normalizedPrompt);
   const isCrossing = /过街|斑马线|交通/.test(normalizedPrompt);
 
-  const scoreBase = 75;
+  const scoreBase = 70;
   let score = scoreBase;
   const factors = [];
   const suggestedSettings = {};
+  const profileId = isWheelchair
+    ? "wheelchair"
+    : isElderly
+      ? "elderly"
+      : isVisual
+        ? "visual_impairment"
+        : isStroller
+          ? "stroller"
+          : profile?.id;
   const hasStartPoint = startPoint && startPoint.length === 2;
   const regionLabel = hasStartPoint
     ? `当前起点附近区域（经度 ${startPoint[0].toFixed(6)}, 纬度 ${startPoint[1].toFixed(6)}）`
@@ -237,8 +346,11 @@ export function generateMockAgentResponse({ prompt, profile, layerIds, spatialSu
 
   const promptImportance = [isNight, isNoise, isCrossing, isElderly, isWheelchair, isVisual, isStroller].filter(Boolean).length;
   if (promptImportance > 0) {
-    score -= promptImportance * 2;
+    score -= Math.min(6, promptImportance * 1.5);
   }
+
+  let negativePenaltyTotal = 0;
+  let supportBonusTotal = 0;
 
   for (const layerId of layerIds) {
     const summary = spatialSummary.layerSummaries[layerId];
@@ -246,19 +358,23 @@ export function generateMockAgentResponse({ prompt, profile, layerIds, spatialSu
     const { inside = 0 } = summary;
     if (["stair", "obstacle", "sidewalk_narrow", "slope", "poor_pavement", "kerbs_high"].includes(layerId)) {
       if (inside > 0) {
-        const penalty = Math.min(12, 6 + inside * 2);
+        const maxPenalty = getProfileWeight(profileId, layerId);
+        const penalty = getPenaltyByCount(inside, maxPenalty);
         factors.push({
           name: summary.description,
           value: `${inside} 个`, 
-          impact: "high",
+          impact: penalty >= maxPenalty * 0.8 ? "high" : penalty >= maxPenalty * 0.5 ? "medium" : "low",
           explain: `在 ${regionLabel} 中检测到 ${inside} 个 ${summary.description}，这会降低可达性。`
         });
         score -= penalty;
+        negativePenaltyTotal += penalty;
       }
     }
     if (["streetlight", "light", "trafic_light", "trafic_light_wms"].includes(layerId)) {
-      if (inside < 6) {
-        const penalty = 6 + (6 - inside) * 2;
+      const support = getSupportWeight(profileId, layerId);
+      const threshold = getSupportThreshold(layerId);
+      if (inside < threshold) {
+        const penalty = support?.missingPenalty ?? 4;
         factors.push({
           name: summary.description,
           value: inside === 0 ? "缺失" : `较少 (${inside})`, 
@@ -266,23 +382,39 @@ export function generateMockAgentResponse({ prompt, profile, layerIds, spatialSu
           explain: `在 ${regionLabel} 中 ${summary.description} 数量偏少，可能影响夜间和过街体验。`
         });
         score -= penalty;
+        negativePenaltyTotal += penalty;
       } else {
-        score += 2;
+        const bonus = support?.bonus ?? 4;
+        score += bonus;
+        supportBonusTotal += bonus;
       }
     }
     if (["wc_disabled", "tactile_guidance"].includes(layerId)) {
+      const support = getSupportWeight(profileId, layerId);
       if (inside === 0) {
+        const penalty = support?.missingPenalty ?? 5;
         factors.push({
           name: summary.description,
           value: "缺失",
           impact: "medium",
           explain: `在 ${regionLabel} 中未检测到 ${summary.description}，可能影响特殊用户的可达性。`
         });
-        score -= 8;
+        score -= penalty;
+        negativePenaltyTotal += penalty;
       } else {
-        score += 1;
+        const bonus = support?.bonus ?? 5;
+        score += bonus;
+        supportBonusTotal += bonus;
       }
     }
+  }
+
+  const scoreCaps = getProfileScoreCaps(profileId);
+  if (negativePenaltyTotal > scoreCaps.negative) {
+    score += negativePenaltyTotal - scoreCaps.negative;
+  }
+  if (supportBonusTotal > scoreCaps.positive) {
+    score -= supportBonusTotal - scoreCaps.positive;
   }
 
   if (isElderly) {
@@ -323,8 +455,7 @@ export function generateMockAgentResponse({ prompt, profile, layerIds, spatialSu
     score += 4;
   }
 
-  if (score < 0) score = 0;
-  if (score > 100) score = 100;
+  score = clampScore(score);
 
   const questionIntent = /适合|可以|好不好|怎么样|适宜/.test(normalizedPrompt)
     ? `${regionLabel}对于当前用户的步行可达性总体上是${score >= 60 ? "相对友好" : "需要改进"}的。`

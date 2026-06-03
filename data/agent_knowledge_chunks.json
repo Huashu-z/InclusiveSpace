@@ -1,0 +1,1052 @@
+{
+  "createdAt": "2026-06-02T15:24:35.897Z",
+  "chunks": [
+    {
+      "id": "cities_hamburg_1",
+      "collection": "cities",
+      "source": "cities/hamburg.md",
+      "title": "Hamburg data availability",
+      "content": "# Hamburg Data Availability\n\nCity name: Hamburg.\n\nAvailable variables: noise, light, tree, trafficLight, tactile_pavement, temperatureSummer, temperatureWinter, greeninf, blueinf, station, wcDisabled, narrowRoads, stair, obstacle, slope, unevenSurface, poorPavement, kerbsHigh, facility, pedestrianFlow.\n\nUnavailable or limited variables: ramp is listed in city configuration but is not currently rendered as a selectable comfort variable in the sidebar. Treat ramp as limited unless a future UI and data layer explicitly support it.\n\nAvailable map layers: noise_wms, temp_summer, temp_winter, streetlight, trafic_light_wms, tactile_guidance, tree_wms, green_infrastructure_wms, blue_infrastructure_wms, transport_station_wms, wc_disabled, sidewalk_narrow, stair, obstacle, slope, uneven_surfaces, poor_pavement, kerbs_high, facility_wms, pedestrian_flow_wms.\n\nWarnings: Some layers are WMS visualization layers. The agent should not claim precise feature counts or local spatial conditions from RAG. Local spatial facts must come from CAT map state, `/api/accessibility`, or spatial summary tools.",
+      "city": "hamburg",
+      "profile": null,
+      "variable_key": null,
+      "tags": [
+        "city",
+        "hamburg",
+        "availability"
+      ],
+      "metadata": {
+        "collection": "cities",
+        "title": "Hamburg data availability",
+        "city": "hamburg",
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "city",
+          "hamburg",
+          "availability"
+        ],
+        "source": "cities/hamburg.md",
+        "filePath": "cities/hamburg.md",
+        "chunkIndex": 1
+      }
+    },
+    {
+      "id": "cities_penteli_1",
+      "collection": "cities",
+      "source": "cities/penteli.md",
+      "title": "Penteli data availability",
+      "content": "# Penteli Data Availability\n\nCity name: Penteli.\n\nAvailable variables: trafficLight, greeninf, temperatureSummer, temperatureWinter, station, stair, slope, facility, pedestrianFlow.\n\nUnavailable or limited variables: noise, light, tree, tactile_pavement, blueinf, wcDisabled, narrowRoads, obstacle, unevenSurface, poorPavement, kerbsHigh.\n\nAvailable map layers: trafic_light, green_infrastructure, transport_station, stair, slope_penteli, facilities, pedestrian_flow, temp_summer, temp_winter.\n\nWarnings: If a profile or user request includes an unavailable variable, the agent must remove it before proposing an action and include a missing data warning.",
+      "city": "penteli",
+      "profile": null,
+      "variable_key": null,
+      "tags": [
+        "city",
+        "penteli",
+        "availability"
+      ],
+      "metadata": {
+        "collection": "cities",
+        "title": "Penteli data availability",
+        "city": "penteli",
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "city",
+          "penteli",
+          "availability"
+        ],
+        "source": "cities/penteli.md",
+        "filePath": "cities/penteli.md",
+        "chunkIndex": 1
+      }
+    },
+    {
+      "id": "faq_how_to_use_cat_1",
+      "collection": "faq",
+      "source": "faq/how_to_use_cat.md",
+      "title": "How to use CAT",
+      "content": "# How To Use CAT\n\nSelect a city, set walking time and walking speed, choose a start point, enable comfort variables, adjust their sensitivity, and run the catchment area analysis.\n\nThe agent can help by detecting a user profile from natural language and proposing CAT settings. The user should be able to review the profile, walking speed, walking time, enabled variables, unavailable variables, and action before analysis runs.",
+      "city": null,
+      "profile": null,
+      "variable_key": null,
+      "tags": [
+        "faq",
+        "ui",
+        "usage"
+      ],
+      "metadata": {
+        "collection": "faq",
+        "title": "How to use CAT",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "faq",
+          "ui",
+          "usage"
+        ],
+        "source": "faq/how_to_use_cat.md",
+        "filePath": "faq/how_to_use_cat.md",
+        "chunkIndex": 1
+      }
+    },
+    {
+      "id": "faq_troubleshooting_1",
+      "collection": "faq",
+      "source": "faq/troubleshooting.md",
+      "title": "CAT troubleshooting",
+      "content": "# CAT Troubleshooting\n\nIf no reachable area appears, check that a start point is selected, walking time and walking speed are reasonable, and at least one supported city dataset is available.\n\nIf comfort-adjusted area is empty, reduce the sensitivity of selected discomfort variables or try fewer variables.\n\nIf a requested variable is not applied, it may not be available for the selected city.",
+      "city": null,
+      "profile": null,
+      "variable_key": null,
+      "tags": [
+        "faq",
+        "troubleshooting"
+      ],
+      "metadata": {
+        "collection": "faq",
+        "title": "CAT troubleshooting",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "faq",
+          "troubleshooting"
+        ],
+        "source": "faq/troubleshooting.md",
+        "filePath": "faq/troubleshooting.md",
+        "chunkIndex": 1
+      }
+    },
+    {
+      "id": "methodology_cat_workflow_1",
+      "collection": "methodology",
+      "source": "methodology/cat_workflow.md",
+      "title": "CAT workflow",
+      "content": "# CAT Workflow\n\nCAT lets users select a city, choose walking time and walking speed, place a start point, enable comfort variables, set variable sensitivity values, and run the existing accessibility analysis.\n\nThe accessibility agent should translate natural language into a structured action that updates existing CAT state. It should not create a separate map calculation flow.\n\nPreferred flow: user message, intent detection, RAG retrieval, structured action generation, frontend state update, existing MapComponent analysis flow, then explanation based on actual result metadata.",
+      "city": null,
+      "profile": null,
+      "variable_key": null,
+      "tags": [
+        "methodology",
+        "workflow"
+      ],
+      "metadata": {
+        "collection": "methodology",
+        "title": "CAT workflow",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "methodology",
+          "workflow"
+        ],
+        "source": "methodology/cat_workflow.md",
+        "filePath": "methodology/cat_workflow.md",
+        "chunkIndex": 1
+      }
+    },
+    {
+      "id": "methodology_comfort_weight_logic_1",
+      "collection": "methodology",
+      "source": "methodology/comfort_weight_logic.md",
+      "title": "Comfort weight logic",
+      "content": "# Comfort Weight Logic\n\nCAT uses variable sensitivity values to adjust comfort-based walking accessibility. Lower values represent stronger discomfort or lower tolerance for that factor. Higher values represent weaker discomfort or higher tolerance.\n\nThe agent should use deterministic profile presets for final values. The LLM may detect a profile, but it should not freely invent walking speed or layer values.\n\nEvery suggested variable must be filtered against city availability before being applied.",
+      "city": null,
+      "profile": null,
+      "variable_key": null,
+      "tags": [
+        "methodology",
+        "comfort",
+        "weights"
+      ],
+      "metadata": {
+        "collection": "methodology",
+        "title": "Comfort weight logic",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "methodology",
+          "comfort",
+          "weights"
+        ],
+        "source": "methodology/comfort_weight_logic.md",
+        "filePath": "methodology/comfort_weight_logic.md",
+        "chunkIndex": 1
+      }
+    },
+    {
+      "id": "methodology_data_limitations_1",
+      "collection": "methodology",
+      "source": "methodology/data_limitations.md",
+      "title": "Data limitations",
+      "content": "# Data Limitations\n\nData availability differs by city. A variable available in Hamburg may not be available in Penteli.\n\nRAG knowledge can explain available datasets and limitations, but it cannot provide local spatial truth for a selected point or catchment area.\n\nThe frontend and APIs must show missing data warnings when requested or preset variables are filtered out.",
+      "city": null,
+      "profile": null,
+      "variable_key": null,
+      "tags": [
+        "methodology",
+        "limitations",
+        "safety"
+      ],
+      "metadata": {
+        "collection": "methodology",
+        "title": "Data limitations",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "methodology",
+          "limitations",
+          "safety"
+        ],
+        "source": "methodology/data_limitations.md",
+        "filePath": "methodology/data_limitations.md",
+        "chunkIndex": 1
+      }
+    },
+    {
+      "id": "methodology_result_interpretation_1",
+      "collection": "methodology",
+      "source": "methodology/result_interpretation.md",
+      "title": "Result interpretation",
+      "content": "# Result Interpretation\n\nResult explanations must use actual result metadata, such as default reachable area, comfort-adjusted reachable area, comfort ratio, enabled variables, POI count, and missing data warnings.\n\nThe agent may explain that a smaller comfort-adjusted area suggests that selected comfort factors reduce comfortable walking accessibility.\n\nThe agent must not claim local physical causes, such as many stairs or poor pavement, unless that fact was computed or retrieved from an approved spatial tool.",
+      "city": null,
+      "profile": null,
+      "variable_key": null,
+      "tags": [
+        "methodology",
+        "result",
+        "explanation"
+      ],
+      "metadata": {
+        "collection": "methodology",
+        "title": "Result interpretation",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "methodology",
+          "result",
+          "explanation"
+        ],
+        "source": "methodology/result_interpretation.md",
+        "filePath": "methodology/result_interpretation.md",
+        "chunkIndex": 1
+      }
+    },
+    {
+      "id": "methodology_routing_logic_1",
+      "collection": "methodology",
+      "source": "methodology/routing_logic.md",
+      "title": "Routing logic",
+      "content": "# Routing Logic\n\nCAT accessibility analysis is based on the existing GIS and routing workflow. The agent must not invent routing results.\n\nRoad network geometry, reachable areas, catchment polygons, and route calculations must stay outside RAG. These spatial outputs should be produced by CAT APIs and GIS tools.\n\nThe agent may ask the frontend to run analysis after it proposes walking time, walking speed, enabled variables, layer values, city, and optionally coordinates.",
+      "city": null,
+      "profile": null,
+      "variable_key": null,
+      "tags": [
+        "methodology",
+        "routing",
+        "pgRouting"
+      ],
+      "metadata": {
+        "collection": "methodology",
+        "title": "Routing logic",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "methodology",
+          "routing",
+          "pgRouting"
+        ],
+        "source": "methodology/routing_logic.md",
+        "filePath": "methodology/routing_logic.md",
+        "chunkIndex": 1
+      }
+    },
+    {
+      "id": "profiles_children_family_1",
+      "collection": "profiles",
+      "source": "profiles/children_family.md",
+      "title": "Children and family profile",
+      "content": "# Children And Family Profile\n\nProfile name: Children, families, and stroller users.\n\nTypical walking speed: 3.5 km/h.\n\nRelevant comfort variables: narrowRoads, kerbsHigh, stair, obstacle, poorPavement, unevenSurface, trafficLight, facility, greeninf, light.\n\nRecommended variable values:\n- narrowRoads: 0.4\n- kerbsHigh: 0.4\n- stair: 0.4\n- obstacle: 0.5\n- poorPavement: 0.5\n- unevenSurface: 0.5\n- trafficLight: 0.8\n- facility: 0.8\n- greeninf: 0.8\n- light: 0.7\n\nExplanation: Families and stroller users benefit from smooth surfaces, generous sidewalks, safe crossings, nearby facilities, green areas, and good lighting.\n\nWarnings or limitations: The profile should be city-filtered before use because not every CAT city has all comfort variables.",
+      "city": null,
+      "profile": "children_family",
+      "variable_key": null,
+      "tags": [
+        "profile",
+        "family",
+        "stroller",
+        "children"
+      ],
+      "metadata": {
+        "collection": "profiles",
+        "title": "Children and family profile",
+        "city": null,
+        "profile": "children_family",
+        "variable_key": null,
+        "tags": [
+          "profile",
+          "family",
+          "stroller",
+          "children"
+        ],
+        "source": "profiles/children_family.md",
+        "filePath": "profiles/children_family.md",
+        "chunkIndex": 1
+      }
+    },
+    {
+      "id": "profiles_default_adult_1",
+      "collection": "profiles",
+      "source": "profiles/default_adult.md",
+      "title": "Default adult profile",
+      "content": "# Default Adult Profile\n\nProfile name: Default adult pedestrian.\n\nTypical walking speed: 5.0 km/h.\n\nRelevant comfort variables: light, trafficLight, station, facility, greeninf, noise.\n\nRecommended variable values:\n- light: 0.7\n- trafficLight: 0.7\n- station: 0.8\n- facility: 0.7\n- greeninf: 0.7\n- noise: 0.5\n\nExplanation: This is a neutral starting point for users who do not describe a specific mobility profile.\n\nWarnings or limitations: The profile should stay conservative and should not imply a medical or disability-specific need.",
+      "city": null,
+      "profile": "default_adult",
+      "variable_key": null,
+      "tags": [
+        "profile",
+        "default"
+      ],
+      "metadata": {
+        "collection": "profiles",
+        "title": "Default adult profile",
+        "city": null,
+        "profile": "default_adult",
+        "variable_key": null,
+        "tags": [
+          "profile",
+          "default"
+        ],
+        "source": "profiles/default_adult.md",
+        "filePath": "profiles/default_adult.md",
+        "chunkIndex": 1
+      }
+    },
+    {
+      "id": "profiles_elderly_1",
+      "collection": "profiles",
+      "source": "profiles/elderly.md",
+      "title": "Elderly profile",
+      "content": "# Elderly Profile\n\nProfile name: Elderly person.\n\nTypical walking speed: 3.0 km/h.\n\nRelevant comfort variables: stair, slope, unevenSurface, poorPavement, kerbsHigh, obstacle, trafficLight, station, wcDisabled, light.\n\nRecommended variable values:\n- stair: 0.5\n- slope: 0.5\n- unevenSurface: 0.5\n- poorPavement: 0.5\n- kerbsHigh: 0.5\n- obstacle: 0.5\n- trafficLight: 0.7\n- station: 0.9\n- wcDisabled: 0.9\n- light: 0.8\n\nExplanation: Elderly pedestrians may walk more slowly and may be more sensitive to stairs, slopes, uneven surfaces, poor pavement, high kerbs, obstacles, poor lighting, and lack of nearby supportive infrastructure.\n\nWarnings or limitations: These values are deterministic defaults for CAT. They should be filtered by city availability before being applied.",
+      "city": null,
+      "profile": "elderly",
+      "variable_key": null,
+      "tags": [
+        "profile",
+        "elderly",
+        "mobility"
+      ],
+      "metadata": {
+        "collection": "profiles",
+        "title": "Elderly profile",
+        "city": null,
+        "profile": "elderly",
+        "variable_key": null,
+        "tags": [
+          "profile",
+          "elderly",
+          "mobility"
+        ],
+        "source": "profiles/elderly.md",
+        "filePath": "profiles/elderly.md",
+        "chunkIndex": 1
+      }
+    },
+    {
+      "id": "profiles_visually_impaired_1",
+      "collection": "profiles",
+      "source": "profiles/visually_impaired.md",
+      "title": "Visually impaired profile",
+      "content": "# Visually Impaired Profile\n\nProfile name: Visually impaired pedestrian.\n\nTypical walking speed: 4.0 km/h.\n\nRelevant comfort variables: tactile_pavement, light, trafficLight, obstacle, pedestrianFlow.\n\nRecommended variable values:\n- tactile_pavement: 0.9\n- light: 0.8\n- trafficLight: 0.8\n- obstacle: 0.4\n- pedestrianFlow: 0.5\n\nExplanation: Visually impaired pedestrians may rely on tactile paving, lighting, predictable crossings, and obstacle-free paths. Crowding may make navigation more stressful.\n\nWarnings or limitations: The agent must not claim that tactile guidance exists unless the selected city supports the relevant layer or the result metadata includes it.",
+      "city": null,
+      "profile": "visually_impaired",
+      "variable_key": null,
+      "tags": [
+        "profile",
+        "visual impairment",
+        "tactile guidance"
+      ],
+      "metadata": {
+        "collection": "profiles",
+        "title": "Visually impaired profile",
+        "city": null,
+        "profile": "visually_impaired",
+        "variable_key": null,
+        "tags": [
+          "profile",
+          "visual impairment",
+          "tactile guidance"
+        ],
+        "source": "profiles/visually_impaired.md",
+        "filePath": "profiles/visually_impaired.md",
+        "chunkIndex": 1
+      }
+    },
+    {
+      "id": "profiles_wheelchair_user_1",
+      "collection": "profiles",
+      "source": "profiles/wheelchair_user.md",
+      "title": "Wheelchair user profile",
+      "content": "# Wheelchair User Profile\n\nProfile name: Wheelchair user.\n\nTypical walking speed: 3.0 km/h.\n\nRelevant comfort variables: stair, kerbsHigh, slope, narrowRoads, poorPavement, unevenSurface, obstacle, wcDisabled, trafficLight.\n\nRecommended variable values:\n- stair: 0.1\n- kerbsHigh: 0.2\n- slope: 0.3\n- narrowRoads: 0.3\n- poorPavement: 0.3\n- unevenSurface: 0.3\n- obstacle: 0.3\n- wcDisabled: 0.9\n- trafficLight: 0.7\n\nExplanation: Wheelchair users are strongly affected by stairs, high kerbs, steep slopes, narrow sidewalks, damaged pavement, uneven surfaces, and obstacles. Accessible toilets and safe crossings can support independent movement.\n\nWarnings or limitations: The profile should not assume ramps or barrier-free routes unless those facts are available from actual CAT data or result metadata.",
+      "city": null,
+      "profile": "wheelchair_user",
+      "variable_key": null,
+      "tags": [
+        "profile",
+        "wheelchair",
+        "mobility"
+      ],
+      "metadata": {
+        "collection": "profiles",
+        "title": "Wheelchair user profile",
+        "city": null,
+        "profile": "wheelchair_user",
+        "variable_key": null,
+        "tags": [
+          "profile",
+          "wheelchair",
+          "mobility"
+        ],
+        "source": "profiles/wheelchair_user.md",
+        "filePath": "profiles/wheelchair_user.md",
+        "chunkIndex": 1
+      }
+    },
+    {
+      "id": "README_1",
+      "collection": "methodology",
+      "source": "README.md",
+      "title": "RAG data boundary",
+      "content": "# RAG Data Boundary\n\nThe CAT accessibility agent uses RAG only for textual knowledge and metadata.\n\nAllowed knowledge includes project methodology, user profile definitions, comfort variable explanations, city data availability, FAQ, UI guidance, and map layer metadata such as layer names or availability.\n\nRAG must not contain raw geometry, road network geometries, POI point coordinates, city boundary coordinates, routing result GeoJSON, or catchment area polygons.\n\nSpatial facts must come from the existing CAT Web GIS workflow, including frontend map state, `/api/accessibility`, Turf/PostGIS/pgRouting outputs, and actual result metadata.\n\nThe LLM should propose structured actions and explanations. It must not directly manipulate React state, invent map results, or generate raw GeoJSON.",
+      "city": null,
+      "profile": null,
+      "variable_key": null,
+      "tags": [
+        "rag",
+        "boundary",
+        "safety"
+      ],
+      "metadata": {
+        "collection": "methodology",
+        "title": "RAG data boundary",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "rag",
+          "boundary",
+          "safety"
+        ],
+        "source": "README.md",
+        "filePath": "README.md",
+        "chunkIndex": 1
+      }
+    },
+    {
+      "id": "variables_comfort_variables_1",
+      "collection": "variables",
+      "source": "variables/comfort_variables.md",
+      "title": "CAT comfort variables: noise",
+      "content": "# CAT Comfort Variables\nVariable key: noise\nMeaning: Traffic or environmental noise that may make walking stressful.\nType: negative factor.\nRelevant profiles: default_adult, elderly, children_family.\nCommon user expressions: noise, loud streets, traffic noise, noisy area.\nRecommended sensitivity: 0.5 to 0.7.",
+      "city": null,
+      "profile": null,
+      "variable_key": "noise",
+      "tags": [
+        "variables",
+        "comfort",
+        "weights"
+      ],
+      "metadata": {
+        "collection": "variables",
+        "title": "CAT comfort variables: noise",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "variables",
+          "comfort",
+          "weights"
+        ],
+        "source": "variables/comfort_variables.md",
+        "filePath": "variables/comfort_variables.md",
+        "chunkIndex": 1
+      }
+    },
+    {
+      "id": "variables_comfort_variables_2",
+      "collection": "variables",
+      "source": "variables/comfort_variables.md",
+      "title": "CAT comfort variables: light",
+      "content": "# CAT Comfort Variables\nVariable key: light\nMeaning: Missing or insufficient street lighting.\nType: negative factor.\nRelevant profiles: elderly, visually_impaired, children_family, default_adult.\nCommon user expressions: night, lighting, dark street, safe after dark.\nRecommended sensitivity: 0.7 to 0.8.",
+      "city": null,
+      "profile": null,
+      "variable_key": "light",
+      "tags": [
+        "variables",
+        "comfort",
+        "weights"
+      ],
+      "metadata": {
+        "collection": "variables",
+        "title": "CAT comfort variables: light",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "variables",
+          "comfort",
+          "weights"
+        ],
+        "source": "variables/comfort_variables.md",
+        "filePath": "variables/comfort_variables.md",
+        "chunkIndex": 2
+      }
+    },
+    {
+      "id": "variables_comfort_variables_3",
+      "collection": "variables",
+      "source": "variables/comfort_variables.md",
+      "title": "CAT comfort variables: tree",
+      "content": "# CAT Comfort Variables\nVariable key: tree\nMeaning: Lack of tree shade.\nType: negative factor.\nRelevant profiles: elderly, children_family, default_adult.\nCommon user expressions: shade, trees, heat, sun exposure.\nRecommended sensitivity: 0.6 to 0.8.",
+      "city": null,
+      "profile": null,
+      "variable_key": "tree",
+      "tags": [
+        "variables",
+        "comfort",
+        "weights"
+      ],
+      "metadata": {
+        "collection": "variables",
+        "title": "CAT comfort variables: tree",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "variables",
+          "comfort",
+          "weights"
+        ],
+        "source": "variables/comfort_variables.md",
+        "filePath": "variables/comfort_variables.md",
+        "chunkIndex": 3
+      }
+    },
+    {
+      "id": "variables_comfort_variables_4",
+      "collection": "variables",
+      "source": "variables/comfort_variables.md",
+      "title": "CAT comfort variables: trafficLight",
+      "content": "# CAT Comfort Variables\nVariable key: trafficLight\nMeaning: Missing signalized crossing support.\nType: negative factor.\nRelevant profiles: elderly, wheelchair_user, visually_impaired, children_family.\nCommon user expressions: crossing, traffic light, signal, safe crossing.\nRecommended sensitivity: 0.7 to 0.8.",
+      "city": null,
+      "profile": null,
+      "variable_key": "trafficLight",
+      "tags": [
+        "variables",
+        "comfort",
+        "weights"
+      ],
+      "metadata": {
+        "collection": "variables",
+        "title": "CAT comfort variables: trafficLight",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "variables",
+          "comfort",
+          "weights"
+        ],
+        "source": "variables/comfort_variables.md",
+        "filePath": "variables/comfort_variables.md",
+        "chunkIndex": 4
+      }
+    },
+    {
+      "id": "variables_comfort_variables_5",
+      "collection": "variables",
+      "source": "variables/comfort_variables.md",
+      "title": "CAT comfort variables: tactile_pavement",
+      "content": "# CAT Comfort Variables\nVariable key: tactile_pavement\nMeaning: Missing tactile paving or tactile guidance.\nType: negative factor.\nRelevant profiles: visually_impaired.\nCommon user expressions: tactile paving, blind guidance, tactile path.\nRecommended sensitivity: 0.8 to 0.9.",
+      "city": null,
+      "profile": null,
+      "variable_key": "tactile_pavement",
+      "tags": [
+        "variables",
+        "comfort",
+        "weights"
+      ],
+      "metadata": {
+        "collection": "variables",
+        "title": "CAT comfort variables: tactile_pavement",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "variables",
+          "comfort",
+          "weights"
+        ],
+        "source": "variables/comfort_variables.md",
+        "filePath": "variables/comfort_variables.md",
+        "chunkIndex": 5
+      }
+    },
+    {
+      "id": "variables_comfort_variables_6",
+      "collection": "variables",
+      "source": "variables/comfort_variables.md",
+      "title": "CAT comfort variables: temperatureSummer",
+      "content": "# CAT Comfort Variables\nVariable key: temperatureSummer\nMeaning: Hot weather or heat exposure.\nType: negative factor.\nRelevant profiles: elderly, children_family.\nCommon user expressions: hot weather, summer heat, heat stress.\nRecommended sensitivity: 0.6 to 0.8.",
+      "city": null,
+      "profile": null,
+      "variable_key": "temperatureSummer",
+      "tags": [
+        "variables",
+        "comfort",
+        "weights"
+      ],
+      "metadata": {
+        "collection": "variables",
+        "title": "CAT comfort variables: temperatureSummer",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "variables",
+          "comfort",
+          "weights"
+        ],
+        "source": "variables/comfort_variables.md",
+        "filePath": "variables/comfort_variables.md",
+        "chunkIndex": 6
+      }
+    },
+    {
+      "id": "variables_comfort_variables_7",
+      "collection": "variables",
+      "source": "variables/comfort_variables.md",
+      "title": "CAT comfort variables: temperatureWinter",
+      "content": "# CAT Comfort Variables\nVariable key: temperatureWinter\nMeaning: Cold weather or winter discomfort.\nType: negative factor.\nRelevant profiles: elderly.\nCommon user expressions: winter, cold, icy conditions.\nRecommended sensitivity: 0.5 to 0.7.",
+      "city": null,
+      "profile": null,
+      "variable_key": "temperatureWinter",
+      "tags": [
+        "variables",
+        "comfort",
+        "weights"
+      ],
+      "metadata": {
+        "collection": "variables",
+        "title": "CAT comfort variables: temperatureWinter",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "variables",
+          "comfort",
+          "weights"
+        ],
+        "source": "variables/comfort_variables.md",
+        "filePath": "variables/comfort_variables.md",
+        "chunkIndex": 7
+      }
+    },
+    {
+      "id": "variables_comfort_variables_8",
+      "collection": "variables",
+      "source": "variables/comfort_variables.md",
+      "title": "CAT comfort variables: greeninf",
+      "content": "# CAT Comfort Variables\nVariable key: greeninf\nMeaning: Lack of green infrastructure or green space.\nType: negative factor.\nRelevant profiles: children_family, default_adult.\nCommon user expressions: green space, park, pleasant walking.\nRecommended sensitivity: 0.7 to 0.8.",
+      "city": null,
+      "profile": null,
+      "variable_key": "greeninf",
+      "tags": [
+        "variables",
+        "comfort",
+        "weights"
+      ],
+      "metadata": {
+        "collection": "variables",
+        "title": "CAT comfort variables: greeninf",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "variables",
+          "comfort",
+          "weights"
+        ],
+        "source": "variables/comfort_variables.md",
+        "filePath": "variables/comfort_variables.md",
+        "chunkIndex": 8
+      }
+    },
+    {
+      "id": "variables_comfort_variables_9",
+      "collection": "variables",
+      "source": "variables/comfort_variables.md",
+      "title": "CAT comfort variables: blueinf",
+      "content": "# CAT Comfort Variables\nVariable key: blueinf\nMeaning: Lack of blue infrastructure or water features.\nType: negative factor.\nRelevant profiles: default_adult, children_family.\nCommon user expressions: waterfront, water, blue space.\nRecommended sensitivity: 0.6 to 0.7.",
+      "city": null,
+      "profile": null,
+      "variable_key": "blueinf",
+      "tags": [
+        "variables",
+        "comfort",
+        "weights"
+      ],
+      "metadata": {
+        "collection": "variables",
+        "title": "CAT comfort variables: blueinf",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "variables",
+          "comfort",
+          "weights"
+        ],
+        "source": "variables/comfort_variables.md",
+        "filePath": "variables/comfort_variables.md",
+        "chunkIndex": 9
+      }
+    },
+    {
+      "id": "variables_comfort_variables_10",
+      "collection": "variables",
+      "source": "variables/comfort_variables.md",
+      "title": "CAT comfort variables: station",
+      "content": "# CAT Comfort Variables\nVariable key: station\nMeaning: Poor access to public transport stations.\nType: negative factor.\nRelevant profiles: elderly, default_adult.\nCommon user expressions: bus stop, train station, public transport.\nRecommended sensitivity: 0.8 to 0.9.",
+      "city": null,
+      "profile": null,
+      "variable_key": "station",
+      "tags": [
+        "variables",
+        "comfort",
+        "weights"
+      ],
+      "metadata": {
+        "collection": "variables",
+        "title": "CAT comfort variables: station",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "variables",
+          "comfort",
+          "weights"
+        ],
+        "source": "variables/comfort_variables.md",
+        "filePath": "variables/comfort_variables.md",
+        "chunkIndex": 10
+      }
+    },
+    {
+      "id": "variables_comfort_variables_11",
+      "collection": "variables",
+      "source": "variables/comfort_variables.md",
+      "title": "CAT comfort variables: wcDisabled",
+      "content": "# CAT Comfort Variables\nVariable key: wcDisabled\nMeaning: Missing accessible toilets.\nType: negative factor.\nRelevant profiles: wheelchair_user, elderly.\nCommon user expressions: accessible toilet, wheelchair toilet, restroom.\nRecommended sensitivity: 0.8 to 0.9.",
+      "city": null,
+      "profile": null,
+      "variable_key": "wcDisabled",
+      "tags": [
+        "variables",
+        "comfort",
+        "weights"
+      ],
+      "metadata": {
+        "collection": "variables",
+        "title": "CAT comfort variables: wcDisabled",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "variables",
+          "comfort",
+          "weights"
+        ],
+        "source": "variables/comfort_variables.md",
+        "filePath": "variables/comfort_variables.md",
+        "chunkIndex": 11
+      }
+    },
+    {
+      "id": "variables_comfort_variables_12",
+      "collection": "variables",
+      "source": "variables/comfort_variables.md",
+      "title": "CAT comfort variables: narrowRoads",
+      "content": "# CAT Comfort Variables\nVariable key: narrowRoads\nMeaning: Narrow sidewalks or paths.\nType: negative factor.\nRelevant profiles: wheelchair_user, children_family.\nCommon user expressions: narrow sidewalk, narrow path, stroller, wheelchair passage.\nRecommended sensitivity: 0.3 to 0.5.",
+      "city": null,
+      "profile": null,
+      "variable_key": "narrowRoads",
+      "tags": [
+        "variables",
+        "comfort",
+        "weights"
+      ],
+      "metadata": {
+        "collection": "variables",
+        "title": "CAT comfort variables: narrowRoads",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "variables",
+          "comfort",
+          "weights"
+        ],
+        "source": "variables/comfort_variables.md",
+        "filePath": "variables/comfort_variables.md",
+        "chunkIndex": 12
+      }
+    },
+    {
+      "id": "variables_comfort_variables_13",
+      "collection": "variables",
+      "source": "variables/comfort_variables.md",
+      "title": "CAT comfort variables: stair",
+      "content": "# CAT Comfort Variables\nVariable key: stair\nMeaning: Stairs or step barriers.\nType: negative factor.\nRelevant profiles: wheelchair_user, elderly, children_family.\nCommon user expressions: stairs, steps, no ramp.\nRecommended sensitivity: 0.1 to 0.5.",
+      "city": null,
+      "profile": null,
+      "variable_key": "stair",
+      "tags": [
+        "variables",
+        "comfort",
+        "weights"
+      ],
+      "metadata": {
+        "collection": "variables",
+        "title": "CAT comfort variables: stair",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "variables",
+          "comfort",
+          "weights"
+        ],
+        "source": "variables/comfort_variables.md",
+        "filePath": "variables/comfort_variables.md",
+        "chunkIndex": 13
+      }
+    },
+    {
+      "id": "variables_comfort_variables_14",
+      "collection": "variables",
+      "source": "variables/comfort_variables.md",
+      "title": "CAT comfort variables: obstacle",
+      "content": "# CAT Comfort Variables\nVariable key: obstacle\nMeaning: Obstacles or blockages.\nType: negative factor.\nRelevant profiles: wheelchair_user, elderly, visually_impaired, children_family.\nCommon user expressions: obstacle, blockage, barrier.\nRecommended sensitivity: 0.3 to 0.6.",
+      "city": null,
+      "profile": null,
+      "variable_key": "obstacle",
+      "tags": [
+        "variables",
+        "comfort",
+        "weights"
+      ],
+      "metadata": {
+        "collection": "variables",
+        "title": "CAT comfort variables: obstacle",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "variables",
+          "comfort",
+          "weights"
+        ],
+        "source": "variables/comfort_variables.md",
+        "filePath": "variables/comfort_variables.md",
+        "chunkIndex": 14
+      }
+    },
+    {
+      "id": "variables_comfort_variables_15",
+      "collection": "variables",
+      "source": "variables/comfort_variables.md",
+      "title": "CAT comfort variables: slope",
+      "content": "# CAT Comfort Variables\nVariable key: slope\nMeaning: Slopes or steep inclines.\nType: negative factor.\nRelevant profiles: wheelchair_user, elderly, children_family.\nCommon user expressions: slope, hill, steep street.\nRecommended sensitivity: 0.3 to 0.6.",
+      "city": null,
+      "profile": null,
+      "variable_key": "slope",
+      "tags": [
+        "variables",
+        "comfort",
+        "weights"
+      ],
+      "metadata": {
+        "collection": "variables",
+        "title": "CAT comfort variables: slope",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "variables",
+          "comfort",
+          "weights"
+        ],
+        "source": "variables/comfort_variables.md",
+        "filePath": "variables/comfort_variables.md",
+        "chunkIndex": 15
+      }
+    },
+    {
+      "id": "variables_comfort_variables_16",
+      "collection": "variables",
+      "source": "variables/comfort_variables.md",
+      "title": "CAT comfort variables: unevenSurface",
+      "content": "# CAT Comfort Variables\nVariable key: unevenSurface\nMeaning: Uneven or irregular walking surface.\nType: negative factor.\nRelevant profiles: wheelchair_user, elderly, children_family.\nCommon user expressions: uneven surface, cobblestone, rough surface.\nRecommended sensitivity: 0.3 to 0.6.",
+      "city": null,
+      "profile": null,
+      "variable_key": "unevenSurface",
+      "tags": [
+        "variables",
+        "comfort",
+        "weights"
+      ],
+      "metadata": {
+        "collection": "variables",
+        "title": "CAT comfort variables: unevenSurface",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "variables",
+          "comfort",
+          "weights"
+        ],
+        "source": "variables/comfort_variables.md",
+        "filePath": "variables/comfort_variables.md",
+        "chunkIndex": 16
+      }
+    },
+    {
+      "id": "variables_comfort_variables_17",
+      "collection": "variables",
+      "source": "variables/comfort_variables.md",
+      "title": "CAT comfort variables: poorPavement",
+      "content": "# CAT Comfort Variables\nVariable key: poorPavement\nMeaning: Damaged or poor pavement quality.\nType: negative factor.\nRelevant profiles: wheelchair_user, elderly, children_family.\nCommon user expressions: poor pavement, damaged road, broken sidewalk.\nRecommended sensitivity: 0.3 to 0.6.",
+      "city": null,
+      "profile": null,
+      "variable_key": "poorPavement",
+      "tags": [
+        "variables",
+        "comfort",
+        "weights"
+      ],
+      "metadata": {
+        "collection": "variables",
+        "title": "CAT comfort variables: poorPavement",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "variables",
+          "comfort",
+          "weights"
+        ],
+        "source": "variables/comfort_variables.md",
+        "filePath": "variables/comfort_variables.md",
+        "chunkIndex": 17
+      }
+    },
+    {
+      "id": "variables_comfort_variables_18",
+      "collection": "variables",
+      "source": "variables/comfort_variables.md",
+      "title": "CAT comfort variables: kerbsHigh",
+      "content": "# CAT Comfort Variables\nVariable key: kerbsHigh\nMeaning: High kerbs or abrupt curb transitions.\nType: negative factor.\nRelevant profiles: wheelchair_user, elderly, children_family.\nCommon user expressions: high kerb, curb, raised kerb.\nRecommended sensitivity: 0.2 to 0.5.",
+      "city": null,
+      "profile": null,
+      "variable_key": "kerbsHigh",
+      "tags": [
+        "variables",
+        "comfort",
+        "weights"
+      ],
+      "metadata": {
+        "collection": "variables",
+        "title": "CAT comfort variables: kerbsHigh",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "variables",
+          "comfort",
+          "weights"
+        ],
+        "source": "variables/comfort_variables.md",
+        "filePath": "variables/comfort_variables.md",
+        "chunkIndex": 18
+      }
+    },
+    {
+      "id": "variables_comfort_variables_19",
+      "collection": "variables",
+      "source": "variables/comfort_variables.md",
+      "title": "CAT comfort variables: facility",
+      "content": "# CAT Comfort Variables\nVariable key: facility\nMeaning: Lack of nearby facilities such as shops, benches, or services.\nType: negative factor.\nRelevant profiles: elderly, children_family, default_adult.\nCommon user expressions: facilities, shops, benches, rest areas.\nRecommended sensitivity: 0.7 to 0.8.",
+      "city": null,
+      "profile": null,
+      "variable_key": "facility",
+      "tags": [
+        "variables",
+        "comfort",
+        "weights"
+      ],
+      "metadata": {
+        "collection": "variables",
+        "title": "CAT comfort variables: facility",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "variables",
+          "comfort",
+          "weights"
+        ],
+        "source": "variables/comfort_variables.md",
+        "filePath": "variables/comfort_variables.md",
+        "chunkIndex": 19
+      }
+    },
+    {
+      "id": "variables_comfort_variables_20",
+      "collection": "variables",
+      "source": "variables/comfort_variables.md",
+      "title": "CAT comfort variables: pedestrianFlow",
+      "content": "# CAT Comfort Variables\nVariable key: pedestrianFlow\nMeaning: Crowded or high pedestrian flow areas.\nType: negative factor.\nRelevant profiles: visually_impaired, elderly.\nCommon user expressions: crowded, busy, pedestrian flow.\nRecommended sensitivity: 0.5 to 0.7.",
+      "city": null,
+      "profile": null,
+      "variable_key": "pedestrianFlow",
+      "tags": [
+        "variables",
+        "comfort",
+        "weights"
+      ],
+      "metadata": {
+        "collection": "variables",
+        "title": "CAT comfort variables: pedestrianFlow",
+        "city": null,
+        "profile": null,
+        "variable_key": null,
+        "tags": [
+          "variables",
+          "comfort",
+          "weights"
+        ],
+        "source": "variables/comfort_variables.md",
+        "filePath": "variables/comfort_variables.md",
+        "chunkIndex": 20
+      }
+    }
+  ],
+  "failed": []
+}

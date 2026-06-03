@@ -41,7 +41,10 @@ export default function Sidebar({
     cityBoundaries,
     agentProfile,
     selectedCity,
+    resultMetadata,
     onApplyAgentSettings,
+    onRunAgentComputation,
+    onExecuteAgentAction,
     onLoadDemoScenario,
   }) {
     const { t } = useTranslation("common");
@@ -93,11 +96,15 @@ export default function Sidebar({
 
           <AgentPanel
             selectedCity={selectedCity}
+            resultMetadata={resultMetadata}
             selectedLayers={selectedLayers}
             agentProfile={agentProfile}
             startPoint={startPoints?.[startPoints.length - 1]}
-            setStartPoints={setStartPoints}
+            walkingTime={walkingTime}
+            walkingSpeed={walkingSpeed}
             onApplySettings={onApplyAgentSettings}
+            onRunRealComputation={onRunAgentComputation}
+            onExecuteAgentAction={onExecuteAgentAction}
             onLoadScenario={onLoadDemoScenario}
           />
 

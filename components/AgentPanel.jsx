@@ -7,8 +7,12 @@ export default function AgentPanel({
   selectedLayers = [],
   agentProfile,
   startPoint,
-  setStartPoints,
+  walkingTime,
+  walkingSpeed,
+  resultMetadata = [],
   onApplySettings,
+  onRunRealComputation,
+  onExecuteAgentAction,
   onLoadScenario,
   onResponse,
 }) {
@@ -17,12 +21,28 @@ export default function AgentPanel({
   const [error, setError] = useState(null);
   const [result, setResult] = useState(null);
   const [showDemoMenu, setShowDemoMenu] = useState(false);
+  const [realComputationStatus, setRealComputationStatus] = useState(null);
+  const [lastRealComputation, setLastRealComputation] = useState(null);
+  const hasResultMetadata = Array.isArray(resultMetadata) && resultMetadata.length > 0;
+
+  const getActionConclusion = (action) => {
+    if (!action || action.type === "ANSWER_ONLY") return "";
+    if (action.requiresStartPoint || action.type === "ASK_USER_TO_SELECT_POINT") {
+      return "Profile and recommended CAT settings are ready. Please select a start point/address on the map before running the real accessibility calculation.";
+    }
+    if (action.canRunNow || Array.isArray(action.coordinates)) {
+      return "Profile and recommended CAT settings are ready. A start point is available, so you can review the settings and run the real accessibility calculation.";
+    }
+    return "Structured action is ready. Please review the settings before applying it.";
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError(null);
     setLoading(true);
     setResult(null);
+    setRealComputationStatus(null);
+    setLastRealComputation(null);
     await sendRequest(prompt);
   };
 
@@ -31,17 +51,23 @@ export default function AgentPanel({
     setError(null);
     setLoading(true);
     setResult(null);
+    setRealComputationStatus(null);
+    setLastRealComputation(null);
     try {
-      const response = await fetch("/api/agent", {
+      const response = await fetch("/api/agent/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          prompt: p,
-          profile: agentProfile,
-          selectedCity,
-          layerIds: selectedLayers,
-          startPoint,
-          mode: "analysis"
+          message: p,
+          city: selectedCity,
+          currentMapState: {
+            walkingTime,
+            walkingSpeed,
+            selectedLayers,
+            startPoint,
+            profile: agentProfile
+          },
+          resultMetadata: hasResultMetadata ? resultMetadata : null
         })
       });
 
@@ -50,8 +76,20 @@ export default function AgentPanel({
         throw new Error(body.error || "Agent API 请求失败");
       }
       const data = await response.json();
-      setResult(data);
-      onResponse?.(data);
+      const uiData = {
+        ...data,
+        mode: data.intent,
+        ragResults: data.retrieval?.results?.map((doc, index) => ({
+          id: doc.metadata?.source || `${doc.collection}-${index}`,
+          description: doc.title,
+          summary: doc.content,
+          score: doc.similarity,
+          collection: doc.collection,
+          metadata: doc.metadata
+        })) || []
+      };
+      setResult(uiData);
+      onResponse?.(uiData);
     } catch (err) {
       console.error(err);
       setError(err.message || "未知错误");
@@ -72,30 +110,57 @@ export default function AgentPanel({
   };
 
   const handleSelectRegionAndRun = (region) => {
-    // region.center assumed as [lon, lat]
     if (!region || !region.center) return;
-    if (typeof setStartPoints === 'function') {
-      try {
-        setStartPoints((prev) => ([...(prev || []), region.center]));
-      } catch (e) {
-        // fallback: call with single-element array
-        setStartPoints([region.center]);
-      }
-    }
-    // apply suggested settings if present
     if (result?.suggestedSettings) onApplySettings?.(result.suggestedSettings);
-    handleRunRealComputation();
+    handleRunRealComputation({ startPointOverride: region.center, region });
   };
 
-  const handleRunRealComputation = () => {
-    alert(
-      "⚠️ 真实计算模式（演示占位）\n\n" +
-      "在此模式下，系统将：\n" +
-      "1. 调用 pgRouting 生成基于路网的等时线（isochrone）\n" +
-      "2. 在可达区域内统计所有环境要素\n" +
-      "3. 生成更精确的可达性评分和因子分析\n\n" +
-      "当前演示版仅提供启发式估计。完整版支持实时计算。"
-    );
+  const handleApplyAction = ({ run = false } = {}) => {
+    if (!result?.action) return;
+    const didExecute = onExecuteAgentAction?.(result.action, { run });
+    if (didExecute === false) {
+      setRealComputationStatus("请先检查 AI action，或在地图上选择起点后再运行。");
+      return;
+    }
+    if (run && result.action.coordinates) {
+      setLastRealComputation({
+        type: "agent_action",
+        label: result.action.locationText || "Agent selected start point",
+        center: result.action.coordinates
+      });
+      setRealComputationStatus("已应用 AI action，并通过现有 CAT 地图流程触发真实可达性计算。");
+    } else if (result.action.type === "ASK_USER_TO_SELECT_POINT") {
+      setRealComputationStatus("已应用 AI 建议参数。请在地图上选择起点后再运行分析。");
+    } else {
+      setRealComputationStatus("已应用 AI action。你可以在运行前检查速度、时间、变量和起点。");
+    }
+  };
+
+  const handleRunRealComputation = ({ startPointOverride = null, region = null } = {}) => {
+    const hasStartPoint = Array.isArray(startPoint) && startPoint.length === 2;
+    if (!hasStartPoint && !startPointOverride) {
+      setLastRealComputation(null);
+      setRealComputationStatus("请先在地图上选择起点，或从推荐区域中设置起点后再运行真实计算。");
+      return;
+    }
+
+    window.setTimeout(() => {
+      const didRun = onRunRealComputation?.({ startPointOverride });
+      setLastRealComputation(
+        didRun === false
+          ? null
+          : {
+              type: region ? "recommended_region" : "current_start_point",
+              label: region?.name || "Current map start point",
+              center: startPointOverride || startPoint
+            }
+      );
+      setRealComputationStatus(
+        didRun === false
+          ? "请先在地图上选择起点，或从推荐区域中设置起点后再运行真实计算。"
+          : "已触发真实路网可达性计算。结果会显示在地图和图例中。"
+      );
+    }, 0);
   };
 
   const handleLoadDemoScenario = (scenarioId) => {
@@ -108,10 +173,30 @@ export default function AgentPanel({
     setPrompt(scenario.question);
     setResult(null);
     setError(null);
+    setRealComputationStatus(null);
+    setLastRealComputation(null);
     setShowDemoMenu(false);
     // 自动发送请求以便快速演示（如果希望仅预填，请取消下一行）
     void sendRequest(scenario.question);
   };
+
+  const formatLonLat = (point) => {
+    if (!Array.isArray(point) || point.length !== 2) return "";
+    const [lon, lat] = point;
+    if (!Number.isFinite(Number(lon)) || !Number.isFinite(Number(lat))) return "";
+    return `${Number(lat).toFixed(6)}, ${Number(lon).toFixed(6)}`;
+  };
+
+  const knowledgeAnswerModes = [
+    "explain_variable",
+    "ask_data_availability",
+    "explain_result",
+    "compare_profiles",
+    "how_to_use",
+    "troubleshooting",
+    "general_question"
+  ];
+  const isKnowledgeAnswer = result && knowledgeAnswerModes.includes(result.mode);
 
   return (
     <section className={sty.agentPanel} aria-label="AI 代理分析">
@@ -201,16 +286,71 @@ export default function AgentPanel({
       </form>
 
       {error && <div className={sty.sidebarError}>{error}</div>}
+      {hasResultMetadata && (
+        <button
+          type="button"
+          className={sty.setupButton}
+          onClick={() => sendRequest("Explain the latest CAT result.")}
+          disabled={loading}
+          style={{ width: "100%", marginTop: "8px" }}
+        >
+          Explain latest result
+        </button>
+      )}
+      {realComputationStatus && (
+        <div className={sty.sidebarText} style={{ fontSize: "12px", marginTop: "8px", color: "#444" }}>
+          {realComputationStatus}
+        </div>
+      )}
 
       {result && (
         <div className={sty.agentResultBox}>
+          <div
+            className={sty.sidebarText}
+            style={{
+              marginBottom: "10px",
+              padding: "8px",
+              border: "1px solid #d7e3f4",
+              borderRadius: "6px",
+              background: lastRealComputation ? "#eef8f1" : "#f6f9fd",
+              fontSize: "12px",
+              color: "#334155"
+            }}
+          >
+            <div>
+              <strong>{isKnowledgeAnswer ? "Knowledge answer:" : "AI estimate:"}</strong>{" "}
+              {isKnowledgeAnswer ? "based on local CAT RAG knowledge" : "based on spatial summaries and local RAG context"}
+              {result.runtimeMode ? ` (${result.runtimeMode})` : ""}.
+            </div>
+            {result.confidence?.caveat && (
+              <div style={{ marginTop: "4px" }}>{result.confidence.caveat}</div>
+            )}
+            {isKnowledgeAnswer ? (
+              <div style={{ marginTop: "4px" }}>
+                <strong>Map computation:</strong> not triggered for this knowledge question.
+              </div>
+            ) : lastRealComputation ? (
+              <div style={{ marginTop: "4px" }}>
+                <strong>Real computation triggered:</strong> pgRouting is using {lastRealComputation.label}
+                {formatLonLat(lastRealComputation.center) ? ` (${formatLonLat(lastRealComputation.center)})` : ""}. Check the map and legend for the computed catchment result.
+              </div>
+            ) : (
+              <div style={{ marginTop: "4px" }}>
+                <strong>Real computation:</strong> not run from this AI answer yet. Use the action buttons below to calculate the map result.
+              </div>
+            )}
+          </div>
           <div className={sty.sidebarSubtitle}>AI 分析结果</div>
 
           {/* 人性化优先展示：结论 -> 简要依据 -> 详细说明 */}
           {(() => {
             const conclusionFromResult = result.conclusion || null;
             let conclusionText = '';
-            if (conclusionFromResult) {
+            if (result.action && result.action.type !== "ANSWER_ONLY") {
+              conclusionText = getActionConclusion(result.action);
+            } else if (isKnowledgeAnswer) {
+              conclusionText = '知识库回答';
+            } else if (conclusionFromResult) {
               conclusionText = conclusionFromResult;
             } else if (result.mode === 'region_recommendation') {
               const top = result.recommendedRegions && result.recommendedRegions[0];
@@ -248,6 +388,54 @@ export default function AgentPanel({
             );
           })()}
 
+          {result.action && (
+            <div style={{ marginTop: "12px", padding: "10px", border: "1px solid #d8e2ef", borderRadius: "6px", background: "#fbfdff" }}>
+              <div className={sty.sidebarSubtitle}>AI action preview</div>
+              <div className={sty.sidebarText} style={{ fontSize: "12px", lineHeight: 1.5 }}>
+                <div><strong>Action:</strong> {result.action.type}</div>
+                {result.action.profile && <div><strong>Profile:</strong> {result.action.profile}</div>}
+                {result.action.city && <div><strong>City:</strong> {result.action.city}</div>}
+                {result.action.locationText && <div><strong>Location:</strong> {result.action.locationText}</div>}
+                {Array.isArray(result.action.coordinates) && (
+                  <div><strong>Coordinates:</strong> {formatLonLat(result.action.coordinates)}</div>
+                )}
+                {result.action.walkingTime && <div><strong>Walking time:</strong> {result.action.walkingTime} min</div>}
+                {result.action.walkingSpeed && <div><strong>Walking speed:</strong> {result.action.walkingSpeed} km/h</div>}
+                {Array.isArray(result.action.enabledVariables) && result.action.enabledVariables.length > 0 && (
+                  <div><strong>Variables:</strong> {result.action.enabledVariables.join(", ")}</div>
+                )}
+              </div>
+              {result.action.layerValues && Object.keys(result.action.layerValues).length > 0 && (
+                <pre className={sty.agentSettingsPre}>
+                  {JSON.stringify(result.action.layerValues, null, 2)}
+                </pre>
+              )}
+              {Array.isArray(result.missingDataWarnings) && result.missingDataWarnings.length > 0 && (
+                <ul className={sty.agentFactorList}>
+                  {result.missingDataWarnings.map((warning, index) => (
+                    <li key={index} className={sty.agentFactorItem}>{warning}</li>
+                  ))}
+                </ul>
+              )}
+              {result.action.type !== "ANSWER_ONLY" && (
+                <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginTop: "8px" }}>
+                  <button type="button" className={sty.setupButton} onClick={() => handleApplyAction({ run: false })}>
+                    {result.action.requiresStartPoint ? "Apply settings" : "Apply action"}
+                  </button>
+                  <button
+                    type="button"
+                    className={sty.setupButton}
+                    onClick={() => handleApplyAction({ run: true })}
+                    disabled={!Array.isArray(result.action.coordinates)}
+                    style={{ backgroundColor: Array.isArray(result.action.coordinates) ? "#1976d2" : "#9ca3af", color: "#fff" }}
+                  >
+                    {result.action.requiresStartPoint ? "Select start point first" : "Apply and run"}
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
           {/* 区域推荐模式 */}
           {result.mode === "region_recommendation" && (
             <div>
@@ -276,7 +464,7 @@ export default function AgentPanel({
             <div>
               <div className={sty.sidebarText}>{result.reply}</div>
               {typeof result.score === "number" && (
-                <div className={sty.sidebarTextBold}>可达性得分：{result.score}/100</div>
+                <div className={sty.sidebarTextBold}>AI 估计可达性得分：{result.score}/100</div>
               )}
               {Array.isArray(result.factors) && result.factors.length > 0 && (
                 <div>
@@ -350,7 +538,7 @@ export default function AgentPanel({
             <div style={{ marginTop: '12px', backgroundColor: '#f9f9f9', padding: '10px', borderRadius: '6px', border: '1px solid #e0e0e0' }}>
               <div className={sty.sidebarSubtitle}>RAG 检索结果</div>
               <div className={sty.sidebarText} style={{ fontSize: '12px', marginBottom: '8px' }}>
-                以下是基于你的问题从本地索引检索到的相关图层摘要，帮助判断检索质量。
+                以下是基于你的问题从本地 CAT 知识库检索到的相关文本知识，用于检查检索质量。
               </div>
               <ul className={sty.agentFactorList}>
                 {result.ragResults.map((doc, idx) => (
@@ -368,7 +556,7 @@ export default function AgentPanel({
             <div style={{ marginTop: "12px", backgroundColor: "#f0f8ff", padding: "8px", borderRadius: "4px" }}>
               <div className={sty.sidebarSubtitle}>下一步</div>
               <div className={sty.sidebarText} style={{ fontSize: "13px" }}>
-                在地图上选择推荐区域附近作为起点，或使用下列按钮将推荐区域设为起点并直接运行真实计算（演示占位）。
+                在地图上选择推荐区域附近作为起点，或使用下列按钮将推荐区域设为起点并直接运行真实计算。
               </div>
               {result.recommendedRegions && result.recommendedRegions.length > 0 && (
                 <div style={{ marginTop: '8px' }}>
@@ -376,6 +564,11 @@ export default function AgentPanel({
                     <div key={region.id || idx} style={{ marginBottom: '8px', padding: '6px', background: '#fff', borderRadius: '4px', border: '1px solid #e0e0e0' }}>
                       <div style={{ fontWeight: '600' }}>{region.name} （得分 {region.score}/100）</div>
                       <div style={{ fontSize: '12px', color: '#444' }}>{region.description}</div>
+                      {formatLonLat(region.center) && (
+                        <div style={{ fontSize: '12px', color: '#64748b', marginTop: '4px' }}>
+                          Computation start point: {formatLonLat(region.center)}
+                        </div>
+                      )}
                       <div style={{ marginTop: '6px' }}>
                         <button type="button" className={sty.setupButton} onClick={() => handleSelectRegionAndRun(region)}>
                           设为起点并运行真实计算
