@@ -4,6 +4,7 @@ import { detectAgentRequest } from "./agentIntent.js";
 import { retrieveKnowledge } from "./agentKnowledge.js";
 import { filterVariablesByCity } from "./cityVariableFiltering.js";
 import { geocodeLocation } from "./agentGeocode.js";
+import { maybeBuildLlmAgentResponse } from "./agentLlm.js";
 import {
   SAFE_CITIES,
   SAFE_INTENTS,
@@ -283,6 +284,32 @@ export async function buildAgentChatResponse({ message, city = "hamburg", curren
       : buildKnowledgeReply({ detected, retrieval });
   }
 
+  let llmDebug = null;
+  try {
+    const llmResult = await maybeBuildLlmAgentResponse({
+      message,
+      detected,
+      retrieval,
+      baselineAction: action,
+      baselineReply: reply,
+      currentMapState,
+      resultMetadata,
+    });
+    if (llmResult) {
+      reply = llmResult.reply;
+      detected.intent = llmResult.intent;
+      action = llmResult.action;
+      action.missingDataWarnings = llmResult.missingDataWarnings || action.missingDataWarnings || [];
+      llmDebug = llmResult.llmDebug;
+    }
+  } catch (error) {
+    llmDebug = {
+      provider: "bigmodel",
+      error: error.message,
+      fallback: "mock_pipeline",
+    };
+  }
+
   const validationErrors = validateAgentAction(action);
   if (validationErrors.length) {
     return safeFallback({ detected, citations, retrieval, errors: validationErrors });
@@ -312,6 +339,7 @@ export async function buildAgentChatResponse({ message, city = "hamburg", curren
       detectedLocationText: detected.locationText,
       detectionMethod: detected.method,
       confidence: detected.confidence,
+      llm: llmDebug,
     },
   };
 }

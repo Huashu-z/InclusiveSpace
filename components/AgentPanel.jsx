@@ -388,7 +388,7 @@ export default function AgentPanel({
             );
           })()}
 
-          {result.action && (
+          {result.action && result.action.type !== "ANSWER_ONLY" && (
             <div style={{ marginTop: "12px", padding: "10px", border: "1px solid #d8e2ef", borderRadius: "6px", background: "#fbfdff" }}>
               <div className={sty.sidebarSubtitle}>AI action preview</div>
               <div className={sty.sidebarText} style={{ fontSize: "12px", lineHeight: 1.5 }}>

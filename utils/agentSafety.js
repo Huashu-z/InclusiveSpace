@@ -11,7 +11,12 @@ export const SAFE_ACTION_TYPES = new Set([
 
 export const SAFE_CITIES = new Set(Object.keys(cityLayerConfig));
 export const SAFE_INTENTS = new Set(AGENT_INTENTS);
-export const SAFE_PROFILES = new Set(getProfilePresetList().map((profile) => profile.id));
+export const SAFE_PROFILES = new Set(getProfilePresetList({ includeDefault: true }).map((profile) => profile.id));
+export const SAFE_VARIABLES = new Set(
+  Object.values(cityLayerConfig)
+    .flatMap((city) => city.discomfortFeatures || [])
+    .filter((variable) => variable !== "ramp"),
+);
 
 const blockedTextPatterns = [
   { pattern: /\b(select|insert|update|delete|drop|alter|create|grant|revoke)\b[\s\S]{0,80}\b(from|table|database|schema|user|password)\b/i, reason: "raw SQL or database operation" },
@@ -36,7 +41,7 @@ export function validateAgentAction(action) {
     } else {
       const supportedVariables = getSupportedVariables(action.city);
       for (const variable of action.enabledVariables) {
-        if (!supportedVariables.has(variable)) errors.push(`unsupported variable: ${variable}`);
+        if (!supportedVariables.has(variable) || !SAFE_VARIABLES.has(variable)) errors.push(`unsupported variable: ${variable}`);
       }
     }
   }
@@ -47,7 +52,7 @@ export function validateAgentAction(action) {
     } else {
       const supportedVariables = getSupportedVariables(action.city);
       for (const [variable, value] of Object.entries(action.layerValues)) {
-        if (!supportedVariables.has(variable)) errors.push(`unsupported layer value: ${variable}`);
+        if (!supportedVariables.has(variable) || !SAFE_VARIABLES.has(variable)) errors.push(`unsupported layer value: ${variable}`);
         if (!Number.isFinite(Number(value))) errors.push(`invalid layer value: ${variable}`);
       }
     }

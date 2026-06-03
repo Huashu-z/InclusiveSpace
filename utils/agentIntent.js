@@ -84,7 +84,7 @@ export function detectAgentIntent(message, { hasResultMetadata = false } = {}) {
   const profile = detectProfile(message);
   const locationText = detectLocationText(message);
   const hasRunCue = /convenient|accessible|move around|walking|walk|suitable|can i|is .* area|analysis|analyze|catchment|方便|适合|可达|通行|步行|活动|分析|计算/.test(text);
-  const explicitHowToUse = /how.*use|use.*cat|instruction|guide|怎么用|如何使用|网页|界面/.test(text);
+  const explicitHowToUse = /how.*use|use.*cat|what can .*tool.*do|what.*cat.*do|what.*tool.*do|tool.*capabilit|instruction|guide|怎么用|如何使用|网页|界面/.test(text);
 
   if (/trouble|error|failed|not working|no reachable|empty|问题|报错|失败|没有结果|无法/.test(text)) {
     return { intent: "troubleshooting", confidence: 0.95, method: "rules" };

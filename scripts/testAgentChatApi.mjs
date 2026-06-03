@@ -98,6 +98,24 @@ const cases = [
       data.citations.some((citation) => citation.collection === "variables"),
   },
   {
+    id: "tool_capability_question_how_to_use_no_action_settings",
+    body: {
+      message: "What can this tool do?",
+      city: "hamburg",
+      currentMapState: { walkingTime: 15, walkingSpeed: 5 },
+      resultMetadata: [],
+    },
+    assert: (data) =>
+      data.intent === "how_to_use" &&
+      data.action.type === "ANSWER_ONLY" &&
+      data.action.walkingTime === undefined &&
+      data.action.walkingSpeed === undefined &&
+      data.action.enabledVariables === undefined &&
+      data.retrieval.results.length > 0 &&
+      data.retrieval.results.every((doc) => ["faq", "methodology"].includes(doc.collection)) &&
+      data.retrieval.results.slice(0, 3).some((doc) => doc.metadata?.source === "faq/how_to_use_cat.md" || doc.metadata?.source === "methodology/cat_workflow.md"),
+  },
+  {
     id: "city_availability_no_action",
     body: {
       message: "Does Penteli have noise data?",
