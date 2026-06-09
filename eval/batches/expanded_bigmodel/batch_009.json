@@ -1,0 +1,206 @@
+[
+  {
+    "id": "expanded_knowledge_031",
+    "category": "expanded knowledge and RAG",
+    "query": "Does Hamburg support lighting and noise data?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "ask_data_availability",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "cities/hamburg.md",
+      "methodology/data_limitations.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_knowledge_032",
+    "category": "expanded knowledge and RAG",
+    "query": "If I switch to Penteli, can the agent consider lighting and noise?",
+    "context": {
+      "currentCity": "penteli"
+    },
+    "expectedIntent": "ask_data_availability",
+    "expectedProfile": null,
+    "expectedCity": "penteli",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "cities/penteli.md",
+      "methodology/data_limitations.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_knowledge_033",
+    "category": "expanded knowledge and RAG",
+    "query": "Which data is unavailable in Penteli?",
+    "context": {
+      "currentCity": "penteli"
+    },
+    "expectedIntent": "ask_data_availability",
+    "expectedProfile": null,
+    "expectedCity": "penteli",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "cities/penteli.md",
+      "methodology/data_limitations.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_knowledge_034",
+    "category": "expanded knowledge and RAG",
+    "query": "Can Hamburg use wheelchair toilet data?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "ask_data_availability",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "cities/hamburg.md",
+      "methodology/data_limitations.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_knowledge_035",
+    "category": "expanded knowledge and RAG",
+    "query": "Why is there no result on the map?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "troubleshooting",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "faq/troubleshooting.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_knowledge_036",
+    "category": "expanded knowledge and RAG",
+    "query": "The reachable area did not display. What should I check?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "troubleshooting",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "faq/troubleshooting.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_knowledge_037",
+    "category": "expanded knowledge and RAG",
+    "query": "The analysis failed and I see an empty result.",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "troubleshooting",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "faq/troubleshooting.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_knowledge_038",
+    "category": "expanded knowledge and RAG",
+    "query": "No reachable area appears after I click run.",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "troubleshooting",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "faq/troubleshooting.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_knowledge_039",
+    "category": "expanded knowledge and RAG",
+    "query": "Who created this website?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "general_question",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_knowledge_040",
+    "category": "expanded knowledge and RAG",
+    "query": "Can you tell me tomorrow's weather?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "general_question",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  }
+]

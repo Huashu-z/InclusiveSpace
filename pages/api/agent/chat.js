@@ -5,7 +5,10 @@ function normalizeBody(body = {}) {
   const city = typeof body.city === "string" && body.city.trim() ? body.city.trim() : "hamburg";
   const currentMapState = body.currentMapState && typeof body.currentMapState === "object" ? body.currentMapState : {};
   const resultMetadata = body.resultMetadata && typeof body.resultMetadata === "object" ? body.resultMetadata : null;
-  return { message, city, currentMapState, resultMetadata };
+  const agentContext = body.agentContext && typeof body.agentContext === "object" ? body.agentContext : null;
+  const conversationHistory = Array.isArray(body.conversationHistory) ? body.conversationHistory : [];
+  const analysisHistory = Array.isArray(body.analysisHistory) ? body.analysisHistory : [];
+  return { message, city, currentMapState, resultMetadata, agentContext, conversationHistory, analysisHistory };
 }
 
 export default async function handler(req, res) {
@@ -25,6 +28,7 @@ export default async function handler(req, res) {
       detectedCity: result.debug?.detectedCity,
       detectedProfile: result.debug?.detectedProfile,
       detectedLocationText: result.debug?.detectedLocationText,
+      referenceResolution: result.debug?.referenceResolution,
     });
     return res.status(200).json(result);
   } catch (error) {

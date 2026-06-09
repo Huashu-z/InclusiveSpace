@@ -1,0 +1,1023 @@
+{
+  "createdAt": "2026-06-08T19:09:19.218Z",
+  "label": "expanded_bigmodel_batch_017",
+  "llmMode": "bigmodel",
+  "llmProvider": "bigmodel",
+  "bigModelConfigured": true,
+  "dataset": "eval/batches/expanded_bigmodel/batch_017.json",
+  "summary": {
+    "totalCases": 10,
+    "intentAccuracy": 1,
+    "profileAccuracy": 1,
+    "cityAccuracy": 1,
+    "locationExtractionAccuracy": 1,
+    "retrievalHitRateAt3": 0.4,
+    "retrievalHitRateAt5": 0.4,
+    "retrievalRecallAt3": 1,
+    "retrievalRecallAt5": 1,
+    "retrievalPrecisionAt3": 0.13333333333333333,
+    "retrievalPrecisionAt5": 0.08,
+    "rerankAppliedRate": 1,
+    "mrr": 0.4,
+    "variablePrecision": 1,
+    "variableRecall": 1,
+    "forbiddenVariableRate": 1,
+    "unsupportedVariableBlockingRate": 1,
+    "missingDataWarningAccuracy": 1,
+    "jsonValidRate": 1,
+    "schemaPassRate": 1,
+    "actionValidRate": 1,
+    "geocodingSuccessRate": 1,
+    "correctAskForPointRate": 1,
+    "faithfulnessPassRate": 1,
+    "unsupportedClaimRate": 0,
+    "dataLimitationMentionRate": 1,
+    "answerModeValidRate": 1,
+    "ragSufficiencyValidRate": 1,
+    "finalGroundingPassRate": 1,
+    "alternativeActionPassRate": 1,
+    "taskEndToEndTaskSuccessRate": 1,
+    "endToEndTaskSuccessRate": 1
+  },
+  "failedCases": [],
+  "results": [
+    {
+      "id": "expanded_context_011",
+      "category": "expanded context and follow-up",
+      "query": "Explain the latest CAT result.",
+      "expected": {
+        "intent": "explain_result",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "methodology/result_interpretation.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "explain_result",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "answerMode": "RESULT_EXPLANATION",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "methodology/result_interpretation.md",
+          "variables/comfort_variables.md",
+          "methodology/data_limitations.md",
+          "methodology/cat_workflow.md",
+          "methodology/routing_logic.md"
+        ],
+        "rerankApplied": true,
+        "llm": null,
+        "referenceResolution": {
+          "previousAnalysisFound": true,
+          "currentStartPointFound": true,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": "expanded_previous_result",
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "methodology/result_interpretation.md",
+          "variables/comfort_variables.md",
+          "methodology/data_limitations.md",
+          "methodology/cat_workflow.md",
+          "methodology/routing_logic.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.3333333333333333,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.2,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": true,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_context_012",
+      "category": "expanded context and follow-up",
+      "query": "What does the comfort ratio in this result mean?",
+      "expected": {
+        "intent": "explain_result",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "methodology/result_interpretation.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "explain_result",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "answerMode": "RESULT_EXPLANATION",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "methodology/result_interpretation.md",
+          "variables/comfort_variables.md",
+          "methodology/data_limitations.md",
+          "methodology/comfort_weight_logic.md",
+          "README.md"
+        ],
+        "rerankApplied": true,
+        "llm": null,
+        "referenceResolution": {
+          "previousAnalysisFound": true,
+          "currentStartPointFound": true,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": "expanded_previous_result",
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "methodology/result_interpretation.md",
+          "variables/comfort_variables.md",
+          "methodology/data_limitations.md",
+          "methodology/comfort_weight_logic.md",
+          "README.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.3333333333333333,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.2,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": true,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_context_013",
+      "category": "expanded context and follow-up",
+      "query": "Is this red area result good or bad?",
+      "expected": {
+        "intent": "explain_result",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "methodology/result_interpretation.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "explain_result",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "answerMode": "RESULT_EXPLANATION",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "methodology/result_interpretation.md",
+          "variables/comfort_variables.md",
+          "methodology/data_limitations.md",
+          "README.md",
+          "methodology/comfort_weight_logic.md"
+        ],
+        "rerankApplied": true,
+        "llm": null,
+        "referenceResolution": {
+          "previousAnalysisFound": true,
+          "currentStartPointFound": true,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": "expanded_previous_result",
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "methodology/result_interpretation.md",
+          "variables/comfort_variables.md",
+          "methodology/data_limitations.md",
+          "README.md",
+          "methodology/comfort_weight_logic.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.3333333333333333,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.2,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": true,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_context_014",
+      "category": "expanded context and follow-up",
+      "query": "Summarize the computed accessibility result for me.",
+      "expected": {
+        "intent": "explain_result",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "methodology/result_interpretation.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "explain_result",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "answerMode": "RESULT_EXPLANATION",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "methodology/result_interpretation.md",
+          "variables/comfort_variables.md",
+          "README.md",
+          "methodology/data_limitations.md",
+          "methodology/cat_workflow.md"
+        ],
+        "rerankApplied": true,
+        "llm": null,
+        "referenceResolution": {
+          "previousAnalysisFound": true,
+          "currentStartPointFound": true,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": "expanded_previous_result",
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "methodology/result_interpretation.md",
+          "variables/comfort_variables.md",
+          "README.md",
+          "methodology/data_limitations.md",
+          "methodology/cat_workflow.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.3333333333333333,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.2,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": true,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_context_015",
+      "category": "expanded context and follow-up",
+      "query": "How does this new point compare with the previous result?",
+      "expected": {
+        "intent": "compare_with_previous_result",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "compare_with_previous_result",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "RUN_ANALYSIS_THEN_COMPARE",
+        "answerMode": "ACTION_READY",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "methodology/result_interpretation.md",
+          "methodology/cat_workflow.md",
+          "methodology/data_limitations.md",
+          "profiles/visually_impaired.md",
+          "profiles/default_adult.md"
+        ],
+        "rerankApplied": true,
+        "llm": null,
+        "referenceResolution": {
+          "previousAnalysisFound": true,
+          "currentStartPointFound": true,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": "expanded_previous_result",
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "methodology/result_interpretation.md",
+          "methodology/cat_workflow.md",
+          "methodology/data_limitations.md",
+          "profiles/visually_impaired.md",
+          "profiles/default_adult.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": false,
+            "recall": 1,
+            "precision": 0,
+            "incomplete": false
+          },
+          "5": {
+            "hit": false,
+            "recall": 1,
+            "precision": 0,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 0
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_context_016",
+      "category": "expanded context and follow-up",
+      "query": "What about this selected point compared with last time?",
+      "expected": {
+        "intent": "compare_with_previous_result",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "compare_with_previous_result",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "RUN_ANALYSIS_THEN_COMPARE",
+        "answerMode": "ACTION_READY",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "methodology/result_interpretation.md",
+          "methodology/cat_workflow.md",
+          "methodology/data_limitations.md",
+          "profiles/default_adult.md",
+          "profiles/visually_impaired.md"
+        ],
+        "rerankApplied": true,
+        "llm": null,
+        "referenceResolution": {
+          "previousAnalysisFound": true,
+          "currentStartPointFound": true,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": "expanded_previous_result",
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "methodology/result_interpretation.md",
+          "methodology/cat_workflow.md",
+          "methodology/data_limitations.md",
+          "profiles/default_adult.md",
+          "profiles/visually_impaired.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": false,
+            "recall": 1,
+            "precision": 0,
+            "incomplete": false
+          },
+          "5": {
+            "hit": false,
+            "recall": 1,
+            "precision": 0,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 0
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_context_017",
+      "category": "expanded context and follow-up",
+      "query": "Is the current point better than the last one?",
+      "expected": {
+        "intent": "compare_with_previous_result",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "compare_with_previous_result",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "RUN_ANALYSIS_THEN_COMPARE",
+        "answerMode": "ACTION_READY",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "methodology/result_interpretation.md",
+          "methodology/cat_workflow.md",
+          "profiles/visually_impaired.md",
+          "methodology/routing_logic.md",
+          "methodology/data_limitations.md"
+        ],
+        "rerankApplied": true,
+        "llm": null,
+        "referenceResolution": {
+          "previousAnalysisFound": true,
+          "currentStartPointFound": true,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": "expanded_previous_result",
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "methodology/result_interpretation.md",
+          "methodology/cat_workflow.md",
+          "profiles/visually_impaired.md",
+          "methodology/routing_logic.md",
+          "methodology/data_limitations.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": false,
+            "recall": 1,
+            "precision": 0,
+            "incomplete": false
+          },
+          "5": {
+            "hit": false,
+            "recall": 1,
+            "precision": 0,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 0
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_context_018",
+      "category": "expanded context and follow-up",
+      "query": "Compare this place with the result we just ran.",
+      "expected": {
+        "intent": "compare_with_previous_result",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "compare_with_previous_result",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "RUN_ANALYSIS_THEN_COMPARE",
+        "answerMode": "ACTION_READY",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "methodology/result_interpretation.md",
+          "methodology/cat_workflow.md",
+          "profiles/visually_impaired.md",
+          "methodology/data_limitations.md",
+          "README.md"
+        ],
+        "rerankApplied": true,
+        "llm": null,
+        "referenceResolution": {
+          "previousAnalysisFound": true,
+          "currentStartPointFound": true,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": "expanded_previous_result",
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "methodology/result_interpretation.md",
+          "methodology/cat_workflow.md",
+          "profiles/visually_impaired.md",
+          "methodology/data_limitations.md",
+          "README.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": false,
+            "recall": 1,
+            "precision": 0,
+            "incomplete": false
+          },
+          "5": {
+            "hit": false,
+            "recall": 1,
+            "precision": 0,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 0
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_context_019",
+      "category": "expanded context and follow-up",
+      "query": "Can we compare the two existing CAT results?",
+      "expected": {
+        "intent": "compare_with_previous_result",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "compare_with_previous_result",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "COMPARE_EXISTING_RESULTS",
+        "answerMode": "COMPARE_RESULTS",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "methodology/cat_workflow.md",
+          "methodology/routing_logic.md",
+          "README.md",
+          "methodology/data_limitations.md",
+          "profiles/visually_impaired.md"
+        ],
+        "rerankApplied": true,
+        "llm": null,
+        "referenceResolution": {
+          "previousAnalysisFound": true,
+          "currentStartPointFound": true,
+          "currentPointAlreadyAnalyzed": true,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": "expanded_previous_result",
+          "currentAnalysisId": "expanded_current_result"
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "methodology/cat_workflow.md",
+          "methodology/routing_logic.md",
+          "README.md",
+          "methodology/data_limitations.md",
+          "profiles/visually_impaired.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": false,
+            "recall": 1,
+            "precision": 0,
+            "incomplete": false
+          },
+          "5": {
+            "hit": false,
+            "recall": 1,
+            "precision": 0,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 0
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_context_020",
+      "category": "expanded context and follow-up",
+      "query": "I selected a new point. Is it more suitable than the previous one?",
+      "expected": {
+        "intent": "compare_with_previous_result",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "compare_with_previous_result",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "RUN_ANALYSIS_THEN_COMPARE",
+        "answerMode": "ACTION_READY",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "methodology/result_interpretation.md",
+          "methodology/data_limitations.md",
+          "methodology/cat_workflow.md",
+          "profiles/visually_impaired.md",
+          "methodology/routing_logic.md"
+        ],
+        "rerankApplied": true,
+        "llm": null,
+        "referenceResolution": {
+          "previousAnalysisFound": true,
+          "currentStartPointFound": true,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": "expanded_previous_result",
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "methodology/result_interpretation.md",
+          "methodology/data_limitations.md",
+          "methodology/cat_workflow.md",
+          "profiles/visually_impaired.md",
+          "methodology/routing_logic.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": false,
+            "recall": 1,
+            "precision": 0,
+            "incomplete": false
+          },
+          "5": {
+            "hit": false,
+            "recall": 1,
+            "precision": 0,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 0
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    }
+  ]
+}

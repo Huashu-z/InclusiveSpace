@@ -1,0 +1,316 @@
+[
+  {
+    "id": "new_action_011",
+    "category": "new simple and medium accessibility actions",
+    "query": "My eyesight is poor; use visual-impaired walking assumptions for the selected point.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5,
+      "currentStartPoint": [
+        10.012,
+        53.552
+      ]
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "visually_impaired",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/visually_impaired.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "trafficLight",
+      "pedestrianFlow"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": true,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_action_012",
+    "category": "new simple and medium accessibility actions",
+    "query": "Can you check whether this area is comfortable for someone with limited vision?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "visually_impaired",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/visually_impaired.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "trafficLight",
+      "pedestrianFlow"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_action_013",
+    "category": "new simple and medium accessibility actions",
+    "query": "A parent with a stroller wants to walk from Hamburg Hauptbahnhof. Is it suitable?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "children_family",
+    "expectedCity": "hamburg",
+    "expectedLocationText": "Hamburg Hauptbahnhof",
+    "expectedSources": [
+      "profiles/children_family.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "kerbsHigh",
+      "trafficLight"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": true,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_action_014",
+    "category": "new simple and medium accessibility actions",
+    "query": "Can you prepare settings for a toddler and family around the selected place?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "children_family",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/children_family.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "kerbsHigh",
+      "trafficLight"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_action_015",
+    "category": "new simple and medium accessibility actions",
+    "query": "A three-year-old child will walk with us. What can we reach from the current point?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5,
+      "currentStartPoint": [
+        10.012,
+        53.552
+      ]
+    },
+    "expectedIntent": "catchment_area_analysis",
+    "expectedProfile": "children_family",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/children_family.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "kerbsHigh",
+      "trafficLight"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": true,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_action_016",
+    "category": "new simple and medium accessibility actions",
+    "query": "Family with kids: please assess this area before we walk.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "children_family",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/children_family.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "kerbsHigh",
+      "trafficLight"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_action_017",
+    "category": "new simple and medium accessibility actions",
+    "query": "Can you run a normal adult walking comfort analysis from Hamburg Hauptbahnhof?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "default_adult",
+    "expectedCity": "hamburg",
+    "expectedLocationText": "Hamburg Hauptbahnhof",
+    "expectedSources": [
+      "profiles/default_adult.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "light",
+      "trafficLight",
+      "station"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": true,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_action_018",
+    "category": "new simple and medium accessibility actions",
+    "query": "I have no special profile. Check the selected start point for a 15-minute walk.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5,
+      "currentStartPoint": [
+        10.012,
+        53.552
+      ]
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "default_adult",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/default_adult.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "light",
+      "trafficLight",
+      "station"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": true,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_action_019",
+    "category": "new simple and medium accessibility actions",
+    "query": "Analyze Hamburg generally without a start point.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "default_adult",
+    "expectedCity": "hamburg",
+    "expectedLocationText": "Hamburg",
+    "expectedSources": [
+      "profiles/default_adult.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "light",
+      "trafficLight",
+      "station"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_action_020",
+    "category": "new simple and medium accessibility actions",
+    "query": "Is the place I selected suitable for everyday walking?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5,
+      "currentStartPoint": [
+        10.012,
+        53.552
+      ]
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "default_adult",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/default_adult.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "light",
+      "trafficLight",
+      "station"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": true,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  }
+]

@@ -1,0 +1,207 @@
+[
+  {
+    "id": "expanded_knowledge_021",
+    "category": "expanded knowledge and RAG",
+    "query": "What can this tool do?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "how_to_use",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "faq/how_to_use_cat.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_knowledge_022",
+    "category": "expanded knowledge and RAG",
+    "query": "Before I start, what exactly can this map assistant help me do?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "how_to_use",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "faq/how_to_use_cat.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_knowledge_023",
+    "category": "expanded knowledge and RAG",
+    "query": "How do I use CAT to run a catchment analysis?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "how_to_use",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "faq/how_to_use_cat.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_knowledge_024",
+    "category": "expanded knowledge and RAG",
+    "query": "What steps should I follow on this map interface?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "how_to_use",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "faq/how_to_use_cat.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_knowledge_025",
+    "category": "expanded knowledge and RAG",
+    "query": "Explain the workflow of this accessibility assistant.",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "how_to_use",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "faq/how_to_use_cat.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_knowledge_026",
+    "category": "expanded knowledge and RAG",
+    "query": "What does poorPavement mean in this accessibility analysis?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "explain_variable",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "variables/comfort_variables.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_knowledge_027",
+    "category": "expanded knowledge and RAG",
+    "query": "Explain the kerbsHigh variable.",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "explain_variable",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "variables/comfort_variables.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_knowledge_028",
+    "category": "expanded knowledge and RAG",
+    "query": "What does pedestrianFlow represent?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "explain_variable",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "variables/comfort_variables.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_knowledge_029",
+    "category": "expanded knowledge and RAG",
+    "query": "In CAT, what does slope mean?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "explain_variable",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "variables/comfort_variables.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_knowledge_030",
+    "category": "expanded knowledge and RAG",
+    "query": "What is the meaning of tactile_pavement?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "explain_variable",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "variables/comfort_variables.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  }
+]

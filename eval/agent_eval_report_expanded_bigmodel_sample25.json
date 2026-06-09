@@ -1,0 +1,3332 @@
+{
+  "createdAt": "2026-06-08T18:00:29.488Z",
+  "label": "expanded_bigmodel_sample25",
+  "llmMode": "bigmodel",
+  "llmProvider": "bigmodel",
+  "bigModelConfigured": true,
+  "dataset": "eval/agent_expanded_eval_sample25_cases.json",
+  "summary": {
+    "totalCases": 25,
+    "intentAccuracy": 0.92,
+    "profileAccuracy": 0.9375,
+    "cityAccuracy": 1,
+    "locationExtractionAccuracy": 1,
+    "retrievalHitRateAt3": 0.96,
+    "retrievalHitRateAt5": 0.96,
+    "retrievalRecallAt3": 0.9466666666666668,
+    "retrievalRecallAt5": 0.96,
+    "retrievalPrecisionAt3": 0.68,
+    "retrievalPrecisionAt5": 0.4160000000000001,
+    "rerankAppliedRate": 1,
+    "mrr": 0.9133333333333333,
+    "variablePrecision": 0.32051282051282054,
+    "variableRecall": 1,
+    "forbiddenVariableRate": 0,
+    "unsupportedVariableBlockingRate": 1,
+    "missingDataWarningAccuracy": 1,
+    "jsonValidRate": 1,
+    "schemaPassRate": 0.96,
+    "actionValidRate": 1,
+    "geocodingSuccessRate": 1,
+    "correctAskForPointRate": 1,
+    "faithfulnessPassRate": 1,
+    "unsupportedClaimRate": 0,
+    "dataLimitationMentionRate": 1,
+    "answerModeValidRate": 0.96,
+    "ragSufficiencyValidRate": 0.96,
+    "finalGroundingPassRate": 0.96,
+    "alternativeActionPassRate": 1,
+    "taskEndToEndTaskSuccessRate": 0.88,
+    "endToEndTaskSuccessRate": 0.88
+  },
+  "failedCases": [
+    {
+      "id": "expanded_knowledge_004",
+      "category": "expanded knowledge and RAG",
+      "query": "What steps should I follow on this map interface?",
+      "expected": {
+        "intent": "how_to_use",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "faq/how_to_use_cat.md",
+          "methodology/cat_workflow.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "general_question",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "answerMode": "DIRECT_ANSWER",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "methodology/cat_workflow.md",
+          "README.md",
+          "profiles/default_adult.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "model": "glm-4.5-flash",
+          "usage": {
+            "completion_tokens": 683,
+            "completion_tokens_details": {
+              "reasoning_tokens": 399
+            },
+            "prompt_tokens": 1871,
+            "prompt_tokens_details": {
+              "cached_tokens": 664
+            },
+            "total_tokens": 2554
+          },
+          "requestId": "202606090157104429d49e42364eb0"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "methodology/cat_workflow.md",
+          "README.md",
+          "profiles/default_adult.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 0.5,
+            "precision": 0.3333333333333333,
+            "incomplete": true
+          },
+          "5": {
+            "hit": true,
+            "recall": 0.5,
+            "precision": 0.2,
+            "incomplete": true
+          }
+        },
+        "reciprocalRank": 0.3333333333333333
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": false,
+      "taskFailures": [
+        "intent expected how_to_use, got general_question"
+      ],
+      "success": false,
+      "failures": [
+        "intent expected how_to_use, got general_question",
+        "retrieval incomplete@5 expected sources faq/how_to_use_cat.md, methodology/cat_workflow.md, got variables/comfort_variables.md, cities/hamburg.md, methodology/cat_workflow.md, README.md, profiles/default_adult.md"
+      ]
+    },
+    {
+      "id": "expanded_knowledge_005",
+      "category": "expanded knowledge and RAG",
+      "query": "Explain the workflow of this accessibility assistant.",
+      "expected": {
+        "intent": "how_to_use",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "faq/how_to_use_cat.md",
+          "methodology/cat_workflow.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "general_question",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "answerMode": null,
+        "selectedVariables": [],
+        "warnings": [
+          "blocked raw SQL or database operation"
+        ],
+        "retrievedSources": [
+          "methodology/cat_workflow.md",
+          "methodology/routing_logic.md",
+          "cities/hamburg.md",
+          "README.md",
+          "methodology/result_interpretation.md"
+        ],
+        "rerankApplied": true,
+        "llm": null,
+        "referenceResolution": null
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "methodology/cat_workflow.md",
+          "methodology/routing_logic.md",
+          "cities/hamburg.md",
+          "README.md",
+          "methodology/result_interpretation.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 0.5,
+            "precision": 0.3333333333333333,
+            "incomplete": true
+          },
+          "5": {
+            "hit": true,
+            "recall": 0.5,
+            "precision": 0.2,
+            "incomplete": true
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [
+        "missing response field: answerMode",
+        "missing response field: capabilityCheck",
+        "missing response field: ragSufficiency",
+        "missing response field: groundingCheck"
+      ],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": false,
+        "hasRagSufficiency": false,
+        "groundingPass": false,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": false,
+      "taskFailures": [
+        "intent expected how_to_use, got general_question",
+        "missing response field: answerMode",
+        "missing response field: capabilityCheck",
+        "missing response field: ragSufficiency",
+        "missing response field: groundingCheck",
+        "invalid answerMode: undefined",
+        "missing or invalid ragSufficiency",
+        "final grounding check failed"
+      ],
+      "success": false,
+      "failures": [
+        "intent expected how_to_use, got general_question",
+        "missing response field: answerMode",
+        "missing response field: capabilityCheck",
+        "missing response field: ragSufficiency",
+        "missing response field: groundingCheck",
+        "invalid answerMode: undefined",
+        "missing or invalid ragSufficiency",
+        "final grounding check failed",
+        "retrieval incomplete@5 expected sources faq/how_to_use_cat.md, methodology/cat_workflow.md, got methodology/cat_workflow.md, methodology/routing_logic.md, cities/hamburg.md, README.md, methodology/result_interpretation.md"
+      ]
+    },
+    {
+      "id": "expanded_unsupported_002",
+      "category": "expanded unsupported boundary",
+      "query": "What is the nearest bakery reachable for a three-year-old from Hamburg Hauptbahnhof?",
+      "expected": {
+        "intent": "specific_poi_query",
+        "profile": "children_family",
+        "city": "hamburg",
+        "locationText": "Hamburg Hauptbahnhof",
+        "sources": [
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [
+          "stair",
+          "slope",
+          "trafficLight"
+        ],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "specific_poi_query",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": "Hamburg Hauptbahnhof",
+        "actionType": "ANSWER_ONLY",
+        "answerMode": "UNSUPPORTED_WITH_ALTERNATIVE",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md",
+          "methodology/routing_logic.md",
+          "faq/troubleshooting.md",
+          "methodology/result_interpretation.md"
+        ],
+        "rerankApplied": true,
+        "llm": null,
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md",
+          "methodology/routing_logic.md",
+          "faq/troubleshooting.md",
+          "methodology/result_interpretation.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6666666666666666,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.4,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 3,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": false,
+      "taskFailures": [
+        "profile expected children_family, got null"
+      ],
+      "success": false,
+      "failures": [
+        "profile expected children_family, got null"
+      ]
+    }
+  ],
+  "results": [
+    {
+      "id": "expanded_accessibility_001",
+      "category": "expanded high-frequency accessibility action",
+      "query": "My grandma walks slowly. Around Hamburg Hauptbahnhof, is this a reasonable area for a short walk?",
+      "expected": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": "Hamburg Hauptbahnhof",
+        "sources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md"
+        ],
+        "variables": [
+          "stair",
+          "slope",
+          "kerbsHigh"
+        ],
+        "forbiddenVariables": [
+          "noise"
+        ],
+        "shouldRunAnalysis": true,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": "Hamburg Hauptbahnhof",
+        "actionType": "RUN_ACCESSIBILITY_ANALYSIS",
+        "answerMode": "ACTION_READY",
+        "selectedVariables": [
+          "stair",
+          "slope",
+          "unevenSurface",
+          "poorPavement",
+          "kerbsHigh",
+          "obstacle",
+          "trafficLight",
+          "station",
+          "wcDisabled",
+          "light"
+        ],
+        "warnings": [],
+        "retrievedSources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "methodology/result_interpretation.md",
+          "methodology/data_limitations.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "error": "This operation was aborted",
+          "fallback": "mock_pipeline"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "methodology/result_interpretation.md",
+          "methodology/data_limitations.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 1,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [
+          "stair",
+          "slope",
+          "unevenSurface",
+          "poorPavement",
+          "kerbsHigh",
+          "obstacle",
+          "trafficLight",
+          "station",
+          "wcDisabled",
+          "light"
+        ],
+        "precisionNumerator": 3,
+        "precisionDenominator": 10,
+        "recallNumerator": 3,
+        "recallDenominator": 3,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 1,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_accessibility_002",
+      "category": "expanded high-frequency accessibility action",
+      "query": "As an older adult, can I walk comfortably from Hauptbahnhof?",
+      "expected": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": "Hauptbahnhof",
+        "sources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md"
+        ],
+        "variables": [
+          "stair",
+          "slope",
+          "kerbsHigh"
+        ],
+        "forbiddenVariables": [
+          "noise"
+        ],
+        "shouldRunAnalysis": true,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": "Hauptbahnhof",
+        "actionType": "RUN_ACCESSIBILITY_ANALYSIS",
+        "answerMode": "ACTION_READY",
+        "selectedVariables": [
+          "stair",
+          "slope",
+          "unevenSurface",
+          "poorPavement",
+          "kerbsHigh",
+          "obstacle",
+          "trafficLight",
+          "station",
+          "wcDisabled",
+          "light"
+        ],
+        "warnings": [],
+        "retrievedSources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "methodology/result_interpretation.md",
+          "README.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "model": "glm-4.5-flash",
+          "usage": {
+            "completion_tokens": 786,
+            "prompt_tokens": 2321,
+            "prompt_tokens_details": {
+              "cached_tokens": 4
+            },
+            "total_tokens": 3107
+          },
+          "requestId": "20260609015437fb97994fceeb4b1c"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "methodology/result_interpretation.md",
+          "README.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 1,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [
+          "stair",
+          "slope",
+          "unevenSurface",
+          "poorPavement",
+          "kerbsHigh",
+          "obstacle",
+          "trafficLight",
+          "station",
+          "wcDisabled",
+          "light"
+        ],
+        "precisionNumerator": 3,
+        "precisionDenominator": 10,
+        "recallNumerator": 3,
+        "recallDenominator": 3,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 1,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_accessibility_003",
+      "category": "expanded high-frequency accessibility action",
+      "query": "I am a slow walker. Please check the place I selected for a short activity.",
+      "expected": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md"
+        ],
+        "variables": [
+          "stair",
+          "slope",
+          "kerbsHigh"
+        ],
+        "forbiddenVariables": [
+          "noise"
+        ],
+        "shouldRunAnalysis": true,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "RUN_ACCESSIBILITY_ANALYSIS",
+        "answerMode": "ACTION_READY",
+        "selectedVariables": [
+          "stair",
+          "slope",
+          "unevenSurface",
+          "poorPavement",
+          "kerbsHigh",
+          "obstacle",
+          "trafficLight",
+          "station",
+          "wcDisabled",
+          "light"
+        ],
+        "warnings": [],
+        "retrievedSources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "methodology/cat_workflow.md",
+          "methodology/result_interpretation.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "model": "glm-4.5-flash",
+          "usage": {
+            "completion_tokens": 794,
+            "prompt_tokens": 2290,
+            "prompt_tokens_details": {
+              "cached_tokens": 663
+            },
+            "total_tokens": 3084
+          },
+          "requestId": "202606090155022ccc3b5ffe094141"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": true,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "methodology/cat_workflow.md",
+          "methodology/result_interpretation.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 1,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [
+          "stair",
+          "slope",
+          "unevenSurface",
+          "poorPavement",
+          "kerbsHigh",
+          "obstacle",
+          "trafficLight",
+          "station",
+          "wcDisabled",
+          "light"
+        ],
+        "precisionNumerator": 3,
+        "precisionDenominator": 10,
+        "recallNumerator": 3,
+        "recallDenominator": 3,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 1,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_accessibility_004",
+      "category": "expanded high-frequency accessibility action",
+      "query": "My grandfather needs a calm walking area near Hamburg Hauptbahnhof.",
+      "expected": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": "Hamburg Hauptbahnhof",
+        "sources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md"
+        ],
+        "variables": [
+          "stair",
+          "slope",
+          "kerbsHigh"
+        ],
+        "forbiddenVariables": [
+          "noise"
+        ],
+        "shouldRunAnalysis": true,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": "Hamburg Hauptbahnhof",
+        "actionType": "RUN_ACCESSIBILITY_ANALYSIS",
+        "answerMode": "ACTION_READY",
+        "selectedVariables": [
+          "stair",
+          "slope",
+          "unevenSurface",
+          "poorPavement",
+          "kerbsHigh",
+          "obstacle",
+          "trafficLight",
+          "station",
+          "wcDisabled",
+          "light"
+        ],
+        "warnings": [],
+        "retrievedSources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "methodology/result_interpretation.md",
+          "methodology/cat_workflow.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "error": "This operation was aborted",
+          "fallback": "mock_pipeline"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "methodology/result_interpretation.md",
+          "methodology/cat_workflow.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 1,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [
+          "stair",
+          "slope",
+          "unevenSurface",
+          "poorPavement",
+          "kerbsHigh",
+          "obstacle",
+          "trafficLight",
+          "station",
+          "wcDisabled",
+          "light"
+        ],
+        "precisionNumerator": 3,
+        "precisionDenominator": 10,
+        "recallNumerator": 3,
+        "recallDenominator": 3,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 1,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_accessibility_005",
+      "category": "expanded high-frequency accessibility action",
+      "query": "I get tired easily and want to know whether this area is suitable for walking.",
+      "expected": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md"
+        ],
+        "variables": [
+          "stair",
+          "slope",
+          "kerbsHigh"
+        ],
+        "forbiddenVariables": [
+          "noise"
+        ],
+        "shouldRunAnalysis": true,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "RUN_ACCESSIBILITY_ANALYSIS",
+        "answerMode": "ACTION_READY",
+        "selectedVariables": [
+          "stair",
+          "slope",
+          "unevenSurface",
+          "poorPavement",
+          "kerbsHigh",
+          "obstacle",
+          "trafficLight",
+          "station",
+          "wcDisabled",
+          "light"
+        ],
+        "warnings": [],
+        "retrievedSources": [
+          "profiles/default_adult.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "profiles/elderly.md",
+          "profiles/children_family.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "model": "glm-4.5-flash",
+          "usage": {
+            "completion_tokens": 630,
+            "completion_tokens_details": {
+              "reasoning_tokens": 408
+            },
+            "prompt_tokens": 2327,
+            "prompt_tokens_details": {
+              "cached_tokens": 56
+            },
+            "total_tokens": 2957
+          },
+          "requestId": "202606090155537c9d0d7074f842c9"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": true,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/default_adult.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "profiles/elderly.md",
+          "profiles/children_family.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 0.6666666666666666,
+            "precision": 0.6666666666666666,
+            "incomplete": true
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 0.5
+      },
+      "variableMetrics": {
+        "selected": [
+          "stair",
+          "slope",
+          "unevenSurface",
+          "poorPavement",
+          "kerbsHigh",
+          "obstacle",
+          "trafficLight",
+          "station",
+          "wcDisabled",
+          "light"
+        ],
+        "precisionNumerator": 3,
+        "precisionDenominator": 10,
+        "recallNumerator": 3,
+        "recallDenominator": 3,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 1,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_knowledge_001",
+      "category": "expanded knowledge and RAG",
+      "query": "What can this tool do?",
+      "expected": {
+        "intent": "how_to_use",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "faq/how_to_use_cat.md",
+          "methodology/cat_workflow.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "how_to_use",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "answerMode": "DIRECT_ANSWER",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "faq/how_to_use_cat.md",
+          "methodology/cat_workflow.md",
+          "methodology/data_limitations.md",
+          "methodology/result_interpretation.md",
+          "faq/troubleshooting.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "model": "glm-4.5-flash",
+          "usage": {
+            "completion_tokens": 417,
+            "completion_tokens_details": {
+              "reasoning_tokens": 229
+            },
+            "prompt_tokens": 1600,
+            "prompt_tokens_details": {
+              "cached_tokens": 663
+            },
+            "total_tokens": 2017
+          },
+          "requestId": "2026060901561060947a942fec4512"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "faq/how_to_use_cat.md",
+          "methodology/cat_workflow.md",
+          "methodology/data_limitations.md",
+          "methodology/result_interpretation.md",
+          "faq/troubleshooting.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6666666666666666,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.4,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_knowledge_002",
+      "category": "expanded knowledge and RAG",
+      "query": "Before I start, what exactly can this map assistant help me do?",
+      "expected": {
+        "intent": "how_to_use",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "faq/how_to_use_cat.md",
+          "methodology/cat_workflow.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "how_to_use",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "answerMode": "DIRECT_ANSWER",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "faq/how_to_use_cat.md",
+          "methodology/cat_workflow.md",
+          "README.md",
+          "faq/troubleshooting.md",
+          "methodology/data_limitations.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "error": "This operation was aborted",
+          "fallback": "mock_pipeline"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "faq/how_to_use_cat.md",
+          "methodology/cat_workflow.md",
+          "README.md",
+          "faq/troubleshooting.md",
+          "methodology/data_limitations.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6666666666666666,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.4,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_knowledge_003",
+      "category": "expanded knowledge and RAG",
+      "query": "How do I use CAT to run a catchment analysis?",
+      "expected": {
+        "intent": "how_to_use",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "faq/how_to_use_cat.md",
+          "methodology/cat_workflow.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "how_to_use",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "answerMode": "DIRECT_ANSWER",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "faq/how_to_use_cat.md",
+          "methodology/cat_workflow.md",
+          "methodology/routing_logic.md",
+          "methodology/comfort_weight_logic.md",
+          "README.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "model": "glm-4.5-flash",
+          "usage": {
+            "completion_tokens": 559,
+            "completion_tokens_details": {
+              "reasoning_tokens": 379
+            },
+            "prompt_tokens": 1710,
+            "prompt_tokens_details": {
+              "cached_tokens": 663
+            },
+            "total_tokens": 2269
+          },
+          "requestId": "20260609015654f33f3058838b43eb"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "faq/how_to_use_cat.md",
+          "methodology/cat_workflow.md",
+          "methodology/routing_logic.md",
+          "methodology/comfort_weight_logic.md",
+          "README.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6666666666666666,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.4,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_knowledge_004",
+      "category": "expanded knowledge and RAG",
+      "query": "What steps should I follow on this map interface?",
+      "expected": {
+        "intent": "how_to_use",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "faq/how_to_use_cat.md",
+          "methodology/cat_workflow.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "general_question",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "answerMode": "DIRECT_ANSWER",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "methodology/cat_workflow.md",
+          "README.md",
+          "profiles/default_adult.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "model": "glm-4.5-flash",
+          "usage": {
+            "completion_tokens": 683,
+            "completion_tokens_details": {
+              "reasoning_tokens": 399
+            },
+            "prompt_tokens": 1871,
+            "prompt_tokens_details": {
+              "cached_tokens": 664
+            },
+            "total_tokens": 2554
+          },
+          "requestId": "202606090157104429d49e42364eb0"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "methodology/cat_workflow.md",
+          "README.md",
+          "profiles/default_adult.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 0.5,
+            "precision": 0.3333333333333333,
+            "incomplete": true
+          },
+          "5": {
+            "hit": true,
+            "recall": 0.5,
+            "precision": 0.2,
+            "incomplete": true
+          }
+        },
+        "reciprocalRank": 0.3333333333333333
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": false,
+      "taskFailures": [
+        "intent expected how_to_use, got general_question"
+      ],
+      "success": false,
+      "failures": [
+        "intent expected how_to_use, got general_question",
+        "retrieval incomplete@5 expected sources faq/how_to_use_cat.md, methodology/cat_workflow.md, got variables/comfort_variables.md, cities/hamburg.md, methodology/cat_workflow.md, README.md, profiles/default_adult.md"
+      ]
+    },
+    {
+      "id": "expanded_knowledge_005",
+      "category": "expanded knowledge and RAG",
+      "query": "Explain the workflow of this accessibility assistant.",
+      "expected": {
+        "intent": "how_to_use",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "faq/how_to_use_cat.md",
+          "methodology/cat_workflow.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "general_question",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "answerMode": null,
+        "selectedVariables": [],
+        "warnings": [
+          "blocked raw SQL or database operation"
+        ],
+        "retrievedSources": [
+          "methodology/cat_workflow.md",
+          "methodology/routing_logic.md",
+          "cities/hamburg.md",
+          "README.md",
+          "methodology/result_interpretation.md"
+        ],
+        "rerankApplied": true,
+        "llm": null,
+        "referenceResolution": null
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "methodology/cat_workflow.md",
+          "methodology/routing_logic.md",
+          "cities/hamburg.md",
+          "README.md",
+          "methodology/result_interpretation.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 0.5,
+            "precision": 0.3333333333333333,
+            "incomplete": true
+          },
+          "5": {
+            "hit": true,
+            "recall": 0.5,
+            "precision": 0.2,
+            "incomplete": true
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [
+        "missing response field: answerMode",
+        "missing response field: capabilityCheck",
+        "missing response field: ragSufficiency",
+        "missing response field: groundingCheck"
+      ],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": false,
+        "hasRagSufficiency": false,
+        "groundingPass": false,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": false,
+      "taskFailures": [
+        "intent expected how_to_use, got general_question",
+        "missing response field: answerMode",
+        "missing response field: capabilityCheck",
+        "missing response field: ragSufficiency",
+        "missing response field: groundingCheck",
+        "invalid answerMode: undefined",
+        "missing or invalid ragSufficiency",
+        "final grounding check failed"
+      ],
+      "success": false,
+      "failures": [
+        "intent expected how_to_use, got general_question",
+        "missing response field: answerMode",
+        "missing response field: capabilityCheck",
+        "missing response field: ragSufficiency",
+        "missing response field: groundingCheck",
+        "invalid answerMode: undefined",
+        "missing or invalid ragSufficiency",
+        "final grounding check failed",
+        "retrieval incomplete@5 expected sources faq/how_to_use_cat.md, methodology/cat_workflow.md, got methodology/cat_workflow.md, methodology/routing_logic.md, cities/hamburg.md, README.md, methodology/result_interpretation.md"
+      ]
+    },
+    {
+      "id": "expanded_unsupported_001",
+      "category": "expanded unsupported boundary",
+      "query": "Which supermarket is closest for my child from Hauptbahnhof?",
+      "expected": {
+        "intent": "specific_poi_query",
+        "profile": "children_family",
+        "city": "hamburg",
+        "locationText": "Hauptbahnhof",
+        "sources": [
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [
+          "stair",
+          "slope",
+          "trafficLight"
+        ],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "specific_poi_query",
+        "profile": "children_family",
+        "city": "hamburg",
+        "locationText": "Hauptbahnhof",
+        "actionType": "ANSWER_ONLY",
+        "answerMode": "UNSUPPORTED_WITH_ALTERNATIVE",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md",
+          "faq/troubleshooting.md",
+          "methodology/routing_logic.md",
+          "README.md"
+        ],
+        "rerankApplied": true,
+        "llm": null,
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md",
+          "faq/troubleshooting.md",
+          "methodology/routing_logic.md",
+          "README.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6666666666666666,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.4,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 3,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_unsupported_002",
+      "category": "expanded unsupported boundary",
+      "query": "What is the nearest bakery reachable for a three-year-old from Hamburg Hauptbahnhof?",
+      "expected": {
+        "intent": "specific_poi_query",
+        "profile": "children_family",
+        "city": "hamburg",
+        "locationText": "Hamburg Hauptbahnhof",
+        "sources": [
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [
+          "stair",
+          "slope",
+          "trafficLight"
+        ],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "specific_poi_query",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": "Hamburg Hauptbahnhof",
+        "actionType": "ANSWER_ONLY",
+        "answerMode": "UNSUPPORTED_WITH_ALTERNATIVE",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md",
+          "methodology/routing_logic.md",
+          "faq/troubleshooting.md",
+          "methodology/result_interpretation.md"
+        ],
+        "rerankApplied": true,
+        "llm": null,
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md",
+          "methodology/routing_logic.md",
+          "faq/troubleshooting.md",
+          "methodology/result_interpretation.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6666666666666666,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.4,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 3,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": false,
+      "taskFailures": [
+        "profile expected children_family, got null"
+      ],
+      "success": false,
+      "failures": [
+        "profile expected children_family, got null"
+      ]
+    },
+    {
+      "id": "expanded_unsupported_003",
+      "category": "expanded unsupported boundary",
+      "query": "Where is the closest pharmacy for a wheelchair user near Hauptbahnhof?",
+      "expected": {
+        "intent": "specific_poi_query",
+        "profile": "wheelchair_user",
+        "city": "hamburg",
+        "locationText": "Hauptbahnhof",
+        "sources": [
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [
+          "stair",
+          "slope",
+          "trafficLight"
+        ],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "specific_poi_query",
+        "profile": "wheelchair_user",
+        "city": "hamburg",
+        "locationText": "Hauptbahnhof",
+        "actionType": "ANSWER_ONLY",
+        "answerMode": "UNSUPPORTED_WITH_ALTERNATIVE",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md",
+          "methodology/routing_logic.md",
+          "faq/troubleshooting.md",
+          "README.md"
+        ],
+        "rerankApplied": true,
+        "llm": null,
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md",
+          "methodology/routing_logic.md",
+          "faq/troubleshooting.md",
+          "README.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6666666666666666,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.4,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 3,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_unsupported_004",
+      "category": "expanded unsupported boundary",
+      "query": "Which cafe should an elderly person go to from Hamburg Hauptbahnhof?",
+      "expected": {
+        "intent": "specific_poi_query",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": "Hamburg Hauptbahnhof",
+        "sources": [
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [
+          "stair",
+          "slope",
+          "trafficLight"
+        ],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "specific_poi_query",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": "Hamburg Hauptbahnhof",
+        "actionType": "ANSWER_ONLY",
+        "answerMode": "UNSUPPORTED_WITH_ALTERNATIVE",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md",
+          "methodology/routing_logic.md",
+          "methodology/comfort_weight_logic.md",
+          "README.md"
+        ],
+        "rerankApplied": true,
+        "llm": null,
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md",
+          "methodology/routing_logic.md",
+          "methodology/comfort_weight_logic.md",
+          "README.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6666666666666666,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.4,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 3,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_unsupported_005",
+      "category": "expanded unsupported boundary",
+      "query": "Find the nearest toilet for a visually impaired pedestrian.",
+      "expected": {
+        "intent": "specific_poi_query",
+        "profile": "visually_impaired",
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [
+          "stair",
+          "slope",
+          "trafficLight"
+        ],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "specific_poi_query",
+        "profile": "visually_impaired",
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "answerMode": "UNSUPPORTED_WITH_ALTERNATIVE",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md",
+          "methodology/routing_logic.md",
+          "methodology/comfort_weight_logic.md",
+          "faq/troubleshooting.md"
+        ],
+        "rerankApplied": true,
+        "llm": null,
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md",
+          "methodology/routing_logic.md",
+          "methodology/comfort_weight_logic.md",
+          "faq/troubleshooting.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6666666666666666,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.4,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 3,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_context_001",
+      "category": "expanded context and follow-up",
+      "query": "Explain the latest CAT result.",
+      "expected": {
+        "intent": "explain_result",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "methodology/result_interpretation.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "explain_result",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "answerMode": "RESULT_EXPLANATION",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "methodology/result_interpretation.md",
+          "variables/comfort_variables.md",
+          "methodology/data_limitations.md",
+          "methodology/cat_workflow.md",
+          "methodology/routing_logic.md"
+        ],
+        "rerankApplied": true,
+        "llm": null,
+        "referenceResolution": {
+          "previousAnalysisFound": true,
+          "currentStartPointFound": true,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": "expanded_previous_result",
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "methodology/result_interpretation.md",
+          "variables/comfort_variables.md",
+          "methodology/data_limitations.md",
+          "methodology/cat_workflow.md",
+          "methodology/routing_logic.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.3333333333333333,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.2,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": true,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_context_002",
+      "category": "expanded context and follow-up",
+      "query": "What does the comfort ratio in this result mean?",
+      "expected": {
+        "intent": "explain_result",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "methodology/result_interpretation.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "explain_result",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "answerMode": "RESULT_EXPLANATION",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "methodology/result_interpretation.md",
+          "variables/comfort_variables.md",
+          "methodology/data_limitations.md",
+          "methodology/comfort_weight_logic.md",
+          "README.md"
+        ],
+        "rerankApplied": true,
+        "llm": null,
+        "referenceResolution": {
+          "previousAnalysisFound": true,
+          "currentStartPointFound": true,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": "expanded_previous_result",
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "methodology/result_interpretation.md",
+          "variables/comfort_variables.md",
+          "methodology/data_limitations.md",
+          "methodology/comfort_weight_logic.md",
+          "README.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.3333333333333333,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.2,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": true,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_context_003",
+      "category": "expanded context and follow-up",
+      "query": "Is this red area result good or bad?",
+      "expected": {
+        "intent": "explain_result",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "methodology/result_interpretation.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "explain_result",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "answerMode": "RESULT_EXPLANATION",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "methodology/result_interpretation.md",
+          "variables/comfort_variables.md",
+          "methodology/data_limitations.md",
+          "README.md",
+          "methodology/comfort_weight_logic.md"
+        ],
+        "rerankApplied": true,
+        "llm": null,
+        "referenceResolution": {
+          "previousAnalysisFound": true,
+          "currentStartPointFound": true,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": "expanded_previous_result",
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "methodology/result_interpretation.md",
+          "variables/comfort_variables.md",
+          "methodology/data_limitations.md",
+          "README.md",
+          "methodology/comfort_weight_logic.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.3333333333333333,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.2,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": true,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_context_004",
+      "category": "expanded context and follow-up",
+      "query": "Summarize the computed accessibility result for me.",
+      "expected": {
+        "intent": "explain_result",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "methodology/result_interpretation.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "explain_result",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "answerMode": "RESULT_EXPLANATION",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "methodology/result_interpretation.md",
+          "variables/comfort_variables.md",
+          "README.md",
+          "methodology/data_limitations.md",
+          "methodology/cat_workflow.md"
+        ],
+        "rerankApplied": true,
+        "llm": null,
+        "referenceResolution": {
+          "previousAnalysisFound": true,
+          "currentStartPointFound": true,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": "expanded_previous_result",
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "methodology/result_interpretation.md",
+          "variables/comfort_variables.md",
+          "README.md",
+          "methodology/data_limitations.md",
+          "methodology/cat_workflow.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.3333333333333333,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.2,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": true,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_context_005",
+      "category": "expanded context and follow-up",
+      "query": "How does this new point compare with the previous result?",
+      "expected": {
+        "intent": "compare_with_previous_result",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "compare_with_previous_result",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "RUN_ANALYSIS_THEN_COMPARE",
+        "answerMode": "ACTION_READY",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "methodology/result_interpretation.md",
+          "methodology/cat_workflow.md",
+          "methodology/data_limitations.md",
+          "profiles/visually_impaired.md",
+          "profiles/default_adult.md"
+        ],
+        "rerankApplied": true,
+        "llm": null,
+        "referenceResolution": {
+          "previousAnalysisFound": true,
+          "currentStartPointFound": true,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": "expanded_previous_result",
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "methodology/result_interpretation.md",
+          "methodology/cat_workflow.md",
+          "methodology/data_limitations.md",
+          "profiles/visually_impaired.md",
+          "profiles/default_adult.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": false,
+            "recall": 1,
+            "precision": 0,
+            "incomplete": false
+          },
+          "5": {
+            "hit": false,
+            "recall": 1,
+            "precision": 0,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 0
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_edge_001",
+      "category": "expanded long-tail and edge cases",
+      "query": "I use a wheelchair and need ramps in Hamburg.",
+      "expected": {
+        "intent": "area_suitability_question",
+        "profile": "wheelchair_user",
+        "city": "hamburg",
+        "locationText": "Hamburg",
+        "sources": [
+          "profiles/wheelchair_user.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md"
+        ],
+        "variables": [
+          "stair",
+          "slope",
+          "kerbsHigh"
+        ],
+        "forbiddenVariables": [
+          "noise"
+        ],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": true,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "area_suitability_question",
+        "profile": "wheelchair_user",
+        "city": "hamburg",
+        "locationText": "Hamburg",
+        "actionType": "ASK_USER_TO_SELECT_POINT",
+        "answerMode": "CLARIFICATION_NEEDED",
+        "selectedVariables": [
+          "stair",
+          "kerbsHigh",
+          "slope",
+          "narrowRoads",
+          "poorPavement",
+          "unevenSurface",
+          "obstacle",
+          "wcDisabled",
+          "trafficLight"
+        ],
+        "warnings": [
+          "Could not geocode \"Hamburg\". Please select a start point on the map.",
+          "Ramps are not currently available as a selectable comfort variable in CAT. Please select a start point on the map to analyze other wheelchair accessibility factors."
+        ],
+        "retrievedSources": [
+          "profiles/wheelchair_user.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "methodology/data_limitations.md",
+          "methodology/result_interpretation.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "model": "glm-4.5-flash",
+          "usage": {
+            "completion_tokens": 742,
+            "prompt_tokens": 2232,
+            "prompt_tokens_details": {
+              "cached_tokens": 664
+            },
+            "total_tokens": 2974
+          },
+          "requestId": "202606090158013296e40fef8b4b67"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/wheelchair_user.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "methodology/data_limitations.md",
+          "methodology/result_interpretation.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 1,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [
+          "stair",
+          "kerbsHigh",
+          "slope",
+          "narrowRoads",
+          "poorPavement",
+          "unevenSurface",
+          "obstacle",
+          "wcDisabled",
+          "trafficLight"
+        ],
+        "precisionNumerator": 3,
+        "precisionDenominator": 9,
+        "recallNumerator": 3,
+        "recallDenominator": 3,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 1,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_edge_002",
+      "category": "expanded long-tail and edge cases",
+      "query": "I am elderly and want to consider noise in Penteli.",
+      "expected": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "penteli",
+        "locationText": "Penteli",
+        "sources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/penteli.md"
+        ],
+        "variables": [
+          "stair",
+          "slope"
+        ],
+        "forbiddenVariables": [
+          "noise"
+        ],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": true,
+        "expectedWarnings": [
+          "noise"
+        ]
+      },
+      "actual": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "penteli",
+        "locationText": "Penteli",
+        "actionType": "ASK_USER_TO_SELECT_POINT",
+        "answerMode": "CLARIFICATION_NEEDED",
+        "selectedVariables": [
+          "stair",
+          "slope",
+          "trafficLight",
+          "station"
+        ],
+        "warnings": [
+          "unevenSurface was not applied because it is not available for penteli.",
+          "poorPavement was not applied because it is not available for penteli.",
+          "kerbsHigh was not applied because it is not available for penteli.",
+          "obstacle was not applied because it is not available for penteli.",
+          "wcDisabled was not applied because it is not available for penteli.",
+          "light was not applied because it is not available for penteli.",
+          "noise was not applied because it is not available for penteli.",
+          "Could not geocode \"Penteli\". Please select a start point on the map."
+        ],
+        "retrievedSources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/penteli.md",
+          "methodology/data_limitations.md",
+          "methodology/routing_logic.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "error": "This operation was aborted",
+          "fallback": "mock_pipeline"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/penteli.md",
+          "methodology/data_limitations.md",
+          "methodology/routing_logic.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 1,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [
+          "stair",
+          "slope",
+          "trafficLight",
+          "station"
+        ],
+        "precisionNumerator": 2,
+        "precisionDenominator": 4,
+        "recallNumerator": 2,
+        "recallDenominator": 2,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 1,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_edge_003",
+      "category": "expanded long-tail and edge cases",
+      "query": "I am visually impaired and need good lighting in Penteli.",
+      "expected": {
+        "intent": "area_suitability_question",
+        "profile": "visually_impaired",
+        "city": "penteli",
+        "locationText": "Penteli",
+        "sources": [
+          "profiles/visually_impaired.md",
+          "variables/comfort_variables.md",
+          "cities/penteli.md"
+        ],
+        "variables": [
+          "trafficLight"
+        ],
+        "forbiddenVariables": [
+          "noise"
+        ],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": true,
+        "expectedWarnings": [
+          "light"
+        ]
+      },
+      "actual": {
+        "intent": "area_suitability_question",
+        "profile": "visually_impaired",
+        "city": "penteli",
+        "locationText": "Penteli",
+        "actionType": "ASK_USER_TO_SELECT_POINT",
+        "answerMode": "CLARIFICATION_NEEDED",
+        "selectedVariables": [
+          "trafficLight",
+          "pedestrianFlow"
+        ],
+        "warnings": [
+          "tactile_pavement was not applied because it is not available for penteli.",
+          "light was not applied because it is not available for penteli.",
+          "obstacle was not applied because it is not available for penteli.",
+          "Could not geocode \"Penteli\". Please select a start point on the map."
+        ],
+        "retrievedSources": [
+          "profiles/visually_impaired.md",
+          "variables/comfort_variables.md",
+          "cities/penteli.md",
+          "methodology/data_limitations.md",
+          "methodology/cat_workflow.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "error": "This operation was aborted",
+          "fallback": "mock_pipeline"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/visually_impaired.md",
+          "variables/comfort_variables.md",
+          "cities/penteli.md",
+          "methodology/data_limitations.md",
+          "methodology/cat_workflow.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 1,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [
+          "trafficLight",
+          "pedestrianFlow"
+        ],
+        "precisionNumerator": 1,
+        "precisionDenominator": 2,
+        "recallNumerator": 1,
+        "recallDenominator": 1,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 1,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_edge_004",
+      "category": "expanded long-tail and edge cases",
+      "query": "I use a wheelchair and want to avoid high kerbs in Penteli.",
+      "expected": {
+        "intent": "area_suitability_question",
+        "profile": "wheelchair_user",
+        "city": "penteli",
+        "locationText": "Penteli",
+        "sources": [
+          "profiles/wheelchair_user.md",
+          "variables/comfort_variables.md",
+          "cities/penteli.md"
+        ],
+        "variables": [
+          "stair",
+          "slope"
+        ],
+        "forbiddenVariables": [
+          "noise"
+        ],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": true,
+        "expectedWarnings": [
+          "kerbsHigh"
+        ]
+      },
+      "actual": {
+        "intent": "area_suitability_question",
+        "profile": "wheelchair_user",
+        "city": "penteli",
+        "locationText": "Penteli",
+        "actionType": "ASK_USER_TO_SELECT_POINT",
+        "answerMode": "CLARIFICATION_NEEDED",
+        "selectedVariables": [
+          "stair",
+          "slope",
+          "trafficLight"
+        ],
+        "warnings": [
+          "kerbsHigh was not applied because it is not available for penteli.",
+          "narrowRoads was not applied because it is not available for penteli.",
+          "poorPavement was not applied because it is not available for penteli.",
+          "unevenSurface was not applied because it is not available for penteli.",
+          "obstacle was not applied because it is not available for penteli.",
+          "wcDisabled was not applied because it is not available for penteli.",
+          "Could not geocode \"Penteli\". Please select a start point on the map."
+        ],
+        "retrievedSources": [
+          "profiles/wheelchair_user.md",
+          "variables/comfort_variables.md",
+          "cities/penteli.md",
+          "methodology/data_limitations.md",
+          "methodology/result_interpretation.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "error": "This operation was aborted",
+          "fallback": "mock_pipeline"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/wheelchair_user.md",
+          "variables/comfort_variables.md",
+          "cities/penteli.md",
+          "methodology/data_limitations.md",
+          "methodology/result_interpretation.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 1,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [
+          "stair",
+          "slope",
+          "trafficLight"
+        ],
+        "precisionNumerator": 2,
+        "precisionDenominator": 3,
+        "recallNumerator": 2,
+        "recallDenominator": 2,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 1,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_edge_005",
+      "category": "expanded long-tail and edge cases",
+      "query": "I am elderly near the station. Is it convenient?",
+      "expected": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": "the station",
+        "sources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md"
+        ],
+        "variables": [
+          "stair",
+          "slope"
+        ],
+        "forbiddenVariables": [
+          "noise"
+        ],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": true,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": "the station",
+        "actionType": "ASK_USER_TO_SELECT_POINT",
+        "answerMode": "CLARIFICATION_NEEDED",
+        "selectedVariables": [
+          "stair",
+          "slope",
+          "unevenSurface",
+          "poorPavement",
+          "kerbsHigh",
+          "obstacle",
+          "trafficLight",
+          "station",
+          "wcDisabled",
+          "light"
+        ],
+        "warnings": [
+          "Could not geocode \"the station\". Please select a start point on the map."
+        ],
+        "retrievedSources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "methodology/routing_logic.md",
+          "methodology/cat_workflow.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "error": "This operation was aborted",
+          "fallback": "mock_pipeline"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "methodology/routing_logic.md",
+          "methodology/cat_workflow.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 1,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [
+          "stair",
+          "slope",
+          "unevenSurface",
+          "poorPavement",
+          "kerbsHigh",
+          "obstacle",
+          "trafficLight",
+          "station",
+          "wcDisabled",
+          "light"
+        ],
+        "precisionNumerator": 2,
+        "precisionDenominator": 10,
+        "recallNumerator": 2,
+        "recallDenominator": 2,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 1,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    }
+  ]
+}

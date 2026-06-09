@@ -1,0 +1,272 @@
+[
+  {
+    "id": "new_unsupported_011",
+    "category": "new unsupported and boundary questions",
+    "query": "Which supermarket is reachable fastest for kids?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "specific_poi_query",
+    "expectedProfile": "children_family",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "methodology/cat_workflow.md",
+      "faq/how_to_use_cat.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [
+      "stair",
+      "slope",
+      "trafficLight"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_unsupported_012",
+    "category": "new unsupported and boundary questions",
+    "query": "Where is the nearest quiet park entrance for an elderly person?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "specific_poi_query",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "methodology/cat_workflow.md",
+      "faq/how_to_use_cat.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [
+      "stair",
+      "slope",
+      "trafficLight"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_unsupported_013",
+    "category": "new unsupported and boundary questions",
+    "query": "Can you draw the least-cost route from the selected point?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "route_recommendation",
+    "expectedProfile": "default_adult",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "methodology/routing_logic.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [
+      "stair",
+      "slope",
+      "trafficLight"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_unsupported_014",
+    "category": "new unsupported and boundary questions",
+    "query": "Rank the top three pharmacies by accessibility.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "specific_poi_query",
+    "expectedProfile": "default_adult",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "methodology/cat_workflow.md",
+      "faq/how_to_use_cat.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [
+      "stair",
+      "slope",
+      "trafficLight"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_unsupported_015",
+    "category": "new unsupported and boundary questions",
+    "query": "Take me from here to the station using the best path.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "route_recommendation",
+    "expectedProfile": "default_adult",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "methodology/routing_logic.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [
+      "stair",
+      "slope",
+      "trafficLight"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_unsupported_016",
+    "category": "new unsupported and boundary questions",
+    "query": "Which restaurant is inside the comfortable catchment area?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "specific_poi_query",
+    "expectedProfile": "default_adult",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "methodology/cat_workflow.md",
+      "faq/how_to_use_cat.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [
+      "stair",
+      "slope",
+      "trafficLight"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_unsupported_017",
+    "category": "new unsupported and boundary questions",
+    "query": "For low vision, what is the safest path from this point to the waterfront?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "route_recommendation",
+    "expectedProfile": "visually_impaired",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "methodology/routing_logic.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [
+      "stair",
+      "slope",
+      "trafficLight"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_unsupported_018",
+    "category": "new unsupported and boundary questions",
+    "query": "Which toilet is closest for a wheelchair user?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "specific_poi_query",
+    "expectedProfile": "wheelchair_user",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "methodology/cat_workflow.md",
+      "faq/how_to_use_cat.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [
+      "stair",
+      "slope",
+      "trafficLight"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_unsupported_019",
+    "category": "new unsupported and boundary questions",
+    "query": "Give me navigation instructions to the nearest bakery.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "route_recommendation",
+    "expectedProfile": "default_adult",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "methodology/routing_logic.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [
+      "stair",
+      "slope",
+      "trafficLight"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_unsupported_020",
+    "category": "new unsupported and boundary questions",
+    "query": "Which playground can my three-year-old reach first?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "specific_poi_query",
+    "expectedProfile": "children_family",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "methodology/cat_workflow.md",
+      "faq/how_to_use_cat.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [
+      "stair",
+      "slope",
+      "trafficLight"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  }
+]

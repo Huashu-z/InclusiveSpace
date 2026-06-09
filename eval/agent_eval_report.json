@@ -1,19 +1,20 @@
 {
-  "createdAt": "2026-06-03T09:56:04.516Z",
+  "createdAt": "2026-06-03T15:59:08.799Z",
   "dataset": "eval/agent_eval_cases.json",
   "summary": {
-    "totalCases": 30,
+    "totalCases": 33,
     "intentAccuracy": 1,
     "profileAccuracy": 1,
     "cityAccuracy": 1,
     "locationExtractionAccuracy": 1,
     "retrievalHitRateAt3": 1,
     "retrievalHitRateAt5": 1,
-    "retrievalRecallAt3": 0.9722222222222222,
+    "retrievalRecallAt3": 1,
     "retrievalRecallAt5": 1,
-    "retrievalPrecisionAt3": 0.8555555555555556,
-    "retrievalPrecisionAt5": 0.8066666666666664,
-    "mrr": 0.9666666666666667,
+    "retrievalPrecisionAt3": 0.8282828282828285,
+    "retrievalPrecisionAt5": 0.6787878787878785,
+    "rerankAppliedRate": 1,
+    "mrr": 0.9848484848484849,
     "variablePrecision": 0.6330935251798561,
     "variableRecall": 1,
     "forbiddenVariableRate": 0,
@@ -27,6 +28,10 @@
     "faithfulnessPassRate": 1,
     "unsupportedClaimRate": 0,
     "dataLimitationMentionRate": 1,
+    "answerModeValidRate": 1,
+    "ragSufficiencyValidRate": 1,
+    "finalGroundingPassRate": 1,
+    "alternativeActionPassRate": 1,
     "endToEndTaskSuccessRate": 1
   },
   "failedCases": [],
@@ -36,7 +41,7 @@
       "category": "elderly user accessibility analysis",
       "query": "I am an elderly person. Is Hamburg Hauptbahnhof convenient for walking?",
       "expected": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "elderly",
         "city": "hamburg",
         "locationText": "Hamburg Hauptbahnhof",
@@ -63,7 +68,7 @@
         "expectedWarnings": []
       },
       "actual": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "elderly",
         "city": "hamburg",
         "locationText": "Hamburg Hauptbahnhof",
@@ -87,7 +92,8 @@
           "variables/comfort_variables.md",
           "variables/comfort_variables.md",
           "variables/comfort_variables.md"
-        ]
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
@@ -97,6 +103,8 @@
           "variables/comfort_variables.md",
           "variables/comfort_variables.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
@@ -141,6 +149,12 @@
         "mentionsLimitations": false,
         "missingSections": []
       },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
       "success": true,
       "failures": []
     },
@@ -149,7 +163,7 @@
       "category": "elderly user accessibility analysis",
       "query": "我是老年人，想知道 Hamburg Hauptbahnhof 附近走路方不方便。",
       "expected": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "elderly",
         "city": "hamburg",
         "locationText": "Hamburg Hauptbahnhof",
@@ -174,7 +188,7 @@
         "expectedWarnings": []
       },
       "actual": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "elderly",
         "city": "hamburg",
         "locationText": "Hamburg Hauptbahnhof",
@@ -198,7 +212,8 @@
           "variables/comfort_variables.md",
           "variables/comfort_variables.md",
           "variables/comfort_variables.md"
-        ]
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
@@ -208,6 +223,8 @@
           "variables/comfort_variables.md",
           "variables/comfort_variables.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
@@ -252,6 +269,12 @@
         "mentionsLimitations": false,
         "missingSections": []
       },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
       "success": true,
       "failures": []
     },
@@ -260,7 +283,7 @@
       "category": "elderly user accessibility analysis",
       "query": "我是一位老年人，想知道这个区域是否适合步行/活动？",
       "expected": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "elderly",
         "city": "hamburg",
         "locationText": null,
@@ -285,7 +308,7 @@
         "expectedWarnings": []
       },
       "actual": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "elderly",
         "city": "hamburg",
         "locationText": null,
@@ -309,7 +332,8 @@
           "variables/comfort_variables.md",
           "variables/comfort_variables.md",
           "variables/comfort_variables.md"
-        ]
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
@@ -319,6 +343,8 @@
           "variables/comfort_variables.md",
           "variables/comfort_variables.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
@@ -363,6 +389,12 @@
         "mentionsLimitations": false,
         "missingSections": []
       },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
       "success": true,
       "failures": []
     },
@@ -371,7 +403,7 @@
       "category": "elderly user accessibility analysis",
       "query": "I am elderly and want to check walking comfort in Penteli.",
       "expected": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "elderly",
         "city": "penteli",
         "locationText": "Penteli",
@@ -404,7 +436,7 @@
         ]
       },
       "actual": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "elderly",
         "city": "penteli",
         "locationText": "Penteli",
@@ -430,7 +462,8 @@
           "variables/comfort_variables.md",
           "variables/comfort_variables.md",
           "variables/comfort_variables.md"
-        ]
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
@@ -440,6 +473,8 @@
           "variables/comfort_variables.md",
           "variables/comfort_variables.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
@@ -478,6 +513,12 @@
         "mentionsLimitations": false,
         "missingSections": []
       },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
       "success": true,
       "failures": []
     },
@@ -486,7 +527,7 @@
       "category": "wheelchair user accessibility analysis",
       "query": "I use a wheelchair. Can I move around this area easily?",
       "expected": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "wheelchair_user",
         "city": "hamburg",
         "locationText": null,
@@ -512,7 +553,7 @@
         "expectedWarnings": []
       },
       "actual": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "wheelchair_user",
         "city": "hamburg",
         "locationText": null,
@@ -534,8 +575,9 @@
           "cities/hamburg.md",
           "variables/comfort_variables.md",
           "variables/comfort_variables.md",
-          "variables/comfort_variables.md"
-        ]
+          "methodology/result_interpretation.md"
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
@@ -543,8 +585,10 @@
           "cities/hamburg.md",
           "variables/comfort_variables.md",
           "variables/comfort_variables.md",
-          "variables/comfort_variables.md"
+          "methodology/result_interpretation.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
@@ -555,7 +599,7 @@
           "5": {
             "hit": true,
             "recall": 1,
-            "precision": 1,
+            "precision": 0.8,
             "incomplete": false
           }
         },
@@ -588,6 +632,12 @@
         "mentionsLimitations": false,
         "missingSections": []
       },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
       "success": true,
       "failures": []
     },
@@ -596,7 +646,7 @@
       "category": "wheelchair user accessibility analysis",
       "query": "I use a wheelchair near Hamburg Hauptbahnhof. Can I move around easily?",
       "expected": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "wheelchair_user",
         "city": "hamburg",
         "locationText": "Hamburg Hauptbahnhof",
@@ -621,7 +671,7 @@
         "expectedWarnings": []
       },
       "actual": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "wheelchair_user",
         "city": "hamburg",
         "locationText": "Hamburg Hauptbahnhof",
@@ -644,7 +694,8 @@
           "variables/comfort_variables.md",
           "variables/comfort_variables.md",
           "variables/comfort_variables.md"
-        ]
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
@@ -654,6 +705,8 @@
           "variables/comfort_variables.md",
           "variables/comfort_variables.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
@@ -697,6 +750,12 @@
         "mentionsLimitations": false,
         "missingSections": []
       },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
       "success": true,
       "failures": []
     },
@@ -705,7 +764,7 @@
       "category": "wheelchair user accessibility analysis",
       "query": "我使用轮椅，这个区域通行方便吗？",
       "expected": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "wheelchair_user",
         "city": "hamburg",
         "locationText": null,
@@ -730,7 +789,7 @@
         "expectedWarnings": []
       },
       "actual": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "wheelchair_user",
         "city": "hamburg",
         "locationText": null,
@@ -753,7 +812,8 @@
           "variables/comfort_variables.md",
           "variables/comfort_variables.md",
           "variables/comfort_variables.md"
-        ]
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
@@ -763,6 +823,8 @@
           "variables/comfort_variables.md",
           "variables/comfort_variables.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
@@ -806,6 +868,12 @@
         "mentionsLimitations": false,
         "missingSections": []
       },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
       "success": true,
       "failures": []
     },
@@ -814,7 +882,7 @@
       "category": "visually impaired user accessibility analysis",
       "query": "I am visually impaired. Is this area safe to walk through?",
       "expected": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "visually_impaired",
         "city": "hamburg",
         "locationText": null,
@@ -838,7 +906,7 @@
         "expectedWarnings": []
       },
       "actual": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "visually_impaired",
         "city": "hamburg",
         "locationText": null,
@@ -853,26 +921,29 @@
         "warnings": [],
         "retrievedSources": [
           "profiles/visually_impaired.md",
-          "variables/comfort_variables.md",
-          "variables/comfort_variables.md",
           "cities/hamburg.md",
+          "variables/comfort_variables.md",
+          "variables/comfort_variables.md",
           "variables/comfort_variables.md"
-        ]
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
           "profiles/visually_impaired.md",
-          "variables/comfort_variables.md",
-          "variables/comfort_variables.md",
           "cities/hamburg.md",
+          "variables/comfort_variables.md",
+          "variables/comfort_variables.md",
           "variables/comfort_variables.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
-            "recall": 0.6666666666666666,
+            "recall": 1,
             "precision": 1,
-            "incomplete": true
+            "incomplete": false
           },
           "5": {
             "hit": true,
@@ -906,6 +977,12 @@
         "mentionsLimitations": false,
         "missingSections": []
       },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
       "success": true,
       "failures": []
     },
@@ -914,7 +991,7 @@
       "category": "visually impaired user accessibility analysis",
       "query": "I am blind near Hamburg Hauptbahnhof and need guidance for walking.",
       "expected": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "visually_impaired",
         "city": "hamburg",
         "locationText": "Hamburg Hauptbahnhof",
@@ -937,7 +1014,7 @@
         "expectedWarnings": []
       },
       "actual": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "visually_impaired",
         "city": "hamburg",
         "locationText": "Hamburg Hauptbahnhof",
@@ -954,18 +1031,21 @@
           "profiles/visually_impaired.md",
           "cities/hamburg.md",
           "variables/comfort_variables.md",
-          "variables/comfort_variables.md",
+          "methodology/cat_workflow.md",
           "variables/comfort_variables.md"
-        ]
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
           "profiles/visually_impaired.md",
           "cities/hamburg.md",
           "variables/comfort_variables.md",
-          "variables/comfort_variables.md",
+          "methodology/cat_workflow.md",
           "variables/comfort_variables.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
@@ -976,7 +1056,7 @@
           "5": {
             "hit": true,
             "recall": 1,
-            "precision": 1,
+            "precision": 0.8,
             "incomplete": false
           }
         },
@@ -1005,6 +1085,12 @@
         "mentionsLimitations": false,
         "missingSections": []
       },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
       "success": true,
       "failures": []
     },
@@ -1013,7 +1099,7 @@
       "category": "family with stroller / children accessibility analysis",
       "query": "I am walking with children and a stroller. Is this area convenient?",
       "expected": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "children_family",
         "city": "hamburg",
         "locationText": null,
@@ -1041,7 +1127,7 @@
         "expectedWarnings": []
       },
       "actual": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "children_family",
         "city": "hamburg",
         "locationText": null,
@@ -1063,18 +1149,21 @@
           "profiles/children_family.md",
           "cities/hamburg.md",
           "variables/comfort_variables.md",
-          "variables/comfort_variables.md",
+          "methodology/result_interpretation.md",
           "variables/comfort_variables.md"
-        ]
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
           "profiles/children_family.md",
           "cities/hamburg.md",
           "variables/comfort_variables.md",
-          "variables/comfort_variables.md",
+          "methodology/result_interpretation.md",
           "variables/comfort_variables.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
@@ -1085,7 +1174,7 @@
           "5": {
             "hit": true,
             "recall": 1,
-            "precision": 1,
+            "precision": 0.8,
             "incomplete": false
           }
         },
@@ -1119,6 +1208,12 @@
         "mentionsLimitations": false,
         "missingSections": []
       },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
       "success": true,
       "failures": []
     },
@@ -1127,7 +1222,7 @@
       "category": "family with stroller / children accessibility analysis",
       "query": "我带着孩子和婴儿车，这个区域适合活动吗？",
       "expected": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "children_family",
         "city": "hamburg",
         "locationText": null,
@@ -1153,7 +1248,7 @@
         "expectedWarnings": []
       },
       "actual": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "children_family",
         "city": "hamburg",
         "locationText": null,
@@ -1177,7 +1272,8 @@
           "variables/comfort_variables.md",
           "variables/comfort_variables.md",
           "variables/comfort_variables.md"
-        ]
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
@@ -1187,6 +1283,8 @@
           "variables/comfort_variables.md",
           "variables/comfort_variables.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
@@ -1231,6 +1329,12 @@
         "mentionsLimitations": false,
         "missingSections": []
       },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
       "success": true,
       "failures": []
     },
@@ -1262,12 +1366,15 @@
         "warnings": [],
         "retrievedSources": [
           "variables/comfort_variables.md"
-        ]
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
           "variables/comfort_variables.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 1,
         "byK": {
           "3": {
             "hit": true,
@@ -1300,6 +1407,12 @@
         "unsupportedClaims": [],
         "mentionsLimitations": false,
         "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
       },
       "success": true,
       "failures": []
@@ -1332,12 +1445,15 @@
         "warnings": [],
         "retrievedSources": [
           "variables/comfort_variables.md"
-        ]
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
           "variables/comfort_variables.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 1,
         "byK": {
           "3": {
             "hit": true,
@@ -1370,6 +1486,12 @@
         "unsupportedClaims": [],
         "mentionsLimitations": false,
         "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
       },
       "success": true,
       "failures": []
@@ -1402,12 +1524,15 @@
         "warnings": [],
         "retrievedSources": [
           "variables/comfort_variables.md"
-        ]
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
           "variables/comfort_variables.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 1,
         "byK": {
           "3": {
             "hit": true,
@@ -1440,6 +1565,12 @@
         "unsupportedClaims": [],
         "mentionsLimitations": false,
         "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
       },
       "success": true,
       "failures": []
@@ -1476,7 +1607,8 @@
           "README.md",
           "methodology/result_interpretation.md",
           "methodology/cat_workflow.md"
-        ]
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
@@ -1486,6 +1618,8 @@
           "methodology/result_interpretation.md",
           "methodology/cat_workflow.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
@@ -1518,6 +1652,12 @@
         "unsupportedClaims": [],
         "mentionsLimitations": false,
         "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
       },
       "success": true,
       "failures": []
@@ -1554,7 +1694,8 @@
           "README.md",
           "methodology/result_interpretation.md",
           "methodology/cat_workflow.md"
-        ]
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
@@ -1564,6 +1705,8 @@
           "methodology/result_interpretation.md",
           "methodology/cat_workflow.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
@@ -1596,6 +1739,12 @@
         "unsupportedClaims": [],
         "mentionsLimitations": false,
         "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
       },
       "success": true,
       "failures": []
@@ -1632,7 +1781,8 @@
           "README.md",
           "methodology/result_interpretation.md",
           "methodology/cat_workflow.md"
-        ]
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
@@ -1642,6 +1792,8 @@
           "methodology/result_interpretation.md",
           "methodology/cat_workflow.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
@@ -1675,6 +1827,12 @@
         "mentionsLimitations": false,
         "missingSections": []
       },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
       "success": true,
       "failures": []
     },
@@ -1683,7 +1841,7 @@
       "category": "missing data filtering cases",
       "query": "I am elderly and want to consider noise in Penteli.",
       "expected": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "elderly",
         "city": "penteli",
         "locationText": "Penteli",
@@ -1712,7 +1870,7 @@
         ]
       },
       "actual": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "elderly",
         "city": "penteli",
         "locationText": "Penteli",
@@ -1736,15 +1894,22 @@
         "retrievedSources": [
           "profiles/elderly.md",
           "variables/comfort_variables.md",
-          "cities/penteli.md"
-        ]
+          "cities/penteli.md",
+          "methodology/data_limitations.md",
+          "methodology/routing_logic.md"
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
           "profiles/elderly.md",
           "variables/comfort_variables.md",
-          "cities/penteli.md"
+          "cities/penteli.md",
+          "methodology/data_limitations.md",
+          "methodology/routing_logic.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
@@ -1755,7 +1920,7 @@
           "5": {
             "hit": true,
             "recall": 1,
-            "precision": 1,
+            "precision": 0.6,
             "incomplete": false
           }
         },
@@ -1783,6 +1948,12 @@
         "mentionsLimitations": false,
         "missingSections": []
       },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
       "success": true,
       "failures": []
     },
@@ -1791,7 +1962,7 @@
       "category": "missing data filtering cases",
       "query": "I am visually impaired and need good lighting in Penteli.",
       "expected": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "visually_impaired",
         "city": "penteli",
         "locationText": "Penteli",
@@ -1816,7 +1987,7 @@
         ]
       },
       "actual": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "visually_impaired",
         "city": "penteli",
         "locationText": "Penteli",
@@ -1834,15 +2005,22 @@
         "retrievedSources": [
           "profiles/visually_impaired.md",
           "variables/comfort_variables.md",
-          "cities/penteli.md"
-        ]
+          "cities/penteli.md",
+          "methodology/data_limitations.md",
+          "methodology/cat_workflow.md"
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
           "profiles/visually_impaired.md",
           "variables/comfort_variables.md",
-          "cities/penteli.md"
+          "cities/penteli.md",
+          "methodology/data_limitations.md",
+          "methodology/cat_workflow.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
@@ -1853,7 +2031,7 @@
           "5": {
             "hit": true,
             "recall": 1,
-            "precision": 1,
+            "precision": 0.6,
             "incomplete": false
           }
         },
@@ -1879,6 +2057,12 @@
         "mentionsLimitations": false,
         "missingSections": []
       },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
       "success": true,
       "failures": []
     },
@@ -1887,7 +2071,7 @@
       "category": "missing data filtering cases",
       "query": "I use a wheelchair and want to avoid high kerbs in Penteli.",
       "expected": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "wheelchair_user",
         "city": "penteli",
         "locationText": "Penteli",
@@ -1915,7 +2099,7 @@
         ]
       },
       "actual": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "wheelchair_user",
         "city": "penteli",
         "locationText": "Penteli",
@@ -1937,15 +2121,22 @@
         "retrievedSources": [
           "profiles/wheelchair_user.md",
           "variables/comfort_variables.md",
-          "cities/penteli.md"
-        ]
+          "cities/penteli.md",
+          "methodology/data_limitations.md",
+          "methodology/result_interpretation.md"
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
           "profiles/wheelchair_user.md",
           "variables/comfort_variables.md",
-          "cities/penteli.md"
+          "cities/penteli.md",
+          "methodology/data_limitations.md",
+          "methodology/result_interpretation.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
@@ -1956,7 +2147,7 @@
           "5": {
             "hit": true,
             "recall": 1,
-            "precision": 1,
+            "precision": 0.6,
             "incomplete": false
           }
         },
@@ -1982,6 +2173,12 @@
         "unsupportedClaims": [],
         "mentionsLimitations": false,
         "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
       },
       "success": true,
       "failures": []
@@ -2015,25 +2212,28 @@
         "warnings": [],
         "retrievedSources": [
           "methodology/result_interpretation.md",
+          "methodology/data_limitations.md",
           "variables/comfort_variables.md",
           "variables/comfort_variables.md",
-          "variables/comfort_variables.md",
-          "README.md"
-        ]
+          "variables/comfort_variables.md"
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
           "methodology/result_interpretation.md",
+          "methodology/data_limitations.md",
           "variables/comfort_variables.md",
           "variables/comfort_variables.md",
-          "variables/comfort_variables.md",
-          "README.md"
+          "variables/comfort_variables.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
             "recall": 1,
-            "precision": 1,
+            "precision": 0.6666666666666666,
             "incomplete": false
           },
           "5": {
@@ -2061,6 +2261,12 @@
         "unsupportedClaims": [],
         "mentionsLimitations": true,
         "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
       },
       "success": true,
       "failures": []
@@ -2093,20 +2299,23 @@
         "warnings": [],
         "retrievedSources": [
           "methodology/result_interpretation.md",
+          "methodology/data_limitations.md",
           "methodology/cat_workflow.md",
-          "methodology/routing_logic.md",
           "README.md",
-          "methodology/data_limitations.md"
-        ]
+          "methodology/routing_logic.md"
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
           "methodology/result_interpretation.md",
+          "methodology/data_limitations.md",
           "methodology/cat_workflow.md",
-          "methodology/routing_logic.md",
           "README.md",
-          "methodology/data_limitations.md"
+          "methodology/routing_logic.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
@@ -2140,6 +2349,99 @@
         "mentionsLimitations": true,
         "missingSections": []
       },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "explain_result_with_original_route_context_001",
+      "category": "result explanation cases",
+      "query": "Explain the latest CAT result.",
+      "expected": {
+        "intent": "explain_result",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "methodology/result_interpretation.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "explain_result",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "methodology/result_interpretation.md",
+          "variables/comfort_variables.md",
+          "methodology/data_limitations.md",
+          "variables/comfort_variables.md",
+          "methodology/cat_workflow.md"
+        ],
+        "rerankApplied": true
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "methodology/result_interpretation.md",
+          "variables/comfort_variables.md",
+          "methodology/data_limitations.md",
+          "variables/comfort_variables.md",
+          "methodology/cat_workflow.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.3333333333333333,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.2,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": true,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
       "success": true,
       "failures": []
     },
@@ -2148,7 +2450,7 @@
       "category": "ambiguous location cases",
       "query": "I am elderly near the station. Is it convenient?",
       "expected": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "elderly",
         "city": "hamburg",
         "locationText": "the station",
@@ -2170,7 +2472,7 @@
         "expectedWarnings": []
       },
       "actual": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "elderly",
         "city": "hamburg",
         "locationText": "the station",
@@ -2193,15 +2495,22 @@
         "retrievedSources": [
           "profiles/elderly.md",
           "variables/comfort_variables.md",
-          "cities/hamburg.md"
-        ]
+          "cities/hamburg.md",
+          "methodology/routing_logic.md",
+          "methodology/cat_workflow.md"
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
           "profiles/elderly.md",
           "variables/comfort_variables.md",
-          "cities/hamburg.md"
+          "cities/hamburg.md",
+          "methodology/routing_logic.md",
+          "methodology/cat_workflow.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
@@ -2212,7 +2521,7 @@
           "5": {
             "hit": true,
             "recall": 1,
-            "precision": 1,
+            "precision": 0.6,
             "incomplete": false
           }
         },
@@ -2246,6 +2555,12 @@
         "mentionsLimitations": false,
         "missingSections": []
       },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
       "success": true,
       "failures": []
     },
@@ -2254,7 +2569,7 @@
       "category": "ambiguous location cases",
       "query": "I am elderly. Is this area convenient?",
       "expected": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "elderly",
         "city": "hamburg",
         "locationText": null,
@@ -2276,7 +2591,7 @@
         "expectedWarnings": []
       },
       "actual": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "elderly",
         "city": "hamburg",
         "locationText": null,
@@ -2300,7 +2615,8 @@
           "variables/comfort_variables.md",
           "variables/comfort_variables.md",
           "variables/comfort_variables.md"
-        ]
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
@@ -2310,6 +2626,8 @@
           "variables/comfort_variables.md",
           "variables/comfort_variables.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
@@ -2354,6 +2672,12 @@
         "mentionsLimitations": false,
         "missingSections": []
       },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
       "success": true,
       "failures": []
     },
@@ -2362,7 +2686,7 @@
       "category": "unsupported variable requests",
       "query": "I use a wheelchair and need ramps in Hamburg.",
       "expected": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "wheelchair_user",
         "city": "hamburg",
         "locationText": "Hamburg",
@@ -2385,7 +2709,7 @@
         "expectedWarnings": []
       },
       "actual": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "wheelchair_user",
         "city": "hamburg",
         "locationText": "Hamburg",
@@ -2409,8 +2733,9 @@
           "cities/hamburg.md",
           "variables/comfort_variables.md",
           "variables/comfort_variables.md",
-          "variables/comfort_variables.md"
-        ]
+          "methodology/data_limitations.md"
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
@@ -2418,8 +2743,10 @@
           "cities/hamburg.md",
           "variables/comfort_variables.md",
           "variables/comfort_variables.md",
-          "variables/comfort_variables.md"
+          "methodology/data_limitations.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
@@ -2430,7 +2757,7 @@
           "5": {
             "hit": true,
             "recall": 1,
-            "precision": 1,
+            "precision": 0.8,
             "incomplete": false
           }
         },
@@ -2463,6 +2790,12 @@
         "mentionsLimitations": false,
         "missingSections": []
       },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
       "success": true,
       "failures": []
     },
@@ -2471,7 +2804,7 @@
       "category": "unsupported variable requests",
       "query": "I use a wheelchair and want to avoid noise.",
       "expected": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "wheelchair_user",
         "city": "hamburg",
         "locationText": null,
@@ -2492,7 +2825,7 @@
         "expectedWarnings": []
       },
       "actual": {
-        "intent": "run_accessibility_analysis",
+        "intent": "area_suitability_question",
         "profile": "wheelchair_user",
         "city": "hamburg",
         "locationText": null,
@@ -2513,15 +2846,22 @@
         "retrievedSources": [
           "variables/comfort_variables.md",
           "profiles/wheelchair_user.md",
-          "cities/hamburg.md"
-        ]
+          "cities/hamburg.md",
+          "methodology/result_interpretation.md",
+          "methodology/routing_logic.md"
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
           "variables/comfort_variables.md",
           "profiles/wheelchair_user.md",
-          "cities/hamburg.md"
+          "cities/hamburg.md",
+          "methodology/result_interpretation.md",
+          "methodology/routing_logic.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
@@ -2532,7 +2872,7 @@
           "5": {
             "hit": true,
             "recall": 1,
-            "precision": 1,
+            "precision": 0.6,
             "incomplete": false
           }
         },
@@ -2565,6 +2905,198 @@
         "unsupportedClaims": [],
         "mentionsLimitations": false,
         "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "unsupported_specific_poi_bakery_001",
+      "category": "unsupported specific POI ranking questions",
+      "query": "一个三岁小孩可以从主火到达的最近的面包房是哪个",
+      "expected": {
+        "intent": "specific_poi_query",
+        "profile": "children_family",
+        "city": "hamburg",
+        "locationText": "Hamburg Hauptbahnhof",
+        "sources": [
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [
+          "stair",
+          "slope",
+          "kerbsHigh",
+          "trafficLight"
+        ],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "specific_poi_query",
+        "profile": "children_family",
+        "city": "hamburg",
+        "locationText": "Hamburg Hauptbahnhof",
+        "actionType": "ANSWER_ONLY",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md",
+          "methodology/routing_logic.md",
+          "faq/troubleshooting.md",
+          "methodology/comfort_weight_logic.md"
+        ],
+        "rerankApplied": true
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md",
+          "methodology/routing_logic.md",
+          "faq/troubleshooting.md",
+          "methodology/comfort_weight_logic.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6666666666666666,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.4,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 4,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "unsupported_route_recommendation_001",
+      "category": "unsupported route recommendation questions",
+      "query": "我是一个八十岁的爷爷，我从主火到河边最舒适的路线是什么？",
+      "expected": {
+        "intent": "route_recommendation",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": "Hamburg Hauptbahnhof",
+        "sources": [
+          "methodology/routing_logic.md",
+          "methodology/cat_workflow.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [
+          "stair",
+          "slope",
+          "kerbsHigh",
+          "trafficLight"
+        ],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "route_recommendation",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": "Hamburg Hauptbahnhof",
+        "actionType": "ANSWER_ONLY",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "profiles/elderly.md",
+          "methodology/routing_logic.md",
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md",
+          "methodology/comfort_weight_logic.md"
+        ],
+        "rerankApplied": true
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/elderly.md",
+          "methodology/routing_logic.md",
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md",
+          "methodology/comfort_weight_logic.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6666666666666666,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.4,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 0.5
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 4,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
       },
       "success": true,
       "failures": []
@@ -2602,7 +3134,8 @@
           "methodology/routing_logic.md",
           "methodology/comfort_weight_logic.md",
           "README.md"
-        ]
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
@@ -2612,6 +3145,8 @@
           "methodology/comfort_weight_logic.md",
           "README.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
@@ -2644,6 +3179,12 @@
         "unsupportedClaims": [],
         "mentionsLimitations": false,
         "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
       },
       "success": true,
       "failures": []
@@ -2677,20 +3218,23 @@
         "warnings": [],
         "retrievedSources": [
           "faq/how_to_use_cat.md",
-          "faq/troubleshooting.md",
           "methodology/cat_workflow.md",
+          "faq/troubleshooting.md",
           "methodology/comfort_weight_logic.md",
           "methodology/data_limitations.md"
-        ]
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
           "faq/how_to_use_cat.md",
-          "faq/troubleshooting.md",
           "methodology/cat_workflow.md",
+          "faq/troubleshooting.md",
           "methodology/comfort_weight_logic.md",
           "methodology/data_limitations.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
@@ -2724,6 +3268,12 @@
         "mentionsLimitations": false,
         "missingSections": []
       },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
       "success": true,
       "failures": []
     },
@@ -2755,27 +3305,30 @@
         "selectedVariables": [],
         "warnings": [],
         "retrievedSources": [
-          "methodology/result_interpretation.md",
           "faq/troubleshooting.md",
-          "README.md",
+          "methodology/result_interpretation.md",
+          "methodology/cat_workflow.md",
           "methodology/data_limitations.md",
-          "methodology/cat_workflow.md"
-        ]
+          "README.md"
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
-          "methodology/result_interpretation.md",
           "faq/troubleshooting.md",
-          "README.md",
+          "methodology/result_interpretation.md",
+          "methodology/cat_workflow.md",
           "methodology/data_limitations.md",
-          "methodology/cat_workflow.md"
+          "README.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
-            "recall": 0.5,
-            "precision": 0.3333333333333333,
-            "incomplete": true
+            "recall": 1,
+            "precision": 0.6666666666666666,
+            "incomplete": false
           },
           "5": {
             "hit": true,
@@ -2784,7 +3337,7 @@
             "incomplete": false
           }
         },
-        "reciprocalRank": 0.5
+        "reciprocalRank": 1
       },
       "variableMetrics": {
         "selected": [],
@@ -2798,12 +3351,16 @@
       },
       "structuredErrors": [],
       "faithfulness": {
-        "pass": false,
-        "unsupportedClaims": [
-          "many stairs"
-        ],
+        "pass": true,
+        "unsupportedClaims": [],
         "mentionsLimitations": false,
         "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
       },
       "success": true,
       "failures": []
@@ -2836,21 +3393,24 @@
         "selectedVariables": [],
         "warnings": [],
         "retrievedSources": [
-          "faq/how_to_use_cat.md",
           "faq/troubleshooting.md",
           "methodology/cat_workflow.md",
-          "methodology/comfort_weight_logic.md",
-          "methodology/data_limitations.md"
-        ]
+          "methodology/data_limitations.md",
+          "faq/how_to_use_cat.md",
+          "methodology/comfort_weight_logic.md"
+        ],
+        "rerankApplied": true
       },
       "retrievalMetrics": {
         "sources": [
-          "faq/how_to_use_cat.md",
           "faq/troubleshooting.md",
           "methodology/cat_workflow.md",
-          "methodology/comfort_weight_logic.md",
-          "methodology/data_limitations.md"
+          "methodology/data_limitations.md",
+          "faq/how_to_use_cat.md",
+          "methodology/comfort_weight_logic.md"
         ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
         "byK": {
           "3": {
             "hit": true,
@@ -2865,7 +3425,7 @@
             "incomplete": false
           }
         },
-        "reciprocalRank": 0.5
+        "reciprocalRank": 1
       },
       "variableMetrics": {
         "selected": [],
@@ -2883,6 +3443,12 @@
         "unsupportedClaims": [],
         "mentionsLimitations": false,
         "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
       },
       "success": true,
       "failures": []

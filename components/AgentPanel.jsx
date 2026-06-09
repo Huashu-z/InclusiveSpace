@@ -5,8 +5,11 @@ import { getDemoScenariosList, getDemoScenario } from "../utils/demoScenarios.js
 export default function AgentPanel({
   selectedCity = "hamburg",
   selectedLayers = [],
+  enabledVariables = [],
+  layerValues = {},
   agentProfile,
   startPoint,
+  startPoints = [],
   walkingTime,
   walkingSpeed,
   resultMetadata = [],
@@ -23,7 +26,138 @@ export default function AgentPanel({
   const [showDemoMenu, setShowDemoMenu] = useState(false);
   const [realComputationStatus, setRealComputationStatus] = useState(null);
   const [lastRealComputation, setLastRealComputation] = useState(null);
+  const [lastAgentContext, setLastAgentContext] = useState(null);
+  const [conversationHistory, setConversationHistory] = useState([]);
+  const [analysisHistory, setAnalysisHistory] = useState([]);
+  const [pendingCompareAction, setPendingCompareAction] = useState(null);
+  const lastSubmittedQuestionRef = React.useRef(null);
+  const recordedAnalysisSignaturesRef = React.useRef(new Set());
+  const analysisHistoryRef = React.useRef([]);
+  const lastAgentContextRef = React.useRef(null);
+  const pendingCompareActionRef = React.useRef(null);
+  const sendRequestRef = React.useRef(null);
   const hasResultMetadata = Array.isArray(resultMetadata) && resultMetadata.length > 0;
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const savedConversation = sessionStorage.getItem("catConversationHistory");
+      const savedAnalysis = sessionStorage.getItem("catAnalysisHistory");
+      if (savedConversation) setConversationHistory(JSON.parse(savedConversation));
+      if (savedAnalysis) {
+        const parsed = JSON.parse(savedAnalysis);
+        setAnalysisHistory(parsed);
+        recordedAnalysisSignaturesRef.current = new Set(parsed.map((record) => record.signature).filter(Boolean));
+      }
+    } catch (storageError) {
+      console.error("Failed to load CAT agent memory", storageError);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") return;
+    sessionStorage.setItem("catConversationHistory", JSON.stringify(conversationHistory.slice(-20)));
+  }, [conversationHistory]);
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") return;
+    sessionStorage.setItem("catAnalysisHistory", JSON.stringify(analysisHistory.slice(-20)));
+    analysisHistoryRef.current = analysisHistory;
+  }, [analysisHistory]);
+
+  React.useEffect(() => {
+    lastAgentContextRef.current = lastAgentContext;
+  }, [lastAgentContext]);
+
+  React.useEffect(() => {
+    pendingCompareActionRef.current = pendingCompareAction;
+  }, [pendingCompareAction]);
+
+  const buildAnalysisRecord = React.useCallback((metadataItems) => {
+    if (!Array.isArray(metadataItems) || metadataItems.length === 0) return null;
+    const weighted = [...metadataItems].reverse().find((item) => item && !item.isDefault);
+    const baseline = weighted
+      ? [...metadataItems].reverse().find((item) => item?.isDefault && item.groupIndex === weighted.groupIndex)
+      : [...metadataItems].reverse().find((item) => item?.isDefault);
+    const latest = weighted || baseline;
+    if (!latest) return null;
+    const point = Array.isArray(startPoint) && startPoint.length === 2 ? startPoint : null;
+    if (!point) return null;
+    const signature = [
+      selectedCity,
+      point.map((value) => Number(value).toFixed(6)).join(","),
+      latest.groupIndex ?? "",
+      weighted?.subIndex ?? "baseline",
+      latest.area ?? "",
+      weighted?.weightedRatio ?? "",
+    ].join("|");
+    if (recordedAnalysisSignaturesRef.current.has(signature)) return null;
+    const variables = weighted?.values || layerValues || {};
+    return {
+      id: `analysis_${Date.now()}`,
+      signature,
+      userQuestion: lastSubmittedQuestionRef.current || lastAgentContext?.originalUserQuestion || "",
+      intent: lastAgentContext?.originalIntent || "manual_or_map_analysis",
+      profile: agentProfile?.id || agentProfile?.presetId || weighted?.profile || null,
+      city: selectedCity,
+      startPoint: {
+        lon: Number(point[0]),
+        lat: Number(point[1]),
+        label: latest.locationText || lastAgentContext?.originalLocationText || "Current map start point",
+      },
+      settings: {
+        walkingTime: Number(latest.time ?? walkingTime),
+        walkingSpeed: Number(latest.speed ?? walkingSpeed),
+        enabledVariables: Array.isArray(weighted?.layers) ? weighted.layers : enabledVariables,
+        variables,
+        layerValues: variables,
+      },
+      baseline: baseline
+        ? {
+            area: Number(baseline.area),
+            poiCount: Number(baseline.poiCount),
+          }
+        : null,
+      adjusted: weighted
+        ? {
+            area: Number(weighted.area),
+            comfortRatio: Number(weighted.weightedRatio),
+            poiCount: Number(weighted.poiCount),
+            values: weighted.values || {},
+          }
+        : null,
+      result: {
+        baselineArea: baseline ? Number(baseline.area) : null,
+        adjustedArea: weighted ? Number(weighted.area) : null,
+        comfortRatio: weighted ? Number(weighted.weightedRatio) : null,
+        baselinePoiCount: baseline ? Number(baseline.poiCount) : null,
+        adjustedPoiCount: weighted ? Number(weighted.poiCount) : null,
+      },
+      createdAt: new Date().toISOString(),
+    };
+  }, [agentProfile, enabledVariables, lastAgentContext, layerValues, selectedCity, startPoint, walkingSpeed, walkingTime]);
+
+  React.useEffect(() => {
+    const record = buildAnalysisRecord(resultMetadata);
+    if (!record) return;
+    recordedAnalysisSignaturesRef.current.add(record.signature);
+    const nextHistory = [...analysisHistoryRef.current, record].slice(-20);
+    setAnalysisHistory(nextHistory);
+    const pendingAction = pendingCompareActionRef.current;
+    if (pendingAction?.baseAnalysisId) {
+      const base = nextHistory.find((item) => item.id === pendingAction.baseAnalysisId) || nextHistory[nextHistory.length - 2] || null;
+      if (base && record.id !== base.id) {
+        setPendingCompareAction(null);
+        void sendRequestRef.current?.("Compare the latest CAT result with the previous analysis.", {
+          analysisHistoryOverride: nextHistory,
+          agentContext: {
+            originalUserQuestion: lastAgentContextRef.current?.originalUserQuestion || pendingAction.originalUserQuestion || "follow-up comparison",
+            originalIntent: "compare_with_previous_result",
+          },
+        });
+      }
+    }
+  }, [buildAnalysisRecord, resultMetadata]);
 
   const getActionConclusion = (action) => {
     if (!action || action.type === "ANSWER_ONLY") return "";
@@ -46,8 +180,11 @@ export default function AgentPanel({
     await sendRequest(prompt);
   };
 
-  async function sendRequest(overridePrompt) {
+  async function sendRequest(overridePrompt, options = {}) {
     const p = typeof overridePrompt === "string" ? overridePrompt : prompt;
+    lastSubmittedQuestionRef.current = p;
+    const outgoingConversation = options.conversationHistoryOverride || conversationHistory;
+    const outgoingAnalysisHistory = options.analysisHistoryOverride || analysisHistory;
     setError(null);
     setLoading(true);
     setResult(null);
@@ -64,10 +201,17 @@ export default function AgentPanel({
             walkingTime,
             walkingSpeed,
             selectedLayers,
+            enabledVariables,
+            layerValues,
             startPoint,
+            startPoints: Array.isArray(startPoints) && startPoints.length ? startPoints : startPoint ? [startPoint] : [],
+            selectedStartPoint: startPoint,
             profile: agentProfile
           },
-          resultMetadata: hasResultMetadata ? resultMetadata : null
+          resultMetadata: hasResultMetadata ? resultMetadata : null,
+          agentContext: options.agentContext || null,
+          conversationHistory: outgoingConversation.slice(-20),
+          analysisHistory: outgoingAnalysisHistory.slice(-20)
         })
       });
 
@@ -78,7 +222,8 @@ export default function AgentPanel({
       const data = await response.json();
       const uiData = {
         ...data,
-        mode: data.intent,
+        mode: data.answerMode || data.intent,
+        intentMode: data.intent,
         ragResults: data.retrieval?.results?.map((doc, index) => ({
           id: doc.metadata?.source || `${doc.collection}-${index}`,
           description: doc.title,
@@ -89,6 +234,22 @@ export default function AgentPanel({
         })) || []
       };
       setResult(uiData);
+      setConversationHistory((prev) => [
+        ...prev,
+        { role: "user", content: p },
+        { role: "assistant", content: data.reply || "" },
+      ].slice(-20));
+      if (data.intent !== "explain_result") {
+        setLastAgentContext({
+          originalUserQuestion: p,
+          originalIntent: data.intent,
+          originalAnswerMode: data.answerMode,
+          originalActionType: data.action?.type || null,
+          originalLocationText: data.action?.locationText || data.detected?.locationText || null,
+          capabilityCheck: data.capabilityCheck || null,
+          ragSufficiency: data.ragSufficiency || null,
+        });
+      }
       onResponse?.(uiData);
     } catch (err) {
       console.error(err);
@@ -97,6 +258,7 @@ export default function AgentPanel({
       setLoading(false);
     }
   }
+  sendRequestRef.current = sendRequest;
 
   const handleApply = () => {
     if (!result?.suggestedSettings) return;
@@ -116,6 +278,8 @@ export default function AgentPanel({
   };
 
   const handleApplyAction = ({ run = false } = {}) => {
+    executeAgentAction(result?.action, { run, alternative: false });
+    return;
     if (!result?.action) return;
     const didExecute = onExecuteAgentAction?.(result.action, { run });
     if (didExecute === false) {
@@ -133,6 +297,45 @@ export default function AgentPanel({
       setRealComputationStatus("已应用 AI 建议参数。请在地图上选择起点后再运行分析。");
     } else {
       setRealComputationStatus("已应用 AI action。你可以在运行前检查速度、时间、变量和起点。");
+    }
+  };
+
+  const handleApplyAlternativeAction = ({ run = false } = {}) => {
+    executeAgentAction(result?.alternativeAction, { run, alternative: true });
+  };
+
+  const executeAgentAction = (action, { run = false, alternative = false } = {}) => {
+    if (!action) return;
+    if (run && action.type === "RUN_ANALYSIS_THEN_COMPARE") {
+      setPendingCompareAction({
+        ...action,
+        originalUserQuestion: lastSubmittedQuestionRef.current,
+      });
+    }
+    const didExecute = onExecuteAgentAction?.(action, { run });
+    if (didExecute === false) {
+      setRealComputationStatus(alternative
+        ? "Alternative CAT settings were prepared. Please select a start point on the map before running this related catchment analysis."
+        : "Please check the AI action, or select a start point on the map before running.");
+      return;
+    }
+    if (run && action.coordinates) {
+      setLastRealComputation({
+        type: alternative ? "alternative_agent_action" : "agent_action",
+        label: action.locationText || (alternative ? "Alternative CAT start point" : "Agent selected start point"),
+        center: action.coordinates
+      });
+      setRealComputationStatus(alternative
+        ? "Alternative catchment analysis was triggered. This result is related context, not a direct answer to the original unsupported task."
+        : "AI action applied and real CAT accessibility computation triggered.");
+    } else if (action.type === "ASK_USER_TO_SELECT_POINT") {
+      setRealComputationStatus(alternative
+        ? "Alternative CAT settings were applied. Select a start point on the map to run the related catchment analysis."
+        : "AI recommended settings applied. Select a start point on the map before running analysis.");
+    } else {
+      setRealComputationStatus(alternative
+        ? "Alternative CAT action applied. Check settings before running this related analysis."
+        : "AI action applied. Check speed, time, variables, and start point before running.");
     }
   };
 
@@ -194,9 +397,19 @@ export default function AgentPanel({
     "compare_profiles",
     "how_to_use",
     "troubleshooting",
+    "route_recommendation",
+    "specific_poi_query",
+    "unsupported_specific_poi_query",
+    "parameter_recommendation",
+    "DIRECT_ANSWER",
+    "PARTIAL_ANSWER",
+    "UNSUPPORTED_WITH_ALTERNATIVE",
+    "RESULT_EXPLANATION",
+    "DATA_LIMITATION",
     "general_question"
   ];
   const isKnowledgeAnswer = result && knowledgeAnswerModes.includes(result.mode);
+  const legacyMode = result?.intentMode || result?.mode;
 
   return (
     <section className={sty.agentPanel} aria-label="AI 代理分析">
@@ -290,7 +503,7 @@ export default function AgentPanel({
         <button
           type="button"
           className={sty.setupButton}
-          onClick={() => sendRequest("Explain the latest CAT result.")}
+          onClick={() => sendRequest("Explain the latest CAT result.", { agentContext: lastAgentContext })}
           disabled={loading}
           style={{ width: "100%", marginTop: "8px" }}
         >
@@ -322,6 +535,28 @@ export default function AgentPanel({
               {isKnowledgeAnswer ? "based on local CAT RAG knowledge" : "based on spatial summaries and local RAG context"}
               {result.runtimeMode ? ` (${result.runtimeMode})` : ""}.
             </div>
+            {result.answerMode && (
+              <div style={{ marginTop: "4px" }}>
+                <strong>Answer mode:</strong> {result.answerMode}
+              </div>
+            )}
+            {result.ragSufficiency && (
+              <div style={{ marginTop: "4px" }}>
+                <strong>RAG sufficiency:</strong>{" "}
+                {result.ragSufficiency.retrievalSufficient ? "sufficient" : "not sufficient"}
+                {Array.isArray(result.ragSufficiency.missingEvidence) && result.ragSufficiency.missingEvidence.length > 0
+                  ? `; missing: ${result.ragSufficiency.missingEvidence.join(", ")}`
+                  : ""}
+              </div>
+            )}
+            {result.capabilityCheck?.systemCanFullyAnswer === false && (
+              <div style={{ marginTop: "4px", color: "#8a5a00" }}>
+                <strong>Capability boundary:</strong> CAT cannot fully provide {result.capabilityCheck.requiredCapability}.
+                {result.capabilityCheck.closestSupportedAlternative
+                  ? ` Closest supported alternative: ${result.capabilityCheck.closestSupportedAlternative}.`
+                  : ""}
+              </div>
+            )}
             {result.confidence?.caveat && (
               <div style={{ marginTop: "4px" }}>{result.confidence.caveat}</div>
             )}
@@ -352,7 +587,7 @@ export default function AgentPanel({
               conclusionText = '知识库回答';
             } else if (conclusionFromResult) {
               conclusionText = conclusionFromResult;
-            } else if (result.mode === 'region_recommendation') {
+            } else if (legacyMode === 'region_recommendation') {
               const top = result.recommendedRegions && result.recommendedRegions[0];
               conclusionText = top ? `结论：优先推荐 ${top.name}（得分 ${top.score}/100）。` : '结论：未找到明显推荐区域。';
             } else if (typeof result.score === 'number') {
@@ -394,6 +629,17 @@ export default function AgentPanel({
               <div className={sty.sidebarText} style={{ fontSize: "12px", lineHeight: 1.5 }}>
                 <div><strong>Action:</strong> {result.action.type}</div>
                 {result.action.profile && <div><strong>Profile:</strong> {result.action.profile}</div>}
+                {result.action.profileInference?.reason && (
+                  <div>
+                    <strong>Profile match:</strong>{" "}
+                    {result.action.profileInference.isApproximation ? "Approximate match" : "Direct match"}
+                    {Number.isFinite(Number(result.action.profileInference.confidence))
+                      ? ` (${Math.round(Number(result.action.profileInference.confidence) * 100)}%)`
+                      : ""}
+                    <br />
+                    {result.action.profileInference.reason}
+                  </div>
+                )}
                 {result.action.city && <div><strong>City:</strong> {result.action.city}</div>}
                 {result.action.locationText && <div><strong>Location:</strong> {result.action.locationText}</div>}
                 {Array.isArray(result.action.coordinates) && (
@@ -436,8 +682,47 @@ export default function AgentPanel({
             </div>
           )}
 
+          {result.alternativeAction && (
+            <div style={{ marginTop: "12px", padding: "10px", border: "1px solid #f0c36d", borderRadius: "6px", background: "#fffaf0" }}>
+              <div className={sty.sidebarSubtitle}>Alternative CAT analysis</div>
+              <div className={sty.sidebarText} style={{ fontSize: "12px", lineHeight: 1.5 }}>
+                <div><strong>Purpose:</strong> related catchment/accessibility-area analysis, not a direct answer to the original request.</div>
+                {result.alternativeAction.limitation && <div><strong>Boundary:</strong> {result.alternativeAction.limitation}</div>}
+                {result.alternativeAction.profile && <div><strong>Profile:</strong> {result.alternativeAction.profile}</div>}
+                {result.alternativeAction.locationText && <div><strong>Start point:</strong> {result.alternativeAction.locationText}</div>}
+                {Array.isArray(result.alternativeAction.coordinates) && (
+                  <div><strong>Coordinates:</strong> {formatLonLat(result.alternativeAction.coordinates)}</div>
+                )}
+                {result.alternativeAction.walkingTime && <div><strong>Walking time:</strong> {result.alternativeAction.walkingTime} min</div>}
+                {result.alternativeAction.walkingSpeed && <div><strong>Walking speed:</strong> {result.alternativeAction.walkingSpeed} km/h</div>}
+                {Array.isArray(result.alternativeAction.enabledVariables) && result.alternativeAction.enabledVariables.length > 0 && (
+                  <div><strong>Variables:</strong> {result.alternativeAction.enabledVariables.join(", ")}</div>
+                )}
+              </div>
+              {result.alternativeAction.layerValues && Object.keys(result.alternativeAction.layerValues).length > 0 && (
+                <pre className={sty.agentSettingsPre}>
+                  {JSON.stringify(result.alternativeAction.layerValues, null, 2)}
+                </pre>
+              )}
+              <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginTop: "8px" }}>
+                <button type="button" className={sty.setupButton} onClick={() => handleApplyAlternativeAction({ run: false })}>
+                  Apply alternative settings
+                </button>
+                <button
+                  type="button"
+                  className={sty.setupButton}
+                  onClick={() => handleApplyAlternativeAction({ run: true })}
+                  disabled={!Array.isArray(result.alternativeAction.coordinates)}
+                  style={{ backgroundColor: Array.isArray(result.alternativeAction.coordinates) ? "#b7791f" : "#9ca3af", color: "#fff" }}
+                >
+                  {result.alternativeAction.requiresStartPoint ? "Select start point first" : "Run alternative catchment analysis"}
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* 区域推荐模式 */}
-          {result.mode === "region_recommendation" && (
+          {legacyMode === "region_recommendation" && (
             <div>
               <div className={sty.sidebarText} style={{ whiteSpace: "pre-wrap" }}>
                 {result.reply}
@@ -460,7 +745,7 @@ export default function AgentPanel({
           )}
 
           {/* 点位查询模式 */}
-          {(!result.mode || result.mode === "point_analysis") && (
+          {(!legacyMode || legacyMode === "point_analysis") && (
             <div>
               <div className={sty.sidebarText}>{result.reply}</div>
               {typeof result.score === "number" && (
@@ -501,7 +786,7 @@ export default function AgentPanel({
           )}
 
           {/* 运行真实计算按钮 */}
-          {result.askRealComputation && result.mode === "point_analysis" && startPoint && (
+          {result.askRealComputation && legacyMode === "point_analysis" && startPoint && (
             <div style={{ marginTop: "12px" }}>
               <button 
                 type="button" 
@@ -552,7 +837,7 @@ export default function AgentPanel({
           )}
 
           {/* 区域推荐后的"选择起点"提示 */}
-          {result.mode === "region_recommendation" && (
+          {legacyMode === "region_recommendation" && (
             <div style={{ marginTop: "12px", backgroundColor: "#f0f8ff", padding: "8px", borderRadius: "4px" }}>
               <div className={sty.sidebarSubtitle}>下一步</div>
               <div className={sty.sidebarText} style={{ fontSize: "13px" }}>

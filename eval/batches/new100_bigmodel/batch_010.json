@@ -1,0 +1,263 @@
+[
+  {
+    "id": "new_edge_011",
+    "category": "new complex edge cases",
+    "query": "Does Penteli support wheelchair toilet and noise?",
+    "context": {
+      "currentCity": "penteli",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "ask_data_availability",
+    "expectedProfile": null,
+    "expectedCity": "penteli",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "cities/penteli.md",
+      "methodology/data_limitations.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_edge_012",
+    "category": "new complex edge cases",
+    "query": "If data is missing, should the agent still invent a reason?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "ask_data_availability",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "cities/hamburg.md",
+      "methodology/data_limitations.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_edge_013",
+    "category": "new complex edge cases",
+    "query": "I selected the city but forgot the start point; why no analysis?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "troubleshooting",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "faq/troubleshooting.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_edge_014",
+    "category": "new complex edge cases",
+    "query": "Should I ask for a nearest POI or a reachable area?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "how_to_use",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "faq/how_to_use_cat.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_edge_015",
+    "category": "new complex edge cases",
+    "query": "What does station mean as an environmental factor?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "explain_variable",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "variables/comfort_variables.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_edge_016",
+    "category": "new complex edge cases",
+    "query": "I am pregnant and want a conservative walking estimate.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/elderly.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_edge_017",
+    "category": "new complex edge cases",
+    "query": "A caregiver pushes a stroller and wants to avoid kerbs.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "children_family",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/children_family.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "kerbsHigh",
+      "stair"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_edge_018",
+    "category": "new complex edge cases",
+    "query": "Someone with poor eyesight wants to avoid confusing crossings.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "visually_impaired",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/visually_impaired.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "trafficLight"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_edge_019",
+    "category": "new complex edge cases",
+    "query": "A slow walker near the station asks if it is convenient.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": "the station",
+    "expectedSources": [
+      "profiles/elderly.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_edge_020",
+    "category": "new complex edge cases",
+    "query": "Can you diagnose my medical condition from the map?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "general_question",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [],
+    "expectedVariables": [],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  }
+]

@@ -1,0 +1,1597 @@
+{
+  "createdAt": "2026-06-08T19:14:37.208Z",
+  "label": "expanded_bigmodel_batch_025",
+  "llmMode": "bigmodel",
+  "llmProvider": "bigmodel",
+  "bigModelConfigured": true,
+  "dataset": "eval/batches/expanded_bigmodel/batch_025.json",
+  "summary": {
+    "totalCases": 10,
+    "intentAccuracy": 1,
+    "profileAccuracy": 0.9,
+    "cityAccuracy": 1,
+    "locationExtractionAccuracy": 0.8333333333333334,
+    "retrievalHitRateAt3": 1,
+    "retrievalHitRateAt5": 1,
+    "retrievalRecallAt3": 0.9666666666666666,
+    "retrievalRecallAt5": 0.9666666666666666,
+    "retrievalPrecisionAt3": 0.9666666666666666,
+    "retrievalPrecisionAt5": 0.58,
+    "rerankAppliedRate": 1,
+    "mrr": 0.95,
+    "variablePrecision": 0.2571428571428571,
+    "variableRecall": 0.9,
+    "forbiddenVariableRate": 0.2,
+    "unsupportedVariableBlockingRate": 0.8,
+    "missingDataWarningAccuracy": 1,
+    "jsonValidRate": 1,
+    "schemaPassRate": 1,
+    "actionValidRate": 1,
+    "geocodingSuccessRate": 1,
+    "correctAskForPointRate": 1,
+    "faithfulnessPassRate": 1,
+    "unsupportedClaimRate": 1,
+    "dataLimitationMentionRate": 1,
+    "answerModeValidRate": 1,
+    "ragSufficiencyValidRate": 1,
+    "finalGroundingPassRate": 1,
+    "alternativeActionPassRate": 1,
+    "taskEndToEndTaskSuccessRate": 0.8,
+    "endToEndTaskSuccessRate": 0.8
+  },
+  "failedCases": [
+    {
+      "id": "expanded_edge_049",
+      "category": "expanded long-tail and edge cases",
+      "query": "I am not sure which profile fits me, but I need a slow walking setting.",
+      "expected": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md"
+        ],
+        "variables": [
+          "stair",
+          "slope"
+        ],
+        "forbiddenVariables": [
+          "noise"
+        ],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": true,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "area_suitability_question",
+        "profile": "default_adult",
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ASK_USER_TO_SELECT_POINT",
+        "answerMode": "CLARIFICATION_NEEDED",
+        "selectedVariables": [
+          "light",
+          "trafficLight",
+          "station",
+          "facility",
+          "greeninf",
+          "noise"
+        ],
+        "warnings": [],
+        "retrievedSources": [
+          "profiles/default_adult.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "profiles/wheelchair_user.md",
+          "profiles/children_family.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "error": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}",
+          "fallback": "mock_pipeline"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/default_adult.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "profiles/wheelchair_user.md",
+          "profiles/children_family.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 0.6666666666666666,
+            "precision": 0.6666666666666666,
+            "incomplete": true
+          },
+          "5": {
+            "hit": true,
+            "recall": 0.6666666666666666,
+            "precision": 0.4,
+            "incomplete": true
+          }
+        },
+        "reciprocalRank": 0.5
+      },
+      "variableMetrics": {
+        "selected": [
+          "light",
+          "trafficLight",
+          "station",
+          "facility",
+          "greeninf",
+          "noise"
+        ],
+        "precisionNumerator": 0,
+        "precisionDenominator": 6,
+        "recallNumerator": 0,
+        "recallDenominator": 2,
+        "forbiddenNumerator": 1,
+        "forbiddenDenominator": 1,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": false,
+      "taskFailures": [
+        "profile expected elderly, got default_adult"
+      ],
+      "success": false,
+      "failures": [
+        "profile expected elderly, got default_adult",
+        "retrieval incomplete@5 expected sources profiles/elderly.md, variables/comfort_variables.md, cities/hamburg.md, got profiles/default_adult.md, variables/comfort_variables.md, cities/hamburg.md, profiles/wheelchair_user.md, profiles/children_family.md"
+      ]
+    },
+    {
+      "id": "expanded_edge_050",
+      "category": "expanded long-tail and edge cases",
+      "query": "Can you analyze Hamburg generally without a start point?",
+      "expected": {
+        "intent": "area_suitability_question",
+        "profile": "default_adult",
+        "city": "hamburg",
+        "locationText": "Hamburg",
+        "sources": [
+          "profiles/default_adult.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md"
+        ],
+        "variables": [
+          "light",
+          "trafficLight"
+        ],
+        "forbiddenVariables": [
+          "noise"
+        ],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": true,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "area_suitability_question",
+        "profile": "default_adult",
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ASK_USER_TO_SELECT_POINT",
+        "answerMode": "CLARIFICATION_NEEDED",
+        "selectedVariables": [
+          "light",
+          "trafficLight",
+          "station",
+          "facility",
+          "greeninf",
+          "noise"
+        ],
+        "warnings": [],
+        "retrievedSources": [
+          "profiles/default_adult.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "profiles/wheelchair_user.md",
+          "profiles/children_family.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "error": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}",
+          "fallback": "mock_pipeline"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/default_adult.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "profiles/wheelchair_user.md",
+          "profiles/children_family.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 1,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [
+          "light",
+          "trafficLight",
+          "station",
+          "facility",
+          "greeninf",
+          "noise"
+        ],
+        "precisionNumerator": 2,
+        "precisionDenominator": 6,
+        "recallNumerator": 2,
+        "recallDenominator": 2,
+        "forbiddenNumerator": 1,
+        "forbiddenDenominator": 1,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": false,
+      "taskFailures": [
+        "locationText expected Hamburg, got null"
+      ],
+      "success": false,
+      "failures": [
+        "locationText expected Hamburg, got null"
+      ]
+    }
+  ],
+  "results": [
+    {
+      "id": "expanded_edge_041",
+      "category": "expanded long-tail and edge cases",
+      "query": "I use a wheelchair and need ramps in Hamburg.",
+      "expected": {
+        "intent": "area_suitability_question",
+        "profile": "wheelchair_user",
+        "city": "hamburg",
+        "locationText": "Hamburg",
+        "sources": [
+          "profiles/wheelchair_user.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md"
+        ],
+        "variables": [
+          "stair",
+          "slope",
+          "kerbsHigh"
+        ],
+        "forbiddenVariables": [
+          "noise"
+        ],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": true,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "area_suitability_question",
+        "profile": "wheelchair_user",
+        "city": "hamburg",
+        "locationText": "Hamburg",
+        "actionType": "ASK_USER_TO_SELECT_POINT",
+        "answerMode": "CLARIFICATION_NEEDED",
+        "selectedVariables": [
+          "stair",
+          "kerbsHigh",
+          "slope",
+          "narrowRoads",
+          "poorPavement",
+          "unevenSurface",
+          "obstacle",
+          "wcDisabled",
+          "trafficLight"
+        ],
+        "warnings": [],
+        "retrievedSources": [
+          "profiles/wheelchair_user.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "methodology/data_limitations.md",
+          "methodology/result_interpretation.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "error": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}",
+          "fallback": "mock_pipeline"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/wheelchair_user.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "methodology/data_limitations.md",
+          "methodology/result_interpretation.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 1,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [
+          "stair",
+          "kerbsHigh",
+          "slope",
+          "narrowRoads",
+          "poorPavement",
+          "unevenSurface",
+          "obstacle",
+          "wcDisabled",
+          "trafficLight"
+        ],
+        "precisionNumerator": 3,
+        "precisionDenominator": 9,
+        "recallNumerator": 3,
+        "recallDenominator": 3,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 1,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_edge_042",
+      "category": "expanded long-tail and edge cases",
+      "query": "I am elderly and want to consider noise in Penteli.",
+      "expected": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "penteli",
+        "locationText": "Penteli",
+        "sources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/penteli.md"
+        ],
+        "variables": [
+          "stair",
+          "slope"
+        ],
+        "forbiddenVariables": [
+          "noise"
+        ],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": true,
+        "expectedWarnings": [
+          "noise"
+        ]
+      },
+      "actual": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "penteli",
+        "locationText": "Penteli",
+        "actionType": "ASK_USER_TO_SELECT_POINT",
+        "answerMode": "CLARIFICATION_NEEDED",
+        "selectedVariables": [
+          "stair",
+          "slope",
+          "trafficLight",
+          "station"
+        ],
+        "warnings": [
+          "unevenSurface was not applied because it is not available for penteli.",
+          "poorPavement was not applied because it is not available for penteli.",
+          "kerbsHigh was not applied because it is not available for penteli.",
+          "obstacle was not applied because it is not available for penteli.",
+          "wcDisabled was not applied because it is not available for penteli.",
+          "light was not applied because it is not available for penteli.",
+          "noise was not applied because it is not available for penteli."
+        ],
+        "retrievedSources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/penteli.md",
+          "methodology/data_limitations.md",
+          "methodology/routing_logic.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "error": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}",
+          "fallback": "mock_pipeline"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/penteli.md",
+          "methodology/data_limitations.md",
+          "methodology/routing_logic.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 1,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [
+          "stair",
+          "slope",
+          "trafficLight",
+          "station"
+        ],
+        "precisionNumerator": 2,
+        "precisionDenominator": 4,
+        "recallNumerator": 2,
+        "recallDenominator": 2,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 1,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_edge_043",
+      "category": "expanded long-tail and edge cases",
+      "query": "I am visually impaired and need good lighting in Penteli.",
+      "expected": {
+        "intent": "area_suitability_question",
+        "profile": "visually_impaired",
+        "city": "penteli",
+        "locationText": "Penteli",
+        "sources": [
+          "profiles/visually_impaired.md",
+          "variables/comfort_variables.md",
+          "cities/penteli.md"
+        ],
+        "variables": [
+          "trafficLight"
+        ],
+        "forbiddenVariables": [
+          "noise"
+        ],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": true,
+        "expectedWarnings": [
+          "light"
+        ]
+      },
+      "actual": {
+        "intent": "area_suitability_question",
+        "profile": "visually_impaired",
+        "city": "penteli",
+        "locationText": "Penteli",
+        "actionType": "ASK_USER_TO_SELECT_POINT",
+        "answerMode": "CLARIFICATION_NEEDED",
+        "selectedVariables": [
+          "trafficLight",
+          "pedestrianFlow"
+        ],
+        "warnings": [
+          "tactile_pavement was not applied because it is not available for penteli.",
+          "light was not applied because it is not available for penteli.",
+          "obstacle was not applied because it is not available for penteli."
+        ],
+        "retrievedSources": [
+          "profiles/visually_impaired.md",
+          "variables/comfort_variables.md",
+          "cities/penteli.md",
+          "methodology/data_limitations.md",
+          "methodology/cat_workflow.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "error": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}",
+          "fallback": "mock_pipeline"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/visually_impaired.md",
+          "variables/comfort_variables.md",
+          "cities/penteli.md",
+          "methodology/data_limitations.md",
+          "methodology/cat_workflow.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 1,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [
+          "trafficLight",
+          "pedestrianFlow"
+        ],
+        "precisionNumerator": 1,
+        "precisionDenominator": 2,
+        "recallNumerator": 1,
+        "recallDenominator": 1,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 1,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_edge_044",
+      "category": "expanded long-tail and edge cases",
+      "query": "I use a wheelchair and want to avoid high kerbs in Penteli.",
+      "expected": {
+        "intent": "area_suitability_question",
+        "profile": "wheelchair_user",
+        "city": "penteli",
+        "locationText": "Penteli",
+        "sources": [
+          "profiles/wheelchair_user.md",
+          "variables/comfort_variables.md",
+          "cities/penteli.md"
+        ],
+        "variables": [
+          "stair",
+          "slope"
+        ],
+        "forbiddenVariables": [
+          "noise"
+        ],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": true,
+        "expectedWarnings": [
+          "kerbsHigh"
+        ]
+      },
+      "actual": {
+        "intent": "area_suitability_question",
+        "profile": "wheelchair_user",
+        "city": "penteli",
+        "locationText": "Penteli",
+        "actionType": "ASK_USER_TO_SELECT_POINT",
+        "answerMode": "CLARIFICATION_NEEDED",
+        "selectedVariables": [
+          "stair",
+          "slope",
+          "trafficLight"
+        ],
+        "warnings": [
+          "kerbsHigh was not applied because it is not available for penteli.",
+          "narrowRoads was not applied because it is not available for penteli.",
+          "poorPavement was not applied because it is not available for penteli.",
+          "unevenSurface was not applied because it is not available for penteli.",
+          "obstacle was not applied because it is not available for penteli.",
+          "wcDisabled was not applied because it is not available for penteli."
+        ],
+        "retrievedSources": [
+          "profiles/wheelchair_user.md",
+          "variables/comfort_variables.md",
+          "cities/penteli.md",
+          "methodology/data_limitations.md",
+          "methodology/result_interpretation.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "error": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}",
+          "fallback": "mock_pipeline"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/wheelchair_user.md",
+          "variables/comfort_variables.md",
+          "cities/penteli.md",
+          "methodology/data_limitations.md",
+          "methodology/result_interpretation.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 1,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [
+          "stair",
+          "slope",
+          "trafficLight"
+        ],
+        "precisionNumerator": 2,
+        "precisionDenominator": 3,
+        "recallNumerator": 2,
+        "recallDenominator": 2,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 1,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_edge_045",
+      "category": "expanded long-tail and edge cases",
+      "query": "I am elderly near the station. Is it convenient?",
+      "expected": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": "the station",
+        "sources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md"
+        ],
+        "variables": [
+          "stair",
+          "slope"
+        ],
+        "forbiddenVariables": [
+          "noise"
+        ],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": true,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": "the station",
+        "actionType": "ASK_USER_TO_SELECT_POINT",
+        "answerMode": "CLARIFICATION_NEEDED",
+        "selectedVariables": [
+          "stair",
+          "slope",
+          "unevenSurface",
+          "poorPavement",
+          "kerbsHigh",
+          "obstacle",
+          "trafficLight",
+          "station",
+          "wcDisabled",
+          "light"
+        ],
+        "warnings": [],
+        "retrievedSources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "methodology/routing_logic.md",
+          "methodology/cat_workflow.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "error": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}",
+          "fallback": "mock_pipeline"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "methodology/routing_logic.md",
+          "methodology/cat_workflow.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 1,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [
+          "stair",
+          "slope",
+          "unevenSurface",
+          "poorPavement",
+          "kerbsHigh",
+          "obstacle",
+          "trafficLight",
+          "station",
+          "wcDisabled",
+          "light"
+        ],
+        "precisionNumerator": 2,
+        "precisionDenominator": 10,
+        "recallNumerator": 2,
+        "recallDenominator": 2,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 1,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_edge_046",
+      "category": "expanded long-tail and edge cases",
+      "query": "I am pregnant and get tired easily. Is the selected area okay?",
+      "expected": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md"
+        ],
+        "variables": [
+          "stair",
+          "slope"
+        ],
+        "forbiddenVariables": [
+          "noise"
+        ],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": true,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ASK_USER_TO_SELECT_POINT",
+        "answerMode": "CLARIFICATION_NEEDED",
+        "selectedVariables": [
+          "stair",
+          "slope",
+          "unevenSurface",
+          "poorPavement",
+          "kerbsHigh",
+          "obstacle",
+          "trafficLight",
+          "station",
+          "wcDisabled",
+          "light"
+        ],
+        "warnings": [],
+        "retrievedSources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "methodology/result_interpretation.md",
+          "methodology/routing_logic.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "error": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}",
+          "fallback": "mock_pipeline"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "methodology/result_interpretation.md",
+          "methodology/routing_logic.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 1,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [
+          "stair",
+          "slope",
+          "unevenSurface",
+          "poorPavement",
+          "kerbsHigh",
+          "obstacle",
+          "trafficLight",
+          "station",
+          "wcDisabled",
+          "light"
+        ],
+        "precisionNumerator": 2,
+        "precisionDenominator": 10,
+        "recallNumerator": 2,
+        "recallDenominator": 2,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 1,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_edge_047",
+      "category": "expanded long-tail and edge cases",
+      "query": "I have a temporary leg injury and walk slowly. Is this area okay?",
+      "expected": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md"
+        ],
+        "variables": [
+          "stair",
+          "slope"
+        ],
+        "forbiddenVariables": [
+          "noise"
+        ],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": true,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ASK_USER_TO_SELECT_POINT",
+        "answerMode": "CLARIFICATION_NEEDED",
+        "selectedVariables": [
+          "stair",
+          "slope",
+          "unevenSurface",
+          "poorPavement",
+          "kerbsHigh",
+          "obstacle",
+          "trafficLight",
+          "station",
+          "wcDisabled",
+          "light"
+        ],
+        "warnings": [],
+        "retrievedSources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "methodology/result_interpretation.md",
+          "methodology/cat_workflow.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "error": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}",
+          "fallback": "mock_pipeline"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "methodology/result_interpretation.md",
+          "methodology/cat_workflow.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 1,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [
+          "stair",
+          "slope",
+          "unevenSurface",
+          "poorPavement",
+          "kerbsHigh",
+          "obstacle",
+          "trafficLight",
+          "station",
+          "wcDisabled",
+          "light"
+        ],
+        "precisionNumerator": 2,
+        "precisionDenominator": 10,
+        "recallNumerator": 2,
+        "recallDenominator": 2,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 1,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_edge_048",
+      "category": "expanded long-tail and edge cases",
+      "query": "For a stroller user, can I move around the selected area?",
+      "expected": {
+        "intent": "area_suitability_question",
+        "profile": "children_family",
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "profiles/children_family.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md"
+        ],
+        "variables": [
+          "stair",
+          "kerbsHigh"
+        ],
+        "forbiddenVariables": [
+          "noise"
+        ],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": true,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "area_suitability_question",
+        "profile": "children_family",
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ASK_USER_TO_SELECT_POINT",
+        "answerMode": "CLARIFICATION_NEEDED",
+        "selectedVariables": [
+          "narrowRoads",
+          "kerbsHigh",
+          "stair",
+          "obstacle",
+          "poorPavement",
+          "unevenSurface",
+          "trafficLight",
+          "facility",
+          "greeninf",
+          "light"
+        ],
+        "warnings": [],
+        "retrievedSources": [
+          "profiles/children_family.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "methodology/result_interpretation.md",
+          "methodology/data_limitations.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "error": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}",
+          "fallback": "mock_pipeline"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/children_family.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "methodology/result_interpretation.md",
+          "methodology/data_limitations.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 1,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [
+          "narrowRoads",
+          "kerbsHigh",
+          "stair",
+          "obstacle",
+          "poorPavement",
+          "unevenSurface",
+          "trafficLight",
+          "facility",
+          "greeninf",
+          "light"
+        ],
+        "precisionNumerator": 2,
+        "precisionDenominator": 10,
+        "recallNumerator": 2,
+        "recallDenominator": 2,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 1,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": []
+    },
+    {
+      "id": "expanded_edge_049",
+      "category": "expanded long-tail and edge cases",
+      "query": "I am not sure which profile fits me, but I need a slow walking setting.",
+      "expected": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md"
+        ],
+        "variables": [
+          "stair",
+          "slope"
+        ],
+        "forbiddenVariables": [
+          "noise"
+        ],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": true,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "area_suitability_question",
+        "profile": "default_adult",
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ASK_USER_TO_SELECT_POINT",
+        "answerMode": "CLARIFICATION_NEEDED",
+        "selectedVariables": [
+          "light",
+          "trafficLight",
+          "station",
+          "facility",
+          "greeninf",
+          "noise"
+        ],
+        "warnings": [],
+        "retrievedSources": [
+          "profiles/default_adult.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "profiles/wheelchair_user.md",
+          "profiles/children_family.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "error": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}",
+          "fallback": "mock_pipeline"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/default_adult.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "profiles/wheelchair_user.md",
+          "profiles/children_family.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 0.6666666666666666,
+            "precision": 0.6666666666666666,
+            "incomplete": true
+          },
+          "5": {
+            "hit": true,
+            "recall": 0.6666666666666666,
+            "precision": 0.4,
+            "incomplete": true
+          }
+        },
+        "reciprocalRank": 0.5
+      },
+      "variableMetrics": {
+        "selected": [
+          "light",
+          "trafficLight",
+          "station",
+          "facility",
+          "greeninf",
+          "noise"
+        ],
+        "precisionNumerator": 0,
+        "precisionDenominator": 6,
+        "recallNumerator": 0,
+        "recallDenominator": 2,
+        "forbiddenNumerator": 1,
+        "forbiddenDenominator": 1,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": false,
+      "taskFailures": [
+        "profile expected elderly, got default_adult"
+      ],
+      "success": false,
+      "failures": [
+        "profile expected elderly, got default_adult",
+        "retrieval incomplete@5 expected sources profiles/elderly.md, variables/comfort_variables.md, cities/hamburg.md, got profiles/default_adult.md, variables/comfort_variables.md, cities/hamburg.md, profiles/wheelchair_user.md, profiles/children_family.md"
+      ]
+    },
+    {
+      "id": "expanded_edge_050",
+      "category": "expanded long-tail and edge cases",
+      "query": "Can you analyze Hamburg generally without a start point?",
+      "expected": {
+        "intent": "area_suitability_question",
+        "profile": "default_adult",
+        "city": "hamburg",
+        "locationText": "Hamburg",
+        "sources": [
+          "profiles/default_adult.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md"
+        ],
+        "variables": [
+          "light",
+          "trafficLight"
+        ],
+        "forbiddenVariables": [
+          "noise"
+        ],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": true,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "area_suitability_question",
+        "profile": "default_adult",
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ASK_USER_TO_SELECT_POINT",
+        "answerMode": "CLARIFICATION_NEEDED",
+        "selectedVariables": [
+          "light",
+          "trafficLight",
+          "station",
+          "facility",
+          "greeninf",
+          "noise"
+        ],
+        "warnings": [],
+        "retrievedSources": [
+          "profiles/default_adult.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "profiles/wheelchair_user.md",
+          "profiles/children_family.md"
+        ],
+        "rerankApplied": true,
+        "llm": {
+          "provider": "bigmodel",
+          "error": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}",
+          "fallback": "mock_pipeline"
+        },
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/default_adult.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md",
+          "profiles/wheelchair_user.md",
+          "profiles/children_family.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 1,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [
+          "light",
+          "trafficLight",
+          "station",
+          "facility",
+          "greeninf",
+          "noise"
+        ],
+        "precisionNumerator": 2,
+        "precisionDenominator": 6,
+        "recallNumerator": 2,
+        "recallDenominator": 2,
+        "forbiddenNumerator": 1,
+        "forbiddenDenominator": 1,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": false,
+      "taskFailures": [
+        "locationText expected Hamburg, got null"
+      ],
+      "success": false,
+      "failures": [
+        "locationText expected Hamburg, got null"
+      ]
+    }
+  ]
+}

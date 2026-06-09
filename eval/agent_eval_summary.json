@@ -1,0 +1,103 @@
+{
+  "createdAt": "2026-06-08T20:21:08.701Z",
+  "reports": [
+    {
+      "label": "regression_mock",
+      "dataset": "eval/agent_eval_cases.json",
+      "llmMode": "off",
+      "llmProvider": "off",
+      "bigModelConfigured": true,
+      "summary": {
+        "totalCases": 33,
+        "intentAccuracy": 1,
+        "profileAccuracy": 1,
+        "retrievalRecallAt5": 1,
+        "retrievalPrecisionAt5": 0.6030303030303027,
+        "mrr": 1,
+        "variableRecall": 1,
+        "unsupportedVariableBlockingRate": 1,
+        "schemaPassRate": 1,
+        "finalGroundingPassRate": 1,
+        "taskEndToEndTaskSuccessRate": 1,
+        "endToEndTaskSuccessRate": 1
+      },
+      "failedCount": 0,
+      "failedCategories": {}
+    },
+    {
+      "label": "blind_mock",
+      "dataset": "eval/agent_blind_eval_cases.json",
+      "llmMode": "off",
+      "llmProvider": "off",
+      "bigModelConfigured": true,
+      "summary": {
+        "totalCases": 14,
+        "intentAccuracy": 1,
+        "profileAccuracy": 1,
+        "retrievalRecallAt5": 1,
+        "retrievalPrecisionAt5": 0.4285714285714287,
+        "mrr": 0.7857142857142857,
+        "variableRecall": 1,
+        "unsupportedVariableBlockingRate": 1,
+        "schemaPassRate": 1,
+        "finalGroundingPassRate": 1,
+        "taskEndToEndTaskSuccessRate": 1,
+        "endToEndTaskSuccessRate": 1
+      },
+      "failedCount": 0,
+      "failedCategories": {}
+    },
+    {
+      "label": "expanded_mock",
+      "dataset": "eval/agent_expanded_eval_cases.json",
+      "llmMode": "off",
+      "llmProvider": "off",
+      "bigModelConfigured": true,
+      "summary": {
+        "totalCases": 250,
+        "intentAccuracy": 1,
+        "profileAccuracy": 1,
+        "retrievalRecallAt5": 1,
+        "retrievalPrecisionAt5": 0.44679999999999975,
+        "mrr": 0.864,
+        "variableRecall": 1,
+        "unsupportedVariableBlockingRate": 0.9796747967479674,
+        "schemaPassRate": 1,
+        "finalGroundingPassRate": 1,
+        "taskEndToEndTaskSuccessRate": 1,
+        "endToEndTaskSuccessRate": 1
+      },
+      "failedCount": 0,
+      "failedCategories": {}
+    },
+    {
+      "label": "new100_bigmodel_batched",
+      "dataset": "eval/agent_new_eval100_cases.json",
+      "llmMode": "bigmodel",
+      "llmProvider": "bigmodel",
+      "summary": {
+        "totalCases": 100,
+        "intentAccuracy": 0.77,
+        "profileAccuracy": 0.91,
+        "retrievalRecallAt5": 0.9166666666666665,
+        "retrievalPrecisionAt5": 0.3773333333333333,
+        "mrr": 0.7541666666666668,
+        "variableRecall": 0.9583333333333333,
+        "unsupportedVariableBlockingRate": 0.9033333333333334,
+        "schemaPassRate": 0.98,
+        "finalGroundingPassRate": 0.97,
+        "taskEndToEndTaskSuccessRate": 0.7,
+        "endToEndTaskSuccessRate": 0.67
+      },
+      "failedCount": 33,
+      "failedCategories": {
+        "new simple and medium accessibility actions": 4,
+        "new knowledge and data questions": 12,
+        "new unsupported and boundary questions": 8,
+        "new context and result questions": 2,
+        "new complex edge cases": 7
+      }
+    }
+  ],
+  "markdown": "| Run | Cases | LLM | Intent | Profile | Recall@5 | Precision@5 | MRR | Variable Recall | Unsupported Blocking | Grounding | Task E2E | Strict E2E | Failed |\n|---|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|\n| regression_mock | 33 | off | 100% | 100% | 100% | 60.3% | 1 | 100% | 100% | 100% | 100% | 100% | 0 |\n| blind_mock | 14 | off | 100% | 100% | 100% | 42.9% | 0.79 | 100% | 100% | 100% | 100% | 100% | 0 |\n| expanded_mock | 250 | off | 100% | 100% | 100% | 44.7% | 0.86 | 100% | 98% | 100% | 100% | 100% | 0 |\n| new100_bigmodel_batched | 100 | bigmodel | 77% | 91% | 91.7% | 37.7% | 0.75 | 95.8% | 90.3% | 97% | 70% | 67% | 33 |"
+}

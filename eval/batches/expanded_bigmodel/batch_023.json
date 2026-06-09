@@ -1,0 +1,298 @@
+[
+  {
+    "id": "expanded_edge_021",
+    "category": "expanded long-tail and edge cases",
+    "query": "I use a wheelchair and need ramps in Hamburg.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "wheelchair_user",
+    "expectedCity": "hamburg",
+    "expectedLocationText": "Hamburg",
+    "expectedSources": [
+      "profiles/wheelchair_user.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope",
+      "kerbsHigh"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_edge_022",
+    "category": "expanded long-tail and edge cases",
+    "query": "I am elderly and want to consider noise in Penteli.",
+    "context": {
+      "currentCity": "penteli",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "elderly",
+    "expectedCity": "penteli",
+    "expectedLocationText": "Penteli",
+    "expectedSources": [
+      "profiles/elderly.md",
+      "variables/comfort_variables.md",
+      "cities/penteli.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": [
+      "noise"
+    ]
+  },
+  {
+    "id": "expanded_edge_023",
+    "category": "expanded long-tail and edge cases",
+    "query": "I am visually impaired and need good lighting in Penteli.",
+    "context": {
+      "currentCity": "penteli",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "visually_impaired",
+    "expectedCity": "penteli",
+    "expectedLocationText": "Penteli",
+    "expectedSources": [
+      "profiles/visually_impaired.md",
+      "variables/comfort_variables.md",
+      "cities/penteli.md"
+    ],
+    "expectedVariables": [
+      "trafficLight"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": [
+      "light"
+    ]
+  },
+  {
+    "id": "expanded_edge_024",
+    "category": "expanded long-tail and edge cases",
+    "query": "I use a wheelchair and want to avoid high kerbs in Penteli.",
+    "context": {
+      "currentCity": "penteli",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "wheelchair_user",
+    "expectedCity": "penteli",
+    "expectedLocationText": "Penteli",
+    "expectedSources": [
+      "profiles/wheelchair_user.md",
+      "variables/comfort_variables.md",
+      "cities/penteli.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": [
+      "kerbsHigh"
+    ]
+  },
+  {
+    "id": "expanded_edge_025",
+    "category": "expanded long-tail and edge cases",
+    "query": "I am elderly near the station. Is it convenient?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": "the station",
+    "expectedSources": [
+      "profiles/elderly.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_edge_026",
+    "category": "expanded long-tail and edge cases",
+    "query": "I am pregnant and get tired easily. Is the selected area okay?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/elderly.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_edge_027",
+    "category": "expanded long-tail and edge cases",
+    "query": "I have a temporary leg injury and walk slowly. Is this area okay?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/elderly.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_edge_028",
+    "category": "expanded long-tail and edge cases",
+    "query": "For a stroller user, can I move around the selected area?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "children_family",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/children_family.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "kerbsHigh"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_edge_029",
+    "category": "expanded long-tail and edge cases",
+    "query": "I am not sure which profile fits me, but I need a slow walking setting.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/elderly.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_edge_030",
+    "category": "expanded long-tail and edge cases",
+    "query": "Can you analyze Hamburg generally without a start point?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "default_adult",
+    "expectedCity": "hamburg",
+    "expectedLocationText": "Hamburg",
+    "expectedSources": [
+      "profiles/default_adult.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "light",
+      "trafficLight"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": []
+  }
+]

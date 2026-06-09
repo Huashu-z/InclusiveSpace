@@ -13,6 +13,7 @@
     "test:agent:mock": "node scripts/testMockAgentApi.mjs"
   },
   "dependencies": {
+    "@langchain/core": "^1.1.48",
     "@plasmicapp/cli": "^0.1.335",
     "@plasmicapp/react-web": "^0.2.375",
     "@plasmicpkgs/antd5": "^0.0.276",

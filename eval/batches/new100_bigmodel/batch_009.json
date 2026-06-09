@@ -1,0 +1,296 @@
+[
+  {
+    "id": "new_edge_001",
+    "category": "new complex edge cases",
+    "query": "I am elderly and want to consider noise in Penteli.",
+    "context": {
+      "currentCity": "penteli",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "elderly",
+    "expectedCity": "penteli",
+    "expectedLocationText": "Penteli",
+    "expectedSources": [
+      "profiles/elderly.md",
+      "variables/comfort_variables.md",
+      "cities/penteli.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": [
+      "noise"
+    ]
+  },
+  {
+    "id": "new_edge_002",
+    "category": "new complex edge cases",
+    "query": "A wheelchair user wants kerbs and ramps checked in Penteli.",
+    "context": {
+      "currentCity": "penteli",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "wheelchair_user",
+    "expectedCity": "penteli",
+    "expectedLocationText": "Penteli",
+    "expectedSources": [
+      "profiles/wheelchair_user.md",
+      "variables/comfort_variables.md",
+      "cities/penteli.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": [
+      "kerbsHigh"
+    ]
+  },
+  {
+    "id": "new_edge_003",
+    "category": "new complex edge cases",
+    "query": "A blind pedestrian needs lighting in Penteli.",
+    "context": {
+      "currentCity": "penteli",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "visually_impaired",
+    "expectedCity": "penteli",
+    "expectedLocationText": "Penteli",
+    "expectedSources": [
+      "profiles/visually_impaired.md",
+      "variables/comfort_variables.md",
+      "cities/penteli.md"
+    ],
+    "expectedVariables": [
+      "trafficLight"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": [
+      "light"
+    ]
+  },
+  {
+    "id": "new_edge_004",
+    "category": "new complex edge cases",
+    "query": "I am not disabled but want the default adult settings for Hamburg.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "default_adult",
+    "expectedCity": "hamburg",
+    "expectedLocationText": "Hamburg",
+    "expectedSources": [
+      "profiles/default_adult.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "light",
+      "trafficLight"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_edge_005",
+    "category": "new complex edge cases",
+    "query": "Here is not selected yet, but my child wants to walk. Can you prepare settings?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "children_family",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/children_family.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "kerbsHigh"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_edge_006",
+    "category": "new complex edge cases",
+    "query": "I have a knee injury and need a cautious walking profile.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "wheelchair_user",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/wheelchair_user.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_edge_007",
+    "category": "new complex edge cases",
+    "query": "My parent walks slowly but did not choose a start point.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/elderly.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_edge_008",
+    "category": "new complex edge cases",
+    "query": "Analyze this area for low vision but do not run until I pick a point.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "visually_impaired",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/visually_impaired.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "trafficLight"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_edge_009",
+    "category": "new complex edge cases",
+    "query": "Can you use stroller-friendly assumptions before I pick a location?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "children_family",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/children_family.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "kerbsHigh"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_edge_010",
+    "category": "new complex edge cases",
+    "query": "I need reduced mobility settings in Hamburg, but no exact start point yet.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "wheelchair_user",
+    "expectedCity": "hamburg",
+    "expectedLocationText": "Hamburg",
+    "expectedSources": [
+      "profiles/wheelchair_user.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": []
+  }
+]

@@ -98,8 +98,11 @@ export default function Sidebar({
             selectedCity={selectedCity}
             resultMetadata={resultMetadata}
             selectedLayers={selectedLayers}
+            enabledVariables={enabledVariables}
+            layerValues={layerValues}
             agentProfile={agentProfile}
             startPoint={startPoints?.[startPoints.length - 1]}
+            startPoints={startPoints}
             walkingTime={walkingTime}
             walkingSpeed={walkingSpeed}
             onApplySettings={onApplyAgentSettings}

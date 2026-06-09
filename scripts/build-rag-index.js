@@ -3,7 +3,10 @@ import path from "path";
 import {
   buildKnowledgeChunks,
   embedTexts,
+  embedTextsWithMetadata,
   getAgentDatabaseUrl,
+  LOCAL_CHUNKS_FILE,
+  LOCAL_EMBEDDINGS_FILE,
   summarizeChunks,
   upsertKnowledgeChunks,
 } from "../utils/agentKnowledge.js";
@@ -14,6 +17,27 @@ async function writeLocalChunkReport({ chunks, failed, outputPath }) {
   await fs.writeFile(
     outputPath,
     JSON.stringify({ createdAt: new Date().toISOString(), chunks, failed }, null, 2),
+    "utf8",
+  );
+}
+
+async function writeLocalEmbeddingReport({ chunks, embeddingResult, outputPath }) {
+  await fs.mkdir(path.dirname(outputPath), { recursive: true });
+  await fs.writeFile(
+    outputPath,
+    JSON.stringify({
+      createdAt: new Date().toISOString(),
+      provider: process.env.AGENT_EMBEDDING_PROVIDER || (process.env.BIGMODEL_API_KEY ? "bigmodel" : "openai"),
+      model: embeddingResult.model,
+      dimensions: embeddingResult.dimensions,
+      usage: embeddingResult.usage,
+      items: chunks.map((chunk, index) => ({
+        id: chunk.id,
+        source: chunk.source,
+        collection: chunk.collection,
+        embedding: embeddingResult.embeddings[index],
+      })),
+    }, null, 2),
     "utf8",
   );
 }
@@ -38,9 +62,20 @@ async function main() {
   const summary = summarizeChunks(chunks);
   let storageResult = null;
   const databaseUrl = getAgentDatabaseUrl();
+  const texts = chunks.map((chunk) => `${chunk.title}\n${chunk.content}\nTags: ${(chunk.tags || []).join(", ")}`);
+  let localEmbeddingResult = null;
 
-  if (process.env.OPENAI_API_KEY && databaseUrl) {
-    const embeddings = await embedTexts(chunks.map((chunk) => `${chunk.title}\n${chunk.content}`));
+  if (process.env.BIGMODEL_API_KEY) {
+    localEmbeddingResult = await embedTextsWithMetadata(texts, { provider: "bigmodel" });
+    storageResult = {
+      inserted: 0,
+      skipped: chunks.length,
+      reason: "local_bigmodel_embeddings",
+      model: localEmbeddingResult?.model,
+      dimensions: localEmbeddingResult?.dimensions,
+    };
+  } else if (process.env.OPENAI_API_KEY && databaseUrl) {
+    const embeddings = await embedTexts(texts, { provider: "openai" });
     storageResult = await upsertKnowledgeChunks({ chunks, embeddings, databaseUrl });
   } else if (!databaseUrl) {
     storageResult = {
@@ -57,10 +92,13 @@ async function main() {
   }
 
   if (storageResult?.inserted === 0) {
-    const localReportPath = path.join(process.cwd(), "data", "agent_knowledge_chunks.json");
-    await writeLocalChunkReport({ chunks, failed, outputPath: localReportPath });
+    await writeLocalChunkReport({ chunks, failed, outputPath: LOCAL_CHUNKS_FILE });
+    if (localEmbeddingResult?.embeddings?.length === chunks.length) {
+      await writeLocalEmbeddingReport({ chunks, embeddingResult: localEmbeddingResult, outputPath: LOCAL_EMBEDDINGS_FILE });
+      console.log(`Local dense embeddings written to: ${LOCAL_EMBEDDINGS_FILE}`);
+    }
     await buildRagIndex();
-    console.log(`Local fallback chunks written to: ${localReportPath}`);
+    console.log(`Local fallback chunks written to: ${LOCAL_CHUNKS_FILE}`);
     console.log("Local fallback RAG index refreshed: data/rag_index.json");
   }
 

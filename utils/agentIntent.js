@@ -1,11 +1,23 @@
+import { inferProfile } from "./profileInference.js";
+
 export const AGENT_INTENTS = [
+  "catchment_area_analysis",
+  "area_suitability_question",
+  "route_recommendation",
+  "specific_poi_query",
+  "parameter_recommendation",
   "run_accessibility_analysis",
   "explain_variable",
   "ask_data_availability",
   "explain_result",
+  "compare_with_previous_result",
+  "compare_current_with_previous",
+  "compare_two_locations",
+  "follow_up_question",
   "compare_profiles",
   "how_to_use",
   "troubleshooting",
+  "unsupported_specific_poi_query",
   "general_question",
 ];
 
@@ -31,13 +43,6 @@ export const VARIABLE_ALIASES = {
   temperatureWinter: ["winter", "cold", "icy", "冬季", "寒冷"],
 };
 
-const profileRules = [
-  { profile: "elderly", pattern: /elderly|older|senior|old person|老年|老人|年长|退休/i },
-  { profile: "wheelchair_user", pattern: /wheelchair|wheel chair|轮椅|行动不便|无障碍/i },
-  { profile: "visually_impaired", pattern: /visual|blind|visually impaired|视障|视觉障碍|盲/i },
-  { profile: "children_family", pattern: /stroller|pushchair|children|family|婴儿车|儿童|孩子|家庭/i },
-];
-
 function normalize(text) {
   return String(text || "").trim();
 }
@@ -50,14 +55,13 @@ export function detectCity(message, fallbackCity = "hamburg") {
 }
 
 export function detectProfile(message) {
-  const text = normalize(message);
-  return profileRules.find((rule) => rule.pattern.test(text))?.profile || null;
+  return inferProfile(message).profile;
 }
 
 export function detectVariable(message) {
   const text = normalize(message).toLowerCase();
   for (const [key, aliases] of Object.entries(VARIABLE_ALIASES)) {
-    if (aliases.some((alias) => text.includes(alias.toLowerCase()))) return key;
+    if (text.includes(key.toLowerCase()) || aliases.some((alias) => text.includes(alias.toLowerCase()))) return key;
   }
   return null;
 }
@@ -65,34 +69,126 @@ export function detectVariable(message) {
 export function detectLocationText(message) {
   const text = normalize(message);
   if (/hamburg hauptbahnhof/i.test(text)) return "Hamburg Hauptbahnhof";
+  if (/hamburg\s+generally|analy[sz]e\s+hamburg\s+generally/i.test(text)) return "Hamburg";
+  if (/主火|主火车站|汉堡火车站|汉堡中央车站/i.test(text)) return "Hamburg Hauptbahnhof";
   if (/hauptbahnhof/i.test(text)) return "Hauptbahnhof";
   if (/\bnear\s+the\s+station\b/i.test(text)) return "the station";
+  if (/\bbefore\s+i\s+start\b/i.test(text)) return null;
 
   const nearMatch = text.match(/\b(?:near|around|at|in|to)\s+([A-Z][A-Za-zÄÖÜäöüß\s-]{2,80}?)(?:[.?]|$)/);
   if (nearMatch?.[1]?.trim().toLowerCase() === "cat") return null;
   if (nearMatch?.[1]) return nearMatch[1].trim();
 
   const chineseMatch = text.match(/(?:在|去|到|附近|周边)([^。！？?]{2,30})(?:是否|方便|适合|可达|通行|散步|步行|吗|？|\?|。|$)/);
-  if (chineseMatch?.[1]) return chineseMatch[1].trim();
+  if (chineseMatch?.[1]) {
+    const candidate = chineseMatch[1].trim();
+    if (isGenericOrInvalidLocation(candidate)) return null;
+    return candidate;
+  }
+
+  return null;
+}
+
+function isGenericOrInvalidLocation(value) {
+  const text = normalize(value).toLowerCase();
+  return !text ||
+    /^(here|this area|this place|selected area|current area|current place|hamburg|penteli|the station|station)$/i.test(text) ||
+    /这里|这儿|这个地方|这个区域|当前区域|当前地点|当前选择|活动|设置|分析|变量|代表什么|是什么意思|含义|可达性里/.test(text);
+}
+
+export function detectSpecificPoiQuery(message) {
+  const text = normalize(message).toLowerCase();
+  const asksForSpecificItem = /nearest|closest|which|where is|what is|best|\u6700\u8fd1|\u54ea\u4e2a|\u54ea\u5bb6|\u54ea\u4e00\u4e2a|\u5177\u4f53/u.test(text);
+  const mentionsPoiType = /bakery|bakeries|bread|restaurant|cafe|coffee|supermarket|shop|store|pharmacy|toilet|bench|poi|place|\u9762\u5305\u623f|\u9762\u5305\u5e97|\u9762\u5305|\u9910\u5385|\u996d\u5e97|\u5496\u5561|\u8d85\u5e02|\u5546\u5e97|\u836f\u5e97|\u5395\u6240|\u536b\u751f\u95f4|\u957f\u6905|\u8bbe\u65bd/u.test(text);
+  const asksForRanking = /nearest|closest|\u6700\u8fd1/u.test(text);
+  const asksWhichPoi = /which\s+.+|where\s+is\s+.+|\u54ea\u4e2a|\u54ea\u5bb6|\u54ea\u4e00\u4e2a/u.test(text);
+  const isReachableAreaQuestion = /reachable area|catchment area|which areas|\u53ef\u8fbe\u533a\u57df|\u54ea\u4e9b\u533a\u57df/u.test(text);
+
+  return mentionsPoiType && asksForSpecificItem && (asksForRanking || asksWhichPoi) && !isReachableAreaQuestion;
+}
+
+export function detectRouteRecommendation(message) {
+  const text = normalize(message).toLowerCase();
+  const hasRouteCue = /route|path|way|navigation|directions|how to get to|from .+ to .+|\u8def\u7ebf|\u8def\u5f84|\u600e\u4e48\u8d70|\u600e\u4e48\u53bb|\u5bfc\u822a|\u4ece.+\u5230.+|\u5230.+\u7684.+\u8def/u.test(text);
+  const asksComfortRoute = /comfortable|comfort|best|safe|safest|\u6700\u8212\u670d|\u6700\u8212\u9002|\u6700\u65b9\u4fbf|\u6700\u5b89\u5168|\u6700\u597d/u.test(text);
+  const hasOriginDestinationShape = /from .+ to .+|\u4ece.+\u5230.+/u.test(text);
+  const asksReachableArea = /reachable area|catchment area|which areas|\u54ea\u4e9b\u533a\u57df|\u80fd\u5230\u54ea\u91cc|\u53ef\u8fbe\u8303\u56f4/u.test(text);
+
+  return (hasOriginDestinationShape || hasRouteCue) && (hasRouteCue || asksComfortRoute) && !asksReachableArea;
+}
+
+export function detectDestinationText(message) {
+  const text = normalize(message);
+  const englishMatch = text.match(/\bfrom\s+(.+?)\s+to\s+(.+?)(?:[.?]|$)/i);
+  if (englishMatch?.[2]) return englishMatch[2].trim();
+
+  const chineseMatch = text.match(/\u4ece(.+?)\u5230([^?？。.!！,，]{1,40})/u);
+  if (chineseMatch?.[2]) {
+    return chineseMatch[2]
+      .replace(/(最舒服|最舒适|最方便|最安全|路线|路径|怎么走|怎么去|是什么).*$/u, "")
+      .trim();
+  }
 
   return null;
 }
 
 export function detectAgentIntent(message, { hasResultMetadata = false } = {}) {
   const text = normalize(message).toLowerCase();
+  const earlyVariable = detectVariable(message);
+  if (/what can .*map assistant.*do|map assistant.*help|before i start/.test(text)) {
+    return { intent: "how_to_use", confidence: 0.95, method: "rules" };
+  }
+  if (/what.*mean|meaning|explain.*variable|does .* mean/.test(text) && earlyVariable) {
+    return { intent: "explain_variable", confidence: 0.95, method: "rules" };
+  }
+  if (/trouble|error|failed|not working|no reachable|empty|map.*not.*show|no result|not display|没有结果|地图.*没有显示|没有显示.*可达/.test(text)) {
+    return { intent: "troubleshooting", confidence: 0.95, method: "rules" };
+  }
   const variable = detectVariable(message);
   const profile = detectProfile(message);
   const locationText = detectLocationText(message);
-  const hasRunCue = /convenient|accessible|move around|walking|walk|suitable|can i|is .* area|analysis|analyze|catchment|方便|适合|可达|通行|步行|活动|分析|计算/.test(text);
+  const hasRunCue = /convenient|accessible|move around|walking|walk|suitable|can i|is .* area|analysis|analyze|catchment|reachable|到达|哪些区域|方便|适合|可达|通行|步行|活动|分析|计算/.test(text);
   const explicitHowToUse = /how.*use|use.*cat|what can .*tool.*do|what.*cat.*do|what.*tool.*do|tool.*capabilit|instruction|guide|怎么用|如何使用|网页|界面/.test(text);
+  const variableExplanation = /what.*mean|meaning|explain.*variable|does .* mean|是什么|什么意思|代表什么|含义|解释.*变量/.test(text) && variable;
+  const explicitResultExplanation = /comfort ratio|explain this|explain result|latest cat result|latest .*result|red area result|what does .*result mean|解释结果|结果|面积|ratio/.test(text) || hasResultMetadata;
+  const explicitDataAvailability = /data|available|availability|have .* data|support|missing|unavailable|can .*consider|still consider|有没有|是否有|支持|可用|缺少|数据/.test(text) &&
+    (text.includes("hamburg") || text.includes("penteli") || variable);
+  const followUpComparison = !/\bbefore\s+i\s+start\b/.test(text) && (
+    /刚刚|刚才|之前|上一个|现在这个|这个地方|这个点|这里|比呢|相比|比较|对比|compare|previous|last one|this one|this place|how about here|what about this one/.test(text) &&
+    /比|相比|比较|对比|更好|更适合|怎么样|如何|compare|better|worse|previous|last one|what about|how about/.test(text)
+  );
 
+  if (variableExplanation) {
+    return { intent: "explain_variable", confidence: 0.95, method: "rules" };
+  }
+  if (explicitHowToUse) {
+    return { intent: "how_to_use", confidence: 0.95, method: "rules" };
+  }
+  if (explicitDataAvailability) {
+    return { intent: "ask_data_availability", confidence: 0.92, method: "rules" };
+  }
+  if (explicitResultExplanation) {
+    return { intent: "explain_result", confidence: 0.88, method: "rules" };
+  }
+  if (followUpComparison) {
+    return { intent: "compare_with_previous_result", confidence: 0.94, method: "rules" };
+  }
+  if (detectSpecificPoiQuery(message)) {
+    return { intent: "specific_poi_query", confidence: 0.93, method: "rules" };
+  }
+  if (detectRouteRecommendation(message)) {
+    return { intent: "route_recommendation", confidence: 0.93, method: "rules" };
+  }
   if (/trouble|error|failed|not working|no reachable|empty|问题|报错|失败|没有结果|无法/.test(text)) {
     return { intent: "troubleshooting", confidence: 0.95, method: "rules" };
   }
-  if ((profile || hasRunCue || locationText) && !explicitHowToUse) {
-    return { intent: "run_accessibility_analysis", confidence: 0.82, method: "rules" };
+  if (/reachable area|catchment|within .* minutes|reachable|\u5230\u8fbe|\u54ea\u4e9b\u533a\u57df|\u53ef\u8fbe|\u80fd\u5230\u54ea\u91cc|\u591a\u5927\u8303\u56f4/u.test(text) && !explicitHowToUse) {
+    return { intent: "catchment_area_analysis", confidence: 0.88, method: "rules" };
   }
-  if (explicitHowToUse || /使用/.test(text)) {
+  if ((profile || hasRunCue || locationText) && !explicitHowToUse) {
+    return { intent: "area_suitability_question", confidence: 0.82, method: "rules" };
+  }
+  if (explicitHowToUse) {
     return { intent: "how_to_use", confidence: 0.95, method: "rules" };
   }
   if (/what.*mean|meaning|explain.*variable|does .* mean|是什么|什么意思|含义|解释.*变量/.test(text) && variable) {
@@ -112,13 +208,38 @@ export function detectAgentIntent(message, { hasResultMetadata = false } = {}) {
 
 export function detectAgentRequest(message, { city = "hamburg", hasResultMetadata = false } = {}) {
   const intentResult = detectAgentIntent(message, { hasResultMetadata });
+  const profileInference = inferProfile(message);
+  const locationIntents = [
+    "catchment_area_analysis",
+    "area_suitability_question",
+    "route_recommendation",
+    "specific_poi_query",
+    "unsupported_specific_poi_query",
+    "compare_with_previous_result",
+    "compare_current_with_previous",
+    "compare_two_locations",
+    "run_accessibility_analysis",
+  ];
   return {
     intent: intentResult.intent,
     confidence: intentResult.confidence,
     method: intentResult.method,
     city: detectCity(message, city),
-    profile: detectProfile(message),
+    profile: profileInference.profile,
+    profileInference,
     variable_key: detectVariable(message),
-    locationText: intentResult.intent === "run_accessibility_analysis" ? detectLocationText(message) : null,
+    isFollowUp: [
+      "compare_with_previous_result",
+      "compare_current_with_previous",
+      "compare_two_locations",
+      "follow_up_question",
+    ].includes(intentResult.intent),
+    referenceTarget: intentResult.intent === "compare_with_previous_result" ? "latest_analysis_result" : null,
+    currentTarget: intentResult.intent === "compare_with_previous_result" ? "current_selected_start_point" : null,
+    requiresComparison: intentResult.intent === "compare_with_previous_result",
+    locationText: locationIntents.includes(intentResult.intent)
+      ? detectLocationText(message)
+      : null,
+    destinationText: intentResult.intent === "route_recommendation" ? detectDestinationText(message) : null,
   };
 }

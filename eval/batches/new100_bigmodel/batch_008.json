@@ -1,0 +1,722 @@
+[
+  {
+    "id": "new_context_011",
+    "category": "new context and result questions",
+    "query": "What does the red area mean in the latest result?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentStartPoint": [
+        10.012,
+        53.552
+      ],
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 4,
+      "latestResultMetadata": {
+        "id": "new_eval_latest",
+        "profile": "elderly",
+        "city": "hamburg",
+        "isDefault": false,
+        "defaultAreaHa": 140,
+        "comfortAdjustedAreaHa": 84,
+        "comfortRatio": 0.6,
+        "poiCount": 21,
+        "enabledVariables": [
+          "stair",
+          "slope",
+          "kerbsHigh"
+        ],
+        "missingDataWarnings": [],
+        "startPoint": [
+          10.012,
+          53.552
+        ]
+      },
+      "analysisHistory": [
+        {
+          "id": "new_eval_previous",
+          "profile": "elderly",
+          "city": "hamburg",
+          "startPoint": [
+            10.002,
+            53.548
+          ],
+          "walkingTime": 15,
+          "walkingSpeed": 4,
+          "enabledVariables": [
+            "stair",
+            "slope",
+            "kerbsHigh"
+          ],
+          "resultMetadata": {
+            "comfortRatio": 0.48,
+            "comfortAdjustedAreaHa": 66,
+            "poiCount": 15,
+            "startPoint": [
+              10.002,
+              53.548
+            ]
+          }
+        }
+      ]
+    },
+    "expectedIntent": "explain_result",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "methodology/result_interpretation.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_context_012",
+    "category": "new context and result questions",
+    "query": "This point looks different; how does it compare?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentStartPoint": [
+        10.028,
+        53.561
+      ],
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 4,
+      "latestResultMetadata": {
+        "id": "new_eval_latest",
+        "profile": "elderly",
+        "city": "hamburg",
+        "isDefault": false,
+        "defaultAreaHa": 140,
+        "comfortAdjustedAreaHa": 84,
+        "comfortRatio": 0.6,
+        "poiCount": 21,
+        "enabledVariables": [
+          "stair",
+          "slope",
+          "kerbsHigh"
+        ],
+        "missingDataWarnings": [],
+        "startPoint": [
+          10.012,
+          53.552
+        ]
+      },
+      "analysisHistory": [
+        {
+          "id": "new_eval_previous",
+          "profile": "elderly",
+          "city": "hamburg",
+          "startPoint": [
+            10.002,
+            53.548
+          ],
+          "walkingTime": 15,
+          "walkingSpeed": 4,
+          "enabledVariables": [
+            "stair",
+            "slope",
+            "kerbsHigh"
+          ],
+          "resultMetadata": {
+            "comfortRatio": 0.48,
+            "comfortAdjustedAreaHa": 66,
+            "poiCount": 15,
+            "startPoint": [
+              10.002,
+              53.548
+            ]
+          }
+        }
+      ]
+    },
+    "expectedIntent": "compare_with_previous_result",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_context_013",
+    "category": "new context and result questions",
+    "query": "Tell me the conclusion first, then the caveats.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentStartPoint": [
+        10.012,
+        53.552
+      ],
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 4,
+      "latestResultMetadata": {
+        "id": "new_eval_latest",
+        "profile": "elderly",
+        "city": "hamburg",
+        "isDefault": false,
+        "defaultAreaHa": 140,
+        "comfortAdjustedAreaHa": 84,
+        "comfortRatio": 0.6,
+        "poiCount": 21,
+        "enabledVariables": [
+          "stair",
+          "slope",
+          "kerbsHigh"
+        ],
+        "missingDataWarnings": [],
+        "startPoint": [
+          10.012,
+          53.552
+        ]
+      },
+      "analysisHistory": [
+        {
+          "id": "new_eval_previous",
+          "profile": "elderly",
+          "city": "hamburg",
+          "startPoint": [
+            10.002,
+            53.548
+          ],
+          "walkingTime": 15,
+          "walkingSpeed": 4,
+          "enabledVariables": [
+            "stair",
+            "slope",
+            "kerbsHigh"
+          ],
+          "resultMetadata": {
+            "comfortRatio": 0.48,
+            "comfortAdjustedAreaHa": 66,
+            "poiCount": 15,
+            "startPoint": [
+              10.002,
+              53.548
+            ]
+          }
+        }
+      ]
+    },
+    "expectedIntent": "explain_result",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "methodology/result_interpretation.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_context_014",
+    "category": "new context and result questions",
+    "query": "Can you fairly compare this new point before running it?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentStartPoint": [
+        10.031,
+        53.562
+      ],
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 4,
+      "latestResultMetadata": {
+        "id": "new_eval_latest",
+        "profile": "elderly",
+        "city": "hamburg",
+        "isDefault": false,
+        "defaultAreaHa": 140,
+        "comfortAdjustedAreaHa": 84,
+        "comfortRatio": 0.6,
+        "poiCount": 21,
+        "enabledVariables": [
+          "stair",
+          "slope",
+          "kerbsHigh"
+        ],
+        "missingDataWarnings": [],
+        "startPoint": [
+          10.012,
+          53.552
+        ]
+      },
+      "analysisHistory": [
+        {
+          "id": "new_eval_previous",
+          "profile": "elderly",
+          "city": "hamburg",
+          "startPoint": [
+            10.002,
+            53.548
+          ],
+          "walkingTime": 15,
+          "walkingSpeed": 4,
+          "enabledVariables": [
+            "stair",
+            "slope",
+            "kerbsHigh"
+          ],
+          "resultMetadata": {
+            "comfortRatio": 0.48,
+            "comfortAdjustedAreaHa": 66,
+            "poiCount": 15,
+            "startPoint": [
+              10.002,
+              53.548
+            ]
+          }
+        }
+      ]
+    },
+    "expectedIntent": "compare_with_previous_result",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_context_015",
+    "category": "new context and result questions",
+    "query": "Does the latest result prove the streets are safe?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentStartPoint": [
+        10.012,
+        53.552
+      ],
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 4,
+      "latestResultMetadata": {
+        "id": "new_eval_latest",
+        "profile": "elderly",
+        "city": "hamburg",
+        "isDefault": false,
+        "defaultAreaHa": 140,
+        "comfortAdjustedAreaHa": 84,
+        "comfortRatio": 0.6,
+        "poiCount": 21,
+        "enabledVariables": [
+          "stair",
+          "slope",
+          "kerbsHigh"
+        ],
+        "missingDataWarnings": [],
+        "startPoint": [
+          10.012,
+          53.552
+        ]
+      },
+      "analysisHistory": [
+        {
+          "id": "new_eval_previous",
+          "profile": "elderly",
+          "city": "hamburg",
+          "startPoint": [
+            10.002,
+            53.548
+          ],
+          "walkingTime": 15,
+          "walkingSpeed": 4,
+          "enabledVariables": [
+            "stair",
+            "slope",
+            "kerbsHigh"
+          ],
+          "resultMetadata": {
+            "comfortRatio": 0.48,
+            "comfortAdjustedAreaHa": 66,
+            "poiCount": 15,
+            "startPoint": [
+              10.002,
+              53.548
+            ]
+          }
+        }
+      ]
+    },
+    "expectedIntent": "explain_result",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "methodology/result_interpretation.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_context_016",
+    "category": "new context and result questions",
+    "query": "What about the current selected point versus last time?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentStartPoint": [
+        10.033,
+        53.563
+      ],
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 4,
+      "latestResultMetadata": {
+        "id": "new_eval_latest",
+        "profile": "elderly",
+        "city": "hamburg",
+        "isDefault": false,
+        "defaultAreaHa": 140,
+        "comfortAdjustedAreaHa": 84,
+        "comfortRatio": 0.6,
+        "poiCount": 21,
+        "enabledVariables": [
+          "stair",
+          "slope",
+          "kerbsHigh"
+        ],
+        "missingDataWarnings": [],
+        "startPoint": [
+          10.012,
+          53.552
+        ]
+      },
+      "analysisHistory": [
+        {
+          "id": "new_eval_previous",
+          "profile": "elderly",
+          "city": "hamburg",
+          "startPoint": [
+            10.002,
+            53.548
+          ],
+          "walkingTime": 15,
+          "walkingSpeed": 4,
+          "enabledVariables": [
+            "stair",
+            "slope",
+            "kerbsHigh"
+          ],
+          "resultMetadata": {
+            "comfortRatio": 0.48,
+            "comfortAdjustedAreaHa": 66,
+            "poiCount": 15,
+            "startPoint": [
+              10.002,
+              53.548
+            ]
+          }
+        }
+      ]
+    },
+    "expectedIntent": "compare_with_previous_result",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_context_017",
+    "category": "new context and result questions",
+    "query": "Summarize area, ratio, POIs and limitations.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentStartPoint": [
+        10.012,
+        53.552
+      ],
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 4,
+      "latestResultMetadata": {
+        "id": "new_eval_latest",
+        "profile": "elderly",
+        "city": "hamburg",
+        "isDefault": false,
+        "defaultAreaHa": 140,
+        "comfortAdjustedAreaHa": 84,
+        "comfortRatio": 0.6,
+        "poiCount": 21,
+        "enabledVariables": [
+          "stair",
+          "slope",
+          "kerbsHigh"
+        ],
+        "missingDataWarnings": [],
+        "startPoint": [
+          10.012,
+          53.552
+        ]
+      },
+      "analysisHistory": [
+        {
+          "id": "new_eval_previous",
+          "profile": "elderly",
+          "city": "hamburg",
+          "startPoint": [
+            10.002,
+            53.548
+          ],
+          "walkingTime": 15,
+          "walkingSpeed": 4,
+          "enabledVariables": [
+            "stair",
+            "slope",
+            "kerbsHigh"
+          ],
+          "resultMetadata": {
+            "comfortRatio": 0.48,
+            "comfortAdjustedAreaHa": 66,
+            "poiCount": 15,
+            "startPoint": [
+              10.002,
+              53.548
+            ]
+          }
+        }
+      ]
+    },
+    "expectedIntent": "explain_result",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "methodology/result_interpretation.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_context_018",
+    "category": "new context and result questions",
+    "query": "Do we need to run again before comparing this point?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentStartPoint": [
+        10.035,
+        53.564
+      ],
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 4,
+      "latestResultMetadata": {
+        "id": "new_eval_latest",
+        "profile": "elderly",
+        "city": "hamburg",
+        "isDefault": false,
+        "defaultAreaHa": 140,
+        "comfortAdjustedAreaHa": 84,
+        "comfortRatio": 0.6,
+        "poiCount": 21,
+        "enabledVariables": [
+          "stair",
+          "slope",
+          "kerbsHigh"
+        ],
+        "missingDataWarnings": [],
+        "startPoint": [
+          10.012,
+          53.552
+        ]
+      },
+      "analysisHistory": [
+        {
+          "id": "new_eval_previous",
+          "profile": "elderly",
+          "city": "hamburg",
+          "startPoint": [
+            10.002,
+            53.548
+          ],
+          "walkingTime": 15,
+          "walkingSpeed": 4,
+          "enabledVariables": [
+            "stair",
+            "slope",
+            "kerbsHigh"
+          ],
+          "resultMetadata": {
+            "comfortRatio": 0.48,
+            "comfortAdjustedAreaHa": 66,
+            "poiCount": 15,
+            "startPoint": [
+              10.002,
+              53.548
+            ]
+          }
+        }
+      ]
+    },
+    "expectedIntent": "compare_with_previous_result",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_context_019",
+    "category": "new context and result questions",
+    "query": "What is the main accessibility takeaway?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentStartPoint": [
+        10.012,
+        53.552
+      ],
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 4,
+      "latestResultMetadata": {
+        "id": "new_eval_latest",
+        "profile": "elderly",
+        "city": "hamburg",
+        "isDefault": false,
+        "defaultAreaHa": 140,
+        "comfortAdjustedAreaHa": 84,
+        "comfortRatio": 0.6,
+        "poiCount": 21,
+        "enabledVariables": [
+          "stair",
+          "slope",
+          "kerbsHigh"
+        ],
+        "missingDataWarnings": [],
+        "startPoint": [
+          10.012,
+          53.552
+        ]
+      },
+      "analysisHistory": [
+        {
+          "id": "new_eval_previous",
+          "profile": "elderly",
+          "city": "hamburg",
+          "startPoint": [
+            10.002,
+            53.548
+          ],
+          "walkingTime": 15,
+          "walkingSpeed": 4,
+          "enabledVariables": [
+            "stair",
+            "slope",
+            "kerbsHigh"
+          ],
+          "resultMetadata": {
+            "comfortRatio": 0.48,
+            "comfortAdjustedAreaHa": 66,
+            "poiCount": 15,
+            "startPoint": [
+              10.002,
+              53.548
+            ]
+          }
+        }
+      ]
+    },
+    "expectedIntent": "explain_result",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "methodology/result_interpretation.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_context_020",
+    "category": "new context and result questions",
+    "query": "Compare current and previous comfort ratio if possible.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentStartPoint": [
+        10.012,
+        53.552
+      ],
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 4,
+      "latestResultMetadata": {
+        "id": "new_eval_latest",
+        "profile": "elderly",
+        "city": "hamburg",
+        "isDefault": false,
+        "defaultAreaHa": 140,
+        "comfortAdjustedAreaHa": 84,
+        "comfortRatio": 0.6,
+        "poiCount": 21,
+        "enabledVariables": [
+          "stair",
+          "slope",
+          "kerbsHigh"
+        ],
+        "missingDataWarnings": [],
+        "startPoint": [
+          10.012,
+          53.552
+        ]
+      },
+      "analysisHistory": [
+        {
+          "id": "new_eval_previous",
+          "profile": "elderly",
+          "city": "hamburg",
+          "startPoint": [
+            10.002,
+            53.548
+          ],
+          "walkingTime": 15,
+          "walkingSpeed": 4,
+          "enabledVariables": [
+            "stair",
+            "slope",
+            "kerbsHigh"
+          ],
+          "resultMetadata": {
+            "comfortRatio": 0.48,
+            "comfortAdjustedAreaHa": 66,
+            "poiCount": 15,
+            "startPoint": [
+              10.002,
+              53.548
+            ]
+          }
+        }
+      ]
+    },
+    "expectedIntent": "compare_with_previous_result",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  }
+]

@@ -1,0 +1,207 @@
+[
+  {
+    "id": "new_knowledge_001",
+    "category": "new knowledge and data questions",
+    "query": "What is the correct workflow before I run CAT?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "how_to_use",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "faq/how_to_use_cat.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_knowledge_002",
+    "category": "new knowledge and data questions",
+    "query": "How should I choose city, profile, speed and start point?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "how_to_use",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "faq/how_to_use_cat.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_knowledge_003",
+    "category": "new knowledge and data questions",
+    "query": "Can this assistant automatically update the map settings?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "how_to_use",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "faq/how_to_use_cat.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_knowledge_004",
+    "category": "new knowledge and data questions",
+    "query": "What can I ask this accessibility assistant to do?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "how_to_use",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "faq/how_to_use_cat.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_knowledge_005",
+    "category": "new knowledge and data questions",
+    "query": "What does kerbsHigh represent?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "explain_variable",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "variables/comfort_variables.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_knowledge_006",
+    "category": "new knowledge and data questions",
+    "query": "Explain why stair matters in CAT.",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "explain_variable",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "variables/comfort_variables.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_knowledge_007",
+    "category": "new knowledge and data questions",
+    "query": "What is greeninf in the comfort variables?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "explain_variable",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "variables/comfort_variables.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_knowledge_008",
+    "category": "new knowledge and data questions",
+    "query": "What does wcDisabled mean in this dataset?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "explain_variable",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "variables/comfort_variables.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_knowledge_009",
+    "category": "new knowledge and data questions",
+    "query": "How should I understand obstacle as a variable?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "explain_variable",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "variables/comfort_variables.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_knowledge_010",
+    "category": "new knowledge and data questions",
+    "query": "Does Penteli have poor pavement and lighting data?",
+    "context": {
+      "currentCity": "penteli"
+    },
+    "expectedIntent": "ask_data_availability",
+    "expectedProfile": null,
+    "expectedCity": "penteli",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "cities/penteli.md",
+      "methodology/data_limitations.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  }
+]

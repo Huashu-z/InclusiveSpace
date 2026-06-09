@@ -1,0 +1,323 @@
+[
+  {
+    "id": "expanded_accessibility_041",
+    "category": "expanded high-frequency accessibility action",
+    "query": "My grandma walks slowly. Around Hamburg Hauptbahnhof, is this a reasonable area for a short walk?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": "Hamburg Hauptbahnhof",
+    "expectedSources": [
+      "profiles/elderly.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope",
+      "kerbsHigh"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": true,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_accessibility_042",
+    "category": "expanded high-frequency accessibility action",
+    "query": "As an older adult, can I walk comfortably from Hauptbahnhof?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": "Hauptbahnhof",
+    "expectedSources": [
+      "profiles/elderly.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope",
+      "kerbsHigh"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": true,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_accessibility_043",
+    "category": "expanded high-frequency accessibility action",
+    "query": "I am a slow walker. Please check the place I selected for a short activity.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5,
+      "currentStartPoint": [
+        10.0142,
+        53.55
+      ]
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/elderly.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope",
+      "kerbsHigh"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": true,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_accessibility_044",
+    "category": "expanded high-frequency accessibility action",
+    "query": "My grandfather needs a calm walking area near Hamburg Hauptbahnhof.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": "Hamburg Hauptbahnhof",
+    "expectedSources": [
+      "profiles/elderly.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope",
+      "kerbsHigh"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": true,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_accessibility_045",
+    "category": "expanded high-frequency accessibility action",
+    "query": "I get tired easily and want to know whether this area is suitable for walking.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5,
+      "currentStartPoint": [
+        10.0144,
+        53.55
+      ]
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/elderly.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope",
+      "kerbsHigh"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": true,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_accessibility_046",
+    "category": "expanded high-frequency accessibility action",
+    "query": "For a wheelchair user, can we check the place I just selected?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "wheelchair_user",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/wheelchair_user.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope",
+      "kerbsHigh",
+      "narrowRoads"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_accessibility_047",
+    "category": "expanded high-frequency accessibility action",
+    "query": "I use a wheelchair and want to avoid stairs around Hauptbahnhof.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "wheelchair_user",
+    "expectedCity": "hamburg",
+    "expectedLocationText": "Hauptbahnhof",
+    "expectedSources": [
+      "profiles/wheelchair_user.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope",
+      "kerbsHigh",
+      "narrowRoads"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": true,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_accessibility_048",
+    "category": "expanded high-frequency accessibility action",
+    "query": "Can you assess this area for wheelchair access?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5,
+      "currentStartPoint": [
+        10.0147,
+        53.55
+      ]
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "wheelchair_user",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/wheelchair_user.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope",
+      "kerbsHigh",
+      "narrowRoads"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": true,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_accessibility_049",
+    "category": "expanded high-frequency accessibility action",
+    "query": "My friend uses a wheelchair. Is Hamburg Hauptbahnhof okay as a start point?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "wheelchair_user",
+    "expectedCity": "hamburg",
+    "expectedLocationText": "Hamburg Hauptbahnhof",
+    "expectedSources": [
+      "profiles/wheelchair_user.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope",
+      "kerbsHigh",
+      "narrowRoads"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": true,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_accessibility_050",
+    "category": "expanded high-frequency accessibility action",
+    "query": "I need step-free movement from the selected point.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5,
+      "currentStartPoint": [
+        10.014899999999999,
+        53.55
+      ]
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "wheelchair_user",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/wheelchair_user.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope",
+      "kerbsHigh",
+      "narrowRoads"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": true,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  }
+]

@@ -1,0 +1,914 @@
+[
+  {
+    "id": "expanded_accessibility_001",
+    "category": "expanded high-frequency accessibility action",
+    "query": "My grandma walks slowly. Around Hamburg Hauptbahnhof, is this a reasonable area for a short walk?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": "Hamburg Hauptbahnhof",
+    "expectedSources": [
+      "profiles/elderly.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope",
+      "kerbsHigh"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": true,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_accessibility_002",
+    "category": "expanded high-frequency accessibility action",
+    "query": "As an older adult, can I walk comfortably from Hauptbahnhof?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": "Hauptbahnhof",
+    "expectedSources": [
+      "profiles/elderly.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope",
+      "kerbsHigh"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": true,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_accessibility_003",
+    "category": "expanded high-frequency accessibility action",
+    "query": "I am a slow walker. Please check the place I selected for a short activity.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5,
+      "currentStartPoint": [
+        10.0102,
+        53.55
+      ]
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/elderly.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope",
+      "kerbsHigh"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": true,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_accessibility_004",
+    "category": "expanded high-frequency accessibility action",
+    "query": "My grandfather needs a calm walking area near Hamburg Hauptbahnhof.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": "Hamburg Hauptbahnhof",
+    "expectedSources": [
+      "profiles/elderly.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope",
+      "kerbsHigh"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": true,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_accessibility_005",
+    "category": "expanded high-frequency accessibility action",
+    "query": "I get tired easily and want to know whether this area is suitable for walking.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5,
+      "currentStartPoint": [
+        10.0104,
+        53.55
+      ]
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/elderly.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope",
+      "kerbsHigh"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": true,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_knowledge_001",
+    "category": "expanded knowledge and RAG",
+    "query": "What can this tool do?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "how_to_use",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "faq/how_to_use_cat.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_knowledge_002",
+    "category": "expanded knowledge and RAG",
+    "query": "Before I start, what exactly can this map assistant help me do?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "how_to_use",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "faq/how_to_use_cat.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_knowledge_003",
+    "category": "expanded knowledge and RAG",
+    "query": "How do I use CAT to run a catchment analysis?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "how_to_use",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "faq/how_to_use_cat.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_knowledge_004",
+    "category": "expanded knowledge and RAG",
+    "query": "What steps should I follow on this map interface?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "how_to_use",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "faq/how_to_use_cat.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_knowledge_005",
+    "category": "expanded knowledge and RAG",
+    "query": "Explain the workflow of this accessibility assistant.",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "how_to_use",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "faq/how_to_use_cat.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_unsupported_001",
+    "category": "expanded unsupported boundary",
+    "query": "Which supermarket is closest for my child from Hauptbahnhof?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "specific_poi_query",
+    "expectedProfile": "children_family",
+    "expectedCity": "hamburg",
+    "expectedLocationText": "Hauptbahnhof",
+    "expectedSources": [
+      "methodology/cat_workflow.md",
+      "faq/how_to_use_cat.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [
+      "stair",
+      "slope",
+      "trafficLight"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_unsupported_002",
+    "category": "expanded unsupported boundary",
+    "query": "What is the nearest bakery reachable for a three-year-old from Hamburg Hauptbahnhof?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "specific_poi_query",
+    "expectedProfile": "children_family",
+    "expectedCity": "hamburg",
+    "expectedLocationText": "Hamburg Hauptbahnhof",
+    "expectedSources": [
+      "methodology/cat_workflow.md",
+      "faq/how_to_use_cat.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [
+      "stair",
+      "slope",
+      "trafficLight"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_unsupported_003",
+    "category": "expanded unsupported boundary",
+    "query": "Where is the closest pharmacy for a wheelchair user near Hauptbahnhof?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "specific_poi_query",
+    "expectedProfile": "wheelchair_user",
+    "expectedCity": "hamburg",
+    "expectedLocationText": "Hauptbahnhof",
+    "expectedSources": [
+      "methodology/cat_workflow.md",
+      "faq/how_to_use_cat.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [
+      "stair",
+      "slope",
+      "trafficLight"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_unsupported_004",
+    "category": "expanded unsupported boundary",
+    "query": "Which cafe should an elderly person go to from Hamburg Hauptbahnhof?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "specific_poi_query",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": "Hamburg Hauptbahnhof",
+    "expectedSources": [
+      "methodology/cat_workflow.md",
+      "faq/how_to_use_cat.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [
+      "stair",
+      "slope",
+      "trafficLight"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_unsupported_005",
+    "category": "expanded unsupported boundary",
+    "query": "Find the nearest toilet for a visually impaired pedestrian.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "specific_poi_query",
+    "expectedProfile": "visually_impaired",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "methodology/cat_workflow.md",
+      "faq/how_to_use_cat.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [
+      "stair",
+      "slope",
+      "trafficLight"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_context_001",
+    "category": "expanded context and follow-up",
+    "query": "Explain the latest CAT result.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentStartPoint": [
+        10.01,
+        53.55
+      ],
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5,
+      "latestResultMetadata": {
+        "id": "expanded_latest_result",
+        "profile": "elderly",
+        "city": "hamburg",
+        "isDefault": false,
+        "defaultAreaHa": 120,
+        "comfortAdjustedAreaHa": 72,
+        "comfortRatio": 0.6,
+        "poiCount": 18,
+        "enabledVariables": [
+          "stair",
+          "slope",
+          "kerbsHigh"
+        ],
+        "missingDataWarnings": [],
+        "startPoint": [
+          10.01,
+          53.55
+        ]
+      },
+      "analysisHistory": [
+        {
+          "id": "expanded_previous_result",
+          "profile": "elderly",
+          "city": "hamburg",
+          "startPoint": [
+            10,
+            53.55
+          ],
+          "walkingTime": 15,
+          "walkingSpeed": 4,
+          "enabledVariables": [
+            "stair",
+            "slope",
+            "kerbsHigh"
+          ],
+          "resultMetadata": {
+            "comfortRatio": 0.52,
+            "comfortAdjustedAreaHa": 61,
+            "poiCount": 14,
+            "startPoint": [
+              10,
+              53.55
+            ]
+          }
+        }
+      ]
+    },
+    "expectedIntent": "explain_result",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "methodology/result_interpretation.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_context_002",
+    "category": "expanded context and follow-up",
+    "query": "What does the comfort ratio in this result mean?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentStartPoint": [
+        10.01,
+        53.55
+      ],
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5,
+      "latestResultMetadata": {
+        "id": "expanded_latest_result",
+        "profile": "elderly",
+        "city": "hamburg",
+        "isDefault": false,
+        "defaultAreaHa": 120,
+        "comfortAdjustedAreaHa": 72,
+        "comfortRatio": 0.6,
+        "poiCount": 18,
+        "enabledVariables": [
+          "stair",
+          "slope",
+          "kerbsHigh"
+        ],
+        "missingDataWarnings": [],
+        "startPoint": [
+          10.01,
+          53.55
+        ]
+      },
+      "analysisHistory": [
+        {
+          "id": "expanded_previous_result",
+          "profile": "elderly",
+          "city": "hamburg",
+          "startPoint": [
+            10,
+            53.55
+          ],
+          "walkingTime": 15,
+          "walkingSpeed": 4,
+          "enabledVariables": [
+            "stair",
+            "slope",
+            "kerbsHigh"
+          ],
+          "resultMetadata": {
+            "comfortRatio": 0.52,
+            "comfortAdjustedAreaHa": 61,
+            "poiCount": 14,
+            "startPoint": [
+              10,
+              53.55
+            ]
+          }
+        }
+      ]
+    },
+    "expectedIntent": "explain_result",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "methodology/result_interpretation.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_context_003",
+    "category": "expanded context and follow-up",
+    "query": "Is this red area result good or bad?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentStartPoint": [
+        10.01,
+        53.55
+      ],
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5,
+      "latestResultMetadata": {
+        "id": "expanded_latest_result",
+        "profile": "elderly",
+        "city": "hamburg",
+        "isDefault": false,
+        "defaultAreaHa": 120,
+        "comfortAdjustedAreaHa": 72,
+        "comfortRatio": 0.6,
+        "poiCount": 18,
+        "enabledVariables": [
+          "stair",
+          "slope",
+          "kerbsHigh"
+        ],
+        "missingDataWarnings": [],
+        "startPoint": [
+          10.01,
+          53.55
+        ]
+      },
+      "analysisHistory": [
+        {
+          "id": "expanded_previous_result",
+          "profile": "elderly",
+          "city": "hamburg",
+          "startPoint": [
+            10,
+            53.55
+          ],
+          "walkingTime": 15,
+          "walkingSpeed": 4,
+          "enabledVariables": [
+            "stair",
+            "slope",
+            "kerbsHigh"
+          ],
+          "resultMetadata": {
+            "comfortRatio": 0.52,
+            "comfortAdjustedAreaHa": 61,
+            "poiCount": 14,
+            "startPoint": [
+              10,
+              53.55
+            ]
+          }
+        }
+      ]
+    },
+    "expectedIntent": "explain_result",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "methodology/result_interpretation.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_context_004",
+    "category": "expanded context and follow-up",
+    "query": "Summarize the computed accessibility result for me.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentStartPoint": [
+        10.01,
+        53.55
+      ],
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5,
+      "latestResultMetadata": {
+        "id": "expanded_latest_result",
+        "profile": "elderly",
+        "city": "hamburg",
+        "isDefault": false,
+        "defaultAreaHa": 120,
+        "comfortAdjustedAreaHa": 72,
+        "comfortRatio": 0.6,
+        "poiCount": 18,
+        "enabledVariables": [
+          "stair",
+          "slope",
+          "kerbsHigh"
+        ],
+        "missingDataWarnings": [],
+        "startPoint": [
+          10.01,
+          53.55
+        ]
+      },
+      "analysisHistory": [
+        {
+          "id": "expanded_previous_result",
+          "profile": "elderly",
+          "city": "hamburg",
+          "startPoint": [
+            10,
+            53.55
+          ],
+          "walkingTime": 15,
+          "walkingSpeed": 4,
+          "enabledVariables": [
+            "stair",
+            "slope",
+            "kerbsHigh"
+          ],
+          "resultMetadata": {
+            "comfortRatio": 0.52,
+            "comfortAdjustedAreaHa": 61,
+            "poiCount": 14,
+            "startPoint": [
+              10,
+              53.55
+            ]
+          }
+        }
+      ]
+    },
+    "expectedIntent": "explain_result",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "methodology/result_interpretation.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_context_005",
+    "category": "expanded context and follow-up",
+    "query": "How does this new point compare with the previous result?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentStartPoint": [
+        10.02,
+        53.56
+      ],
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5,
+      "latestResultMetadata": {
+        "id": "expanded_latest_result",
+        "profile": "elderly",
+        "city": "hamburg",
+        "isDefault": false,
+        "defaultAreaHa": 120,
+        "comfortAdjustedAreaHa": 72,
+        "comfortRatio": 0.6,
+        "poiCount": 18,
+        "enabledVariables": [
+          "stair",
+          "slope",
+          "kerbsHigh"
+        ],
+        "missingDataWarnings": [],
+        "startPoint": [
+          10.01,
+          53.55
+        ]
+      },
+      "analysisHistory": [
+        {
+          "id": "expanded_previous_result",
+          "profile": "elderly",
+          "city": "hamburg",
+          "startPoint": [
+            10,
+            53.55
+          ],
+          "walkingTime": 15,
+          "walkingSpeed": 4,
+          "enabledVariables": [
+            "stair",
+            "slope",
+            "kerbsHigh"
+          ],
+          "resultMetadata": {
+            "comfortRatio": 0.52,
+            "comfortAdjustedAreaHa": 61,
+            "poiCount": 14,
+            "startPoint": [
+              10,
+              53.55
+            ]
+          }
+        }
+      ]
+    },
+    "expectedIntent": "compare_with_previous_result",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_edge_001",
+    "category": "expanded long-tail and edge cases",
+    "query": "I use a wheelchair and need ramps in Hamburg.",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "wheelchair_user",
+    "expectedCity": "hamburg",
+    "expectedLocationText": "Hamburg",
+    "expectedSources": [
+      "profiles/wheelchair_user.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope",
+      "kerbsHigh"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": []
+  },
+  {
+    "id": "expanded_edge_002",
+    "category": "expanded long-tail and edge cases",
+    "query": "I am elderly and want to consider noise in Penteli.",
+    "context": {
+      "currentCity": "penteli",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "elderly",
+    "expectedCity": "penteli",
+    "expectedLocationText": "Penteli",
+    "expectedSources": [
+      "profiles/elderly.md",
+      "variables/comfort_variables.md",
+      "cities/penteli.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": [
+      "noise"
+    ]
+  },
+  {
+    "id": "expanded_edge_003",
+    "category": "expanded long-tail and edge cases",
+    "query": "I am visually impaired and need good lighting in Penteli.",
+    "context": {
+      "currentCity": "penteli",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "visually_impaired",
+    "expectedCity": "penteli",
+    "expectedLocationText": "Penteli",
+    "expectedSources": [
+      "profiles/visually_impaired.md",
+      "variables/comfort_variables.md",
+      "cities/penteli.md"
+    ],
+    "expectedVariables": [
+      "trafficLight"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": [
+      "light"
+    ]
+  },
+  {
+    "id": "expanded_edge_004",
+    "category": "expanded long-tail and edge cases",
+    "query": "I use a wheelchair and want to avoid high kerbs in Penteli.",
+    "context": {
+      "currentCity": "penteli",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "wheelchair_user",
+    "expectedCity": "penteli",
+    "expectedLocationText": "Penteli",
+    "expectedSources": [
+      "profiles/wheelchair_user.md",
+      "variables/comfort_variables.md",
+      "cities/penteli.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": [
+      "kerbsHigh"
+    ]
+  },
+  {
+    "id": "expanded_edge_005",
+    "category": "expanded long-tail and edge cases",
+    "query": "I am elderly near the station. Is it convenient?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "area_suitability_question",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": "the station",
+    "expectedSources": [
+      "profiles/elderly.md",
+      "variables/comfort_variables.md",
+      "cities/hamburg.md"
+    ],
+    "expectedVariables": [
+      "stair",
+      "slope"
+    ],
+    "forbiddenVariables": [
+      "noise"
+    ],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": true,
+    "expectedWarnings": []
+  }
+]

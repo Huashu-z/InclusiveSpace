@@ -1,0 +1,182 @@
+{
+  "input": "eval/agent_expanded_eval_cases.json",
+  "totalCases": 250,
+  "batchSize": 10,
+  "batches": [
+    {
+      "index": 1,
+      "start": 0,
+      "count": 10,
+      "file": "eval/batches/expanded_bigmodel/batch_001.json",
+      "report": "eval/batches/expanded_bigmodel/report_001.json"
+    },
+    {
+      "index": 2,
+      "start": 10,
+      "count": 10,
+      "file": "eval/batches/expanded_bigmodel/batch_002.json",
+      "report": "eval/batches/expanded_bigmodel/report_002.json"
+    },
+    {
+      "index": 3,
+      "start": 20,
+      "count": 10,
+      "file": "eval/batches/expanded_bigmodel/batch_003.json",
+      "report": "eval/batches/expanded_bigmodel/report_003.json"
+    },
+    {
+      "index": 4,
+      "start": 30,
+      "count": 10,
+      "file": "eval/batches/expanded_bigmodel/batch_004.json",
+      "report": "eval/batches/expanded_bigmodel/report_004.json"
+    },
+    {
+      "index": 5,
+      "start": 40,
+      "count": 10,
+      "file": "eval/batches/expanded_bigmodel/batch_005.json",
+      "report": "eval/batches/expanded_bigmodel/report_005.json"
+    },
+    {
+      "index": 6,
+      "start": 50,
+      "count": 10,
+      "file": "eval/batches/expanded_bigmodel/batch_006.json",
+      "report": "eval/batches/expanded_bigmodel/report_006.json"
+    },
+    {
+      "index": 7,
+      "start": 60,
+      "count": 10,
+      "file": "eval/batches/expanded_bigmodel/batch_007.json",
+      "report": "eval/batches/expanded_bigmodel/report_007.json"
+    },
+    {
+      "index": 8,
+      "start": 70,
+      "count": 10,
+      "file": "eval/batches/expanded_bigmodel/batch_008.json",
+      "report": "eval/batches/expanded_bigmodel/report_008.json"
+    },
+    {
+      "index": 9,
+      "start": 80,
+      "count": 10,
+      "file": "eval/batches/expanded_bigmodel/batch_009.json",
+      "report": "eval/batches/expanded_bigmodel/report_009.json"
+    },
+    {
+      "index": 10,
+      "start": 90,
+      "count": 10,
+      "file": "eval/batches/expanded_bigmodel/batch_010.json",
+      "report": "eval/batches/expanded_bigmodel/report_010.json"
+    },
+    {
+      "index": 11,
+      "start": 100,
+      "count": 10,
+      "file": "eval/batches/expanded_bigmodel/batch_011.json",
+      "report": "eval/batches/expanded_bigmodel/report_011.json"
+    },
+    {
+      "index": 12,
+      "start": 110,
+      "count": 10,
+      "file": "eval/batches/expanded_bigmodel/batch_012.json",
+      "report": "eval/batches/expanded_bigmodel/report_012.json"
+    },
+    {
+      "index": 13,
+      "start": 120,
+      "count": 10,
+      "file": "eval/batches/expanded_bigmodel/batch_013.json",
+      "report": "eval/batches/expanded_bigmodel/report_013.json"
+    },
+    {
+      "index": 14,
+      "start": 130,
+      "count": 10,
+      "file": "eval/batches/expanded_bigmodel/batch_014.json",
+      "report": "eval/batches/expanded_bigmodel/report_014.json"
+    },
+    {
+      "index": 15,
+      "start": 140,
+      "count": 10,
+      "file": "eval/batches/expanded_bigmodel/batch_015.json",
+      "report": "eval/batches/expanded_bigmodel/report_015.json"
+    },
+    {
+      "index": 16,
+      "start": 150,
+      "count": 10,
+      "file": "eval/batches/expanded_bigmodel/batch_016.json",
+      "report": "eval/batches/expanded_bigmodel/report_016.json"
+    },
+    {
+      "index": 17,
+      "start": 160,
+      "count": 10,
+      "file": "eval/batches/expanded_bigmodel/batch_017.json",
+      "report": "eval/batches/expanded_bigmodel/report_017.json"
+    },
+    {
+      "index": 18,
+      "start": 170,
+      "count": 10,
+      "file": "eval/batches/expanded_bigmodel/batch_018.json",
+      "report": "eval/batches/expanded_bigmodel/report_018.json"
+    },
+    {
+      "index": 19,
+      "start": 180,
+      "count": 10,
+      "file": "eval/batches/expanded_bigmodel/batch_019.json",
+      "report": "eval/batches/expanded_bigmodel/report_019.json"
+    },
+    {
+      "index": 20,
+      "start": 190,
+      "count": 10,
+      "file": "eval/batches/expanded_bigmodel/batch_020.json",
+      "report": "eval/batches/expanded_bigmodel/report_020.json"
+    },
+    {
+      "index": 21,
+      "start": 200,
+      "count": 10,
+      "file": "eval/batches/expanded_bigmodel/batch_021.json",
+      "report": "eval/batches/expanded_bigmodel/report_021.json"
+    },
+    {
+      "index": 22,
+      "start": 210,
+      "count": 10,
+      "file": "eval/batches/expanded_bigmodel/batch_022.json",
+      "report": "eval/batches/expanded_bigmodel/report_022.json"
+    },
+    {
+      "index": 23,
+      "start": 220,
+      "count": 10,
+      "file": "eval/batches/expanded_bigmodel/batch_023.json",
+      "report": "eval/batches/expanded_bigmodel/report_023.json"
+    },
+    {
+      "index": 24,
+      "start": 230,
+      "count": 10,
+      "file": "eval/batches/expanded_bigmodel/batch_024.json",
+      "report": "eval/batches/expanded_bigmodel/report_024.json"
+    },
+    {
+      "index": 25,
+      "start": 240,
+      "count": 10,
+      "file": "eval/batches/expanded_bigmodel/batch_025.json",
+      "report": "eval/batches/expanded_bigmodel/report_025.json"
+    }
+  ]
+}

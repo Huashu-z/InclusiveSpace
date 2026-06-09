@@ -1,0 +1,205 @@
+[
+  {
+    "id": "new_knowledge_011",
+    "category": "new knowledge and data questions",
+    "query": "Which Hamburg variables are available for wheelchair comfort?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "ask_data_availability",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "cities/hamburg.md",
+      "methodology/data_limitations.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_knowledge_012",
+    "category": "new knowledge and data questions",
+    "query": "Can Penteli evaluate noise for elderly users?",
+    "context": {
+      "currentCity": "penteli"
+    },
+    "expectedIntent": "ask_data_availability",
+    "expectedProfile": null,
+    "expectedCity": "penteli",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "cities/penteli.md",
+      "methodology/data_limitations.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_knowledge_013",
+    "category": "new knowledge and data questions",
+    "query": "I clicked run but the reachable area is empty. What should I check?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "troubleshooting",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "faq/troubleshooting.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_knowledge_014",
+    "category": "new knowledge and data questions",
+    "query": "Why did the map not update after applying AI settings?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "troubleshooting",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "faq/troubleshooting.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_knowledge_015",
+    "category": "new knowledge and data questions",
+    "query": "The result looks blank even though I selected a point.",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "troubleshooting",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "faq/troubleshooting.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_knowledge_016",
+    "category": "new knowledge and data questions",
+    "query": "Can you book a taxi for me?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "general_question",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_knowledge_017",
+    "category": "new knowledge and data questions",
+    "query": "What is the population of Hamburg today?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "general_question",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_knowledge_018",
+    "category": "new knowledge and data questions",
+    "query": "Is this assistant for routes, areas, or both?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "how_to_use",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "faq/how_to_use_cat.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_knowledge_019",
+    "category": "new knowledge and data questions",
+    "query": "What does narrowRoads capture?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "explain_variable",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "variables/comfort_variables.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "new_knowledge_020",
+    "category": "new knowledge and data questions",
+    "query": "Can Hamburg consider traffic lights and stations?",
+    "context": {
+      "currentCity": "hamburg"
+    },
+    "expectedIntent": "ask_data_availability",
+    "expectedProfile": null,
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "cities/hamburg.md",
+      "methodology/data_limitations.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  }
+]
