@@ -157,7 +157,7 @@ export function runFinalGroundingCheck({ message, reply, detected, action, capab
     agentContext?.originalUserQuestion &&
     (agentContext?.capabilityCheck?.systemCanFullyAnswer === false ||
       ["route_recommendation", "specific_poi_query", "unsupported_specific_poi_query"].includes(agentContext?.originalIntent));
-  const limitationTerms = ["cannot", "can't", "not support", "not directly", "limitation", "不能", "不支持", "无法", "不能直接", "不等同"];
+  const limitationTerms = ["cannot", "can't", "not support", "not directly", "limitation", "不能", "不支持", "无法", "不能直接", "不等同", "nicht direkt", "kein tool", "kann nicht", "no puedo", "no es"];
   const routeOverclaimTerms = ["best route is", "nearest bakery is", "最佳路线是"];
 
   const clearlyStatesLimitations = unsupportedIntent || originalUnsupported ? containsAny(lower, limitationTerms) : true;
@@ -200,10 +200,12 @@ function getGroundingReason({ detected, unsupportedIntent, originalUnsupported, 
   return `The answer is aligned with intent ${detected?.intent || "unknown"}.`;
 }
 
-export function repairUngroundedReply({ reply, groundingCheck, capabilityCheck } = {}) {
+export function repairUngroundedReply({ reply, groundingCheck, capabilityCheck, detected } = {}) {
   if (!groundingCheck?.revisionNeeded) return reply;
-  const limitation = capabilityCheck?.requiredCapability
-    ? `Current CAT cannot fully provide ${capabilityCheck.requiredCapability}. `
-    : "Current CAT cannot fully answer this request. ";
+  if (capabilityCheck?.systemCanFullyAnswer !== false) return reply;
+  const language = detected?.responseLanguage || detected?.language || "en";
+  const limitation = language === "zh"
+    ? "建议下一步：选择一个或多个候选起点，再比较它们的舒适可达结果。"
+    : "Best next step: choose one or more candidate start points and compare the comfort-based results.";
   return `${limitation}${reply || ""}`.trim();
 }

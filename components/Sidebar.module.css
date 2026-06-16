@@ -722,9 +722,273 @@
   .agentPanel {
     margin: 12px 0;
     padding: 12px;
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 255, 0.94));
+    border: 2px solid #8b7cf6;
+    box-shadow: 0 8px 24px rgba(65, 49, 144, 0.14);
+  }
+  .agentPanelHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .agentPanelIcon {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #7c5cff, #17cbac 52%, #ff6b8a);
+    box-shadow: 0 8px 18px rgba(124, 92, 255, 0.32);
+    letter-spacing: 0;
+  }
+  .agentEntryButton {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 12px;
+    padding: 10px 12px;
+    border: 2px solid #8b7cf6;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #ffffff, #f4f8ff);
+    color: #413190;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 800;
+    box-shadow: 0 8px 18px rgba(65, 49, 144, 0.14);
+  }
+  .agentEntryButton:hover,
+  .agentEntryButton:focus-visible {
+    border-color: #17cbac;
+    background: linear-gradient(135deg, #f9fffd, #f7f2ff);
+    outline: none;
+  }
+  .agentEntryIcon {
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #fff;
+    background: linear-gradient(135deg, #7c5cff, #17cbac 55%, #ff6b8a);
+    font-weight: 900;
+    box-shadow: 0 6px 14px rgba(124, 92, 255, 0.28);
+    letter-spacing: 0;
+  }
+  .agentEntryText {
+    text-align: left;
+  }
+  .agentBackButton {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 10px;
+    padding: 9px 10px;
+    border: 1px solid #d8e2ef;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.92);
-    border: 1px solid #d1d1d1;
+    background: #ffffff;
+    color: #413190;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .agentBackButton:hover,
+  .agentBackButton:focus-visible {
+    border-color: #17cbac;
+    outline: none;
+  }
+  .agentNewChatButton {
+    width: 100%;
+    min-height: 34px;
+    margin: 0 0 10px;
+    padding: 7px 10px;
+    border: 1px solid #d8e2ef;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #413190;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 800;
+  }
+  .agentNewChatButton:hover,
+  .agentNewChatButton:focus-visible {
+    border-color: #8b7cf6;
+    background: #fbfdff;
+    outline: none;
+  }
+  .agentNewChatButton:disabled {
+    cursor: wait;
+    color: #94a3b8;
+    background: #f8fafc;
+  }
+  .agentChatBox {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: min(48vh, 520px);
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #d8e2ef;
+    border-radius: 8px;
+    background: #f8fafc;
+    overflow-y: auto;
+  }
+  .agentChatBox:empty {
+    display: none;
+  }
+  .agentChatMessage {
+    max-width: 94%;
+    padding: 9px 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(65, 49, 144, 0.08);
+  }
+  .agentChatMessageUser {
+    align-self: flex-end;
+    background: #413190;
+    color: #ffffff;
+  }
+  .agentChatMessageUser .agentAnswerText,
+  .agentChatMessageUser .agentChatRole {
+    color: #ffffff;
+  }
+  .agentChatMessageAssistant {
+    align-self: flex-start;
+    background: #ffffff;
+    color: #1f2937;
+    border: 1px solid #e2e8f0;
+  }
+  .agentChatMessageStatus {
+    background: #fbfdff;
+    border-style: dashed;
+    box-shadow: none;
+  }
+  .agentChatRole {
+    margin-bottom: 4px;
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 900;
+  }
+  .agentChatConclusion {
+    margin-bottom: 7px;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.35;
+  }
+  .agentInlineActionCard {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #d8e2ef;
+    border-radius: 8px;
+    background: #fbfdff;
+  }
+  .agentExampleButton {
+    flex: 1 1 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    text-align: left;
+    padding: 9px 10px;
+    border-radius: 12px;
+    border: 2px solid #b7e7ff;
+    background: #ffffff;
+    color: #334155;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 1.35;
+    box-shadow: 0 4px 10px rgba(65, 49, 144, 0.08);
+  }
+  .agentExampleButton:nth-child(2) {
+    border-color: #ffc6d6;
+    background: #fff8fb;
+  }
+  .agentExampleButton:nth-child(3) {
+    border-color: #b9f3da;
+    background: #f7fffb;
+  }
+  .agentExampleButton:hover,
+  .agentExampleButton:focus-visible {
+    transform: translateY(-1px);
+    border-color: #8b7cf6;
+    box-shadow: 0 8px 16px rgba(65, 49, 144, 0.14);
+    outline: none;
+  }
+  .agentExampleSpark {
+    color: #8b7cf6;
+    font-weight: 900;
+    line-height: 1.2;
+  }
+  .agentPrimaryActionButton,
+  .agentSecondaryActionButton {
+    min-height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 9px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: 0;
+    transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+  }
+  .agentPrimaryActionButton {
+    border: 2px solid #7c5cff;
+    color: #ffffff;
+    background: linear-gradient(135deg, #7c5cff, #17cbac);
+    box-shadow: 0 8px 18px rgba(124, 92, 255, 0.24);
+  }
+  .agentSecondaryActionButton {
+    border: 2px solid #ffc6d6;
+    color: #413190;
+    background: linear-gradient(135deg, #ffffff, #fff6fa);
+    box-shadow: 0 6px 14px rgba(255, 107, 138, 0.14);
+  }
+  .agentPrimaryActionButton:hover,
+  .agentSecondaryActionButton:hover,
+  .agentPrimaryActionButton:focus-visible,
+  .agentSecondaryActionButton:focus-visible {
+    transform: translateY(-1px);
+    outline: none;
+  }
+  .agentPrimaryActionButton:hover,
+  .agentPrimaryActionButton:focus-visible {
+    border-color: #17cbac;
+    box-shadow: 0 10px 22px rgba(23, 203, 172, 0.26);
+  }
+  .agentSecondaryActionButton:hover,
+  .agentSecondaryActionButton:focus-visible {
+    border-color: #8b7cf6;
+    background: linear-gradient(135deg, #ffffff, #f7f2ff);
+    box-shadow: 0 10px 20px rgba(65, 49, 144, 0.14);
+  }
+  .agentPrimaryActionButton:disabled,
+  .agentSecondaryActionButton:disabled {
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+  .agentPrimaryActionButton:disabled {
+    border-color: #cbd5e1;
+    color: #64748b;
+    background: linear-gradient(135deg, #f8fafc, #eef2ff);
+  }
+  .agentSecondaryActionButton:disabled {
+    border-color: #e2e8f0;
+    color: #94a3b8;
+    background: #f8fafc;
   }
   .agentForm {
     display: flex;
@@ -743,12 +1007,132 @@
     background: #fff;
     color: #111;
   }
+  .agentSendButton {
+    width: 100%;
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    border: 2px solid #7c5cff;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #7c5cff, #17cbac 62%, #62d9ff);
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: 0;
+    box-shadow: 0 10px 22px rgba(124, 92, 255, 0.24);
+    transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+  }
+  .agentSendButton:hover,
+  .agentSendButton:focus-visible {
+    transform: translateY(-1px);
+    border-color: #17cbac;
+    box-shadow: 0 12px 26px rgba(23, 203, 172, 0.26);
+    outline: none;
+  }
+  .agentSendButton:disabled {
+    cursor: wait;
+    transform: none;
+    border-color: #cbd5e1;
+    color: #64748b;
+    background: linear-gradient(135deg, #f8fafc, #eef2ff);
+    box-shadow: none;
+  }
   .agentResultBox {
     margin-top: 10px;
     padding: 10px;
     border-radius: 8px;
     background: #f6f8ff;
     border: 1px solid #d6d6d6;
+  }
+  .agentAnswerText {
+    white-space: pre-wrap;
+    color: #1f2937;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .agentStatusText,
+  .agentThinkingLine {
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.45;
+  }
+  .agentThinkingLine {
+    font-style: italic;
+  }
+  .agentFollowUpBox {
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1px solid #d8e2ef;
+  }
+  .agentFollowUpTitle {
+    margin-bottom: 8px;
+    color: #334155;
+    font-size: 12px;
+    font-weight: 800;
+  }
+  .agentNextStepSettings {
+    margin-bottom: 8px;
+    padding: 8px 10px;
+    border: 1px solid #d8e2ef;
+    border-radius: 8px;
+    background: #fbfdff;
+  }
+  .agentFollowUpList {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .agentFollowUpButton {
+    width: 100%;
+    min-height: 36px;
+    padding: 8px 10px;
+    border: 1px solid #b7e7ff;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #334155;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.35;
+    text-align: left;
+    transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+  }
+  .agentFollowUpButton:hover,
+  .agentFollowUpButton:focus-visible {
+    transform: translateY(-1px);
+    border-color: #8b7cf6;
+    background: #fbfdff;
+    box-shadow: 0 6px 14px rgba(65, 49, 144, 0.12);
+    outline: none;
+  }
+  .agentFollowUpButton:disabled {
+    cursor: wait;
+    transform: none;
+    border-color: #e2e8f0;
+    color: #94a3b8;
+    background: #f8fafc;
+    box-shadow: none;
+  }
+  .agentFollowUpActionButton {
+    border-color: #b9f3da;
+    background: #f7fffb;
+  }
+  .agentFollowUpType {
+    flex: 0 0 auto;
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: #e7fff7;
+    color: #166857;
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
   }
   .agentFactorList {
     list-style: none;

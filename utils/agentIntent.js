@@ -18,6 +18,7 @@ export const AGENT_INTENTS = [
   "how_to_use",
   "troubleshooting",
   "unsupported_specific_poi_query",
+  "citywide_place_recommendation",
   "general_question",
 ];
 
@@ -154,7 +155,7 @@ export function detectAgentIntent(message, { hasResultMetadata = false } = {}) {
   const explicitDataAvailability = /data|available|availability|have .* data|support|missing|unavailable|can .*consider|still consider|有没有|是否有|支持|可用|缺少|数据/.test(text) &&
     (text.includes("hamburg") || text.includes("penteli") || variable);
   const followUpComparison = !/\bbefore\s+i\s+start\b/.test(text) && (
-    /刚刚|刚才|之前|上一个|现在这个|这个地方|这个点|这里|比呢|相比|比较|对比|compare|previous|last one|this one|this place|how about here|what about this one/.test(text) &&
+    /刚刚|刚才|之前|上一个|现在这个|这个地方|这个点|这里|这个起点|当前起点|新起点|比呢|相比|比较|对比|compare|previous|last one|this one|this place|this start point|current start point|new start point|how about here|what about this one|how about this start point|what about this start point/.test(text) &&
     /比|相比|比较|对比|更好|更适合|怎么样|如何|compare|better|worse|previous|last one|what about|how about/.test(text)
   );
 
@@ -167,11 +168,11 @@ export function detectAgentIntent(message, { hasResultMetadata = false } = {}) {
   if (explicitDataAvailability) {
     return { intent: "ask_data_availability", confidence: 0.92, method: "rules" };
   }
-  if (explicitResultExplanation) {
-    return { intent: "explain_result", confidence: 0.88, method: "rules" };
-  }
   if (followUpComparison) {
     return { intent: "compare_with_previous_result", confidence: 0.94, method: "rules" };
+  }
+  if (explicitResultExplanation) {
+    return { intent: "explain_result", confidence: 0.88, method: "rules" };
   }
   if (detectSpecificPoiQuery(message)) {
     return { intent: "specific_poi_query", confidence: 0.93, method: "rules" };

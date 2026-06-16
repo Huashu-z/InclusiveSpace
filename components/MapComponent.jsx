@@ -172,7 +172,13 @@ const MapComponent = ({
   // Reset the state when resetTrigger changes 
   useEffect(() => {
     if (resetTrigger) {
-      setStartPoints([]); 
+      setStartPoints([]);
+      setReachableRoadsData([]);
+      setReachableHullData([]);
+      setResultMetadata([]);
+      setDefaultGroupIndex([]);
+      setDefaultResultCache([]);
+      setGroupMapping([]);
       onResetHandled && onResetHandled(); 
     }
   }, [resetTrigger, onResetHandled]);  
@@ -339,22 +345,33 @@ const MapComponent = ({
   useEffect(() => {
     const performAnalysis = async () => {
       if (startPoints.length === 0) return;
-      const [lon, lat] = startPoints[startPoints.length - 1]; // latest point
-      const key = `${lat},${lon},${walkingTime},${walkingSpeed}`; //store basic parameters for default catchment area
+      const pointsToAnalyze = startPoints.filter((point) =>
+        Array.isArray(point) &&
+        point.length === 2 &&
+        point.every((value) => Number.isFinite(Number(value)))
+      );
+      if (pointsToAnalyze.length === 0) return;
       setIsCalculating(true);
       const controller = new AbortController();
       abortRef.current = controller;
       setCalcStage(t('loading'));
 
       try {
-        let defaultArea;
-        let currentGroupIndex;
+        let localGroupMapping = { ...groupMapping };
+        let nextGroupIndex = Math.max(0, ...Object.values(localGroupMapping).map((value) => Number(value) || 0)) + 1;
 
-        const bufferDistance = selectedCity === "penteli" ? 0.1 : 0.02;
+        for (const [pointIndex, point] of pointsToAnalyze.entries()) {
+          const [lon, lat] = point;
+          const key = `${lat},${lon},${walkingTime},${walkingSpeed}`; //store basic parameters for default catchment area
+          let defaultArea;
+          let currentGroupIndex;
+
+          const bufferDistance = selectedCity === "penteli" ? 0.1 : 0.02;
 
         // --------- Step 1: Default Reslut (only speed/time/start) ---------
-        if (!defaultResultCache[key]) {
-          const newGroupIndex = Object.keys(groupMapping).length + 1;
+          if (!defaultResultCache[key]) {
+          const newGroupIndex = nextGroupIndex++;
+          localGroupMapping[key] = newGroupIndex;
           setGroupMapping(prev => ({ ...prev, [key]: newGroupIndex }));
           setDefaultGroupIndex(newGroupIndex);
           currentGroupIndex = newGroupIndex;
@@ -421,11 +438,13 @@ const MapComponent = ({
               poiCount: totalPOI,
               poiGroupCounts,
               isDefault: true,
-              groupIndex: newGroupIndex
+              groupIndex: newGroupIndex,
+              startPoint: [lon, lat],
+              locationText: `Selected point ${pointIndex + 1}`
             }
           ]);
         } else {
-          currentGroupIndex = groupMapping[key];
+          currentGroupIndex = localGroupMapping[key] || groupMapping[key];
           setDefaultGroupIndex(currentGroupIndex);
           defaultArea = defaultResultCache[key].area;
         }
@@ -487,9 +506,12 @@ const MapComponent = ({
               poiGroupCounts,
               isDefault: false,
               groupIndex: currentGroupIndex,
-              subIndex: prev.filter(p => p.groupIndex === currentGroupIndex && !p.isDefault).length + 1
+              subIndex: prev.filter(p => p.groupIndex === currentGroupIndex && !p.isDefault).length + 1,
+              startPoint: [lon, lat],
+              locationText: `Selected point ${pointIndex + 1}`
             }
           ]);
+        }
         }
 
       } catch (err) {

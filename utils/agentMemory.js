@@ -69,7 +69,7 @@ export function getCurrentSelectedPoint(currentMapState = {}) {
 
 export function isFollowUpComparison(message) {
   const text = String(message || "").toLowerCase();
-  return /刚刚|刚才|之前|上一个|现在这个|这个地方|这个点|这里|比呢|相比|比较|对比|compare|previous|before|last one|this one|this place|how about here|what about this one/.test(text) &&
+  return /刚刚|刚才|之前|上一个|现在这个|这个地方|这个点|这里|这个起点|当前起点|新起点|比呢|相比|比较|对比|compare|previous|before|last one|this one|this place|this start point|current start point|new start point|how about here|what about this one|how about this start point|what about this start point/.test(text) &&
     /比|相比|比较|对比|更好|更适合|怎么样|如何|compare|better|worse|previous|before|last one|what about|how about/.test(text);
 }
 

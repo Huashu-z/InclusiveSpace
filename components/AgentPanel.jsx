@@ -1,6 +1,13 @@
 import React, { useState } from "react";
+import { useTranslation } from "next-i18next";
 import sty from "./Sidebar.module.css";
-import { getDemoScenariosList, getDemoScenario } from "../utils/demoScenarios.js";
+
+let agentPanelMemory = {
+  chatMessages: [],
+  conversationHistory: [],
+  analysisHistory: [],
+  lastAgentContext: null,
+};
 
 export default function AgentPanel({
   selectedCity = "hamburg",
@@ -16,62 +23,221 @@ export default function AgentPanel({
   onApplySettings,
   onRunRealComputation,
   onExecuteAgentAction,
-  onLoadScenario,
+  onSelectStartSuggestion,
+  onReviewFactorsSuggestion,
   onResponse,
 }) {
-  const [prompt, setPrompt] = useState("我是一位老年人，想知道这个区域是否适合步行/活动？");
+  const [prompt, setPrompt] = useState("");
+  const { t } = useTranslation("common");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [result, setResult] = useState(null);
-  const [showDemoMenu, setShowDemoMenu] = useState(false);
   const [realComputationStatus, setRealComputationStatus] = useState(null);
   const [lastRealComputation, setLastRealComputation] = useState(null);
-  const [lastAgentContext, setLastAgentContext] = useState(null);
-  const [conversationHistory, setConversationHistory] = useState([]);
-  const [analysisHistory, setAnalysisHistory] = useState([]);
+  const [lastAgentContext, setLastAgentContext] = useState(() => agentPanelMemory.lastAgentContext);
+  const [conversationHistory, setConversationHistory] = useState(() => agentPanelMemory.conversationHistory);
+  const [analysisHistory, setAnalysisHistory] = useState(() => agentPanelMemory.analysisHistory);
+  const [chatMessages, setChatMessages] = useState(() => agentPanelMemory.chatMessages);
   const [pendingCompareAction, setPendingCompareAction] = useState(null);
+  const [showExamples, setShowExamples] = useState(() => agentPanelMemory.chatMessages.length === 0);
+  const [preparedActionKey, setPreparedActionKey] = useState(null);
+  const [streamingReply, setStreamingReply] = useState("");
+  const [streamingStatus, setStreamingStatus] = useState("");
   const lastSubmittedQuestionRef = React.useRef(null);
-  const recordedAnalysisSignaturesRef = React.useRef(new Set());
+  const recordedAnalysisSignaturesRef = React.useRef(new Set(agentPanelMemory.analysisHistory.map((record) => record.signature).filter(Boolean)));
   const analysisHistoryRef = React.useRef([]);
   const lastAgentContextRef = React.useRef(null);
   const pendingCompareActionRef = React.useRef(null);
   const sendRequestRef = React.useRef(null);
+  const pendingExplainAfterRunRef = React.useRef(false);
+  const pendingExpectedAnalysisCountRef = React.useRef(1);
+  const pendingRunMetadataStartIndexRef = React.useRef(0);
+  const pendingExplainTimerRef = React.useRef(null);
+  const pendingCompareStartSelectionRef = React.useRef(null);
+  const chatBoxRef = React.useRef(null);
   const hasResultMetadata = Array.isArray(resultMetadata) && resultMetadata.length > 0;
+  const hasCurrentStartPoint = Array.isArray(startPoint) && startPoint.length === 2;
 
   React.useEffect(() => {
-    if (typeof window === "undefined") return;
-    try {
-      const savedConversation = sessionStorage.getItem("catConversationHistory");
-      const savedAnalysis = sessionStorage.getItem("catAnalysisHistory");
-      if (savedConversation) setConversationHistory(JSON.parse(savedConversation));
-      if (savedAnalysis) {
-        const parsed = JSON.parse(savedAnalysis);
-        setAnalysisHistory(parsed);
-        recordedAnalysisSignaturesRef.current = new Set(parsed.map((record) => record.signature).filter(Boolean));
-      }
-    } catch (storageError) {
-      console.error("Failed to load CAT agent memory", storageError);
-    }
-  }, []);
-
-  React.useEffect(() => {
-    if (typeof window === "undefined") return;
-    sessionStorage.setItem("catConversationHistory", JSON.stringify(conversationHistory.slice(-20)));
+    agentPanelMemory.conversationHistory = conversationHistory.slice(-20);
   }, [conversationHistory]);
 
   React.useEffect(() => {
-    if (typeof window === "undefined") return;
-    sessionStorage.setItem("catAnalysisHistory", JSON.stringify(analysisHistory.slice(-20)));
+    agentPanelMemory.analysisHistory = analysisHistory.slice(-20);
     analysisHistoryRef.current = analysisHistory;
   }, [analysisHistory]);
 
   React.useEffect(() => {
+    agentPanelMemory.lastAgentContext = lastAgentContext;
     lastAgentContextRef.current = lastAgentContext;
   }, [lastAgentContext]);
 
   React.useEffect(() => {
+    agentPanelMemory.chatMessages = chatMessages.slice(-30);
+  }, [chatMessages]);
+
+  React.useEffect(() => {
+    if (!chatBoxRef.current) return;
+    chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+  }, [chatMessages, streamingReply]);
+
+  React.useEffect(() => {
     pendingCompareActionRef.current = pendingCompareAction;
   }, [pendingCompareAction]);
+
+  React.useEffect(() => () => {
+    if (pendingExplainTimerRef.current) {
+      window.clearTimeout(pendingExplainTimerRef.current);
+    }
+  }, []);
+
+  const pointKey = React.useCallback((point) => (
+    Array.isArray(point) && point.length === 2
+      ? point.map((value) => Number(value).toFixed(6)).join(",")
+      : ""
+  ), []);
+
+  const getComparePromptCopy = React.useCallback((language = "en") => {
+    if (language === "zh") {
+      return {
+        ready: "我看到了新的起点。为了和上一个结果公平比较，我可以沿用刚才的环境因素设置，在这里运行一次分析。",
+        question: "运行后，请比较这个起点和上一个结果。",
+        run: "运行可达性分析",
+      };
+    }
+    if (language === "de") {
+      return {
+        ready: "Ich sehe den neuen Startpunkt. Fuer einen fairen Vergleich mit dem vorherigen Ergebnis kann ich hier mit denselben Komforteinstellungen eine Analyse starten.",
+        question: "Vergleiche diesen Startpunkt nach der Analyse mit dem vorherigen Ergebnis.",
+        run: "Erreichbarkeitsanalyse starten",
+      };
+    }
+    return {
+      ready: "I see the new start point. To compare it fairly with the previous result, I can run the analysis here using the same comfort settings.",
+      question: "After running it, compare this start point with the previous result.",
+      run: "Run the accessibility analysis",
+    };
+  }, []);
+
+  const buildCompareCurrentPointAction = React.useCallback((point, baseAnalysis) => {
+    if (!Array.isArray(point) || point.length !== 2 || !baseAnalysis) return null;
+    const settings = baseAnalysis.settings || {};
+    const variables = settings.variables || settings.layerValues || baseAnalysis.adjusted?.values || {};
+    return {
+      type: "RUN_ANALYSIS_THEN_COMPARE",
+      baseAnalysisId: baseAnalysis.id,
+      useSameSettingsAs: baseAnalysis.id,
+      settingsSource: "previous_analysis",
+      targetPoint: { lon: Number(point[0]), lat: Number(point[1]), label: t("agent_current_map_start_point") },
+      coordinates: [Number(point[0]), Number(point[1])],
+      city: baseAnalysis.city || selectedCity,
+      profile: baseAnalysis.profile || agentProfile?.id || agentProfile?.presetId || "default_adult",
+      walkingTime: Number(settings.walkingTime || walkingTime || 15),
+      walkingSpeed: Number(settings.walkingSpeed || walkingSpeed || 5),
+      enabledVariables: Array.isArray(settings.enabledVariables)
+        ? settings.enabledVariables
+        : Object.keys(variables || {}),
+      layerValues: variables || {},
+      afterRun: {
+        type: "COMPARE_WITH_BASE_ANALYSIS",
+        baseAnalysisId: baseAnalysis.id,
+      },
+      requiresStartPoint: false,
+      canRunNow: true,
+      nextStep: "apply_same_settings_run_then_compare",
+      missingDataWarnings: [],
+    };
+  }, [agentProfile, selectedCity, t, walkingSpeed, walkingTime]);
+
+  React.useEffect(() => {
+    const pending = pendingCompareStartSelectionRef.current;
+    if (!pending) return;
+    const currentKey = pointKey(startPoint);
+    if (!currentKey || currentKey === pending.previousPointKey) return;
+    const fallbackMetadata = Array.isArray(resultMetadata)
+      ? [...resultMetadata].reverse().find((item) => {
+          const itemPoint = Array.isArray(item?.startPoint) && item.startPoint.length === 2 ? item.startPoint : null;
+          return itemPoint && pointKey(itemPoint) !== currentKey;
+        })
+      : null;
+    const fallbackAnalysis = fallbackMetadata
+      ? {
+          id: `result_${fallbackMetadata.groupIndex ?? "latest"}_${fallbackMetadata.subIndex ?? "weighted"}`,
+          city: selectedCity,
+          profile: agentProfile?.id || agentProfile?.presetId || fallbackMetadata.profile || "default_adult",
+          startPoint: fallbackMetadata.startPoint,
+          resultMetadata: fallbackMetadata,
+          settings: {
+            walkingTime,
+            walkingSpeed,
+            enabledVariables: Array.isArray(enabledVariables) ? enabledVariables : Object.keys(layerValues || {}),
+            layerValues: fallbackMetadata.values || layerValues || {},
+          },
+        }
+      : null;
+    const baseAnalysis = analysisHistoryRef.current.find((item) => item.id === pending.baseAnalysisId) ||
+      analysisHistoryRef.current[analysisHistoryRef.current.length - 1] ||
+      fallbackAnalysis ||
+      null;
+    const compareAction = buildCompareCurrentPointAction(startPoint, baseAnalysis);
+    if (!compareAction) return;
+    compareAction.responseLanguage = pending.responseLanguage || lastAgentContextRef.current?.responseLanguage || "en";
+    const compareCopy = getComparePromptCopy(compareAction.responseLanguage);
+    pendingCompareStartSelectionRef.current = null;
+    const promptMessage = {
+      id: `assistant_compare_prompt_${Date.now()}_${Math.random().toString(36).slice(2)}`,
+      role: "assistant",
+      content: compareCopy.ready,
+      result: {
+        action: compareAction,
+        alternativeAction: null,
+        missingDataWarnings: [],
+        nextSteps: [
+          {
+            id: "action_run_current_start_compare",
+            type: "action",
+            label: compareCopy.run,
+            action: "run_analysis",
+            actionRef: "action",
+            actionRole: "primary",
+            appliesSettings: true,
+            requiresStartPoint: false,
+            canRunNow: true,
+            willChange: ["analysis_result", "comparison_result"],
+          },
+          {
+            id: "question_compare_after_run",
+            type: "question",
+            label: compareCopy.question,
+            prompt: compareCopy.question,
+          },
+        ],
+      },
+      suggestions: [
+        {
+          id: "action_run_current_start_compare",
+          type: "action",
+          label: compareCopy.run,
+          action: "run_analysis",
+          actionRef: "action",
+          actionRole: "primary",
+          appliesSettings: true,
+          requiresStartPoint: false,
+          canRunNow: true,
+          willChange: ["analysis_result", "comparison_result"],
+        },
+        {
+          id: "question_compare_after_run",
+          type: "question",
+          label: compareCopy.question,
+          prompt: compareCopy.question,
+        },
+      ],
+    };
+    setResult(promptMessage.result);
+    setChatMessages((prev) => [...prev, promptMessage].slice(-30));
+    setRealComputationStatus(compareCopy.ready);
+  }, [agentProfile, buildCompareCurrentPointAction, enabledVariables, getComparePromptCopy, layerValues, pointKey, resultMetadata, selectedCity, startPoint, walkingSpeed, walkingTime]);
 
   const buildAnalysisRecord = React.useCallback((metadataItems) => {
     if (!Array.isArray(metadataItems) || metadataItems.length === 0) return null;
@@ -81,7 +247,11 @@ export default function AgentPanel({
       : [...metadataItems].reverse().find((item) => item?.isDefault);
     const latest = weighted || baseline;
     if (!latest) return null;
-    const point = Array.isArray(startPoint) && startPoint.length === 2 ? startPoint : null;
+    const point = Array.isArray(latest.startPoint) && latest.startPoint.length === 2
+      ? latest.startPoint
+      : Array.isArray(startPoint) && startPoint.length === 2
+        ? startPoint
+        : null;
     if (!point) return null;
     const signature = [
       selectedCity,
@@ -148,6 +318,7 @@ export default function AgentPanel({
       const base = nextHistory.find((item) => item.id === pendingAction.baseAnalysisId) || nextHistory[nextHistory.length - 2] || null;
       if (base && record.id !== base.id) {
         setPendingCompareAction(null);
+        pendingExplainAfterRunRef.current = false;
         void sendRequestRef.current?.("Compare the latest CAT result with the previous analysis.", {
           analysisHistoryOverride: nextHistory,
           agentContext: {
@@ -155,26 +326,65 @@ export default function AgentPanel({
             originalIntent: "compare_with_previous_result",
           },
         });
+        return;
       }
     }
-  }, [buildAnalysisRecord, resultMetadata]);
+    if (pendingExplainAfterRunRef.current) {
+      const latestMetadata = Array.isArray(resultMetadata) ? resultMetadata[resultMetadata.length - 1] : null;
+      const expectedCount = Math.max(1, pendingExpectedAnalysisCountRef.current || 1);
+      const newMetadata = Array.isArray(resultMetadata)
+        ? resultMetadata.slice(pendingRunMetadataStartIndexRef.current)
+        : [];
+      const completedCount = newMetadata
+        .filter((item) => enabledVariables.length > 0 ? item && !item.isDefault : item?.isDefault).length;
+      const shouldWaitForWeightedResult = Array.isArray(enabledVariables) &&
+        enabledVariables.length > 0 &&
+        (latestMetadata?.isDefault === true || completedCount < expectedCount);
+      if (shouldWaitForWeightedResult) return;
+      if (pendingExplainTimerRef.current) {
+        window.clearTimeout(pendingExplainTimerRef.current);
+      }
+      pendingExplainTimerRef.current = window.setTimeout(() => {
+        pendingExplainAfterRunRef.current = false;
+        pendingExplainTimerRef.current = null;
+        const shouldCompareMultiple = expectedCount > 1 && nextHistory.length >= 2;
+        void sendRequestRef.current?.(
+          shouldCompareMultiple ? "Compare all selected CAT analysis results." : "Explain the latest CAT result.",
+          {
+            analysisHistoryOverride: nextHistory,
+            agentContext: {
+              ...(lastAgentContextRef.current || {}),
+              originalUserQuestion: lastAgentContextRef.current?.originalUserQuestion || lastSubmittedQuestionRef.current || "explain latest result after analysis",
+              originalIntent: shouldCompareMultiple ? "compare_all_selected_results_after_run" : "explain_result_after_run",
+            },
+          }
+        );
+      }, 700);
+    }
+  }, [buildAnalysisRecord, enabledVariables, resultMetadata]);
 
   const getActionConclusion = (action) => {
     if (!action || action.type === "ANSWER_ONLY") return "";
+    if ((action.requiresStartPoint || action.type === "ASK_USER_TO_SELECT_POINT") && hasCurrentStartPoint) {
+      return t("agent_settings_advice_ready_to_run");
+    }
     if (action.requiresStartPoint || action.type === "ASK_USER_TO_SELECT_POINT") {
-      return "Profile and recommended CAT settings are ready. Please select a start point/address on the map before running the real accessibility calculation.";
+      return t("agent_settings_advice_select_start");
     }
     if (action.canRunNow || Array.isArray(action.coordinates)) {
-      return "Profile and recommended CAT settings are ready. A start point is available, so you can review the settings and run the real accessibility calculation.";
+      return t("agent_settings_advice_ready_to_run");
     }
-    return "Structured action is ready. Please review the settings before applying it.";
+    return t("agent_settings_advice_review");
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!String(prompt || "").trim()) return;
+    setShowExamples(false);
     setError(null);
     setLoading(true);
-    setResult(null);
+    setStreamingReply("");
+    setStreamingStatus("");
     setRealComputationStatus(null);
     setLastRealComputation(null);
     await sendRequest(prompt);
@@ -182,18 +392,27 @@ export default function AgentPanel({
 
   async function sendRequest(overridePrompt, options = {}) {
     const p = typeof overridePrompt === "string" ? overridePrompt : prompt;
+    if (!String(p || "").trim()) return;
     lastSubmittedQuestionRef.current = p;
     const outgoingConversation = options.conversationHistoryOverride || conversationHistory;
     const outgoingAnalysisHistory = options.analysisHistoryOverride || analysisHistory;
     setError(null);
     setLoading(true);
-    setResult(null);
+    setStreamingReply("");
+    setStreamingStatus("");
     setRealComputationStatus(null);
     setLastRealComputation(null);
+    const userMessage = {
+      id: `user_${Date.now()}_${Math.random().toString(36).slice(2)}`,
+      role: "user",
+      content: p,
+    };
+    setChatMessages((prev) => [...prev, userMessage].slice(-30));
+    setPrompt("");
     try {
       const response = await fetch("/api/agent/chat", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Accept: "text/event-stream" },
         body: JSON.stringify({
           message: p,
           city: selectedCity,
@@ -211,7 +430,8 @@ export default function AgentPanel({
           resultMetadata: hasResultMetadata ? resultMetadata : null,
           agentContext: options.agentContext || null,
           conversationHistory: outgoingConversation.slice(-20),
-          analysisHistory: outgoingAnalysisHistory.slice(-20)
+          analysisHistory: outgoingAnalysisHistory.slice(-20),
+          stream: true
         })
       });
 
@@ -219,7 +439,41 @@ export default function AgentPanel({
         const body = await response.json().catch(() => ({}));
         throw new Error(body.error || "Agent API 请求失败");
       }
-      const data = await response.json();
+      let data = null;
+      const contentType = response.headers.get("content-type") || "";
+      if (response.body && contentType.includes("text/event-stream")) {
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = "";
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const events = buffer.split("\n\n");
+          buffer = events.pop() || "";
+          for (const rawEvent of events) {
+            const eventName = rawEvent.match(/^event:\s*(.+)$/m)?.[1]?.trim() || "message";
+            const dataLine = rawEvent.match(/^data:\s*(.+)$/m)?.[1];
+            if (!dataLine) continue;
+            const payload = JSON.parse(dataLine);
+            if (eventName === "status") {
+              setStreamingStatus(payload.message || "");
+            } else if (eventName === "reply_delta") {
+              setStreamingReply((prev) => `${prev}${payload.text || ""}`);
+            } else if (eventName === "final") {
+              data = payload;
+            } else if (eventName === "error") {
+              throw new Error(payload.message || "Agent stream failed");
+            }
+          }
+        }
+      } else {
+        data = await response.json();
+        setStreamingReply(data.reply || "");
+      }
+      if (!data) {
+        throw new Error("Agent stream ended before returning a final result");
+      }
       const uiData = {
         ...data,
         mode: data.answerMode || data.intent,
@@ -234,6 +488,25 @@ export default function AgentPanel({
         })) || []
       };
       setResult(uiData);
+      setChatMessages((prev) => [
+        ...prev,
+        {
+          id: `assistant_${Date.now()}_${Math.random().toString(36).slice(2)}`,
+          role: "assistant",
+          content: data.reply || "",
+          result: uiData,
+          suggestions: Array.isArray(uiData.nextSteps)
+            ? uiData.nextSteps
+            : Array.isArray(uiData.followUpSuggestions)
+              ? uiData.followUpSuggestions
+              : Array.isArray(uiData.followUpQuestions)
+              ? uiData.followUpQuestions.map((question) => ({ type: "question", label: question, prompt: question }))
+              : [],
+        },
+      ].slice(-30));
+      setStreamingReply("");
+      setStreamingStatus("");
+      setPreparedActionKey(null);
       setConversationHistory((prev) => [
         ...prev,
         { role: "user", content: p },
@@ -246,6 +519,7 @@ export default function AgentPanel({
           originalAnswerMode: data.answerMode,
           originalActionType: data.action?.type || null,
           originalLocationText: data.action?.locationText || data.detected?.locationText || null,
+          responseLanguage: data.detected?.responseLanguage || data.detected?.language || "en",
           capabilityCheck: data.capabilityCheck || null,
           ragSufficiency: data.ragSufficiency || null,
         });
@@ -256,9 +530,170 @@ export default function AgentPanel({
       setError(err.message || "未知错误");
     } finally {
       setLoading(false);
+      setStreamingStatus("");
     }
   }
   sendRequestRef.current = sendRequest;
+
+  const focusAgentTarget = (targetId) => {
+    if (typeof document === "undefined" || !targetId) return false;
+    const element = document.getElementById(targetId);
+    if (!element) return false;
+    element.setAttribute("tabindex", "-1");
+    element.focus({ preventScroll: true });
+    element.scrollIntoView({ behavior: "smooth", block: "start" });
+    return true;
+  };
+
+  const handleFollowUpQuestion = (question) => {
+    if (!question || loading) return;
+    setPrompt(question);
+    setShowExamples(false);
+    void sendRequest(question);
+  };
+
+  const appendAssistantStatusMessage = (content) => {
+    if (!content) return;
+    setChatMessages((prev) => [
+      ...prev,
+      {
+        id: `assistant_status_${Date.now()}_${Math.random().toString(36).slice(2)}`,
+        role: "assistant",
+        content,
+        kind: "status",
+      },
+    ].slice(-30));
+  };
+
+  const resolveActionForSuggestion = (suggestion, sourceResult = result) => {
+    const ref = suggestion?.actionRef || suggestion?.targetAction || suggestion?.payload?.actionRef;
+    if (ref === "alternativeAction") {
+      return {
+        action: sourceResult?.alternativeAction || null,
+        alternative: true,
+      };
+    }
+    if (ref === "action") {
+      return {
+        action: sourceResult?.action || null,
+        alternative: false,
+      };
+    }
+    if (sourceResult?.action && sourceResult.action.type !== "ANSWER_ONLY") {
+      return { action: sourceResult.action, alternative: false };
+    }
+    if (sourceResult?.alternativeAction && sourceResult.alternativeAction.type !== "ANSWER_ONLY") {
+      return { action: sourceResult.alternativeAction, alternative: true };
+    }
+    return { action: null, alternative: false };
+  };
+
+  const handleNewConversation = () => {
+    agentPanelMemory = {
+      chatMessages: [],
+      conversationHistory: [],
+      analysisHistory: [],
+      lastAgentContext: null,
+    };
+    setChatMessages([]);
+    setConversationHistory([]);
+    setAnalysisHistory([]);
+    setLastAgentContext(null);
+    setResult(null);
+    setPrompt("");
+    setStreamingReply("");
+    setStreamingStatus("");
+    setRealComputationStatus(null);
+    setPendingCompareAction(null);
+    recordedAnalysisSignaturesRef.current = new Set();
+    analysisHistoryRef.current = [];
+    setShowExamples(true);
+  };
+
+  const handleFollowUpSuggestion = (suggestion, sourceResult = result) => {
+    if (!suggestion || loading) return;
+    if (sourceResult) setResult(sourceResult);
+    if (suggestion.type === "question") {
+      handleFollowUpQuestion(suggestion.prompt || suggestion.label);
+      return;
+    }
+
+    const action = suggestion.action;
+    if (action === "apply_settings_select_start") {
+      const resolved = resolveActionForSuggestion(suggestion, sourceResult);
+      if (resolved.action && resolved.action.type !== "ANSWER_ONLY") {
+        executeAgentAction(resolved.action, { run: false, alternative: resolved.alternative });
+      }
+      const didHandle = onSelectStartSuggestion?.({ another: false });
+      focusAgentTarget("map-region") || focusAgentTarget("map") || focusAgentTarget("sidebar");
+      const statusText = didHandle === false
+        ? t("agent_suggestion_select_start")
+        : t(resolved.alternative ? "agent_chat_status_alt_settings_select_start" : "agent_chat_status_settings_select_start");
+      setRealComputationStatus(statusText);
+      appendAssistantStatusMessage(statusText);
+      return;
+    }
+
+    if (action === "run_analysis") {
+      const resolved = resolveActionForSuggestion(suggestion, sourceResult);
+      if (resolved.action && resolved.action.type !== "ANSWER_ONLY") {
+        executeAgentAction(resolved.action, { run: true, alternative: resolved.alternative });
+        appendAssistantStatusMessage(t(resolved.alternative ? "agent_chat_status_alt_run_requested" : "agent_chat_status_run_requested"));
+      } else {
+        handleRunRealComputation();
+        appendAssistantStatusMessage(t("agent_chat_status_run_requested"));
+      }
+      return;
+    }
+
+    if (action === "apply_settings") {
+      const resolved = resolveActionForSuggestion(suggestion, sourceResult);
+      if (resolved.action && resolved.action.type !== "ANSWER_ONLY") {
+        executeAgentAction(resolved.action, { run: false, alternative: resolved.alternative });
+      }
+      const statusText = t(resolved.alternative ? "agent_status_alt_settings_applied" : "agent_status_settings_applied");
+      setRealComputationStatus(statusText);
+      appendAssistantStatusMessage(statusText);
+      return;
+    }
+
+    if (action === "review_comfort_factors") {
+      const didHandle = onReviewFactorsSuggestion?.();
+      focusAgentTarget("sidebar");
+      const statusText = didHandle === false
+        ? t("agent_suggestion_review_factors")
+        : t("agent_chat_status_review_factors");
+      setRealComputationStatus(statusText);
+      appendAssistantStatusMessage(statusText);
+      return;
+    }
+
+    if (action === "select_start_point" || action === "select_another_start_point") {
+      if (action === "select_another_start_point") {
+        const latestAnalysis = analysisHistoryRef.current[analysisHistoryRef.current.length - 1] || null;
+        pendingCompareStartSelectionRef.current = {
+          baseAnalysisId: latestAnalysis?.id || null,
+          previousPointKey: pointKey(startPoint),
+          responseLanguage: lastAgentContextRef.current?.responseLanguage || result?.detected?.responseLanguage || result?.detected?.language || "en",
+        };
+      }
+      const didHandle = onSelectStartSuggestion?.({ another: action === "select_another_start_point" });
+      focusAgentTarget("map-region") || focusAgentTarget("map") || focusAgentTarget("sidebar");
+      const statusText = didHandle === false
+        ? (
+            action === "select_another_start_point"
+              ? t("agent_suggestion_select_another_start")
+              : t("agent_suggestion_select_start")
+          )
+        : (
+            action === "select_another_start_point"
+              ? t("agent_chat_status_select_another_start")
+              : t("agent_chat_status_select_start")
+          );
+      setRealComputationStatus(statusText);
+      appendAssistantStatusMessage(statusText);
+    }
+  };
 
   const handleApply = () => {
     if (!result?.suggestedSettings) return;
@@ -304,38 +739,107 @@ export default function AgentPanel({
     executeAgentAction(result?.alternativeAction, { run, alternative: true });
   };
 
+  const getActionKey = (action, kind = "primary") => {
+    if (!action) return "";
+    return `${kind}:${JSON.stringify({
+      type: action.type,
+      profile: action.profile,
+      city: action.city,
+      walkingSpeed: action.walkingSpeed,
+      walkingTime: action.walkingTime,
+      enabledVariables: action.enabledVariables,
+      layerValues: action.layerValues,
+      requiresStartPoint: action.requiresStartPoint,
+    })}`;
+  };
+
   const executeAgentAction = (action, { run = false, alternative = false } = {}) => {
     if (!action) return;
-    if (run && action.type === "RUN_ANALYSIS_THEN_COMPARE") {
+    if (!run) {
+      setPreparedActionKey(getActionKey(action, alternative ? "alternative" : "primary"));
+    }
+    if (run && actionNeedsStartPoint(action) && !canRunActionWithCurrentPoint(action)) {
+      pendingExplainAfterRunRef.current = false;
+      setRealComputationStatus(alternative
+        ? t("agent_status_alt_select_start")
+        : t("agent_status_select_start_or_region"));
+      return;
+    }
+    const validStartPoints = Array.isArray(startPoints)
+      ? startPoints.filter((point) => Array.isArray(point) && point.length === 2)
+      : [];
+    if (run && !Array.isArray(action.coordinates) && validStartPoints.length > 1) {
+      const didApply = onExecuteAgentAction?.(action, { run: false });
+      if (didApply === false) {
+        pendingExplainAfterRunRef.current = false;
+        setRealComputationStatus(alternative
+          ? t("agent_status_alt_select_start")
+          : t("agent_status_check_action"));
+        return;
+      }
+      const didRunAll = onRunRealComputation?.({ runAllStartPoints: true });
+      pendingExpectedAnalysisCountRef.current = validStartPoints.length;
+      pendingRunMetadataStartIndexRef.current = Array.isArray(resultMetadata) ? resultMetadata.length : 0;
+      pendingExplainAfterRunRef.current = didRunAll !== false;
+      setLastRealComputation(
+        didRunAll === false
+          ? null
+          : {
+              type: "multi_start_points",
+              label: `${validStartPoints.length} selected start points`,
+              center: validStartPoints[validStartPoints.length - 1],
+            }
+      );
+      setRealComputationStatus(
+        didRunAll === false
+          ? t("agent_status_select_start_or_region")
+          : t("agent_status_real_computation_started")
+      );
+      return;
+    }
+    const runnableAction = run && !Array.isArray(action.coordinates) && hasCurrentStartPoint
+      ? {
+          ...action,
+          coordinates: startPoint,
+          requiresStartPoint: false,
+          canRunNow: true,
+          locationText: action.locationText || t("agent_current_map_start_point"),
+        }
+      : action;
+    if (run && runnableAction.type === "RUN_ANALYSIS_THEN_COMPARE") {
       setPendingCompareAction({
-        ...action,
+        ...runnableAction,
         originalUserQuestion: lastSubmittedQuestionRef.current,
       });
     }
-    const didExecute = onExecuteAgentAction?.(action, { run });
+    const didExecute = onExecuteAgentAction?.(runnableAction, { run });
     if (didExecute === false) {
+      if (run) pendingExplainAfterRunRef.current = false;
       setRealComputationStatus(alternative
-        ? "Alternative CAT settings were prepared. Please select a start point on the map before running this related catchment analysis."
-        : "Please check the AI action, or select a start point on the map before running.");
+        ? t("agent_status_alt_select_start")
+        : t("agent_status_check_action"));
       return;
     }
-    if (run && action.coordinates) {
+    if (run && runnableAction.coordinates) {
+      pendingExpectedAnalysisCountRef.current = 1;
+      pendingRunMetadataStartIndexRef.current = Array.isArray(resultMetadata) ? resultMetadata.length : 0;
+      pendingExplainAfterRunRef.current = true;
       setLastRealComputation({
         type: alternative ? "alternative_agent_action" : "agent_action",
-        label: action.locationText || (alternative ? "Alternative CAT start point" : "Agent selected start point"),
-        center: action.coordinates
+        label: runnableAction.locationText || (alternative ? "Alternative CAT start point" : "Agent selected start point"),
+        center: runnableAction.coordinates
       });
       setRealComputationStatus(alternative
-        ? "Alternative catchment analysis was triggered. This result is related context, not a direct answer to the original unsupported task."
-        : "AI action applied and real CAT accessibility computation triggered.");
-    } else if (action.type === "ASK_USER_TO_SELECT_POINT") {
+        ? t("agent_status_alt_run_triggered")
+        : t("agent_status_run_triggered"));
+    } else if (runnableAction.type === "ASK_USER_TO_SELECT_POINT") {
       setRealComputationStatus(alternative
-        ? "Alternative CAT settings were applied. Select a start point on the map to run the related catchment analysis."
-        : "AI recommended settings applied. Select a start point on the map before running analysis.");
+        ? t("agent_status_alt_settings_applied")
+        : t("agent_status_settings_applied"));
     } else {
       setRealComputationStatus(alternative
-        ? "Alternative CAT action applied. Check settings before running this related analysis."
-        : "AI action applied. Check speed, time, variables, and start point before running.");
+        ? t("agent_status_alt_action_applied")
+        : t("agent_status_action_applied"));
     }
   };
 
@@ -343,12 +847,17 @@ export default function AgentPanel({
     const hasStartPoint = Array.isArray(startPoint) && startPoint.length === 2;
     if (!hasStartPoint && !startPointOverride) {
       setLastRealComputation(null);
-      setRealComputationStatus("请先在地图上选择起点，或从推荐区域中设置起点后再运行真实计算。");
+      setRealComputationStatus(t("agent_status_select_start_or_region"));
       return;
     }
 
     window.setTimeout(() => {
       const didRun = onRunRealComputation?.({ startPointOverride });
+      pendingExpectedAnalysisCountRef.current = startPointOverride
+        ? 1
+        : Math.max(1, Array.isArray(startPoints) && startPoints.length ? startPoints.length : 1);
+      pendingRunMetadataStartIndexRef.current = Array.isArray(resultMetadata) ? resultMetadata.length : 0;
+      pendingExplainAfterRunRef.current = didRun !== false;
       setLastRealComputation(
         didRun === false
           ? null
@@ -360,27 +869,10 @@ export default function AgentPanel({
       );
       setRealComputationStatus(
         didRun === false
-          ? "请先在地图上选择起点，或从推荐区域中设置起点后再运行真实计算。"
-          : "已触发真实路网可达性计算。结果会显示在地图和图例中。"
+          ? t("agent_status_select_start_or_region")
+          : t("agent_status_real_computation_started")
       );
     }, 0);
-  };
-
-  const handleLoadDemoScenario = (scenarioId) => {
-    const scenario = getDemoScenario(scenarioId);
-    if (!scenario) return;
-
-    onLoadScenario?.(scenario);
-
-    // 预填充问题
-    setPrompt(scenario.question);
-    setResult(null);
-    setError(null);
-    setRealComputationStatus(null);
-    setLastRealComputation(null);
-    setShowDemoMenu(false);
-    // 自动发送请求以便快速演示（如果希望仅预填，请取消下一行）
-    void sendRequest(scenario.question);
   };
 
   const formatLonLat = (point) => {
@@ -411,212 +903,399 @@ export default function AgentPanel({
   const isKnowledgeAnswer = result && knowledgeAnswerModes.includes(result.mode);
   const legacyMode = result?.intentMode || result?.mode;
 
-  return (
-    <section className={sty.agentPanel} aria-label="AI 代理分析">
-      <div className={sty.sidebarSectionTitle}>AI 可达性助手</div>
-      
-      {/* 演示场景快捷菜单 */}
-      <div style={{ marginBottom: "12px" }}>
-        <button 
-          type="button"
-          onClick={() => setShowDemoMenu(!showDemoMenu)}
-          style={{
-            width: "100%",
-            padding: "8px",
-            backgroundColor: "#2196F3",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-            fontSize: "13px",
-            fontWeight: "bold"
-          }}
-        >
-          {showDemoMenu ? "▼ 隐藏演示场景" : "▶ 加载演示场景"}
-        </button>
-        
-        {showDemoMenu && (
-          <div style={{
-            marginTop: "8px",
-            padding: "8px",
-            backgroundColor: "#f5f5f5",
-            borderRadius: "4px",
-            border: "1px solid #ddd"
-          }}>
-            <div className={sty.sidebarText} style={{ fontSize: "12px", marginBottom: "8px", color: "#666" }}>
-              💡 选择一个演示场景快速加载（会预填充问题和配置建议）：
+  const variableLabelKeys = {
+    noise_wms: "display_noise",
+    noise: "display_noise",
+    streetlight: "display_light",
+    light: "display_light",
+    trafic_light_wms: "display_traffic",
+    trafic_light: "display_traffic",
+    traffic: "display_traffic",
+    tactile_guidance: "display_tactile",
+    tactile: "display_tactile",
+    tree_wms: "display_tree",
+    tree: "display_tree",
+    green_infrastructure_wms: "display_green_inf",
+    green_infrastructure: "display_green_inf",
+    green: "display_green_inf",
+    blue_infrastructure_wms: "display_blue_inf",
+    blue: "display_blue_inf",
+    transport_station_wms: "display_station",
+    transport_station: "display_station",
+    station: "display_station",
+    sidewalk_narrow: "display_narrow",
+    narrowRoads: "display_narrow",
+    narrow: "display_narrow",
+    wc_disabled: "display_wc",
+    wcDisabled: "display_wc",
+    wc: "display_wc",
+    stair: "display_stair",
+    obstacle: "display_obstacle",
+    slope: "display_slope",
+    slope_penteli: "display_slope",
+    uneven_surfaces: "display_uneven",
+    unevenSurface: "display_uneven",
+    uneven: "display_uneven",
+    poor_pavement: "display_pavement",
+    poorPavement: "display_pavement",
+    pavement: "display_pavement",
+    kerbs_high: "display_kerb_high",
+    kerbsHigh: "display_kerb_high",
+    kerb: "display_kerb_high",
+    facility_wms: "display_facility",
+    facilities: "display_facility",
+    facility: "display_facility",
+    pedestrian_flow_wms: "display_pedestrian_flow",
+    pedestrian_flow: "display_pedestrian_flow",
+    temp_summer: "display_summer_heat",
+    temp_winter: "display_winter_cold",
+  };
+
+  const getVariableLabel = (key) => {
+    const normalizedKey = String(key || "")
+      .replace(/([a-z0-9])([A-Z])/g, "$1_$2")
+      .toLowerCase();
+    const labelKey = variableLabelKeys[key] || variableLabelKeys[normalizedKey];
+    return labelKey ? t(labelKey) : String(key).replace(/_/g, " ");
+  };
+
+  const profileLabelKeys = {
+    elderly: "profile_elderly",
+    wheelchair_user: "profile_wheelchair",
+    visually_impaired: "profile_visual",
+    children_family: "profile_stroller",
+  };
+
+  const getProfileLabel = (profileId) => {
+    if (!profileId || profileId === "default_adult") return t("agent_general_walking_needs", { defaultValue: "general walking needs" });
+    const labelKey = profileLabelKeys[profileId];
+    return labelKey ? t(labelKey) : String(profileId).replace(/_/g, " ");
+  };
+
+  const getWeightBucket = (value) => {
+    const numeric = Number(value);
+    if (!Number.isFinite(numeric) || numeric <= 0) return "off";
+    if (numeric >= 0.75) return "high";
+    if (numeric >= 0.45) return "medium";
+    return "low";
+  };
+
+  const formatList = (items) => {
+    if (!items.length) return "";
+    if (items.length === 1) return items[0];
+    return `${items.slice(0, -1).join(t("agent_list_separator"))}${t("agent_list_last_separator")}${items[items.length - 1]}`;
+  };
+
+  const buildNaturalSettings = (actionOrSettings) => {
+    if (!actionOrSettings || typeof actionOrSettings !== "object") return [];
+    const layerValues = actionOrSettings.layerValues || actionOrSettings;
+    const lines = [];
+    if (actionOrSettings.profile) {
+      lines.push(t("agent_natural_profile", { profile: getProfileLabel(actionOrSettings.profile) }));
+    }
+    if (actionOrSettings.walkingSpeed) {
+      lines.push(t("agent_natural_speed", { speed: actionOrSettings.walkingSpeed }));
+    }
+    if (actionOrSettings.walkingTime) {
+      lines.push(t("agent_natural_time", { time: actionOrSettings.walkingTime }));
+    }
+    const weightEntries = Object.entries(layerValues || {})
+      .filter(([key, value]) => !["profile", "walkingSpeed", "walkingTime", "enabledVariables", "coordinates", "city", "type", "locationText"].includes(key) && Number(value) > 0)
+      .slice(0, 6);
+    if (weightEntries.length > 0) {
+      const grouped = weightEntries.reduce((acc, [key, value]) => {
+        const bucket = getWeightBucket(value);
+        if (bucket !== "off") acc[bucket].push(getVariableLabel(key));
+        return acc;
+      }, { high: [], medium: [], low: [] });
+      if (grouped.high.length) {
+        lines.push(t("agent_natural_weights_high", { factors: formatList(grouped.high) }));
+      }
+      if (grouped.medium.length) {
+        lines.push(t("agent_natural_weights_medium", { factors: formatList(grouped.medium) }));
+      }
+      if (grouped.low.length) {
+        lines.push(t("agent_natural_weights_low", { factors: formatList(grouped.low) }));
+      }
+    }
+    return lines;
+  };
+
+  const canRunActionWithCurrentPoint = (action) => (
+    Array.isArray(action?.coordinates) || hasCurrentStartPoint
+  );
+
+  const actionNeedsStartPoint = (action) => (
+    action?.requiresStartPoint || action?.type === "ASK_USER_TO_SELECT_POINT"
+  );
+
+  const getRunActionLabel = (action, fallbackRunKey = "agent_apply_and_run") => {
+    const needsStartPoint = actionNeedsStartPoint(action);
+    if (needsStartPoint && canRunActionWithCurrentPoint(action)) return t("agent_run_analysis");
+    if (needsStartPoint) return t("agent_select_start_first");
+    return t(fallbackRunKey);
+  };
+
+  const shouldOfferMoreStartPoints = (action) => (
+    canRunActionWithCurrentPoint(action)
+    && actionNeedsStartPoint(action)
+  );
+
+  const isActionPrepared = (action, kind = "primary") => (
+    preparedActionKey === getActionKey(action, kind)
+  );
+
+  const isSettingsAction = (action) => (
+    action &&
+    !["ANSWER_ONLY", "COMPARE_EXISTING_RESULTS", "ASK_FOR_PREVIOUS_RESULT", "ASK_FOR_LOCATION"].includes(action.type)
+  );
+
+  const getSettingsActionForNextStep = (answerResult, suggestions = []) => {
+    if (isSettingsAction(answerResult?.action)) return answerResult.action;
+    const wantsAlternative = Array.isArray(suggestions) && suggestions.some((suggestion) => (
+      suggestion?.actionRef === "alternativeAction" ||
+      suggestion?.targetAction === "alternativeAction" ||
+      suggestion?.payload?.actionRef === "alternativeAction"
+    ));
+    if (wantsAlternative && isSettingsAction(answerResult?.alternativeAction)) {
+      return answerResult.alternativeAction;
+    }
+    return null;
+  };
+
+  const renderNextStepModule = (answerResult, suggestions = [], keyPrefix = "chat") => {
+    const action = getSettingsActionForNextStep(answerResult, suggestions);
+    const hasSettings = action && action.type !== "ANSWER_ONLY";
+    const visibleSuggestions = Array.isArray(suggestions) ? suggestions.slice(0, 3) : [];
+    if (!hasSettings && visibleSuggestions.length === 0) return null;
+    const settingWarnings = [
+      ...(Array.isArray(action?.missingDataWarnings) ? action.missingDataWarnings : []),
+      ...(Array.isArray(answerResult?.missingDataWarnings) ? answerResult.missingDataWarnings : []),
+    ].filter((warning, index, all) => warning && all.indexOf(warning) === index);
+    return (
+      <div className={sty.agentFollowUpBox}>
+        <div className={sty.agentFollowUpTitle}>{t("agent_follow_up_title")}</div>
+        {hasSettings && (
+          <div className={sty.agentNextStepSettings}>
+            <div className={sty.sidebarText} style={{ fontSize: "12px", lineHeight: 1.55 }}>
+              {buildNaturalSettings(action).map((line, index) => (
+                <div key={`${keyPrefix}-setting-${index}`}>{line}</div>
+              ))}
+              <div style={{ marginTop: "6px" }}>{t("agent_apply_question")}</div>
             </div>
-            {getDemoScenariosList().map((scenario) => (
-              <button
-                key={scenario.id}
-                type="button"
-                onClick={() => handleLoadDemoScenario(scenario.id)}
-                style={{
-                  display: "block",
-                  width: "100%",
-                  padding: "8px",
-                  marginBottom: "6px",
-                  backgroundColor: "#fff",
-                  border: "1px solid #bbb",
-                  borderRadius: "3px",
-                  cursor: "pointer",
-                  textAlign: "left",
-                  fontSize: "12px"
-                }}
-              >
-                <strong>{scenario.title}</strong>
-                <br />
-                <span style={{ color: "#666", fontSize: "11px" }}>
-                  {scenario.description.substring(0, 60)}...
-                </span>
-              </button>
-            ))}
+            {settingWarnings.length > 0 && (
+              <ul className={sty.agentFactorList}>
+                {settingWarnings.map((warning, index) => (
+                  <li key={`${keyPrefix}-warning-${index}`} className={sty.agentFactorItem}>{warning}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+        )}
+        <div className={sty.agentFollowUpList}>
+          {visibleSuggestions.map((suggestion) => (
+            <button
+              key={`${keyPrefix}:${suggestion.type || "question"}:${suggestion.action || suggestion.label || suggestion.prompt}`}
+              type="button"
+              className={[
+                sty.agentFollowUpButton,
+                (suggestion.type === "action" || suggestion.action) ? sty.agentFollowUpActionButton : "",
+              ].filter(Boolean).join(" ")}
+              onClick={() => handleFollowUpSuggestion(suggestion, answerResult)}
+              disabled={loading}
+            >
+              {(suggestion.type === "action" || suggestion.action) && (
+                <span className={sty.agentFollowUpType}>{t("agent_suggestion_action_label")}</span>
+              )}
+              <span>{suggestion.label || suggestion.prompt}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const getDisplayReply = (answerResult) => {
+    if (!answerResult?.reply) return "";
+    if (answerResult.action && answerResult.action.type !== "ANSWER_ONLY") return "";
+    return String(answerResult.reply)
+      .split(/\r?\n/)
+      .filter((line) => {
+        const text = line.trim();
+        if (!text) return true;
+        return ![
+          /^I detected .* profile and prepared settings/i,
+          /^I prepared comfort-factor settings/i,
+          /^Recommended walking speed:/i,
+          /^Recommended weights:/i,
+          /^Profile assumptions:/i,
+          /^- Profile used:/i,
+          /^- Comfort weights:/i,
+          /^建议画像[:：]/,
+          /^推荐步行速度[:：]/,
+          /^建议权重[:：]/,
+          /^Empfohlenes Profil[:：]/i,
+          /^Empfohlene Gehgeschwindigkeit[:：]/i,
+          /^Empfohlene Gewichte[:：]/i,
+        ].some((pattern) => pattern.test(text));
+      })
+      .join("\n")
+      .trim();
+  };
+
+  return (
+    <section className={sty.agentPanel} aria-label={t("agent_aria_label")}>
+      <div className={sty.agentPanelHeader}>
+        <span className={sty.agentPanelIcon} aria-hidden="true">AI</span>
+        <div className={sty.sidebarSectionTitle}>{t("agent_title")}</div>
+      </div>
+      {chatMessages.length > 0 && (
+        <button
+          type="button"
+          className={sty.agentNewChatButton}
+          onClick={handleNewConversation}
+          disabled={loading}
+        >
+          {t("agent_new_conversation")}
+        </button>
+      )}
+      
+      {showExamples && (
+      <div style={{ marginBottom: "12px" }}>
+        <div className={sty.sidebarText} style={{ fontSize: "13px", fontWeight: 700, marginBottom: "8px" }}>
+          {t("agent_examples_title")}
+        </div>
+        <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+          {[t("agent_example_question_1"), t("agent_example_question_2"), t("agent_example_question_3")].map((question) => (
+            <button
+              key={question}
+              type="button"
+              className={sty.agentExampleButton}
+              onClick={() => {
+                setPrompt(question);
+                setShowExamples(false);
+              }}
+            >
+              <span className={sty.agentExampleSpark} aria-hidden="true">✦</span>
+              {question}
+            </button>
+          ))}
+        </div>
+      </div>
+      )}
+
+      <div className={sty.agentChatBox} aria-live="polite" ref={chatBoxRef}>
+        {chatMessages.map((message) => {
+          const messageResult = message.result || null;
+          const isAssistant = message.role === "assistant";
+          const isStatus = message.kind === "status";
+          const conclusionText = isAssistant && messageResult?.action && messageResult.action.type !== "ANSWER_ONLY"
+            ? getActionConclusion(messageResult.action)
+            : "";
+          const answerText = isAssistant && messageResult
+            ? getDisplayReply(messageResult) || message.content
+            : message.content;
+          const suggestions = isAssistant
+            ? (Array.isArray(message.suggestions) ? message.suggestions : [])
+            : [];
+          return (
+            <div
+              key={message.id}
+              className={[
+                sty.agentChatMessage,
+                isAssistant ? sty.agentChatMessageAssistant : sty.agentChatMessageUser,
+                isStatus ? sty.agentChatMessageStatus : "",
+              ].filter(Boolean).join(" ")}
+            >
+              <div className={sty.agentChatRole}>
+                {isAssistant ? t("agent_chat_assistant_label") : t("agent_chat_user_label")}
+              </div>
+              {conclusionText && (
+                <div className={sty.agentChatConclusion}>{conclusionText}</div>
+              )}
+              {answerText && (
+                <div className={isStatus ? sty.agentStatusText : sty.agentAnswerText}>{answerText}</div>
+              )}
+              {isAssistant && !isStatus && renderNextStepModule(messageResult, suggestions, message.id)}
+            </div>
+          );
+        })}
+        {loading && !streamingReply && (
+          <div className={[sty.agentChatMessage, sty.agentChatMessageAssistant, sty.agentChatMessageStatus].join(" ")}>
+            <div className={sty.agentChatRole}>{t("agent_chat_assistant_label")}</div>
+            <div className={sty.agentThinkingLine}>{streamingStatus || t("agent_thinking_status")}</div>
+          </div>
+        )}
+        {streamingReply && (
+          <div className={[sty.agentChatMessage, sty.agentChatMessageAssistant].join(" ")}>
+            <div className={sty.agentChatRole}>{t("agent_chat_assistant_label")}</div>
+            {streamingStatus && (
+              <div className={sty.agentThinkingLine}>{streamingStatus}</div>
+            )}
+            <div className={sty.agentAnswerText}>{streamingReply}</div>
           </div>
         )}
       </div>
 
-      <div className={sty.sidebarText}>
-        {agentProfile
-          ? `当前画像：${agentProfile.label || agentProfile.id}`
-          : "未选择画像，建议先在用户画像面板中选择一个预设。"}
-      </div>
-      <div className={sty.sidebarText}>
-        {startPoint
-          ? `当前起点：${startPoint[1].toFixed(6)}, ${startPoint[0].toFixed(6)}`
-          : "请先在地图上选择起点，AI 分析会基于此起点的区域。"}
-      </div>
       <form className={sty.agentForm} onSubmit={handleSubmit}>
         <textarea
           className={sty.agentInput}
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           rows={4}
-          aria-label="AI 问题输入"
+          aria-label={t("agent_input_aria")}
         />
-        <button type="submit" className={sty.getCatchmentButton} disabled={loading}>
-          {loading ? "分析中…" : "发送给 AI"}
+        <button type="submit" className={sty.agentSendButton} disabled={loading}>
+          {loading ? t("agent_loading") : t("agent_send")}
         </button>
       </form>
 
       {error && <div className={sty.sidebarError}>{error}</div>}
-      {hasResultMetadata && (
-        <button
-          type="button"
-          className={sty.setupButton}
-          onClick={() => sendRequest("Explain the latest CAT result.", { agentContext: lastAgentContext })}
-          disabled={loading}
-          style={{ width: "100%", marginTop: "8px" }}
-        >
-          Explain latest result
-        </button>
-      )}
       {realComputationStatus && (
         <div className={sty.sidebarText} style={{ fontSize: "12px", marginTop: "8px", color: "#444" }}>
           {realComputationStatus}
         </div>
       )}
 
-      {result && (
+      {false && !result && streamingReply && (
         <div className={sty.agentResultBox}>
-          <div
-            className={sty.sidebarText}
-            style={{
-              marginBottom: "10px",
-              padding: "8px",
-              border: "1px solid #d7e3f4",
-              borderRadius: "6px",
-              background: lastRealComputation ? "#eef8f1" : "#f6f9fd",
-              fontSize: "12px",
-              color: "#334155"
-            }}
-          >
-            <div>
-              <strong>{isKnowledgeAnswer ? "Knowledge answer:" : "AI estimate:"}</strong>{" "}
-              {isKnowledgeAnswer ? "based on local CAT RAG knowledge" : "based on spatial summaries and local RAG context"}
-              {result.runtimeMode ? ` (${result.runtimeMode})` : ""}.
-            </div>
-            {result.answerMode && (
-              <div style={{ marginTop: "4px" }}>
-                <strong>Answer mode:</strong> {result.answerMode}
-              </div>
-            )}
-            {result.ragSufficiency && (
-              <div style={{ marginTop: "4px" }}>
-                <strong>RAG sufficiency:</strong>{" "}
-                {result.ragSufficiency.retrievalSufficient ? "sufficient" : "not sufficient"}
-                {Array.isArray(result.ragSufficiency.missingEvidence) && result.ragSufficiency.missingEvidence.length > 0
-                  ? `; missing: ${result.ragSufficiency.missingEvidence.join(", ")}`
-                  : ""}
-              </div>
-            )}
-            {result.capabilityCheck?.systemCanFullyAnswer === false && (
-              <div style={{ marginTop: "4px", color: "#8a5a00" }}>
-                <strong>Capability boundary:</strong> CAT cannot fully provide {result.capabilityCheck.requiredCapability}.
-                {result.capabilityCheck.closestSupportedAlternative
-                  ? ` Closest supported alternative: ${result.capabilityCheck.closestSupportedAlternative}.`
-                  : ""}
-              </div>
-            )}
-            {result.confidence?.caveat && (
-              <div style={{ marginTop: "4px" }}>{result.confidence.caveat}</div>
-            )}
-            {isKnowledgeAnswer ? (
-              <div style={{ marginTop: "4px" }}>
-                <strong>Map computation:</strong> not triggered for this knowledge question.
-              </div>
-            ) : lastRealComputation ? (
-              <div style={{ marginTop: "4px" }}>
-                <strong>Real computation triggered:</strong> pgRouting is using {lastRealComputation.label}
-                {formatLonLat(lastRealComputation.center) ? ` (${formatLonLat(lastRealComputation.center)})` : ""}. Check the map and legend for the computed catchment result.
-              </div>
-            ) : (
-              <div style={{ marginTop: "4px" }}>
-                <strong>Real computation:</strong> not run from this AI answer yet. Use the action buttons below to calculate the map result.
-              </div>
-            )}
-          </div>
-          <div className={sty.sidebarSubtitle}>AI 分析结果</div>
+          <div className={sty.agentAnswerText}>{streamingReply}</div>
+        </div>
+      )}
 
-          {/* 人性化优先展示：结论 -> 简要依据 -> 详细说明 */}
+      {false && result && (
+        <div className={sty.agentResultBox}>
           {(() => {
             const conclusionFromResult = result.conclusion || null;
+            const displayReply = getDisplayReply(result);
             let conclusionText = '';
             if (result.action && result.action.type !== "ANSWER_ONLY") {
               conclusionText = getActionConclusion(result.action);
             } else if (isKnowledgeAnswer) {
-              conclusionText = '知识库回答';
+              conclusionText = "";
             } else if (conclusionFromResult) {
               conclusionText = conclusionFromResult;
             } else if (legacyMode === 'region_recommendation') {
               const top = result.recommendedRegions && result.recommendedRegions[0];
-              conclusionText = top ? `结论：优先推荐 ${top.name}（得分 ${top.score}/100）。` : '结论：未找到明显推荐区域。';
+              conclusionText = top
+                ? t("agent_conclusion_top_region", { name: top.name, score: top.score })
+                : t("agent_conclusion_no_region");
             } else if (typeof result.score === 'number') {
-              conclusionText = result.score >= 60 ? `结论：基于当前数据，对该用户类型总体上是相对友好的（得分 ${result.score}/100）。` : `结论：基于当前数据，存在改进需求（得分 ${result.score}/100）。`;
+              conclusionText = result.score >= 60
+                ? t("agent_conclusion_friendly", { score: result.score })
+                : t("agent_conclusion_needs_improvement", { score: result.score });
             } else {
-              conclusionText = '结论：未能基于当前数据得出明确结论。';
-            }
-
-            // 简要依据：优先使用 factors，回退到 references
-            let evidenceText = '';
-            if (Array.isArray(result.factors) && result.factors.length > 0) {
-              const top = result.factors.slice(0, 3).map(f => {
-                const short = f.value ? `${f.name}（${f.value}）` : f.name;
-                return short;
-              });
-              evidenceText = `依据：主要发现包括 ${top.join('、')}。`;
-            } else if (Array.isArray(result.references) && result.references.length > 0) {
-              const refs = result.references.slice(0, 3).map(r => `${r.description}${r.count ? `（${r.count}）` : ''}`);
-              evidenceText = `依据：参考了地图要素数据（例如 ${refs.join('、')}）。`;
+              conclusionText = t("agent_conclusion_unclear");
             }
 
             return (
               <div style={{ marginBottom: '10px' }}>
-                <div style={{ fontWeight: 700, fontSize: '14px', marginBottom: '6px' }}>{conclusionText}</div>
-                {evidenceText && <div className={sty.sidebarText} style={{ fontSize: '13px', color: '#444' }}>{evidenceText}</div>}
-                {/* 详细说明（可折叠/预览） */}
-                {result.reply && (
-                  <div className={sty.sidebarText} style={{ whiteSpace: 'pre-wrap', marginTop: '8px', color: '#666', fontSize: '12px' }}>
-                    {result.reply}
+                {conclusionText && (
+                  <div style={{ fontWeight: 700, fontSize: '13px', marginBottom: '8px', color: "#334155" }}>{conclusionText}</div>
+                )}
+                {displayReply && (
+                  <div className={sty.agentAnswerText}>
+                    {displayReply}
                   </div>
                 )}
               </div>
@@ -625,37 +1304,13 @@ export default function AgentPanel({
 
           {result.action && result.action.type !== "ANSWER_ONLY" && (
             <div style={{ marginTop: "12px", padding: "10px", border: "1px solid #d8e2ef", borderRadius: "6px", background: "#fbfdff" }}>
-              <div className={sty.sidebarSubtitle}>AI action preview</div>
-              <div className={sty.sidebarText} style={{ fontSize: "12px", lineHeight: 1.5 }}>
-                <div><strong>Action:</strong> {result.action.type}</div>
-                {result.action.profile && <div><strong>Profile:</strong> {result.action.profile}</div>}
-                {result.action.profileInference?.reason && (
-                  <div>
-                    <strong>Profile match:</strong>{" "}
-                    {result.action.profileInference.isApproximation ? "Approximate match" : "Direct match"}
-                    {Number.isFinite(Number(result.action.profileInference.confidence))
-                      ? ` (${Math.round(Number(result.action.profileInference.confidence) * 100)}%)`
-                      : ""}
-                    <br />
-                    {result.action.profileInference.reason}
-                  </div>
-                )}
-                {result.action.city && <div><strong>City:</strong> {result.action.city}</div>}
-                {result.action.locationText && <div><strong>Location:</strong> {result.action.locationText}</div>}
-                {Array.isArray(result.action.coordinates) && (
-                  <div><strong>Coordinates:</strong> {formatLonLat(result.action.coordinates)}</div>
-                )}
-                {result.action.walkingTime && <div><strong>Walking time:</strong> {result.action.walkingTime} min</div>}
-                {result.action.walkingSpeed && <div><strong>Walking speed:</strong> {result.action.walkingSpeed} km/h</div>}
-                {Array.isArray(result.action.enabledVariables) && result.action.enabledVariables.length > 0 && (
-                  <div><strong>Variables:</strong> {result.action.enabledVariables.join(", ")}</div>
-                )}
+              <div className={sty.sidebarSubtitle}>{t("agent_recommended_settings_title")}</div>
+              <div className={sty.sidebarText} style={{ fontSize: "12px", lineHeight: 1.55 }}>
+                {buildNaturalSettings(result.action).map((line, index) => (
+                  <div key={index}>{line}</div>
+                ))}
+                <div style={{ marginTop: "6px" }}>{t("agent_apply_question")}</div>
               </div>
-              {result.action.layerValues && Object.keys(result.action.layerValues).length > 0 && (
-                <pre className={sty.agentSettingsPre}>
-                  {JSON.stringify(result.action.layerValues, null, 2)}
-                </pre>
-              )}
               {Array.isArray(result.missingDataWarnings) && result.missingDataWarnings.length > 0 && (
                 <ul className={sty.agentFactorList}>
                   {result.missingDataWarnings.map((warning, index) => (
@@ -665,121 +1320,114 @@ export default function AgentPanel({
               )}
               {result.action.type !== "ANSWER_ONLY" && (
                 <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginTop: "8px" }}>
-                  <button type="button" className={sty.setupButton} onClick={() => handleApplyAction({ run: false })}>
-                    {result.action.requiresStartPoint ? "Apply settings" : "Apply action"}
-                  </button>
-                  <button
-                    type="button"
-                    className={sty.setupButton}
-                    onClick={() => handleApplyAction({ run: true })}
-                    disabled={!Array.isArray(result.action.coordinates)}
-                    style={{ backgroundColor: Array.isArray(result.action.coordinates) ? "#1976d2" : "#9ca3af", color: "#fff" }}
-                  >
-                    {result.action.requiresStartPoint ? "Select start point first" : "Apply and run"}
-                  </button>
+                  {(() => {
+                    const needsStartPoint = actionNeedsStartPoint(result.action);
+                    const prepared = isActionPrepared(result.action, "primary");
+                    if (needsStartPoint && !prepared) {
+                      return (
+                        <button type="button" className={sty.agentSecondaryActionButton} onClick={() => handleApplyAction({ run: false })}>
+                          {t("agent_apply_settings")}
+                        </button>
+                      );
+                    }
+                    if (needsStartPoint && !canRunActionWithCurrentPoint(result.action)) {
+                      return (
+                        <button type="button" className={sty.agentPrimaryActionButton} onClick={() => handleApplyAction({ run: false })}>
+                          {t("agent_select_start_first")}
+                        </button>
+                      );
+                    }
+                    return (
+                      <>
+                        {!needsStartPoint && (
+                          <button type="button" className={sty.agentSecondaryActionButton} onClick={() => handleApplyAction({ run: false })}>
+                            {t("agent_apply_action")}
+                          </button>
+                        )}
+                        <button
+                          type="button"
+                          className={sty.agentPrimaryActionButton}
+                          onClick={() => handleApplyAction({ run: true })}
+                        >
+                          {getRunActionLabel(result.action)}
+                        </button>
+                        {shouldOfferMoreStartPoints(result.action) && (
+                          <button
+                            type="button"
+                            className={sty.agentSecondaryActionButton}
+                            onClick={() => handleApplyAction({ run: false })}
+                          >
+                            {t("agent_add_start_point")}
+                          </button>
+                        )}
+                      </>
+                    );
+                  })()}
                 </div>
               )}
             </div>
           )}
 
           {result.alternativeAction && (
-            <div style={{ marginTop: "12px", padding: "10px", border: "1px solid #f0c36d", borderRadius: "6px", background: "#fffaf0" }}>
-              <div className={sty.sidebarSubtitle}>Alternative CAT analysis</div>
-              <div className={sty.sidebarText} style={{ fontSize: "12px", lineHeight: 1.5 }}>
-                <div><strong>Purpose:</strong> related catchment/accessibility-area analysis, not a direct answer to the original request.</div>
-                {result.alternativeAction.limitation && <div><strong>Boundary:</strong> {result.alternativeAction.limitation}</div>}
-                {result.alternativeAction.profile && <div><strong>Profile:</strong> {result.alternativeAction.profile}</div>}
-                {result.alternativeAction.locationText && <div><strong>Start point:</strong> {result.alternativeAction.locationText}</div>}
-                {Array.isArray(result.alternativeAction.coordinates) && (
-                  <div><strong>Coordinates:</strong> {formatLonLat(result.alternativeAction.coordinates)}</div>
-                )}
-                {result.alternativeAction.walkingTime && <div><strong>Walking time:</strong> {result.alternativeAction.walkingTime} min</div>}
-                {result.alternativeAction.walkingSpeed && <div><strong>Walking speed:</strong> {result.alternativeAction.walkingSpeed} km/h</div>}
-                {Array.isArray(result.alternativeAction.enabledVariables) && result.alternativeAction.enabledVariables.length > 0 && (
-                  <div><strong>Variables:</strong> {result.alternativeAction.enabledVariables.join(", ")}</div>
-                )}
-              </div>
-              {result.alternativeAction.layerValues && Object.keys(result.alternativeAction.layerValues).length > 0 && (
-                <pre className={sty.agentSettingsPre}>
-                  {JSON.stringify(result.alternativeAction.layerValues, null, 2)}
-                </pre>
-              )}
-              <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginTop: "8px" }}>
-                <button type="button" className={sty.setupButton} onClick={() => handleApplyAlternativeAction({ run: false })}>
-                  Apply alternative settings
-                </button>
-                <button
-                  type="button"
-                  className={sty.setupButton}
-                  onClick={() => handleApplyAlternativeAction({ run: true })}
-                  disabled={!Array.isArray(result.alternativeAction.coordinates)}
-                  style={{ backgroundColor: Array.isArray(result.alternativeAction.coordinates) ? "#b7791f" : "#9ca3af", color: "#fff" }}
-                >
-                  {result.alternativeAction.requiresStartPoint ? "Select start point first" : "Run alternative catchment analysis"}
-                </button>
-              </div>
+            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginTop: "10px" }}>
+              {(() => {
+                const needsStartPoint = actionNeedsStartPoint(result.alternativeAction);
+                const prepared = isActionPrepared(result.alternativeAction, "alternative");
+                if (needsStartPoint && !prepared) {
+                  return (
+                    <button type="button" className={sty.agentSecondaryActionButton} onClick={() => handleApplyAlternativeAction({ run: false })}>
+                      {t("agent_apply_settings")}
+                    </button>
+                  );
+                }
+                if (needsStartPoint && !canRunActionWithCurrentPoint(result.alternativeAction)) {
+                  return (
+                    <button type="button" className={sty.agentPrimaryActionButton} onClick={() => handleApplyAlternativeAction({ run: false })}>
+                      {t("agent_select_start_first")}
+                    </button>
+                  );
+                }
+                return (
+                  <>
+                    <button
+                      type="button"
+                      className={sty.agentPrimaryActionButton}
+                      onClick={() => handleApplyAlternativeAction({ run: true })}
+                    >
+                      {getRunActionLabel(result.alternativeAction, "agent_run_alternative")}
+                    </button>
+                    {shouldOfferMoreStartPoints(result.alternativeAction) && (
+                      <button
+                        type="button"
+                        className={sty.agentSecondaryActionButton}
+                        onClick={() => handleApplyAlternativeAction({ run: false })}
+                      >
+                        {t("agent_add_start_point")}
+                      </button>
+                    )}
+                  </>
+                );
+              })()}
             </div>
           )}
 
-          {/* 区域推荐模式 */}
-          {legacyMode === "region_recommendation" && (
-            <div>
-              <div className={sty.sidebarText} style={{ whiteSpace: "pre-wrap" }}>
-                {result.reply}
-              </div>
-              {result.recommendedRegions && result.recommendedRegions.length > 0 && (
-                <div style={{ marginTop: "12px" }}>
-                  <div className={sty.sidebarSubtitle}>推荐区域列表</div>
-                  <ul className={sty.agentFactorList}>
-                    {result.recommendedRegions.map((region, idx) => (
-                      <li key={idx} className={sty.agentFactorItem}>
-                        <strong>{region.name}</strong> (得分: {region.score}/100)
-                        <br />
-                        {region.description}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* 点位查询模式 */}
-          {(!legacyMode || legacyMode === "point_analysis") && (
-            <div>
-              <div className={sty.sidebarText}>{result.reply}</div>
-              {typeof result.score === "number" && (
-                <div className={sty.sidebarTextBold}>AI 估计可达性得分：{result.score}/100</div>
-              )}
-              {Array.isArray(result.factors) && result.factors.length > 0 && (
-                <div>
-                  <div className={sty.sidebarSubtitle}>关键因素</div>
-                  <ul className={sty.agentFactorList}>
-                    {result.factors.map((factor, index) => (
-                      <li key={index} className={sty.agentFactorItem}>
-                        <strong>{factor.name}：</strong>
-                        {factor.value}，{factor.explain || factor.impact}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          )}
 
           {/* 推荐参数 */}
           {result.suggestedSettings && Object.keys(result.suggestedSettings).length > 0 && (
             <div style={{ marginTop: "12px" }}>
-              <div className={sty.sidebarSubtitle}>推荐参数</div>
-              <pre className={sty.agentSettingsPre}>
-                {JSON.stringify(result.suggestedSettings, null, 2)}
-              </pre>
+              <div className={sty.sidebarSubtitle}>{t("agent_recommended_settings_title")}</div>
+              <div className={sty.sidebarText} style={{ fontSize: "12px", lineHeight: 1.55, marginBottom: "8px" }}>
+                {buildNaturalSettings(result.suggestedSettings).map((line, index) => (
+                  <div key={index}>{line}</div>
+                ))}
+                <div style={{ marginTop: "6px" }}>{t("agent_apply_question")}</div>
+              </div>
               <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                <button type="button" className={sty.setupButton} onClick={handleApply}>
-                  应用推荐参数
+                <button type="button" className={sty.agentSecondaryActionButton} onClick={handleApply}>
+                  {t("agent_apply_recommended_settings")}
                 </button>
-                <button type="button" className={sty.setupButton} onClick={handleApplyAndRun} style={{ backgroundColor: '#1976d2', color: '#fff' }}>
-                  应用并运行真实计算
+                <button type="button" className={sty.agentPrimaryActionButton} onClick={handleApplyAndRun}>
+                  {t("agent_apply_and_run_real")}
                 </button>
               </div>
             </div>
@@ -790,81 +1438,51 @@ export default function AgentPanel({
             <div style={{ marginTop: "12px" }}>
               <button 
                 type="button" 
-                className={sty.setupButton}
+                className={sty.agentPrimaryActionButton}
                 onClick={handleRunRealComputation}
-                style={{ backgroundColor: "#4CAF50" }}
               >
-                🔧 运行真实计算（基于路网）
+                {t("agent_run_real")}
               </button>
               <div className={sty.sidebarText} style={{ fontSize: "12px", marginTop: "8px", color: "#666" }}>
-                ⚠️ 当前结果为启发式估计。点击此按钮将调用 pgRouting 进行精确的路网可达性计算。
+                {t("agent_real_computation_hint")}
               </div>
             </div>
           )}
 
-          {/* 渲染 references（支持结论的参考资料） */}
-          {result.references && result.references.length > 0 && (
-            <div style={{ marginTop: '12px' }}>
-              <div className={sty.sidebarSubtitle}>参考资料</div>
-              <ul className={sty.agentFactorList}>
-                {result.references.map((ref, i) => (
-                  <li key={i} className={sty.agentFactorItem}>
-                    <strong>{ref.description}</strong>：{ref.count} 个
-                    {ref.sampleHighlights && ref.sampleHighlights.length > 0 && (
-                      <div style={{ fontSize: '12px', color: '#666' }}>示例要素 id: {ref.sampleHighlights.join(', ')}</div>
+          {(() => {
+            const suggestions = Array.isArray(result.followUpSuggestions)
+              ? result.followUpSuggestions
+              : Array.isArray(result.followUpQuestions)
+                ? result.followUpQuestions.map((question) => ({ type: "question", label: question, prompt: question }))
+                : [];
+            if (!suggestions.length) return null;
+            return (
+            <div className={sty.agentFollowUpBox}>
+              <div className={sty.agentFollowUpTitle}>{t("agent_follow_up_title")}</div>
+              <div className={sty.agentFollowUpList}>
+                {suggestions.slice(0, 3).map((suggestion) => (
+                  <button
+                    key={`${suggestion.type || "question"}:${suggestion.label || suggestion.prompt}`}
+                    type="button"
+                    className={[
+                      sty.agentFollowUpButton,
+                      suggestion.type === "action" ? sty.agentFollowUpActionButton : "",
+                    ].filter(Boolean).join(" ")}
+                    onClick={() => handleFollowUpSuggestion(suggestion)}
+                    disabled={loading}
+                  >
+                    {suggestion.type === "action" && (
+                      <span className={sty.agentFollowUpType}>{t("agent_suggestion_action_label")}</span>
                     )}
-                  </li>
+                    <span>{suggestion.label || suggestion.prompt}</span>
+                  </button>
                 ))}
-              </ul>
-            </div>
-          )}
-
-          {result.ragResults && result.ragResults.length > 0 && (
-            <div style={{ marginTop: '12px', backgroundColor: '#f9f9f9', padding: '10px', borderRadius: '6px', border: '1px solid #e0e0e0' }}>
-              <div className={sty.sidebarSubtitle}>RAG 检索结果</div>
-              <div className={sty.sidebarText} style={{ fontSize: '12px', marginBottom: '8px' }}>
-                以下是基于你的问题从本地 CAT 知识库检索到的相关文本知识，用于检查检索质量。
               </div>
-              <ul className={sty.agentFactorList}>
-                {result.ragResults.map((doc, idx) => (
-                  <li key={doc.id || idx} className={sty.agentFactorItem}>
-                    <strong>{idx + 1}. {doc.description}</strong>（score: {Number(doc.score).toFixed(3)}）
-                    <div style={{ fontSize: '12px', color: '#444', marginTop: '4px', whiteSpace: 'pre-wrap' }}>{doc.summary}</div>
-                  </li>
-                ))}
-              </ul>
             </div>
-          )}
+            );
+          })()}
 
-          {/* 区域推荐后的"选择起点"提示 */}
-          {legacyMode === "region_recommendation" && (
-            <div style={{ marginTop: "12px", backgroundColor: "#f0f8ff", padding: "8px", borderRadius: "4px" }}>
-              <div className={sty.sidebarSubtitle}>下一步</div>
-              <div className={sty.sidebarText} style={{ fontSize: "13px" }}>
-                在地图上选择推荐区域附近作为起点，或使用下列按钮将推荐区域设为起点并直接运行真实计算。
-              </div>
-              {result.recommendedRegions && result.recommendedRegions.length > 0 && (
-                <div style={{ marginTop: '8px' }}>
-                  {result.recommendedRegions.map((region, idx) => (
-                    <div key={region.id || idx} style={{ marginBottom: '8px', padding: '6px', background: '#fff', borderRadius: '4px', border: '1px solid #e0e0e0' }}>
-                      <div style={{ fontWeight: '600' }}>{region.name} （得分 {region.score}/100）</div>
-                      <div style={{ fontSize: '12px', color: '#444' }}>{region.description}</div>
-                      {formatLonLat(region.center) && (
-                        <div style={{ fontSize: '12px', color: '#64748b', marginTop: '4px' }}>
-                          Computation start point: {formatLonLat(region.center)}
-                        </div>
-                      )}
-                      <div style={{ marginTop: '6px' }}>
-                        <button type="button" className={sty.setupButton} onClick={() => handleSelectRegionAndRun(region)}>
-                          设为起点并运行真实计算
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
+
         </div>
       )}
     </section>

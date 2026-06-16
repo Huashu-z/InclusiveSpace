@@ -1,5 +1,97 @@
 [
   {
+    "id": "citywide_elderly_place_recommendation_cn_001",
+    "category": "unsupported citywide place recommendation",
+    "query": "汉堡哪里适合老人散步",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "citywide_place_recommendation",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/elderly.md",
+      "faq/how_to_use_cat.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "citywide_elderly_place_recommendation_de_001",
+    "category": "unsupported citywide place recommendation",
+    "query": "Wo in Hamburg ist es für ältere Menschen gut zum Spazierengehen?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "citywide_place_recommendation",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/elderly.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "citywide_elderly_place_recommendation_en_001",
+    "category": "unsupported citywide place recommendation",
+    "query": "Where are some good places in Hamburg for the elderly to take a walk?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "citywide_place_recommendation",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/elderly.md",
+      "methodology/cat_workflow.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
+    "id": "citywide_elderly_place_recommendation_en_002",
+    "category": "unsupported citywide place recommendation",
+    "query": "What are nice walking areas in Hamburg for seniors?",
+    "context": {
+      "currentCity": "hamburg",
+      "currentWalkingTime": 15,
+      "currentWalkingSpeed": 5
+    },
+    "expectedIntent": "citywide_place_recommendation",
+    "expectedProfile": "elderly",
+    "expectedCity": "hamburg",
+    "expectedLocationText": null,
+    "expectedSources": [
+      "profiles/elderly.md",
+      "faq/how_to_use_cat.md"
+    ],
+    "expectedVariables": [],
+    "forbiddenVariables": [],
+    "shouldRunAnalysis": false,
+    "shouldAskForMapPoint": false,
+    "expectedWarnings": []
+  },
+  {
     "id": "elderly_hamburg_001",
     "category": "elderly user accessibility analysis",
     "query": "I am an elderly person. Is Hamburg Hauptbahnhof convenient for walking?",

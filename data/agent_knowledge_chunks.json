@@ -1,5 +1,5 @@
 {
-  "createdAt": "2026-06-03T15:34:01.145Z",
+  "createdAt": "2026-06-13T20:41:41.707Z",
   "chunks": [
     {
       "id": "cities_hamburg_1",
@@ -66,7 +66,7 @@
       "collection": "faq",
       "source": "faq/how_to_use_cat.md",
       "title": "How to use CAT",
-      "content": "# How To Use CAT\n\nSelect a city, set walking time and walking speed, choose a start point, enable comfort variables, adjust their sensitivity, and run the catchment area analysis.\n\nThe agent can help by detecting a user profile from natural language and proposing CAT settings. The user should be able to review the profile, walking speed, walking time, enabled variables, unavailable variables, and action before analysis runs.",
+      "content": "# How To Use CAT\n\nSelect a city, set walking time and walking speed, choose a start point, enable the comfort variables that matter to the user, set how much each one affects their comfort, and run the catchment area analysis.\n\nThe agent should frame the calculation around the environmental comfort factors the user cares about and how strongly each factor affects them. Pre-set profiles are only shortcuts for quickly applying typical settings; they must not be presented as if one profile can represent every individual. The user should be able to review walking speed, walking time, enabled variables, their impact levels, unavailable variables, and the optional pre-set source before analysis runs.",
       "city": null,
       "profile": null,
       "variable_key": null,
@@ -151,26 +151,26 @@
       "id": "methodology_comfort_weight_logic_1",
       "collection": "methodology",
       "source": "methodology/comfort_weight_logic.md",
-      "title": "Comfort weight logic",
-      "content": "# Comfort Weight Logic\n\nCAT uses variable sensitivity values to adjust comfort-based walking accessibility. Lower values represent stronger discomfort or lower tolerance for that factor. Higher values represent weaker discomfort or higher tolerance.\n\nThe agent should use deterministic profile presets for final values. The LLM may detect a profile, but it should not freely invent walking speed or layer values.\n\nEvery suggested variable must be filtered against city availability before being applied.",
+      "title": "Comfort impact logic",
+      "content": "# Comfort Impact Logic\n\nCAT uses variable sensitivity values to adjust comfort-based walking accessibility. Lower values represent stronger discomfort or lower tolerance for that factor. Higher values represent weaker discomfort or higher tolerance.\n\nThe core user choice is the set of environmental comfort factors they care about and how much each factor affects their comfort. The agent may use deterministic profile presets as quick-start templates for typical settings, but it should explain them as presets rather than as a complete representation of the individual user. The LLM must not freely invent walking speed or layer values.\n\nEvery suggested variable must be filtered against city availability before being applied.",
       "city": null,
       "profile": null,
       "variable_key": null,
       "tags": [
         "methodology",
         "comfort",
-        "weights"
+        "impact"
       ],
       "metadata": {
         "collection": "methodology",
-        "title": "Comfort weight logic",
+        "title": "Comfort impact logic",
         "city": null,
         "profile": null,
         "variable_key": null,
         "tags": [
           "methodology",
           "comfort",
-          "weights"
+          "impact"
         ],
         "source": "methodology/comfort_weight_logic.md",
         "filePath": "methodology/comfort_weight_logic.md",

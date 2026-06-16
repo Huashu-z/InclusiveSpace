@@ -11,7 +11,7 @@ export const CAT_CAPABILITIES = {
   },
   parameter_recommendation: {
     supported: true,
-    requiredCapability: "profile_based_parameter_recommendation",
+    requiredCapability: "comfort_factor_weight_recommendation",
     supportedAlternative: null,
   },
   route_recommendation: {
@@ -30,6 +30,12 @@ export const CAT_CAPABILITIES = {
     supported: false,
     partial: true,
     requiredCapability: "nearest_poi_ranking",
+    supportedAlternative: "comfort_based_catchment_area_analysis",
+  },
+  citywide_place_recommendation: {
+    supported: false,
+    partial: true,
+    requiredCapability: "citywide_place_or_area_recommendation",
     supportedAlternative: "comfort_based_catchment_area_analysis",
   },
   explain_variable: {
@@ -123,17 +129,20 @@ function getUserGoal({ intent, detected }) {
   if (intent === "specific_poi_query" || intent === "unsupported_specific_poi_query") {
     return "identify or rank a specific nearby point of interest";
   }
+  if (intent === "citywide_place_recommendation") {
+    return "recommend suitable places or areas across a whole city";
+  }
   if (intent === "catchment_area_analysis" || intent === "run_accessibility_analysis") {
     return "calculate reachable area from a start point";
   }
   if (intent === "area_suitability_question") {
-    return "estimate whether an area is suitable for a user profile";
+    return "estimate whether an area is suitable under the selected comfort factors and their impact levels";
   }
   if (["compare_with_previous_result", "compare_current_with_previous", "compare_two_locations"].includes(intent)) {
     return "compare the current selected place with a previous CAT analysis";
   }
   if (intent === "parameter_recommendation") {
-    return "recommend CAT profile and comfort settings";
+    return "recommend CAT comfort factors and how strongly they affect the user";
   }
   return detected?.intent || intent || "answer a CAT-related question";
 }

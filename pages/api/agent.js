@@ -181,10 +181,10 @@ function buildKnowledgeResponse({ intent, city, ragContext, detectedVariable }) 
   }
 
   const replyByIntent = {
-    how_to_use: "CAT 的基本流程是：选择城市，设置 walking time 和 walking speed，选择起点，启用你关心的 comfort variables，调整敏感度，然后运行 catchment area analysis。\n\nAgent 的作用是把自然语言需求转换成可检查的 CAT 设置；在运行前，用户应该能看到 profile、速度、时间、变量和不可用数据提醒。",
+    how_to_use: "CAT 的基本流程是：选择城市，设置 walking time 和 walking speed，选择起点，启用你关心的 comfort variables，设置它们对你的舒适程度/出行意愿有多大影响，然后运行 catchment area analysis。\n\nAgent 的作用是把自然语言需求转换成可检查的 CAT 设置；在运行前，用户应该能看到速度、时间、环境因素、这些因素对自己的影响程度、不可用数据提醒，以及可选的预设 profile 来源。Profile 只是快速套用典型设置的预设，不能代表每个个体。",
     troubleshooting: "如果网页没有结果，优先检查：是否选择了起点、walking time 和 walking speed 是否合理、当前城市是否支持所选变量。如果 comfort-adjusted area 为空，可以减少变量数量或降低某些变量的敏感度。",
     explain_result: "结果解释必须基于真实 result metadata，例如 default area、comfort-adjusted area、comfort ratio、enabled variables 和 missing data warnings。没有这些 metadata 时，我不能编造某个地点有很多台阶或障碍物。",
-    compare_profiles: "不同 profile 会使用不同的默认速度和 comfort variable 权重。最终参数应来自 deterministic profile presets，并经过城市可用性过滤，而不是由 LLM 自由发明。",
+    compare_profiles: "不同 profile 只是不同的预设模板，会快速填入一组默认速度和 comfort variable 影响程度设置。真正影响可达性计算的是用户选择的环境因素，以及这些因素对用户舒适程度/出行意愿的影响；最终参数应来自可检查的预设或用户选择，并经过城市可用性过滤，而不是由 LLM 自由发明。",
     general_question: content || "我会优先基于 CAT 知识库回答一般问题；只有当问题明确要求分析某个地点或区域时，才触发可达性分析。",
   };
 

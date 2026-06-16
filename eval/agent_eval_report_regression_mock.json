@@ -1,18 +1,18 @@
 {
-  "createdAt": "2026-06-09T20:20:05.947Z",
+  "createdAt": "2026-06-10T08:28:04.975Z",
   "label": "regression_mock",
   "llmMode": "off",
   "llmProvider": "off",
   "bigModelConfigured": true,
   "dataset": "eval/agent_eval_cases.json",
   "summary": {
-    "totalCases": 33,
-    "averageLatencyMs": 2,
-    "minLatencyMs": 0.1,
-    "p50LatencyMs": 1.6,
-    "p90LatencyMs": 3.6,
-    "p95LatencyMs": 6.2,
-    "maxLatencyMs": 8.1,
+    "totalCases": 37,
+    "averageLatencyMs": 4.1,
+    "minLatencyMs": 0.2,
+    "p50LatencyMs": 2.9,
+    "p90LatencyMs": 7.4,
+    "p95LatencyMs": 13.4,
+    "maxLatencyMs": 38.2,
     "intentAccuracy": 1,
     "profileAccuracy": 1,
     "cityAccuracy": 1,
@@ -21,9 +21,9 @@
     "retrievalHitRateAt5": 1,
     "retrievalRecallAt3": 1,
     "retrievalRecallAt5": 1,
-    "retrievalPrecisionAt3": 0.8282828282828285,
-    "retrievalPrecisionAt5": 0.7515151515151511,
-    "rerankAppliedRate": 0.45454545454545453,
+    "retrievalPrecisionAt3": 0.8108108108108109,
+    "retrievalPrecisionAt5": 0.7135135135135132,
+    "rerankAppliedRate": 0.5135135135135135,
     "mrr": 1,
     "variablePrecision": 0.6330935251798561,
     "variableRecall": 1,
@@ -47,6 +47,421 @@
   },
   "failedCases": [],
   "results": [
+    {
+      "id": "citywide_elderly_place_recommendation_cn_001",
+      "category": "unsupported citywide place recommendation",
+      "query": "汉堡哪里适合老人散步",
+      "expected": {
+        "intent": "citywide_place_recommendation",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "profiles/elderly.md",
+          "faq/how_to_use_cat.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "citywide_place_recommendation",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "answerMode": "UNSUPPORTED_WITH_ALTERNATIVE",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "profiles/elderly.md",
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md",
+          "methodology/routing_logic.md",
+          "methodology/comfort_weight_logic.md"
+        ],
+        "rerankApplied": true,
+        "fastPath": false,
+        "intentRouter": null,
+        "llm": null,
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/elderly.md",
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md",
+          "methodology/routing_logic.md",
+          "methodology/comfort_weight_logic.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6666666666666666,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.4,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": [],
+      "latencyMs": 38.2
+    },
+    {
+      "id": "citywide_elderly_place_recommendation_de_001",
+      "category": "unsupported citywide place recommendation",
+      "query": "Wo in Hamburg ist es für ältere Menschen gut zum Spazierengehen?",
+      "expected": {
+        "intent": "citywide_place_recommendation",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "profiles/elderly.md",
+          "methodology/cat_workflow.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "citywide_place_recommendation",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "answerMode": "UNSUPPORTED_WITH_ALTERNATIVE",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "profiles/elderly.md",
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md",
+          "methodology/data_limitations.md",
+          "methodology/routing_logic.md"
+        ],
+        "rerankApplied": true,
+        "fastPath": false,
+        "intentRouter": null,
+        "llm": null,
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/elderly.md",
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md",
+          "methodology/data_limitations.md",
+          "methodology/routing_logic.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6666666666666666,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.4,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": false,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": [],
+      "latencyMs": 13.4
+    },
+    {
+      "id": "citywide_elderly_place_recommendation_en_001",
+      "category": "unsupported citywide place recommendation",
+      "query": "Where are some good places in Hamburg for the elderly to take a walk?",
+      "expected": {
+        "intent": "citywide_place_recommendation",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "profiles/elderly.md",
+          "methodology/cat_workflow.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "citywide_place_recommendation",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "answerMode": "UNSUPPORTED_WITH_ALTERNATIVE",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "profiles/elderly.md",
+          "faq/how_to_use_cat.md",
+          "methodology/cat_workflow.md",
+          "methodology/routing_logic.md",
+          "methodology/data_limitations.md"
+        ],
+        "rerankApplied": true,
+        "fastPath": false,
+        "intentRouter": null,
+        "llm": null,
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/elderly.md",
+          "faq/how_to_use_cat.md",
+          "methodology/cat_workflow.md",
+          "methodology/routing_logic.md",
+          "methodology/data_limitations.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6666666666666666,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.4,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": true,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": [],
+      "latencyMs": 6.7
+    },
+    {
+      "id": "citywide_elderly_place_recommendation_en_002",
+      "category": "unsupported citywide place recommendation",
+      "query": "What are nice walking areas in Hamburg for seniors?",
+      "expected": {
+        "intent": "citywide_place_recommendation",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "sources": [
+          "profiles/elderly.md",
+          "faq/how_to_use_cat.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": [],
+        "shouldRunAnalysis": false,
+        "shouldAskForMapPoint": false,
+        "expectedWarnings": []
+      },
+      "actual": {
+        "intent": "citywide_place_recommendation",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "answerMode": "UNSUPPORTED_WITH_ALTERNATIVE",
+        "selectedVariables": [],
+        "warnings": [],
+        "retrievedSources": [
+          "profiles/elderly.md",
+          "faq/troubleshooting.md",
+          "faq/how_to_use_cat.md",
+          "methodology/comfort_weight_logic.md",
+          "methodology/data_limitations.md"
+        ],
+        "rerankApplied": true,
+        "fastPath": false,
+        "intentRouter": {
+          "provider": "deterministic",
+          "fallback": "action_risk_citywide_recommendation"
+        },
+        "llm": null,
+        "referenceResolution": {
+          "previousAnalysisFound": false,
+          "currentStartPointFound": false,
+          "currentPointAlreadyAnalyzed": false,
+          "currentSameAsPrevious": false,
+          "latestAnalysisId": null,
+          "currentAnalysisId": null
+        }
+      },
+      "retrievalMetrics": {
+        "sources": [
+          "profiles/elderly.md",
+          "faq/troubleshooting.md",
+          "faq/how_to_use_cat.md",
+          "methodology/comfort_weight_logic.md",
+          "methodology/data_limitations.md"
+        ],
+        "rerankApplied": true,
+        "rerankedCount": 5,
+        "byK": {
+          "3": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.6666666666666666,
+            "incomplete": false
+          },
+          "5": {
+            "hit": true,
+            "recall": 1,
+            "precision": 0.4,
+            "incomplete": false
+          }
+        },
+        "reciprocalRank": 1
+      },
+      "variableMetrics": {
+        "selected": [],
+        "precisionNumerator": 0,
+        "precisionDenominator": 0,
+        "recallNumerator": 0,
+        "recallDenominator": 0,
+        "forbiddenNumerator": 0,
+        "forbiddenDenominator": 0,
+        "unknownSelected": []
+      },
+      "structuredErrors": [],
+      "faithfulness": {
+        "pass": true,
+        "unsupportedClaims": [],
+        "mentionsLimitations": true,
+        "missingSections": []
+      },
+      "p1Checks": {
+        "hasValidAnswerMode": true,
+        "hasRagSufficiency": true,
+        "groundingPass": true,
+        "alternativeActionPass": true
+      },
+      "taskSuccess": true,
+      "taskFailures": [],
+      "success": true,
+      "failures": [],
+      "latencyMs": 6.5
+    },
     {
       "id": "elderly_hamburg_001",
       "category": "elderly user accessibility analysis",
@@ -181,7 +596,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 8.1
+      "latencyMs": 2.3
     },
     {
       "id": "elderly_hamburg_cn_001",
@@ -315,7 +730,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 2.7
+      "latencyMs": 3.8
     },
     {
       "id": "elderly_no_location_001",
@@ -449,7 +864,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 1.1
+      "latencyMs": 0.9
     },
     {
       "id": "elderly_penteli_001",
@@ -587,7 +1002,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 1.6
+      "latencyMs": 1.5
     },
     {
       "id": "wheelchair_no_location_001",
@@ -720,7 +1135,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 0.7
+      "latencyMs": 1.5
     },
     {
       "id": "wheelchair_hamburg_001",
@@ -852,7 +1267,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 0.4
+      "latencyMs": 0.8
     },
     {
       "id": "wheelchair_cn_001",
@@ -984,7 +1399,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 0.5
+      "latencyMs": 0.8
     },
     {
       "id": "visual_no_location_001",
@@ -1107,7 +1522,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 0.6
+      "latencyMs": 0.9
     },
     {
       "id": "visual_hamburg_001",
@@ -1229,7 +1644,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 0.7
+      "latencyMs": 0.5
     },
     {
       "id": "family_stroller_001",
@@ -1366,7 +1781,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 0.5
+      "latencyMs": 0.8
     },
     {
       "id": "family_cn_001",
@@ -1501,7 +1916,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 0.6
+      "latencyMs": 0.5
     },
     {
       "id": "explain_variable_kerbs_001",
@@ -1595,7 +2010,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 6.2
+      "latencyMs": 7.5
     },
     {
       "id": "explain_variable_pavement_001",
@@ -1689,7 +2104,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 2.3
+      "latencyMs": 2.7
     },
     {
       "id": "explain_variable_slope_001",
@@ -1783,7 +2198,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 2.6
+      "latencyMs": 3.1
     },
     {
       "id": "city_availability_penteli_noise_001",
@@ -1816,8 +2231,8 @@
           "cities/penteli.md",
           "methodology/data_limitations.md",
           "README.md",
-          "methodology/result_interpretation.md",
-          "methodology/cat_workflow.md"
+          "methodology/cat_workflow.md",
+          "methodology/result_interpretation.md"
         ],
         "rerankApplied": true,
         "fastPath": false,
@@ -1837,8 +2252,8 @@
           "cities/penteli.md",
           "methodology/data_limitations.md",
           "README.md",
-          "methodology/result_interpretation.md",
-          "methodology/cat_workflow.md"
+          "methodology/cat_workflow.md",
+          "methodology/result_interpretation.md"
         ],
         "rerankApplied": true,
         "rerankedCount": 5,
@@ -1885,7 +2300,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 3.6
+      "latencyMs": 3.8
     },
     {
       "id": "city_availability_hamburg_light_001",
@@ -1918,8 +2333,8 @@
           "cities/hamburg.md",
           "methodology/data_limitations.md",
           "README.md",
-          "methodology/result_interpretation.md",
-          "methodology/cat_workflow.md"
+          "methodology/cat_workflow.md",
+          "methodology/result_interpretation.md"
         ],
         "rerankApplied": true,
         "fastPath": false,
@@ -1939,8 +2354,8 @@
           "cities/hamburg.md",
           "methodology/data_limitations.md",
           "README.md",
-          "methodology/result_interpretation.md",
-          "methodology/cat_workflow.md"
+          "methodology/cat_workflow.md",
+          "methodology/result_interpretation.md"
         ],
         "rerankApplied": true,
         "rerankedCount": 5,
@@ -1987,7 +2402,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 3
+      "latencyMs": 7.2
     },
     {
       "id": "city_availability_penteli_stair_001",
@@ -2020,8 +2435,8 @@
           "cities/penteli.md",
           "methodology/data_limitations.md",
           "README.md",
-          "methodology/result_interpretation.md",
-          "methodology/cat_workflow.md"
+          "methodology/cat_workflow.md",
+          "methodology/result_interpretation.md"
         ],
         "rerankApplied": true,
         "fastPath": false,
@@ -2041,8 +2456,8 @@
           "cities/penteli.md",
           "methodology/data_limitations.md",
           "README.md",
-          "methodology/result_interpretation.md",
-          "methodology/cat_workflow.md"
+          "methodology/cat_workflow.md",
+          "methodology/result_interpretation.md"
         ],
         "rerankApplied": true,
         "rerankedCount": 5,
@@ -2089,7 +2504,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 2.2
+      "latencyMs": 4.6
     },
     {
       "id": "penteli_noise_missing_001",
@@ -2224,7 +2639,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 0.3
+      "latencyMs": 0.7
     },
     {
       "id": "penteli_light_missing_001",
@@ -2347,7 +2762,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 0.2
+      "latencyMs": 0.3
     },
     {
       "id": "penteli_kerbs_missing_001",
@@ -2478,7 +2893,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 0.2
+      "latencyMs": 0.6
     },
     {
       "id": "explain_result_001",
@@ -2581,7 +2996,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 5.9
+      "latencyMs": 7.4
     },
     {
       "id": "explain_result_no_weighted_001",
@@ -2683,7 +3098,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 3.4
+      "latencyMs": 5.9
     },
     {
       "id": "explain_result_with_original_route_context_001",
@@ -2785,7 +3200,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 2.8
+      "latencyMs": 4.8
     },
     {
       "id": "ambiguous_location_station_001",
@@ -2918,7 +3333,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 0.2
+      "latencyMs": 0.5
     },
     {
       "id": "no_location_current_point_001",
@@ -3049,7 +3464,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 0.3
+      "latencyMs": 0.4
     },
     {
       "id": "unsupported_variable_ramp_001",
@@ -3181,7 +3596,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 0.2
+      "latencyMs": 0.3
     },
     {
       "id": "unsupported_variable_noise_wheelchair_001",
@@ -3311,7 +3726,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 0.1
+      "latencyMs": 0.2
     },
     {
       "id": "unsupported_specific_poi_bakery_001",
@@ -3351,7 +3766,7 @@
           "faq/how_to_use_cat.md",
           "profiles/children_family.md",
           "methodology/routing_logic.md",
-          "methodology/comfort_weight_logic.md"
+          "README.md"
         ],
         "rerankApplied": true,
         "fastPath": false,
@@ -3372,7 +3787,7 @@
           "faq/how_to_use_cat.md",
           "profiles/children_family.md",
           "methodology/routing_logic.md",
-          "methodology/comfort_weight_logic.md"
+          "README.md"
         ],
         "rerankApplied": true,
         "rerankedCount": 5,
@@ -3419,7 +3834,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 2.7
+      "latencyMs": 7
     },
     {
       "id": "unsupported_route_recommendation_001",
@@ -3459,7 +3874,7 @@
           "methodology/cat_workflow.md",
           "profiles/elderly.md",
           "faq/how_to_use_cat.md",
-          "methodology/comfort_weight_logic.md"
+          "README.md"
         ],
         "rerankApplied": true,
         "fastPath": false,
@@ -3480,7 +3895,7 @@
           "methodology/cat_workflow.md",
           "profiles/elderly.md",
           "faq/how_to_use_cat.md",
-          "methodology/comfort_weight_logic.md"
+          "README.md"
         ],
         "rerankApplied": true,
         "rerankedCount": 5,
@@ -3527,7 +3942,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 3
+      "latencyMs": 4.5
     },
     {
       "id": "how_to_use_001",
@@ -3562,7 +3977,7 @@
           "methodology/cat_workflow.md",
           "methodology/routing_logic.md",
           "methodology/comfort_weight_logic.md",
-          "README.md"
+          "faq/troubleshooting.md"
         ],
         "rerankApplied": true,
         "fastPath": false,
@@ -3583,7 +3998,7 @@
           "methodology/cat_workflow.md",
           "methodology/routing_logic.md",
           "methodology/comfort_weight_logic.md",
-          "README.md"
+          "faq/troubleshooting.md"
         ],
         "rerankApplied": true,
         "rerankedCount": 5,
@@ -3630,7 +4045,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 2.2
+      "latencyMs": 3.3
     },
     {
       "id": "how_to_use_cn_001",
@@ -3665,7 +4080,7 @@
           "methodology/cat_workflow.md",
           "faq/troubleshooting.md",
           "methodology/comfort_weight_logic.md",
-          "methodology/data_limitations.md"
+          "methodology/routing_logic.md"
         ],
         "rerankApplied": true,
         "fastPath": false,
@@ -3686,7 +4101,7 @@
           "methodology/cat_workflow.md",
           "faq/troubleshooting.md",
           "methodology/comfort_weight_logic.md",
-          "methodology/data_limitations.md"
+          "methodology/routing_logic.md"
         ],
         "rerankApplied": true,
         "rerankedCount": 5,
@@ -3733,7 +4148,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 2.2
+      "latencyMs": 3.4
     },
     {
       "id": "troubleshooting_no_result_001",
@@ -3836,7 +4251,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 2.9
+      "latencyMs": 3.3
     },
     {
       "id": "troubleshooting_cn_001",
@@ -3870,8 +4285,8 @@
           "faq/troubleshooting.md",
           "methodology/cat_workflow.md",
           "methodology/data_limitations.md",
-          "faq/how_to_use_cat.md",
-          "methodology/comfort_weight_logic.md"
+          "methodology/result_interpretation.md",
+          "faq/how_to_use_cat.md"
         ],
         "rerankApplied": true,
         "fastPath": false,
@@ -3891,8 +4306,8 @@
           "faq/troubleshooting.md",
           "methodology/cat_workflow.md",
           "methodology/data_limitations.md",
-          "faq/how_to_use_cat.md",
-          "methodology/comfort_weight_logic.md"
+          "methodology/result_interpretation.md",
+          "faq/how_to_use_cat.md"
         ],
         "rerankApplied": true,
         "rerankedCount": 5,
@@ -3939,7 +4354,7 @@
       "taskFailures": [],
       "success": true,
       "failures": [],
-      "latencyMs": 1.5
+      "latencyMs": 2.9
     }
   ]
 }

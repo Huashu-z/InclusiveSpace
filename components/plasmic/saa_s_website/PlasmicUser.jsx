@@ -19,6 +19,7 @@ import Sidebar from "../../Sidebar";
 import LayerTagBar from "@/components/LayerTagBar";
 import Profile from "../../Profile";
 import { cityLayerConfig } from "../../cityVariableConfig";
+import { useTranslation } from "next-i18next";
 
 const MapComponent = dynamic(() => import("../../MapComponent"), { ssr: false });
 const cityCenters = {
@@ -40,6 +41,7 @@ function useNextRouter() {
 
 function PlasmicUser__RenderFunc(props) {
   const { variants, overrides, forNode } = props;
+  const { t } = useTranslation("common");
   const [selectingStart, setSelectingStart] = React.useState(false);
   const [startPoints, setStartPoints] = React.useState([]);
   const [computeAccessibility, setComputeAccessibility] = React.useState(false);
@@ -99,6 +101,10 @@ function PlasmicUser__RenderFunc(props) {
   };
 
   const handleResetResults = () => {
+    if (typeof window !== "undefined") {
+      const confirmed = window.confirm(t("reset_address_warning"));
+      if (!confirmed) return;
+    }
     setComputeAccessibility(false);
     setStartPoints([]);
     setResetTrigger(true);
@@ -364,6 +370,7 @@ function PlasmicUser__RenderFunc(props) {
               walkingSpeed={walkingSpeed}
               setWalkingSpeed={setWalkingSpeed}
               setSelectingStart={setSelectingStart}
+              selectingStart={selectingStart}
               startPoints={startPoints}
               setStartPoints={setStartPoints} 
               setComputeAccessibility={setComputeAccessibility}
