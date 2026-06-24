@@ -4,7 +4,7 @@ import { applyLlmRoutingToDetected, understandAgentQuery } from "./agentQueryUnd
 import { retrieveKnowledge } from "./agentKnowledge.js";
 import { filterVariablesByCity } from "./cityVariableFiltering.js";
 import { geocodeLocation } from "./agentGeocode.js";
-import { maybeBuildLlmAgentResponse, maybeClassifyIntentWithLlm } from "./agentLlm.js";
+import { maybeBuildLlmAgentResponse, maybeClassifyIntentWithLlm, maybeRewriteFollowUpQueryWithLlm } from "./agentLlm.js";
 import { inferProfileFromRetrievedKnowledge } from "./profileInference.js";
 import { checkAgentCapability } from "./agentCapabilities.js";
 import {
@@ -33,6 +33,7 @@ const FAST_ACTION_INTENTS = new Set([
   "area_suitability_question",
   "run_accessibility_analysis",
 ]);
+const FOLLOW_UP_QUERY_PATTERN = /\b(this|that|it|they|them|there|above|previous|same|these|those|its)\b|\u8fd9\u4e2a|\u90a3\u4e2a|\u5b83|\u4ed6\u4eec|\u5979\u4eec|\u90a3\u91cc|\u4e0a\u9762|\u521a\u624d|\u4e4b\u524d|\u540c\u4e00\u4e2a/iu;
 
 function isGenericLocationText(locationText, city) {
   const text = String(locationText || "").trim().toLowerCase();
@@ -58,7 +59,27 @@ function isFastHowToQuestion(message, detected) {
   return /what can .*tool.*do|what.*tool.*do|what.*assistant.*do|tool.*capabilit|before i start|how.*use|use.*cat|用途|有什么用|可以做什么|能做什么|怎么用|如何使用/u.test(text);
 }
 
-function buildFastHowToResponse({ language = "en" } = {}) {
+function isSelectedStartPointNextStepQuestion(message, currentMapState = {}) {
+  const text = String(message || "").toLowerCase();
+  const hasStartPoint = Array.isArray(currentMapState?.startPoint) && currentMapState.startPoint.length === 2;
+  if (!hasStartPoint) return false;
+  return /\b(already|have|chosen|selected|picked).{0,50}\b(start point|point|location)\b.{0,70}\b(next|now|do)\b/.test(text) ||
+    /\b(start point|point|location)\b.{0,50}\b(selected|chosen|picked)\b.{0,70}\b(next|now|do)\b/.test(text) ||
+    /已经.*(选|选择).*(起点|位置|地点).*下一步|起点.*已经.*(选|选择).*下一步/u.test(text);
+}
+
+function buildSelectedStartPointNextStepResponse({ language = "en", hasEnabledFactors = false } = {}) {
+  if (language === "zh") {
+    return hasEnabledFactors
+      ? "**下一步：** 直接运行可达性分析。\n\n你已经选择了起点，也已经有舒适因素设置。运行后我可以解释 comfort ratio、可达范围，以及这个地点是否适合步行。"
+      : "**下一步：** 先选择或应用舒适因素，然后运行可达性分析。\n\n你已经有起点了，所以不需要再选一次。可以先检查台阶、坡度、路面、过街等因素，再运行分析。";
+  }
+  return hasEnabledFactors
+    ? "**Next step:** run the accessibility analysis.\n\nYou already have a start point and comfort-factor settings. After it runs, I can explain the comfort ratio and reachable area."
+    : "**Next step:** choose or apply comfort factors, then run the accessibility analysis.\n\nYou already have a start point, so you do not need to choose it again.";
+}
+
+function buildFastHowToResponse({ language = "en", hasStartPoint = false } = {}) {
   if (language === "zh") {
     return [
       "CAT 用来比较一个或多个起点周边的步行可达范围，并说明你关心的环境因素会如何影响步行舒适程度。",
@@ -66,10 +87,17 @@ function buildFastHowToResponse({ language = "en" } = {}) {
       "你可以先在地图上选择候选地点，再选择对你重要的环境因素，并设置它们对你的影响程度，然后运行分析。预设只是一种快速起点，不代表每个人；你随时可以按自己的感受继续调整。我也可以帮你解释结果，或比较多个候选地点哪一个受这些因素影响更小。",
     ].join("\n");
   }
+  if (hasStartPoint) {
+    return [
+      "You already have a start point.",
+      "",
+      "Next, review or apply the comfort factors, then run the accessibility analysis. After it finishes, I can explain whether the reachable area looks comfortable for walking.",
+    ].join("\n");
+  }
   return [
-    "CAT compares comfort-based walking accessibility around one or more selected start points.",
+    "CAT helps compare how comfortable walking access is from selected start points.",
     "",
-    "Pick candidate places on the map, choose the comfort factors that matter to you, set how much each one affects your comfort, and run the analysis. You can also use a pre-set profile as a shortcut for typical settings. I can then show how factors like stairs, slopes, uneven surfaces and high kerbs affect each place, and compare which option is less restricted.",
+    "Start by choosing a point on the map, then review the comfort factors. I can help set them before you run the analysis.",
   ].join("\n");
 }
 
@@ -135,7 +163,7 @@ function toCitation(doc, index) {
   };
 }
 
-function buildCitywideRecommendationReply({ detected }) {
+function buildCitywideRecommendationReply({ detected, currentMapState = {} }) {
   const city = detected.city || "hamburg";
   const profile = detected.profile || null;
   const language = detected.responseLanguage || detected.language || "en";
@@ -143,6 +171,7 @@ function buildCitywideRecommendationReply({ detected }) {
   const settingsText = profile
     ? `settings based on ${profileLabel}`
     : "a chosen set of comfort-factor impact levels";
+  const hasStartPoint = Array.isArray(currentMapState?.startPoint) && currentMapState.startPoint.length === 2;
 
   if (language === "de") {
     return [
@@ -167,13 +196,73 @@ function buildCitywideRecommendationReply({ detected }) {
   return [
     `A good way to explore this in ${city} is to compare a few candidate places on the map.`,
     "",
-    `Select one or more start points, then run the analysis. I can prepare ${settingsText} and compare which place is less affected by the comfort factors you care about.`,
+    hasStartPoint
+      ? `Use the selected start point, review or apply ${settingsText}, then run the analysis. After that, I can explain whether this area looks comfortable for walking.`
+      : `Select one or more start points, then run the analysis. I can prepare ${settingsText} and compare which place is less affected by the comfort factors you care about.`,
   ].join("\n");
 }
 
-function buildKnowledgeReply({ detected, retrieval, capabilityCheck = null }) {
+function buildUnsupportedRelatedReply({ detected, message = "" }) {
+  const text = String(message || detected?.normalizedEnglishQuery || detected?.retrievalQuery || "").toLowerCase();
+  const city = detected.city || "hamburg";
+  const isWeather = /\bweather|forecast|rain|snow|wind|storm|temperature|hot|cold|heat\b/.test(text);
+  const isCycling = /\bbike|bicycle|cycling|cycle|ride|scooter\b/.test(text);
+  const isTrafficOrOperations = /\btraffic|congestion|road closure|construction|incident|delay|open now|opening hours|event|crowd now|schedule|train|bus\b/.test(text);
+  const isSafetyHealthLegal = /\bhealth|medical|injury|pregnant|asthma|allergy|legal|law|police|emergency|safe for me|is it safe\b/.test(text);
+  const isDriving = /\bcar|driving|drive\b/.test(text);
+
+  if (isWeather) {
+    return [
+      "**Short answer:** CAT does not know the live weather or forecast.",
+      `What it can show is CAT's available **temperature-related map data** for ${city}, such as summer heat or winter cold layers in **Data Information**.`,
+      "Use those layers as background context, not as real-time weather advice.",
+    ].join("\n\n");
+  }
+
+  if (isCycling) {
+    return [
+      "**Short answer:** CAT is mainly for walking accessibility, not cycling suitability or bike routing.",
+      "For a cycling-related check, you can still look at nearby CAT data such as **slopes**, **poor pavement**, **uneven surfaces**, **obstacles**, **green space**, and **temperature** layers.",
+      "For a real bike answer, you would need cycling-specific data such as bike lanes, traffic speed, cycling rules, and route safety.",
+    ].join("\n\n");
+  }
+
+  if (isTrafficOrOperations) {
+    return [
+      "**Short answer:** CAT does not know live traffic, closures, events, opening hours, or public transport schedules.",
+      "What it can provide is static or modelled CAT context, such as **public transport access**, **facilities**, **pedestrian flow**, **obstacles**, and other Data Information layers.",
+      "For real-time status, use a live traffic, transit, or local search service alongside CAT.",
+    ].join("\n\n");
+  }
+
+  if (isDriving) {
+    return [
+      "**Short answer:** CAT is not a driving or car-route tool.",
+      "It can still help compare walking comfort around a place, using factors like **street lighting**, **crossings**, **slopes**, **surface quality**, and **nearby facilities**.",
+      "For driving routes, parking, or car traffic, you need a road navigation service.",
+    ].join("\n\n");
+  }
+
+  if (isSafetyHealthLegal) {
+    return [
+      "**Short answer:** CAT cannot make personal health, legal, emergency, or real-time safety decisions.",
+      "It can support your judgement with environmental layers, such as **lighting**, **obstacles**, **slopes**, **temperature**, **green space**, and **pedestrian flow**.",
+      "For urgent or personal safety decisions, use local official guidance or professional advice.",
+    ].join("\n\n");
+  }
+
+  return [
+    "**Short answer:** This is related to CAT data, but outside CAT's direct answer scope.",
+    "I can still point you to relevant Data Information layers or help run a walking comfort analysis from a selected start point.",
+  ].join("\n\n");
+}
+
+function buildKnowledgeReply({ detected, retrieval, capabilityCheck = null, message = "", currentMapState = {} }) {
   const top = retrieval.results[0];
   const language = detected.responseLanguage || detected.language || "en";
+  if (detected.intent === "unsupported_related_question") {
+    return buildUnsupportedRelatedReply({ detected, message });
+  }
   if (detected.intent === "route_recommendation") {
     const profile = detected.profile || "default_adult";
     const profileLabel = getActionProfileLabel(profile, language);
@@ -247,7 +336,7 @@ function buildKnowledgeReply({ detected, retrieval, capabilityCheck = null }) {
     ].join("\n");
   }
   if (detected.intent === "citywide_place_recommendation") {
-    return buildCitywideRecommendationReply({ detected });
+    return buildCitywideRecommendationReply({ detected, currentMapState });
   }
   if (detected.intent === "explain_variable" && top) {
     return top.content;
@@ -267,7 +356,7 @@ function buildKnowledgeReply({ detected, retrieval, capabilityCheck = null }) {
     return `${top.title}\n\n${top.content}`;
   }
   if (detected.intent === "how_to_use") {
-    return "CAT workflow: choose a city, set walking time and walking speed, select a start point, enable the comfort factors that matter to you, set how much each one affects your comfort, then run catchment area analysis. Pre-set profiles are optional shortcuts for typical settings, not complete representations of individual users. The agent prepares checkable settings first; the frontend decides whether to apply and run them.";
+    return "Start with a point on the map, then review the comfort factors. After that you can run the CAT analysis and ask me to explain the result.";
   }
   if (detected.intent === "troubleshooting") {
     return top?.content || "If no result appears, check whether a start point is selected, walking time and walking speed are valid, and the current city supports the selected variables.";
@@ -275,7 +364,7 @@ function buildKnowledgeReply({ detected, retrieval, capabilityCheck = null }) {
   if (detected.intent === "explain_result") {
     return "Result explanation needs actual result metadata such as default area, comfort-adjusted area, comfort ratio, enabled variables, POI count, and missing data warnings. Without those fields, the agent must not invent spatial causes.";
   }
-  return top?.content || "I will answer from the local CAT knowledge base. I only return a map-analysis action when the user explicitly asks to run accessibility analysis.";
+  return "I can help with CAT workflow, comfort factors, data availability, or interpreting a result. What would you like to check first?";
 }
 
 async function buildAlternativeAction({ detected, currentMapState = {}, capabilityCheck }) {
@@ -295,11 +384,35 @@ async function buildAlternativeAction({ detected, currentMapState = {}, capabili
 
 async function buildRunAction({ detected, currentMapState = {} }) {
   const preset = getProfilePreset(detected.profile || "default_adult") || getProfilePreset("default_adult");
+  const semanticFrame = detected.semanticFrame && typeof detected.semanticFrame === "object"
+    ? detected.semanticFrame
+    : null;
+  const semanticVariables = Array.isArray(semanticFrame?.recommendedVariables)
+    ? semanticFrame.recommendedVariables.filter(Boolean)
+    : [];
+  const semanticWeights = semanticFrame?.variableWeights && typeof semanticFrame.variableWeights === "object"
+    ? semanticFrame.variableWeights
+    : {};
+  const enabledVariables = semanticVariables.length
+    ? semanticVariables
+    : preset.enabledVariables;
+  const layerValues = semanticVariables.length
+    ? Object.fromEntries(semanticVariables.map((variable) => [
+      variable,
+      Number.isFinite(Number(semanticWeights[variable]))
+        ? semanticWeights[variable]
+        : (
+          Number.isFinite(Number(preset.layerValues?.[variable]))
+            ? preset.layerValues[variable]
+            : 0.5
+        ),
+    ]))
+    : preset.layerValues;
   const cityFiltered = filterVariablesByCity({
     city: detected.city,
-    enabledVariables: preset.enabledVariables,
-    layerValues: preset.layerValues,
-    requestedVariables: [detected.variable_key],
+    enabledVariables,
+    layerValues,
+    requestedVariables: [detected.variable_key, ...semanticVariables].filter(Boolean),
   });
   const shouldGeocode = detected.locationText && !isGenericLocationText(detected.locationText, detected.city);
   const geocoded = shouldGeocode
@@ -329,6 +442,7 @@ async function buildRunAction({ detected, currentMapState = {} }) {
     type: actionType,
     profile: preset.id,
     profileInference: detected.profileInference || null,
+    semanticFrame,
     language: detected.language,
     responseLanguage: detected.responseLanguage,
     city: detected.city,
@@ -369,12 +483,29 @@ function normalizeResultMetadata(resultMetadata) {
   const weightedArea = toNumber(weightedResult?.area ?? resultMetadata?.weightedArea);
   const metadataRatio = toNumber(weightedResult?.weightedRatio ?? resultMetadata?.comfortRatio);
   const computedRatio = defaultArea && weightedArea ? weightedArea / defaultArea : null;
-  const comfortRatio = metadataRatio ?? computedRatio;
+  const normalizedMetadataRatio = metadataRatio !== null && metadataRatio !== undefined && metadataRatio > 1
+    ? metadataRatio / 100
+    : metadataRatio;
+  const comfortRatio = normalizedMetadataRatio ?? computedRatio;
+  const weightedLayerValues = weightedResult?.values || weightedResult?.layerValues || resultMetadata?.layerValues || {};
+  const factorContributions = weightedResult?.factorContributions ||
+    weightedResult?.factorImpacts ||
+    weightedResult?.impactByVariable ||
+    weightedResult?.variableImpacts ||
+    resultMetadata?.factorContributions ||
+    resultMetadata?.factorImpacts ||
+    resultMetadata?.impactByVariable ||
+    resultMetadata?.variableImpacts ||
+    null;
   const enabledVariables = Array.isArray(weightedResult?.layers)
     ? weightedResult.layers
-    : Array.isArray(resultMetadata?.enabledVariables)
-      ? resultMetadata.enabledVariables
-      : [];
+    : Array.isArray(weightedResult?.enabledVariables)
+      ? weightedResult.enabledVariables
+      : Array.isArray(weightedResult?.variables)
+        ? weightedResult.variables
+        : Array.isArray(resultMetadata?.enabledVariables)
+          ? resultMetadata.enabledVariables
+          : Object.keys(weightedLayerValues);
 
   return {
     profile: resultMetadata?.profile || latest.profile || null,
@@ -385,9 +516,10 @@ function normalizeResultMetadata(resultMetadata) {
     weightedArea,
     comfortRatio,
     enabledVariables,
-    layerValues: weightedResult?.values || resultMetadata?.layerValues || {},
+    layerValues: weightedLayerValues,
     poiCount: toNumber(weightedResult?.poiCount ?? defaultResult?.poiCount ?? resultMetadata?.poiCount),
     poiGroupCounts: weightedResult?.poiGroupCounts || defaultResult?.poiGroupCounts || resultMetadata?.poiGroupCounts || null,
+    factorContributions,
     missingDataWarnings: Array.isArray(resultMetadata?.missingDataWarnings)
       ? resultMetadata.missingDataWarnings
       : Array.isArray(latest.missingDataWarnings)
@@ -404,6 +536,42 @@ function getResultMetadataVariables(resultMetadata) {
 
 function formatKnownNumber(value, suffix = "") {
   return value === null || value === undefined ? "not available" : `${Number(value).toFixed(2)}${suffix}`;
+}
+
+function formatPercent(value) {
+  const number = Number(value);
+  return Number.isFinite(number) ? `${Math.round(number * 100)}%` : "not available";
+}
+
+function formatArea(value) {
+  const number = Number(value);
+  return Number.isFinite(number) ? `${number.toFixed(1)} ha` : "not available";
+}
+
+function getComparisonWinner(comparison = {}) {
+  const previousRatio = Number(comparison.previousRatio);
+  const currentRatio = Number(comparison.currentRatio);
+  const previousArea = Number(comparison.previousArea);
+  const currentArea = Number(comparison.currentArea);
+  const ratioUsable = Number.isFinite(previousRatio) && Number.isFinite(currentRatio);
+  const areaUsable = Number.isFinite(previousArea) && Number.isFinite(currentArea);
+
+  if (ratioUsable && Math.abs(currentRatio - previousRatio) >= 0.01) {
+    return currentRatio > previousRatio ? "current" : "previous";
+  }
+  if (areaUsable && Math.abs(currentArea - previousArea) >= 0.1) {
+    return currentArea > previousArea ? "current" : "previous";
+  }
+  return "similar";
+}
+
+function getComparisonPoiNote(comparison = {}) {
+  const previousPoi = Number(comparison.previousPoi);
+  const currentPoi = Number(comparison.currentPoi);
+  if (!Number.isFinite(previousPoi) || !Number.isFinite(currentPoi) || previousPoi === currentPoi) return "";
+  return currentPoi > previousPoi
+    ? "The current place has slightly more reachable services, but its comfortable reachable area is smaller."
+    : "The previous place has more reachable services as well as the stronger comfort result.";
 }
 
 const resultVariableLabels = {
@@ -543,7 +711,71 @@ function getScoreLabel(score, language = "en") {
   return "limited suitability under the selected comfort assumptions";
 }
 
-function buildResultExplanation({ resultMetadata, detected, agentContext = null }) {
+function isFactorContributionQuestion(message) {
+  const text = String(message || "").toLowerCase();
+  return /which\s+.*factor.*(most|biggest|strongest|affected|impact|influence)|what\s+.*affected.*most|factor.*affected.*result.*most|rank.*factor|main\s+factor|which\s+.*factor.*explain.*difference|ä¸»è¦.*å› ç´ |å½±å“.*æœ€å¤§|å“ª.*å› ç´ .*æœ€/iu.test(text);
+}
+
+function getFactorContributionEntries(normalized) {
+  const source = normalized?.factorContributions;
+  if (!source) return [];
+  if (Array.isArray(source)) {
+    return source
+      .map((item) => ({
+        key: item?.key || item?.variable || item?.variableKey || item?.factor || item?.name,
+        value: toNumber(item?.value ?? item?.impact ?? item?.contribution ?? item?.delta ?? item?.score),
+      }))
+      .filter((item) => item.key && item.value !== null);
+  }
+  if (typeof source === "object") {
+    return Object.entries(source)
+      .map(([key, value]) => ({
+        key,
+        value: typeof value === "object"
+          ? toNumber(value.value ?? value.impact ?? value.contribution ?? value.delta ?? value.score)
+          : toNumber(value),
+      }))
+      .filter((item) => item.key && item.value !== null);
+  }
+  return [];
+}
+
+function hasFactorContributionData(normalized) {
+  return getFactorContributionEntries(normalized).length > 0;
+}
+
+function buildFactorContributionExplanation({ normalized, language = "en" }) {
+  const variables = (normalized?.enabledVariables || []).map((variable) => getVariableLabel(variable, language));
+  const score = calculateResultScore(normalized);
+  const entries = getFactorContributionEntries(normalized)
+    .sort((a, b) => Math.abs(b.value) - Math.abs(a.value))
+    .slice(0, 3);
+
+  if (entries.length) {
+    const ranked = entries
+      .map((item) => `**${getVariableLabel(item.key, language)}**`)
+      .join(", ");
+    return [
+      `**Short answer:** The strongest recorded factor impacts are ${ranked}.`,
+      score !== null
+        ? `The overall comfort-adjusted reachable area is **${score}/100** of the ordinary walking area.`
+        : "",
+    ].filter(Boolean).join("\n\n");
+  }
+
+  return [
+    "**Short answer:** I can't rank the factors from this result yet.",
+    score !== null
+      ? `CAT currently stores the **combined effect**: the comfort-adjusted reachable area is **${score}/100** of the ordinary walking area.`
+      : "CAT currently stores the **combined effect**, not each factor's separate contribution.",
+    variables.length
+      ? `It considered: ${formatPlainList(variables, language)}.`
+      : "",
+    "To answer this properly, CAT needs per-factor contribution data or one separate run per factor.",
+  ].filter(Boolean).join("\n\n");
+}
+
+function buildResultExplanation({ resultMetadata, detected, agentContext = null, message = "" }) {
   const normalized = normalizeResultMetadata(resultMetadata);
   if (!normalized) {
     return buildKnowledgeReply({ detected, retrieval: { results: [] } });
@@ -552,6 +784,38 @@ function buildResultExplanation({ resultMetadata, detected, agentContext = null 
   const language = detected.responseLanguage || detected.language || "en";
   const variables = normalized.enabledVariables.map((variable) => getVariableLabel(variable, language));
   const score = calculateResultScore(normalized);
+  if (isFactorContributionQuestion(message)) {
+    return buildFactorContributionExplanation({ normalized, language });
+  }
+
+  if (language !== "zh") {
+    if (!normalized.hasWeightedResult || variables.length === 0 || score === null) {
+      return [
+        "**Short answer:** I can show the ordinary reachable area, but not comfort yet.",
+        "To judge walking comfort, choose the comfort factors that matter to you and run the comfort-adjusted analysis.",
+      ].join("\n\n");
+    }
+
+    const shortAnswer = score >= 75
+      ? "Yes, it looks fairly comfortable under your current settings."
+      : score >= 50
+        ? "It looks partly comfortable, but with clear limits."
+        : "Probably not very comfortable under your current settings.";
+    const affected = clamp(100 - score, 0, 100);
+    const lines = [
+      `**Short answer:** ${shortAnswer}`,
+      `The comfort-adjusted reachable area is **${score}/100** of the ordinary walking area, so about **${affected}%** is lost after comfort factors are considered.`,
+      variables.length ? `CAT considered: ${formatPlainList(variables, language)}.` : "",
+    ];
+    if (Number.isFinite(Number(normalized.poiCount))) {
+      lines.push(`There are still about **${Number(normalized.poiCount)}** places or services inside the adjusted area.`);
+    }
+    if (normalized.missingDataWarnings.length) {
+      lines.push(`Caveat: ${normalized.missingDataWarnings.join(" ")}`);
+    }
+    return lines.filter(Boolean).join("\n\n");
+  }
+
   const restrictionSummary = getRestrictionSummary(normalized, language);
   const servicePointText = Number.isFinite(Number(normalized.poiCount))
     ? language === "zh"
@@ -668,8 +932,8 @@ function buildImpactSummary(layerValues = {}, language = "en") {
     const numeric = Number(value);
     if (!Number.isFinite(numeric) || numeric <= 0) return acc;
     const label = getVariableLabel(key, language);
-    if (numeric >= 0.75) acc.high.push(label);
-    else if (numeric >= 0.45) acc.medium.push(label);
+    if (numeric <= 0.35) acc.high.push(label);
+    else if (numeric <= 0.65) acc.medium.push(label);
     else acc.low.push(label);
     return acc;
   }, { high: [], medium: [], low: [] });
@@ -750,6 +1014,80 @@ function buildReplyForRunAction(action) {
     action.requiresStartPoint
       ? "Next step: choose a start point on the map. After that, run the accessibility analysis and I can explain the computed result."
       : "Next step: run the accessibility analysis. After it finishes, I can explain the reachable area and how strongly the comfort factors affected it.",
+    warnings,
+  ].filter(Boolean).join("\n");
+}
+
+function buildParameterRecommendationReply({ action, detected, currentMapState = {} }) {
+  const language = action.responseLanguage || action.language || detected.responseLanguage || detected.language || "en";
+  const profile = action.profile || detected.profile || currentMapState.profile?.id || currentMapState.profile?.presetId || "default_adult";
+  const profileLabel = getActionProfileLabel(profile, language);
+  const impactLines = buildImpactSummary(action.layerValues, language);
+  const currentProfile = currentMapState.profile?.id || currentMapState.profile?.presetId || null;
+  const assumedProfile = !detected.profile || detected.profileInference?.confidence < 0.7;
+  const warnings = formatActionWarnings(action.missingDataWarnings, language);
+  const semanticFrame = action.semanticFrame || detected.semanticFrame || null;
+  const userContext = semanticFrame?.userContext && typeof semanticFrame.userContext === "object"
+    ? semanticFrame.userContext
+    : null;
+  const understoodContext = [
+    userContext?.mobilityDescription,
+    userContext?.activity,
+    Array.isArray(userContext?.constraints) && userContext.constraints.length
+      ? userContext.constraints.join(", ")
+      : "",
+  ].filter(Boolean).join("; ");
+  const missingInfo = Array.isArray(semanticFrame?.missingInfo)
+    ? semanticFrame.missingInfo.filter(Boolean)
+    : [];
+
+  if (language === "zh") {
+    return [
+      "**核心回答：** 可以。你可以按“哪些因素会影响你”和“影响有多强”来设置环境因素；我会先根据你的描述推断一个人群/出行情境，再给出可修改的建议。",
+      "",
+      assumedProfile
+        ? `- **目前的假设：** 你还没有说明是普通成年人、老人、带小孩/婴儿车、轮椅使用者，还是有视觉辅助需求；所以我先按${profileLabel}给一组起点设置。`
+        : `- **我理解的需求：** 更接近${profileLabel}，所以我会优先选择对这类出行更敏感的因素。`,
+      currentProfile && currentProfile !== profile
+        ? `- **当前界面已有预设：** 侧边栏现在看起来是 ${getActionProfileLabel(currentProfile, language)}；如果你同意，我可以用这次推荐覆盖为新的可编辑设置。`
+        : "",
+      `- **建议先选这些因素：** ${formatPlainList(action.enabledVariables.map((variable) => getVariableLabel(variable, language)), language)}。`,
+      ...impactLines.map((line) => `- ${line}`),
+      "- **还缺的信息：** 如果你告诉我出行对象、是否带小孩/轮椅/助行器、是否怕台阶坡道、白天还是夜间，我可以把影响程度调得更贴近你。",
+      action.requiresStartPoint
+        ? "- **下一步：** 可以先应用这些设置，再在地图上选择一个起点运行分析。"
+        : "- **下一步：** 可以应用这些设置并直接运行分析，旁边的侧边栏会显示哪些因素被选中，你仍然可以手动微调。",
+      warnings,
+    ].filter(Boolean).join("\n");
+  }
+
+  if (language === "de") {
+    return [
+      "**Kurzantwort:** Ja. Starte mit den Faktoren, die deinen Weg schwierig, unsicher oder unangenehm machen.",
+      "",
+      assumedProfile
+        ? `- **Annahme:** Ich nutze erst einmal ${profileLabel}.`
+        : `- **Verstandenes Beduerfnis:** Das passt am ehesten zu ${profileLabel}.`,
+      understoodContext ? `- **Kontext:** ${understoodContext}.` : "",
+      `- **Empfohlene Faktoren:** ${formatPlainList(action.enabledVariables.map((variable) => getVariableLabel(variable, language)), language)}.`,
+      missingInfo.length
+        ? `- **Zum Verfeinern:** ${formatPlainList(missingInfo, language)}.`
+        : "- Sag mir, ob es um Kinderwagen, Rollstuhl, aeltere Personen, Sehbeeintraechtigung oder Nachtwege geht; dann passe ich es an.",
+      warnings,
+    ].filter(Boolean).join("\n");
+  }
+
+  return [
+    "**Core answer:** Yes. Start with the factors that would make the walk feel difficult, unsafe, or uncomfortable.",
+    "",
+    assumedProfile
+      ? `- **Assumption:** I would begin with ${profileLabel}.`
+      : `- **What I infer:** your question fits ${profileLabel}, so I would prioritize the factors that usually matter for that situation.`,
+    understoodContext ? `- **What I understood:** ${understoodContext}.` : "",
+    `- **Recommended factors:** ${formatPlainList(action.enabledVariables.map((variable) => getVariableLabel(variable, language)), language)}.`,
+    missingInfo.length
+      ? `- **To refine it:** tell me ${formatPlainList(missingInfo, language)}.`
+      : "- Tell me if this is for an older adult, wheelchair, stroller, visual guidance, or night walking and I will adjust it.",
     warnings,
   ].filter(Boolean).join("\n");
 }
@@ -924,16 +1262,32 @@ function buildComparisonReply({ action, referenceResolution }) {
         "Hinweis: Dieser Vergleich basiert nur auf den aktuellen CAT-Ergebnissen. Er ersetzt keine Echtzeitinformationen zu Verkehr, Wetter, Baustellen oder persoenlicher Gesundheit.",
       ].join("\n");
     }
+    const winner = getComparisonWinner(comparison);
+    const firstLabel = "the previous place";
+    const secondLabel = "the current place";
+    const firstLabelTitle = "The previous place";
+    const secondLabelTitle = "The current place";
+    const conclusion = winner === "current"
+      ? `**${secondLabelTitle} looks better for comfortable walking.**`
+      : winner === "previous"
+        ? `**${firstLabelTitle} looks better for comfortable walking.**`
+        : "**The two places look fairly similar for comfortable walking.**";
+    const reason = winner === "similar"
+      ? "Their comfort scores and comfortable reachable areas are close, so I would not treat either one as a clear winner from these CAT results alone."
+      : winner === "current"
+        ? `More of its reachable area remains comfortable: ${formatPercent(comparison.currentRatio)} versus ${formatPercent(comparison.previousRatio)} for the previous place.`
+        : `More of its reachable area remains comfortable: ${formatPercent(comparison.previousRatio)} versus ${formatPercent(comparison.currentRatio)} for the current place.`;
+    const areaLine = `Comfortable reachable area: ${firstLabel} ${formatArea(comparison.previousArea)}, ${secondLabel} ${formatArea(comparison.currentArea)}.`;
+    const poiNote = getComparisonPoiNote(comparison);
     return [
-      "Both places have completed CAT results, so I can compare them.",
+      conclusion,
       "",
-      "Main evidence:",
-      `- Comfort share: previous place ${formatKnownNumber(comparison.previousRatio)}; current place ${formatKnownNumber(comparison.currentRatio)}.`,
-      `- Comfort-adjusted reachable area: previous place ${formatKnownNumber(comparison.previousArea, " ha")}; current place ${formatKnownNumber(comparison.currentArea, " ha")}.`,
-      `- Reachable places/services: previous place ${comparison.previousPoi ?? "not available"}; current place ${comparison.currentPoi ?? "not available"}.`,
+      reason,
+      areaLine,
+      poiNote,
       "",
-      "Note: this comparison is based only on the current CAT results. It does not represent live traffic, weather, construction, or personal health conditions.",
-    ].join("\n");
+      "This is based on the CAT results only, not live weather, traffic, construction, or personal health conditions.",
+    ].filter(Boolean).join("\n");
   }
 
   return "I need previous analysis history and the current selected point to compare CAT results.";
@@ -1016,9 +1370,66 @@ function toQuestion(label) {
   return { type: "question", label, prompt: label };
 }
 
-function toSuggestedAction(label, action, meta = {}) {
-  return { type: "action", label, action, ...meta };
+function getSuggestedActionDefaults(action) {
+  const defaults = {
+    select_start_point: {
+      uiTarget: "start_point",
+      willChange: ["start_point_selection"],
+    },
+    select_another_start_point: {
+      uiTarget: "start_point",
+      willChange: ["start_point_selection"],
+    },
+    review_comfort_factors: {
+      uiTarget: "comfort_factors",
+      willChange: ["comfort_factor_settings"],
+    },
+    review_data_layers: {
+      uiTarget: "data_layers",
+      willChange: ["map_layer_visibility"],
+    },
+    run_analysis: {
+      uiTarget: "run_analysis",
+      willChange: ["analysis_result"],
+    },
+    apply_settings: {
+      uiTarget: "comfort_factors",
+      willChange: ["comfort_factor_settings"],
+    },
+    apply_settings_select_start: {
+      uiTarget: "comfort_factors",
+      willChange: ["comfort_factor_settings", "start_point_selection"],
+    },
+  };
+  return defaults[action] || {};
 }
+
+function toSuggestedAction(label, action, meta = {}) {
+  return { type: "action", label, action, ...getSuggestedActionDefaults(action), ...meta };
+}
+
+const relatedBoundaryTargets = {
+  targetVariables: [
+    "slope",
+    "poorPavement",
+    "unevenSurface",
+    "obstacle",
+    "greeninf",
+    "temperatureSummer",
+    "temperatureWinter",
+  ],
+  targetLayers: [
+    "slope",
+    "slope_penteli",
+    "poor_pavement",
+    "uneven_surfaces",
+    "obstacle",
+    "green_infrastructure",
+    "green_infrastructure_wms",
+    "temp_summer",
+    "temp_winter",
+  ],
+};
 
 function withActionMeta(items, meta = {}) {
   return items.map((item) => item.type === "action" ? { ...item, ...meta } : item);
@@ -1038,16 +1449,30 @@ function buildNextStepPlan(suggestions = []) {
     canRunNow: item.canRunNow === true,
     precondition: item.precondition || null,
     willChange: Array.isArray(item.willChange) ? item.willChange : [],
+    uiTarget: item.uiTarget || null,
+    targetVariables: Array.isArray(item.targetVariables) ? item.targetVariables : [],
+    targetLayers: Array.isArray(item.targetLayers) ? item.targetLayers : [],
   }));
 }
 
-function buildFollowUpPayload(followUpSuggestions = []) {
+function isSuggestionAnswerable(item, { resultMetadata = null } = {}) {
+  const text = String(item?.prompt || item?.label || "");
+  if (item?.type === "question" && isFactorContributionQuestion(text)) {
+    return hasFactorContributionData(normalizeResultMetadata(resultMetadata));
+  }
+  return true;
+}
+
+function buildFollowUpPayload(followUpSuggestions = [], context = {}) {
+  const filteredSuggestions = followUpSuggestions
+    .filter((item) => isSuggestionAnswerable(item, context))
+    .slice(0, 3);
   return {
-    followUpSuggestions,
-    followUpQuestions: followUpSuggestions
+    followUpSuggestions: filteredSuggestions,
+    followUpQuestions: filteredSuggestions
       .filter((item) => item.type === "question" && item.prompt)
       .map((item) => item.prompt),
-    nextSteps: buildNextStepPlan(followUpSuggestions),
+    nextSteps: buildNextStepPlan(filteredSuggestions),
   };
 }
 
@@ -1059,10 +1484,16 @@ function buildFollowUpSuggestions({ detected = {}, action = null, alternativeAct
 
   const sets = {
     zh: {
+      applyRecommendation: [
+        toSuggestedAction("应用这些推荐因素", "apply_settings"),
+      ],
       howToNoStart: [
-        toQuestion("我想先选择一个地点并设置环境因素，该怎么开始？"),
+        toSuggestedAction("选择一个起点", "select_start_point"),
+        toSuggestedAction("查看并调整环境因素", "review_comfort_factors", {
+          uiTarget: "comfort_factors",
+          willChange: ["comfort_factor_settings"],
+        }),
         toQuestion("有哪些环境因素可以按我的舒适程度来设置？"),
-        toQuestion("想继续了解这个工具使用了哪些城市数据吗？"),
       ],
       howToWithStart: [
         toQuestion("我想根据自己的舒适程度来设置环境因素，该怎么选？"),
@@ -1098,10 +1529,16 @@ function buildFollowUpSuggestions({ detected = {}, action = null, alternativeAct
       ],
     },
     en: {
+      applyRecommendation: [
+        toSuggestedAction("Apply these recommended factors", "apply_settings"),
+      ],
       howToNoStart: [
-        toQuestion("I want to choose a place and set comfort factors. How should I start?"),
+        toSuggestedAction("Choose a start point", "select_start_point"),
+        toSuggestedAction("Review comfort factors", "review_comfort_factors", {
+          uiTarget: "comfort_factors",
+          willChange: ["comfort_factor_settings"],
+        }),
         toQuestion("Which comfort factors can I set based on how they affect me?"),
-        toQuestion("Would you like to learn what city data CAT uses?"),
       ],
       howToWithStart: [
         toQuestion("How should I choose comfort factors based on what affects me?"),
@@ -1118,17 +1555,25 @@ function buildFollowUpSuggestions({ detected = {}, action = null, alternativeAct
         toQuestion("How should I read the comfort ratio and reachable area after running it?"),
       ],
       result: [
-        toQuestion("Does this result suggest the area is comfortable for walking?"),
         toSuggestedAction("Compare with another start point", "select_another_start_point"),
+        toSuggestedAction("Review comfort factors", "review_comfort_factors"),
       ],
       comparisonResult: [
         toSuggestedAction("Compare with another start point", "select_another_start_point"),
-        toQuestion("Which comfort factors explain the difference between these start points?"),
+        toSuggestedAction("Review comfort factors", "review_comfort_factors"),
         toQuestion("Can you explain the latest result in more detail?"),
       ],
       data: [
         toQuestion("What are the limits of these datasets?"),
         toQuestion("Which factors actually affect the accessibility calculation?"),
+      ],
+      unsupportedRelated: [
+        toSuggestedAction("Review data layers", "review_data_layers", {
+          targetLayers: relatedBoundaryTargets.targetLayers,
+        }),
+        toSuggestedAction("Review comfort factors", "review_comfort_factors", {
+          targetVariables: relatedBoundaryTargets.targetVariables,
+        }),
       ],
       fallback: [
         toQuestion("Can you explain how to use CAT first?"),
@@ -1137,10 +1582,16 @@ function buildFollowUpSuggestions({ detected = {}, action = null, alternativeAct
       ],
     },
     de: {
+      applyRecommendation: [
+        toSuggestedAction("Empfohlene Faktoren anwenden", "apply_settings"),
+      ],
       howToNoStart: [
-        toQuestion("Ich möchte zuerst einen Ort wählen und Komfortfaktoren einstellen. Wie starte ich?"),
+        toSuggestedAction("Startpunkt wählen", "select_start_point"),
+        toSuggestedAction("Komfortfaktoren prüfen", "review_comfort_factors", {
+          uiTarget: "comfort_factors",
+          willChange: ["comfort_factor_settings"],
+        }),
         toQuestion("Welche Komfortfaktoren kann ich danach auswählen, wie stark sie mich beeinflussen?"),
-        toQuestion("Möchtest du erfahren, welche Stadtdaten CAT verwendet?"),
       ],
       howToWithStart: [
         toQuestion("Wie wähle ich Komfortfaktoren danach aus, was mich beeinflusst?"),
@@ -1157,12 +1608,12 @@ function buildFollowUpSuggestions({ detected = {}, action = null, alternativeAct
         toQuestion("Wie lese ich danach comfort ratio und erreichbaren Bereich?"),
       ],
       result: [
-        toQuestion("Zeigt dieses Ergebnis, ob die Gegend angenehm zum Gehen ist?"),
         toSuggestedAction("Mit einem anderen Startpunkt vergleichen", "select_another_start_point"),
+        toSuggestedAction("Komfortfaktoren pruefen", "review_comfort_factors"),
       ],
       comparisonResult: [
         toSuggestedAction("Mit einem weiteren Startpunkt vergleichen", "select_another_start_point"),
-        toQuestion("Welche Komfortfaktoren erklaeren den Unterschied zwischen diesen Startpunkten?"),
+        toSuggestedAction("Komfortfaktoren pruefen", "review_comfort_factors"),
         toQuestion("Kannst du das neueste Ergebnis genauer erklaeren?"),
       ],
       data: [
@@ -1177,44 +1628,67 @@ function buildFollowUpSuggestions({ detected = {}, action = null, alternativeAct
     },
   };
   const copy = sets[language] || sets.en;
+  const finalize = (suggestions = []) => hasStartPoint
+    ? suggestions.filter((item) => !["select_start_point", "apply_settings_select_start"].includes(item?.action))
+    : suggestions;
 
-  if (intent === "how_to_use" || intent === "general_question") return hasStartPoint ? copy.howToWithStart : copy.howToNoStart;
-  if (intent === "ask_data_availability" || intent === "explain_variable") return copy.data;
+  if (intent === "unsupported_related_question") return finalize(copy.unsupportedRelated || sets.en.unsupportedRelated);
+  if (intent === "how_to_use" || intent === "general_question") return finalize(hasStartPoint ? copy.howToWithStart : copy.howToNoStart);
+  if (intent === "ask_data_availability" || intent === "explain_variable") return finalize(copy.data);
   if (action?.type === "COMPARE_EXISTING_RESULTS") {
-    return withActionMeta(copy.comparisonResult || copy.result, {
-      willChange: ["start_point_selection"],
-    });
+    return finalize(copy.comparisonResult || copy.result);
+  }
+  if (intent === "parameter_recommendation" && action && action.type !== "ANSWER_ONLY") {
+    const suggestions = hasStartPoint
+      ? [
+          ...copy.applyRecommendation,
+          ...(copy.actionReady || []).filter((item) => item.action === "run_analysis"),
+        ]
+      : copy.applyRecommendation;
+    return finalize(withActionMeta(suggestions, {
+      actionRef: "action",
+      actionRole: "primary",
+      appliesSettings: true,
+      requiresStartPoint: action.requiresStartPoint && !hasStartPoint,
+      precondition: action.requiresStartPoint && !hasStartPoint ? "choose_start_point" : null,
+      willChange: ["comfort_factor_settings"],
+    }).map((item) => item.action === "run_analysis"
+      ? {
+          ...item,
+          canRunNow: hasStartPoint,
+          willChange: ["comfort_factor_settings", "analysis_result"],
+        }
+      : item));
   }
   if (action && action.type !== "ANSWER_ONLY") {
     return action.requiresStartPoint && !hasStartPoint
-      ? withActionMeta(copy.actionNeedsStart, {
+      ? finalize(withActionMeta(copy.actionNeedsStart, {
           actionRef: "action",
           actionRole: "primary",
           appliesSettings: true,
           requiresStartPoint: true,
           precondition: "choose_start_point",
           willChange: ["comfort_factor_settings", "start_point_selection"],
-        })
-      : withActionMeta(copy.actionReady, {
+        }))
+      : finalize(withActionMeta(copy.actionReady, {
           actionRef: "action",
           actionRole: "primary",
           appliesSettings: true,
           canRunNow: true,
           willChange: ["comfort_factor_settings", "analysis_result"],
-        });
+        }));
   }
-  if (intent === "explain_result" || hasResult) return withActionMeta(copy.result, {
-    willChange: ["start_point_selection"],
-  });
-  if (alternativeAction) return withActionMeta(copy.actionNeedsStart, {
+  if (intent === "explain_result" || hasResult) return finalize(copy.result);
+  if (alternativeAction) return finalize(withActionMeta(hasStartPoint ? copy.actionReady : copy.actionNeedsStart, {
     actionRef: "alternativeAction",
     actionRole: "alternative",
     appliesSettings: true,
-    requiresStartPoint: true,
-    precondition: "choose_start_point",
-    willChange: ["comfort_factor_settings", "start_point_selection"],
-  });
-  return copy.fallback;
+    requiresStartPoint: !hasStartPoint,
+    precondition: hasStartPoint ? null : "choose_start_point",
+    canRunNow: hasStartPoint,
+    willChange: hasStartPoint ? ["comfort_factor_settings", "analysis_result"] : ["comfort_factor_settings", "start_point_selection"],
+  }));
+  return finalize(hasStartPoint ? copy.howToWithStart : copy.fallback);
 }
 
 function buildFollowUpQuestions(args) {
@@ -1224,44 +1698,119 @@ function buildFollowUpQuestions(args) {
     .slice(0, 3);
 }
 
+function compactConversationForRewrite(conversationHistory = []) {
+  return (Array.isArray(conversationHistory) ? conversationHistory : [])
+    .slice(-8)
+    .map((item) => ({
+      role: item?.role === "assistant" ? "assistant" : "user",
+      content: String(item?.content || "").trim().slice(0, 700),
+    }))
+    .filter((item) => item.content);
+}
+
+function buildRuleBasedFollowUpQueryRewrite({
+  message,
+  detected,
+  conversationHistory,
+  currentMapState,
+  agentContext,
+} = {}) {
+  const isFollowUp = FOLLOW_UP_QUERY_PATTERN.test(String(message || ""));
+  const recentConversation = compactConversationForRewrite(conversationHistory);
+  if (!isFollowUp || !recentConversation.length) {
+    return {
+      isFollowUp,
+      strategy: "none",
+      rewrittenQuery: null,
+      recentConversationLength: recentConversation.length,
+    };
+  }
+
+  const mapFacts = [
+    currentMapState?.walkingTime ? `walking time: ${currentMapState.walkingTime}` : "",
+    currentMapState?.walkingSpeed ? `walking speed: ${currentMapState.walkingSpeed}` : "",
+    currentMapState?.profile?.id || currentMapState?.profile?.presetId ? `current pre-set: ${currentMapState.profile.id || currentMapState.profile.presetId}` : "",
+    Array.isArray(currentMapState?.enabledVariables) && currentMapState.enabledVariables.length
+      ? `enabled comfort factors: ${currentMapState.enabledVariables.join(", ")}`
+      : "",
+    Array.isArray(currentMapState?.startPoint) && currentMapState.startPoint.length === 2 ? "current start point is selected" : "",
+  ].filter(Boolean).join("; ");
+
+  return {
+    isFollowUp: true,
+    strategy: "rule",
+    rewrittenQuery: [
+      `intent: ${detected?.intent || "general_question"}`,
+      `city: ${detected?.city || currentMapState?.city || "hamburg"}`,
+      detected?.profile ? `detected pre-set: ${detected.profile}` : "",
+      agentContext?.originalUserQuestion ? `original user question: ${agentContext.originalUserQuestion}` : "",
+      mapFacts ? `current map context: ${mapFacts}` : "",
+      "recent conversation:",
+      recentConversation.map((item) => `${item.role}: ${item.content}`).join("\n"),
+      `follow-up question: ${message}`,
+    ].filter(Boolean).join("\n"),
+    recentConversationLength: recentConversation.length,
+  };
+}
+
 export async function buildAgentChatResponse({ message, city = "hamburg", currentMapState = {}, resultMetadata = null, agentContext = null, conversationHistory = [], analysisHistory = [] }) {
   let detected = understandAgentQuery(message, { city, hasResultMetadata: hasUsableResultMetadata(resultMetadata) });
   let intentRouterDebug = null;
-  if (detected.queryUnderstanding?.needsLlmRouting) {
-    let routerApplied = false;
-    try {
-      const routerResult = await maybeClassifyIntentWithLlm({ message, detected });
-      if (routerResult) {
-        intentRouterDebug = routerResult.llmDebug || null;
-        detected = applyLlmRoutingToDetected(detected, routerResult, message);
-        routerApplied = true;
-      }
-    } catch (error) {
+  let followUpQueryRewrite = buildRuleBasedFollowUpQueryRewrite({
+    message,
+    detected,
+    conversationHistory,
+    currentMapState,
+    agentContext,
+  });
+  let routerApplied = false;
+  try {
+    const routerResult = await maybeClassifyIntentWithLlm({
+      message,
+      detected,
+      currentMapState,
+      resultMetadata,
+      agentContext,
+      conversationHistory,
+      analysisHistory,
+      force: true,
+    });
+    if (routerResult) {
+      intentRouterDebug = routerResult.llmDebug || null;
+      detected = applyLlmRoutingToDetected(detected, routerResult, message);
+      routerApplied = true;
+    } else {
       intentRouterDebug = {
-        provider: "bigmodel",
-        error: error.message,
-        fallback: "deterministic_intent_router",
-      };
-    }
-    if (!routerApplied && detected.queryUnderstanding?.actionRiskSemanticDisambiguation) {
-      detected = applyLlmRoutingToDetected(detected, {
-        intent: "citywide_place_recommendation",
-        profile: detected.profile,
-        city: detected.city,
-        variable_key: detected.variable_key,
-        locationText: null,
-        language: detected.language,
-        responseLanguage: detected.responseLanguage,
-        normalizedEnglishQuery: detected.normalizedEnglishQuery,
-        retrievalQuery: detected.retrievalQuery,
-        confidence: 0.78,
-        reason: "Conservative fallback: the message asks for citywide place suggestions rather than analysis of a selected/current point.",
-      }, message);
-      intentRouterDebug = intentRouterDebug || {
         provider: "deterministic",
-        fallback: "action_risk_citywide_recommendation",
+        skipped: true,
+        reason: "llm_router_disabled_or_unconfigured",
       };
     }
+  } catch (error) {
+    intentRouterDebug = {
+      provider: "bigmodel",
+      error: error.message,
+      fallback: "deterministic_intent_router",
+    };
+  }
+  if (!routerApplied && detected.queryUnderstanding?.actionRiskSemanticDisambiguation) {
+    detected = applyLlmRoutingToDetected(detected, {
+      intent: "citywide_place_recommendation",
+      profile: detected.profile,
+      city: detected.city,
+      variable_key: detected.variable_key,
+      locationText: null,
+      language: detected.language,
+      responseLanguage: detected.responseLanguage,
+      normalizedEnglishQuery: detected.normalizedEnglishQuery,
+      retrievalQuery: detected.retrievalQuery,
+      confidence: 0.78,
+      reason: "Conservative fallback: the message asks for citywide place suggestions rather than analysis of a selected/current point.",
+    }, message);
+    intentRouterDebug = intentRouterDebug || {
+      provider: "deterministic",
+      fallback: "action_risk_citywide_recommendation",
+    };
   }
   if (!allowedIntents.has(detected.intent)) detected.intent = "general_question";
   if (!allowedCities.has(detected.city)) detected.city = cityLayerConfig[city] ? city : "hamburg";
@@ -1281,7 +1830,7 @@ export async function buildAgentChatResponse({ message, city = "hamburg", curren
       detected,
       action,
       alternativeAction: null,
-      ...buildFollowUpPayload(followUpSuggestions),
+      ...buildFollowUpPayload(followUpSuggestions, { resultMetadata }),
       capabilityCheck: checkAgentCapability({ intent: detected.intent, detected }),
       ragSufficiency: { sufficient: true, missingEvidence: [] },
       groundingCheck: { grounded: true, issues: [] },
@@ -1311,8 +1860,85 @@ export async function buildAgentChatResponse({ message, city = "hamburg", curren
   }
   const capabilityCheck = checkAgentCapability({ intent: detected.intent, detected });
 
+  if (isSelectedStartPointNextStepQuestion(message, currentMapState)) {
+    const hasEnabledFactors = Array.isArray(currentMapState?.enabledVariables) && currentMapState.enabledVariables.length > 0;
+    const reply = buildSelectedStartPointNextStepResponse({
+      language: detected.responseLanguage || detected.language || "en",
+      hasEnabledFactors,
+    });
+    const action = await buildRunAction({
+      detected: {
+        ...detected,
+        intent: hasEnabledFactors ? "run_accessibility_analysis" : "parameter_recommendation",
+        profile: detected.profile || currentMapState.profile?.id || currentMapState.profile?.presetId || "default_adult",
+      },
+      currentMapState,
+    });
+    const followUpDetected = { ...detected, intent: hasEnabledFactors ? "run_accessibility_analysis" : "parameter_recommendation" };
+    const followUpSuggestions = buildFollowUpSuggestions({ detected: followUpDetected, action, currentMapState, resultMetadata });
+    return {
+      reply,
+      intent: followUpDetected.intent,
+      answerMode: hasEnabledFactors ? "ACTION_READY" : "DIRECT_ANSWER",
+      detected: followUpDetected,
+      action,
+      alternativeAction: null,
+      ...buildFollowUpPayload(followUpSuggestions, { resultMetadata }),
+      capabilityCheck,
+      ragSufficiency: { sufficient: true, missingEvidence: [] },
+      groundingCheck: { grounded: true, issues: [] },
+      missingDataWarnings: action.missingDataWarnings || [],
+      citations: [],
+      retrieval: { results: [] },
+      debug: {
+        fastPath: true,
+        reason: "selected_start_point_next_step",
+      },
+    };
+  }
+
+  if (followUpQueryRewrite.isFollowUp && followUpQueryRewrite.recentConversationLength > 0) {
+    followUpQueryRewrite = {
+      ...followUpQueryRewrite,
+      ...buildRuleBasedFollowUpQueryRewrite({
+        message,
+        detected,
+        conversationHistory,
+        currentMapState,
+        agentContext,
+      }),
+    };
+    try {
+      const llmRewrite = await maybeRewriteFollowUpQueryWithLlm({
+        message,
+        detected,
+        currentMapState,
+        resultMetadata,
+        agentContext,
+        conversationHistory,
+      });
+      if (llmRewrite?.rewrittenQuery) {
+        followUpQueryRewrite = {
+          ...followUpQueryRewrite,
+          strategy: "llm",
+          rewrittenQuery: llmRewrite.rewrittenQuery,
+          reason: llmRewrite.reason,
+          llm: llmRewrite.llmDebug,
+        };
+      }
+    } catch (error) {
+      followUpQueryRewrite = {
+        ...followUpQueryRewrite,
+        llmError: error.message,
+      };
+    }
+  }
+
   if (isFastHowToQuestion(message, detected)) {
-    const reply = buildFastHowToResponse({ language: detected.responseLanguage || detected.language || "en" });
+    const reply = buildFastHowToResponse({
+      language: detected.responseLanguage || detected.language || "en",
+      hasStartPoint: Array.isArray(currentMapState?.startPoint) && currentMapState.startPoint.length === 2,
+    });
     const action = {
       type: "ANSWER_ONLY",
       city: detected.city,
@@ -1327,7 +1953,7 @@ export async function buildAgentChatResponse({ message, city = "hamburg", curren
       detected,
       action,
       alternativeAction: null,
-      ...buildFollowUpPayload(followUpSuggestions),
+      ...buildFollowUpPayload(followUpSuggestions, { resultMetadata }),
       capabilityCheck,
       ragSufficiency: { sufficient: true, missingEvidence: [] },
       groundingCheck: { grounded: true, issues: [] },
@@ -1376,13 +2002,13 @@ export async function buildAgentChatResponse({ message, city = "hamburg", curren
 
     const followUpSuggestions = buildFollowUpSuggestions({ detected, action, currentMapState, resultMetadata });
     return {
-      reply: repairUngroundedReply({ reply, groundingCheck, capabilityCheck, detected }),
+      reply: repairUngroundedReply({ reply, groundingCheck, capabilityCheck, detected, action, currentMapState }),
       intent: detected.intent,
       answerMode,
       detected,
       action,
       alternativeAction: null,
-      ...buildFollowUpPayload(followUpSuggestions),
+      ...buildFollowUpPayload(followUpSuggestions, { resultMetadata }),
       capabilityCheck,
       ragSufficiency,
       groundingCheck,
@@ -1424,7 +2050,8 @@ export async function buildAgentChatResponse({ message, city = "hamburg", curren
 
   const resultVariables = detected.intent === "explain_result" ? getResultMetadataVariables(resultMetadata) : [];
   const baseRetrievalQuery = detected.retrievalQuery || detected.normalizedEnglishQuery || message;
-  const retrievalQuery = resultVariables.length ? `${baseRetrievalQuery} ${resultVariables.join(" ")}` : baseRetrievalQuery;
+  const contextualRetrievalQuery = followUpQueryRewrite.rewrittenQuery || baseRetrievalQuery;
+  const retrievalQuery = resultVariables.length ? `${contextualRetrievalQuery} ${resultVariables.join(" ")}` : contextualRetrievalQuery;
 
   let retrieval = await retrieveKnowledge({
     query: retrievalQuery,
@@ -1467,6 +2094,9 @@ export async function buildAgentChatResponse({ message, city = "hamburg", curren
   if (detected.intent === "compare_with_previous_result") {
     action = buildComparisonAction({ detected, referenceResolution, currentMapState });
     reply = buildComparisonReply({ action, referenceResolution });
+  } else if (detected.intent === "parameter_recommendation") {
+    action = await buildRunAction({ detected, currentMapState });
+    reply = buildParameterRecommendationReply({ action, detected, currentMapState });
   } else if (capabilityCheck.shouldRunDirectAction) {
     action = await buildRunAction({ detected, currentMapState });
     reply = buildReplyForRunAction(action);
@@ -1479,12 +2109,12 @@ export async function buildAgentChatResponse({ message, city = "hamburg", curren
     };
     alternativeAction = await buildAlternativeAction({ detected, currentMapState, capabilityCheck });
     reply = detected.intent === "explain_result"
-      ? buildResultExplanation({ resultMetadata, detected, currentMapState, agentContext })
-      : buildKnowledgeReply({ detected, retrieval, capabilityCheck });
+      ? buildResultExplanation({ resultMetadata, detected, currentMapState, agentContext, message })
+      : buildKnowledgeReply({ detected, retrieval, capabilityCheck, message, currentMapState });
   }
 
   let llmDebug = null;
-  if (!["specific_poi_query", "unsupported_specific_poi_query", "citywide_place_recommendation", "route_recommendation", "compare_with_previous_result", "explain_result"].includes(detected.intent)) {
+  if (!["specific_poi_query", "unsupported_specific_poi_query", "unsupported_related_question", "citywide_place_recommendation", "route_recommendation", "compare_with_previous_result", "explain_result"].includes(detected.intent)) {
     try {
       const llmResult = await maybeBuildLlmAgentResponse({
         message,
@@ -1531,7 +2161,7 @@ export async function buildAgentChatResponse({ message, city = "hamburg", curren
     answerMode,
     agentContext,
   });
-  reply = repairUngroundedReply({ reply, groundingCheck, capabilityCheck, detected });
+  reply = repairUngroundedReply({ reply, groundingCheck, capabilityCheck, detected, action, currentMapState });
 
   const validationErrors = validateAgentAction(action);
   if (validationErrors.length) {
@@ -1551,7 +2181,7 @@ export async function buildAgentChatResponse({ message, city = "hamburg", curren
     detected,
     action,
     alternativeAction,
-    ...buildFollowUpPayload(followUpSuggestions),
+    ...buildFollowUpPayload(followUpSuggestions, { resultMetadata }),
     capabilityCheck,
     ragSufficiency,
     groundingCheck,
@@ -1584,6 +2214,7 @@ export async function buildAgentChatResponse({ message, city = "hamburg", curren
         latestAnalysisId: referenceResolution.previousAnalysis?.id || null,
         currentAnalysisId: referenceResolution.currentPointAnalysis?.id || null,
       },
+      followUpQueryRewrite,
       profileInference: detected.profileInference,
       detectionMethod: detected.method,
       confidence: detected.confidence,

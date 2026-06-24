@@ -139,6 +139,9 @@ export function selectAnswerMode({ detected, action, capabilityCheck, ragSuffici
   if (detected?.intent === "explain_result") {
     return ragSufficiency?.retrievalSufficient ? "RESULT_EXPLANATION" : "DATA_LIMITATION";
   }
+  if (detected?.intent === "parameter_recommendation") {
+    return "DIRECT_ANSWER";
+  }
   if (action?.type === "ASK_USER_TO_SELECT_POINT") return "CLARIFICATION_NEEDED";
   if (action?.type === "RUN_ACCESSIBILITY_ANALYSIS") return "ACTION_READY";
   if (ragSufficiency?.canAnswerDirectly) return "DIRECT_ANSWER";
@@ -200,12 +203,24 @@ function getGroundingReason({ detected, unsupportedIntent, originalUnsupported, 
   return `The answer is aligned with intent ${detected?.intent || "unknown"}.`;
 }
 
-export function repairUngroundedReply({ reply, groundingCheck, capabilityCheck, detected } = {}) {
+export function repairUngroundedReply({ reply, groundingCheck, capabilityCheck, detected, action = null, currentMapState = {} } = {}) {
   if (!groundingCheck?.revisionNeeded) return reply;
+  if (detected?.intent === "unsupported_related_question") return reply;
   if (capabilityCheck?.systemCanFullyAnswer !== false) return reply;
   const language = detected?.responseLanguage || detected?.language || "en";
-  const limitation = language === "zh"
+  const hasStartPoint = Array.isArray(currentMapState?.startPoint) && currentMapState.startPoint.length === 2;
+  const hasEnabledFactors = Array.isArray(currentMapState?.enabledVariables) && currentMapState.enabledVariables.length > 0;
+  const needsStartPoint = !hasStartPoint;
+  const limitation = needsStartPoint
+    ? (language === "zh"
     ? "建议下一步：选择一个或多个候选起点，再比较它们的舒适可达结果。"
-    : "Best next step: choose one or more candidate start points and compare the comfort-based results.";
-  return `${limitation}${reply || ""}`.trim();
+      : "Best next step: choose one or more candidate start points and compare the comfort-based results.")
+    : hasEnabledFactors
+      ? (language === "zh"
+          ? "建议下一步：你已经有起点和舒适因素设置，可以运行可达性分析。"
+          : "Best next step: you already have a start point and comfort settings, so run the accessibility analysis.")
+      : (language === "zh"
+          ? "建议下一步：你已经有起点，先检查或应用舒适因素，然后运行可达性分析。"
+          : "Best next step: you already have a start point, so review or apply comfort factors, then run the accessibility analysis.");
+  return [limitation, reply].filter(Boolean).join("\n\n").trim();
 }

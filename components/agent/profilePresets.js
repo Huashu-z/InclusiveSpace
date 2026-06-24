@@ -92,7 +92,7 @@ export const PROFILE_PRESETS = {
 
   children_family: {
     id: "children_family",
-    aliases: ["stroller"],
+    aliases: ["stroller", "pushchair", "pram", "buggy", "trolley", "cart", "luggage", "suitcase"],
     label: "Children, families, and stroller users",
     labelKey: "profile_stroller",
     icon: "/images/profile_stroller.png",

@@ -9,6 +9,105 @@ let agentPanelMemory = {
   lastAgentContext: null,
 };
 
+const INLINE_MARKDOWN_PATTERN = /(\*\*[^*\n]+\*\*|`[^`\n]+`)/g;
+
+function renderInlineMarkdown(text = "", keyPrefix = "inline") {
+  const parts = [];
+  let lastIndex = 0;
+  let matchIndex = 0;
+  let match;
+
+  while ((match = INLINE_MARKDOWN_PATTERN.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(text.slice(lastIndex, match.index));
+    }
+
+    const token = match[0];
+    if (token.startsWith("**")) {
+      parts.push(
+        <strong key={`${keyPrefix}-strong-${matchIndex}`}>
+          {token.slice(2, -2)}
+        </strong>
+      );
+    } else {
+      parts.push(
+        <code key={`${keyPrefix}-code-${matchIndex}`} className={sty.agentAnswerCode}>
+          {token.slice(1, -1)}
+        </code>
+      );
+    }
+
+    lastIndex = match.index + token.length;
+    matchIndex += 1;
+  }
+
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex));
+  }
+
+  return parts.length ? parts : text;
+}
+
+function renderAgentMessageContent(content = "", keyPrefix = "message") {
+  const blocks = [];
+  const lines = String(content || "").split(/\r?\n/);
+  let listItems = [];
+  let listType = "ul";
+
+  const flushList = () => {
+    if (!listItems.length) return;
+    const listIndex = blocks.length;
+    const ListTag = listType === "ol" ? "ol" : "ul";
+    blocks.push(
+      <ListTag className={sty.agentAnswerList} key={`${keyPrefix}-list-${listIndex}`}>
+        {listItems.map((item, itemIndex) => (
+          <li key={`${keyPrefix}-item-${listIndex}-${itemIndex}`}>
+            {renderInlineMarkdown(item, `${keyPrefix}-${listIndex}-${itemIndex}`)}
+          </li>
+        ))}
+      </ListTag>
+    );
+    listItems = [];
+    listType = "ul";
+  };
+
+  lines.forEach((line, lineIndex) => {
+    const trimmed = line.trim();
+    const bulletMatch = trimmed.match(/^[-*]\s+(.+)$/);
+    const numberMatch = trimmed.match(/^\d+[.)]\s+(.+)$/);
+
+    if (bulletMatch || numberMatch) {
+      const nextListType = numberMatch ? "ol" : "ul";
+      if (listItems.length && listType !== nextListType) flushList();
+      listType = nextListType;
+      listItems.push((bulletMatch || numberMatch)[1]);
+      return;
+    }
+
+    flushList();
+
+    if (!trimmed) {
+      if (blocks.length > 0) {
+        blocks.push(
+          <p className={sty.agentAnswerSpacer} key={`${keyPrefix}-space-${lineIndex}`} aria-hidden="true">
+            &nbsp;
+          </p>
+        );
+      }
+      return;
+    }
+
+    blocks.push(
+      <p key={`${keyPrefix}-p-${lineIndex}`}>
+        {renderInlineMarkdown(trimmed, `${keyPrefix}-${lineIndex}`)}
+      </p>
+    );
+  });
+
+  flushList();
+  return blocks.length ? blocks : null;
+}
+
 export default function AgentPanel({
   selectedCity = "hamburg",
   selectedLayers = [],
@@ -25,6 +124,8 @@ export default function AgentPanel({
   onExecuteAgentAction,
   onSelectStartSuggestion,
   onReviewFactorsSuggestion,
+  onReviewDataLayersSuggestion,
+  onGuideTargetsChange,
   onResponse,
 }) {
   const [prompt, setPrompt] = useState("");
@@ -54,6 +155,7 @@ export default function AgentPanel({
   const pendingRunMetadataStartIndexRef = React.useRef(0);
   const pendingExplainTimerRef = React.useRef(null);
   const pendingCompareStartSelectionRef = React.useRef(null);
+  const observedStartPointKeyRef = React.useRef(null);
   const chatBoxRef = React.useRef(null);
   const hasResultMetadata = Array.isArray(resultMetadata) && resultMetadata.length > 0;
   const hasCurrentStartPoint = Array.isArray(startPoint) && startPoint.length === 2;
@@ -552,7 +654,7 @@ export default function AgentPanel({
     void sendRequest(question);
   };
 
-  const appendAssistantStatusMessage = (content) => {
+  const appendAssistantStatusMessage = React.useCallback((content) => {
     if (!content) return;
     setChatMessages((prev) => [
       ...prev,
@@ -563,7 +665,7 @@ export default function AgentPanel({
         kind: "status",
       },
     ].slice(-30));
-  };
+  }, []);
 
   const resolveActionForSuggestion = (suggestion, sourceResult = result) => {
     const ref = suggestion?.actionRef || suggestion?.targetAction || suggestion?.payload?.actionRef;
@@ -624,6 +726,7 @@ export default function AgentPanel({
       if (resolved.action && resolved.action.type !== "ANSWER_ONLY") {
         executeAgentAction(resolved.action, { run: false, alternative: resolved.alternative });
       }
+      onGuideTargetsChange?.(["comfort", "start"]);
       const didHandle = onSelectStartSuggestion?.({ another: false });
       focusAgentTarget("map-region") || focusAgentTarget("map") || focusAgentTarget("sidebar");
       const statusText = didHandle === false
@@ -636,6 +739,7 @@ export default function AgentPanel({
 
     if (action === "run_analysis") {
       const resolved = resolveActionForSuggestion(suggestion, sourceResult);
+      onGuideTargetsChange?.(["run"]);
       if (resolved.action && resolved.action.type !== "ANSWER_ONLY") {
         executeAgentAction(resolved.action, { run: true, alternative: resolved.alternative });
         appendAssistantStatusMessage(t(resolved.alternative ? "agent_chat_status_alt_run_requested" : "agent_chat_status_run_requested"));
@@ -651,6 +755,7 @@ export default function AgentPanel({
       if (resolved.action && resolved.action.type !== "ANSWER_ONLY") {
         executeAgentAction(resolved.action, { run: false, alternative: resolved.alternative });
       }
+      onGuideTargetsChange?.(["comfort", "run"]);
       const statusText = t(resolved.alternative ? "agent_status_alt_settings_applied" : "agent_status_settings_applied");
       setRealComputationStatus(statusText);
       appendAssistantStatusMessage(statusText);
@@ -658,7 +763,9 @@ export default function AgentPanel({
     }
 
     if (action === "review_comfort_factors") {
-      const didHandle = onReviewFactorsSuggestion?.();
+      const guideTargets = ["comfort", ...(suggestion.targetVariables || []).map((item) => `variable:${item}`)];
+      onGuideTargetsChange?.(guideTargets);
+      const didHandle = onReviewFactorsSuggestion?.(suggestion);
       focusAgentTarget("sidebar");
       const statusText = didHandle === false
         ? t("agent_suggestion_review_factors")
@@ -668,7 +775,21 @@ export default function AgentPanel({
       return;
     }
 
+    if (action === "review_data_layers") {
+      const guideTargets = ["data", ...(suggestion.targetLayers || []).map((item) => `layer:${item}`)];
+      onGuideTargetsChange?.(guideTargets);
+      const didHandle = onReviewDataLayersSuggestion?.(suggestion);
+      focusAgentTarget("sidebar");
+      const statusText = didHandle === false
+        ? "Open Data Information to review available map layers."
+        : "I highlighted the Data Information layers.";
+      setRealComputationStatus(statusText);
+      appendAssistantStatusMessage(statusText);
+      return;
+    }
+
     if (action === "select_start_point" || action === "select_another_start_point") {
+      onGuideTargetsChange?.(["start"]);
       if (action === "select_another_start_point") {
         const latestAnalysis = analysisHistoryRef.current[analysisHistoryRef.current.length - 1] || null;
         pendingCompareStartSelectionRef.current = {
@@ -975,8 +1096,8 @@ export default function AgentPanel({
   const getWeightBucket = (value) => {
     const numeric = Number(value);
     if (!Number.isFinite(numeric) || numeric <= 0) return "off";
-    if (numeric >= 0.75) return "high";
-    if (numeric >= 0.45) return "medium";
+    if (numeric <= 0.35) return "high";
+    if (numeric <= 0.65) return "medium";
     return "low";
   };
 
@@ -1029,6 +1150,26 @@ export default function AgentPanel({
     action?.requiresStartPoint || action?.type === "ASK_USER_TO_SELECT_POINT"
   );
 
+  React.useEffect(() => {
+    const currentStartPointKey = pointKey(startPoint);
+    if (observedStartPointKeyRef.current === null) {
+      observedStartPointKeyRef.current = currentStartPointKey;
+      return;
+    }
+    const previousStartPointKey = observedStartPointKeyRef.current;
+    observedStartPointKeyRef.current = currentStartPointKey;
+    if (!currentStartPointKey || currentStartPointKey === previousStartPointKey) return;
+    const pendingAction = result?.action;
+    if (!actionNeedsStartPoint(pendingAction)) return;
+    const hasComfortSettings = Array.isArray(enabledVariables) && enabledVariables.length > 0;
+    const statusText = hasComfortSettings
+      ? "Start point selected. Next step: run the accessibility analysis."
+      : "Start point selected. Next step: review or apply comfort factors, then run the analysis.";
+    onGuideTargetsChange?.(hasComfortSettings ? ["run"] : ["comfort", "run"]);
+    setRealComputationStatus(statusText);
+    appendAssistantStatusMessage(statusText);
+  }, [appendAssistantStatusMessage, enabledVariables, onGuideTargetsChange, pointKey, result, startPoint]);
+
   const getRunActionLabel = (action, fallbackRunKey = "agent_apply_and_run") => {
     const needsStartPoint = actionNeedsStartPoint(action);
     if (needsStartPoint && canRunActionWithCurrentPoint(action)) return t("agent_run_analysis");
@@ -1066,32 +1207,16 @@ export default function AgentPanel({
   const renderNextStepModule = (answerResult, suggestions = [], keyPrefix = "chat") => {
     const action = getSettingsActionForNextStep(answerResult, suggestions);
     const hasSettings = action && action.type !== "ANSWER_ONLY";
-    const visibleSuggestions = Array.isArray(suggestions) ? suggestions.slice(0, 3) : [];
+    const allSuggestions = Array.isArray(suggestions) ? suggestions : [];
+    const actionSuggestions = allSuggestions.filter((suggestion) => (
+      suggestion?.type === "action" ||
+      Boolean(suggestion?.action)
+    ));
+    const visibleSuggestions = hasSettings ? actionSuggestions.slice(0, 2) : allSuggestions.slice(0, 2);
     if (!hasSettings && visibleSuggestions.length === 0) return null;
-    const settingWarnings = [
-      ...(Array.isArray(action?.missingDataWarnings) ? action.missingDataWarnings : []),
-      ...(Array.isArray(answerResult?.missingDataWarnings) ? answerResult.missingDataWarnings : []),
-    ].filter((warning, index, all) => warning && all.indexOf(warning) === index);
+
     return (
-      <div className={sty.agentFollowUpBox}>
-        <div className={sty.agentFollowUpTitle}>{t("agent_follow_up_title")}</div>
-        {hasSettings && (
-          <div className={sty.agentNextStepSettings}>
-            <div className={sty.sidebarText} style={{ fontSize: "12px", lineHeight: 1.55 }}>
-              {buildNaturalSettings(action).map((line, index) => (
-                <div key={`${keyPrefix}-setting-${index}`}>{line}</div>
-              ))}
-              <div style={{ marginTop: "6px" }}>{t("agent_apply_question")}</div>
-            </div>
-            {settingWarnings.length > 0 && (
-              <ul className={sty.agentFactorList}>
-                {settingWarnings.map((warning, index) => (
-                  <li key={`${keyPrefix}-warning-${index}`} className={sty.agentFactorItem}>{warning}</li>
-                ))}
-              </ul>
-            )}
-          </div>
-        )}
+      <div className={sty.agentInlineActionBar}>
         <div className={sty.agentFollowUpList}>
           {visibleSuggestions.map((suggestion) => (
             <button
@@ -1117,7 +1242,6 @@ export default function AgentPanel({
 
   const getDisplayReply = (answerResult) => {
     if (!answerResult?.reply) return "";
-    if (answerResult.action && answerResult.action.type !== "ANSWER_ONLY") return "";
     return String(answerResult.reply)
       .split(/\r?\n/)
       .filter((line) => {
@@ -1137,6 +1261,9 @@ export default function AgentPanel({
           /^Empfohlenes Profil[:：]/i,
           /^Empfohlene Gehgeschwindigkeit[:：]/i,
           /^Empfohlene Gewichte[:：]/i,
+          /^Here are suggested CAT settings/i,
+          /^You can apply them and run the analysis/i,
+          /^You can apply them first/i,
         ].some((pattern) => pattern.test(text));
       })
       .join("\n")
@@ -1189,7 +1316,8 @@ export default function AgentPanel({
           const messageResult = message.result || null;
           const isAssistant = message.role === "assistant";
           const isStatus = message.kind === "status";
-          const conclusionText = isAssistant && messageResult?.action && messageResult.action.type !== "ANSWER_ONLY"
+          const messageIntent = messageResult?.intent || messageResult?.intentMode || messageResult?.mode;
+          const conclusionText = isAssistant && messageIntent !== "parameter_recommendation" && messageResult?.action && messageResult.action.type !== "ANSWER_ONLY"
             ? getActionConclusion(messageResult.action)
             : "";
           const answerText = isAssistant && messageResult
@@ -1214,7 +1342,9 @@ export default function AgentPanel({
                 <div className={sty.agentChatConclusion}>{conclusionText}</div>
               )}
               {answerText && (
-                <div className={isStatus ? sty.agentStatusText : sty.agentAnswerText}>{answerText}</div>
+                <div className={isStatus ? sty.agentStatusText : sty.agentAnswerText}>
+                  {isStatus ? answerText : renderAgentMessageContent(answerText, message.id)}
+                </div>
               )}
               {isAssistant && !isStatus && renderNextStepModule(messageResult, suggestions, message.id)}
             </div>
@@ -1232,7 +1362,9 @@ export default function AgentPanel({
             {streamingStatus && (
               <div className={sty.agentThinkingLine}>{streamingStatus}</div>
             )}
-            <div className={sty.agentAnswerText}>{streamingReply}</div>
+            <div className={sty.agentAnswerText}>
+              {renderAgentMessageContent(streamingReply, "streaming-reply")}
+            </div>
           </div>
         )}
       </div>
@@ -1269,7 +1401,7 @@ export default function AgentPanel({
             const conclusionFromResult = result.conclusion || null;
             const displayReply = getDisplayReply(result);
             let conclusionText = '';
-            if (result.action && result.action.type !== "ANSWER_ONLY") {
+            if (result.action && result.action.type !== "ANSWER_ONLY" && legacyMode !== "parameter_recommendation") {
               conclusionText = getActionConclusion(result.action);
             } else if (isKnowledgeAnswer) {
               conclusionText = "";
@@ -1302,7 +1434,7 @@ export default function AgentPanel({
             );
           })()}
 
-          {result.action && result.action.type !== "ANSWER_ONLY" && (
+          {result.action && result.action.type !== "ANSWER_ONLY" && legacyMode !== "parameter_recommendation" && (
             <div style={{ marginTop: "12px", padding: "10px", border: "1px solid #d8e2ef", borderRadius: "6px", background: "#fbfdff" }}>
               <div className={sty.sidebarSubtitle}>{t("agent_recommended_settings_title")}</div>
               <div className={sty.sidebarText} style={{ fontSize: "12px", lineHeight: 1.55 }}>
@@ -1456,6 +1588,9 @@ export default function AgentPanel({
                 ? result.followUpQuestions.map((question) => ({ type: "question", label: question, prompt: question }))
                 : [];
             if (!suggestions.length) return null;
+            if (legacyMode === "parameter_recommendation") {
+              return renderNextStepModule(result, suggestions, "current-result");
+            }
             return (
             <div className={sty.agentFollowUpBox}>
               <div className={sty.agentFollowUpTitle}>{t("agent_follow_up_title")}</div>

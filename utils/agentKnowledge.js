@@ -29,6 +29,7 @@ export const retrievalCollectionsByIntent = {
   how_to_use: ["faq", "methodology"],
   troubleshooting: ["faq", "methodology"],
   unsupported_specific_poi_query: ["faq", "methodology"],
+  unsupported_related_question: ["cities", "variables", "methodology", "faq"],
   general_question: ["methodology", "faq", "profiles", "variables", "cities"],
 };
 

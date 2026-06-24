@@ -3,14 +3,20 @@ import sty from "./Sidebar.module.css";
 import { useTranslation } from 'next-i18next'; 
 import Tooltip from "./Sidebar_Tooltip";
 
-function LayerCheckbox({ layerKey, label, checked, onToggle, t }) {
+function LayerCheckbox({ layerKey, label, checked, onToggle, t, highlighted = false }) {
   const [showTooltip, setShowTooltip] = React.useState(false);
   const tooltipRef = React.useRef(null);
 
   const checkboxRef = React.useRef(null);
 
   return (
-    <div className={sty["checkbox-container"]}>
+    <div
+      className={[
+        sty["checkbox-container"],
+        highlighted ? sty.agentGuideItem : "",
+      ].filter(Boolean).join(" ")}
+      data-agent-layer={layerKey}
+    >
       <div className={sty["checkbox-top-row"]}>
         <label className={sty["checkbox-label"]}>
           <input
@@ -91,7 +97,7 @@ function Category({ name, label, isOpen, onToggle, children, sty }) {
   );
 }
 
-export default function MapLayers({ selectedLayers, toggleLayer, availableLayers }) {
+export default function MapLayers({ selectedLayers, toggleLayer, availableLayers, guideActive = false, guideTargetLayers = [] }) {
   const city = (typeof window !== "undefined" && (localStorage.getItem("selectedCity") || "hamburg")) || "hamburg"; 
 
   const [showInfo, setShowInfo] = useState(false);
@@ -104,6 +110,19 @@ export default function MapLayers({ selectedLayers, toggleLayer, availableLayers
   const toggleCategory = (category) => {
     setOpenCategory(openCategory === category ? null : category);
   };
+
+  React.useEffect(() => {
+    if (!guideTargetLayers.length) return;
+    const envLayers = new Set(["temp_summer", "temp_winter", "noise_wms"]);
+    const psychLayers = new Set(["facility_wms", "facilities", "pedestrian_flow_wms", "pedestrian_flow"]);
+    const counts = guideTargetLayers.reduce((acc, layer) => {
+      if (envLayers.has(layer)) acc.env += 1;
+      else if (psychLayers.has(layer)) acc.psy += 1;
+      else acc.phy += 1;
+      return acc;
+    }, { env: 0, phy: 0, psy: 0 });
+    setOpenCategory(Object.entries(counts).sort((a, b) => b[1] - a[1])[0]?.[0] || "phy");
+  }, [guideTargetLayers]);
 
   const groups = [
     { name: "env", label: t('env_category') },
@@ -121,6 +140,7 @@ export default function MapLayers({ selectedLayers, toggleLayer, availableLayers
         checked={selectedLayers.includes(layer.key)}
         onToggle={() => toggleLayer(layer.key)}
         t={t}
+        highlighted={guideTargetLayers.includes(layer.key)}
       />
     );
   };
@@ -129,7 +149,15 @@ export default function MapLayers({ selectedLayers, toggleLayer, availableLayers
   availableLayers.find(l => l.key === key);
 
   return (
-    <div className={sty["sidebar-section"]} aria-labelledby="map-layers-heading">
+    <div
+      className={[
+        sty["sidebar-section"],
+        guideActive ? sty.agentGuideHighlight : "",
+      ].filter(Boolean).join(" ")}
+      aria-labelledby="map-layers-heading"
+      id="data-layers-panel"
+      data-agent-target="data_layers"
+    >
       <div className={sty["title-container"]}>
         <h2 id="map-layers-heading" className={sty["sidebar-section-title"]}>
           <img src="/images/help_data.png" alt={t("icon_data_info")} />

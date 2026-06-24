@@ -5,11 +5,13 @@ import {
   detectSpecificPoiQuery,
   detectVariable,
 } from "./agentIntent.js";
+import { getSupportedVariables } from "./cityVariableFiltering.js";
 import { inferProfile } from "./profileInference.js";
 
 const ACTION_INTENTS = new Set([
   "catchment_area_analysis",
   "area_suitability_question",
+  "parameter_recommendation",
   "run_accessibility_analysis",
   "route_recommendation",
   "specific_poi_query",
@@ -21,6 +23,7 @@ const KNOWLEDGE_INTENTS = new Set([
   "explain_variable",
   "ask_data_availability",
   "troubleshooting",
+  "unsupported_related_question",
   "general_question",
 ]);
 
@@ -57,6 +60,7 @@ function buildDeterministicRetrievalQuery({ message, detected, language }) {
     ask_data_availability: "CAT data availability city variables missing unsupported data",
     explain_variable: "CAT comfort variable definition environmental factor",
     explain_result: "CAT result interpretation comfort ratio default area adjusted area limitations",
+    parameter_recommendation: "CAT recommend comfort factors walking speed walking time profile preset impact levels start point",
     compare_with_previous_result: "CAT compare previous current analysis result comfort ratio area",
     area_suitability_question: "CAT profile walking suitability selected area comfort variables",
     catchment_area_analysis: "CAT catchment area reachable area start point walking time comfort",
@@ -139,6 +143,10 @@ function detectIntentSignals({ text, message, variable, hasResultMetadata }) {
   return {
     howTo: hasAny(text, [
       /how.*use/,
+      /how do i start/,
+      /get started/,
+      /first step/,
+      /where should i start/,
       /use.*cat/,
       /what can .*tool.*do/,
       /what.*cat.*do/,
@@ -203,7 +211,36 @@ function detectIntentSignals({ text, message, variable, hasResultMetadata }) {
       /what should i check/,
       /没有结果|地图.*没有显示|没有显示.*可达|为什么.*没有分析|没更新/u,
     ]),
-    resultExplanation: hasResultMetadata || hasAny(text, [
+    existingResultQuestion: hasResultMetadata && hasAny(text, [
+      /\b(this|the|latest|current|previous)\s+result\b/,
+      /\bresult\b.*\b(suggest|show|mean|tell|indicate|comfortable|comfort|suitable|walkable|walking)\b/,
+      /\bdoes .*result\b/,
+      /\bwhat .*result\b/,
+      /\bhow .*result\b/,
+      /\bcomfort[-\s]?adjusted\b/,
+      /\bcomfort ratio\b/,
+      /\bred area\b/,
+      /\bgrey area\b/,
+      /è¿™.*ç»“æžœ|æœ€æ–°ç»“æžœ|ç»“æžœ.*(è¯´æ˜Ž|è¡¨ç¤º|æ„å‘³|èˆ’é€‚|é€‚åˆ|æ­¥è¡Œ)|çº¢è‰²åŒºåŸŸ|ç°è‰²åŒºåŸŸ/u,
+    ]),
+    parameterRecommendation: hasAny(text, [
+      /recommend .*?(parameter|setting|comfort factor|factor)/,
+      /suggest .*?(parameter|setting|comfort factor|factor)/,
+      /help .*?(choose|set|select).*?(comfort factor|factor|parameter)/,
+      /which .*?(comfort factor|factor|parameter).*?(set|choose|use)/,
+      /which .*?(comfort factor|factor|parameter).*?matter/,
+      /what .*?(comfort factor|factor|parameter).*?(set|choose|use|matter)/,
+      /how .*?(choose|set|select).*?(comfort factor|factor|parameter)/,
+      /comfort factors?.*?(matter|for a person|for someone)/,
+      /parameter recommendation/,
+      /recommended settings/,
+      /recommended parameter/,
+      /which comfort factors can i set/,
+      /what comfort factors can i choose/,
+      /how should i choose comfort factors/,
+      /推荐.*(参数|设置|因素)|哪些.*(参数|设置|因素)|怎么.*(选择|设置).*(参数|因素)|舒适.*因素/u,
+    ]),
+    resultExplanation: hasAny(text, [
       /comfort ratio/,
       /explain .*result/,
       /latest .*result/,
@@ -286,6 +323,15 @@ function detectIntentSignals({ text, message, variable, hasResultMetadata }) {
       /从.+出发/u,
       /这个区域|当前区域|这个地方|当前点|选择的点|选中的点|从这里|从.+出发|附近/u,
     ]),
+    unsupportedRelated: hasAny(text, [
+      /\b(weather|forecast|rain|snow|wind|storm|real[-\s]?time weather|today'?s weather)\b/,
+      /\b(temperature|hot|cold|heat|winter cold|summer heat)\b.*\b(hamburg|penteli|here|area|map|data|layer)\b/,
+      /\b(traffic|congestion|road closures?|closures?|construction|incident|delay|open now|opening hours|event|crowd now)\b/,
+      /\b(can i|could i|should i|is it ok to)\s+(ride|cycle|bike|bicycle)\b/,
+      /\b(bike|bicycle|cycling|cycle route|bike lane|scooter|car|driving|drive|public transport schedule|train schedule|bus schedule)\b/,
+      /\b(is it safe to|safe for me to)\s+(go out|walk now|ride|cycle|drive)\b/,
+      /\b(health|medical|injury|pregnant|asthma|allergy|legal|law|police|emergency)\b/,
+    ]),
     catchment: hasAny(text, [
       /what area can .* reach/,
       /where can .* reach/,
@@ -334,6 +380,15 @@ function priorityGate({ text, message, variable, baseIntent, hasResultMetadata }
   }
   if (signals.dataAvailability) {
     return { intent: "ask_data_availability", confidence: 0.95, reason: "priority_data_availability", signals };
+  }
+  if (signals.unsupportedRelated) {
+    return { intent: "unsupported_related_question", confidence: 0.95, reason: "priority_related_boundary", signals };
+  }
+  if (signals.existingResultQuestion) {
+    return { intent: "explain_result", confidence: 0.95, reason: "priority_existing_result_question", signals };
+  }
+  if (signals.parameterRecommendation) {
+    return { intent: "parameter_recommendation", confidence: 0.93, reason: "priority_parameter_recommendation", signals };
   }
   if (signals.comparison) {
     return { intent: "compare_with_previous_result", confidence: 0.95, reason: "priority_comparison", signals };
@@ -427,17 +482,23 @@ function inferRetrievalPlan({ intent }) {
   if (["route_recommendation", "specific_poi_query", "unsupported_specific_poi_query"].includes(intent)) {
     return { collections: ["methodology", "faq", "profiles"], reason: "capability_boundary_with_slots" };
   }
+  if (intent === "unsupported_related_question") {
+    return { collections: ["cities", "variables", "methodology"], reason: "related_boundary_with_cat_alternative" };
+  }
   if (intent === "citywide_place_recommendation") {
     return { collections: ["methodology", "faq", "profiles"], reason: "citywide_recommendation_boundary" };
   }
   if (["catchment_area_analysis", "area_suitability_question", "run_accessibility_analysis"].includes(intent)) {
     return { collections: ["profiles", "variables", "cities", "methodology"], reason: "action_grounding" };
   }
+  if (intent === "parameter_recommendation") {
+    return { collections: ["profiles", "variables", "cities"], reason: "parameter_recommendation_grounding" };
+  }
   return { collections: null, reason: "default" };
 }
 
 function shouldClearProfile(intent) {
-  return ["how_to_use", "explain_variable", "ask_data_availability", "troubleshooting", "general_question", "explain_result"].includes(intent);
+  return ["how_to_use", "explain_variable", "ask_data_availability", "troubleshooting", "unsupported_related_question", "general_question", "explain_result"].includes(intent);
 }
 
 function shouldDefaultProfile(intent) {
@@ -451,6 +512,8 @@ function hasRoutingConflict(signals) {
     signals.variableExplanation,
     signals.dataAvailability,
     signals.troubleshooting,
+    signals.existingResultQuestion,
+    signals.parameterRecommendation,
     signals.resultExplanation,
     signals.comparison,
   ].filter(Boolean).length;
@@ -532,6 +595,7 @@ function applyDetectedPostProcessing({ detected, message, variable, profileInfer
       hasRoutingConflict(signals) ||
       semanticDisambiguationNeeded ||
       signals.citywideRecommendation ||
+      signals.parameterRecommendation ||
       signals.poi ||
       signals.route ||
       shouldUseMultilingualRouter({ language: resolvedLanguage, detected }),
@@ -589,7 +653,24 @@ export function applyLlmRoutingToDetected(detected, routerResult, message) {
     "llm_router",
   ];
   if (routerResult.intent) {
-    detected.intent = routerResult.intent;
+    const protectedParameterRecommendation =
+      detected.intent === "parameter_recommendation" &&
+      detected.queryUnderstanding?.signals?.parameterRecommendation &&
+      routerResult.intent === "explain_result";
+    const protectedExistingResultQuestion =
+      detected.intent === "explain_result" &&
+      detected.queryUnderstanding?.signals?.existingResultQuestion &&
+      ["catchment_area_analysis", "area_suitability_question", "run_accessibility_analysis", "parameter_recommendation"].includes(routerResult.intent);
+    const protectedUnsupportedRelated =
+      detected.intent === "unsupported_related_question" &&
+      detected.queryUnderstanding?.signals?.unsupportedRelated;
+    detected.intent = protectedParameterRecommendation
+      ? "parameter_recommendation"
+      : protectedExistingResultQuestion
+        ? "explain_result"
+        : protectedUnsupportedRelated
+          ? "unsupported_related_question"
+          : routerResult.intent;
     detected.confidence = Math.max(Number(routerResult.confidence || 0), detected.confidence || 0.76);
     detected.method = "llm_router";
   }
@@ -597,6 +678,25 @@ export function applyLlmRoutingToDetected(detected, routerResult, message) {
   if (routerResult.profile !== undefined) {
     detected.profile = routerResult.profile;
   }
+  const supportedVariables = getSupportedVariables(detected.city);
+  const recommendedVariables = Array.isArray(routerResult.recommendedVariables)
+    ? routerResult.recommendedVariables.filter((variable) => supportedVariables.has(variable))
+    : [];
+  const variableWeights = routerResult.variableWeights && typeof routerResult.variableWeights === "object"
+    ? Object.fromEntries(
+        Object.entries(routerResult.variableWeights)
+          .filter(([variable]) => supportedVariables.has(variable)),
+      )
+    : {};
+  detected.semanticFrame = {
+    source: "llm_router",
+    userContext: routerResult.userContext || null,
+    recommendedVariables,
+    variableWeights,
+    missingInfo: Array.isArray(routerResult.missingInfo) ? routerResult.missingInfo : [],
+    unsupportedAspects: Array.isArray(routerResult.unsupportedAspects) ? routerResult.unsupportedAspects : [],
+    boundaryType: routerResult.boundaryType || null,
+  };
   if (routerResult.language) detected.language = routerResult.language;
   if (routerResult.responseLanguage) detected.responseLanguage = routerResult.responseLanguage;
   if (routerResult.normalizedEnglishQuery) detected.normalizedEnglishQuery = routerResult.normalizedEnglishQuery;
@@ -615,7 +715,7 @@ export function applyLlmRoutingToDetected(detected, routerResult, message) {
           profile: routerResult.profile,
           confidence: Number(routerResult.confidence || 0.76),
           isApproximation: routerResult.profileIsApproximation === true,
-          reason: routerResult.reason || "Profile refined by LLM intent router.",
+          reason: routerResult.profileReason || routerResult.reason || "Profile refined by LLM semantic parser.",
           matchedTerm: null,
           fallbackProfiles: [],
         }

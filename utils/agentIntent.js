@@ -19,6 +19,7 @@ export const AGENT_INTENTS = [
   "troubleshooting",
   "unsupported_specific_poi_query",
   "citywide_place_recommendation",
+  "unsupported_related_question",
   "general_question",
 ];
 
@@ -136,7 +137,17 @@ export function detectDestinationText(message) {
 export function detectAgentIntent(message, { hasResultMetadata = false } = {}) {
   const text = normalize(message).toLowerCase();
   const earlyVariable = detectVariable(message);
-  if (/what can .*map assistant.*do|map assistant.*help|before i start/.test(text)) {
+  const asksRelatedUnsupported = [
+    /\b(weather|forecast|rain|snow|wind|storm|real[-\s]?time|today'?s weather|climate)\b/,
+    /\b(traffic|congestion|road closures?|closures?|construction|incident|delay|open now|opening hours|event|crowd now)\b/,
+    /\b(bike|bicycle|cycling|cycle route|bike lane|scooter|car|driving|drive|public transport schedule|train schedule|bus schedule)\b/,
+    /\b(can i|could i|should i|is it safe to|safe for me to)\s+(ride|cycle|bike|drive|go out|walk now)\b/,
+    /\b(health|medical|injury|pregnant|asthma|allergy|legal|law|police|emergency)\b/,
+  ].some((pattern) => pattern.test(text));
+  if (asksRelatedUnsupported) {
+    return { intent: "unsupported_related_question", confidence: 0.94, method: "rules" };
+  }
+  if (/what can .*map assistant.*do|map assistant.*help|before i start|how do i start|get started|first step|where should i start/.test(text)) {
     return { intent: "how_to_use", confidence: 0.95, method: "rules" };
   }
   if (/what.*mean|meaning|explain.*variable|does .* mean/.test(text) && earlyVariable) {
@@ -149,9 +160,10 @@ export function detectAgentIntent(message, { hasResultMetadata = false } = {}) {
   const profile = detectProfile(message);
   const locationText = detectLocationText(message);
   const hasRunCue = /convenient|accessible|move around|walking|walk|suitable|can i|is .* area|analysis|analyze|catchment|reachable|到达|哪些区域|方便|适合|可达|通行|步行|活动|分析|计算/.test(text);
-  const explicitHowToUse = /how.*use|use.*cat|what can .*tool.*do|what.*cat.*do|what.*tool.*do|tool.*capabilit|instruction|guide|怎么用|如何使用|网页|界面/.test(text);
+  const explicitHowToUse = /how.*use|use.*cat|how do i start|get started|first step|where should i start|what can .*tool.*do|what.*cat.*do|what.*tool.*do|tool.*capabilit|instruction|guide|怎么用|如何使用|网页|界面/.test(text);
   const variableExplanation = /what.*mean|meaning|explain.*variable|does .* mean|是什么|什么意思|代表什么|含义|解释.*变量/.test(text) && variable;
-  const explicitResultExplanation = /comfort ratio|explain this|explain result|latest cat result|latest .*result|red area result|what does .*result mean|解释结果|结果|面积|ratio/.test(text) || hasResultMetadata;
+  const explicitParameterRecommendation = /recommend .*?(parameter|setting|comfort factor|factor)|suggest .*?(parameter|setting|comfort factor|factor)|help .*?(choose|set|select).*?(comfort factor|factor|parameter)|which .*?(comfort factor|factor|parameter).*?(set|choose|use|matter)|what .*?(comfort factor|factor|parameter).*?(set|choose|use|matter)|how .*?(choose|set|select).*?(comfort factor|factor|parameter)|comfort factors?.*?(matter|for a person|for someone)|parameter recommendation|recommended settings|recommended parameter/.test(text);
+  const explicitResultExplanation = /comfort ratio|explain this|explain result|latest cat result|latest .*result|red area result|what does .*result mean|解释结果|结果|面积|ratio/.test(text);
   const explicitDataAvailability = /data|available|availability|have .* data|support|missing|unavailable|can .*consider|still consider|有没有|是否有|支持|可用|缺少|数据/.test(text) &&
     (text.includes("hamburg") || text.includes("penteli") || variable);
   const followUpComparison = !/\bbefore\s+i\s+start\b/.test(text) && (
@@ -167,6 +179,9 @@ export function detectAgentIntent(message, { hasResultMetadata = false } = {}) {
   }
   if (explicitDataAvailability) {
     return { intent: "ask_data_availability", confidence: 0.92, method: "rules" };
+  }
+  if (explicitParameterRecommendation) {
+    return { intent: "parameter_recommendation", confidence: 0.9, method: "rules" };
   }
   if (followUpComparison) {
     return { intent: "compare_with_previous_result", confidence: 0.94, method: "rules" };
@@ -198,7 +213,7 @@ export function detectAgentIntent(message, { hasResultMetadata = false } = {}) {
   if (/data|available|availability|have .* data|support|missing|unavailable|有没有|是否有|支持|可用|缺少|数据/.test(text) && (text.includes("hamburg") || text.includes("penteli") || variable)) {
     return { intent: "ask_data_availability", confidence: 0.92, method: "rules" };
   }
-  if (/comfort ratio|explain this|explain result|latest cat result|解释结果|结果|面积|ratio/.test(text) || hasResultMetadata) {
+  if (/comfort ratio|explain this|explain result|latest cat result|解释结果|结果|面积|ratio/.test(text)) {
     return { intent: "explain_result", confidence: 0.86, method: "rules" };
   }
   if (/compare|difference|which profile|对比|比较/.test(text)) {

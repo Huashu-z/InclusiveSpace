@@ -94,9 +94,9 @@ const inferenceRules = [
     profile: "children_family",
     confidence: 0.95,
     isApproximation: false,
-    pattern: /stroller|pushchair|children|child|kid|kids|family|婴儿车|儿童|孩子|家庭/i,
-    reason: "The message explicitly describes children, a family, or stroller use.",
-    matchedTerms: ["stroller", "children", "child", "kid", "family", "婴儿车", "儿童", "孩子"],
+    pattern: /stroller|pushchair|pram|buggy|trolley|shopping trolley|cart|luggage|suitcase|children|child|kid|kids|family|婴儿车|儿童|孩子|家庭/i,
+    reason: "The message describes a stroller, trolley, luggage cart, child, or family situation; children_family is the closest available CAT profile for wheeled small-cart movement.",
+    matchedTerms: ["stroller", "pushchair", "pram", "buggy", "trolley", "shopping trolley", "cart", "luggage", "suitcase", "children", "child", "kid", "family", "婴儿车", "儿童", "孩子"],
   },
   {
     profile: "children_family",
@@ -105,6 +105,15 @@ const inferenceRules = [
     pattern: /toddler|preschool|kindergarten|baby|infant|小孩|幼儿|三岁|两岁|一岁|宝宝|婴儿/i,
     reason: "The message describes a young child; CAT currently has no separate toddler profile, so children_family is the closest available profile.",
     matchedTerms: ["toddler", "preschool", "小孩", "幼儿", "三岁", "宝宝"],
+  },
+  {
+    profile: "elderly",
+    confidence: 0.72,
+    isApproximation: true,
+    pattern: /walker|rollator|walking frame/i,
+    reason: "The message describes a walking aid; elderly is used as the closest available low-speed walking profile, with wheelchair_user as a stricter fallback.",
+    matchedTerms: ["walker", "rollator", "walking frame"],
+    fallbackProfiles: ["wheelchair_user"],
   },
   {
     profile: "elderly",
@@ -166,7 +175,7 @@ export function inferProfile(message) {
 
 export function shouldAttemptSemanticProfileInference(message) {
   const text = String(message || "").toLowerCase();
-  return /slow|difficulty|hard to walk|cannot walk|limited|mobility|needs?|support|rest|caregiver|crutches|walker|cane|pram|pushchair|stroller|child|baby|toddler|走得慢|走路慢|走路困难|行动|不便|需要休息|拐杖|助行器|小孩|孩子|宝宝|婴儿|幼儿|岁/.test(text);
+  return /slow|difficulty|hard to walk|cannot walk|limited|mobility|needs?|support|rest|caregiver|crutches|walker|cane|pram|pushchair|stroller|trolley|cart|luggage|suitcase|child|baby|toddler|走得慢|走路慢|走路困难|行动|不便|需要休息|拐杖|助行器|小孩|孩子|宝宝|婴儿|幼儿|岁/.test(text);
 }
 
 const profileFromSource = {

@@ -38,6 +38,12 @@ export const CAT_CAPABILITIES = {
     requiredCapability: "citywide_place_or_area_recommendation",
     supportedAlternative: "comfort_based_catchment_area_analysis",
   },
+  unsupported_related_question: {
+    supported: false,
+    partial: true,
+    requiredCapability: "live_or_non_walking_domain_answer",
+    supportedAlternative: "cat_related_data_layers_or_walking_comfort_analysis",
+  },
   explain_variable: {
     supported: true,
     requiredCapability: "knowledge_explanation",
@@ -131,6 +137,9 @@ function getUserGoal({ intent, detected }) {
   }
   if (intent === "citywide_place_recommendation") {
     return "recommend suitable places or areas across a whole city";
+  }
+  if (intent === "unsupported_related_question") {
+    return "answer a related question that is outside CAT's direct scope";
   }
   if (intent === "catchment_area_analysis" || intent === "run_accessibility_analysis") {
     return "calculate reachable area from a start point";

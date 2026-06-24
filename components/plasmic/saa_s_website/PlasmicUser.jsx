@@ -280,7 +280,7 @@ function PlasmicUser__RenderFunc(props) {
       if (!isSelected) {
         setLayerValues((prevValues) => ({
           ...prevValues,
-          [layer]: prevValues[layer] ?? 1.0
+          [layer]: prevValues[layer] ?? 0.5
         }));
       }
       if (isSelected) {
@@ -314,7 +314,7 @@ function PlasmicUser__RenderFunc(props) {
     const value = parseFloat(event.target.value);
     setLayerValues((prev) => ({
       ...prev,
-      [layer]: isNaN(value) ? prev[layer] || 1.0 : value,
+      [layer]: isNaN(value) ? prev[layer] || 0.5 : value,
     }));
   };
 

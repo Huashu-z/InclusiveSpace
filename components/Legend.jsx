@@ -41,14 +41,6 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
     pedestrianFlow: t('checkbox_crowd'),
   };
 
-  const weightLevels = [0.1, 0.5, 0.7, 0.9];
-  const weightLabels = [
-    "❌",
-    "😩",
-    "☹️",
-    "😐"
-  ];
- 
   const poiCategoryNames = {
     poi_hh_gastronomy: t("leg_poi_gastronomy"),
     poi_hh_haltstelle: t("leg_poi_haltstelle"),
@@ -85,8 +77,9 @@ const Legend = ({ resultMetadata, onFocusArea }) => {
   }, [isExpanded]);
 
   const getWeightLabel = (value) => {
-    const index = weightLevels.indexOf(Number(value));
-    return index !== -1 ? weightLabels[index] : value;
+    const number = Number(value);
+    if (!Number.isFinite(number)) return "N/A";
+    return Math.min(0.9, Math.max(0.1, Math.round(number * 10) / 10)).toFixed(1);
   };
   const legendBodyId = "legend-body";
 

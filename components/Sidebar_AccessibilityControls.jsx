@@ -14,7 +14,8 @@ export default function AccessibilityControls({
   selectingStart,
   handleResetResults,
   setStartPoints,
-  setIsSearchZoom
+  setIsSearchZoom,
+  guideActive = false
 }) {
   const { t } = useTranslation('common');
 
@@ -213,7 +214,13 @@ export default function AccessibilityControls({
 
       {/* address input section */}
       <section
-        className={sty["address-section"]}
+        id="start-point-panel"
+        data-agent-target="start_point"
+        className={[
+          sty["address-section"],
+          guideActive ? sty.agentGuideHighlight : "",
+          guideActive ? sty.agentGuideStart : "",
+        ].filter(Boolean).join(" ")}
         aria-labelledby="select-start-heading"
       >
         <h3

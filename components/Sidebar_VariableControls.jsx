@@ -1,8 +1,22 @@
 import React from "react";
 import sty from "./Sidebar.module.css";
 import Tooltip from "./Sidebar_Tooltip";
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from "next-i18next";
 import { cityLayerConfig } from "./cityVariableConfig";
+
+const DEFAULT_COMFORT_WEIGHT = 0.5;
+const MIN_COMFORT_WEIGHT = 0.1;
+const MAX_COMFORT_WEIGHT = 0.9;
+
+function clampWeight(rawValue) {
+  const number = Number(rawValue);
+  if (!Number.isFinite(number)) return DEFAULT_COMFORT_WEIGHT;
+  return Math.min(MAX_COMFORT_WEIGHT, Math.max(MIN_COMFORT_WEIGHT, Math.round(number * 10) / 10));
+}
+
+function formatWeight(rawValue) {
+  return clampWeight(rawValue).toFixed(1);
+}
 
 export default function VariableControls({
   enabledVariables,
@@ -10,38 +24,41 @@ export default function VariableControls({
   layerValues,
   handleInputChange,
   openCategory,
-  toggleCategory, 
+  toggleCategory,
   startPoints,
   setComputeAccessibility,
   handleClearResult,
   handleClearVariables,
-  walkingTime,
-  walkingSpeed
+  guideActive = false,
+  runGuideActive = false,
+  guideTargetVariables = [],
 }) {
   const [liveMessage, setLiveMessage] = React.useState("");
 
   const city = (typeof window !== "undefined" && (localStorage.getItem("selectedCity") || "hamburg")) || "hamburg";
   const availableFeatures = cityLayerConfig[city]?.discomfortFeatures || [];
-
   const { t } = useTranslation("common");
-  const weightLevels = [0.9, 0.7, 0.5, 0.1]; //4 categories of comfort weights
-  const weightLabels = ["😐","☹️","😩","❌"];
-  const weightTexts = [
-    t("emoji_level_4"), // 0.9  → Barely Noticeable
-    t("emoji_level_3"), // 0.7  → Slightly annoying
-    t("emoji_level_2"), // 0.5  → Moderately disturbing
-    t("emoji_level_1"), // 0.1  → Totally Unbearable
-  ];
-  const renderCheckbox = (layer, label) => {
+
+  const updateLayerWeight = React.useCallback((layer, value) => {
+    handleInputChange({ target: { value: clampWeight(value) } }, layer);
+  }, [handleInputChange]);
+
+  const RenderCheckbox = ({ layer, label }) => {
     const enabled = enabledVariables.includes(layer);
-    const value = layerValues[layer];
-    const sliderIndex = weightLevels.indexOf(value);
+    const value = clampWeight(layerValues[layer]);
+    const isTargeted = guideTargetVariables.includes(layer);
     const [showTooltip, setShowTooltip] = React.useState(false);
     const tooltipRef = React.useRef();
     const sliderId = `var-${layer}-slider`;
 
     return (
-      <div className={sty["checkbox-container"]}>
+      <div
+        className={[
+          sty["checkbox-container"],
+          isTargeted ? sty.agentGuideItem : "",
+        ].filter(Boolean).join(" ")}
+        data-agent-variable={layer}
+      >
         <div className={sty["checkbox-top-row"]}>
           <label className={sty["checkbox-label"]}>
             <input
@@ -51,14 +68,11 @@ export default function VariableControls({
                 toggleVariable(layer);
                 setLiveMessage(
                   !enabled
-                    ? `${label} ${t('aria_enabled')}`
-                    : `${label} ${t('aria_disabled')}`
+                    ? `${label} ${t("aria_enabled")}`
+                    : `${label} ${t("aria_disabled")}`
                 );
                 if (!enabled) {
-                  const fakeEvent = {
-                    target: { value: weightLevels[2] } 
-                  };
-                  handleInputChange(fakeEvent, layer);
+                  updateLayerWeight(layer, DEFAULT_COMFORT_WEIGHT);
                 }
               }}
               checked={enabled}
@@ -69,7 +83,10 @@ export default function VariableControls({
             type="button"
             className={`${sty["info-icon"]} ${sty.kbdFocus}`}
             ref={tooltipRef}
-            onClick={(e) => { e.stopPropagation(); setShowTooltip(prev => !prev); }}
+            onClick={(event) => {
+              event.stopPropagation();
+              setShowTooltip((prev) => !prev);
+            }}
             aria-label={t("aria_feature_info_button", { feature: label })}
             title={t("aria_feature_info_button", { feature: label })}
             aria-haspopup="dialog"
@@ -79,101 +96,83 @@ export default function VariableControls({
             <img src="/images/icon_info.png" alt="" aria-hidden="true" className={sty.infoIconImg} />
           </button>
         </div>
-        
-          <Tooltip
-            show={showTooltip}
-            type={layer}
-            anchorRef={tooltipRef}
-            onClose={() => setShowTooltip(false)}
-            id={`tip-${layer}`}
-          /> 
+
+        <Tooltip
+          show={showTooltip}
+          type={layer}
+          anchorRef={tooltipRef}
+          onClose={() => setShowTooltip(false)}
+          id={`tip-${layer}`}
+        />
 
         <div className={sty["slider-container"]}>
-          <label htmlFor={sliderId} className={sty["srOnly"]}>{t('variable_weight_for', { label })}</label>
+          <label htmlFor={sliderId} className={sty["srOnly"]}>{t("variable_weight_for", { label })}</label>
           <input
             id={sliderId}
             type="range"
-            min="0"
-            max="3"
-            step="1"
+            min={MIN_COMFORT_WEIGHT}
+            max={MAX_COMFORT_WEIGHT}
+            step="0.1"
             disabled={!enabled}
-            value={sliderIndex >= 0 ? sliderIndex : 3}
-            className={`${sty.kbdFocus} ${!enabled ? sty["disabled"] : ""}`}
-            aria-label={t('variable_weight_for' , { label })}
-            aria-valuemin={0}
-            aria-valuemax={3}
-            aria-valuenow={sliderIndex >= 0 ? sliderIndex : 3}
-            aria-valuetext={
-              sliderIndex >= 0 ? weightLabels[sliderIndex] : t('emoji_level_unknown')
-            }
+            value={value}
+            className={`${sty.kbdFocus} ${!enabled ? sty.disabled : ""}`}
+            aria-label={t("variable_weight_for", { label })}
+            aria-valuemin={MIN_COMFORT_WEIGHT}
+            aria-valuemax={MAX_COMFORT_WEIGHT}
+            aria-valuenow={value}
+            aria-valuetext={`${formatWeight(value)} comfort weight`}
             style={{
+              direction: "rtl",
               background: enabled
-                ? (() => {
-                    const pct = ((sliderIndex + 0.5) / 4) * 100;
-                    const pctGray = ((sliderIndex + 0.8) / 4) * 100;
-                    return `
-                      linear-gradient(to right,
-                        transparent 0%,
-                        transparent ${pct}%,
-                        #9ca3af ${pctGray}%,
-                        #9ca3af 100%
-                      ),
-                      linear-gradient(to right,
-                        #e6ea08ff 0%,
-                        #dc2626 100%
-                      )
-                    `;
-                  })()
-                : undefined
+                ? "linear-gradient(to right, #e6ea08ff 0%, #f59e0b 48%, #dc2626 100%)"
+                : undefined,
             }}
-            onChange={(event) => {
-              const index = parseInt(event.target.value, 10);
-              const fakeEvent = {
-                target: {
-                  value: weightLevels[index],
-                },
-              };
-              handleInputChange(fakeEvent, layer);
-            }}
+            onChange={(event) => updateLayerWeight(layer, event.target.value)}
           />
           <span className={sty["slider-value"]} aria-hidden="true">
-            {sliderIndex >= 0 ? weightLabels[sliderIndex] : "-"}
+            {enabled ? formatWeight(value) : "-"}
           </span>
           <span className={sty["srOnly"]}>
-            {sliderIndex >= 0 ? weightTexts[sliderIndex] : t('emoji_level_unknown')}
+            {enabled ? `${formatWeight(value)} comfort weight` : t("emoji_level_unknown")}
           </span>
         </div>
       </div>
     );
   };
-  
+
   const [showInfo, setShowInfo] = React.useState(false);
   const infoIconRef = React.useRef();
 
   return (
-    <div 
-      className={sty["sidebar-section"]}
-      role = "region"
+    <div
+      id="comfort-factors-panel"
+      data-agent-target="comfort_factors"
+      className={[
+        sty["sidebar-section"],
+        guideActive ? sty.agentGuideHighlight : "",
+        guideActive ? sty.agentGuideComfort : "",
+      ].filter(Boolean).join(" ")}
+      role="region"
       aria-labelledby="comfort-features-heading"
     >
       <div aria-live="polite" className={sty["srOnly"]} role="status">
         {liveMessage}
       </div>
-      <div className={sty["title-container"]}> 
+      <div className={sty["title-container"]}>
         <div className={sty["sidebar-section-title"]} id="comfort-features-heading">
-          <img src="/images/icon_features.png" alt={t('icon_discomfort_feature')} />
+          <img src="/images/icon_features.png" alt={t("icon_discomfort_feature")} />
           <span>{t("leg_comfort_features")}</span>
         </div>
         <button
           type="button"
           className={`${sty["info-icon"]} ${sty.kbdFocus}`}
           ref={infoIconRef}
-          onClick={(e) => {
-            e.stopPropagation();
-            setShowInfo(prev => !prev);
+          onClick={(event) => {
+            event.stopPropagation();
+            setShowInfo((prev) => !prev);
           }}
-          title={t('tooltip_comfort_features_title')}
-          aria-label={t('tooltip_comfort_features_title')}
+          title={t("tooltip_comfort_features_title")}
+          aria-label={t("tooltip_comfort_features_title")}
           aria-haspopup="dialog"
           aria-expanded={showInfo}
           aria-controls={showInfo ? "tip-featureinfo" : undefined}
@@ -189,132 +188,104 @@ export default function VariableControls({
         />
       </div>
 
-      {/* --- Emoji legend for comfort variables--- */}
       <div className={sty["legend-container"]}>
-        <h4 className={sty["legend-title"]}>{t('emoji_level_0')}</h4>
-        <div className={sty["legend-emoji-column"]}>
-          <div className={sty["legend-emoji-item"]}>
-            <span className={sty["legend-emoji"]} aria-hidden="true">❌</span>
-            <span className={sty["legend-label"]}>{t('emoji_level_1')}</span>
-          </div>
-          <div className={sty["legend-emoji-item"]}>
-            <span className={sty["legend-emoji"]} aria-hidden="true">😩</span>
-            <span className={sty["legend-label"]}>{t('emoji_level_2')}</span>
-          </div>
-          <div className={sty["legend-emoji-item"]}>
-            <span className={sty["legend-emoji"]} aria-hidden="true">☹️</span>
-            <span className={sty["legend-label"]}>{t('emoji_level_3')}</span>
-          </div>
-          <div className={sty["legend-emoji-item"]}>
-            <span className={sty["legend-emoji"]} aria-hidden="true">😐</span>
-            <span className={sty["legend-label"]}>{t('emoji_level_4')}</span>
-          </div>
+        <h4 className={sty["legend-title"]}>Comfort weight scale</h4>
+        <div className={sty["legend-scale"]} aria-hidden="true" />
+        <div className={sty["legend-scale-labels"]}>
+          <span><strong>0.9</strong> Almost no impact</span>
+          <span><strong>0.1</strong> Intolerable</span>
         </div>
       </div>
 
-      <div className={sty["faq-container"]}> 
-
-        {/* Environment */}
+      <div className={sty["faq-container"]}>
         <Category
-          id = "env"
-          name={
-            <span className={sty["title-with-tooltip"]}>
-              {t('env_category')} 
-            </span>
-          }
+          id="env"
+          name={<span className={sty["title-with-tooltip"]}>{t("env_category")}</span>}
           open={openCategory === "venv"}
           onClick={() => toggleCategory("venv")}
         >
-          {availableFeatures.includes("noise") && renderCheckbox("noise", t('checkbox_noise'))}
-          {availableFeatures.includes("temperatureSummer") && renderCheckbox("temperatureSummer",  t('checkbox_temp_summer'))}
-          {availableFeatures.includes("temperatureWinter") && renderCheckbox("temperatureWinter", t('checkbox_temp_winter'))}
+          {availableFeatures.includes("noise") && <RenderCheckbox layer="noise" label={t("checkbox_noise")} />}
+          {availableFeatures.includes("temperatureSummer") && <RenderCheckbox layer="temperatureSummer" label={t("checkbox_temp_summer")} />}
+          {availableFeatures.includes("temperatureWinter") && <RenderCheckbox layer="temperatureWinter" label={t("checkbox_temp_winter")} />}
         </Category>
 
-        {/* Physical */}
         <Category
-          id = "phy"
-          name={
-            <span className={sty["title-with-tooltip"]}>
-              {t('phy_category')} 
-            </span>
-          }
+          id="phy"
+          name={<span className={sty["title-with-tooltip"]}>{t("phy_category")}</span>}
           open={openCategory === "vphy"}
           onClick={() => toggleCategory("vphy")}
         >
-          {availableFeatures.includes("light") && renderCheckbox("light", t('checkbox_light'))}
-          {availableFeatures.includes("trafficLight") && renderCheckbox("trafficLight", t('checkbox_traffic'))}
-          {availableFeatures.includes("tactile_pavement") && renderCheckbox("tactile_pavement", t('checkbox_tactile'))} 
-          {availableFeatures.includes("tree") && renderCheckbox("tree", t('checkbox_tree'))} 
-          {availableFeatures.includes("greeninf") && renderCheckbox("greeninf", t('checkbox_green'))}
-          {availableFeatures.includes("blueinf") && renderCheckbox("blueinf", t('checkbox_blue'))}
-          {availableFeatures.includes("station") && renderCheckbox("station", t('checkbox_station'))}
-          {availableFeatures.includes("narrowRoads") && renderCheckbox("narrowRoads", t('checkbox_narrow'))}
-          {availableFeatures.includes("wcDisabled") && renderCheckbox("wcDisabled", t('checkbox_wc'))}
-          {availableFeatures.includes("stair") && renderCheckbox("stair", t('checkbox_stair'))} 
-          {availableFeatures.includes("obstacle") && renderCheckbox("obstacle", t('checkbox_obstacle'))}
-          {availableFeatures.includes("slope") && renderCheckbox("slope", t('checkbox_slope'))}
-          {availableFeatures.includes("unevenSurface") && renderCheckbox("unevenSurface", t('checkbox_uneven'))}
-          {availableFeatures.includes("poorPavement") && renderCheckbox("poorPavement", t('checkbox_poor'))}
-          {availableFeatures.includes("kerbsHigh") && renderCheckbox("kerbsHigh", t('checkbox_kerb'))}
+          {availableFeatures.includes("light") && <RenderCheckbox layer="light" label={t("checkbox_light")} />}
+          {availableFeatures.includes("trafficLight") && <RenderCheckbox layer="trafficLight" label={t("checkbox_traffic")} />}
+          {availableFeatures.includes("tactile_pavement") && <RenderCheckbox layer="tactile_pavement" label={t("checkbox_tactile")} />}
+          {availableFeatures.includes("tree") && <RenderCheckbox layer="tree" label={t("checkbox_tree")} />}
+          {availableFeatures.includes("greeninf") && <RenderCheckbox layer="greeninf" label={t("checkbox_green")} />}
+          {availableFeatures.includes("blueinf") && <RenderCheckbox layer="blueinf" label={t("checkbox_blue")} />}
+          {availableFeatures.includes("station") && <RenderCheckbox layer="station" label={t("checkbox_station")} />}
+          {availableFeatures.includes("narrowRoads") && <RenderCheckbox layer="narrowRoads" label={t("checkbox_narrow")} />}
+          {availableFeatures.includes("wcDisabled") && <RenderCheckbox layer="wcDisabled" label={t("checkbox_wc")} />}
+          {availableFeatures.includes("stair") && <RenderCheckbox layer="stair" label={t("checkbox_stair")} />}
+          {availableFeatures.includes("obstacle") && <RenderCheckbox layer="obstacle" label={t("checkbox_obstacle")} />}
+          {availableFeatures.includes("slope") && <RenderCheckbox layer="slope" label={t("checkbox_slope")} />}
+          {availableFeatures.includes("unevenSurface") && <RenderCheckbox layer="unevenSurface" label={t("checkbox_uneven")} />}
+          {availableFeatures.includes("poorPavement") && <RenderCheckbox layer="poorPavement" label={t("checkbox_poor")} />}
+          {availableFeatures.includes("kerbsHigh") && <RenderCheckbox layer="kerbsHigh" label={t("checkbox_kerb")} />}
         </Category>
 
-        {/* Psychological */}
         <Category
-          id = "psy"
-          name={
-            <span className={sty["title-with-tooltip"]}>
-              {t('psy_category')} 
-            </span>
-          }
+          id="psy"
+          name={<span className={sty["title-with-tooltip"]}>{t("psy_category")}</span>}
           open={openCategory === "vpsy"}
           onClick={() => toggleCategory("vpsy")}
-        > 
-          {availableFeatures.includes("facility") && renderCheckbox("facility", t('checkbox_facility'))}
-          {availableFeatures.includes("pedestrianFlow") && renderCheckbox("pedestrianFlow", t('checkbox_crowd'))}
-        </Category> 
+        >
+          {availableFeatures.includes("facility") && <RenderCheckbox layer="facility" label={t("checkbox_facility")} />}
+          {availableFeatures.includes("pedestrianFlow") && <RenderCheckbox layer="pedestrianFlow" label={t("checkbox_crowd")} />}
+        </Category>
       </div>
 
-      {/* Get Catchment Area button */}
-      <div className={sty["button-container"]}>
+      <div
+        className={[
+          sty["button-container"],
+          runGuideActive ? sty.agentGuideHighlight : "",
+          runGuideActive ? sty.agentGuideRun : "",
+        ].filter(Boolean).join(" ")}
+        id="run-analysis-panel"
+        data-agent-target="run_analysis"
+      >
         <button
           type="button"
           onClick={() => {
             if (startPoints.length === 0) {
               alert(t("alert_select_start_first"));
               return;
-            }            
+            }
             setComputeAccessibility(true);
           }}
           className={`${sty["get-catchment-button"]} ${sty.kbdFocus}`}
         >
-          <span>✚ {t('get_area')}</span>
+          <span>{t("get_area")}</span>
         </button>
       </div>
-      {/* Clear Result Button */}
       <button
         type="button"
         onClick={handleClearResult}
-        className={`${sty["setup-button"]} ${sty.kbdFocus}`} 
+        className={`${sty["setup-button"]} ${sty.kbdFocus}`}
       >
-        <span> {t('clear_result')}</span>
+        <span>{t("clear_result")}</span>
       </button>
-        {/* NEW: Clear Variables Button */}
       <button
         type="button"
         onClick={handleClearVariables}
         className={`${sty["setup-button"]} ${sty.kbdFocus}`}
         style={{ marginTop: 6 }}
       >
-        <span>
-          {t('clear_variables')}
-        </span>
+        <span>{t("clear_variables")}</span>
       </button>
-
     </div>
   );
 }
 
-function Category({ id, name, open, onClick, children }) { 
+function Category({ id, name, open, onClick, children }) {
   const headingId = `var-category-heading-${id}`;
   const contentId = `var-category-content-${id}`;
   return (
@@ -328,7 +299,7 @@ function Category({ id, name, open, onClick, children }) {
           aria-controls={open ? contentId : undefined}
         >
           <span>{name}</span>
-          <span className={sty["faq-icon"]}>{open ? "−" : "+"}</span>
+          <span className={sty["faq-icon"]}>{open ? "-" : "+"}</span>
         </button>
       </h3>
 
