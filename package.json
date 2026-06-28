@@ -10,7 +10,18 @@
     "build:rag": "node scripts/build-rag-index.js",
     "test:rag": "node scripts/testRagQuery.mjs",
     "test:rag:mock": "node scripts/mockRagEvaluation.mjs",
-    "test:agent:mock": "node scripts/testMockAgentApi.mjs"
+    "test:agent:mock": "node scripts/testMockAgentApi.mjs",
+    "test:eval:v2": "node --test tests/evaluation_v2.test.mjs",
+    "test:embedding:dashscope": "node scripts/test-dashscope-embedding.mjs",
+    "eval:v2": "node scripts/eval-agent-v2.mjs --llm=off --embedding=off --report=eval/agent_eval_v2_deterministic.json",
+    "eval:v2:dashscope-embedding": "node scripts/eval-agent-v2.mjs --llm=off --embedding=dashscope --report=eval/agent_eval_v2_dashscope_embedding.json",
+    "eval:v2:real": "node scripts/eval-agent-v2.mjs --llm=bigmodel --embedding=off --delay-ms=750 --report=eval/agent_eval_v2_bigmodel.json",
+    "eval:v2:canary": "node scripts/eval-agent-v2.mjs --suite=real_canary --llm=bigmodel --embedding=off --model-timeout-ms=10000 --delay-ms=750 --report=eval/agent_eval_v2_bigmodel_canary.json",
+    "eval:v2:dashscope-canary": "node scripts/eval-agent-v2.mjs --suite=real_canary --llm=dashscope --embedding=off --model-timeout-ms=10000 --delay-ms=750 --report=eval/agent_eval_v2_dashscope_canary.json",
+    "eval:v2:dashscope-fullstack-canary": "node scripts/eval-agent-v2.mjs --suite=real_canary --llm=dashscope --embedding=dashscope --model-timeout-ms=10000 --delay-ms=750 --report=eval/agent_eval_v2_dashscope_fullstack_canary.json",
+    "eval:v2:dashscope-fullstack": "node scripts/eval-agent-v2.mjs --llm=dashscope --embedding=dashscope --model-timeout-ms=15000 --delay-ms=750 --report=eval/agent_eval_v2_dashscope_fullstack.json",
+    "eval:v2:architecture-regression": "node scripts/eval-agent-v2.mjs --suite=architecture_regression,architecture_regression_new100 --llm=dashscope --embedding=dashscope --model-timeout-ms=15000 --delay-ms=750 --report=eval/agent_eval_v2_architecture_regression.json",
+    "eval:v2:fullstack": "node scripts/eval-agent-v2.mjs --llm=bigmodel --embedding=bigmodel --delay-ms=750 --report=eval/agent_eval_v2_fullstack.json"
   },
   "dependencies": {
     "@langchain/core": "^1.1.48",

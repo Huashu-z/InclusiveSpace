@@ -1,7 +1,7 @@
 import { cityLayerConfig } from "../components/cityVariableConfig.js";
 import { getProfilePreset } from "../components/agent/profilePresets.js";
 import { filterVariablesByCity } from "./cityVariableFiltering.js";
-import { callBigModelJson, isBigModelEnabled } from "./bigModelClient.js";
+import { callAgentModelJson, isAgentLlmEnabled } from "./bigModelClient.js";
 import { SAFE_ACTION_TYPES, SAFE_CITIES, SAFE_INTENTS, SAFE_PROFILES } from "./agentSafety.js";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { RunnableLambda } from "@langchain/core/runnables";
@@ -116,30 +116,14 @@ function buildSystemPrompt() {
     `Allowed cities: ${Array.from(SAFE_CITIES).join(", ")}.`,
     `Allowed profiles: ${Array.from(SAFE_PROFILES).join(", ")}.`,
     `Allowed CAT variables: ${ALLOWED_VARIABLES.join(", ")}.`,
-    "For map analysis, output settings and an action. If no valid coordinates or current start point are available, use ASK_USER_TO_SELECT_POINT.",
+    "The application has already computed the final action and settings. Do not redesign, replace, or reinterpret them.",
     "For parameter_recommendation, answer the user's parameter/settings question first in a short way. Recommend a small editable set of comfort factors, mention one assumption only if needed, and ask at most one clarifying question. Do not begin with a generic settings/action summary such as 'Here are suggested CAT settings'. Do not summarize the latest CAT result unless the user explicitly asks about the result.",
     "If the intent is route_recommendation, answer the limitation first: CAT does not support exact origin-destination routing. Do not present catchment analysis as a route answer.",
     "If the intent is specific_poi_query or unsupported_specific_poi_query, answer the limitation first, do not invent or rank exact POI names, and keep action type ANSWER_ONLY.",
     "For result explanations, use only resultMetadata and retrieved knowledge. Do not invent physical reasons such as many stairs, noisy roads, obstacles, or bad pavement unless explicitly present in computed metadata.",
     "If original agent context is present for a result explanation, first state whether the latest result answers the original user question. If it does not, say what the result answers and what it does not answer.",
     "Expected JSON schema:",
-    JSON.stringify({
-      reply: "**Core answer:** short user-facing answer\n\n- Optional key point",
-      intent: "catchment_area_analysis | area_suitability_question | route_recommendation | specific_poi_query | parameter_recommendation | run_accessibility_analysis | explain_variable | ask_data_availability | explain_result | compare_profiles | how_to_use | troubleshooting | unsupported_specific_poi_query | unsupported_related_question | citywide_place_recommendation | general_question",
-      action: {
-        type: "RUN_ACCESSIBILITY_ANALYSIS | ASK_USER_TO_SELECT_POINT | ANSWER_ONLY",
-        profile: "elderly | wheelchair_user | visually_impaired | children_family | default_adult | null",
-        city: "hamburg | penteli",
-        locationText: "string or null",
-        walkingTime: 15,
-        walkingSpeed: 3,
-        enabledVariables: ["stair"],
-        layerValues: { stair: 0.5 },
-        requiresStartPoint: true,
-        canRunNow: false,
-      },
-      missingDataWarnings: [],
-    }),
+    JSON.stringify({ reply: "**Core answer:** short user-facing answer\n\n- Optional key point" }),
   ].join("\n");
 }
 
@@ -155,10 +139,10 @@ function buildUserPrompt({ message, detected, retrieval, baselineAction, baselin
     baselineSafeAction: baselineAction,
     baselineSafeReply: baselineReply,
     instruction: [
-      "Improve the user-facing reply and, if useful, refine the structured action.",
+      "Improve only the user-facing reply.",
       "Keep the reply short: one concise answer plus at most 1-2 bullets. Use limited **bold** emphasis only for the main point.",
-      "Keep the action compatible with CAT frontend state.",
-      "Use the baseline action as a safety anchor. Do not output a runnable action unless baselineSafeAction has coordinates/canRunNow.",
+      "The baselineSafeAction is immutable and is included only so the reply accurately describes what the application will do.",
+      "Return only the reply field. Do not return intent, action, variables, weights, coordinates, or warnings.",
       "If detected intent is parameter_recommendation, recommend factors directly and ask at most one user-context question; do not drift into explaining resultMetadata or writing a generic 'suggested CAT settings' preface.",
       "If the city does not support a variable, do not include it.",
     ].join(" "),
@@ -173,13 +157,13 @@ export async function maybeRewriteFollowUpQueryWithLlm({
   agentContext,
   conversationHistory = [],
 } = {}) {
-  if (!isBigModelEnabled()) return null;
+  if (!isAgentLlmEnabled()) return null;
   if (!FOLLOW_UP_QUERY_PATTERN.test(String(message || ""))) return null;
 
   const recentConversationHistory = compactConversationHistory(conversationHistory);
   if (!recentConversationHistory.length) return null;
 
-  const response = await callBigModelJson({
+  const response = await callAgentModelJson({
     messages: [
       {
         role: "system",
@@ -213,6 +197,7 @@ export async function maybeRewriteFollowUpQueryWithLlm({
     temperature: 0,
     maxTokens: Number(process.env.BIGMODEL_REWRITE_MAX_TOKENS || 450),
     timeoutMs: Number(process.env.BIGMODEL_REWRITE_TIMEOUT_MS || 5000),
+    model: process.env.DASHSCOPE_REWRITE_MODEL || process.env.DASHSCOPE_ROUTER_MODEL,
   });
 
   const rewrittenQuery = String(response.parsed?.rewrittenQuery || "").trim();
@@ -222,7 +207,7 @@ export async function maybeRewriteFollowUpQueryWithLlm({
     rewrittenQuery: rewrittenQuery.slice(0, 1400),
     reason: typeof response.parsed?.reason === "string" ? response.parsed.reason : null,
     llmDebug: {
-      provider: "bigmodel",
+      provider: response.provider,
       orchestration: "follow_up_query_rewrite",
       model: response.model,
       usage: response.usage,
@@ -251,7 +236,7 @@ function buildLangChainBigModelJsonChain() {
   const bigModelRunnable = new RunnableLambda({
     func: async (promptValue) => {
       const messages = toBigModelMessages(promptValue);
-      return callBigModelJson({ messages });
+      return callAgentModelJson({ messages });
     },
   });
 
@@ -417,10 +402,10 @@ export async function maybeClassifyIntentWithLlm({
   analysisHistory,
   force = false,
 } = {}) {
-  if (!isBigModelEnabled()) return null;
+  if (!isAgentLlmEnabled()) return null;
   if (!force && !detected?.queryUnderstanding?.needsLlmRouting) return null;
 
-  const response = await callBigModelJson({
+  const response = await callAgentModelJson({
     messages: [
       { role: "system", content: buildRouterSystemPrompt() },
       {
@@ -437,15 +422,16 @@ export async function maybeClassifyIntentWithLlm({
       },
     ],
     temperature: 0,
-    maxTokens: Number(process.env.BIGMODEL_ROUTER_MAX_TOKENS || 500),
-    timeoutMs: Number(process.env.BIGMODEL_ROUTER_TIMEOUT_MS || 6000),
+    maxTokens: Number(process.env.DASHSCOPE_ROUTER_MAX_TOKENS || process.env.BIGMODEL_ROUTER_MAX_TOKENS || 1200),
+    timeoutMs: Number(process.env.DASHSCOPE_ROUTER_TIMEOUT_MS || process.env.BIGMODEL_ROUTER_TIMEOUT_MS || 6000),
+    model: process.env.DASHSCOPE_ROUTER_MODEL,
   });
 
   const parsed = coerceRouterResult(response.parsed || {}, detected);
   return {
     ...parsed,
     llmDebug: {
-      provider: "bigmodel",
+      provider: response.provider,
       orchestration: "langchain_core_router",
       model: response.model,
       usage: response.usage,
@@ -549,7 +535,7 @@ export async function maybeBuildLlmAgentResponse({
   agentContext,
   conversationHistory,
 }) {
-  if (!isBigModelEnabled()) return null;
+  if (!isAgentLlmEnabled()) return null;
 
   const chain = buildLangChainBigModelJsonChain();
   const response = await chain.invoke({
@@ -567,24 +553,25 @@ export async function maybeBuildLlmAgentResponse({
     }),
   });
 
-  const parsed = response.parsed || {};
-  const action = normalizeLlmAction({
-    llmAction: parsed.action || {},
+  return applyLlmReplyToDeterministicBaseline({
+    parsed: response.parsed || {},
+    response,
+    detected,
     baselineAction,
+    baselineReply,
   });
+}
 
+export function applyLlmReplyToDeterministicBaseline({ parsed = {}, response = {}, detected, baselineAction, baselineReply }) {
   return {
     reply: typeof parsed.reply === "string" && parsed.reply.trim() ? parsed.reply.trim() : baselineReply,
-    intent: detected.intent === "parameter_recommendation" && parsed.intent === "explain_result"
-      ? "parameter_recommendation"
-      : coerceIntent(parsed.intent, detected.intent),
-    action,
-    missingDataWarnings: Array.isArray(parsed.missingDataWarnings)
-      ? [...action.missingDataWarnings, ...parsed.missingDataWarnings].filter((warning, index, all) => warning && all.indexOf(warning) === index)
-      : action.missingDataWarnings,
+    intent: detected.intent,
+    action: baselineAction,
+    missingDataWarnings: baselineAction.missingDataWarnings || [],
     llmDebug: {
-      provider: "bigmodel",
+      provider: response.provider,
       orchestration: "langchain_core_runnable",
+      actionAuthority: "deterministic_baseline",
       model: response.model,
       usage: response.usage,
       requestId: response.requestId,

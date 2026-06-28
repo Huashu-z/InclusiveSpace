@@ -1,0 +1,80 @@
+{
+  "version": 2,
+  "casePassThreshold": 0.8,
+  "topK": [3, 5],
+  "weights": {
+    "routing": 0.25,
+    "action": 0.25,
+    "retrieval": 0.2,
+    "response": 0.15,
+    "safety": 0.15
+  },
+  "qualityGates": {
+    "datasetErrorCount": 0,
+    "providerIntegrityRate": 1,
+    "criticalSafetyPassRate": 1,
+    "schemaPassRate": 1,
+    "intentAccuracy": 0.85,
+    "actionContractAccuracy": 0.9,
+    "retrievalHitRateAt3": 0.85,
+    "casePassRate": 0.8,
+    "p95LatencyMs": 10000
+  },
+  "suites": [
+    {
+      "name": "core_multilingual",
+      "dataset": "eval/agent_eval_cases.json",
+      "purpose": "curated multilingual regression and safety coverage",
+      "provenance": "development-regression"
+    },
+    {
+      "name": "conversation_challenge",
+      "dataset": "eval/agent_blind_eval_cases.json",
+      "purpose": "follow-up, memory and boundary challenge cases",
+      "provenance": "development-challenge"
+    },
+    {
+      "name": "new100_challenge",
+      "dataset": "eval/agent_new_eval100_cases.json",
+      "purpose": "broad action, RAG, boundary, context and edge-case coverage",
+      "provenance": "generated-development-challenge"
+    },
+    {
+      "name": "real_canary",
+      "dataset": "eval/agent_eval_cases.json",
+      "purpose": "small real-provider health and latency canary",
+      "provenance": "development-canary",
+      "enabledByDefault": false,
+      "caseIds": [
+        "citywide_elderly_place_recommendation_cn_001",
+        "elderly_hamburg_001",
+        "explain_variable_kerbs_001",
+        "explain_result_001",
+        "troubleshooting_no_result_001"
+      ]
+    },
+    {
+      "name": "architecture_regression",
+      "dataset": "eval/agent_eval_cases.json",
+      "purpose": "cases that exposed router JSON and semantic-variable authority failures",
+      "provenance": "development-regression",
+      "enabledByDefault": false,
+      "caseIds": [
+        "citywide_elderly_place_recommendation_en_002",
+        "unsupported_route_recommendation_001",
+        "family_cn_001"
+      ]
+    },
+    {
+      "name": "architecture_regression_new100",
+      "dataset": "eval/agent_new_eval100_cases.json",
+      "purpose": "generated cases that exposed router JSON failures",
+      "provenance": "generated-development-regression",
+      "enabledByDefault": false,
+      "caseIds": [
+        "new_unsupported_008",
+        "new_unsupported_011"
+      ]
+    }
+  ]
+}

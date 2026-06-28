@@ -2,7 +2,7 @@ import fs from "fs/promises";
 import path from "path";
 import pg from "pg";
 import { loadRagIndex, queryRagIndex, buildRagIndex } from "./ragIndex.js";
-import { callBigModelEmbeddings } from "./bigModelClient.js";
+import { callAgentEmbeddings } from "./bigModelClient.js";
 
 const { Pool } = pg;
 
@@ -187,10 +187,11 @@ export async function buildKnowledgeChunks({ rootDir = KNOWLEDGE_ROOT } = {}) {
 }
 
 export async function embedTexts(texts, { provider = process.env.AGENT_EMBEDDING_PROVIDER || "" } = {}) {
-  const resolvedProvider = provider || (process.env.BIGMODEL_API_KEY ? "bigmodel" : process.env.OPENAI_API_KEY ? "openai" : "");
-  if (resolvedProvider === "bigmodel") {
-    if (!process.env.BIGMODEL_API_KEY) return null;
-    const result = await callBigModelEmbeddings(texts);
+  const resolvedProvider = provider || (process.env.DASHSCOPE_API_KEY ? "dashscope" : process.env.BIGMODEL_API_KEY ? "bigmodel" : process.env.OPENAI_API_KEY ? "openai" : "");
+  if (["bigmodel", "dashscope"].includes(resolvedProvider)) {
+    if (resolvedProvider === "bigmodel" && !process.env.BIGMODEL_API_KEY) return null;
+    if (resolvedProvider === "dashscope" && !process.env.DASHSCOPE_API_KEY) return null;
+    const result = await callAgentEmbeddings(texts);
     return result.embeddings;
   }
 
@@ -218,10 +219,11 @@ export async function embedTexts(texts, { provider = process.env.AGENT_EMBEDDING
 }
 
 export async function embedTextsWithMetadata(texts, { provider = process.env.AGENT_EMBEDDING_PROVIDER || "" } = {}) {
-  const resolvedProvider = provider || (process.env.BIGMODEL_API_KEY ? "bigmodel" : process.env.OPENAI_API_KEY ? "openai" : "");
-  if (resolvedProvider === "bigmodel") {
-    if (!process.env.BIGMODEL_API_KEY) return null;
-    return callBigModelEmbeddings(texts);
+  const resolvedProvider = provider || (process.env.DASHSCOPE_API_KEY ? "dashscope" : process.env.BIGMODEL_API_KEY ? "bigmodel" : process.env.OPENAI_API_KEY ? "openai" : "");
+  if (["bigmodel", "dashscope"].includes(resolvedProvider)) {
+    if (resolvedProvider === "bigmodel" && !process.env.BIGMODEL_API_KEY) return null;
+    if (resolvedProvider === "dashscope" && !process.env.DASHSCOPE_API_KEY) return null;
+    return callAgentEmbeddings(texts);
   }
   const embeddings = await embedTexts(texts, { provider: resolvedProvider });
   if (!embeddings) return null;
@@ -744,8 +746,13 @@ async function loadLocalKnowledgeEmbeddings() {
 }
 
 async function getQueryEmbedding(query, embeddingsPayload) {
-  if (!embeddingsPayload || !process.env.BIGMODEL_API_KEY) return null;
-  const result = await callBigModelEmbeddings([query]);
+  if (!embeddingsPayload) return null;
+  const configuredProvider = String(process.env.AGENT_EMBEDDING_PROVIDER || "").toLowerCase();
+  if (["off", "none", "disabled", "deterministic"].includes(configuredProvider)) return null;
+  if (configuredProvider === "dashscope" && !process.env.DASHSCOPE_API_KEY) return null;
+  if (configuredProvider !== "dashscope" && !process.env.BIGMODEL_API_KEY) return null;
+  const result = await callAgentEmbeddings([query]);
+  if (result.model && embeddingsPayload.model && result.model !== embeddingsPayload.model) return null;
   if (result.dimensions && embeddingsPayload.dimensions && Number(result.dimensions) !== Number(embeddingsPayload.dimensions)) {
     return null;
   }

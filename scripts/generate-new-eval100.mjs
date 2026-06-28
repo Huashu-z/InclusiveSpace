@@ -41,22 +41,27 @@ const profile = {
   elderly: {
     sources: ["profiles/elderly.md", "variables/comfort_variables.md", "cities/hamburg.md"],
     variables: ["stair", "slope"],
+    forbidden: ["noise"],
   },
   wheelchair_user: {
     sources: ["profiles/wheelchair_user.md", "variables/comfort_variables.md", "cities/hamburg.md"],
     variables: ["stair", "slope", "kerbsHigh"],
+    forbidden: ["noise"],
   },
   visually_impaired: {
     sources: ["profiles/visually_impaired.md", "variables/comfort_variables.md", "cities/hamburg.md"],
     variables: ["trafficLight", "pedestrianFlow"],
+    forbidden: ["noise"],
   },
   children_family: {
     sources: ["profiles/children_family.md", "variables/comfort_variables.md", "cities/hamburg.md"],
     variables: ["stair", "kerbsHigh", "trafficLight"],
+    forbidden: ["noise"],
   },
   default_adult: {
     sources: ["profiles/default_adult.md", "variables/comfort_variables.md", "cities/hamburg.md"],
     variables: ["light", "trafficLight", "station"],
+    forbidden: [],
   },
 };
 
@@ -204,7 +209,7 @@ const contextCases = [
 ];
 
 const edgeCases = [
-  ["area_suitability_question", "I am elderly and want to consider noise in Penteli.", "elderly", "penteli", "Penteli", ["stair", "slope"], ["noise"]],
+  ["area_suitability_question", "For an older pedestrian in Penteli, can the analysis include noise?", "elderly", "penteli", "Penteli", ["stair", "slope"], ["noise"]],
   ["area_suitability_question", "A wheelchair user wants kerbs and ramps checked in Penteli.", "wheelchair_user", "penteli", "Penteli", ["stair", "slope"], ["kerbsHigh"]],
   ["area_suitability_question", "A blind pedestrian needs lighting in Penteli.", "visually_impaired", "penteli", "Penteli", ["trafficLight"], ["light"]],
   ["area_suitability_question", "I am not disabled but want the default adult settings for Hamburg.", "default_adult", "hamburg", "Hamburg", ["light", "trafficLight"], []],
@@ -241,7 +246,7 @@ actionCases.forEach(([profileKey, query, location, context, intent], index) => {
     expectedLocationText: location,
     expectedSources: spec.sources,
     expectedVariables: spec.variables,
-    forbiddenVariables: ["noise"],
+    forbiddenVariables: spec.forbidden,
     shouldRunAnalysis: hasRunPoint,
     shouldAskForMapPoint: !hasRunPoint,
   }));
@@ -309,7 +314,7 @@ edgeCases.forEach(([intent, query, profileKey, city, location, variables, warnin
               ? [`cities/${city}.md`, "methodology/data_limitations.md"]
               : [],
     expectedVariables: variables,
-    forbiddenVariables: ["noise"],
+    forbiddenVariables: [...new Set([...(profile[profileKey]?.forbidden || []), ...warnings])],
     shouldAskForMapPoint: intent === "area_suitability_question",
     expectedWarnings: warnings,
   }));

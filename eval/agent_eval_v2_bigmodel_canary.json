@@ -1,0 +1,4541 @@
+{
+  "schemaVersion": 2,
+  "createdAt": "2026-06-28T10:19:52.764Z",
+  "run": {
+    "label": "evaluation_v2_bigmodel",
+    "llmMode": "bigmodel",
+    "embeddingMode": "off",
+    "requestedProvider": "bigmodel",
+    "suites": [
+      {
+        "name": "real_canary",
+        "dataset": "eval/agent_eval_cases.json",
+        "purpose": "small real-provider health and latency canary",
+        "provenance": "development-canary",
+        "enabledByDefault": false,
+        "caseIds": [
+          "citywide_elderly_place_recommendation_cn_001",
+          "elderly_hamburg_001",
+          "explain_variable_kerbs_001",
+          "explain_result_001",
+          "troubleshooting_no_result_001"
+        ]
+      }
+    ],
+    "config": "eval/evaluation_config_v2.json",
+    "configHash": "825f798ec5e46c4585e0ae42e4dc287f56a0d1483b056398f31cdb8a1e21f95c",
+    "datasetHash": "6cbc7d0caf557f3181c832936bb2935acdb6ab042d7efd6b81096c2818780b19",
+    "gitRevision": "616ea66b418ff0f6bce417fa070ae26b8b5327fe",
+    "node": "v22.11.0"
+  },
+  "datasetAudit": {
+    "totalCases": 5,
+    "errors": [],
+    "warnings": [],
+    "languageCounts": {
+      "en": 4,
+      "de": 0,
+      "zh": 1
+    },
+    "exactDuplicateQueries": 0
+  },
+  "summary": {
+    "totalCases": 5,
+    "casePassRate": {
+      "value": 0,
+      "numerator": 0,
+      "denominator": 5,
+      "ci95": [
+        0,
+        0.4345
+      ]
+    },
+    "providerIntegrityRate": {
+      "value": 0,
+      "numerator": 0,
+      "denominator": 5,
+      "ci95": [
+        0,
+        0.4345
+      ]
+    },
+    "criticalSafetyPassRate": {
+      "value": 1,
+      "numerator": 5,
+      "denominator": 5,
+      "ci95": [
+        0.5655,
+        1
+      ]
+    },
+    "schemaPassRate": {
+      "value": 1,
+      "numerator": 5,
+      "denominator": 5,
+      "ci95": [
+        0.5655,
+        1
+      ]
+    },
+    "intentAccuracy": {
+      "value": 1,
+      "numerator": 5,
+      "denominator": 5,
+      "ci95": [
+        0.5655,
+        1
+      ]
+    },
+    "profileAccuracy": {
+      "value": 1,
+      "numerator": 5,
+      "denominator": 5,
+      "ci95": [
+        0.5655,
+        1
+      ]
+    },
+    "cityAccuracy": {
+      "value": 1,
+      "numerator": 5,
+      "denominator": 5,
+      "ci95": [
+        0.5655,
+        1
+      ]
+    },
+    "locationAccuracy": {
+      "value": 1,
+      "numerator": 5,
+      "denominator": 5,
+      "ci95": [
+        0.5655,
+        1
+      ]
+    },
+    "actionContractAccuracy": {
+      "value": 1,
+      "numerator": 5,
+      "denominator": 5,
+      "ci95": [
+        0.5655,
+        1
+      ]
+    },
+    "requiredVariableCoverage": {
+      "value": 1,
+      "denominator": 1
+    },
+    "forbiddenVariableBlockingRate": {
+      "value": 1,
+      "numerator": 1,
+      "denominator": 1,
+      "ci95": [
+        0.2065,
+        1
+      ]
+    },
+    "retrievalHitRateAt3": {
+      "value": 1,
+      "numerator": 5,
+      "denominator": 5,
+      "ci95": [
+        0.5655,
+        1
+      ]
+    },
+    "retrievalRecallAt5": {
+      "value": 1,
+      "denominator": 5
+    },
+    "mrr": {
+      "value": 1,
+      "denominator": 5
+    },
+    "citationRequiredPassRate": {
+      "value": 1,
+      "numerator": 4,
+      "denominator": 4,
+      "ci95": [
+        0.5101,
+        1
+      ]
+    },
+    "citationProvenanceRate": {
+      "value": 1,
+      "numerator": 5,
+      "denominator": 5,
+      "ci95": [
+        0.5655,
+        1
+      ]
+    },
+    "languageMatchRate": {
+      "value": 1,
+      "numerator": 1,
+      "denominator": 1,
+      "ci95": [
+        0.2065,
+        1
+      ]
+    },
+    "averageScore": 1,
+    "latencyMs": {
+      "mean": 1717.5,
+      "p50": 748.4,
+      "p95": 6022.7,
+      "max": 6022.7
+    }
+  },
+  "bySuite": {
+    "real_canary": {
+      "totalCases": 5,
+      "casePassRate": {
+        "value": 0,
+        "numerator": 0,
+        "denominator": 5,
+        "ci95": [
+          0,
+          0.4345
+        ]
+      },
+      "providerIntegrityRate": {
+        "value": 0,
+        "numerator": 0,
+        "denominator": 5,
+        "ci95": [
+          0,
+          0.4345
+        ]
+      },
+      "criticalSafetyPassRate": {
+        "value": 1,
+        "numerator": 5,
+        "denominator": 5,
+        "ci95": [
+          0.5655,
+          1
+        ]
+      },
+      "schemaPassRate": {
+        "value": 1,
+        "numerator": 5,
+        "denominator": 5,
+        "ci95": [
+          0.5655,
+          1
+        ]
+      },
+      "intentAccuracy": {
+        "value": 1,
+        "numerator": 5,
+        "denominator": 5,
+        "ci95": [
+          0.5655,
+          1
+        ]
+      },
+      "profileAccuracy": {
+        "value": 1,
+        "numerator": 5,
+        "denominator": 5,
+        "ci95": [
+          0.5655,
+          1
+        ]
+      },
+      "cityAccuracy": {
+        "value": 1,
+        "numerator": 5,
+        "denominator": 5,
+        "ci95": [
+          0.5655,
+          1
+        ]
+      },
+      "locationAccuracy": {
+        "value": 1,
+        "numerator": 5,
+        "denominator": 5,
+        "ci95": [
+          0.5655,
+          1
+        ]
+      },
+      "actionContractAccuracy": {
+        "value": 1,
+        "numerator": 5,
+        "denominator": 5,
+        "ci95": [
+          0.5655,
+          1
+        ]
+      },
+      "requiredVariableCoverage": {
+        "value": 1,
+        "denominator": 1
+      },
+      "forbiddenVariableBlockingRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "retrievalHitRateAt3": {
+        "value": 1,
+        "numerator": 5,
+        "denominator": 5,
+        "ci95": [
+          0.5655,
+          1
+        ]
+      },
+      "retrievalRecallAt5": {
+        "value": 1,
+        "denominator": 5
+      },
+      "mrr": {
+        "value": 1,
+        "denominator": 5
+      },
+      "citationRequiredPassRate": {
+        "value": 1,
+        "numerator": 4,
+        "denominator": 4,
+        "ci95": [
+          0.5101,
+          1
+        ]
+      },
+      "citationProvenanceRate": {
+        "value": 1,
+        "numerator": 5,
+        "denominator": 5,
+        "ci95": [
+          0.5655,
+          1
+        ]
+      },
+      "languageMatchRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "averageScore": 1,
+      "latencyMs": {
+        "mean": 1717.5,
+        "p50": 748.4,
+        "p95": 6022.7,
+        "max": 6022.7
+      }
+    }
+  },
+  "byLanguage": {
+    "en": {
+      "totalCases": 4,
+      "casePassRate": {
+        "value": 0,
+        "numerator": 0,
+        "denominator": 4,
+        "ci95": [
+          0,
+          0.4899
+        ]
+      },
+      "providerIntegrityRate": {
+        "value": 0,
+        "numerator": 0,
+        "denominator": 4,
+        "ci95": [
+          0,
+          0.4899
+        ]
+      },
+      "criticalSafetyPassRate": {
+        "value": 1,
+        "numerator": 4,
+        "denominator": 4,
+        "ci95": [
+          0.5101,
+          1
+        ]
+      },
+      "schemaPassRate": {
+        "value": 1,
+        "numerator": 4,
+        "denominator": 4,
+        "ci95": [
+          0.5101,
+          1
+        ]
+      },
+      "intentAccuracy": {
+        "value": 1,
+        "numerator": 4,
+        "denominator": 4,
+        "ci95": [
+          0.5101,
+          1
+        ]
+      },
+      "profileAccuracy": {
+        "value": 1,
+        "numerator": 4,
+        "denominator": 4,
+        "ci95": [
+          0.5101,
+          1
+        ]
+      },
+      "cityAccuracy": {
+        "value": 1,
+        "numerator": 4,
+        "denominator": 4,
+        "ci95": [
+          0.5101,
+          1
+        ]
+      },
+      "locationAccuracy": {
+        "value": 1,
+        "numerator": 4,
+        "denominator": 4,
+        "ci95": [
+          0.5101,
+          1
+        ]
+      },
+      "actionContractAccuracy": {
+        "value": 1,
+        "numerator": 4,
+        "denominator": 4,
+        "ci95": [
+          0.5101,
+          1
+        ]
+      },
+      "requiredVariableCoverage": {
+        "value": 1,
+        "denominator": 1
+      },
+      "forbiddenVariableBlockingRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "retrievalHitRateAt3": {
+        "value": 1,
+        "numerator": 4,
+        "denominator": 4,
+        "ci95": [
+          0.5101,
+          1
+        ]
+      },
+      "retrievalRecallAt5": {
+        "value": 1,
+        "denominator": 4
+      },
+      "mrr": {
+        "value": 1,
+        "denominator": 4
+      },
+      "citationRequiredPassRate": {
+        "value": 1,
+        "numerator": 3,
+        "denominator": 3,
+        "ci95": [
+          0.4385,
+          1
+        ]
+      },
+      "citationProvenanceRate": {
+        "value": 1,
+        "numerator": 4,
+        "denominator": 4,
+        "ci95": [
+          0.5101,
+          1
+        ]
+      },
+      "languageMatchRate": {
+        "value": null,
+        "numerator": 0,
+        "denominator": 0,
+        "ci95": null
+      },
+      "averageScore": 1,
+      "latencyMs": {
+        "mean": 1959.8,
+        "p50": 425.9,
+        "p95": 6022.7,
+        "max": 6022.7
+      }
+    },
+    "zh": {
+      "totalCases": 1,
+      "casePassRate": {
+        "value": 0,
+        "numerator": 0,
+        "denominator": 1,
+        "ci95": [
+          0,
+          0.7935
+        ]
+      },
+      "providerIntegrityRate": {
+        "value": 0,
+        "numerator": 0,
+        "denominator": 1,
+        "ci95": [
+          0,
+          0.7935
+        ]
+      },
+      "criticalSafetyPassRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "schemaPassRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "intentAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "profileAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "cityAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "locationAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "actionContractAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "requiredVariableCoverage": {
+        "value": null,
+        "denominator": 0
+      },
+      "forbiddenVariableBlockingRate": {
+        "value": null,
+        "numerator": 0,
+        "denominator": 0,
+        "ci95": null
+      },
+      "retrievalHitRateAt3": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "retrievalRecallAt5": {
+        "value": 1,
+        "denominator": 1
+      },
+      "mrr": {
+        "value": 1,
+        "denominator": 1
+      },
+      "citationRequiredPassRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "citationProvenanceRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "languageMatchRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "averageScore": 1,
+      "latencyMs": {
+        "mean": 748.4,
+        "p50": 748.4,
+        "p95": 748.4,
+        "max": 748.4
+      }
+    }
+  },
+  "byCategory": {
+    "elderly user accessibility analysis": {
+      "totalCases": 1,
+      "casePassRate": {
+        "value": 0,
+        "numerator": 0,
+        "denominator": 1,
+        "ci95": [
+          0,
+          0.7935
+        ]
+      },
+      "providerIntegrityRate": {
+        "value": 0,
+        "numerator": 0,
+        "denominator": 1,
+        "ci95": [
+          0,
+          0.7935
+        ]
+      },
+      "criticalSafetyPassRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "schemaPassRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "intentAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "profileAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "cityAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "locationAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "actionContractAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "requiredVariableCoverage": {
+        "value": 1,
+        "denominator": 1
+      },
+      "forbiddenVariableBlockingRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "retrievalHitRateAt3": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "retrievalRecallAt5": {
+        "value": 1,
+        "denominator": 1
+      },
+      "mrr": {
+        "value": 1,
+        "denominator": 1
+      },
+      "citationRequiredPassRate": {
+        "value": null,
+        "numerator": 0,
+        "denominator": 0,
+        "ci95": null
+      },
+      "citationProvenanceRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "languageMatchRate": {
+        "value": null,
+        "numerator": 0,
+        "denominator": 0,
+        "ci95": null
+      },
+      "averageScore": 1,
+      "latencyMs": {
+        "mean": 229.6,
+        "p50": 229.6,
+        "p95": 229.6,
+        "max": 229.6
+      }
+    },
+    "result explanation cases": {
+      "totalCases": 1,
+      "casePassRate": {
+        "value": 0,
+        "numerator": 0,
+        "denominator": 1,
+        "ci95": [
+          0,
+          0.7935
+        ]
+      },
+      "providerIntegrityRate": {
+        "value": 0,
+        "numerator": 0,
+        "denominator": 1,
+        "ci95": [
+          0,
+          0.7935
+        ]
+      },
+      "criticalSafetyPassRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "schemaPassRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "intentAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "profileAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "cityAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "locationAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "actionContractAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "requiredVariableCoverage": {
+        "value": null,
+        "denominator": 0
+      },
+      "forbiddenVariableBlockingRate": {
+        "value": null,
+        "numerator": 0,
+        "denominator": 0,
+        "ci95": null
+      },
+      "retrievalHitRateAt3": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "retrievalRecallAt5": {
+        "value": 1,
+        "denominator": 1
+      },
+      "mrr": {
+        "value": 1,
+        "denominator": 1
+      },
+      "citationRequiredPassRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "citationProvenanceRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "languageMatchRate": {
+        "value": null,
+        "numerator": 0,
+        "denominator": 0,
+        "ci95": null
+      },
+      "averageScore": 1,
+      "latencyMs": {
+        "mean": 6022.7,
+        "p50": 6022.7,
+        "p95": 6022.7,
+        "max": 6022.7
+      }
+    },
+    "troubleshooting questions": {
+      "totalCases": 1,
+      "casePassRate": {
+        "value": 0,
+        "numerator": 0,
+        "denominator": 1,
+        "ci95": [
+          0,
+          0.7935
+        ]
+      },
+      "providerIntegrityRate": {
+        "value": 0,
+        "numerator": 0,
+        "denominator": 1,
+        "ci95": [
+          0,
+          0.7935
+        ]
+      },
+      "criticalSafetyPassRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "schemaPassRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "intentAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "profileAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "cityAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "locationAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "actionContractAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "requiredVariableCoverage": {
+        "value": null,
+        "denominator": 0
+      },
+      "forbiddenVariableBlockingRate": {
+        "value": null,
+        "numerator": 0,
+        "denominator": 0,
+        "ci95": null
+      },
+      "retrievalHitRateAt3": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "retrievalRecallAt5": {
+        "value": 1,
+        "denominator": 1
+      },
+      "mrr": {
+        "value": 1,
+        "denominator": 1
+      },
+      "citationRequiredPassRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "citationProvenanceRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "languageMatchRate": {
+        "value": null,
+        "numerator": 0,
+        "denominator": 0,
+        "ci95": null
+      },
+      "averageScore": 1,
+      "latencyMs": {
+        "mean": 1161,
+        "p50": 1161,
+        "p95": 1161,
+        "max": 1161
+      }
+    },
+    "unsupported citywide place recommendation": {
+      "totalCases": 1,
+      "casePassRate": {
+        "value": 0,
+        "numerator": 0,
+        "denominator": 1,
+        "ci95": [
+          0,
+          0.7935
+        ]
+      },
+      "providerIntegrityRate": {
+        "value": 0,
+        "numerator": 0,
+        "denominator": 1,
+        "ci95": [
+          0,
+          0.7935
+        ]
+      },
+      "criticalSafetyPassRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "schemaPassRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "intentAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "profileAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "cityAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "locationAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "actionContractAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "requiredVariableCoverage": {
+        "value": null,
+        "denominator": 0
+      },
+      "forbiddenVariableBlockingRate": {
+        "value": null,
+        "numerator": 0,
+        "denominator": 0,
+        "ci95": null
+      },
+      "retrievalHitRateAt3": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "retrievalRecallAt5": {
+        "value": 1,
+        "denominator": 1
+      },
+      "mrr": {
+        "value": 1,
+        "denominator": 1
+      },
+      "citationRequiredPassRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "citationProvenanceRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "languageMatchRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "averageScore": 1,
+      "latencyMs": {
+        "mean": 748.4,
+        "p50": 748.4,
+        "p95": 748.4,
+        "max": 748.4
+      }
+    },
+    "variable explanation questions": {
+      "totalCases": 1,
+      "casePassRate": {
+        "value": 0,
+        "numerator": 0,
+        "denominator": 1,
+        "ci95": [
+          0,
+          0.7935
+        ]
+      },
+      "providerIntegrityRate": {
+        "value": 0,
+        "numerator": 0,
+        "denominator": 1,
+        "ci95": [
+          0,
+          0.7935
+        ]
+      },
+      "criticalSafetyPassRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "schemaPassRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "intentAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "profileAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "cityAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "locationAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "actionContractAccuracy": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "requiredVariableCoverage": {
+        "value": null,
+        "denominator": 0
+      },
+      "forbiddenVariableBlockingRate": {
+        "value": null,
+        "numerator": 0,
+        "denominator": 0,
+        "ci95": null
+      },
+      "retrievalHitRateAt3": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "retrievalRecallAt5": {
+        "value": 1,
+        "denominator": 1
+      },
+      "mrr": {
+        "value": 1,
+        "denominator": 1
+      },
+      "citationRequiredPassRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "citationProvenanceRate": {
+        "value": 1,
+        "numerator": 1,
+        "denominator": 1,
+        "ci95": [
+          0.2065,
+          1
+        ]
+      },
+      "languageMatchRate": {
+        "value": null,
+        "numerator": 0,
+        "denominator": 0,
+        "ci95": null
+      },
+      "averageScore": 1,
+      "latencyMs": {
+        "mean": 425.9,
+        "p50": 425.9,
+        "p95": 425.9,
+        "max": 425.9
+      }
+    }
+  },
+  "qualityGate": {
+    "pass": false,
+    "checks": [
+      {
+        "name": "datasetErrorCount",
+        "threshold": 0,
+        "actual": 0,
+        "pass": true
+      },
+      {
+        "name": "providerIntegrityRate",
+        "threshold": 1,
+        "actual": 0,
+        "pass": false
+      },
+      {
+        "name": "criticalSafetyPassRate",
+        "threshold": 1,
+        "actual": 1,
+        "pass": true
+      },
+      {
+        "name": "schemaPassRate",
+        "threshold": 1,
+        "actual": 1,
+        "pass": true
+      },
+      {
+        "name": "intentAccuracy",
+        "threshold": 0.85,
+        "actual": 1,
+        "pass": true
+      },
+      {
+        "name": "actionContractAccuracy",
+        "threshold": 0.9,
+        "actual": 1,
+        "pass": true
+      },
+      {
+        "name": "retrievalHitRateAt3",
+        "threshold": 0.85,
+        "actual": 1,
+        "pass": true
+      },
+      {
+        "name": "casePassRate",
+        "threshold": 0.8,
+        "actual": 0,
+        "pass": false
+      },
+      {
+        "name": "p95LatencyMs",
+        "threshold": 10000,
+        "actual": 6022.7,
+        "pass": true
+      }
+    ]
+  },
+  "failureTaxonomy": [
+    {
+      "id": "execution.provider_honored",
+      "count": 5
+    }
+  ],
+  "valid": false,
+  "failedCases": [
+    {
+      "id": "citywide_elderly_place_recommendation_cn_001",
+      "category": "unsupported citywide place recommendation",
+      "language": "zh",
+      "query": "汉堡哪里适合老人散步",
+      "expected": {
+        "intent": "citywide_place_recommendation",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "actionTypes": [
+          "COMPARE_EXISTING_RESULTS",
+          "APPLY_PREVIOUS_SETTINGS_TO_CURRENT_POINT",
+          "ASK_FOR_LOCATION",
+          "ASK_FOR_PREVIOUS_RESULT",
+          "ASK_USER_TO_SELECT_POINT",
+          "ANSWER_ONLY"
+        ],
+        "sources": [
+          "profiles/elderly.md",
+          "faq/how_to_use_cat.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": []
+      },
+      "actual": {
+        "intent": "citywide_place_recommendation",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "selectedVariables": [],
+        "retrievedSources": [
+          "profiles/elderly.md",
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md",
+          "methodology/comfort_weight_logic.md",
+          "methodology/routing_logic.md"
+        ],
+        "citations": [
+          "profiles/elderly.md",
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md",
+          "methodology/comfort_weight_logic.md",
+          "methodology/routing_logic.md"
+        ],
+        "warnings": [],
+        "answerMode": "UNSUPPORTED_WITH_ALTERNATIVE"
+      },
+      "provider": {
+        "required": true,
+        "honored": false,
+        "actual": "deterministic_intent_router",
+        "reason": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}"
+      },
+      "schemaErrors": [],
+      "checks": [
+        {
+          "id": "execution.provider_honored",
+          "dimension": "execution",
+          "severity": "critical",
+          "applicable": true,
+          "passed": false,
+          "score": 0,
+          "expected": "bigmodel",
+          "actual": {
+            "required": true,
+            "honored": false,
+            "actual": "deterministic_intent_router",
+            "reason": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}"
+          }
+        },
+        {
+          "id": "schema.valid",
+          "dimension": "action",
+          "severity": "critical",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "valid response contract",
+          "actual": []
+        },
+        {
+          "id": "routing.intent",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "citywide_place_recommendation",
+          "actual": "citywide_place_recommendation"
+        },
+        {
+          "id": "routing.profile",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "elderly",
+          "actual": "elderly"
+        },
+        {
+          "id": "routing.city",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "hamburg",
+          "actual": "hamburg"
+        },
+        {
+          "id": "routing.location",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": null,
+          "actual": null
+        },
+        {
+          "id": "action.contract",
+          "dimension": "action",
+          "severity": "critical",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "COMPARE_EXISTING_RESULTS",
+            "APPLY_PREVIOUS_SETTINGS_TO_CURRENT_POINT",
+            "ASK_FOR_LOCATION",
+            "ASK_FOR_PREVIOUS_RESULT",
+            "ASK_USER_TO_SELECT_POINT",
+            "ANSWER_ONLY"
+          ],
+          "actual": "ANSWER_ONLY"
+        },
+        {
+          "id": "action.required_variables",
+          "dimension": "action",
+          "severity": "major",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": [],
+          "actual": []
+        },
+        {
+          "id": "safety.forbidden_variables",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "exclude: ",
+          "actual": []
+        },
+        {
+          "id": "safety.known_variables",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "city-supported variables",
+          "actual": []
+        },
+        {
+          "id": "safety.unsupported_no_run",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "non-running alternative",
+          "actual": "ANSWER_ONLY"
+        },
+        {
+          "id": "retrieval.hit_at_3",
+          "dimension": "retrieval",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "profiles/elderly.md",
+            "faq/how_to_use_cat.md"
+          ],
+          "actual": [
+            "profiles/elderly.md",
+            "methodology/cat_workflow.md",
+            "faq/how_to_use_cat.md"
+          ]
+        },
+        {
+          "id": "retrieval.recall_at_5",
+          "dimension": "retrieval",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "profiles/elderly.md",
+            "faq/how_to_use_cat.md"
+          ],
+          "actual": [
+            "profiles/elderly.md",
+            "methodology/cat_workflow.md",
+            "faq/how_to_use_cat.md",
+            "methodology/comfort_weight_logic.md",
+            "methodology/routing_logic.md"
+          ]
+        },
+        {
+          "id": "response.nonempty",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "non-empty useful reply",
+          "actual": "我不能直接回答“hamburg 哪里最适合散步/活动”这类全城场地推荐问题。CAT 不是城市景点推荐、POI 排名或最佳区域推荐工具，也不会直接给出某个场地作为结论。\n\n它更适合做的是：你先选择一个或多个候选起点/区域，我可以根据老年人步行需求以及你关心的环境因素来准备设置；这些设置只是快速起点，可以继续按你的舒适程度修改。然后 CAT 可以计算每个起点周边的舒适可达范围、舒适可达比例和相关限制，用来对比哪个候选点更合适。\n\n建议下一步：你可以在地图上选择一个候选地点先分析；如果你有 2-3 个备选地点，也可以分别运行后让我帮你比较结果。对于老人散步，我会更关注台阶、坡度、路面不平、破损路面、过高路缘、障碍物、过街信号等因素。"
+        },
+        {
+          "id": "response.language",
+          "dimension": "response",
+          "severity": "minor",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "zh",
+          "actual": "zh"
+        },
+        {
+          "id": "response.citation_required",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "at least one citation",
+          "actual": [
+            "profiles/elderly.md",
+            "methodology/cat_workflow.md",
+            "faq/how_to_use_cat.md",
+            "methodology/comfort_weight_logic.md",
+            "methodology/routing_logic.md"
+          ]
+        },
+        {
+          "id": "response.citation_provenance",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "citations must come from retrieval",
+          "actual": [
+            "profiles/elderly.md",
+            "methodology/cat_workflow.md",
+            "faq/how_to_use_cat.md",
+            "methodology/comfort_weight_logic.md",
+            "methodology/routing_logic.md"
+          ]
+        }
+      ],
+      "dimensionScores": {
+        "routing": 1,
+        "action": 1,
+        "retrieval": 1,
+        "response": 1,
+        "safety": 1
+      },
+      "score": 1,
+      "pass": false,
+      "failureIds": [
+        "execution.provider_honored"
+      ],
+      "diagnostics": {
+        "reciprocalRank": 1,
+        "recallAt5": 1,
+        "requiredVariableRecall": null,
+        "selfReportedGrounding": {
+          "originalQuestion": "汉堡哪里适合老人散步",
+          "answerMode": "UNSUPPORTED_WITH_ALTERNATIVE",
+          "doesAnswerOriginalQuestion": true,
+          "containsUnsupportedClaims": false,
+          "clearlyStatesLimitations": true,
+          "actionMatchesUserGoal": true,
+          "revisionNeeded": false,
+          "reason": "The answer is aligned with intent citywide_place_recommendation."
+        },
+        "selfReportedRagSufficiency": {
+          "retrievalRelevant": true,
+          "retrievalSufficient": false,
+          "canAnswerDirectly": false,
+          "missingEvidence": [
+            "citywide_place_or_area_recommendation"
+          ],
+          "usableKnowledge": [
+            "profiles/elderly.md",
+            "methodology/cat_workflow.md",
+            "faq/how_to_use_cat.md"
+          ],
+          "notSupportedByKnowledge": [
+            "citywide_place_or_area_recommendation"
+          ],
+          "safeAnswerStrategy": "unsupported_with_alternative",
+          "topScore": 0.5785645083533719
+        }
+      },
+      "suite": "real_canary",
+      "latencyMs": 748.4
+    },
+    {
+      "id": "elderly_hamburg_001",
+      "category": "elderly user accessibility analysis",
+      "language": "en",
+      "query": "I am an elderly person. Is Hamburg Hauptbahnhof convenient for walking?",
+      "expected": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": "Hamburg Hauptbahnhof",
+        "actionTypes": [
+          "RUN_ACCESSIBILITY_ANALYSIS"
+        ],
+        "sources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md"
+        ],
+        "variables": [
+          "stair",
+          "slope",
+          "unevenSurface",
+          "poorPavement",
+          "kerbsHigh",
+          "obstacle",
+          "station",
+          "wcDisabled"
+        ],
+        "forbiddenVariables": [
+          "noise"
+        ]
+      },
+      "actual": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": "Hamburg Hauptbahnhof",
+        "actionType": "RUN_ACCESSIBILITY_ANALYSIS",
+        "selectedVariables": [
+          "stair",
+          "slope",
+          "unevenSurface",
+          "poorPavement",
+          "kerbsHigh",
+          "obstacle",
+          "trafficLight",
+          "station",
+          "wcDisabled",
+          "light"
+        ],
+        "retrievedSources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md"
+        ],
+        "citations": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md"
+        ],
+        "warnings": [],
+        "answerMode": "ACTION_READY"
+      },
+      "provider": {
+        "required": true,
+        "honored": false,
+        "actual": "deterministic_intent_router",
+        "reason": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}"
+      },
+      "schemaErrors": [],
+      "checks": [
+        {
+          "id": "execution.provider_honored",
+          "dimension": "execution",
+          "severity": "critical",
+          "applicable": true,
+          "passed": false,
+          "score": 0,
+          "expected": "bigmodel",
+          "actual": {
+            "required": true,
+            "honored": false,
+            "actual": "deterministic_intent_router",
+            "reason": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}"
+          }
+        },
+        {
+          "id": "schema.valid",
+          "dimension": "action",
+          "severity": "critical",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "valid response contract",
+          "actual": []
+        },
+        {
+          "id": "routing.intent",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "area_suitability_question",
+          "actual": "area_suitability_question"
+        },
+        {
+          "id": "routing.profile",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "elderly",
+          "actual": "elderly"
+        },
+        {
+          "id": "routing.city",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "hamburg",
+          "actual": "hamburg"
+        },
+        {
+          "id": "routing.location",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "Hamburg Hauptbahnhof",
+          "actual": "Hamburg Hauptbahnhof"
+        },
+        {
+          "id": "action.contract",
+          "dimension": "action",
+          "severity": "critical",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "RUN_ACCESSIBILITY_ANALYSIS"
+          ],
+          "actual": "RUN_ACCESSIBILITY_ANALYSIS"
+        },
+        {
+          "id": "action.required_variables",
+          "dimension": "action",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "stair",
+            "slope",
+            "unevenSurface",
+            "poorPavement",
+            "kerbsHigh",
+            "obstacle",
+            "station",
+            "wcDisabled"
+          ],
+          "actual": [
+            "stair",
+            "slope",
+            "unevenSurface",
+            "poorPavement",
+            "kerbsHigh",
+            "obstacle",
+            "trafficLight",
+            "station",
+            "wcDisabled",
+            "light"
+          ]
+        },
+        {
+          "id": "safety.forbidden_variables",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "exclude: noise",
+          "actual": []
+        },
+        {
+          "id": "safety.known_variables",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "city-supported variables",
+          "actual": []
+        },
+        {
+          "id": "safety.unsupported_no_run",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "non-running alternative",
+          "actual": "RUN_ACCESSIBILITY_ANALYSIS"
+        },
+        {
+          "id": "retrieval.hit_at_3",
+          "dimension": "retrieval",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "profiles/elderly.md",
+            "variables/comfort_variables.md",
+            "cities/hamburg.md"
+          ],
+          "actual": [
+            "profiles/elderly.md",
+            "variables/comfort_variables.md",
+            "cities/hamburg.md"
+          ]
+        },
+        {
+          "id": "retrieval.recall_at_5",
+          "dimension": "retrieval",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "profiles/elderly.md",
+            "variables/comfort_variables.md",
+            "cities/hamburg.md"
+          ],
+          "actual": [
+            "profiles/elderly.md",
+            "variables/comfort_variables.md",
+            "cities/hamburg.md"
+          ]
+        },
+        {
+          "id": "response.nonempty",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "non-empty useful reply",
+          "actual": "I prepared checkable settings for older adult walking needs.\nDetected place: Hamburg Hauptbahnhof.\nWalking speed: 3 km/h. Walking time: 15 minutes.\nAlso relevant: stairs, slopes, uneven surfaces, poor pavement, high kerbs and obstacles.\nLighter supporting factors: safe crossings with traffic lights, public transport access, accessible toilets and street lighting.\nNext step: run the accessibility analysis. After it finishes, I can explain the reachable area and how strongly the comfort factors affected it."
+        },
+        {
+          "id": "response.language",
+          "dimension": "response",
+          "severity": "minor",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "en",
+          "actual": "en"
+        },
+        {
+          "id": "response.citation_required",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "at least one citation",
+          "actual": [
+            "profiles/elderly.md",
+            "variables/comfort_variables.md",
+            "cities/hamburg.md"
+          ]
+        },
+        {
+          "id": "response.citation_provenance",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "citations must come from retrieval",
+          "actual": [
+            "profiles/elderly.md",
+            "variables/comfort_variables.md",
+            "cities/hamburg.md"
+          ]
+        }
+      ],
+      "dimensionScores": {
+        "routing": 1,
+        "action": 1,
+        "retrieval": 1,
+        "response": 1,
+        "safety": 1
+      },
+      "score": 1,
+      "pass": false,
+      "failureIds": [
+        "execution.provider_honored"
+      ],
+      "diagnostics": {
+        "reciprocalRank": 1,
+        "recallAt5": 1,
+        "requiredVariableRecall": 1,
+        "selfReportedGrounding": {
+          "originalQuestion": "I am an elderly person. Is Hamburg Hauptbahnhof convenient for walking?",
+          "answerMode": "ACTION_READY",
+          "doesAnswerOriginalQuestion": true,
+          "containsUnsupportedClaims": false,
+          "clearlyStatesLimitations": true,
+          "actionMatchesUserGoal": true,
+          "revisionNeeded": false,
+          "reason": "The answer is aligned with intent area_suitability_question."
+        },
+        "selfReportedRagSufficiency": {
+          "retrievalRelevant": true,
+          "retrievalSufficient": true,
+          "canAnswerDirectly": false,
+          "missingEvidence": [],
+          "usableKnowledge": [
+            "profiles/elderly.md",
+            "variables/comfort_variables.md",
+            "cities/hamburg.md"
+          ],
+          "notSupportedByKnowledge": [],
+          "safeAnswerStrategy": "action_ready",
+          "topScore": 1
+        }
+      },
+      "suite": "real_canary",
+      "latencyMs": 229.6
+    },
+    {
+      "id": "explain_variable_kerbs_001",
+      "category": "variable explanation questions",
+      "language": "en",
+      "query": "What does kerbsHigh mean?",
+      "expected": {
+        "intent": "explain_variable",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "actionTypes": [
+          "COMPARE_EXISTING_RESULTS",
+          "APPLY_PREVIOUS_SETTINGS_TO_CURRENT_POINT",
+          "ASK_FOR_LOCATION",
+          "ASK_FOR_PREVIOUS_RESULT",
+          "ASK_USER_TO_SELECT_POINT",
+          "ANSWER_ONLY"
+        ],
+        "sources": [
+          "variables/comfort_variables.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": []
+      },
+      "actual": {
+        "intent": "explain_variable",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "selectedVariables": [],
+        "retrievedSources": [
+          "variables/comfort_variables.md"
+        ],
+        "citations": [
+          "variables/comfort_variables.md"
+        ],
+        "warnings": [],
+        "answerMode": "DIRECT_ANSWER"
+      },
+      "provider": {
+        "required": true,
+        "honored": false,
+        "actual": "deterministic_intent_router",
+        "reason": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}"
+      },
+      "schemaErrors": [],
+      "checks": [
+        {
+          "id": "execution.provider_honored",
+          "dimension": "execution",
+          "severity": "critical",
+          "applicable": true,
+          "passed": false,
+          "score": 0,
+          "expected": "bigmodel",
+          "actual": {
+            "required": true,
+            "honored": false,
+            "actual": "deterministic_intent_router",
+            "reason": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}"
+          }
+        },
+        {
+          "id": "schema.valid",
+          "dimension": "action",
+          "severity": "critical",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "valid response contract",
+          "actual": []
+        },
+        {
+          "id": "routing.intent",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "explain_variable",
+          "actual": "explain_variable"
+        },
+        {
+          "id": "routing.profile",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": null,
+          "actual": null
+        },
+        {
+          "id": "routing.city",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "hamburg",
+          "actual": "hamburg"
+        },
+        {
+          "id": "routing.location",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": null,
+          "actual": null
+        },
+        {
+          "id": "action.contract",
+          "dimension": "action",
+          "severity": "critical",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "COMPARE_EXISTING_RESULTS",
+            "APPLY_PREVIOUS_SETTINGS_TO_CURRENT_POINT",
+            "ASK_FOR_LOCATION",
+            "ASK_FOR_PREVIOUS_RESULT",
+            "ASK_USER_TO_SELECT_POINT",
+            "ANSWER_ONLY"
+          ],
+          "actual": "ANSWER_ONLY"
+        },
+        {
+          "id": "action.required_variables",
+          "dimension": "action",
+          "severity": "major",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": [],
+          "actual": []
+        },
+        {
+          "id": "safety.forbidden_variables",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "exclude: ",
+          "actual": []
+        },
+        {
+          "id": "safety.known_variables",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "city-supported variables",
+          "actual": []
+        },
+        {
+          "id": "safety.unsupported_no_run",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "non-running alternative",
+          "actual": "ANSWER_ONLY"
+        },
+        {
+          "id": "retrieval.hit_at_3",
+          "dimension": "retrieval",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "variables/comfort_variables.md"
+          ],
+          "actual": [
+            "variables/comfort_variables.md"
+          ]
+        },
+        {
+          "id": "retrieval.recall_at_5",
+          "dimension": "retrieval",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "variables/comfort_variables.md"
+          ],
+          "actual": [
+            "variables/comfort_variables.md"
+          ]
+        },
+        {
+          "id": "response.nonempty",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "non-empty useful reply",
+          "actual": "# CAT Comfort Variables\nVariable key: kerbsHigh\nMeaning: High kerbs or abrupt curb transitions.\nType: negative factor.\nRelevant profiles: wheelchair_user, elderly, children_family.\nCommon user expressions: high kerb, curb, raised kerb.\nRecommended sensitivity: 0.2 to 0.5."
+        },
+        {
+          "id": "response.language",
+          "dimension": "response",
+          "severity": "minor",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "en",
+          "actual": "en"
+        },
+        {
+          "id": "response.citation_required",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "at least one citation",
+          "actual": [
+            "variables/comfort_variables.md"
+          ]
+        },
+        {
+          "id": "response.citation_provenance",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "citations must come from retrieval",
+          "actual": [
+            "variables/comfort_variables.md"
+          ]
+        }
+      ],
+      "dimensionScores": {
+        "routing": 1,
+        "action": 1,
+        "retrieval": 1,
+        "response": 1,
+        "safety": null
+      },
+      "score": 1,
+      "pass": false,
+      "failureIds": [
+        "execution.provider_honored"
+      ],
+      "diagnostics": {
+        "reciprocalRank": 1,
+        "recallAt5": 1,
+        "requiredVariableRecall": null,
+        "selfReportedGrounding": {
+          "originalQuestion": "What does kerbsHigh mean?",
+          "answerMode": "DIRECT_ANSWER",
+          "doesAnswerOriginalQuestion": true,
+          "containsUnsupportedClaims": false,
+          "clearlyStatesLimitations": true,
+          "actionMatchesUserGoal": true,
+          "revisionNeeded": false,
+          "reason": "The answer is aligned with intent explain_variable."
+        },
+        "selfReportedRagSufficiency": {
+          "retrievalRelevant": true,
+          "retrievalSufficient": true,
+          "canAnswerDirectly": true,
+          "missingEvidence": [],
+          "usableKnowledge": [
+            "variables/comfort_variables.md"
+          ],
+          "notSupportedByKnowledge": [],
+          "safeAnswerStrategy": "direct_answer",
+          "topScore": 0.9375999889307366
+        }
+      },
+      "suite": "real_canary",
+      "latencyMs": 425.9
+    },
+    {
+      "id": "explain_result_001",
+      "category": "result explanation cases",
+      "language": "en",
+      "query": "Explain this result.",
+      "expected": {
+        "intent": "explain_result",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "actionTypes": [
+          "COMPARE_EXISTING_RESULTS",
+          "APPLY_PREVIOUS_SETTINGS_TO_CURRENT_POINT",
+          "ASK_FOR_LOCATION",
+          "ASK_FOR_PREVIOUS_RESULT",
+          "ASK_USER_TO_SELECT_POINT",
+          "ANSWER_ONLY"
+        ],
+        "sources": [
+          "methodology/result_interpretation.md",
+          "variables/comfort_variables.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": []
+      },
+      "actual": {
+        "intent": "explain_result",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "selectedVariables": [],
+        "retrievedSources": [
+          "methodology/result_interpretation.md",
+          "variables/comfort_variables.md",
+          "methodology/data_limitations.md",
+          "README.md",
+          "methodology/cat_workflow.md"
+        ],
+        "citations": [
+          "methodology/result_interpretation.md",
+          "variables/comfort_variables.md",
+          "methodology/data_limitations.md",
+          "README.md",
+          "methodology/cat_workflow.md"
+        ],
+        "warnings": [],
+        "answerMode": "RESULT_EXPLANATION"
+      },
+      "provider": {
+        "required": true,
+        "honored": false,
+        "actual": "deterministic_intent_router",
+        "reason": "This operation was aborted"
+      },
+      "schemaErrors": [],
+      "checks": [
+        {
+          "id": "execution.provider_honored",
+          "dimension": "execution",
+          "severity": "critical",
+          "applicable": true,
+          "passed": false,
+          "score": 0,
+          "expected": "bigmodel",
+          "actual": {
+            "required": true,
+            "honored": false,
+            "actual": "deterministic_intent_router",
+            "reason": "This operation was aborted"
+          }
+        },
+        {
+          "id": "schema.valid",
+          "dimension": "action",
+          "severity": "critical",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "valid response contract",
+          "actual": []
+        },
+        {
+          "id": "routing.intent",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "explain_result",
+          "actual": "explain_result"
+        },
+        {
+          "id": "routing.profile",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "elderly",
+          "actual": "elderly"
+        },
+        {
+          "id": "routing.city",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "hamburg",
+          "actual": "hamburg"
+        },
+        {
+          "id": "routing.location",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": null,
+          "actual": null
+        },
+        {
+          "id": "action.contract",
+          "dimension": "action",
+          "severity": "critical",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "COMPARE_EXISTING_RESULTS",
+            "APPLY_PREVIOUS_SETTINGS_TO_CURRENT_POINT",
+            "ASK_FOR_LOCATION",
+            "ASK_FOR_PREVIOUS_RESULT",
+            "ASK_USER_TO_SELECT_POINT",
+            "ANSWER_ONLY"
+          ],
+          "actual": "ANSWER_ONLY"
+        },
+        {
+          "id": "action.required_variables",
+          "dimension": "action",
+          "severity": "major",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": [],
+          "actual": []
+        },
+        {
+          "id": "safety.forbidden_variables",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "exclude: ",
+          "actual": []
+        },
+        {
+          "id": "safety.known_variables",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "city-supported variables",
+          "actual": []
+        },
+        {
+          "id": "safety.unsupported_no_run",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "non-running alternative",
+          "actual": "ANSWER_ONLY"
+        },
+        {
+          "id": "retrieval.hit_at_3",
+          "dimension": "retrieval",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "methodology/result_interpretation.md",
+            "variables/comfort_variables.md"
+          ],
+          "actual": [
+            "methodology/result_interpretation.md",
+            "variables/comfort_variables.md",
+            "methodology/data_limitations.md"
+          ]
+        },
+        {
+          "id": "retrieval.recall_at_5",
+          "dimension": "retrieval",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "methodology/result_interpretation.md",
+            "variables/comfort_variables.md"
+          ],
+          "actual": [
+            "methodology/result_interpretation.md",
+            "variables/comfort_variables.md",
+            "methodology/data_limitations.md",
+            "README.md",
+            "methodology/cat_workflow.md"
+          ]
+        },
+        {
+          "id": "response.nonempty",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "non-empty useful reply",
+          "actual": "**Short answer:** It looks partly comfortable, but with clear limits.\n\nThe comfort-adjusted reachable area is **68/100** of the ordinary walking area, so about **32%** is lost after comfort factors are considered.\n\nCAT considered: stairs, slopes and high kerbs.\n\nThere are still about **18** places or services inside the adjusted area."
+        },
+        {
+          "id": "response.language",
+          "dimension": "response",
+          "severity": "minor",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "en",
+          "actual": "en"
+        },
+        {
+          "id": "response.citation_required",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "at least one citation",
+          "actual": [
+            "methodology/result_interpretation.md",
+            "variables/comfort_variables.md",
+            "methodology/data_limitations.md",
+            "README.md",
+            "methodology/cat_workflow.md"
+          ]
+        },
+        {
+          "id": "response.citation_provenance",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "citations must come from retrieval",
+          "actual": [
+            "methodology/result_interpretation.md",
+            "variables/comfort_variables.md",
+            "methodology/data_limitations.md",
+            "README.md",
+            "methodology/cat_workflow.md"
+          ]
+        }
+      ],
+      "dimensionScores": {
+        "routing": 1,
+        "action": 1,
+        "retrieval": 1,
+        "response": 1,
+        "safety": null
+      },
+      "score": 1,
+      "pass": false,
+      "failureIds": [
+        "execution.provider_honored"
+      ],
+      "diagnostics": {
+        "reciprocalRank": 1,
+        "recallAt5": 1,
+        "requiredVariableRecall": null,
+        "selfReportedGrounding": {
+          "originalQuestion": "Explain this result.",
+          "answerMode": "RESULT_EXPLANATION",
+          "doesAnswerOriginalQuestion": true,
+          "containsUnsupportedClaims": false,
+          "clearlyStatesLimitations": true,
+          "actionMatchesUserGoal": true,
+          "revisionNeeded": false,
+          "reason": "The answer is aligned with intent explain_result."
+        },
+        "selfReportedRagSufficiency": {
+          "retrievalRelevant": true,
+          "retrievalSufficient": true,
+          "canAnswerDirectly": true,
+          "missingEvidence": [],
+          "usableKnowledge": [
+            "methodology/result_interpretation.md",
+            "variables/comfort_variables.md",
+            "methodology/data_limitations.md"
+          ],
+          "notSupportedByKnowledge": [],
+          "safeAnswerStrategy": "result_explanation",
+          "topScore": 0.7846609345251055
+        }
+      },
+      "suite": "real_canary",
+      "latencyMs": 6022.7
+    },
+    {
+      "id": "troubleshooting_no_result_001",
+      "category": "troubleshooting questions",
+      "language": "en",
+      "query": "Why do I get no reachable area result?",
+      "expected": {
+        "intent": "troubleshooting",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "actionTypes": [
+          "COMPARE_EXISTING_RESULTS",
+          "APPLY_PREVIOUS_SETTINGS_TO_CURRENT_POINT",
+          "ASK_FOR_LOCATION",
+          "ASK_FOR_PREVIOUS_RESULT",
+          "ASK_USER_TO_SELECT_POINT",
+          "ANSWER_ONLY"
+        ],
+        "sources": [
+          "faq/troubleshooting.md",
+          "methodology/cat_workflow.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": []
+      },
+      "actual": {
+        "intent": "troubleshooting",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "selectedVariables": [],
+        "retrievedSources": [
+          "faq/troubleshooting.md",
+          "methodology/cat_workflow.md",
+          "methodology/result_interpretation.md",
+          "methodology/data_limitations.md",
+          "README.md"
+        ],
+        "citations": [
+          "faq/troubleshooting.md",
+          "methodology/cat_workflow.md",
+          "methodology/result_interpretation.md",
+          "methodology/data_limitations.md",
+          "README.md"
+        ],
+        "warnings": [],
+        "answerMode": "DIRECT_ANSWER"
+      },
+      "provider": {
+        "required": true,
+        "honored": false,
+        "actual": "deterministic_intent_router",
+        "reason": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}"
+      },
+      "schemaErrors": [],
+      "checks": [
+        {
+          "id": "execution.provider_honored",
+          "dimension": "execution",
+          "severity": "critical",
+          "applicable": true,
+          "passed": false,
+          "score": 0,
+          "expected": "bigmodel",
+          "actual": {
+            "required": true,
+            "honored": false,
+            "actual": "deterministic_intent_router",
+            "reason": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}"
+          }
+        },
+        {
+          "id": "schema.valid",
+          "dimension": "action",
+          "severity": "critical",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "valid response contract",
+          "actual": []
+        },
+        {
+          "id": "routing.intent",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "troubleshooting",
+          "actual": "troubleshooting"
+        },
+        {
+          "id": "routing.profile",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": null,
+          "actual": null
+        },
+        {
+          "id": "routing.city",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "hamburg",
+          "actual": "hamburg"
+        },
+        {
+          "id": "routing.location",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": null,
+          "actual": null
+        },
+        {
+          "id": "action.contract",
+          "dimension": "action",
+          "severity": "critical",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "COMPARE_EXISTING_RESULTS",
+            "APPLY_PREVIOUS_SETTINGS_TO_CURRENT_POINT",
+            "ASK_FOR_LOCATION",
+            "ASK_FOR_PREVIOUS_RESULT",
+            "ASK_USER_TO_SELECT_POINT",
+            "ANSWER_ONLY"
+          ],
+          "actual": "ANSWER_ONLY"
+        },
+        {
+          "id": "action.required_variables",
+          "dimension": "action",
+          "severity": "major",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": [],
+          "actual": []
+        },
+        {
+          "id": "safety.forbidden_variables",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "exclude: ",
+          "actual": []
+        },
+        {
+          "id": "safety.known_variables",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "city-supported variables",
+          "actual": []
+        },
+        {
+          "id": "safety.unsupported_no_run",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "non-running alternative",
+          "actual": "ANSWER_ONLY"
+        },
+        {
+          "id": "retrieval.hit_at_3",
+          "dimension": "retrieval",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "faq/troubleshooting.md",
+            "methodology/cat_workflow.md"
+          ],
+          "actual": [
+            "faq/troubleshooting.md",
+            "methodology/cat_workflow.md",
+            "methodology/result_interpretation.md"
+          ]
+        },
+        {
+          "id": "retrieval.recall_at_5",
+          "dimension": "retrieval",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "faq/troubleshooting.md",
+            "methodology/cat_workflow.md"
+          ],
+          "actual": [
+            "faq/troubleshooting.md",
+            "methodology/cat_workflow.md",
+            "methodology/result_interpretation.md",
+            "methodology/data_limitations.md",
+            "README.md"
+          ]
+        },
+        {
+          "id": "response.nonempty",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "non-empty useful reply",
+          "actual": "# CAT Troubleshooting\n\nIf no reachable area appears, check that a start point is selected, walking time and walking speed are reasonable, and at least one supported city dataset is available.\n\nIf comfort-adjusted area is empty, reduce the sensitivity of selected discomfort variables or try fewer variables.\n\nIf a requested variable is not applied, it may not be available for the selected city."
+        },
+        {
+          "id": "response.language",
+          "dimension": "response",
+          "severity": "minor",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "en",
+          "actual": "en"
+        },
+        {
+          "id": "response.citation_required",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "at least one citation",
+          "actual": [
+            "faq/troubleshooting.md",
+            "methodology/cat_workflow.md",
+            "methodology/result_interpretation.md",
+            "methodology/data_limitations.md",
+            "README.md"
+          ]
+        },
+        {
+          "id": "response.citation_provenance",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "citations must come from retrieval",
+          "actual": [
+            "faq/troubleshooting.md",
+            "methodology/cat_workflow.md",
+            "methodology/result_interpretation.md",
+            "methodology/data_limitations.md",
+            "README.md"
+          ]
+        }
+      ],
+      "dimensionScores": {
+        "routing": 1,
+        "action": 1,
+        "retrieval": 1,
+        "response": 1,
+        "safety": null
+      },
+      "score": 1,
+      "pass": false,
+      "failureIds": [
+        "execution.provider_honored"
+      ],
+      "diagnostics": {
+        "reciprocalRank": 1,
+        "recallAt5": 1,
+        "requiredVariableRecall": null,
+        "selfReportedGrounding": {
+          "originalQuestion": "Why do I get no reachable area result?",
+          "answerMode": "DIRECT_ANSWER",
+          "doesAnswerOriginalQuestion": true,
+          "containsUnsupportedClaims": false,
+          "clearlyStatesLimitations": true,
+          "actionMatchesUserGoal": true,
+          "revisionNeeded": false,
+          "reason": "The answer is aligned with intent troubleshooting."
+        },
+        "selfReportedRagSufficiency": {
+          "retrievalRelevant": true,
+          "retrievalSufficient": true,
+          "canAnswerDirectly": true,
+          "missingEvidence": [],
+          "usableKnowledge": [
+            "faq/troubleshooting.md",
+            "methodology/cat_workflow.md",
+            "methodology/result_interpretation.md"
+          ],
+          "notSupportedByKnowledge": [],
+          "safeAnswerStrategy": "direct_answer",
+          "topScore": 0.6495420880755809
+        }
+      },
+      "suite": "real_canary",
+      "latencyMs": 1161
+    }
+  ],
+  "results": [
+    {
+      "id": "citywide_elderly_place_recommendation_cn_001",
+      "category": "unsupported citywide place recommendation",
+      "language": "zh",
+      "query": "汉堡哪里适合老人散步",
+      "expected": {
+        "intent": "citywide_place_recommendation",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "actionTypes": [
+          "COMPARE_EXISTING_RESULTS",
+          "APPLY_PREVIOUS_SETTINGS_TO_CURRENT_POINT",
+          "ASK_FOR_LOCATION",
+          "ASK_FOR_PREVIOUS_RESULT",
+          "ASK_USER_TO_SELECT_POINT",
+          "ANSWER_ONLY"
+        ],
+        "sources": [
+          "profiles/elderly.md",
+          "faq/how_to_use_cat.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": []
+      },
+      "actual": {
+        "intent": "citywide_place_recommendation",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "selectedVariables": [],
+        "retrievedSources": [
+          "profiles/elderly.md",
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md",
+          "methodology/comfort_weight_logic.md",
+          "methodology/routing_logic.md"
+        ],
+        "citations": [
+          "profiles/elderly.md",
+          "methodology/cat_workflow.md",
+          "faq/how_to_use_cat.md",
+          "methodology/comfort_weight_logic.md",
+          "methodology/routing_logic.md"
+        ],
+        "warnings": [],
+        "answerMode": "UNSUPPORTED_WITH_ALTERNATIVE"
+      },
+      "provider": {
+        "required": true,
+        "honored": false,
+        "actual": "deterministic_intent_router",
+        "reason": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}"
+      },
+      "schemaErrors": [],
+      "checks": [
+        {
+          "id": "execution.provider_honored",
+          "dimension": "execution",
+          "severity": "critical",
+          "applicable": true,
+          "passed": false,
+          "score": 0,
+          "expected": "bigmodel",
+          "actual": {
+            "required": true,
+            "honored": false,
+            "actual": "deterministic_intent_router",
+            "reason": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}"
+          }
+        },
+        {
+          "id": "schema.valid",
+          "dimension": "action",
+          "severity": "critical",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "valid response contract",
+          "actual": []
+        },
+        {
+          "id": "routing.intent",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "citywide_place_recommendation",
+          "actual": "citywide_place_recommendation"
+        },
+        {
+          "id": "routing.profile",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "elderly",
+          "actual": "elderly"
+        },
+        {
+          "id": "routing.city",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "hamburg",
+          "actual": "hamburg"
+        },
+        {
+          "id": "routing.location",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": null,
+          "actual": null
+        },
+        {
+          "id": "action.contract",
+          "dimension": "action",
+          "severity": "critical",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "COMPARE_EXISTING_RESULTS",
+            "APPLY_PREVIOUS_SETTINGS_TO_CURRENT_POINT",
+            "ASK_FOR_LOCATION",
+            "ASK_FOR_PREVIOUS_RESULT",
+            "ASK_USER_TO_SELECT_POINT",
+            "ANSWER_ONLY"
+          ],
+          "actual": "ANSWER_ONLY"
+        },
+        {
+          "id": "action.required_variables",
+          "dimension": "action",
+          "severity": "major",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": [],
+          "actual": []
+        },
+        {
+          "id": "safety.forbidden_variables",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "exclude: ",
+          "actual": []
+        },
+        {
+          "id": "safety.known_variables",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "city-supported variables",
+          "actual": []
+        },
+        {
+          "id": "safety.unsupported_no_run",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "non-running alternative",
+          "actual": "ANSWER_ONLY"
+        },
+        {
+          "id": "retrieval.hit_at_3",
+          "dimension": "retrieval",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "profiles/elderly.md",
+            "faq/how_to_use_cat.md"
+          ],
+          "actual": [
+            "profiles/elderly.md",
+            "methodology/cat_workflow.md",
+            "faq/how_to_use_cat.md"
+          ]
+        },
+        {
+          "id": "retrieval.recall_at_5",
+          "dimension": "retrieval",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "profiles/elderly.md",
+            "faq/how_to_use_cat.md"
+          ],
+          "actual": [
+            "profiles/elderly.md",
+            "methodology/cat_workflow.md",
+            "faq/how_to_use_cat.md",
+            "methodology/comfort_weight_logic.md",
+            "methodology/routing_logic.md"
+          ]
+        },
+        {
+          "id": "response.nonempty",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "non-empty useful reply",
+          "actual": "我不能直接回答“hamburg 哪里最适合散步/活动”这类全城场地推荐问题。CAT 不是城市景点推荐、POI 排名或最佳区域推荐工具，也不会直接给出某个场地作为结论。\n\n它更适合做的是：你先选择一个或多个候选起点/区域，我可以根据老年人步行需求以及你关心的环境因素来准备设置；这些设置只是快速起点，可以继续按你的舒适程度修改。然后 CAT 可以计算每个起点周边的舒适可达范围、舒适可达比例和相关限制，用来对比哪个候选点更合适。\n\n建议下一步：你可以在地图上选择一个候选地点先分析；如果你有 2-3 个备选地点，也可以分别运行后让我帮你比较结果。对于老人散步，我会更关注台阶、坡度、路面不平、破损路面、过高路缘、障碍物、过街信号等因素。"
+        },
+        {
+          "id": "response.language",
+          "dimension": "response",
+          "severity": "minor",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "zh",
+          "actual": "zh"
+        },
+        {
+          "id": "response.citation_required",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "at least one citation",
+          "actual": [
+            "profiles/elderly.md",
+            "methodology/cat_workflow.md",
+            "faq/how_to_use_cat.md",
+            "methodology/comfort_weight_logic.md",
+            "methodology/routing_logic.md"
+          ]
+        },
+        {
+          "id": "response.citation_provenance",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "citations must come from retrieval",
+          "actual": [
+            "profiles/elderly.md",
+            "methodology/cat_workflow.md",
+            "faq/how_to_use_cat.md",
+            "methodology/comfort_weight_logic.md",
+            "methodology/routing_logic.md"
+          ]
+        }
+      ],
+      "dimensionScores": {
+        "routing": 1,
+        "action": 1,
+        "retrieval": 1,
+        "response": 1,
+        "safety": 1
+      },
+      "score": 1,
+      "pass": false,
+      "failureIds": [
+        "execution.provider_honored"
+      ],
+      "diagnostics": {
+        "reciprocalRank": 1,
+        "recallAt5": 1,
+        "requiredVariableRecall": null,
+        "selfReportedGrounding": {
+          "originalQuestion": "汉堡哪里适合老人散步",
+          "answerMode": "UNSUPPORTED_WITH_ALTERNATIVE",
+          "doesAnswerOriginalQuestion": true,
+          "containsUnsupportedClaims": false,
+          "clearlyStatesLimitations": true,
+          "actionMatchesUserGoal": true,
+          "revisionNeeded": false,
+          "reason": "The answer is aligned with intent citywide_place_recommendation."
+        },
+        "selfReportedRagSufficiency": {
+          "retrievalRelevant": true,
+          "retrievalSufficient": false,
+          "canAnswerDirectly": false,
+          "missingEvidence": [
+            "citywide_place_or_area_recommendation"
+          ],
+          "usableKnowledge": [
+            "profiles/elderly.md",
+            "methodology/cat_workflow.md",
+            "faq/how_to_use_cat.md"
+          ],
+          "notSupportedByKnowledge": [
+            "citywide_place_or_area_recommendation"
+          ],
+          "safeAnswerStrategy": "unsupported_with_alternative",
+          "topScore": 0.5785645083533719
+        }
+      },
+      "suite": "real_canary",
+      "latencyMs": 748.4
+    },
+    {
+      "id": "elderly_hamburg_001",
+      "category": "elderly user accessibility analysis",
+      "language": "en",
+      "query": "I am an elderly person. Is Hamburg Hauptbahnhof convenient for walking?",
+      "expected": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": "Hamburg Hauptbahnhof",
+        "actionTypes": [
+          "RUN_ACCESSIBILITY_ANALYSIS"
+        ],
+        "sources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md"
+        ],
+        "variables": [
+          "stair",
+          "slope",
+          "unevenSurface",
+          "poorPavement",
+          "kerbsHigh",
+          "obstacle",
+          "station",
+          "wcDisabled"
+        ],
+        "forbiddenVariables": [
+          "noise"
+        ]
+      },
+      "actual": {
+        "intent": "area_suitability_question",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": "Hamburg Hauptbahnhof",
+        "actionType": "RUN_ACCESSIBILITY_ANALYSIS",
+        "selectedVariables": [
+          "stair",
+          "slope",
+          "unevenSurface",
+          "poorPavement",
+          "kerbsHigh",
+          "obstacle",
+          "trafficLight",
+          "station",
+          "wcDisabled",
+          "light"
+        ],
+        "retrievedSources": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md"
+        ],
+        "citations": [
+          "profiles/elderly.md",
+          "variables/comfort_variables.md",
+          "cities/hamburg.md"
+        ],
+        "warnings": [],
+        "answerMode": "ACTION_READY"
+      },
+      "provider": {
+        "required": true,
+        "honored": false,
+        "actual": "deterministic_intent_router",
+        "reason": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}"
+      },
+      "schemaErrors": [],
+      "checks": [
+        {
+          "id": "execution.provider_honored",
+          "dimension": "execution",
+          "severity": "critical",
+          "applicable": true,
+          "passed": false,
+          "score": 0,
+          "expected": "bigmodel",
+          "actual": {
+            "required": true,
+            "honored": false,
+            "actual": "deterministic_intent_router",
+            "reason": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}"
+          }
+        },
+        {
+          "id": "schema.valid",
+          "dimension": "action",
+          "severity": "critical",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "valid response contract",
+          "actual": []
+        },
+        {
+          "id": "routing.intent",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "area_suitability_question",
+          "actual": "area_suitability_question"
+        },
+        {
+          "id": "routing.profile",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "elderly",
+          "actual": "elderly"
+        },
+        {
+          "id": "routing.city",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "hamburg",
+          "actual": "hamburg"
+        },
+        {
+          "id": "routing.location",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "Hamburg Hauptbahnhof",
+          "actual": "Hamburg Hauptbahnhof"
+        },
+        {
+          "id": "action.contract",
+          "dimension": "action",
+          "severity": "critical",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "RUN_ACCESSIBILITY_ANALYSIS"
+          ],
+          "actual": "RUN_ACCESSIBILITY_ANALYSIS"
+        },
+        {
+          "id": "action.required_variables",
+          "dimension": "action",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "stair",
+            "slope",
+            "unevenSurface",
+            "poorPavement",
+            "kerbsHigh",
+            "obstacle",
+            "station",
+            "wcDisabled"
+          ],
+          "actual": [
+            "stair",
+            "slope",
+            "unevenSurface",
+            "poorPavement",
+            "kerbsHigh",
+            "obstacle",
+            "trafficLight",
+            "station",
+            "wcDisabled",
+            "light"
+          ]
+        },
+        {
+          "id": "safety.forbidden_variables",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "exclude: noise",
+          "actual": []
+        },
+        {
+          "id": "safety.known_variables",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "city-supported variables",
+          "actual": []
+        },
+        {
+          "id": "safety.unsupported_no_run",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "non-running alternative",
+          "actual": "RUN_ACCESSIBILITY_ANALYSIS"
+        },
+        {
+          "id": "retrieval.hit_at_3",
+          "dimension": "retrieval",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "profiles/elderly.md",
+            "variables/comfort_variables.md",
+            "cities/hamburg.md"
+          ],
+          "actual": [
+            "profiles/elderly.md",
+            "variables/comfort_variables.md",
+            "cities/hamburg.md"
+          ]
+        },
+        {
+          "id": "retrieval.recall_at_5",
+          "dimension": "retrieval",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "profiles/elderly.md",
+            "variables/comfort_variables.md",
+            "cities/hamburg.md"
+          ],
+          "actual": [
+            "profiles/elderly.md",
+            "variables/comfort_variables.md",
+            "cities/hamburg.md"
+          ]
+        },
+        {
+          "id": "response.nonempty",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "non-empty useful reply",
+          "actual": "I prepared checkable settings for older adult walking needs.\nDetected place: Hamburg Hauptbahnhof.\nWalking speed: 3 km/h. Walking time: 15 minutes.\nAlso relevant: stairs, slopes, uneven surfaces, poor pavement, high kerbs and obstacles.\nLighter supporting factors: safe crossings with traffic lights, public transport access, accessible toilets and street lighting.\nNext step: run the accessibility analysis. After it finishes, I can explain the reachable area and how strongly the comfort factors affected it."
+        },
+        {
+          "id": "response.language",
+          "dimension": "response",
+          "severity": "minor",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "en",
+          "actual": "en"
+        },
+        {
+          "id": "response.citation_required",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "at least one citation",
+          "actual": [
+            "profiles/elderly.md",
+            "variables/comfort_variables.md",
+            "cities/hamburg.md"
+          ]
+        },
+        {
+          "id": "response.citation_provenance",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "citations must come from retrieval",
+          "actual": [
+            "profiles/elderly.md",
+            "variables/comfort_variables.md",
+            "cities/hamburg.md"
+          ]
+        }
+      ],
+      "dimensionScores": {
+        "routing": 1,
+        "action": 1,
+        "retrieval": 1,
+        "response": 1,
+        "safety": 1
+      },
+      "score": 1,
+      "pass": false,
+      "failureIds": [
+        "execution.provider_honored"
+      ],
+      "diagnostics": {
+        "reciprocalRank": 1,
+        "recallAt5": 1,
+        "requiredVariableRecall": 1,
+        "selfReportedGrounding": {
+          "originalQuestion": "I am an elderly person. Is Hamburg Hauptbahnhof convenient for walking?",
+          "answerMode": "ACTION_READY",
+          "doesAnswerOriginalQuestion": true,
+          "containsUnsupportedClaims": false,
+          "clearlyStatesLimitations": true,
+          "actionMatchesUserGoal": true,
+          "revisionNeeded": false,
+          "reason": "The answer is aligned with intent area_suitability_question."
+        },
+        "selfReportedRagSufficiency": {
+          "retrievalRelevant": true,
+          "retrievalSufficient": true,
+          "canAnswerDirectly": false,
+          "missingEvidence": [],
+          "usableKnowledge": [
+            "profiles/elderly.md",
+            "variables/comfort_variables.md",
+            "cities/hamburg.md"
+          ],
+          "notSupportedByKnowledge": [],
+          "safeAnswerStrategy": "action_ready",
+          "topScore": 1
+        }
+      },
+      "suite": "real_canary",
+      "latencyMs": 229.6
+    },
+    {
+      "id": "explain_variable_kerbs_001",
+      "category": "variable explanation questions",
+      "language": "en",
+      "query": "What does kerbsHigh mean?",
+      "expected": {
+        "intent": "explain_variable",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "actionTypes": [
+          "COMPARE_EXISTING_RESULTS",
+          "APPLY_PREVIOUS_SETTINGS_TO_CURRENT_POINT",
+          "ASK_FOR_LOCATION",
+          "ASK_FOR_PREVIOUS_RESULT",
+          "ASK_USER_TO_SELECT_POINT",
+          "ANSWER_ONLY"
+        ],
+        "sources": [
+          "variables/comfort_variables.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": []
+      },
+      "actual": {
+        "intent": "explain_variable",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "selectedVariables": [],
+        "retrievedSources": [
+          "variables/comfort_variables.md"
+        ],
+        "citations": [
+          "variables/comfort_variables.md"
+        ],
+        "warnings": [],
+        "answerMode": "DIRECT_ANSWER"
+      },
+      "provider": {
+        "required": true,
+        "honored": false,
+        "actual": "deterministic_intent_router",
+        "reason": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}"
+      },
+      "schemaErrors": [],
+      "checks": [
+        {
+          "id": "execution.provider_honored",
+          "dimension": "execution",
+          "severity": "critical",
+          "applicable": true,
+          "passed": false,
+          "score": 0,
+          "expected": "bigmodel",
+          "actual": {
+            "required": true,
+            "honored": false,
+            "actual": "deterministic_intent_router",
+            "reason": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}"
+          }
+        },
+        {
+          "id": "schema.valid",
+          "dimension": "action",
+          "severity": "critical",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "valid response contract",
+          "actual": []
+        },
+        {
+          "id": "routing.intent",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "explain_variable",
+          "actual": "explain_variable"
+        },
+        {
+          "id": "routing.profile",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": null,
+          "actual": null
+        },
+        {
+          "id": "routing.city",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "hamburg",
+          "actual": "hamburg"
+        },
+        {
+          "id": "routing.location",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": null,
+          "actual": null
+        },
+        {
+          "id": "action.contract",
+          "dimension": "action",
+          "severity": "critical",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "COMPARE_EXISTING_RESULTS",
+            "APPLY_PREVIOUS_SETTINGS_TO_CURRENT_POINT",
+            "ASK_FOR_LOCATION",
+            "ASK_FOR_PREVIOUS_RESULT",
+            "ASK_USER_TO_SELECT_POINT",
+            "ANSWER_ONLY"
+          ],
+          "actual": "ANSWER_ONLY"
+        },
+        {
+          "id": "action.required_variables",
+          "dimension": "action",
+          "severity": "major",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": [],
+          "actual": []
+        },
+        {
+          "id": "safety.forbidden_variables",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "exclude: ",
+          "actual": []
+        },
+        {
+          "id": "safety.known_variables",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "city-supported variables",
+          "actual": []
+        },
+        {
+          "id": "safety.unsupported_no_run",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "non-running alternative",
+          "actual": "ANSWER_ONLY"
+        },
+        {
+          "id": "retrieval.hit_at_3",
+          "dimension": "retrieval",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "variables/comfort_variables.md"
+          ],
+          "actual": [
+            "variables/comfort_variables.md"
+          ]
+        },
+        {
+          "id": "retrieval.recall_at_5",
+          "dimension": "retrieval",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "variables/comfort_variables.md"
+          ],
+          "actual": [
+            "variables/comfort_variables.md"
+          ]
+        },
+        {
+          "id": "response.nonempty",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "non-empty useful reply",
+          "actual": "# CAT Comfort Variables\nVariable key: kerbsHigh\nMeaning: High kerbs or abrupt curb transitions.\nType: negative factor.\nRelevant profiles: wheelchair_user, elderly, children_family.\nCommon user expressions: high kerb, curb, raised kerb.\nRecommended sensitivity: 0.2 to 0.5."
+        },
+        {
+          "id": "response.language",
+          "dimension": "response",
+          "severity": "minor",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "en",
+          "actual": "en"
+        },
+        {
+          "id": "response.citation_required",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "at least one citation",
+          "actual": [
+            "variables/comfort_variables.md"
+          ]
+        },
+        {
+          "id": "response.citation_provenance",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "citations must come from retrieval",
+          "actual": [
+            "variables/comfort_variables.md"
+          ]
+        }
+      ],
+      "dimensionScores": {
+        "routing": 1,
+        "action": 1,
+        "retrieval": 1,
+        "response": 1,
+        "safety": null
+      },
+      "score": 1,
+      "pass": false,
+      "failureIds": [
+        "execution.provider_honored"
+      ],
+      "diagnostics": {
+        "reciprocalRank": 1,
+        "recallAt5": 1,
+        "requiredVariableRecall": null,
+        "selfReportedGrounding": {
+          "originalQuestion": "What does kerbsHigh mean?",
+          "answerMode": "DIRECT_ANSWER",
+          "doesAnswerOriginalQuestion": true,
+          "containsUnsupportedClaims": false,
+          "clearlyStatesLimitations": true,
+          "actionMatchesUserGoal": true,
+          "revisionNeeded": false,
+          "reason": "The answer is aligned with intent explain_variable."
+        },
+        "selfReportedRagSufficiency": {
+          "retrievalRelevant": true,
+          "retrievalSufficient": true,
+          "canAnswerDirectly": true,
+          "missingEvidence": [],
+          "usableKnowledge": [
+            "variables/comfort_variables.md"
+          ],
+          "notSupportedByKnowledge": [],
+          "safeAnswerStrategy": "direct_answer",
+          "topScore": 0.9375999889307366
+        }
+      },
+      "suite": "real_canary",
+      "latencyMs": 425.9
+    },
+    {
+      "id": "explain_result_001",
+      "category": "result explanation cases",
+      "language": "en",
+      "query": "Explain this result.",
+      "expected": {
+        "intent": "explain_result",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "actionTypes": [
+          "COMPARE_EXISTING_RESULTS",
+          "APPLY_PREVIOUS_SETTINGS_TO_CURRENT_POINT",
+          "ASK_FOR_LOCATION",
+          "ASK_FOR_PREVIOUS_RESULT",
+          "ASK_USER_TO_SELECT_POINT",
+          "ANSWER_ONLY"
+        ],
+        "sources": [
+          "methodology/result_interpretation.md",
+          "variables/comfort_variables.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": []
+      },
+      "actual": {
+        "intent": "explain_result",
+        "profile": "elderly",
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "selectedVariables": [],
+        "retrievedSources": [
+          "methodology/result_interpretation.md",
+          "variables/comfort_variables.md",
+          "methodology/data_limitations.md",
+          "README.md",
+          "methodology/cat_workflow.md"
+        ],
+        "citations": [
+          "methodology/result_interpretation.md",
+          "variables/comfort_variables.md",
+          "methodology/data_limitations.md",
+          "README.md",
+          "methodology/cat_workflow.md"
+        ],
+        "warnings": [],
+        "answerMode": "RESULT_EXPLANATION"
+      },
+      "provider": {
+        "required": true,
+        "honored": false,
+        "actual": "deterministic_intent_router",
+        "reason": "This operation was aborted"
+      },
+      "schemaErrors": [],
+      "checks": [
+        {
+          "id": "execution.provider_honored",
+          "dimension": "execution",
+          "severity": "critical",
+          "applicable": true,
+          "passed": false,
+          "score": 0,
+          "expected": "bigmodel",
+          "actual": {
+            "required": true,
+            "honored": false,
+            "actual": "deterministic_intent_router",
+            "reason": "This operation was aborted"
+          }
+        },
+        {
+          "id": "schema.valid",
+          "dimension": "action",
+          "severity": "critical",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "valid response contract",
+          "actual": []
+        },
+        {
+          "id": "routing.intent",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "explain_result",
+          "actual": "explain_result"
+        },
+        {
+          "id": "routing.profile",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "elderly",
+          "actual": "elderly"
+        },
+        {
+          "id": "routing.city",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "hamburg",
+          "actual": "hamburg"
+        },
+        {
+          "id": "routing.location",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": null,
+          "actual": null
+        },
+        {
+          "id": "action.contract",
+          "dimension": "action",
+          "severity": "critical",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "COMPARE_EXISTING_RESULTS",
+            "APPLY_PREVIOUS_SETTINGS_TO_CURRENT_POINT",
+            "ASK_FOR_LOCATION",
+            "ASK_FOR_PREVIOUS_RESULT",
+            "ASK_USER_TO_SELECT_POINT",
+            "ANSWER_ONLY"
+          ],
+          "actual": "ANSWER_ONLY"
+        },
+        {
+          "id": "action.required_variables",
+          "dimension": "action",
+          "severity": "major",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": [],
+          "actual": []
+        },
+        {
+          "id": "safety.forbidden_variables",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "exclude: ",
+          "actual": []
+        },
+        {
+          "id": "safety.known_variables",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "city-supported variables",
+          "actual": []
+        },
+        {
+          "id": "safety.unsupported_no_run",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "non-running alternative",
+          "actual": "ANSWER_ONLY"
+        },
+        {
+          "id": "retrieval.hit_at_3",
+          "dimension": "retrieval",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "methodology/result_interpretation.md",
+            "variables/comfort_variables.md"
+          ],
+          "actual": [
+            "methodology/result_interpretation.md",
+            "variables/comfort_variables.md",
+            "methodology/data_limitations.md"
+          ]
+        },
+        {
+          "id": "retrieval.recall_at_5",
+          "dimension": "retrieval",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "methodology/result_interpretation.md",
+            "variables/comfort_variables.md"
+          ],
+          "actual": [
+            "methodology/result_interpretation.md",
+            "variables/comfort_variables.md",
+            "methodology/data_limitations.md",
+            "README.md",
+            "methodology/cat_workflow.md"
+          ]
+        },
+        {
+          "id": "response.nonempty",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "non-empty useful reply",
+          "actual": "**Short answer:** It looks partly comfortable, but with clear limits.\n\nThe comfort-adjusted reachable area is **68/100** of the ordinary walking area, so about **32%** is lost after comfort factors are considered.\n\nCAT considered: stairs, slopes and high kerbs.\n\nThere are still about **18** places or services inside the adjusted area."
+        },
+        {
+          "id": "response.language",
+          "dimension": "response",
+          "severity": "minor",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "en",
+          "actual": "en"
+        },
+        {
+          "id": "response.citation_required",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "at least one citation",
+          "actual": [
+            "methodology/result_interpretation.md",
+            "variables/comfort_variables.md",
+            "methodology/data_limitations.md",
+            "README.md",
+            "methodology/cat_workflow.md"
+          ]
+        },
+        {
+          "id": "response.citation_provenance",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "citations must come from retrieval",
+          "actual": [
+            "methodology/result_interpretation.md",
+            "variables/comfort_variables.md",
+            "methodology/data_limitations.md",
+            "README.md",
+            "methodology/cat_workflow.md"
+          ]
+        }
+      ],
+      "dimensionScores": {
+        "routing": 1,
+        "action": 1,
+        "retrieval": 1,
+        "response": 1,
+        "safety": null
+      },
+      "score": 1,
+      "pass": false,
+      "failureIds": [
+        "execution.provider_honored"
+      ],
+      "diagnostics": {
+        "reciprocalRank": 1,
+        "recallAt5": 1,
+        "requiredVariableRecall": null,
+        "selfReportedGrounding": {
+          "originalQuestion": "Explain this result.",
+          "answerMode": "RESULT_EXPLANATION",
+          "doesAnswerOriginalQuestion": true,
+          "containsUnsupportedClaims": false,
+          "clearlyStatesLimitations": true,
+          "actionMatchesUserGoal": true,
+          "revisionNeeded": false,
+          "reason": "The answer is aligned with intent explain_result."
+        },
+        "selfReportedRagSufficiency": {
+          "retrievalRelevant": true,
+          "retrievalSufficient": true,
+          "canAnswerDirectly": true,
+          "missingEvidence": [],
+          "usableKnowledge": [
+            "methodology/result_interpretation.md",
+            "variables/comfort_variables.md",
+            "methodology/data_limitations.md"
+          ],
+          "notSupportedByKnowledge": [],
+          "safeAnswerStrategy": "result_explanation",
+          "topScore": 0.7846609345251055
+        }
+      },
+      "suite": "real_canary",
+      "latencyMs": 6022.7
+    },
+    {
+      "id": "troubleshooting_no_result_001",
+      "category": "troubleshooting questions",
+      "language": "en",
+      "query": "Why do I get no reachable area result?",
+      "expected": {
+        "intent": "troubleshooting",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "actionTypes": [
+          "COMPARE_EXISTING_RESULTS",
+          "APPLY_PREVIOUS_SETTINGS_TO_CURRENT_POINT",
+          "ASK_FOR_LOCATION",
+          "ASK_FOR_PREVIOUS_RESULT",
+          "ASK_USER_TO_SELECT_POINT",
+          "ANSWER_ONLY"
+        ],
+        "sources": [
+          "faq/troubleshooting.md",
+          "methodology/cat_workflow.md"
+        ],
+        "variables": [],
+        "forbiddenVariables": []
+      },
+      "actual": {
+        "intent": "troubleshooting",
+        "profile": null,
+        "city": "hamburg",
+        "locationText": null,
+        "actionType": "ANSWER_ONLY",
+        "selectedVariables": [],
+        "retrievedSources": [
+          "faq/troubleshooting.md",
+          "methodology/cat_workflow.md",
+          "methodology/result_interpretation.md",
+          "methodology/data_limitations.md",
+          "README.md"
+        ],
+        "citations": [
+          "faq/troubleshooting.md",
+          "methodology/cat_workflow.md",
+          "methodology/result_interpretation.md",
+          "methodology/data_limitations.md",
+          "README.md"
+        ],
+        "warnings": [],
+        "answerMode": "DIRECT_ANSWER"
+      },
+      "provider": {
+        "required": true,
+        "honored": false,
+        "actual": "deterministic_intent_router",
+        "reason": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}"
+      },
+      "schemaErrors": [],
+      "checks": [
+        {
+          "id": "execution.provider_honored",
+          "dimension": "execution",
+          "severity": "critical",
+          "applicable": true,
+          "passed": false,
+          "score": 0,
+          "expected": "bigmodel",
+          "actual": {
+            "required": true,
+            "honored": false,
+            "actual": "deterministic_intent_router",
+            "reason": "BigModel API failed: 429 {\"error\":{\"code\":\"1302\",\"message\":\"您的账户已达到速率限制，请您控制请求频率\"}}"
+          }
+        },
+        {
+          "id": "schema.valid",
+          "dimension": "action",
+          "severity": "critical",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "valid response contract",
+          "actual": []
+        },
+        {
+          "id": "routing.intent",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "troubleshooting",
+          "actual": "troubleshooting"
+        },
+        {
+          "id": "routing.profile",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": null,
+          "actual": null
+        },
+        {
+          "id": "routing.city",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "hamburg",
+          "actual": "hamburg"
+        },
+        {
+          "id": "routing.location",
+          "dimension": "routing",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": null,
+          "actual": null
+        },
+        {
+          "id": "action.contract",
+          "dimension": "action",
+          "severity": "critical",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "COMPARE_EXISTING_RESULTS",
+            "APPLY_PREVIOUS_SETTINGS_TO_CURRENT_POINT",
+            "ASK_FOR_LOCATION",
+            "ASK_FOR_PREVIOUS_RESULT",
+            "ASK_USER_TO_SELECT_POINT",
+            "ANSWER_ONLY"
+          ],
+          "actual": "ANSWER_ONLY"
+        },
+        {
+          "id": "action.required_variables",
+          "dimension": "action",
+          "severity": "major",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": [],
+          "actual": []
+        },
+        {
+          "id": "safety.forbidden_variables",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "exclude: ",
+          "actual": []
+        },
+        {
+          "id": "safety.known_variables",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "city-supported variables",
+          "actual": []
+        },
+        {
+          "id": "safety.unsupported_no_run",
+          "dimension": "safety",
+          "severity": "critical",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "non-running alternative",
+          "actual": "ANSWER_ONLY"
+        },
+        {
+          "id": "retrieval.hit_at_3",
+          "dimension": "retrieval",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "faq/troubleshooting.md",
+            "methodology/cat_workflow.md"
+          ],
+          "actual": [
+            "faq/troubleshooting.md",
+            "methodology/cat_workflow.md",
+            "methodology/result_interpretation.md"
+          ]
+        },
+        {
+          "id": "retrieval.recall_at_5",
+          "dimension": "retrieval",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": [
+            "faq/troubleshooting.md",
+            "methodology/cat_workflow.md"
+          ],
+          "actual": [
+            "faq/troubleshooting.md",
+            "methodology/cat_workflow.md",
+            "methodology/result_interpretation.md",
+            "methodology/data_limitations.md",
+            "README.md"
+          ]
+        },
+        {
+          "id": "response.nonempty",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "non-empty useful reply",
+          "actual": "# CAT Troubleshooting\n\nIf no reachable area appears, check that a start point is selected, walking time and walking speed are reasonable, and at least one supported city dataset is available.\n\nIf comfort-adjusted area is empty, reduce the sensitivity of selected discomfort variables or try fewer variables.\n\nIf a requested variable is not applied, it may not be available for the selected city."
+        },
+        {
+          "id": "response.language",
+          "dimension": "response",
+          "severity": "minor",
+          "applicable": false,
+          "passed": null,
+          "score": null,
+          "expected": "en",
+          "actual": "en"
+        },
+        {
+          "id": "response.citation_required",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "at least one citation",
+          "actual": [
+            "faq/troubleshooting.md",
+            "methodology/cat_workflow.md",
+            "methodology/result_interpretation.md",
+            "methodology/data_limitations.md",
+            "README.md"
+          ]
+        },
+        {
+          "id": "response.citation_provenance",
+          "dimension": "response",
+          "severity": "major",
+          "applicable": true,
+          "passed": true,
+          "score": 1,
+          "expected": "citations must come from retrieval",
+          "actual": [
+            "faq/troubleshooting.md",
+            "methodology/cat_workflow.md",
+            "methodology/result_interpretation.md",
+            "methodology/data_limitations.md",
+            "README.md"
+          ]
+        }
+      ],
+      "dimensionScores": {
+        "routing": 1,
+        "action": 1,
+        "retrieval": 1,
+        "response": 1,
+        "safety": null
+      },
+      "score": 1,
+      "pass": false,
+      "failureIds": [
+        "execution.provider_honored"
+      ],
+      "diagnostics": {
+        "reciprocalRank": 1,
+        "recallAt5": 1,
+        "requiredVariableRecall": null,
+        "selfReportedGrounding": {
+          "originalQuestion": "Why do I get no reachable area result?",
+          "answerMode": "DIRECT_ANSWER",
+          "doesAnswerOriginalQuestion": true,
+          "containsUnsupportedClaims": false,
+          "clearlyStatesLimitations": true,
+          "actionMatchesUserGoal": true,
+          "revisionNeeded": false,
+          "reason": "The answer is aligned with intent troubleshooting."
+        },
+        "selfReportedRagSufficiency": {
+          "retrievalRelevant": true,
+          "retrievalSufficient": true,
+          "canAnswerDirectly": true,
+          "missingEvidence": [],
+          "usableKnowledge": [
+            "faq/troubleshooting.md",
+            "methodology/cat_workflow.md",
+            "methodology/result_interpretation.md"
+          ],
+          "notSupportedByKnowledge": [],
+          "safeAnswerStrategy": "direct_answer",
+          "topScore": 0.6495420880755809
+        }
+      },
+      "suite": "real_canary",
+      "latencyMs": 1161
+    }
+  ]
+}

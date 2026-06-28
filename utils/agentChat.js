@@ -387,32 +387,15 @@ async function buildRunAction({ detected, currentMapState = {} }) {
   const semanticFrame = detected.semanticFrame && typeof detected.semanticFrame === "object"
     ? detected.semanticFrame
     : null;
-  const semanticVariables = Array.isArray(semanticFrame?.recommendedVariables)
-    ? semanticFrame.recommendedVariables.filter(Boolean)
-    : [];
-  const semanticWeights = semanticFrame?.variableWeights && typeof semanticFrame.variableWeights === "object"
-    ? semanticFrame.variableWeights
-    : {};
-  const enabledVariables = semanticVariables.length
-    ? semanticVariables
-    : preset.enabledVariables;
-  const layerValues = semanticVariables.length
-    ? Object.fromEntries(semanticVariables.map((variable) => [
-      variable,
-      Number.isFinite(Number(semanticWeights[variable]))
-        ? semanticWeights[variable]
-        : (
-          Number.isFinite(Number(preset.layerValues?.[variable]))
-            ? preset.layerValues[variable]
-            : 0.5
-        ),
-    ]))
-    : preset.layerValues;
+  // The profile preset is the sole authority for executable variables and
+  // weights. LLM semantic suggestions remain explanatory context only.
+  const enabledVariables = preset.enabledVariables;
+  const layerValues = preset.layerValues;
   const cityFiltered = filterVariablesByCity({
     city: detected.city,
     enabledVariables,
     layerValues,
-    requestedVariables: [detected.variable_key, ...semanticVariables].filter(Boolean),
+    requestedVariables: [detected.variable_key].filter(Boolean),
   });
   const shouldGeocode = detected.locationText && !isGenericLocationText(detected.locationText, detected.city);
   const geocoded = shouldGeocode
@@ -1773,7 +1756,9 @@ export async function buildAgentChatResponse({ message, city = "hamburg", curren
       agentContext,
       conversationHistory,
       analysisHistory,
-      force: true,
+      // Deterministic routing is authoritative when it is confident. The LLM
+      // router is an ambiguity resolver, not a replacement for every query.
+      force: false,
     });
     if (routerResult) {
       intentRouterDebug = routerResult.llmDebug || null;
@@ -1788,7 +1773,7 @@ export async function buildAgentChatResponse({ message, city = "hamburg", curren
     }
   } catch (error) {
     intentRouterDebug = {
-      provider: "bigmodel",
+      provider: process.env.AGENT_LLM_PROVIDER || "unknown",
       error: error.message,
       fallback: "deterministic_intent_router",
     };
@@ -2137,7 +2122,7 @@ export async function buildAgentChatResponse({ message, city = "hamburg", curren
       }
     } catch (error) {
       llmDebug = {
-        provider: "bigmodel",
+        provider: process.env.AGENT_LLM_PROVIDER || "unknown",
         error: error.message,
         fallback: "mock_pipeline",
       };

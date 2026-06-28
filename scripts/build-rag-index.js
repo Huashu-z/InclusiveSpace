@@ -12,6 +12,18 @@ import {
 } from "../utils/agentKnowledge.js";
 import { buildRagIndex } from "../utils/ragIndex.js";
 
+async function loadDotEnvLocal() {
+  try {
+    const raw = await fs.readFile(path.join(process.cwd(), ".env.local"), "utf8");
+    for (const line of raw.split(/\r?\n/)) {
+      const match = line.trim().match(/^([A-Za-z_][A-Za-z0-9_]*)=(.*)$/);
+      if (match && process.env[match[1]] === undefined) {
+        process.env[match[1]] = match[2].replace(/^['"]|['"]$/g, "");
+      }
+    }
+  } catch {}
+}
+
 async function writeLocalChunkReport({ chunks, failed, outputPath }) {
   await fs.mkdir(path.dirname(outputPath), { recursive: true });
   await fs.writeFile(
@@ -27,7 +39,7 @@ async function writeLocalEmbeddingReport({ chunks, embeddingResult, outputPath }
     outputPath,
     JSON.stringify({
       createdAt: new Date().toISOString(),
-      provider: process.env.AGENT_EMBEDDING_PROVIDER || (process.env.BIGMODEL_API_KEY ? "bigmodel" : "openai"),
+      provider: process.env.AGENT_EMBEDDING_PROVIDER || (process.env.DASHSCOPE_API_KEY ? "dashscope" : process.env.BIGMODEL_API_KEY ? "bigmodel" : "openai"),
       model: embeddingResult.model,
       dimensions: embeddingResult.dimensions,
       usage: embeddingResult.usage,
@@ -58,6 +70,7 @@ function printSummary(summary, failed, storageResult) {
 }
 
 async function main() {
+  await loadDotEnvLocal();
   const { chunks, failed } = await buildKnowledgeChunks();
   const summary = summarizeChunks(chunks);
   let storageResult = null;
@@ -65,12 +78,13 @@ async function main() {
   const texts = chunks.map((chunk) => `${chunk.title}\n${chunk.content}\nTags: ${(chunk.tags || []).join(", ")}`);
   let localEmbeddingResult = null;
 
-  if (process.env.BIGMODEL_API_KEY) {
-    localEmbeddingResult = await embedTextsWithMetadata(texts, { provider: "bigmodel" });
+  const localEmbeddingProvider = process.env.AGENT_EMBEDDING_PROVIDER || (process.env.DASHSCOPE_API_KEY ? "dashscope" : process.env.BIGMODEL_API_KEY ? "bigmodel" : "");
+  if (["bigmodel", "dashscope"].includes(localEmbeddingProvider)) {
+    localEmbeddingResult = await embedTextsWithMetadata(texts, { provider: localEmbeddingProvider });
     storageResult = {
       inserted: 0,
       skipped: chunks.length,
-      reason: "local_bigmodel_embeddings",
+      reason: `local_${localEmbeddingProvider}_embeddings`,
       model: localEmbeddingResult?.model,
       dimensions: localEmbeddingResult?.dimensions,
     };

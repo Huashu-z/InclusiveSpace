@@ -514,9 +514,7 @@
       "trafficLight",
       "station"
     ],
-    "forbiddenVariables": [
-      "noise"
-    ],
+    "forbiddenVariables": [],
     "shouldRunAnalysis": true,
     "shouldAskForMapPoint": false,
     "expectedWarnings": []
@@ -548,9 +546,7 @@
       "trafficLight",
       "station"
     ],
-    "forbiddenVariables": [
-      "noise"
-    ],
+    "forbiddenVariables": [],
     "shouldRunAnalysis": true,
     "shouldAskForMapPoint": false,
     "expectedWarnings": []
@@ -578,9 +574,7 @@
       "trafficLight",
       "station"
     ],
-    "forbiddenVariables": [
-      "noise"
-    ],
+    "forbiddenVariables": [],
     "shouldRunAnalysis": false,
     "shouldAskForMapPoint": true,
     "expectedWarnings": []
@@ -612,9 +606,7 @@
       "trafficLight",
       "station"
     ],
-    "forbiddenVariables": [
-      "noise"
-    ],
+    "forbiddenVariables": [],
     "shouldRunAnalysis": true,
     "shouldAskForMapPoint": false,
     "expectedWarnings": []
@@ -3035,7 +3027,7 @@
   {
     "id": "new_edge_001",
     "category": "new complex edge cases",
-    "query": "I am elderly and want to consider noise in Penteli.",
+    "query": "For an older pedestrian in Penteli, can the analysis include noise?",
     "context": {
       "currentCity": "penteli",
       "currentWalkingTime": 15,
@@ -3086,7 +3078,8 @@
       "slope"
     ],
     "forbiddenVariables": [
-      "noise"
+      "noise",
+      "kerbsHigh"
     ],
     "shouldRunAnalysis": false,
     "shouldAskForMapPoint": true,
@@ -3116,7 +3109,8 @@
       "trafficLight"
     ],
     "forbiddenVariables": [
-      "noise"
+      "noise",
+      "light"
     ],
     "shouldRunAnalysis": false,
     "shouldAskForMapPoint": true,
@@ -3146,9 +3140,7 @@
       "light",
       "trafficLight"
     ],
-    "forbiddenVariables": [
-      "noise"
-    ],
+    "forbiddenVariables": [],
     "shouldRunAnalysis": false,
     "shouldAskForMapPoint": true,
     "expectedWarnings": []
@@ -3344,9 +3336,7 @@
       "methodology/data_limitations.md"
     ],
     "expectedVariables": [],
-    "forbiddenVariables": [
-      "noise"
-    ],
+    "forbiddenVariables": [],
     "shouldRunAnalysis": false,
     "shouldAskForMapPoint": false,
     "expectedWarnings": []
@@ -3369,9 +3359,7 @@
       "methodology/data_limitations.md"
     ],
     "expectedVariables": [],
-    "forbiddenVariables": [
-      "noise"
-    ],
+    "forbiddenVariables": [],
     "shouldRunAnalysis": false,
     "shouldAskForMapPoint": false,
     "expectedWarnings": []
@@ -3394,9 +3382,7 @@
       "methodology/cat_workflow.md"
     ],
     "expectedVariables": [],
-    "forbiddenVariables": [
-      "noise"
-    ],
+    "forbiddenVariables": [],
     "shouldRunAnalysis": false,
     "shouldAskForMapPoint": false,
     "expectedWarnings": []
@@ -3419,9 +3405,7 @@
       "methodology/cat_workflow.md"
     ],
     "expectedVariables": [],
-    "forbiddenVariables": [
-      "noise"
-    ],
+    "forbiddenVariables": [],
     "shouldRunAnalysis": false,
     "shouldAskForMapPoint": false,
     "expectedWarnings": []
@@ -3443,9 +3427,7 @@
       "variables/comfort_variables.md"
     ],
     "expectedVariables": [],
-    "forbiddenVariables": [
-      "noise"
-    ],
+    "forbiddenVariables": [],
     "shouldRunAnalysis": false,
     "shouldAskForMapPoint": false,
     "expectedWarnings": []
@@ -3580,9 +3562,7 @@
     "expectedLocationText": null,
     "expectedSources": [],
     "expectedVariables": [],
-    "forbiddenVariables": [
-      "noise"
-    ],
+    "forbiddenVariables": [],
     "shouldRunAnalysis": false,
     "shouldAskForMapPoint": false,
     "expectedWarnings": []
